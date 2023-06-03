@@ -1,0 +1,2088 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-svd-uses"
+	 xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title> Using Singular Value Decompositions </title>
+
+  <introduction>
+    <p>
+      We've now seen what singular value decompositions are, how to
+      construct them, and how they provide important information about
+      a matrix such as orthonormal bases for the four fundamental
+      subspaces.  This puts us in a good position to begin using
+      singular value decompositions to solve a wide variety of
+      problems.
+    </p>
+
+    <p>
+      Given the fact that singular value decompositions so immediately
+      convey fundamental data about a matrix, it seems natural that
+      some of our previous work can be reinterpreted in terms of
+      singular value decompositions.  Therefore, we'll take some time
+      in this section to revisit some familiar issues, such as least
+      squares problems and principal component analysis, while also
+      looking at some new applications.
+    </p>
+
+    <exploration>
+      <statement>
+	<p>
+	  Suppose that <m>A = U\Sigma V^T</m> where
+	  <me>
+	    \Sigma = \begin{bmatrix}
+	    13 \amp 0 \amp 0 \amp 0 \\
+	    0 \amp 8 \amp 0 \amp 0 \\
+	    0 \amp 0 \amp 2 \amp 0 \\
+	    0 \amp0 \amp 0 \amp 0 \\
+	    0 \amp0 \amp 0 \amp 0
+	    \end{bmatrix},
+	  </me>
+	  vectors <m>\uvec_j</m> form the columns of <m>U</m>, and
+	  vectors 
+	  <m>\vvec_j</m> form the columns of <m>V</m>.
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		What are the shapes of the matrices <m>A</m>,
+		<m>U</m>, and <m>V</m>?
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		What is the rank of <m>A</m>?
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Describe how to find an orthonormal basis for
+		<m>\col(A)</m>. 
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Describe how to find an orthonormal basis for
+		<m>\nul(A)</m>. 
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If the columns of <m>Q</m> form an orthonormal basis
+		for <m>\col(A)</m>, what is <m>Q^TQ</m>?
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		How would you form a matrix that projects vectors
+		orthogonally onto <m>\col(A)</m>?
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>A</m> is <m>5\times4</m>, <m>U</m> is
+		<m>5\times5</m>, and <m>V</m> is <m>4\times4</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\rank(A)=3</m> since there are three nonzero
+		singular values.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The first three columns, <m>\uvec_1</m>,
+		<m>\uvec_2</m>, and <m>\uvec_3</m>, of <m>U</m> form
+		an orthonormal basis for <m>\col(A)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The last column <m>\vvec_4</m> of <m>V</m> is a basis
+		for <m>\nul(A)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>Q^TQ=I</m> since each entry is a dot product of two
+		vectors in an orthonormal set.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>QQ^T</m> projects vectors orthogonally onto
+		<m>\col(A)</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+		
+    </exploration>
+
+  </introduction>
+
+  <subsection>
+    <title> Least squares problems </title>
+
+    <p>
+      Least squares problems, which we explored in <xref
+      ref="sec-least-squares" />, arise when we are confronted with an
+      inconsistent linear system <m>A\xvec=\bvec</m>.  Since there is
+      no solution to the system, we instead find the vector
+      <m>\xvec</m> minimizing the distance between <m>\bvec</m>
+      and <m>A\xvec</m>. 
+      That is, we find the
+      vector <m>\xhat</m>, the least squares approximate solution, by
+      solving <m>A\xhat=\bhat</m> where <m>\bhat</m> is the orthogonal
+      projection of <m>\bvec</m> onto the column space of <m>A</m>.
+    </p>
+
+    <p>
+      If we have a singular value decomposition <m>A=U\Sigma V^T</m>,
+      then the number of nonzero singular values <m>r</m> tells us the
+      rank of <m>A</m>, and the first <m>r</m> columns of <m>U</m>
+      form an orthonormal basis for <m>\col(A)</m>.  This basis may be
+      used to project vectors onto <m>\col(A)</m> and hence to solve
+      least squares problems.
+    </p>
+
+    <p>
+      Before exploring this connection further, we will introduce Sage 
+      as a tool for automating the construction of singular value
+      decompositions.  One new feature is that we need to declare our
+      matrix to consist of floating point entries.  We do this by
+      including <c>RDF</c> inside the matrix definition, as
+      illustrated in the following cell.
+      <sage language="python">
+	<input>
+import numpy as np
+A = np.array(
+	[[1.0, 0, -1],
+     [1, 1, 1]])
+U, Sigma, V = np.linalg.svd(A)
+print(U)
+print('---------')
+print(Sigma)
+print('---------')
+print(V)
+	</input>
+      </sage>
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Consider the equation <m>A\xvec=\bvec</m> where
+	  <me>
+	    \begin{bmatrix}
+	    1 \amp 0 \\
+	    1 \amp 1 \\
+	    1 \amp 2
+	    \end{bmatrix}
+	    \xvec = \threevec{-1}36
+	  </me>
+
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Find a singular value decomposition for <m>A</m> using
+		the Python cell below.  What are singular values of
+		<m>A</m>?
+		<sage language='python'>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		What is <m>r</m>, the rank of <m>A</m>?  How can we
+		identify an orthonormal basis for <m>\col(A)</m>?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Form the reduced singular value decomposition
+		<m>U_r\Sigma_rV_r^T</m> by constructing the matrix
+		<m>U_r</m>, consisting of the first <m>r</m> columns
+		of <m>U</m>, the matrix <m>V_r</m>, consisting of the
+		first <m>r</m> columns of <m>V</m>, and
+		<m>\Sigma_r</m>, a square <m>r\times r</m> diagonal
+		matrix.  Verify that <m>A=U_r\Sigma_r V_r^T</m>.
+	      </p>
+	      <p>
+		You may find it convenient to remember that if
+		<c>B</c> is a matrix defined in Python, then
+		<c>B[:, slice]</c> and
+		<c>B[slice, :]</c> can be used to
+		extract columns or rows from <c>B</c> where <c>slice</c> enumerates 
+		the desired columns or rows.  For instance,
+		<c>B[0:2, :])</c> provides a matrix
+		formed from the first three rows of <c>B</c>.
+		<sage language="python">
+		  <input>
+
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		How does the reduced singular value decomposition
+		provide a matrix whose columns are an orthonormal basis
+		for <m>\col(A)</m>?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Explain why a least squares
+		approximate solution <m>\xhat</m> satisfies
+		<me>
+		  A\xhat = U_rU_r^T\bvec.
+		</me>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		What is the product <m>V_r^TV_r</m> and why does it
+		have this form?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Explain why
+		<me>
+		  \xhat = V_r\Sigma_r^{-1}U_r^T\bvec
+		</me>
+		is the least squares approximate solution, and
+		use this expression to find <m>\xhat</m>.
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	      
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The singular values are <m>\sigma_1 = 2.67</m> and
+		<m>\sigma_2 = 0.92</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		There are two nonzero singular values so <m>\rank(A) =
+		2</m>.  The first two columns of <m>U</m> form an
+		orthonormal basis for <m>\col(A)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have
+		<me>
+		  U_r = \begin{bmatrix}
+		  -0.22 \amp 0.89 \\
+		  -0.52 \amp 0.25 \\
+		  -0.83 \amp -0.39
+		  \end{bmatrix},\hspace{24pt}
+		  \Sigma_r = \begin{bmatrix}
+		  2.7 \amp 0.00 \\
+		  0.00 \amp 0.92
+		  \end{bmatrix},\hspace{24pt}
+		  V_r = \begin{bmatrix}
+		  -0.58 \amp 0.81 \\
+		  -0.81 \amp -0.58
+		  \end{bmatrix}\text{.}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The columns of <m>U_r</m> form an orthonormal basis
+		for <m>\col(A)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Since <m>\bhat=U_rU_r^T\bvec</m>, we obtain the
+		equation
+		<m>A\xhat = U_rU_r^T\bvec</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_r^TV_r = I</m> since this product computes the
+		dot products of the columns.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have the equation <m>A\xhat = U_rU_r^T\bvec</m>,
+		which gives
+		<me>
+		  \begin{aligned}
+		  A\xhat \amp = U_rU_r^T\bvec \\
+		  U_r\Sigma_rV_r^T\xhat \amp = U_rU_r^T\bvec \\
+		  \Sigma_rV_r^T\xhat \amp = U_r^T\bvec \\
+		  V_r^T\xhat \amp = \Sigma_r^{-1}U_r^T\bvec \\
+		  \xhat \amp = V_r\Sigma_r^{-1}U_r^T\bvec \\
+		  \end{aligned}
+		</me>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>\sigma_1 = 2.67</m> and
+		<m>\sigma_2 = 0.92</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\rank(A) = 2</m> and the first two columns of
+		<m>U</m> form an orthonormal basis for <m>\col(A)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have
+		<me>
+		  U_r = \begin{bmatrix}
+		  -0.22 \amp 0.89 \\
+		  -0.52 \amp 0.25 \\
+		  -0.83 \amp -0.39
+		  \end{bmatrix},\hspace{24pt}
+		  \Sigma_r = \begin{bmatrix}
+		  2.7 \amp 0.00 \\
+		  0.00 \amp 0.92
+		  \end{bmatrix},\hspace{24pt}
+		  V_r = \begin{bmatrix}
+		  -0.58 \amp 0.81 \\
+		  -0.81 \amp -0.58
+		  \end{bmatrix}\text{.}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The columns of <m>U_r</m> form an orthonormal basis
+		for <m>\col(A)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\bhat=U_rU_r^T\bvec</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_r^TV_r = I</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\xhat=\twovec{-0.83}{3.50}</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+	      
+    </activity>
+		
+    <p>
+      This activity demonstrates the power of a singular value
+      decomposition to find a least squares approximate solution for
+      an equation <m>A\xvec = \bvec</m>.  Because it immediately
+      provides an orthonormal basis for <m>\col(A)</m>, something that
+      we've had to construct using the Gram-Schmidt process in the past,
+      we can easily project <m>\bvec</m> onto <m>\col(A)</m>, which
+      results in a simple expression for <m>\xhat</m>.
+    </p>
+
+    <proposition xml:id="prop-svd-ols">
+      <statement>
+	<p>
+	  If <m>A=U_r\Sigma_r V_r^T</m> is a reduced singular value
+	  decomposition of <m>A</m>, then a least squares approximate
+	  solution to <m>A\xvec=\bvec</m> is given by
+	  <me>
+	    \xhat = V_r\Sigma_r^{-1}U_r^T\bvec.
+	  </me>
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      If the columns of <m>A</m> are linearly independent, then the
+      equation <m>A\xhat = \bhat</m> has only one solution so there is
+      a unique least squares approximate solution <m>\xhat</m>.
+      Otherwise, the expression in <xref ref="prop-svd-ols"/> produces
+      the solution to <m>A\xhat=\bhat</m> having the shortest
+      length. 
+    </p>
+
+    <p>
+      <idx> Moore-Penrose psuedoinverse </idx>
+      The matrix <m>A^+ = V_r\Sigma_r^{-1}U_r^T</m> is known as
+      the <em> Moore-Penrose psuedoinverse</em> of <m>A</m>.  When
+      <m>A</m> is invertible, <m>A^{-1} = A^+</m>.
+    </p>
+
+  </subsection>
+
+  <subsection>
+    <title> Rank <m>k</m> approximations </title>
+
+    <p>
+      If we have a singular value decomposition for a matrix <m>A</m>,
+      we can form a sequence of matrices <m>A_k</m> that approximate
+      <m>A</m> with increasing accuracy.  This may feel familiar to
+      calculus students who have seen the way in which a
+      function <m>f(x)</m> can be approximated by a linear function, a
+      quadratic function, and so forth with increasing accuracy.
+    </p>
+
+    <p>
+      We'll begin with a singular value decomposition of a
+      rank <m>r</m> matrix <m>A</m> so that <m>A=U\Sigma V^T</m>.  To
+      create the approximating matrix <m>A_k</m>, we keep the first
+      <m>k</m> singular values and set the others to zero.  For
+      instance, if
+      <m>
+	\Sigma = \begin{bmatrix}
+	22 \amp 0 \amp 0 \amp 0 \amp 0 \\
+	0 \amp 14 \amp 0 \amp 0 \amp 0 \\
+	0 \amp 0 \amp 3 \amp 0 \amp 0 \\
+	0 \amp 0 \amp 0 \amp 0 \amp 0 \\
+	\end{bmatrix}
+	</m>, we can form matrices
+	<me>
+	  \Sigma^{(1)} = \begin{bmatrix}
+	  22 \amp 0 \amp 0 \amp 0 \amp 0 \\
+	  0 \amp 0 \amp 0 \amp 0 \amp 0 \\
+	  0 \amp 0 \amp 0 \amp 0 \amp 0 \\
+	  0 \amp 0 \amp 0 \amp 0 \amp 0 \\
+	  \end{bmatrix}, \hspace{24pt}
+	  \Sigma^{(2)} = \begin{bmatrix}
+	  22 \amp 0 \amp 0 \amp 0 \amp 0 \\
+	  0 \amp 14 \amp 0 \amp 0 \amp 0 \\
+	  0 \amp 0 \amp 0 \amp 0 \amp 0 \\
+	  0 \amp 0 \amp 0 \amp 0 \amp 0 \\
+	  \end{bmatrix}
+	</me>
+	and define <m>A_1 = U\Sigma^{(1)}V^T</m> and <m>A_2 =
+	U\Sigma^{(2)}V^T</m>.  Because <m>A_k</m> has <m>k</m> nonzero
+	singular values, we know that
+	<m>\rank(A_k) = k</m>.  In fact,
+	there is a sense in which <m>A_k</m> is the closest matrix to
+	<m>A</m> among all rank <m>k</m> matrices.
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Let's consider a matrix <m>A=U\Sigma V^T</m> where
+	  <md>
+	    <mrow>
+	      \amp U = \begin{bmatrix}
+	      \frac{1}{2} \amp \frac{1}{2} \amp \frac{1}{2} \amp \frac{1}{2} \\
+	      \frac{1}{2} \amp \frac{1}{2} \amp -\frac{1}{2} \amp -\frac{1}{2} \\
+	      \frac{1}{2} \amp -\frac{1}{2} \amp \frac{1}{2} \amp -\frac{1}{2} \\
+	      \frac{1}{2} \amp -\frac{1}{2} \amp -\frac{1}{2} \amp \frac{1}{2} \\
+	      \end{bmatrix},\hspace{10pt}
+	      \Sigma = \begin{bmatrix}
+	      500 \amp 0 \amp 0 \amp 0 \\
+	      0 \amp 100 \amp 0 \amp 0 \\
+	      0 \amp 0 \amp 20 \amp 0  \\
+	      0 \amp 0 \amp 0 \amp 4
+	      \end{bmatrix}
+	    </mrow>
+	    <mrow>
+	      \amp V = \begin{bmatrix}
+	      \frac{1}{2} \amp \frac{1}{2} \amp \frac{1}{2} \amp \frac{1}{2} \\
+	      \frac{1}{2} \amp -\frac{1}{2} \amp -\frac{1}{2} \amp \frac{1}{2} \\
+	      -\frac{1}{2} \amp -\frac{1}{2} \amp \frac{1}{2} \amp \frac{1}{2} \\
+	      -\frac{1}{2} \amp \frac{1}{2} \amp -\frac{1}{2} \amp \frac{1}{2}
+	      \end{bmatrix}
+	    </mrow>
+	  </md>
+	  Evaluating the following cell will create the matrices
+	  <c>U</c>, <c>V</c>, and <c>Sigma</c>.  Notice how the
+	  <c>diagonal_matrix</c> command provides a convenient way to
+	  form the diagonal matrix <m>\Sigma</m>.
+	  <sage language="python">
+	    <input>
+h = 1/2
+U = matrix([[h,h,h,h],  [h,h,-h,-h],  [h,-h,h,-h],  [h,-h,-h,h]])	    
+V = matrix([[h,h,h,h],  [h,-h,-h,h],  [-h,-h,h,h],  [-h,h,-h,h]])
+Sigma = np.diag([500, 100, 20, 4])
+	    </input>
+	  </sage>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Form the matrix <m>A=U\Sigma V^T</m>.  What is
+		<m>\rank(A)</m>?
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Now form the approximating matrix <m>A_1=U\Sigma^{(1)}
+		V^T</m>.  What is <m>\rank(A_1)</m>?
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Find the error in the approximation <m>A\approx
+		A_1</m> by finding
+		<m>A-A_1</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Now find <m>A_2 = U\Sigma^{(2)} V^T</m> and the error
+		<m>A-A_2</m>.  What is <m>\rank(A_2)</m>?
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Find <m>A_3 = U\Sigma^{(3)} V^T</m> and the error
+		<m>A-A_3</m>.  What is <m>\rank(A_3)</m>?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		What would happen if we were to compute <m>A_4</m>?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		What do you notice about the error <m>A-A_k</m> as
+		<m>k</m> increases?
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		We find that <m>A</m> is the rank <m>4</m> matrix:
+		<m>\begin{bmatrix}
+		156 \amp 96 \amp -144 \amp -104 \\
+		144 \amp 104 \amp -156 \amp -96 \\
+		104 \amp 144 \amp -96 \amp -156 \\
+		96 \amp 156 \amp -104 \amp -144
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Because it has
+		one nonzero singular value, <m>A_1</m> has rank
+		<m>1</m> and has the form:
+		<m>A_1=\begin{bmatrix}
+		125 \amp 125 \amp -125 \amp -125 \\
+		125 \amp 125 \amp -125 \amp -125 \\
+		125 \amp 125 \amp -125 \amp -125 \\
+		125 \amp 125 \amp -125 \amp -125
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A-A_1 = \begin{bmatrix}
+		31 \amp -29 \amp -19 \amp 21 \\
+		19 \amp -21 \amp -31 \amp 29 \\
+		-21 \amp 19 \amp 29 \amp -31 \\
+		-29 \amp 31 \amp 21 \amp -19
+		\end{bmatrix}</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_2</m> is the rank <m>2</m> matrix
+		<m>\begin{bmatrix}
+		150 \amp 100 \amp -150 \amp -100 \\
+		150 \amp 100 \amp -150 \amp -100 \\
+		100 \amp 150 \amp -100 \amp -150 \\
+		100 \amp 150 \amp -100 \amp -150
+		\end{bmatrix}</m>
+		and <m>A-A_2 = \begin{bmatrix}
+		6 \amp -4 \amp 6 \amp -4 \\
+		-6 \amp 4 \amp -6 \amp 4 \\
+		4 \amp -6 \amp 4 \amp -6 \\
+		-4 \amp 6 \amp -4 \amp 6
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_3</m> is the rank <m>3</m> matrix
+		<m>\begin{bmatrix}
+		155 \amp 95 \amp -145 \amp -105 \\
+		145 \amp 105 \amp -155 \amp -95 \\
+		105 \amp 145 \amp -95 \amp -155 \\
+		95 \amp 155 \amp -105 \amp -145
+		\end{bmatrix}</m> with
+		<m>A-A_3 = \begin{bmatrix}
+		1 \amp 1 \amp 1 \amp 1 \\
+		-1 \amp -1 \amp -1 \amp -1 \\
+		-1 \amp -1 \amp -1 \amp -1 \\
+		1 \amp 1 \amp 1 \amp 1
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_4=A</m> since <m>A</m> is a rank <m>4</m> matrix.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		As <m>k</m> increases, the entries in the <m>A-A_k</m>
+		get closer to <m>0</m>.  This means that our
+		approximations <m>A\approx A_k</m> are improving.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>A = \begin{bmatrix}
+		156 \amp 96 \amp -144 \amp -104 \\
+		144 \amp 104 \amp -156 \amp -96 \\
+		104 \amp 144 \amp -96 \amp -156 \\
+		96 \amp 156 \amp -104 \amp -144
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_1=\begin{bmatrix}
+		125 \amp 125 \amp -125 \amp -125 \\
+		125 \amp 125 \amp -125 \amp -125 \\
+		125 \amp 125 \amp -125 \amp -125 \\
+		125 \amp 125 \amp -125 \amp -125
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A-A_1 = \begin{bmatrix}
+		31 \amp -29 \amp -19 \amp 21 \\
+		19 \amp -21 \amp -31 \amp 29 \\
+		-21 \amp 19 \amp 29 \amp -31 \\
+		-29 \amp 31 \amp 21 \amp -19
+		\end{bmatrix}</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_2 = \begin{bmatrix}
+		150 \amp 100 \amp -150 \amp -100 \\
+		150 \amp 100 \amp -150 \amp -100 \\
+		100 \amp 150 \amp -100 \amp -150 \\
+		100 \amp 150 \amp -100 \amp -150
+		\end{bmatrix}</m>
+		and <m>A-A_2 = \begin{bmatrix}
+		6 \amp -4 \amp 6 \amp -4 \\
+		-6 \amp 4 \amp -6 \amp 4 \\
+		4 \amp -6 \amp 4 \amp -6 \\
+		-4 \amp 6 \amp -4 \amp 6
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_3 = \begin{bmatrix}
+		155 \amp 95 \amp -145 \amp -105 \\
+		145 \amp 105 \amp -155 \amp -95 \\
+		105 \amp 145 \amp -95 \amp -155 \\
+		95 \amp 155 \amp -105 \amp -145
+		\end{bmatrix}</m> and
+		<m>A-A_3 = \begin{bmatrix}
+		1 \amp 1 \amp 1 \amp 1 \\
+		-1 \amp -1 \amp -1 \amp -1 \\
+		-1 \amp -1 \amp -1 \amp -1 \\
+		1 \amp 1 \amp 1 \amp 1
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_4=A</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The entries get closer to <m>0</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+      
+    </activity>
+
+    <p>
+      In this activity, the approximating matrix <m>A_k</m> has
+      rank <m>k</m> because its singular value decomposition has
+      <m>k</m> nonzero singular values.  We then saw how the
+      difference between <m>A</m> and the approximations <m>A_k</m>
+      decreases as <m>k</m> increases, which means that the sequence <m>A_k</m>
+      forms better approximations as <m>k</m> increases.  
+    </p>
+
+    <p>
+      Another way to represent <m>A_k</m> is with a reduced singular
+      value decomposition so that <m>A_k = U_k\Sigma_kV_k^T</m> where 
+      <me>
+	U_k = \begin{bmatrix}
+	\uvec_1 \amp \ldots \amp \uvec_k
+	\end{bmatrix},\hspace{10pt}
+	\Sigma_k = \begin{bmatrix}
+	\sigma_1 \amp 0 \amp \ldots \amp 0 \\
+	0 \amp \sigma_2 \amp \ldots \amp 0 \\
+	\vdots \amp \vdots \amp \ddots \amp \vdots \\
+	0 \amp 0 \amp \ldots \amp \sigma_k
+	\end{bmatrix},\hspace{10pt}
+	V_k = \begin{bmatrix}
+	\vvec_1 \amp \ldots \amp \vvec_k
+	\end{bmatrix}\text{.}
+      </me>
+      Notice that the rank <m>1</m> matrix <m>A_1</m> then has the
+      form <m>A_1 = \uvec_1\begin{bmatrix}\sigma_1\end{bmatrix}
+      \vvec_1^T = \sigma_1\uvec_1\vvec_1^T</m> and that we can
+      similarly write:
+      <md>
+	<mrow>
+	  A \approx A_1 \amp = \sigma_1\uvec_1\vvec_1^T
+	</mrow>
+	<mrow>
+	  A \approx A_2 \amp = \sigma_1\uvec_1\vvec_1^T +
+	  \sigma_2\uvec_2\vvec_2^T
+	</mrow>
+	<mrow>
+	  A \approx A_3 \amp = \sigma_1\uvec_1\vvec_1^T +
+	  \sigma_2\uvec_2\vvec_2^T + 
+	  \sigma_3\uvec_3\vvec_3^T
+	</mrow>
+	<mrow>
+	  \vdots \amp
+	</mrow>
+	<mrow>
+	  A = A_r \amp = \sigma_1\uvec_1\vvec_1^T +
+	  \sigma_2\uvec_2\vvec_2^T +
+	  \sigma_3\uvec_3\vvec_3^T + 
+	  \ldots +
+	  \sigma_r\uvec_r\vvec_r^T\text{.}
+	</mrow>
+      </md>
+    </p>
+
+    <p>
+      Given two vectors <m>\uvec</m> and <m>\vvec</m>, the matrix
+      <m>\uvec~\vvec^T</m> is called the <em> outer product</em> of
+      <m>\uvec</m> and <m>\vvec</m>.  (The dot product
+      <m>\uvec\cdot\vvec=\uvec^T\vvec</m> is sometimes called the
+      <em>inner product</em>.)  An outer product will always be a rank
+      <m>1</m> matrix so we see above how <m>A_k</m> is obtained by
+      adding together <m>k</m> rank <m>1</m> matrices, each of which
+      gets us one step closer to the original matrix <m>A</m>.
+    </p>  
+
+  </subsection>
+      
+
+  <subsection>
+    <title> Principal component analysis </title>
+
+    <p>
+      In <xref ref="sec-pca" />, we explored principal component
+      analysis as a technique to reduce the dimension of a dataset.
+      In particular, we constructed the covariance matrix <m>C</m>
+      from a demeaned data matrix and saw that the eigenvalues and
+      eigenvectors of <m>C</m> tell us about the variance of the
+      dataset in different directions.  We referred to the
+      eigenvectors of <m>C</m> as <em>principal components</em> and
+      found that projecting the data onto a subspace defined by the
+      first few principal components frequently gave us a way to
+      visualize the dataset.  As we added more principal components,
+      we retained more information about the original dataset.  This
+      feels similar to the rank <m>k</m> approximations we have just
+      seen so let's explore the connection.
+    </p>
+
+    <p>
+      Suppose that we have a dataset with <m>N</m> points,
+      that <m>A</m> represents the demeaned data matrix, that
+      <m>A = U\Sigma V^T</m> is a singular value decomposition, and
+      that the singular values are <m>A</m> are denoted as
+      <m>\sigma_i</m>. 
+      It follows that the covariance matrix
+      <me>
+	C = \frac1N AA^T = \frac1N (U\Sigma V^T) (U\Sigma V^T)^T =
+	U\left(\frac1N \Sigma \Sigma^T\right) U^T.
+      </me>
+      Notice that <m>\frac1N \Sigma\Sigma^T</m> is a diagonal matrix
+      whose diagonal entries are <m>\frac1N\sigma_i^2</m>.  Therefore,
+      it follows that 
+      <me>
+	C = 
+	U\left(\frac1N \Sigma \Sigma^T\right) U^T
+      </me>
+      is an orthgonal diagonalization of <m>C</m> showing that
+      <ul>
+	<li>
+	  <p>
+	    the principal components of the dataset, which are the
+	    eigenvectors of <m>C</m>, are given by the columns
+	    of <m>U</m>.  In other words, the left singular vectors of
+	    <m>A</m> are the principal components of the
+	    dataset.
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    the variance in the direction of a principal
+	    component is the associated eigenvalue of <m>C</m> and 
+	    therefore 
+	    <me>
+	      V_{\uvec_i} = \frac1N\sigma_i^2.
+	    </me>
+	  </p>
+	</li>
+      </ul>
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Let's revisit the iris data set that we studied in
+	  <xref ref="sec-pca" />.  Remember that there are four
+	  measurements given for each of 150 irises and that each iris
+	  belongs to one of three species.
+	</p>
+
+	<p>
+	  Evaluating the following cell will load the dataset and
+	  define the demeaned
+	  data matrix <m>A</m> whose shape is <m>150\times4</m>.
+	  <sage language="python">
+	    <input>
+from sklearn import datasets 
+iris = datasets.load_iris()
+X_iris = iris.data 
+y_iris = iris.target
+print(X_iris.shape)
+print(X_iris[0:5, :])
+print(X_iris.mean(axis = 0))
+A_iris = X_iris - X_iris.mean(axis = 0)
+print(A_iris.mean(axis = 0))    // these should all be 0
+print(A_iris.shape)
+	    </input>
+	  </sage>
+	  
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Find the singular values of <m>A</m> using the command
+		<c>np.linalg.svd()</c> and use them to determine
+		the variance <m>V_{\uvec_j}</m> in the direction of
+		each of the four principal components.  What is the
+		fraction of variance retained by the first two
+		principal components?
+		<sage language="python">
+		  <input>
+
+
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		We will now write the matrix <m>\Gamma = \Sigma
+		V^T</m> so that <m>X = U\Gamma</m>.
+		Suppose that a demeaned data point, say, the 100th
+		column of <m>X</m>, is written as a
+		linear combination of principal components:
+		<me>
+		  \xvec = c_1\uvec_1+c_2\uvec_2+c_3\uvec_3+c_4\uvec_4.
+		</me>
+		Explain why
+		<m>\fourvec{c_1}{c_2}{c_3}{c_4}</m>,
+		the vector of coordinates of <m>\xvec</m> in the
+		basis of principal components,
+		appears as 100th
+		column of <m>\Gamma</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Suppose that we now project this demeaned data point
+		<m>\xvec</m> orthogonally onto the subspace spanned by
+		the first two principal components <m>\uvec_1</m> and
+		<m>\uvec_2</m>.  What are the coordinates of the
+		projected point in this basis and how can we find them
+		in the matrix <m>\Gamma</m>?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Alternatively, consider the approximation
+		<m>A_2=U_2\Sigma_2V_2^T</m> of the demeaned data
+		matrix <m>A</m>.  
+		Explain why the 100th column of
+		<m>A_2</m> represents the projection of <m>\xvec</m>
+		onto the two-dimensional subspace spanned by the first
+		two principal components, <m>\uvec_1</m> and
+		<m>\uvec_2</m>.  Then explain why the coefficients in
+		that projection, <m>c_1\uvec_1 + c_2\uvec_2</m>, form
+		the two-dimensional vector <m>\twovec{c_1}{c_2}</m> that
+		is the 100th column of <m>\Gamma_2=\Sigma_2
+		V_2^T</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Now we've seen that the columns of <m>\Gamma_2 =
+		\Sigma_2 V_2^T</m> form the coordinates of the
+		demeaned data points projected on to the two-dimensional
+		subspace spanned by <m>\uvec_1</m> and <m>\uvec_2</m>.
+		In the cell below, find a singular value decomposition
+		of <m>A</m> and use it to form the matrix
+		<c>Gamma2</c>.  When you 
+		evaluate this cell, you will see a plot of the
+		projected demeaned data plots, similar to the one we
+		created in <xref ref="sec-pca" />.
+		<sage language="python">
+		  <input>
+# Form the SVD of A and use it to form Gamma2
+
+		    
+Gamma2 = 
+
+# The following will plot the projected demeaned data points
+data = Gamma2.columns()
+(list_plot(data[:50], color='blue', aspect_ratio=1) +
+ list_plot(data[50:100], color='orange') +
+ list_plot(data[100:], color='green'))
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The singular values are <m>\sigma_1=25.1</m>,
+		<m>\sigma_2 = 6.0</m>, <m>\sigma_3=3.4</m> and
+		<m>\sigma_4 = 1.9</m>.  Since <m>V_{\uvec_i} =
+		\frac{1}{150} \sigma_i^2</m>, the variances are
+		<m>4.20</m>, <m>0.24</m>, <m>0.08</m>, and
+		<m>0.02</m>.  The fraction of the total variance
+		represented by the first two principal components is
+		<m>97.8\%</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>\xvec</m> is the <m>100^{th}</m> column of
+		<m>A</m>, then <m>\fourvec{c_1}{c_2}{c_3}{c_4}</m> is
+		the <m>100^{th}</m> column of <m>U^TA = U^T(U\Sigma
+		V^T) = \Sigma V^T = \Gamma</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The projected data point is <m>\xhat = c_1\uvec_1 +
+		c_2\uvec_2</m> since <m>c_3\uvec_3+c_4\uvec_4</m> is
+		orthogonal to the subspace spanned by the first two
+		principal components.  Therefore, the coordinates of
+		the projected data point are the first two components
+		of the corresponding column of <m>\Gamma</m>.  The
+		coordinates of all the projected data points are given
+		by the first two rows of <m>\Gamma</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Once again, suppose that
+		<m>\xvec=c_1\uvec_1+c_2\uvec_2+c_3\uvec_3+c_4\uvec_4</m>
+		is a column of <m>A</m>
+		and that <m>U_2 = \begin{bmatrix}\uvec_1 \amp \uvec_2
+		\end{bmatrix}</m>.  Then <m>\twovec{c_1}{c_2}</m> is
+		the corresponding column of <m>U_2^TA = U_2(U\Sigma
+		V^T) = \begin{bmatrix}
+		1 \amp 0 \amp 0 \amp 0 \\
+		0 \amp 1 \amp 0 \amp 0 \\
+		\end{bmatrix}\Sigma V^T = \Sigma_2 V_2^T=\Gamma_2</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We can construct <m>\Gamma_2=\Sigma_2 V_2^T</m> or
+		just pull out the first two rows of <m>\Gamma=\Sigma
+		V^T</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+		  
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The fraction of the total variance
+		represented by the first two principal components is
+		<m>97.8\%</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>\xvec =
+		c_1\uvec_1+c_2\uvec_2+c_3\uvec_3+c_4\uvec_4</m>, then 
+		<m>\fourvec{c_1}{c_2}{c_3}{c_4}</m> is the
+		corresponding column of <m>U^TA</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We just need the first two components of the
+		corresponding column of <m>\Gamma</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\twovec{c_1}{c_2}</m> is
+		the corresponding column of <m>U_2^TA</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We can construct <m>\Gamma_2=\Sigma_2 V_2^T</m> or
+		just pull out the first two rows of <m>\Gamma=\Sigma
+		V^T</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+		  
+    </activity>
+
+    <p>
+      In our first encounter with principal component analysis, we
+      began with a demeaned data matrix <m>A</m>, formed the
+      covariance matrix <m>C</m>, and used the eigenvalues and
+      eigenvectors of <m>C</m> to project the demeaned data onto a
+      smaller dimensional subspace.  In this section, we have seen
+      that a singular value decomposition of <m>A</m> provides a more
+      direct route: the left singular vectors of <m>A</m> form the
+      principal components and the approximating matrix <m>A_k</m>
+      represents the data points projected onto the subspace spanned
+      by the first <m>k</m>
+      principal components.  The coordinates of a projected demeaned
+      data point are given by the columns of <m>\Gamma_k =
+      \Sigma_kV_k^T</m>. 
+    </p>
+
+  </subsection>
+
+  <subsection>
+    <title> Image compressing and denoising </title>
+
+    <p>
+      In addition to principal component analysis, the approximations
+      <m>A_k</m> of a matrix <m>A</m> obtained from 
+      a singular value decomposition can be used in image processing.
+      Remember that 
+      we studied the JPEG compression
+      algorithm, whose foundation is the change of basis defined by
+      the Discrete Cosine Transform, in <xref ref="sec-jpeg" />.
+      We will now see how a singular
+      value decomposition provides another tool for both compressing
+      images and removing noise in them.
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Evaluating the following cell loads some data that we'll use
+	  in this activity.  To begin, it defines and displays a
+	  <m>25\times15</m> matrix <m>A</m>.
+	  <sage language="python">
+	    <input>
+sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_compress.py', globals())
+print(A)
+
+
+	    </input>
+	  </sage>
+	  <ol marker="a.">
+	    <li>
+	      <p> 
+		If we interpret 0 as black and 1 as white, this matrix
+		represents an image as shown below.
+		<sage language="python">
+		  <input>
+display_matrix(A)
+
+		  </input>
+		</sage>
+		We will explore how the singular value
+		decomposition helps us to compress this image.
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      By inspecting the image represented by <m>A</m>,
+		      identify a basis for <m>\col(A)</m> and
+		      determine <m>\rank(A)</m>.
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      The following cell plots the singular values of
+		      <m>A</m>.  Explain how this plot verifies that
+		      the rank is what you found in the previous part.
+		      <sage language="python">
+			<input>
+plot_sv(A)		    
+
+			</input>
+		      </sage>
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      There is a command <c>approximate(A, k)</c> that
+		      creates the approximation <m>A_k</m>.  Use the
+		      cell below to define <m>k</m> and look at the
+		      images represented by the
+		      first few approximations.  What is the smallest
+		      value of <m>k</m> for which <m>A=A_k</m>?
+		      <sage language="python">
+			<input>
+k = 
+display_matrix(approximate(A, k))			  
+			</input>
+		      </sage>
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      Now we can see how the singular value
+		      decomposition allows us to compress images.
+		      Since this is a <m>25\times15</m> matrix, we need
+		      <m>25\cdot15=375</m> numbers to
+		      represent the image.  However, we can also
+		      reconstruct the image using a small number of
+		      singular values and vectors:
+		      <me>
+			A = A_k = \sigma_1\uvec_1\vvec_1^T +
+			\sigma_2\uvec_2\vvec_2^T + \ldots +
+			\sigma_k\uvec_k\vvec_k^T.
+		      </me>
+		      What are the dimensions of the singular vectors
+		      <m>\uvec_i</m> and <m>\vvec_i</m>?  Between the
+		      singular vectors and singular values, how many
+		      numbers do we need to reconstruct
+		      <m>A_k</m> for the smallest <m>k</m> for which
+		      <m>A=A_k</m>?  This is the compressed size of
+		      the image.
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      The <em>compression ratio</em> is
+		      the ratio of the uncompressed size to the
+		      compressed size.  What compression ratio does 
+		      this represent?
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Next we'll explore an example based on a photograph. 
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      Consider the following image consisting of an
+		      array of <m>316\times310</m> pixels stored in the
+		      matrix <m>A</m>.
+		      <sage language="python">
+			<input>
+A = matrix(RDF, image)
+display_image(A)
+
+			</input>
+		      </sage>
+		    </p>
+		    <p>
+		      Plot the singular values of <m>A</m>.
+		      <sage language="python">
+			<input>
+plot_sv(A)
+			</input>
+		      </sage>
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      Use the cell below to study the approximations
+		      <m>A_k</m> for <m>k=1, 10, 20, 50, 100</m>.
+		      <sage language="python">
+			<input>
+k = 1
+display_image(approximate(A, k))		    
+
+			</input>
+		      </sage>
+		      Notice how the approximating image
+		      <m>A_k</m> more closely approximates the
+		      original image <m>A</m> as <m>k</m> increases.
+		    </p>
+		    <p>
+		      What is the compression ratio when <m>k=50</m>?
+		      What is the compression ratio when <m>k=100</m>?
+		      Notice how a higher compression ratio leads to a
+		      lower quality reconstruction of the image.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		A second, related application of the singular value
+		decomposition to image processing is called
+		<em>denoising</em>.  For example, consider the image
+		represented by the matrix <m>A</m> below.
+		<sage language="python">
+		  <input>
+A = matrix(RDF, noise.values)		    
+display_matrix(A)		
+		  </input>
+		</sage>
+		This image is similar to the image of the letter "O"
+		we first studied in this activity, but there are
+		splotchy regions in the background that result,
+		perhaps, from scanning the image.  We think of the
+		splotchy regions as noise, and our goal is to improve
+		the quality of the image by reducing the noise.
+
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      Plot the singular values below.  How are the
+		      singular values of this matrix similar to those
+		      represented by the clean image that we 
+		      considered earlier and how are they different?
+		      <sage language="python">
+			<input>
+plot_sv(A)
+
+			</input>
+		      </sage>
+		    </p>
+		  </li>
+
+		  <li>
+		    <p>
+		      There is a natural point where the singular
+		      values dramatically decrease so it makes sense
+		      to think of the noise as being formed by the
+		      small singular values.  To denoise the image, we
+		      will therefore replace <m>A</m> by its
+		      approximation <m>A_k</m>, where <m>k</m> is the
+		      point at which the singular values drop off.
+		      This has the effect of setting the small
+		      singular values to zero and hence eliminating
+		      the noise.  Choose an appropriate value of
+		      <m>k</m> below and notice that the new image
+		      appears to be somewhat cleaned up as a result of
+		      removing the noise.
+		      <sage language="python">
+			<input>
+k = 
+display_matrix(approximate(A, k))
+
+			</input>
+		      </sage>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>\rank(A) = 3</m> because there are three
+		      distinct columns represented by the first, third,
+		      and sixth columns.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      There are three nonzero singular values so
+		      <m>\rank(A) =3</m> as we suspected.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      The smallest value is <m>k=3</m> since <m>\rank(A)
+		      = 3</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      The left singular vectors are
+		      <m>25</m>-dimensional and the right singular
+		      vectors are <m>15</m>-dimensional.  If we keep
+		      three singular values, left singular vectors, and
+		      right singular vectors, we have <m>3(1+25+15) =
+		      123</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      The compression ratio is <m>375/123=3.0</m> so the
+		      data is compressed by a factor of <m>3</m>.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      The singular values fall off steeply but never
+		      reach <m>0</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      When <m>k=50</m>, the compression ratio is about
+		      <m>3.1</m>.  When <m>k=100</m>, the compression
+		      ratio is about <m>1.6</m>.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      The singular values are similar, but they never
+		      reach <m>0</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>k=3</m> seems like a natural approximation
+		      since that's the place where the singular values
+		      become almost <m>0</m>.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>\rank(A) = 3</m> 
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\rank(A) = 3</m> 
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>k=3</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>123</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      The compression ratio is <m>375/123=3.0</m>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      The singular values fall off steeply but never
+		      reach <m>0</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      When <m>k=50</m>, the compression ratio is about
+		      <m>3.1</m>.  When <m>k=100</m>, the compression
+		      ratio is about <m>1.6</m>.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      The singular values are similar, but they never
+		      reach <m>0</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>k=3</m> seems like a natural approximation
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+      
+    </activity>
+
+    <p>
+      Several examples illustrating how the singular value
+      decomposition compresses images are available at this page from 
+      <url
+	  href="http://timbaumann.info/svd-image-compression-demo/"
+	  visual="timbaumann.info/projects.html">
+      Tim Baumann.</url>
+    </p>
+
+  </subsection>
+
+  <subsection>
+    <title>
+      Analyzing Supreme Court cases
+    </title>
+
+    <p>
+      As we've seen, a singular value decomposition concentrates the
+      most important features of a matrix into the first singular
+      values and singular vectors.  We will now use this observation
+      to extract meaning from a large dataset giving the
+      voting records of Supreme Court justices.  A similar analysis
+      appears in the paper <url
+      href="https://www.pnas.org/content/100/13/7432"
+      visual="gvsu.edu/s/21F"
+      > A pattern
+      analysis of the second Rehnquist U.S. Supreme Court </url> by
+      Lawrence Sirovich.  
+    </p>
+
+    <p>
+      The makeup of the Supreme Court was unusually stable during a
+      period from 1994-2005 when it was led by Chief Justice William
+      Rehnquist.  This is sometimes called the <em>second Rehnquist
+      court</em>.  The justices during this period were:
+      <ul>
+	<li><p> William Rehnquist </p></li>
+	<li><p> Antonin Scalia </p></li>
+	<li><p> Clarence Thomas </p></li>
+	<li><p> Anthony Kennedy </p></li>
+	<li><p> Sandra Day O'Connor </p></li>
+	<li><p> John Paul Stevens </p></li>
+	<li><p> David Souter </p></li>
+	<li><p> Ruth Bader Ginsburg </p></li>
+	<li><p> Stephen Breyer </p></li>
+      </ul>
+    </p>
+
+    <p>
+      During this time, there were 911 cases in which all nine
+      judges voted.  We would like to understand patterns in their
+      voting. 
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Evaluating the following cell loads and displays a dataset
+	  describing the votes of each justice in these 911 cases.
+	  More specifically, an entry of +1 means that the justice
+	  represented by the row voted with the majority in the case
+	  represented by the column.  An entry of -1 means that
+	  justice was in the minority.  This information is also
+	  stored in the <m>9\times911</m> matrix <m>A</m>.
+	  
+	  <sage language="python">
+	    <input>
+sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
+A = matrix(RDF, cases.values)
+cases
+
+	    </input>
+	  </sage>
+	  The justices are listed, very roughly, in order from more
+	  conservative to more progressive.
+	</p>
+
+	<p>
+	  In this activity, it will be helpful to visualize the
+	  entries in various matrices and vectors.  The next cell
+	  displays the first 50 columns of the matrix <m>A</m> with
+	  white representing an entry of +1, red representing -1, and
+	  black representing 0.
+	  <sage language="python">
+	    <input>
+display_matrix(A.matrix_from_columns(range(50)))
+
+
+	    </input>
+	  </sage>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Plot the singular values of <m>A</m> below.  Describe
+		the significance of this plot, including the relative
+		contributions from the singular values <m>\sigma_k</m>
+		as <m>k</m> increases.
+		<sage language="python">
+		  <input>
+plot_sv(A)
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		Form the singular value decomposition <m>A=U\Sigma
+		V^T</m> and the matrix of coefficients <m>\Gamma</m>
+		so that <m>A=U\Gamma</m>.
+		<sage language="python">
+		  <input>
+
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		We will now study a particular case, the second case
+		which appears as the column of <m>A</m> indexed
+		by <c>1</c>.
+		There is a command <c>display_column(A, k)</c> that
+		provides a visual display of the <m>k^{th}</m> column
+		of a matrix <m>A</m>.  Describe the justices' votes in
+		the second case.
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Also, display the first left singular vector
+		<m>\uvec_1</m>, the column of 
+		<m>U</m> indexed by <m>0</m>, and the column of
+		<m>\Gamma</m> holding the coefficients that express the
+		second case as a linear combination of left singular
+		vectors.
+		<sage language="python">
+		  <input>
+
+		  </input>
+		</sage>
+
+		What does this tell us about how the second case is
+		constructed as a linear combination of left singular
+		vectors?  What is the significance of the first left
+		singular vector <m>\uvec_1</m>?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Let's now study the <m>48^{th}</m> case, which is
+		represented by the column of <m>A</m> indexed by
+		<c>47</c>.  Describe the voting pattern in this case.
+		<sage language="python">
+		  <input>
+
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Display the second left singular vector <m>\uvec_2</m>
+		and the vector 
+		of coefficients that express the <m>48^{th}</m> case as
+		a linear combination of left singular vectors.
+		<sage language="python">
+		  <input>
+
+		  </input>
+		</sage>
+		Describe how this case is constructed as a linear
+		combination of singular vectors.  What is the
+		significance of the second left singular vector
+		<m>\uvec_2</m>? 
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		The data in <xref ref="table-supreme-cases" />
+		describes the number of cases decided by each possible
+		vote count.
+		<table xml:id="table-supreme-cases">
+		  <title> Number of cases by vote count </title>
+		  <tabular halign="center">
+		    <row bottom="minor">
+		      <cell> Vote count </cell>
+		      <cell> # of cases </cell>
+		    </row>
+		    <row>
+		      <cell> 9-0 </cell>
+		      <cell> 405 </cell>
+		    </row>
+		    <row>
+		      <cell> 8-1 </cell>
+		      <cell> 89 </cell>
+		    </row>
+		    <row>
+		      <cell> 7-2 </cell>
+		      <cell> 111 </cell>
+		    </row>
+		    <row>
+		      <cell> 6-3 </cell>
+		      <cell> 118 </cell>
+		    </row>
+		    <row>
+		      <cell> 5-4 </cell>
+		      <cell> 188 </cell>
+		    </row>
+		  </tabular>
+		</table>
+		How do the singular vectors <m>\uvec_1</m> and
+		<m>\uvec_2</m> reflect this data?  Would you
+		characterize the court as leaning toward the
+		conservatives or progressives?  Use these singular
+		vectors to explain your response.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Cases decided by a 5-4 vote are often the most
+		impactful as they represent a sharp divide among the
+		justices and, often, society at large.  For that
+		reason, we will now focus on the 5-4 decisions.
+		Evaluating the next cell forms the <m>9\times188</m>
+		matrix <m>B</m> consisting of 5-4 decisions.
+		<sage language="python">
+		  <input>
+B = matrix(RDF, fivefour.values)
+display_matrix(B.matrix_from_columns(range(50)))
+
+		  </input>
+		</sage>
+		Form the singular value decomposition of <m>B=U\Sigma
+		V^T</m> 
+		along with the matrix <m>\Gamma</m> of coefficients so
+		that <m>B=U\Gamma</m> and display the first left
+		singular vector <m>\uvec_1</m>.  Study how the
+		<m>7^{th}</m> case, indexed by <c>6</c>, is
+		constructed as a linear 
+		combination of left singular vectors.
+		<sage language="python">
+		  <input>
+
+		  </input>
+		</sage>
+		What does this singular vector tell us about the
+		make up of the court and whether it leans towards the
+		conservatives or progressives?  
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Display the second left singular vector
+		<m>\uvec_2</m> and study how the <m>6^{th}</m> case,
+		indexed by <c>5</c>, is constructed as a linear
+		combination of left singular vectors.
+		<sage language="python">
+		  <input>
+
+		  </input>
+		</sage>
+		What does <m>\uvec_2</m> tell us about the
+		relative importance of the justices' voting records?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		By a <em>swing vote</em>, we mean a justice who is
+		less inclined to vote with a particular bloc of
+		justices but instead swings from one bloc to
+		another with the potential to sway close decisions.
+		What do the singular vectors <m>\uvec_1</m> and
+		<m>\uvec_2</m> tell us about the presence of voting
+		blocs on the court and the presence of a swing vote?
+		Which justice represents the swing vote?
+	      </p>
+	    </li>
+		
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The first two singular values contribute most
+		significantly.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\Gamma</m> is a <m>9\times911</m> matrix that
+		expresses the cases as linear combinations of the
+		left singular vectors.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		This is a unanimous decision.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The unanimous decision is essentially represented as
+		<m>-\uvec_1</m> so <m>\uvec_1</m> represents a
+		unanimous decision.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		This is a 5-4 decision with the 5 conservative
+		justices voting in the majority.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		This 5-4 decision is essentially represented as
+		<m>\uvec_2</m>, the second most important left
+		singular vector.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We see that the most decisions are unanimous, which is
+		why <m>\uvec_1</m> represents unanimous decisions.
+		The second most frequently occurring decisions is a
+		5-4 decision, which is why <m>\uvec_2</m> represents a
+		5-4 decision that leans to the conservative justices.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The first singular vector <m>\uvec_1</m> represents a
+		case where the five conservative justices are voting
+		together.  From this we conclude that the court leans
+		toward the conservatives.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The second left singular vector <m>\uvec_2</m>
+		essentially records the vote of Sandra Day O'Connor
+		and shows how her vote has the power to swing a 5-4
+		decision from a conservative majority to a progressive
+		majority.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Sandra Day O'Connor would be the swing vote.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+	      
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The first two singular values contribute most
+		significantly.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\Gamma</m> is a <m>9\times911</m> matrix that
+		expresses the cases as linear combinations of the
+		left singular vectors.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		This is a unanimous decision.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\uvec_1</m> represents a
+		unanimous decision.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		This is a 5-4 decision with the 5 conservative
+		justices voting in the majority.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\uvec_2</m> represents a 5-4 decision.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The most frequently occurring decisions are unanimous
+		and the second most frequently occurring are 5-4.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\uvec_1</m> represents a
+		case where the five conservative justices are voting
+		together.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The second left singular vector <m>\uvec_2</m>
+		essentially records the vote of Sandra Day O'Connor.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Sandra Day O'Connor 
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+	    
+    </activity>
+  </subsection>
+
+  <subsection>
+    <title> Summary </title>
+
+    <p>
+      This section has demonstrated some uses of the singular value
+      decomposition.  Because the singular values appear in decreasing
+      order, the decomposition has the effect of concentrating
+      the most important features of the matrix into the first
+      singular values and singular vectors.
+      <ul>
+	<li>
+	  <p>
+	    Because the first left singular vectors form an
+	    orthonormal basis for <m>\col(A)</m>, a singular value
+	    decomposition provides a convenient way to project vectors
+	    onto <m>\col(A)</m> and therefore to solve least squares
+	    problems.
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    A singular value decomposition of a rank <m>r</m> matrix
+	    <m>A</m> leads to a 
+	    series of approximations <m>A_k</m> of <m>A</m> where 
+	    <md>
+	      <mrow>
+		A \approx A_1 \amp = \sigma_1\uvec_1\vvec_1^T
+	      </mrow>
+	      <mrow>
+		A \approx A_2 \amp = \sigma_1\uvec_1\vvec_1^T +
+		\sigma_2\uvec_2\vvec_2^T
+	      </mrow>
+	      <mrow>
+		A \approx A_3 \amp = \sigma_1\uvec_1\vvec_1^T +
+		\sigma_2\uvec_2\vvec_2^T + 
+		\sigma_3\uvec_3\vvec_3^T
+	      </mrow>
+	      <mrow>
+		\vdots \amp
+	      </mrow>
+	      <mrow>
+		A = A_r \amp = \sigma_1\uvec_1\vvec_1^T +
+		\sigma_2\uvec_2\vvec_2^T +
+		\sigma_3\uvec_3\vvec_3^T +
+		\ldots +
+		\sigma_r\uvec_r\vvec_r^T
+	      </mrow>
+	    </md>
+	    In each case, <m>A_k</m> is the rank <m>k</m> matrix that
+	    is closest to <m>A</m>.
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    If <m>A</m> is a demeaned data matrix, the left singular
+	    vectors give the principal components of <m>A</m> and the
+	    variance in the direction of a principal component can be
+	    simply expressed in terms of the corresponding singular
+	    value.
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    The singular value decomposition has many applications.
+	    In this section, we looked at how the decomposition is
+	    used in image processing through the techniques of
+	    compression and denoising.
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    Because the first few left singular vectors contain the
+	    most important features of a matrix, we can use a singular
+	    value decomposition to extract meaning from a large dataset
+	    as we did when analyzing the voting patterns of the
+	    second Rehnquist court.
+	  </p>
+	</li>
+      </ul>
+    </p>
+
+
+  </subsection>
+
+  <xi:include href="exercises/exercises7-5.ptx" />
+
+</section>
+
+

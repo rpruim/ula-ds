@@ -1,0 +1,1283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-span"
+	 xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <title>
+    The span of a set of vectors
+  </title>
+
+  <introduction>
+    <p>
+      Matrix multiplication allows us to rewrite a linear system
+      in the form <m>A\xvec = \bvec</m>.  Besides being a more compact
+      way of expressing a linear system, this form allows us to think
+      about linear systems geometrically since matrix multiplication
+      is defined in terms of linear combinations of vectors.
+    </p>
+
+    <p>
+      We now return to our
+      <xref ref="fundamental-questions" text="custom">
+	two fundamental questions, 
+      </xref>
+      rephrased here in terms of matrix multiplication.
+      <ul>
+	<li><p> <em>Existence:</em> Is there a solution to the
+	equation <m>A\xvec=\bvec</m>?
+	</p> </li>
+
+	<li><p> <em> Uniqueness:</em> If there is a solution to the
+	equation <m>A\xvec=\bvec</m>, is it unique? </p></li>
+
+      </ul>
+      In this section, we focus on the existence question and
+      see how it leads to the concept of the <em>span</em> of a set of
+      vectors. 
+    </p>
+
+    <exploration>
+      <title> The existence of solutions </title>
+      <statement>
+      <p> <ol marker="a.">
+	<li> <p> If the equation <m>A\xvec = \bvec</m> is
+	inconsistent, what can we say about the pivot positions of the 
+	augmented matrix 
+	<m>\left[\begin{array}{r|r} A \amp \bvec
+	\end{array}\right]</m>?
+	</p> </li>
+
+	<li> <p>
+	  Consider the matrix <m>A</m>
+	  <me>
+	    A = \left[
+	    \begin{array}{rrr}
+	    1 \amp 0 \amp -2 \\
+	    -2 \amp 2 \amp 2 \\
+	    1 \amp 1 \amp -3
+	    \end{array}\right]
+	  </me>.
+	  If <m>\bvec=\threevec{2}{2}{5}</m>, is the equation
+	  <m>A\xvec = \bvec</m> consistent?  If so, find a solution.
+	  <sage>
+	    <input>
+	    </input>
+	  </sage>
+	</p></li>
+
+	<li> <p> If <m>\bvec=\threevec{2}{2}{6}</m>, is the equation
+	<m>A\xvec = \bvec</m> consistent?  If so, find a solution.
+	<sage>
+	  <input>
+	  </input>
+	</sage>
+	</p></li>
+
+	<li> <p> Identify the pivot positions of <m>A</m>. </p></li>
+
+	<li> <p> For our two choices of the vector <m>\bvec</m>, one
+	equation <m>A\xvec = \bvec</m> has a solution and the other
+	does not.  What feature of the pivot positions of the
+	matrix <m>A</m> tells us to expect this? </p></li>
+      </ol>
+      </p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> We know there must be a pivot position in the rightmost
+	  column of the augmented matrix.
+	  </p></li>
+
+	  <li><p>
+	    We construct the augmented matrix
+	    <me>
+	      \left[\begin{array}{rrr|r}
+	      1 \amp 0 \amp -2 \amp 2 \\
+	      -2 \amp 2 \amp 2 \amp 2 \\
+	      1 \amp 1 \amp -3 \amp 5
+	      \end{array}\right]
+	      \sim
+	      \left[\begin{array}{rrr|r}
+	      1 \amp 0 \amp -2 \amp 2 \\
+	      0 \amp 1 \amp -1 \amp 3 \\
+	      0 \amp 0 \amp 0 \amp 0
+	      \end{array}\right]\text{,}
+	    </me>
+	    which shows that the system is consistent.  The solution
+	    space is described parametrically as
+	    <me>
+	      \xvec=\threevec{2}{3}{0}+x_3\threevec{2}{1}{1}\text{.}
+	    </me>
+	  </p></li>
+
+	  <li><p>
+	    Now the augmented matrix is
+	    <me>
+	      \left[\begin{array}{rrr|r}
+	      1 \amp 0 \amp -2 \amp 2 \\
+	      -2 \amp 2 \amp 2 \amp 2 \\
+	      1 \amp 1 \amp -3 \amp 6
+	      \end{array}\right]
+	      \sim
+	      \left[\begin{array}{rrr|r}
+	      1 \amp 0 \amp -2 \amp 0 \\
+	      0 \amp 1 \amp -1 \amp 0 \\
+	      0 \amp 0 \amp 0 \amp 1
+	      \end{array}\right]
+	    </me>
+	    showing that the equation <m>A\xvec=\bvec</m> is
+	    inconsistent.
+	  </p></li>
+
+	  <li><p>
+	    There are two pivot positions in <m>A</m>, as shown.
+	    <me>
+	      \left[\begin{array}{rrr}
+	      {\mathbf 1} \amp 0 \amp -2 \\
+	      -2 \amp {\mathbf 2} \amp 2 \\
+	      1 \amp 1 \amp -3 \\
+	      \end{array}\right]
+	      \sim
+	      \left[\begin{array}{rrr}
+	      {\mathbf 1} \amp 0 \amp -2 \\
+	      0 \amp {\mathbf 1} \amp -1 \\
+	      0 \amp 0 \amp 0 \\
+	      \end{array}\right]\text{.}
+	    </me>
+	  </p></li>
+
+	  <li><p>
+	    Since there is a row of <m>A</m> that does not have a
+	    pivot position, it is possible to augment <m>A</m> by a
+	    vector <m>\bvec</m> so that we obtain a pivot position in
+	    the rightmost column of the augmented matrix.  In this
+	    case, we have an inconsistent system.
+	  </p></li>
+	</ol></p>
+      </solution>
+    </exploration>
+  </introduction>
+  
+  <subsection>
+    <title> The span of a set of vectors </title>
+
+    <p>  In the preview activity, we considered a <m>3\times3</m>
+    matrix <m>A</m> and found that the equation <m>A\xvec = \bvec</m>
+    has a solution for some vectors <m>\bvec</m> in <m>\real^3</m> and
+    has no solution for others.  We will introduce a concept called
+    <em>span</em> that describes the vectors <m>\bvec</m> for which
+    there is a solution.
+    </p>
+
+    <p>  We can write an <m>m\times n</m> matrix <m>A</m> in terms of
+    its columns 
+    <me>
+      A = \left[\begin{array}{rrrr}
+      \vvec_1\amp\vvec_2\amp\cdots\amp\vvec_n
+      \end{array}\right]
+    </me>.
+    Remember that <xref ref="prop-matrix-eq-solution" /> says that the
+    equation <m>A\xvec = \bvec</m> is consistent if and only if we can
+    express 
+    <m>\bvec</m> as a linear combination of
+    <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m>.  
+    </p>
+    
+    <definition>
+      <idx> span </idx>
+      <p> The <term>span</term> of a set of vectors
+      <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is the set of all linear
+      combinations that can be formed from the vectors.
+      </p>
+      <p>
+	Alternatively, if
+	<m>A = \begin{bmatrix} \vvec_1 \amp \vvec_2 \amp \cdots \amp
+	\vvec_n \end{bmatrix}</m>, then the span of the vectors
+	consists of all 
+	vectors <m>\bvec</m> for which the equation <m>A\xvec = \bvec</m>
+	is consistent.
+      </p>
+    </definition>
+
+    <example>
+      <statement>
+	<p>
+	  Considering the set of vectors <m>\vvec=\twovec{-2}{1}</m> and
+	  <m>\wvec = \twovec{8}{-4}</m>, we see that the vector
+	  <me>
+	    \bvec = 3\vvec + \wvec = \twovec2{-1}
+	  </me>
+	  is one vector in the span of the vectors <m>\vvec</m> and
+	  <m>\wvec</m> because it is a linear combination of
+	  <m>\vvec</m> and <m>\wvec</m>.
+	</p>
+
+	<p>
+	  To determine whether the vector <m>\bvec=\twovec{5}{2}</m>
+	  is in the span of <m>\vvec</m> and <m>\wvec</m>, we form the
+	  matrix
+	  <me>
+	    A = \begin{bmatrix} \vvec \amp \wvec \end{bmatrix} = 
+	    \begin{bmatrix}
+	    -2 \amp 8 \\
+	    1 \amp -4 \\
+	    \end{bmatrix}
+	  </me>
+	  and consider the equation <m>A\xvec=\bvec</m>.  We have
+	  <me>
+	    \left[
+	    \begin{array}{rr|r}
+	    -2 \amp 8 \amp 5 \\
+	    1 \amp -4 \amp 2 \\
+	    \end{array}
+	    \right]
+	    \sim
+	    \left[
+	    \begin{array}{rr|r}
+	    1 \amp -4 \amp 0 \\
+	    0 \amp 0 \amp 1 \\
+	    \end{array}
+	    \right],
+	  </me>
+	  which shows that the equation <m>A\xvec = \bvec</m> is
+	  inconsistent.  Therefore, <m>\bvec=\twovec52</m> is one
+	  vector that is not in the span of <m>\vvec</m> and
+	  <m>\wvec</m>.
+	</p>
+      </statement>
+    </example>
+
+    <activity xml:id="activity-intro-span">
+      <statement>
+      <p>  Let's look at two examples to develop some intuition for
+      the concept of span.
+      <ol marker="a.">
+	<li><p> First, we will consider the set of vectors
+	<me>
+	  \vvec = \twovec{1}{2}, ~~~\wvec = \twovec{-2}{-4}
+	</me>.
+      </p>
+
+      <figure xml:id="js-span-1">
+	<caption>
+	  An interactive diagram for constructing linear combinations
+	  of the vectors <m>\vvec</m> and <m>\wvec</m>. 
+	</caption>
+
+	<interactive xml:id="interactive-span1"
+		     platform="javascript" width="100%"
+		     source="jslibrary/figures.js
+			     jslibrary/span1.js"
+		     aspect="28:23"
+		     preview="preview/span1-preview.png"
+		     >
+	  <sbsgroup>
+	    <sidebyside width="60%">
+	      <slate xml:id="span1-sliders"
+		     aspect="7:2"
+		     surface="canvas" />
+	    </sidebyside>
+	    <sidebyside width="60%">
+	      <slate xml:id="span1-canvas"
+		     aspect="1:1"
+		     surface="canvas" />
+	    </sidebyside>
+	  </sbsgroup>
+	  <instructions>
+	    <p>
+	      The diagram below can be used to construct linear
+	      combinations whose weights <m>c</m> and <m>d</m> may be
+	      varied using the sliders at the top.  The vectors
+	      <m>\vvec</m> and <m>\wvec</m> are outlined while
+	      the linear combination
+	      <me>
+		c\vvec + d\wvec
+	      </me>
+	      is shaded in red.
+	    </p>
+	  </instructions>
+          <static>
+            <sidebyside width="100%">
+              <p>
+                There is an interactive diagram,
+                available at <url
+                href="http://gvsu.edu/s/0Jg"
+                visual="gvsu.edu/s/0Jg"/>, that
+                accompanies this activity.  The diagram at the top of
+		that page accompanies part a of this activity.
+              </p>
+            </sidebyside>
+            <sidebyside width="45%">
+              <image source="preview/span1-preview.png"/>
+            </sidebyside>
+          </static>
+	</interactive>
+      </figure>
+
+      <p> <ol marker="1.">
+	<li><p> What vector is the linear combination of <m>\vvec</m>
+	and <m>\wvec</m> with weights:
+	<ul>
+	  <li> <p> <m> c = 2</m> and <m>d=0</m>? </p></li>
+	  <li> <p> <m> c = 1</m> and <m>d=1</m>? </p></li>
+	  <li> <p> <m> c = 0</m> and <m>d=-1</m>? </p></li>
+	</ul>
+	</p> </li>
+
+	<li> <p>
+	  Can the vector <m> \twovec{2}{4}</m> be expressed as a
+	  linear combination of <m>\vvec</m> and <m>\wvec</m>?  Is the
+	  vector <m> \twovec{2}{4}</m> in the span of <m>\vvec</m> and
+	  <m>\wvec</m>?  
+	</p></li>
+
+	<li> <p>
+	  Can the vector <m> \twovec{3}{0}</m> be expressed as a
+	  linear combination of <m>\vvec</m> and <m>\wvec</m>?  Is the
+	  vector <m> \twovec{3}{0}</m> in the span of <m>\vvec</m> and
+	  <m>\wvec</m>?  
+	</p></li>
+
+	<li> <p>
+	  Describe the set of vectors in the span of <m>\vvec</m> and
+	  <m>\wvec</m>.
+	</p></li>
+
+	<li> <p> For what vectors <m>\bvec</m> does the equation
+	<me>
+	  \left[\begin{array}{rr} 1 \amp -2 \\ 2 \amp -4
+	  \end{array}\right] \xvec = \bvec
+	</me>
+	have a solution?
+	</p></li>
+      </ol> </p>
+      </li> 
+
+      <li> <p>
+	We will now look at an example where
+	<me>
+	  \vvec = \twovec{2}{1}, ~~~\wvec = \twovec{1}{2}
+	</me>.
+      </p>
+
+      <figure xml:id="js-span-2">
+	<caption>
+	  An interactive diagram for constructing linear combinations
+	  of the vectors <m>\vvec</m> and <m>\wvec</m>. 
+	</caption>
+
+	<interactive xml:id="interactive-span2"
+		     platform="javascript" width="100%"
+		     aspect="28:23"
+		     source="jslibrary/figures.js
+			     jslibrary/span2.js"
+		     preview="preview/span2-preview.png">
+	  <sbsgroup>
+	    <sidebyside width="60%">
+	      <slate xml:id="span2-sliders"
+		     aspect="7:2"
+		     surface="canvas" />
+	    </sidebyside>
+	    <sidebyside width="60%">
+	      <slate xml:id="span2-canvas"
+		     aspect="1:1"
+		     surface="canvas" />
+	    </sidebyside>
+	  </sbsgroup>
+	  <instructions>
+	    <p>
+	      In a similar way, the diagram below can be used to construct
+	      linear combinations 
+	      <me>
+		c\vvec + d\wvec.
+	      </me>
+	    </p>
+	  </instructions>
+          <static>
+            <sidebyside width="100%">
+              <p>
+		The diagram at the bottom of
+		the page at
+		<url
+                href="http://gvsu.edu/s/0Jg"
+                visual="gvsu.edu/s/0Jg"/>
+		accompanies part b of this activity.
+              </p>
+            </sidebyside>
+            <sidebyside width="45%">
+              <image source="preview/span2-preview.png"/>
+            </sidebyside>
+          </static>
+	</interactive>
+      </figure>
+
+      <p> <ol marker="1.">
+	<li><p> What vector is the linear combination of <m>\vvec</m>
+	and <m>\wvec</m> with weights:
+	<ul>
+	  <li> <p> <m> c = 2</m> and <m>d=0</m>? </p></li>
+	  <li> <p> <m> c = 1</m> and <m>d=1</m>? </p></li>
+	  <li> <p> <m> c = 0</m> and <m>d=-1</m>? </p></li>
+	</ul>
+	</p> </li>
+
+	<li> <p>
+	  Can the vector <m> \twovec{-2}{2}</m> be expressed as a
+	  linear combination of <m>\vvec</m> and <m>\wvec</m>?  Is the
+	  vector <m> \twovec{-2}{2}</m> in the span of <m>\vvec</m> and
+	  <m>\wvec</m>?  
+	</p></li>
+
+	<li> <p>
+	  Can the vector <m> \twovec{3}{0}</m> be expressed as a
+	  linear combination of <m>\vvec</m> and <m>\wvec</m>?  Is the
+	  vector <m> \twovec{3}{0}</m> in the span of <m>\vvec</m> and
+	  <m>\wvec</m>?  
+	</p></li>
+
+	<li> <p>
+	  Describe the set of vectors in the span of <m>\vvec</m> and
+	  <m>\wvec</m>.
+	</p></li>
+
+	<li> <p> For what vectors <m>\bvec</m> does the equation
+	<me>
+	  \left[\begin{array}{rr} 2 \amp 1 \\ 1 \amp 2
+	  \end{array}\right] \xvec = \bvec
+	</me>
+	have a solution?
+	</p></li>
+      </ol> </p>
+      </li> 
+
+      </ol></p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> For the first set of vectors, we find:
+	  <ol marker="1.">
+	    <li><p> We can form the linear combinations:
+	      <ul>
+		<li><p> When <m> c = 2</m> and <m>d=0</m>,
+		the linear combination is <m>\twovec{2}{4}</m>.
+		</p></li>
+		<li> <p> When <m> c = 1</m> and <m>d=1</m>, the linear
+		combination is <m>\twovec{-1}{-2}</m>.
+		</p></li>
+		<li> <p> When <m> c = 0</m> and <m>d=-1</m>, the
+		linear combination is <m>\twovec{2}{4}</m>.
+		</p></li>
+	      </ul>
+	    </p></li>
+
+	    <li><p> Yes, we saw that there are at least two ways.
+	    For instance, when the weights are <m>c=2</m> and
+	    <m>d=0</m>.  This means that <m>\twovec24</m> is in
+	    the span of <m>\vvec</m> and <m>\wvec</m>.
+	    </p></li>
+
+	    <li><p>
+	      No.  No matter how we change the weights, the linear
+	      combination lies on the line through <m>\vvec</m> and
+	      <m>\wvec</m>.  This means that <m>\twovec{3}{0}</m> is
+	      not in the span of <m>\vvec</m> and <m>\wvec</m>.
+	    </p></li>
+
+	    <li><p>
+	      The span of <m>\vvec</m> and <m>\wvec</m> is the set of
+	      all vectors on the line through <m>\vvec</m>.
+	    </p></li>
+
+	    <li><p>
+	      If the equation has a solution, <m>\bvec</m> must lie on
+	      the line defined by <m>\vvec</m>.
+	    </p></li>
+
+	  </ol></p> </li>
+
+	  <li><p> For the second set of vectors, we have:
+	    <ol marker="1.">
+	      <li><p> We can form the linear combinations:
+		<ul>
+		  <li> <p> When <m> c = 2</m> and <m>d=0</m>, the
+		  linear combination is <m>\twovec42</m>.
+		  </p></li>
+		  <li> <p> When <m> c = 1</m> and <m>d=1</m>, the
+		  linear combination is <m>\twovec{3}{3}</m>.
+		  </p></li>
+		  <li> <p> When <m> c = 0</m> and <m>d=-1</m>, the
+		  linear combination is <m>\twovec{-1}{-2}</m>.
+		  </p></li>
+		</ul>
+	      </p></li>
+
+	      <li><p>
+		Yes.  Using the diagram, we see that
+		<m>\twovec{-2}{2}=-2\vvec + 2\wvec</m>.  This means
+		that <m>\twovec{-2}{2}</m> is in the span of
+		<m>\vvec</m> and <m>\wvec</m>.
+	      </p></li>
+
+	      <li><p>
+		Yes.  Using the diagram, we see that
+		<m>\twovec{3}{0}=2\vvec-1\wvec</m>.  This means that
+		<m>\twovec{3}{0}</m> is in the span of <m>\vvec</m>
+		and <m>\wvec</m>.
+	      </p></li>
+
+	      <li><p>
+		Every two-dimensional vector is in the span of
+		<m>\vvec</m> and <m>\wvec</m>.
+	      </p></li>
+
+	      <li><p>
+		The equation has a solution for every <m>\bvec</m>.
+	      </p></li>
+	    </ol></p></li>
+	</ol></p>
+      </solution>
+    </activity>
+
+    <p>
+      This activity aims to convey the geometric meaning of span.
+      Remember that we can think of a linear combination of the two
+      vectors <m>\vvec</m> and <m>\wvec</m> as a recipe for walking in
+      the plane <m>\real^2</m>.  We first move a prescribed amount in
+      the direction of <m>\vvec</m> and then a prescribed amount in the
+      direction of <m>\wvec</m>.  The span consists of all the places
+      we can walk to.
+    </p>
+
+    <example xml:id="example-span-linear-indep">
+      <statement>
+	<p>
+	  Let's consider the vectors <m>\vvec=\twovec20</m> and
+	  <m>\wvec=\twovec{-1}1</m> as shown in <xref
+	  ref="fig-span-linear-indep"/>.
+	  <sidebyside width="50%">
+	    <figure xml:id="fig-span-linear-indep">
+	      <caption> The vectors <m>\vvec</m> and <m>\wvec</m> and
+	      some linear combinations they create.
+	      </caption>
+	      <image source="images/span-linear-indep"/>
+	    </figure>
+	  </sidebyside>
+	</p>
+
+	<p>
+	  The figure shows us that <m>\bvec = \vvec + 2\wvec =
+	  \twovec02</m> is a linear combination of <m>\vvec</m> and
+	  <m>\wvec</m>.  Indeed, we can verify this algebraically by
+	  constructing the linear system
+	  <me>
+	    \begin{bmatrix}\vvec \amp \wvec \end{bmatrix} ~
+	    \xvec = \twovec02,
+	  </me>
+	  whose corresponding augmented matrix has the reduced row
+	  echelon form 
+	  <me>
+	    \left[
+	    \begin{array}{rr|r}
+	    2 \amp -1 \amp 0 \\
+	    0 \amp 1 \amp 2 \\
+	    \end{array}
+	    \right]
+	    \sim
+	    \left[
+	    \begin{array}{rr|r}
+	    1 \amp 0 \amp 1 \\
+	    0 \amp 1 \amp 2 \\
+	    \end{array}
+	    \right].
+	  </me>
+	  Because this system is consistent, we know that
+	  <m>\bvec=\twovec02</m> is in the span of <m>\vvec</m> and
+	  <m>\wvec</m>.
+	</p>
+	<p>
+	  In fact, we can say more.  Notice that the coefficient
+	  matrix
+	  <me>
+	    \begin{bmatrix}
+	    2 \amp -1 \\
+	    0 \amp 1 \\
+	    \end{bmatrix}
+	    \sim
+	    \begin{bmatrix}
+	    1 \amp 0 \\
+	    0 \amp 1 \\
+	    \end{bmatrix}
+	  </me>
+	  has a pivot position in every row.  This means that for any
+	  other vector <m>\bvec</m>, the augmented matrix
+	  corresponding to the
+	  equation <m>\begin{bmatrix}\vvec \amp \wvec \end{bmatrix}
+	  ~\xvec = \bvec</m> cannot have a pivot position in its
+	  rightmost column:
+	  <me>
+	    \left[
+	    \begin{array}{rr|r}
+	    2 \amp -1 \amp * \\
+	    0 \amp 1 \amp * \\
+	    \end{array}
+	    \right]
+	    \sim
+	    \left[
+	    \begin{array}{rr|r}
+	    1 \amp 0 \amp * \\
+	    0 \amp 1 \amp * \\
+	    \end{array}
+	    \right].
+	  </me>
+	  Therefore, the equation
+	  <m>\begin{bmatrix}\vvec \amp \wvec \end{bmatrix}
+	  ~\xvec = \bvec</m>
+	  is consistent for every two-dimensional vector
+	  <m>\bvec</m>, which tells us that every two-dimensional
+	  vector is in the span of <m>\vvec</m> and <m>\wvec</m>.
+	  In this case, we say that the span of <m>\vvec</m> and
+	  <m>\wvec</m> is <m>\real^2</m>.
+	</p>
+
+	<p>
+	  The intuitive meaning is that we can walk to any point in
+	  the plane by moving an appropriate distance in the
+	  <m>\vvec</m> and <m>\wvec</m> directions.
+	</p>
+      </statement>
+    </example>
+
+
+    <example xml:id="example-span-linear-dep">
+      <statement>
+	<p>
+	  Now let's consider the vectors <m>\vvec=\twovec{-1}1</m> and
+	  <m>\wvec=\twovec2{-2}</m> as shown in <xref
+	  ref="fig-span-linear-dep"/>.
+	  <sidebyside width="50%">
+	    <figure xml:id="fig-span-linear-dep">
+	      <caption> The vectors <m>\vvec</m> and <m>\wvec</m> and
+	      some linear combinations they create.
+	      </caption>
+	      <image source="images/span-linear-dep"/>
+	    </figure>
+	  </sidebyside>
+	</p>
+
+	<p>
+	  From the figure, we expect that 
+	  <m>\bvec = \twovec02</m> is not a linear combination of
+	  <m>\vvec</m> and 
+	  <m>\wvec</m>.  Once again, we can verify this algebraically by
+	  constructing the linear system
+	  <me>
+	    \begin{bmatrix}\vvec \amp \wvec \end{bmatrix} ~
+	    \xvec = \twovec02.
+	  </me>
+	  The augmented matrix has the reduced row echelon form
+	  <me>
+	    \left[
+	    \begin{array}{rr|r}
+	    -1 \amp 2 \amp 0 \\
+	    1  \amp -2 \amp 2 \\
+	    \end{array}
+	    \right]
+	    \sim
+	    \left[
+	    \begin{array}{rr|r}
+	    1 \amp -2 \amp 0 \\
+	    0 \amp 0 \amp 1 \\
+	    \end{array}
+	    \right],
+	  </me>
+	  from which we see that the system is inconsistent.
+	  Therefore, <m>\bvec=\twovec02</m> is not in the span of
+	  <m>\vvec</m> and <m>\wvec</m>.
+	</p>
+	<p>
+	  We should expect this behavior from the coefficient
+	  matrix
+	  <me>
+	    \begin{bmatrix}
+	    -1 \amp 2 \\
+	    1 \amp -2 \\
+	    \end{bmatrix}
+	    \sim
+	    \begin{bmatrix}
+	    1 \amp -2 \\
+	    0 \amp 0 \\
+	    \end{bmatrix}.
+	  </me>
+	  Because the second row of the coefficient matrix does not
+	  have a pivot position, it is 
+	  possible for a linear system
+	  <m>\begin{bmatrix}\vvec \amp \wvec \end{bmatrix}
+	  ~\xvec = \bvec</m> to have a pivot position in its
+	  rightmost column:
+	  <me>
+	    \left[
+	    \begin{array}{rr|r}
+	    -1 \amp 2 \amp * \\
+	    1  \amp -2 \amp * \\
+	    \end{array}
+	    \right]
+	    \sim
+	    \left[
+	    \begin{array}{rr|r}
+	    1 \amp -2 \amp 0 \\
+	    0 \amp 0 \amp 1 \\
+	    \end{array}
+	    \right].
+	  </me>
+	</p>
+
+	<p>
+	  If we notice that <m>\wvec = -2\vvec</m>, we see that any
+	  linear combination of <m>\vvec</m> and <m>\wvec</m>,
+	  <me>
+	    c\vvec + d\wvec =
+	    c\vvec -2d\vvec = (c-2d)\vvec,
+	  </me>
+	  is actually a scalar multiple of <m>\vvec</m>.  Therefore,
+	  the span of <m>\vvec</m> and <m>\wvec</m> is the line
+	  defined by the vector <m>\vvec</m>.
+	  Intuitively, this means that we can only walk to points on
+	  this line using these two vectors.
+	</p>
+      </statement>
+    </example>
+
+    <convention>
+      <p> We will denote the span of the set of vectors
+      <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> by
+      <m>\laspan{\vvec_1,\vvec_2,\ldots,\vvec_n}</m>.
+      </p>
+    </convention>
+
+    <p>
+      In <xref ref="example-span-linear-indep"/>, we saw that
+      <m>\laspan{\vvec,\wvec} = \real^2</m>.  However, for the vectors
+      in <xref ref="example-span-linear-dep"/>, we saw that
+      <m>\laspan{\vvec,\wvec}</m> is simply a line.
+    </p>
+
+  </subsection>
+
+  <subsection>
+    <title> Pivot positions and span </title>
+    
+    <p>
+      A set of vectors <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> naturally
+      defines a matrix <m>A =
+      \begin{bmatrix}\vvec_1\amp\vvec_2\amp\cdots\vvec_n\end{bmatrix}
+      </m> whose columns are the given vectors.  As we've seen, a
+      vector <m>\bvec</m> is in
+      <m>\laspan{\vvec_1,\vvec_2,\ldots,\vvec_n}</m> precisely when
+      the linear system <m>A\xvec=\bvec</m> is consistent.
+    </p>
+
+    <p>
+      The previous examples point to the fact that the span
+      is related to the pivot positions of <m>A</m>.  While
+      <xref ref="sec-linear-dep" />
+      and <xref ref="sec-subspaces" />
+      develop this idea more fully, 
+      we will now examine the possibilities in
+      <m>\real^3</m>.  
+    </p>
+    
+    <activity xml:id="activity-span-r3">
+      <statement>
+	<p> In this activity, we will look at the span of sets of
+	vectors in <m>\real^3</m>.
+	<ol marker="a.">
+	  <li> <p> Suppose <m>\vvec=\threevec{1}{2}{1}</m>.  Give a
+	  geometric 
+	  description of 
+	  <m>\laspan{\vvec}</m> and a rough sketch of <m>\vvec</m> and
+	  its span in <xref ref="fig-3d-span-1"/>.
+	  </p>
+	  <figure xml:id="fig-3d-span-1">
+	    <caption>
+	      A three-dimensional coordinate system for sketching
+	      <m>\vvec</m> and its span.
+	    </caption>
+	    <sidebyside width="50%">
+	      <image source ="images/coordinates-3d" />
+	    </sidebyside>
+	  </figure>
+	  </li>
+
+	  <li> <p> Now consider the two vectors
+	  <me>
+	    \evec_1 = \threevec{1}{0}{0},~~~
+	    \evec_2 = \threevec{0}{1}{0}
+	  </me>.
+	  Sketch the vectors below.  Then give a geometric description of
+	  <m>\laspan{\evec_1,\evec_2}</m> and a rough sketch of  the
+	  span in <xref ref = "fig-3d-span-2"/>.
+	</p>
+	<figure xml:id="fig-3d-span-2">
+	  <caption>
+	    A coordinate system for sketching <m>\evec_1</m>,
+	    <m>\evec_2</m>, and <m>\laspan{\evec_1,\evec_2}</m>.
+	  </caption>
+	  <sidebyside width="50%">
+	    <image source ="images/coordinates-3d" />
+	  </sidebyside>
+	</figure>
+	</li>
+
+	<li><p> Let's now look at this situation algebraically by
+	writing write <m>\bvec = \threevec{b_1}{b_2}{b_3}</m>.
+	Determine the conditions on <m>b_1</m>, <m>b_2</m>, and
+	<m>b_3</m> so that <m>\bvec</m> is in
+	<m>\laspan{\evec_1,\evec_2}</m> by considering the linear
+	system
+	<me>
+	  \left[\begin{array}{rr}
+	  \evec_1 \amp \evec_2 \\
+	  \end{array}\right]
+	  ~\xvec =
+	  \bvec
+	</me>
+	or
+	<me>
+	  \left[\begin{array}{rr}
+	  1 \amp 0 \\
+	  0 \amp 1 \\
+	  0 \amp 0 \\
+	  \end{array}\right]
+	  \xvec =
+	  \threevec{b_1}{b_2}{b_3}
+	</me>.
+	Explain how this relates to your sketch of
+	<m>\laspan{\evec_1,\evec_2}</m>. 
+	  
+	</p></li>
+
+	<li> <p> Consider the vectors
+	<me>
+	  \vvec_1 = \threevec{1}{1}{-1},~~
+	  \vvec_2 = \threevec{0}{2}{1}.
+	</me>
+	  <ol marker="1.">
+	    <li> <p> Is the vector <m>\bvec=\threevec{1}{-2}{4}</m> in
+	    <m>\laspan{\vvec_1,\vvec_2}</m>?
+
+	    <sage>
+	      <input>
+	      </input>
+	    </sage>
+	    </p></li>
+
+	    <li> <p> Is the vector <m>\bvec=\threevec{-2}{0}{3}</m> in
+	    <m>\laspan{\vvec_1,\vvec_2}</m>?
+	    <sage>
+	      <input>
+	      </input>
+	    </sage>
+	    </p></li>
+
+	    <li><p> Give a geometric description of 
+	    <m>\laspan{\vvec_1,\vvec_2}</m>.
+	    </p></li>
+
+	  </ol></p>
+	  </li>
+
+	  <li><p> Consider the vectors
+	  <me>
+	    \vvec_1 = \threevec{1}{1}{-1},
+	    \vvec_2 = \threevec{0}{2}{1},
+	    \vvec_3 = \threevec{1}{-2}{4}
+	  </me>.
+	  Form the matrix <m>\left[\begin{array}{rrrr} \vvec_1 \amp \vvec_2
+	  \amp \vvec_3 \end{array}\right]</m> and find its reduced row
+	  echelon form.
+	    <sage>
+	      <input>
+	      </input>
+	    </sage>
+	    What does this tell you about
+	    <m>\laspan{\vvec_1,\vvec_2,\vvec_3}</m>? 
+	  </p></li>
+
+	  <li> <p> If the span of a set of vectors
+	  <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is <m>\real^3</m>,
+	  what can you say about the pivot positions of the matrix
+	  <m>\left[\begin{array}{rrrr}
+	  \vvec_1\amp\vvec_2\amp\ldots\amp\vvec_n
+	  \end{array}\right]</m>?
+	  </p></li>
+
+	  <li><p> What is the smallest number of vectors such that
+	  <m>\laspan{\vvec_1,\vvec_2,\ldots,\vvec_n} = \real^3</m>?
+	  </p></li>	  
+	</ol></p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> <m>\laspan{\vvec}</m> is the line defined by
+	  <m>\vvec</m>.
+	  </p></li>
+	  
+	  <li><p>
+	    <m>\laspan{\evec_1,\evec_2}</m> is the
+	    <m>xy</m>-plane.
+	  </p></li>
+
+	  <li>
+	    <p>
+	      For the linear system to be consistent, we need
+	      <m>b_3=0</m>, which means that the third coordinate of
+	      the vector <m>\bvec</m> must be 0 for <m>\bvec</m> to be
+	      in <m>\laspan{\evec_1,\evec_2}</m>.  In other words,
+	      <m>\bvec</m> must lie in the <m>xy</m>-plane.
+	    </p>
+	  </li>
+	  
+	  <li><p> We consider the two cases.
+	  <ol marker="1.">
+	    <li><p>
+	      We have the augmented matrix
+	      <me>
+		\left[\begin{array}{rr|r}
+		1 \amp 0 \amp 1 \\
+		1 \amp 2 \amp -2 \\
+		-1 \amp 1 \amp 4
+		\end{array}\right]
+		\sim
+		\left[\begin{array}{rr|r}
+		1 \amp 0 \amp 0 \\
+		0 \amp 1 \amp 0 \\
+		0 \amp 0 \amp 1
+		\end{array}\right]\text{,}
+	      </me>
+	      which shows that the system is inconsistent.  Therefore,
+	      <m>\bvec</m> is not in <m>\laspan{\vvec_1, \vvec_2}</m>.
+	    </p></li>
+	    
+	    <li><p>
+	      We have the augmented matrix
+	      <me>
+		\left[\begin{array}{rr|r}
+		1 \amp 0 \amp -2 \\
+		1 \amp 2 \amp 0 \\
+		-1 \amp 1 \amp 3
+		\end{array}\right]
+		\sim
+		\left[\begin{array}{rr|r}
+		1 \amp 0 \amp -2 \\
+		0 \amp 1 \amp 1 \\
+		0 \amp 0 \amp 0
+		\end{array}\right]\text{,}
+	      </me>
+	      which shows that the system is consistent.  Therefore,
+	      <m>\bvec</m> is in <m>\laspan{\vvec_1, \vvec_2}</m>.
+	    </p></li>
+	    
+	    <li><p> The span is the plane in <m>\real^3</m>
+		defined by <m>\vvec_1</m> and <m>\vvec_2</m>.
+	    </p></li>
+	    
+	  </ol></p></li>
+	  
+	  <li><p>
+	    We have the reduced row echelon form
+	    <me>
+	      \left[\begin{array}{rrr}
+	      1 \amp 0 \amp 1 \\
+	      1 \amp 2 \amp -2 \\
+	      -1 \amp 1 \amp 4
+	      \end{array}\right]
+	      \sim
+	      \left[\begin{array}{rrr}
+	      1 \amp 0 \amp 0 \\
+	      0 \amp 1 \amp 0 \\
+	      0 \amp 0 \amp 1
+	      \end{array}\right]\text{.}
+	    </me>
+	    Since there is a pivot position in every row, this says
+	    that every equation <m>A\xvec=\bvec</m> is consistent.
+	    The <m>\laspan{\vvec_1, \vvec_2, \vvec_3}</m> is therefore
+	    <m>\real^3</m>.
+	  </p></li>
+	  
+	  <li><p>
+	    There must be a pivot position in every row.
+	  </p></li>
+	  
+	  <li><p>
+	    If a set of vectors spans <m>\real^3</m>, its
+	    corresponding matrix must have a pivot position in every
+	    row. Because there can be at most one pivot position in a
+	    column, there must be at least three columns.  
+	    Therefore, the smallest number of vectors that span
+	    <m>\real^3</m> is three.
+	  </p></li>
+	</ol></p>
+      </solution>
+      
+    </activity>
+    
+    <p>
+      The types of sets that appear as the span of a set of
+      vectors in <m>\real^3</m> are relatively simple.
+      <ul>
+	<li>
+	  <p> First, with a single nonzero vector, all linear
+	  combinations are simply scalar multiples of that vector so
+	  that the span of this vector is a line,
+	  as shown in <xref ref="fig-span-line"/>.
+	  </p>
+
+	  <figure xml:id="fig-span-line">
+	    <caption>
+	      The span of a single nonzero vector is a line.
+	    </caption>
+	    <sidebyside width="50%">
+	      <image source="images/3d-line" />
+	    </sidebyside>
+	  </figure>
+	  <p>
+	  Notice that the matrix formed by this vector has one
+	  pivot position.  For example, 
+	  <me>
+	    \threevec{-2}{3}{1} \sim \threevec{1}{0}{0}
+	    </me>.
+	</p> </li>
+
+	<li> <p> The span of two vectors in <m>\real^3</m> that do not
+	lie on the same line will be a plane, as seen in <xref
+	ref="fig-span-plane"/>.
+	</p>
+
+	<figure xml:id="fig-span-plane">
+	  <caption>
+	    The span of these two vectors in <m>\real^3</m> is a plane.
+	  </caption>
+	  <sidebyside width="50%">
+	    <image source="images/3d-plane-nonstd" />
+	  </sidebyside>
+	</figure>
+	<p>
+	  For example, the vectors 
+	  <me>
+	    \vvec_1=\threevec{-2}{3}{1},~~~
+	    \vvec_2=\threevec{1}{-1}{3}
+	  </me>
+	  lead to the matrix
+	  <me>
+	    \left[\begin{array}{rr}
+	    -2 \amp 1 \\
+	    3 \amp -1 \\
+	    1 \amp 3 \\
+	    \end{array}\right]
+	    \sim
+	    \left[\begin{array}{rr}
+	    1 \amp 0 \\
+	    0 \amp 1 \\
+	    0 \amp 0 \\
+	    \end{array}\right]
+	  </me>
+	  with two pivot positions.
+	</p></li>
+
+	<li> <p>
+	  Finally, a set of three vectors, such as
+	  <me>
+	    \vvec_1=\threevec12{-1},~~~
+	    \vvec_2=\threevec201,~~~
+	    \vvec_3=\threevec{-2}20
+	  </me>
+	  may form a matrix having three pivot positions
+	  <me>
+	    \left[\begin{array}{rrr}
+	    \vvec_1 \amp \vvec_2 \amp \vvec_3
+	    \end{array}\right]
+	    = \left[\begin{array}{rrr}
+	    1 \amp 2 \amp -2 \\
+	    2 \amp 0 \amp 2 \\
+	    -1 \amp 1 \amp 0 \\
+	    \end{array}\right]
+	    \sim
+	    \left[\begin{array}{rrr}
+	    1 \amp 0 \amp 0 \\
+	    0 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 1 \\
+	    \end{array}\right],
+	  </me>
+	  one in every row.  When this happens, no matter how we
+	  augment this matrix, it is impossible to obtain a pivot
+	  position in the rightmost column:
+	  <me>
+	    \left[\begin{array}{rrr|r}
+	    1 \amp 2 \amp -2 \amp *\\
+	    2 \amp 0 \amp 2 \amp * \\
+	    -1 \amp 1 \amp 0 \amp * \\
+	    \end{array}\right]
+	    \sim
+	    \left[\begin{array}{rrr|r}
+	    1 \amp 0 \amp 0 \amp *\\
+	    0 \amp 1 \amp 0 \amp * \\
+	    0 \amp 0 \amp 1 \amp * \\
+	    \end{array}\right].
+	  </me>
+	  Therefore, any linear system
+	  <m>\begin{bmatrix}\vvec_1\amp\vvec_2\amp\vvec_3\end{bmatrix}
+	  ~\xvec = \bvec</m> is consistent,
+	  which tells us that
+	  <m>\laspan{\vvec_1,\vvec_2,\vvec_3} = \real^3</m>.
+	</p></li>
+      </ul>
+    </p>
+
+    <p> To summarize, we looked at the pivot positions in a matrix
+    whose columns are the three-dimensional vectors
+    <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m>.  We found that with
+    <ul>
+      <li> <p> one pivot position, the span was a line. </p> </li>
+      <li> <p> two pivot positions, the span was a plane. </p></li>
+      <li> <p> three pivot positions, the span was
+      <m>\real^3</m>. </p></li> 
+    </ul>
+    Though we will return to these ideas later, for now take note of
+    the fact that the span of a set of vectors in <m>\real^3</m> is a
+    relatively simple, familiar geometric object.
+    </p>
+
+    <p>
+      The reasoning we led us to conclude that the span of a set of
+      vectors is <m>\real^3</m> when the associated matrix has a pivot
+      position 
+      in every row applies more generally.
+    </p>
+
+    <proposition xml:id="prop-pivot-row">
+      <statement>
+	<p> Suppose we have vectors
+	<m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> in <m>\real^m</m>.
+	Then <m>\laspan{\vvec_1,\vvec_2,\ldots,\vvec_n}=\real^m</m>
+	if and only if the matrix
+	<m>\left[\begin{array}{rrrr}
+	\vvec_1\amp\vvec_2\amp\cdots\amp\vvec_n
+	\end{array}\right]
+	</m> has a pivot position in every row.
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      This tells us something important about the number of vectors
+      needed to span <m>\real^m</m>.  Suppose we have <m>n</m> vectors
+      <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> that span
+      <m>\real^m</m>.  The proposition tells us that the matrix
+      <m> A = \left[\begin{array}{rrrr}
+      \vvec_1\amp\vvec_2\amp\ldots\amp\vvec_n
+      \end{array}\right]
+      </m> has a pivot position in every row, such as in this
+      reduced row echelon matrix.
+      <me>
+	\left[\begin{array}{rrrrrr}
+	1 \amp 0 \amp * \amp 0 \amp * \amp 0 \\
+	0 \amp 1 \amp * \amp 0 \amp * \amp 0 \\
+	0 \amp 0 \amp 0 \amp 1 \amp * \amp 0 \\
+	0 \amp 0 \amp 0 \amp 0 \amp 0 \amp 1 \\
+	\end{array}\right].
+      </me>
+      Since a matrix can have at most one pivot position in a
+      column, there must be at least as many columns as there are
+      rows, which implies that <m>n\geq m</m>.  
+      For instance, if we have a set of vectors that span
+      <m>\real^{632}</m>, there must be at least 632 vectors in the
+      set.
+    </p>
+
+    <proposition xml:id="prop-span-bound">
+      <statement>
+	<p> A set of vectors whose span is <m>\real^m</m> contains 
+	at least <m>m</m> vectors.</p>
+      </statement>
+    </proposition>
+
+    <p>
+      We have thought about a linear
+      combination of a set of vectors
+      <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> as the result of walking
+      a certain distance in the direction of <m>\vvec_1</m>,
+      followed by walking a certain distance in the direction of
+      <m>\vvec_2</m>, and so on.  If
+      <m>\laspan{\vvec_1,\vvec_2,\ldots,\vvec_n} = \real^m</m>, this
+      means that we can walk to every point in <m>\real^m</m> using the
+      directions <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m>.  Intuitively,
+      this proposition is telling us that we need at least <m>m</m>
+      directions to have the flexibility needed to reach every point in
+      <m>\real^m</m>. 
+    </p>
+
+    <assemblage>
+      <title> Terminology </title>
+      <p>
+	Because span is a concept that is connected to a set of
+	vectors, we say, <q>The span of the set of vectors <m>\vvec_1,
+	\vvec_2, \ldots, \vvec_n</m> is ....</q> While it may be
+	tempting to say, <q>The span of the matrix <m>A</m> is
+	...,</q> we should instead say <q> The span of the columns of
+	the matrix <m>A</m> is ....</q>
+      </p>
+    </assemblage>
+    
+  </subsection>
+
+  <subsection>
+    <title>
+      Summary
+    </title>
+
+    <p> We defined the span of a set of vectors and developed some
+    intuition for this concept through a series of examples.
+
+    <ul>
+      <li> <p> The span of a set of vectors
+      <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is the set of linear
+      combinations of the vectors.  We denote the span by
+      <m>\laspan{\vvec_1,\vvec_2,\ldots,\vvec_n}</m>.
+      </p></li>
+
+      <li> <p> A vector <m>\bvec</m> is in
+      <m>\laspan{\vvec_1,\vvec_2,\ldots,\vvec_n}</m> if an only if the
+      linear system
+      <me>
+	\left[\begin{array}{rrrr}
+	\vvec_1\amp\vvec_2\amp\ldots\vvec_n
+	\end{array}\right]
+	~\xvec = \bvec
+      </me>
+      is consistent. </p></li>
+
+      <li> <p> If the <m>m\times n</m> matrix
+      <me>
+	\left[\begin{array}{rrrr}
+	\vvec_1\amp\vvec_2\amp\ldots\vvec_n
+	\end{array}\right]
+      </me>
+      has a pivot position in every row, then the span of these vectors is
+      <m>\real^m</m>;  that is,
+      <m>\laspan{\vvec_1,\vvec_2,\ldots,\vvec_n} =
+      \real^m</m>. </p></li>
+
+      <li><p> Any set of vectors that spans <m>\real^m</m> must have
+      at least <m>m</m> vectors. </p></li>
+
+    </ul></p>
+      
+  </subsection>
+
+  <xi:include href="exercises/exercises2-3.ptx" />
+  
+</section>
+

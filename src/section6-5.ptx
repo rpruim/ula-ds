@@ -1,0 +1,1823 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-least-squares"
+	 xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title> Orthogonal least squares </title>
+
+  <introduction>
+    <p>
+      Suppose we collect some data when performing an experiment and
+      plot it as shown on the left of <xref ref="lst-squares-intro"
+      />.  Notice that there is no line on which all the points lie;
+      in fact, it would be surprising if there were since we can
+      expect some uncertainty in the measurements recorded.  There
+      does, however, appear to be a line, as shown on the right, on which
+      the points <em> almost</em> lie.
+    </p>
+    
+    <figure xml:id="lst-squares-intro">
+      <sidebyside widths="45% 45%">
+	<image source="images/lst-squares-1" />
+	<image source="images/lst-squares-2" />
+      </sidebyside>
+      <caption>
+	A collection of points and a line approximating the
+	linear relationship implied by them.
+      </caption>
+    </figure>
+
+    <p>
+      In this section, we'll explore how the techniques developed in
+      this chapter enable us to find the line that best approximates
+      the data.  More specifically, we'll see how the search for a
+      line passing through the data points leads to an inconsistent
+      system <m>A\xvec=\bvec</m>.  Since we are unable to find a
+      solution, we instead seek the vector <m>\xvec</m>
+      where <m>A\xvec</m> is as close as possible to <m>\bvec</m>.
+      Orthogonal projection gives us just the right tool for doing
+      this.
+    </p>
+    
+    <exploration>
+      <statement>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p> Is there a solution to the equation
+	    <m>A\xvec=\bvec</m> where <m>A</m> and <m>\bvec</m> are such
+	    that 
+	    <me>
+	      \begin{bmatrix}
+	      1 \amp 2 \\
+	      2 \amp 5 \\
+	      -1 \amp 0 \\
+	      \end{bmatrix}
+	      \xvec = \threevec5{-3}{-1}\text{.}
+	    </me>
+	    <sage>
+	      <input>
+	      </input>
+	    </sage>
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      We know that <m>\threevec12{-1}</m> and
+	      <m>\threevec250</m> form a basis for <m>\col(A)</m>.  Find
+	      an orthogonal basis for <m>\col(A)</m>. 
+	    </p>
+	  </li>
+	  
+	  <li>
+	    <p>
+	      Find the orthogonal projection <m>\widehat\bvec</m>
+	      of <m>\bvec</m> onto <m>\col(A)</m>.
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      Explain why the equation <m>A\xvec=\widehat\bvec</m>
+	      must be consistent and then find its solution.
+	    </p>
+	  </li>
+	  
+	</ol>
+      </p>
+      </statement>
+      <solution>
+	<p>
+	  <ol marker="a">
+	    <li>
+	      <p>
+		The reduced row echelon form
+		<me>
+		  \left[
+		  \begin{array}{cc|c}
+		  1 \amp 2 \amp 5 \\
+		  2 \amp 5 \amp -3 \\
+		  -1 \amp 0 \amp -1\\
+		  \end{array}
+		  \right]
+		  \sim
+		  \left[
+		  \begin{array}{cc|c}
+		  1 \amp 0 \amp 0 \\
+		  0 \amp 1 \amp 0 \\
+		  0 \amp 0 \amp 1 \\
+		  \end{array}
+		  \right]
+		</me>
+		shows that there is no solution.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Applying Gram-Schmidt, we find an orthogonal basis
+		consisting of <m>\wvec_1=\cthreevec12{-1}</m> and
+		<m>\wvec_2=\threevec012</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The projection formula gives <m>\bhat =
+		\cthreevec0{-1}{-2}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The equation is consistent because <m>\bhat</m> is in
+		<m>\col(A)</m>.  We find the solution
+		<m>\xvec=\twovec2{-1}</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+    </exploration>
+
+  </introduction>
+
+  <subsection>
+    <title> A first example </title>
+
+    <p>
+      When we've encountered inconsistent systems in the past, we've
+      simply said there is no solution and moved on.  The preview
+      activity, however, shows how we can find approximate solutions
+      to an inconsistent system: if there are no solutions to
+      <m>A\xvec = \bvec</m>, we instead solve the consistent system
+      <m>A\xvec = \bhat</m>, the orthogonal projection of <m>\bvec</m>
+      onto <m>\col(A)</m>.  As we'll see, this solution is, in a
+      specific sense, the best possible.
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Suppose we have three data points <m>(1,1)</m>,
+	  <m>(2,1)</m>, and <m>(3,3)</m> and that we would like to find a
+	  line passing through them.
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Plot these three points in <xref ref="fig-ls-empty"
+		/>.  Are you able to draw a line that passes through
+		all three points? 
+		<figure xml:id="fig-ls-empty">
+		  <sidebyside width="50%">
+		    <image source = "images/empty-ls" />
+		  </sidebyside>
+		  <caption> Plot the three data points here. </caption>
+		</figure>
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		Remember that the equation of a line can be written
+		as <m>b + mx=y</m> where <m>m</m> is the slope and <m>b</m> is
+		the <m>y</m>-intercept.  We will try to find <m>b</m> and
+		<m>m</m> so that the three points lie on the line.
+	      </p>
+	      
+	      <p>
+		The first data point <m>(1,1)</m> gives an equation
+		for <m>b</m> and <m>m</m>.  In particular, we know that when
+		<m>x=1</m>, then <m>y=1</m> so we have
+		<m>b + m(1) = 1</m> or <m>b + m = 1</m>.  Use the other two
+		data points to create a linear system describing <m>m</m> and
+		<m>b</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		We have obtained a linear system having three equations,
+		one from each data 
+		point, for the two unknowns <m>b</m> and <m>m</m>.
+		Identify a matrix <m>A</m> and vector <m>\bvec</m> so
+		that the system has the form <m>A\xvec=\bvec</m>, where
+		<m>\xvec=\ctwovec bm</m>.  
+	      </p>
+
+	      <p>
+		Notice that the unknown vector <m>\xvec=\ctwovec bm</m>
+		describes the line that we seek.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Is there a solution to this linear system?  How does
+		this question relate to your attempt to draw a line
+		through the three points above?
+		<sage>
+		  <input>
+
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Since this system is inconsistent, we know that
+		<m>\bvec</m> is not in the column space <m>\col(A)</m>.
+		Find an orthogonal basis for <m>\col(A)</m> and use it
+		to find the orthogonal projection <m>\widehat\bvec</m>
+		of <m>\bvec</m> onto <m>\col(A)</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Since <m>\widehat\bvec</m> is in <m>\col(A)</m>, the
+		equation <m>A\xvec = \widehat\bvec</m> is consistent.  Find its
+		solution <m>\xvec = \ctwovec{b}{m}</m> and sketch the line
+		<m>y=b + mx</m> in <xref ref="fig-ls-empty" />.  We say that
+		this is the line of best fit.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		After plotting the points, we see that it's not
+		possible to draw a line through all three points.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have the equations
+		<md>
+		  <mrow>
+		    b + m \amp {}={} 1
+		  </mrow>
+		  <mrow>
+		    b + 2m \amp {}={} 1
+		  </mrow>
+		  <mrow>
+		    b + 3m \amp {}={} 3
+		  </mrow>
+		</md>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have <m>A = \begin{bmatrix}
+		1 \amp 1 \\
+		1 \amp 2 \\
+		1 \amp 3 \\
+		\end{bmatrix}</m> and <m>\bvec=\threevec113</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Finding the reduced row echelon form of the associated
+		augmented matrix tells us this is an inconsistent
+		system.  Since a solution would describe a line
+		passing through the three points, we should expect
+		this.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Applying Gram-Schmidt gives us the orthogonal basis
+		<m>\wvec_1=\threevec111</m> and <m>\wvec_2 =
+		\threevec{-1}01</m>.  Projecting <m>\bvec</m> onto
+		<m>\col(A)</m> gives
+		<m>\bhat=\threevec{2/3}{5/3}{8/3}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Solving the equation <m>A\xvec = \bhat</m> gives
+		<m>\xvec=\ctwovec{-1/3}1</m>, which describes a line
+		having vertical intercept <m>b=-1/3</m> and the slope
+		<m>=1</m>.  This line is shown in <xref
+		ref="fig-best-fit-line" />.
+	      </p>
+	      <figure xml:id="fig-best-fit-line">
+		<sidebyside width="50%">
+		  <image source="images/line-regress-2" />
+		</sidebyside>
+		<caption>
+		  The line that best approximates the three data
+		  points.
+		</caption>
+	      </figure>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		It's not
+		possible to draw a line through all three points.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have the equations
+		<md>
+		  <mrow>
+		    b + m \amp {}={} 1
+		  </mrow>
+		  <mrow>
+		    b + 2m \amp {}={} 1
+		  </mrow>
+		  <mrow>
+		    b + 3m \amp {}={} 3
+		  </mrow>
+		</md>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have <m>A = \begin{bmatrix}
+		1 \amp 1 \\
+		1 \amp 2 \\
+		1 \amp 3 \\
+		\end{bmatrix}</m> and <m>\bvec=\threevec113</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		This linear system is inconsistent.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\bhat=\threevec{2/3}{5/3}{8/3}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\xvec=\twovec{-1/3}1</m>.
+		This line is shown in <xref
+		ref="fig-best-fit-line-ans" />.
+	      </p>
+	      <figure xml:id="fig-best-fit-line-ans">
+		<sidebyside width="50%">
+		  <image source="images/line-regress-2" />
+		</sidebyside>
+		<caption>
+		  The line that best approximates the three data
+		  points.
+		</caption>
+	      </figure>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+
+    </activity>
+
+    <p>
+      This activity illustrates the idea behind a technique known as
+      <em>orthogonal least squares</em>, which we have been working
+      toward throughout this chapter.  If the data points are denoted as
+      <m>(x_i, y_i)</m>, we construct the matrix <m>A</m> and vector
+      <m>\bvec</m> as
+      <me>
+	A =
+	\begin{bmatrix}
+	1 \amp x_1 \\
+	1 \amp x_2 \\
+	1 \amp x_3 \\
+	\end{bmatrix},\hspace{24pt}
+	\bvec = \threevec{y_1}{y_2}{y_3}\text{.}
+      </me>
+      With the vector <m>\xvec=\ctwovec bm</m> representing the line
+      <m>b+mx = y</m>, we see that
+      the equation <m>A\xvec=\bvec</m> describes a line passing
+      through all the data points.  In our activity, it is visually
+      apparent that there is no such line, which agrees with
+      the fact that the equation <m>A\xvec=\bvec</m> is inconsistent.
+    </p>
+
+    <p>
+      Remember that <m>\bhat</m>, the orthogonal projection of
+      <m>\bvec</m> onto <m>\col(A)</m>, is the closest vector in
+      <m>\col(A)</m> to <m>\bvec</m>.  Therefore, when we solve the
+      equation <m>A\xvec=\bhat</m>, we are finding the vector
+      <m>\xvec</m> so that <m>A\xvec = 
+      \threevec{b+mx_1}{b+mx_2}{b+mx_3}</m> is as close to
+      <m>\bvec=\threevec{y_1}{y_2}{y_3}</m>
+      as possible.  Let's think about what this means within the
+      context of this problem.
+    </p>
+
+    <p>
+      The difference <m>\bvec-A\xvec =
+      \threevec{y_1-(b+mx_1)}{y_2-(b+mx_2)}{y_3-(b+mx_3)}</m> so that
+      the square of the distance between <m> A\xvec</m> and
+      <m>\bvec</m> is
+      <md>
+	<mrow>
+	  \len{\bvec - A\xvec}^2 \amp =
+	</mrow>
+	<mrow>
+	  \amp \left(y_1-(b+mx_1)\right)^2 + 
+	  \left(y_2-(b+mx_2)\right)^2 +
+	  \left(y_3-(b+mx_3)\right)^2\text{.}
+	</mrow>
+      </md>
+      Our approach finds the values for <m>b</m> and <m>m</m> that
+      make this sum of squares as small as possible, which is
+      why we call this a <em>least squares</em> problem.
+    </p>
+
+    <p>
+      Drawing the line defined by the vector <m>\xvec=\ctwovec bm</m>,
+      the quantity <m>y_i - (b + mx_i)</m> reflects the vertical
+      distance between the line and the data point <m>(x_i, y_i)</m>,
+      as shown in <xref ref="fig-least-squares-def" />.  Seen in this
+      way, the square of the distance <m>\len{\bvec-A\xvec}^2</m> is a
+      measure of how much the line defined by the vector <m>\xvec</m>
+      misses the data points.  The solution to the least squares
+      problem is the line that misses the data points by the smallest
+      amount possible.
+    </p>
+
+    <figure xml:id="fig-least-squares-def">
+      <sidebyside width="50%">
+	<image source = "images/line-regress-1" />
+      </sidebyside>
+      <caption>
+	The solution of the least squares problem and the vertical
+	distances between the line and the data points.
+      </caption>
+    </figure>
+  </subsection>
+
+  <subsection>
+    <title> Solving least squares problems </title>
+    
+    <p> Now that we've seen an example of what we're trying to
+    accomplish, let's put this technique into a more general
+    framework.
+    </p>
+
+    <p> Given an inconsistent system <m>A\xvec = \bvec</m>, we seek
+    the vector <m>\xvec</m> that minimizes the distance from
+    <m>A\xvec</m> to <m>\bvec</m>.  In other words, <m>\xvec</m>
+    satisfies <m>A\xvec = \widehat\bvec</m>, where <m>\bhat</m> is the
+    orthogonal projection of <m>\bvec</m> onto the column space
+    <m>\col(A)</m>.  We know the equation <m>A\xvec=\bhat</m> is
+    consistent since <m>\bhat</m> is in <m>\col(A)</m>, and we know
+    there is only one solution if we assume that the columns of
+    <m>A</m> are linearly independent.
+    </p>
+
+    <p>
+    We will usually denote the solution of
+    <m>A\xvec = \bhat</m> by <m>\xhat</m> and call this vector the
+    <em>least squares approximate solution</em> of <m>A\xvec=\bvec</m>
+    to distinguish it from a (possibly non-existent) solution of
+    <m>A\xvec=\bvec</m>.
+    </p>
+
+    <p>
+      There is an alternative method for finding <m>\xhat</m> that does
+      not involve first finding the orthogonal projection <m>\bhat</m>.
+      Remember that <m>\bhat</m> 
+      is defined by
+      the fact that <m>\widehat\bvec - \bvec</m> is orthogonal to
+      <m>\col(A)</m>.  In other words, <m>\bhat-\bvec</m> is in the
+      orthogonal complement <m>\col(A)^\perp</m>, which <xref
+      ref="prop-col-orthog" /> tells us is the same as
+      <m>\nul(A^T)</m>.  Since <m>\bhat-\bvec</m> is in
+      <m>\nul(A^T)</m>, it follows that
+      <me>
+	A^T(\widehat\bvec-\bvec) = \zerovec\text{.}
+      </me>
+      Because the least squares approximate
+      solution is the vector <m>\xhat</m> such that <m>A\xhat =
+      \bhat</m>, we can rearrange this equation to see that
+      <md>
+	<mrow>
+	  A^T(A\xhat - \bvec) \amp = \zerovec
+	</mrow>
+	<mrow>
+	  A^TA\xhat - A^T\bvec \amp = \zerovec
+	</mrow>
+	<mrow>
+	  A^TA\xhat \amp = A^T\bvec\text{.}
+	</mrow>
+      </md>
+      <idx> normal equation </idx>
+      This equation is called the <em>normal equation</em>, and we
+      have the following proposition.
+    </p>
+
+    <proposition>
+      <statement>
+	<p> If the columns of <m>A</m> are linearly independent, then
+	there is a unique least squares approximate solution
+	<m>\xhat</m> to the equation <m>A\xvec=\bvec</m> given by the
+	normal equation
+	<me>
+	  A^TA\xhat = A^T\bvec\text{.}
+	</me>
+	</p>
+      </statement>
+    </proposition>
+
+    <example>
+      <p>
+	Consider the equation
+	<me>
+	  \begin{bmatrix}
+	  2 \amp 1 \\
+	  2 \amp 0 \\
+	  -1 \amp 3 \\
+	  \end{bmatrix}
+	  \xvec
+	  = \threevec{16}{-1}7
+	</me>
+	with matrix <m>A</m> and vector <m>\bvec</m>.  
+	Since this equation is inconsistent, we will find the least squares
+	approximate solution <m>\xhat</m> by solving the normal
+	equation <m>A^TA\xhat = A^T\bvec</m>, which has the form
+	<me>
+	  A^TA\xhat = \begin{bmatrix} 9 \amp -1 \\ -1 \amp 10 \\
+	  \end{bmatrix} = \twovec{23}{37} = A^T\bvec 
+	</me>
+	and the solution <m>\xhat=\twovec34</m>.
+      </p>
+    </example>
+
+    <activity>
+      <statement>
+	<p>
+	  The rate at which a cricket chirps is related to the outdoor
+	  temperature, as reflected in some experimental data that we'll
+	  study in this activity.  The
+	  chirp rate <m>C</m> is expressed in chirps per second while the
+	  temperature <m>T</m> is in degrees Fahrenheit.  Evaluate the
+	  following cell to load the data:
+	  <sage>
+	    <input>
+sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/crickets.csv')
+data = [vector(row) for row in df.values]
+chirps = vector(df['Chirps'])
+temps = vector(df['Temperature'])
+print(df)
+list_plot(data, color='blue', size=40, xmin=12, xmax=22, ymin=60, ymax=100)
+	    </input>
+	  </sage>
+	  Evaluating this cell also provides:
+	  <ul>
+	    <li>
+	      <p> the vectors <c>chirps</c> and <c>temps</c> formed from
+	      the columns of the dataset.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		the command <c>onesvec(n)</c>, which creates an
+		<m>n</m>-dimensional vector whose entries are all one.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Remember that you can form a matrix whose columns are
+		the vectors <c>v1</c> and <c>v2</c> with
+		<c>matrix([v1, v2]).T</c>.
+	      </p>
+	    </li>
+	  </ul>
+	</p>
+
+	<p>
+	  We would like to represent this relationship by a linear
+	  function
+	  <me>
+	    \beta_0 + \beta_1 C = T\text{.}
+	  </me>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Use the first data point <m>(C_1,T_1)=(20.0,88.6)</m>
+		to write an equation involving <m>\beta_0</m> and
+		<m>\beta_1</m>.
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		Suppose that we represent the unknowns using a vector
+		<m>\xvec = \twovec{\beta_0}{\beta_1}</m>.  Use the 15
+		data points to
+		create the matrix
+		<m>A</m> and vector <m>\bvec</m> 
+		so that the linear system
+		<m>A\xvec= \bvec</m> describes the unknown vector
+		<m>\xvec</m>.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Write the normal equations <m>A^TA\xhat =
+		A^T\bvec</m>; that is, find the matrix <m>A^TA</m> and the
+		vector <m>A^T\bvec</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p> Solve the normal equations to find <m>\xhat</m>, the
+	      least squares approximate solution to the equation
+	      <m>A\xvec=\bvec</m>.  Call your solution <c>xhat</c>
+	      since <c>x</c>
+	      has another meaning in Sage.
+	      <sage>
+		<input>
+		</input>
+	      </sage>
+	      </p>
+
+	      <p>
+		What are the values of <m>\beta_0</m> and <m>\beta_1</m>
+		that you found?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		If the chirp rate is 22 chirps per second, what is
+		your prediction for the temperature?
+	      </p>
+
+	      <p>
+		You can plot the data and your line, assuming you called
+		the solution <c>xhat</c>, using the cell
+		below.
+		<sage>
+		  <input>
+plot_model(xhat, data, domain=(12, 22))
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	    
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		We have the equation <m>\beta_0 + 20.0\beta_1 =
+		88.6</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A</m> is the <m>15\times2</m> matrix whose first
+		column consists only of 1's and whose second column is
+		the vector of chirp rates.  The vector <m>\bvec</m> is
+		the vector of temperatures.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A^TA=\begin{bmatrix}
+		15.0 \amp 248.5 \\
+		248.5 \amp 4157.9 \\
+		\end{bmatrix}</m> and <m>A^T\bvec =
+		\twovec{1190.2}{19857.7}</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\xhat = \twovec{\beta_0}{\beta_1} =
+		\twovec{22.8}{3.4}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The predicted temperature is <m>\beta_0 + 22\beta_1 =
+		97.9</m> degrees.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>\beta_0 + 20.0\beta_1 =
+		88.6</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A</m> is the <m>15\times2</m> matrix whose first
+		column consists only of 1's and whose second column is
+		the vector of chirp rates.  The vector <m>\bvec</m> is
+		the vector of temperatures.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A^TA=\begin{bmatrix}
+		15.0 \amp 248.5 \\
+		248.5 \amp 4157.9 \\
+		\end{bmatrix}</m> and <m>A^T\bvec =
+		\twovec{1190.2}{19857.7}</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\xhat = \twovec{\beta_0}{\beta_1} =
+		\twovec{22.8}{3.4}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>97.9</m> degrees.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+    </activity>
+
+    <p>
+      This example demonstrates an approach, called <em>linear
+      regression</em>, in which a collection of data is modeled using
+      a linear function found by solving a least squares problem.
+      Once we have the linear function that best fits the data,
+      we can make predictions about situations that we haven't
+      encountered in the data.  
+    </p>
+
+    <p>
+      If we're going to use our function to make predictions, it's
+      natural to ask how much confidence we have in these
+      predictions.  This is a statistical question that leads to a
+      rich and well-developed theory, which we won't explore in much
+      detail here.  However, there is one simple measure of how well our
+      linear function fits the data that is known as the coefficient
+      of determination and denoted by <m>R^2</m>.
+    </p>
+
+    <p>
+      We have seen that the square of the distance
+      <m>\len{\bvec-A\xvec}^2</m> measures the amount by which the
+      line 
+      fails to pass through the data points.  When the line is close
+      to the data points, we expect this number to be small.  However,
+      the size of this measure depends on the scale of the data.  For
+      instance, the two lines shown in <xref
+      ref="fig-regression-scale" /> seem to fit the data equally well,
+      but <m>|\bvec-A\xhat|^2</m> is 100 times larger on
+      the right.
+    </p>
+
+    <figure xml:id="fig-regression-scale">
+      <sidebyside widths="45% 45%">
+	<image source="images/line-regress-1" />
+	<image source="images/line-regress-10" />
+      </sidebyside>
+      <caption>
+	The lines appear to fit equally well in spite of the fact that
+	<m>\len{\bvec-A\xhat}^2</m> differs by a factor of 100.
+      </caption>
+    </figure>
+
+    <p>
+      The coefficient of determination <m>R^2</m> is defined by
+      normalizing <m>|\bvec-A\xhat|^2</m> so that it is
+      independent of the scale.  Recall that we described how to
+      demean a vector in
+      <xref ref="sec-dot-product" />:  given a vector <m>\vvec</m>, we
+      obtain <m>\widetilde{\vvec}</m> by subtracting the average of the
+      components from each component.  
+    </p>
+
+    <definition>
+      <title> Coefficient of determination </title>
+      <idx> coefficient of determination </idx>
+      <idx> R squared </idx>
+      <statement>
+	<p>
+	  The coefficient of determination is
+	  <me>
+	    R^2 = 1 - \frac{|\bvec - A\xhat|^2}
+	    {|\widetilde{\bvec}|^2},
+	  </me>
+	  where <m>\widetilde{\bvec}</m> is the vector obtained by
+	  demeaning 
+	  <m>\bvec</m>.
+	</p>
+      </statement>
+    </definition>
+
+    <p>
+      A more complete explanation of this definition relies on the
+      concept of variance, which we explore in <xref
+      ref="ex-r2-meaning"/> and the next chapter.  For the time being,
+      it's enough to know that <m>0\leq R^2 \leq 1</m> and that the
+      closer <m>R^2</m> is to 1, the better the line fits the data.
+      In our original example, illustrated in <xref
+      ref="fig-regression-scale" />, we find that <m>R^2 = 0.75</m>,
+      and in our study of cricket chirp rates, we have
+      <m>R^2=0.69</m>.  However, assessing the confidence we have in
+      predictions made by solving a least squares problem can require
+      considerable thought, and it would be naive to rely only on the
+      value of <m>R^2</m>.
+    </p>
+	
+  </subsection>
+
+  <subsection>
+    <title> Using <m>QR</m> factorizations </title>
+
+    <p>
+      As we've seen, the least squares approximate solution
+      <m>\xhat</m> to <m>A\xvec=\bvec</m> may be found by solving the
+      normal equation <m>A^TA\xhat = A^T\bvec</m>, and this can be a
+      practical strategy for some problems.  However, this approach
+      can be problematic as small rounding errors can accumulate and
+      lead to inaccurate final results.
+    </p>
+
+    <p>
+      As the next activity demonstrates, there is an alternate method
+      for finding the least squares approximate solution <m>\xhat</m>
+      using a <m>QR</m> factorization of the matrix <m>A</m>, and this
+      method is preferable as it is numerically more reliable.
+    </p>
+
+    <activity xml:id="activity-BFI">
+      <statement>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Suppose we are interested in finding the least squares
+		approximate solution to the equation <m>A\xvec =
+		\bvec</m> and that we have the <m>QR</m> factorization
+		<m>A=QR</m>.  Explain why the least
+		squares approximation solution is given by solving
+		<md>
+		  <mrow>
+		    A\xhat \amp = QQ^T\bvec \\
+		  </mrow>
+		  <mrow>
+		    QR\xhat \amp = QQ^T\bvec \\
+		  </mrow>
+		</md>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Multiply both sides of the second expression by
+		<m>Q^T</m> and explain why
+		<me>
+		  R\xhat = Q^T\bvec.
+		</me>
+	      </p>
+
+	      <p>
+		Since <m>R</m> is upper triangular, this is a relatively
+		simple equation to solve using back substitution, as we
+		saw in <xref ref="sec-gaussian-revisited" />.  We will
+		therefore write the least squares approximate solution as
+		<me>
+		  \xhat = R^{-1}Q^T\bvec,
+		</me>
+		and put this to use in the following context.
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		Brozak’s formula, which is used to calculate a person's body fat
+		index <m>BFI</m>, is
+		<me>BFI = 100 \left(\frac{4.57}{\rho} - 4.142\right)
+		</me>
+		where <m>\rho</m> denotes a person's body density in
+		grams per cubic centimeter.  Obtaining an accurate
+		measure of <m>\rho</m> is difficult, however, because it
+		requires submerging the person in water and measuring
+		the volume of water displaced.  Instead, we will gather
+		several other body measurements, which are more easily
+		obtained, and use it to predict <m>BFI</m>.
+	      </p>
+
+	      <p>
+		For
+		instance, suppose we take 10 patients and measure their
+		weight <m>w</m> in pounds, height <m>h</m> in inches,
+		abdomen <m>a</m> in centimeters, wrist circumference
+		<m>r</m> in centimeters, neck circumference <m>n</m> in
+		centimeters, and <m>BFI</m>.  Evaluating the following
+		cell loads and displays the data.
+		<sage>
+		  <input>
+sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/bfi.csv')
+weight = vector(df['Weight'])
+height = vector(df['Height'])
+abdomen = vector(df['Abdomen'])
+wrist = vector(df['Wrist'])
+neck = vector(df['Neck'])
+BFI = vector(df['BFI'])
+print(df)
+		  </input>
+		</sage>
+
+		In addition, that cell provides:
+		<ol>
+		  <li>
+		    <p>
+		      vectors <c>weight</c>, <c>height</c>,
+		      <c>abdomen</c>, <c>wrist</c>, <c>neck</c>, and
+		      <c>BFI</c> 
+		      formed from the columns of the dataset.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      the command <c>onesvec(n)</c>, which returns an
+		      <m>n</m>-dimensional vector whose entries are all
+		      one.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      the command <c>QR(A)</c> that returns the
+		      <m>QR</m> factorization of <m>A</m> as
+		      <c>Q, R = QR(A)</c>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      the command <c>demean(v)</c>, which returns the
+		      demeaned vector <m>\widetilde{\vvec}</m>.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+
+	      <p>
+		We would like to find the linear function
+		<me>
+		  \beta_0 + \beta_1w + \beta_2h + \beta_3a + \beta_4r +
+		  \beta_5n = BFI
+		</me>
+		that best fits the data.
+	      </p>
+
+	      <p>
+		Use the first data point to write an equation for 
+		the parameters <m>\beta_0,\beta_1,\ldots,\beta_5</m>. 
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Describe the linear system
+		<m>A\xvec = \bvec</m> for 
+		these parameters.  More specifically, describe how 
+		the matrix <m>A</m> and the vector <m>\bvec</m> are
+		formed. 
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Construct the matrix <m>A</m> and find its <m>QR</m>
+		factorization in the cell below.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Find the least squares approximate solution
+		<m>\xhat</m> by solving the equation <m>R\xhat =
+		Q^T\bvec</m>.  You may want to use <c>N(xhat)</c> to
+		display a decimal approximation of the vector.
+		What are the parameters
+		<m>\beta_0,\beta_1,\ldots,\beta_5</m> that best fit the
+		data?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Find the coefficient of determination <m>R^2</m> for
+		your parameters.  What does this imply about the quality
+		of the fit?
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Suppose a person's measurements are: weight 190, height
+		70, abdomen 90, wrist 18, and neck 35.  Estimate this
+		person's
+		<m>BFI</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The columns of <m>Q</m> form an orthonormal basis for
+		<m>\col(A)</m> so that <m>\bhat=QQ^T\bvec</m>.  The
+		equation <m>A\xhat=\bhat</m> then becomes
+		<m>QR\xhat=QQ^T\bvec</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Since <m>Q^TQ=I</m>, we have <m>Q^TQR\xhat =
+		Q^TQQ^T\bvec</m>, which gives <m>R\xhat =
+		Q^T\bvec</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\beta_0 + 154\beta_1 + 68\beta_2 + 85\beta_3 +
+		17\beta_4 + 36\beta_5 = 13</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A</m> is the <m>10\times6</m> matrix whose columns
+		are a vector of all 1's followed by the vectors of
+		weights, heights, abdominal, wrist, and neck
+		measurements.  The vector <m>\bvec</m> is the vector
+		of BFI readings.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>Q</m> is a <m>10\times6</m> matrix and <m>R</m> is
+		a <m>6\times6</m> upper triangular matrix.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We find that
+		<me>
+		  \beta_0 = 54.08, \beta_1 = 0.19, \beta_2 =
+		    -2.62,
+		    \beta_3 = 0.92, \beta_4 = 2.70, \beta_5 =
+		    -0.41
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=0.95</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Evaluating <m>\beta_0 + 190\beta_1 + 70\beta_2 +
+		90\beta_3 + 18\beta_4 + 35\beta_5 = 22.9</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Use the fact that <m>\bhat=QQ^T\bvec</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Use the fact that <m>Q^TQ=I</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\beta_0 + 154\beta_1 + 68\beta_2 + 85\beta_3 +
+		17\beta_4 + 36\beta_5 = 13</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A</m> is the <m>10\times6</m> matrix whose columns
+		are a vector of all 1's followed by the vectors of
+		weights, heights, abdominal, wrist, and neck
+		measurements.  The vector <m>\bvec</m> is the vector
+		of BFI readings.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>Q</m> is a <m>10\times6</m> matrix and <m>R</m> is
+		a <m>6\times6</m> upper triangular matrix.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We find that
+		<me>
+		  \beta_0 = 54.08, \beta_1 = 0.19, \beta_2 =
+		    -2.62,
+		    \beta_3 = 0.92, \beta_4 = 2.70, \beta_5 =
+		    -0.41
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=0.95</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Evaluating <m>\beta_0 + 190\beta_1 + 70\beta_2 +
+		90\beta_3 + 18\beta_4 + 35\beta_5 = 22.9</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+
+    </activity>
+
+    <p>
+      To summarize, we have seen that
+    </p>
+
+    <proposition>
+      <statement>
+	<p>
+	  If the columns of <m>A</m> are linearly independent and we
+	  have the <m>QR</m> factorization <m>A=QR</m>, then the least
+	  squares approximate solution <m>\xhat</m> to the equation
+	  <m>A\xvec=\bvec</m> is given by
+	  <me>
+	    \xhat = R^{-1}Q^T\bvec\text{.}
+	  </me>
+	</p>
+      </statement>
+    </proposition>
+
+  </subsection>
+
+  <subsection>
+    <title> Polynomial Regression </title>
+
+    <p>
+      In the examples we've seen so far, we have fit a linear function
+      to a dataset.  Sometimes, however, a polynomial, such as a
+      quadratic function, may be more appropriate.  It turns out that the
+      techniques we've developed in this section are still useful as
+      the next activity demonstrates.
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Suppose that we have a small dataset containing the
+		points <m>(0,2)</m>, <m>(1,1)</m>, <m>(2,3)</m>, and
+		<m>(3,3)</m>, such as appear when the following cell is
+		evaluated.
+		<sage>
+		  <input>
+sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py',
+globals())
+data = [[0, 2], [1, 1], [2, 3], [3, 3]]
+list_plot(data, color='blue', size=40)		  
+		  </input>
+		</sage>
+		In addition to loading and plotting the data, evaluating
+		that cell provides the following commands:
+		<ul>
+		  <li>
+		    <p>
+		      <c>Q, R = QR(A)</c> returns the <m>QR</m>
+		      factorization of <m>A</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <c>demean(v)</c> returns the demeaned vector
+		      <m>\widetilde{\vvec}</m>.
+		    </p>
+		  </li>
+		</ul>
+	      </p>
+
+	      <p>
+		Let's fit a quadratic function of the form
+		<me>
+		  \beta_0 + \beta_1 x + \beta_2 x^2 = y
+		</me>
+		to this dataset.
+	      </p>
+
+	      <p>
+		Write four equations, one for each data point, that
+		describe the 
+		coefficients <m>\beta_0</m>, <m>\beta_1</m>, and
+		<m>\beta_2</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Express these four equations as a linear system
+		<m>A\xvec = \bvec</m> where <m>\xvec =
+		\threevec{\beta_0}{\beta_1}{\beta_2}</m>.
+	      </p>
+
+	      <p>
+		Find the <m>QR</m> factorization of <m>A</m> and use it
+		to find the least squares approximate solution
+		<m>\xhat</m>.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Use the parameters <m>\beta_0</m>,
+		<m>\beta_1</m>, and <m>\beta_2</m> that you found to
+		write the quadratic function that fits the data.  You
+		can plot this function, along with the data, by entering
+		your function in the place indicated below.
+		<sage>
+		  <input>
+list_plot(data, color='blue', size=40) + plot( **your function here**,
+0, 3, color='red')
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		What is your predicted <m>y</m> value when <m>x=1.5</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Find the coefficient of determination <m>R^2</m> for the
+		quadratic 
+		function?  What does this say about the quality of the
+		fit?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Now fit a cubic polynomial of the form
+		<me>
+		  \beta_0 + \beta_1x + \beta_2 x^2 + \beta_3x^3 = y
+		</me>
+		to this dataset.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Find the coefficient of determination <m>R^2</m> for the
+		cubic function.  What does this say about the quality of
+		the fit?
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		What do you notice when you plot the cubic function
+		along with the data?  How does this reflect the value of
+		<m>R^2</m> that you found?
+		<sage>
+		  <input>
+list_plot(data, color='blue', size=40) + plot( **your function here**,
+0, 3, color='red')
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		We have the equations
+		<md>
+		  <mrow>
+		    \beta_0 + 0\beta_1 + 0^2\beta_2 \amp {}={} 2
+		  </mrow>
+		  <mrow>
+		    \beta_0 + 1\beta_1 + 1^2\beta_2 \amp {}={} 1
+		  </mrow>
+		  <mrow>
+		    \beta_0 + 2\beta_1 + 2^2\beta_2 \amp {}={} 3
+		  </mrow>
+		  <mrow>
+		    \beta_0 + 3\beta_1 + 3^2\beta_2 \amp {}={} 3
+		  </mrow>
+		</md>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		With <m>A=\begin{bmatrix}
+		1 \amp 0 \amp 0 \\
+		1 \amp 1 \amp 1 \\
+		1 \amp 2 \amp 4 \\
+		1 \amp 3 \amp 9 \\
+		\end{bmatrix}
+		</m> and <m>\bvec=\fourvec2133</m>, we find
+		<m>\xhat = \threevec{7/4}{-1/4}{1/4}</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The quadratic function is <m>\frac74 - \frac14 x +
+		\frac14x^2 = y</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The predicted value is <m>y=\frac74 -
+		\frac14(1.5)+\frac14(1.5)^2 = 1.9375</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2 = 0.54</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We find <m>2-\frac{25}{6}x+4x^2-\frac56x^3 = y</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=1</m>, which means that we have a perfect fit.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The graph of the cubic function passes through each
+		data point.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		We have the equations
+		<md>
+		  <mrow>
+		    \beta_0 + 0\beta_1 + 0^2\beta_2 \amp {}={} 2
+		  </mrow>
+		  <mrow>
+		    \beta_0 + 1\beta_1 + 1^2\beta_2 \amp {}={} 1
+		  </mrow>
+		  <mrow>
+		    \beta_0 + 2\beta_1 + 2^2\beta_2 \amp {}={} 3
+		  </mrow>
+		  <mrow>
+		    \beta_0 + 3\beta_1 + 3^2\beta_2 \amp {}={} 3
+		  </mrow>
+		</md>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\xhat = \threevec{7/4}{-1/4}{1/4}</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\frac74 - \frac14 x +
+		\frac14x^2 = y</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>1.9375</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>0.54</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>2-\frac{25}{6}x+4x^2-\frac56x^3 = y</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=1</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The graph of the cubic function passes through each
+		data point.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+    </activity>
+
+    <p>
+      The matrices <m>A</m> that you created in the last activity when
+      fitting a quadratic and cubic function to a dataset have
+      a special form.  In particular, if the data points are labeled
+      <m>(x_i, y_i)</m> and we seek a degree <m>k</m> polynomial, then
+      <me>
+	A =
+	\begin{bmatrix}
+	1 \amp x_1 \amp x_1^2 \amp \ldots \amp x_1^k \\
+	1 \amp x_2 \amp x_2^2 \amp \ldots \amp x_2^k \\
+	\vdots \amp \vdots \amp \vdots \amp \ddots \amp \vdots \\
+	1 \amp x_m \amp x_m^2 \amp \ldots \amp x_m^k \\
+	\end{bmatrix}.
+      </me>
+      This is called a <em>Vandermonde</em> matrix of degree <m>k</m>.   
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  This activity explores a dataset describing 
+	  Arctic sea ice and that comes from
+	  <url href="http://sustainabilitymath.org/"
+	       visual="sustainabilitymath.org">
+	    Sustainability Math.
+	  </url>
+	</p>
+	
+	<p>
+	  Evaluating the cell below will plot the extent of Arctic sea
+	  ice, in millions of square kilometers, during the twelve
+	  months of 2012.
+	  <sage>
+	    <input>
+sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/sea_ice.csv')
+data = [vector([row[0], row[2]]) for row in df.values]
+month = vector(df['Month'])
+ice = vector(df['2012'])
+print(df[['Month', '2012']])
+list_plot(data, color='blue', size=40)
+	    </input>
+	  </sage>
+	  In addition, you have access to a few special variables and
+	  commands: 
+	  <ul>
+	    <li>
+	      <p>
+		<c>month</c> is the vector of month values and
+		<c>ice</c> is the vector of sea ice values from the
+		table above.  
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		<c>vandermonde(x, k)</c> constructs the Vandermonde
+		matrix of degree <m>k</m> using the points in the vector
+		<c>x</c>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		<c>Q, R = QR(A)</c> provides the <m>QR</m> factorization
+		of <m>A</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		<c>demean(v)</c> returns the demeaned vector
+		<m>\widetilde{\vvec}</m>.
+	      </p>
+	    </li>
+	  </ul>
+	</p>
+
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Find the vector <m>\xhat</m>, the least squares
+		approximate solution to the linear system that results
+		from fitting a degree 5 polynomial to the data.
+		<sage>
+		  <input>
+
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		If your result is stored in the variable <c>xhat</c>,
+		you may plot the polynomial and the data together using
+		the following cell.
+		<sage>
+		  <input>
+plot_model(xhat, data)
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Find the coefficient of determination <m>R^2</m> for
+		this polynomial fit.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Repeat these steps to fit a degree 8 polynomial to the
+		data, plot the polynomial with the data, and find
+		<m>R^2</m>.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Repeat one more time by fitting a degree 11 polynomial
+		to the data, creating a plot, and finding <m>R^2</m>.
+		<sage>
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+
+	      <p>
+		It's certainly true that higher degree polynomials fit
+		the data better, as seen by the increasing values of
+		<m>R^2</m>, but that's not always a good thing. For
+		instance, when <m>k=11</m>, you may notice that the
+		graph of the polynomial wiggles a little more than we
+		would expect. In this case, the polynomial is trying too
+		hard to fit the data, which usually contains some
+		uncertainty, especially if it's obtained from
+		measurements.  The error built in to the data is called
+		<em>noise,</em> and its presence means that we shouldn't
+		expect our polynomial to fit the data perfectly.  When
+		we choose a polynomial whose degree is too high, we give
+		the noise too much weight in the model, which leads to
+		some undesirable behavior, like the wiggles in the
+		graph.
+	      </p>
+
+	      <p>
+		Fitting the data with a polynomial whose degree is too
+		high is called <em>overfitting</em>, a phenomenon that
+		can appear in many machine learning applications.
+		Generally speaking, we would like to choose <m>k</m>
+		large enough to capture the essential features of the
+		data but not so large that we overfit and build the
+		noise into the model.  There are ways to determine the
+		optimal value of <m>k</m>, but we won't pursue that
+		here.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Choosing a reasonable value of <m>k</m>, estimate the
+		extent of Arctic sea ice at month 6.5, roughly at the
+		Summer Solstice.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+      
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>\xhat = \begin{bmatrix}
+		17.4\\-7.1\\4.5\\-1.1\\0.1\\-0.003
+		\end{bmatrix}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The fifth degree polynomial fits the data fairly well.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=0.99</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=0.9997</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=1</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>k=5</m> seems like a good choice, and this gives
+		the prediction of <m>8.7</m> million square kilometers
+		of sea ice.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+	    
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>\xhat = \begin{bmatrix}
+		17.4\\-7.1\\4.5\\-1.1\\0.1\\-0.003
+		\end{bmatrix}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The fifth degree polynomial fits the data fairly well.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=0.99</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=0.9997</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=1</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>8.7</m> million square kilometers
+		of sea ice.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+	    
+    </activity>
+	
+
+  </subsection>
+
+  <subsection>
+    <title> Summary </title>
+
+    <p>
+      This section introduced some types of least squares problems and
+      a framework for working with them.
+      <ul>
+	<li>
+	  <p>
+	    Given an inconsistent system <m>A\xvec=\bvec</m>, we find
+	    <m>\xhat</m>, the least squares approximate solution, by
+	    requiring that <m>A\xhat</m> be as 
+	    possible to <m>\bvec</m> as possible.  In other words,
+	    <m>A\xhat = \bhat</m> where <m>\bhat</m> is the
+	    orthogonal projection of <m>\bvec</m> onto
+	    <m>\col(A)</m>.  
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    One way to find <m>\xhat</m> is by solving the normal
+	    equations <m>A^TA\xhat = A^T\bvec.</m>  This is not our
+	    preferred method since numerical problems can arise.
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    A second way to find <m>\xhat</m> uses a <m>QR</m>
+	    factorization of <m>A</m>.  If <m>A=QR</m>, then <m>\xhat
+	    = R^{-1}Q^T\bvec</m> and finding <m>R^{-1}</m> is
+	    computationally feasible since <m>R</m> is upper
+	    triangular. 
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    This technique may be applied widely and is useful for
+	    modeling data.  We saw examples in
+	    this section where linear functions of several input
+	    variables and polynomials provided effective models
+	    for different datasets.
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    A simple 
+	    measure of the quality of the fit is the coefficient of
+	    determination <m>R^2</m> though some additional thought
+	    should be given in real applications.
+	  </p>
+	</li>
+      </ul>
+    </p>
+
+  </subsection>
+
+  <xi:include href="exercises/exercises6-5.ptx" />
+  
+</section>
+

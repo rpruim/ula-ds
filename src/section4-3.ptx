@@ -1,0 +1,1213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-eigen-diag"
+	 xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <title> Diagonalization, similarity, and powers of a matrix </title>
+
+  <introduction>
+    <p> The first example we considered in this chapter was the matrix
+    <m>A=\left[\begin{array}{rr}
+    1 \amp 2 \\
+    2 \amp 1 \\
+    \end{array}\right]
+    </m>, which has eigenvectors <m>\vvec_1=\twovec{1}{1}</m> and
+    <m>\vvec_2 = \twovec{-1}{1}</m> and associated eigenvalues
+    <m>\lambda_1=3</m> and <m>\lambda_2=-1</m>.  In <xref
+    ref="subsec-eigen-use" />, we described how <m>A</m> is, in some
+    sense, equivalent to the diagonal matrix
+    <m>D = \left[\begin{array}{rr}
+    3 \amp 0 \\
+    0 \amp -1\\
+    \end{array}\right]
+    </m>. </p>
+
+    <p> This equivalence is summarized by <xref ref="fig-eigen-diag-A"
+    />.  The diagonal matrix <m>D</m> has the geometric effect of
+    stretching vectors horizontally by a factor of <m>3</m> and
+    flipping vectors vertically.  The matrix <m>A</m> has the
+    geometric effect of stretching vectors by a factor of <m>3</m> in
+    the <m>\vvec_1</m> direction and flipping them in the
+    <m>\vvec_2</m> direction.  That is, the geometric effect of
+    <m>A</m> is the same as that of <m>D</m> when viewed in a basis of
+    eigenvectors of <m>A</m>.
+    </p>
+    
+    <figure xml:id="fig-eigen-diag-A">
+      <sidebyside width="80%">
+	<image source="images/eigen-intro-A" />
+      </sidebyside>
+      <caption> The matrix <m>A</m> has the same geometric effect as
+      the diagonal matrix <m>D</m> when viewed in
+      the basis of eigenvectors.  
+      </caption>
+    </figure>
+
+    <p>
+      Our goal in this section is to express this geometric
+      observation in algebraic terms.  In doing so, we will make
+      precise the sense in which <m>A</m> and <m>D</m> are equivalent.
+    </p>
+
+    <exploration>
+      <statement>
+	<p> In this preview activity, we will review some familiar
+	properties about matrix multiplication that appear in this
+	section.
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      Remember that matrix-vector multiplication constructs
+	      linear combinations of the columns of the matrix.  For
+	      instance, if 
+	      <m>A = \begin{bmatrix}
+	      \avec_1 \amp \avec_2 \end{bmatrix}</m>, express the
+	      product <m>A\twovec2{-3}</m> in terms of <m>\avec_1</m>
+	      and <m>\avec_2</m>.
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      What is the product <m>A\twovec40</m> in terms of
+	      <m>\avec_1</m> and <m>\avec_2</m>?
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      Next, remember how matrix-matrix multiplication is
+	      defined.  Suppose that we have matrices <m>A</m> and
+	      <m>B</m> and that <m>B = \begin{bmatrix}
+	      \bvec_1 \amp \bvec_2 \end{bmatrix}</m>.  How can we
+	      express the matrix product <m>AB</m> in terms of the
+	      columns of <m>B</m>?
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      Suppose that <m>A</m> is a matrix having eigenvectors
+	      <m>\vvec_1</m> and <m>\vvec_2</m> with associated
+	      eigenvalues <m>\lambda_1 = 4</m> and <m>\lambda_2 =
+	      -1</m>.  Express the product <m>A(2\vvec_1+3\vvec_2)</m>
+	      in terms of <m>\vvec_1</m> and <m>\vvec_2</m>.
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      Suppose that <m>A</m> is the matrix from the previous
+	      part and that <m>P=\begin{bmatrix} \vvec_1 \amp \vvec_2
+	      \end{bmatrix}</m>.  What is the matrix product
+	      <me>
+		AP = A\begin{bmatrix}
+		\vvec_1 \amp \vvec_2
+		\end{bmatrix}?
+	      </me>
+	    </p>
+	  </li>
+	  
+	</ol></p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li>
+	    <p>
+	      <m>A\twovec{2}{-3} = 2\avec_1 - 3\avec_2</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>A\twovec40 = 4\avec_1</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>AB = \begin{bmatrix}
+	      A\bvec_1 \amp A\bvec_2
+	      \end{bmatrix}</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>A(2\vvec_1 + 3\vvec_2) = 8\vvec_1 - 3\vvec_2</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>AP =
+	      \begin{bmatrix}
+	      A\vvec_1 \amp A\vvec_2
+	      \end{bmatrix}
+	      = 
+	      \begin{bmatrix}
+	      4\vvec_1 \amp -\vvec_2
+	      \end{bmatrix}
+	      </m>.
+	    </p>
+	  </li>
+	</ol></p>
+      </solution>
+	    
+    </exploration>
+  </introduction>
+
+  <subsection>
+    <title> Diagonalization of matrices </title>
+
+    <p>
+      When working with an <m>n\times n</m> matrix <m>A</m>, <xref
+      ref="subsec-eigen-use"/> demonstrated the value of having a
+      basis of <m>\real^n</m> consisting of eigenvectors of <m>A</m>.
+      In fact, <xref ref="prop-eigen-basis" /> tells us that if the
+      eigenvalues of <m>A</m> are real and distinct, then there is a
+      such a basis.  As we'll see later, there are other conditions on
+      <m>A</m> that guarantee a basis of eigenvectors.  For now,
+      suffice it to say that we can find a basis of eigenvectors for
+      many matrices.  With this assumption, we
+      will see how the matrix <m>A</m> is equivalent to a diagonal
+      matrix <m>D</m>.
+    </p>
+    
+    <activity>
+      <statement>
+      <p> Suppose that <m>A</m> is a <m>2\times2</m> matrix having
+      eigenvectors <m>\vvec_1</m> and <m>\vvec_2</m> with associated
+      eigenvalues <m>\lambda_1=3</m> and <m>\lambda_2 = -6</m>.
+      Because the eigenvalues are real and distinct, we know by
+      <xref ref="prop-eigen-basis"/> that these eigenvectors form a
+      basis of <m>\real^2</m>. 
+      <ol marker="a.">
+	<li>
+	  <p>
+	    What are the products <m>A\vvec_1</m> and <m>A\vvec_2</m>
+	    in terms of <m>\vvec_1</m> and <m>\vvec_2</m>?
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    If we form the matrix <m>P = \begin{bmatrix}
+	    \vvec_1 \amp \vvec_2
+	    \end{bmatrix}
+	    </m>, what is the product <m>AP</m> in
+	    terms of <m>\vvec_1</m> and <m>\vvec_2</m>?
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    Use the eigenvalues to form the diagonal matrix <m>D
+	    = \begin{bmatrix}
+	    3 \amp 0 \\
+	    0 \amp -6 
+	    \end{bmatrix}</m> and
+	    determine the product <m>PD</m> in terms of
+	    <m>\vvec_1</m> and <m>\vvec_2</m>.  
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    The results from the previous two parts of this activity
+	    demonstrate that <m>AP=PD</m>.  
+	    Using the fact that the eigenvectors <m>\vvec_1</m> and
+	    <m>\vvec_2</m> form a basis of 
+	    <m>\real^2</m>, explain why <m>P</m> is
+	    invertible and that we must have <m>A=PDP^{-1}</m>.
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    Suppose that <m>A=\begin{bmatrix}
+	    -3 \amp 6 \\
+	    3 \amp 0 \\
+	    \end{bmatrix}</m>.  Verify that <m>\vvec_1=\twovec11</m>
+	    and <m>\vvec_2=\twovec2{-1}</m> are eigenvectors of
+	    <m>A</m> with eigenvalues <m>\lambda_1 = 3</m> and
+	    <m>\lambda_2=-6</m>.
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    Use the Sage cell below to define the matrices <m>P</m>
+	    and <m>D</m> and then verify that <m>A=PDP^{-1}</m>.
+	  </p> 
+	<sage>
+	  <input>
+# enter the matrices P and D below	    
+P =
+D =	    
+P*D*P.inverse()
+	  </input>
+	</sage>
+	</li>
+      </ol></p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> We have
+	  <m>A\vvec_1=3\vvec_1</m> and <m>A\vvec_2 = -6\vvec_2</m>.
+	  </p></li>
+
+	  <li>
+	    <p>
+	      <m>AP = \begin{bmatrix}
+	      A\vvec_1 \amp A\vvec_2
+	      \end{bmatrix} = \begin{bmatrix}
+	      3\vvec_1 \amp -6\vvec_2
+	      \end{bmatrix}</m>.
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      <m>PD = \begin{bmatrix}
+	      \vvec_1 \amp \vvec_2
+	      \end{bmatrix}
+	      \begin{bmatrix}
+	      3 \amp 0 \\
+	      0 \amp -6\\
+	      \end{bmatrix}
+	      = \begin{bmatrix}
+	      3\vvec_1 \amp -6\vvec_2
+	      \end{bmatrix}
+	      </m>.  Comparing the result of this part of the activity
+	      to the previous, we see that <m>AP = PD</m>.
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      Since the eigenvectors form a basis, the columns of
+	      <m>P</m> are linearly independent and their span is
+	      <m>\real^2</m>.  This guarantees that <m>P</m> is invertible.
+	      Multiplying the equation <m>AP=PD</m> on the right by
+	      <m>P^{-1}</m> gives
+	      <m>APP^{-1} = A = PDP^{-1}</m>. 
+	    </p>
+	  </li>
+	</ol></p>
+	<p>
+	  The rest of the activity can be verified using Sage.
+	</p>
+      </solution>
+    </activity>
+
+    <p>
+      More generally, suppose that we have an <m>n\times n</m> matrix
+      <m>A</m> and that there is a basis of <m>\real^n</m> consisting
+      of eigenvectors <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> of
+      <m>A</m> with associated eigenvalues
+      <m>\lambda_1,\lambda_2,\ldots,\lambda_n</m>.  If we use the
+      eigenvectors to form the
+      matrix
+      <me>P = \begin{bmatrix}
+      \vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_n
+      \end{bmatrix}
+      </me>
+      and the eigenvalues to form the diagonal matrix
+      <me>
+	D = \left[\begin{array}{cccc}
+	\lambda_1 \amp 0 \amp \ldots \amp 0 \\
+	0 \amp \lambda_2 \amp \ldots \amp 0 \\
+	\vdots \amp \vdots \amp \ddots \amp 0 \\
+	0 \amp 0 \amp \ldots \amp \lambda_n \\
+	\end{array}\right]
+      </me>
+      and apply the same reasoning demonstrated in the activity, we
+      find that <m>AP = PD</m> and hence <me>A=PDP^{-1}.</me>
+    </p>
+
+    <p> We have now seen the following proposition. </p>
+
+    <proposition xml:id="prop-diagonalizable">
+      <statement>
+	<p> If <m>A</m> is an <m>n\times n</m> matrix and there is a
+	basis <m>\{\vvec_1,\vvec_2,\ldots,\vvec_n\}</m> of
+	<m>\real^n</m> consisting of
+	eigenvectors of <m>A</m> having associated eigenvalues
+	<m>\lambda_1, \lambda_2, \ldots, \lambda_n</m>, then we can
+	write <m>A=PDP^{-1}</m>
+	where <m>D</m> is the diagonal matrix
+	whose diagonal entries are the eigenvalues of <m>A</m>
+	<me>
+	  D = \left[\begin{array}{cccc}
+	  \lambda_1 \amp 0 \amp \ldots \amp 0 \\
+	  0 \amp \lambda_2 \amp \ldots \amp 0 \\
+	  \vdots \amp \vdots \amp \ddots \amp 0 \\
+	  0 \amp 0 \amp \ldots \amp \lambda_n \\
+	  \end{array}\right]
+	</me>
+	and the matrix <m>P = \left[\begin{array}{cccc}
+	\vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_n
+	\end{array}\right]
+	</m>.
+	</p>
+      </statement>
+    </proposition>
+
+    <example>
+      <p>
+	We have seen that <m>A = \begin{bmatrix}
+	1 \amp 2 \\
+	2 \amp 1 \\
+	\end{bmatrix}</m> has eigenvectors <m>\vvec_1 = \twovec11</m>
+	and <m>\vvec_2=\twovec{-1}1</m> with associated eigenvalues
+	<m>\lambda_1 = 3</m> and <m>\lambda_2 = -1</m>.
+	Forming the matrices
+	<me>
+	  P = \begin{bmatrix}
+	  \vvec_1 \amp \vvec_2
+	  \end{bmatrix} =
+	  \begin{bmatrix}
+	  1 \amp -1 \\
+	  1 \amp 1 \\
+	  \end{bmatrix},~~~
+	  D = \begin{bmatrix}
+	  3 \amp 0 \\
+	  0 \amp -1 \\
+	  \end{bmatrix},
+	</me>
+	we see that <m>A=PDP^{-1}</m>.
+      </p>
+
+      <p>
+	This is the sense in which we mean that <m>A</m> is equivalent
+	to a diagonal matrix <m>D</m>.  The expression <m>A=PDP^{-1}</m>
+	says that <m>A</m>, expressed in the basis defined by the columns
+	of <m>P</m>, has the same geometric effect as <m>D</m>, expressed
+	in the standard basis <m>\evec_1, \evec_2,\ldots,\evec_n</m>.
+      </p>
+    </example>
+    
+    <definition>
+      <statement>
+	<idx> diagonalizable </idx>
+	<p> We say that the matrix <m>A</m> is
+	<em>diagonalizable</em> if there is a diagonal matrix <m>D</m>
+	and invertible matrix <m>P</m> such that
+	<me>
+	  A = PDP^{-1}.
+	</me>
+	</p>
+      </statement>
+    </definition>
+
+    <example>
+      <statement>
+	<p> We will try to find a diagonalization of 
+	<m>A =
+	\left[\begin{array}{rr}
+	-5 \amp 6 \\
+	-3 \amp 4 \\
+	\end{array}\right]
+	</m> whose
+	characteristic equation is
+	<me>
+	  \det(A-\lambda I) = (-5-\lambda)(4-\lambda)+18 =
+	  (-2-\lambda)(1-\lambda) = 0
+	</me>.
+	This shows that the eigenvalues of <m>A</m> are <m>\lambda_1 =
+	-2</m> and <m>\lambda_2 = 1</m>.
+	</p>
+
+	<p> By constructing <m>\nul(A-(-2)I)</m>, we find a basis for
+	<m>E_{-2}</m> consisting of the vector <m>\vvec_1 =
+	\twovec{2}{1}</m>.  Similarly, a basis for <m>E_1</m> consists
+	of the vector <m>\vvec_2 = \twovec{1}{1}</m>.  This shows
+	that we can construct a basis <m>\{\vvec_1,\vvec_2\}</m>
+	of <m>\real^2</m> consisting of eigenvectors of <m>A</m>.
+	</p>
+
+	<p> We now form the matrices
+	<me>
+	  D = \left[\begin{array}{rr}
+	  -2 \amp 0 \\
+	  0 \amp 1 \\
+	  \end{array}\right],\qquad
+	  P = \left[\begin{array}{cc} \vvec_1 \amp \vvec_2
+	  \end{array}\right] = 
+	  \left[\begin{array}{rr}
+	  2 \amp 1 \\
+	  1 \amp 1 \\
+	  \end{array}\right]
+	</me>
+	and verify that
+	<me>
+	  PDP^{-1} =
+	  \left[\begin{array}{rr}
+	  2 \amp 1 \\
+	  1 \amp 1 \\
+	  \end{array}\right]
+	  \left[\begin{array}{rr}
+	  -2 \amp 0 \\
+	  0 \amp 1 \\
+	  \end{array}\right]
+	  \left[\begin{array}{rr}
+	  1 \amp -1 \\
+	  -1 \amp 2 \\
+	  \end{array}\right]
+	  =
+	  \left[\begin{array}{rr}
+	  -5 \amp 6 \\
+	  -3 \amp 4 \\
+	  \end{array}\right] = A
+	</me>.
+	</p>
+
+	<p> There are, in fact, many ways to diagonalize <m>A</m>.
+	For instance, we could change the order of the eigenvalues and
+	eigenvectors and write
+	<me>
+	  D = \left[\begin{array}{rr}
+	  1 \amp 0 \\
+	  0 \amp -2 \\
+	  \end{array}\right],\qquad
+	  P = \left[\begin{array}{cc} \vvec_2 \amp \vvec_1
+	  \end{array}\right] = 
+	  \left[\begin{array}{rr}
+	  1 \amp 2 \\
+	  1 \amp 1 \\
+	  \end{array}\right]
+	</me>.
+	</p>
+
+	<p> If we choose a different basis for the eigenspaces, we
+	will also find a different matrix <m>P</m> that diagonalizes
+	<m>A</m>.  The point is that there are many ways in which
+	<m>A</m> can be written in the form <m>A=PDP^{-1}</m>. </p>
+      </statement>
+    </example>
+
+    <example>
+      <statement>
+	<p> We will try to find a diagonalization of 
+	<m>A =
+	\left[\begin{array}{rr}
+	0 \amp 4 \\
+	-1 \amp 4 \\
+	\end{array}\right]
+	</m>. </p>
+
+	<p> Once again, we find the eigenvalues by solving the
+	characteristic equation:
+	<me>
+	  \det(A-\lambda I) = -\lambda(4-\lambda) + 4 = (2-\lambda)^2
+	  = 0
+	</me>.
+	In this case, there is a single eigenvalue <m>\lambda=2</m>.
+	</p>
+
+	<p> We find a basis for the eigenspace <m>E_2</m> by
+	describing <m>\nul(A-2I)</m>:
+	<me>
+	  A-2I = \left[\begin{array}{rr}
+	  -2 \amp 4 \\
+	  -1 \amp 2 \\
+	  \end{array}\right]
+	  \sim
+	  \left[\begin{array}{rr}
+	  1 \amp -2 \\
+	  0 \amp 0 \\
+	  \end{array}\right]
+	</me>.
+	This shows that the eigenspace <m>E_2</m> is one-dimensional
+	with <m>\vvec_1=\twovec{2}{1}</m> forming a basis. </p>
+
+	<p> In this case, there is not a basis of <m>\real^2</m>
+	consisting of eigenvectors of <m>A</m>, which tells us that
+	<m>A</m> is not diagonalizable. </p>
+
+      </statement>
+    </example>
+
+    <p>
+      In fact, if we only know that <m>A = PDP^{-1}</m>,
+      we can say that the columns of <m>P</m>
+      are eigenvectors of <m>A</m> and that the diagonal entries of
+      <m>D</m> are the associated eigenvalues.
+    </p>
+
+    <proposition>
+      <statement>
+	<p>
+	  An <m>n\times n</m> matrix <m>A</m> is diagonalizable if and
+	  only if there is a basis of <m>\real^n</m> consisting of
+	  eigenvectors of <m>A</m>.
+	</p>
+      </statement>
+    </proposition>
+
+    <example>
+      <statement>
+	<p> Suppose we know that <m>A=PDP^{-1}</m> where
+	<me>
+	  D = \left[\begin{array}{rr}
+	  2 \amp 0 \\
+	  0 \amp -2 \\
+	  \end{array}\right],\qquad
+	  P = \left[\begin{array}{cc} \vvec_2 \amp \vvec_1
+	  \end{array}\right] = 
+	  \left[\begin{array}{rr}
+	  1 \amp 1 \\
+	  1 \amp 2 \\
+	  \end{array}\right].
+	</me>
+	The columns of <m>P</m> form
+	eigenvectors of <m>A</m> so that <m>\vvec_1 =
+	\twovec{1}{1}</m> is an eigenvector of <m>A</m> with
+	eigenvalue <m>\lambda_1 = 2</m> and <m>\vvec_2 =
+	\twovec{1}{2}</m> is an eigenvector with eigenvalue
+	<m>\lambda_2=-2</m>. </p>
+
+	<p> We can verify this by computing
+	<me>
+	  A = PDP^{-1} =
+	  \left[\begin{array}{rr}
+	  6 \amp -4 \\
+	  8 \amp -6 \\
+	  \end{array}\right]
+	</me>
+	and checking that <m>A\vvec_1 =
+	\twovec{1}{1}=2\vvec_1</m> and <m>A\vvec_2 = \twovec{1}{2} =
+	-2\vvec_2</m>. </p>
+      </statement>
+    </example>
+
+    <activity>
+      <statement>
+      <p>
+	<ol marker="a.">
+	  <li><p> Find a diagonalization of <m>A</m>, if one exists,
+	  when
+	  <me>
+	    A = \left[\begin{array}{rr}
+	    3 \amp -2 \\
+	    6 \amp -5 \\
+	    \end{array}\right]
+	  </me>.
+	  </p></li>
+
+	  <li><p> Can the diagonal matrix
+	  <me>
+	    A = \left[\begin{array}{rr}
+	    2 \amp 0 \\
+	    0 \amp -5 \\
+	    \end{array}\right]
+	  </me>
+	  be diagonalized?  If so, explain how to find the matrices
+	  <m>P</m> and <m>D</m>.
+	  </p></li>
+
+	  <li><p> Find a diagonalization of <m>A</m>, if one exists,
+	  when
+	  <me>
+	    A = \left[\begin{array}{rrr}
+	    -2 \amp 0 \amp 0 \\
+	    1 \amp -3\amp 0 \\
+	    2 \amp 0 \amp -3 \\
+	    \end{array}\right]
+	  </me>.
+	</p>
+	<sage>
+	  <input>
+	  </input>
+	</sage>
+	  </li>
+
+	  <li><p> Find a diagonalization of <m>A</m>, if one exists,
+	  when
+	  <me>
+	    A = \left[\begin{array}{rrr}
+	    -2 \amp 0 \amp 0 \\
+	    1 \amp -3\amp 0 \\
+	    2 \amp 1 \amp -3 \\
+	    \end{array}\right]
+	  </me>.
+	</p>
+	<sage>
+	  <input>
+	  </input>
+	</sage>
+	  </li>
+
+	  <li><p> Suppose that <m>A=PDP^{-1}</m> where
+	  <me>
+	    D = \left[\begin{array}{rr}
+	    3 \amp 0 \\
+	    0 \amp -1 \\
+	    \end{array}\right],\qquad
+	    P = \left[\begin{array}{cc} \vvec_2 \amp \vvec_1
+	    \end{array}\right] = 
+	    \left[\begin{array}{rr}
+	    2 \amp 2 \\
+	    1 \amp -1 \\
+	    \end{array}\right]
+	  </me>.
+	  <ol marker="1.">
+	    <li><p> Explain why <m>A</m> is invertible. </p></li>
+	    <li><p> Find a diagonalization of <m>A^{-1}</m>. </p></li>
+	    <li><p> Find a diagonalization of <m>A^3</m>. </p></li>
+	  </ol></p></li>
+	</ol>
+      </p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> We find that <m>A</m> has eigenvectors
+	  <m>\vvec_1=\twovec11</m> with associated eigenvalue
+	  <m>\lambda_1=1</m> and <m>\vvec_2=\twovec{1}{3}</m> with
+	  associated eigenvalue <m>\lambda_2=-3</m>.  We then have
+	  <m>P=\mattwo1113</m> and <m>D=\mattwo100{-3}</m>. </p></li>
+
+	  <li><p> Yes.  We know that the eigenvectors are
+	  <m>\vvec_1=\twovec10</m> with associated eigenvalue
+	  <m>\lambda_1=2</m> and <m>\vvec_2=\twovec01</m> with
+	  associated eigenvalue <m>\lambda_2=-5</m>.  Therefore, <m>P
+	  = \left[\begin{array}{rr}\vvec_1 \amp \vvec_2
+	  \end{array}\right] = \mattwo1001=I</m> and
+	  <m>D=\mattwo200{-5}=A</m>.  This shows that the
+	  diagonalization is <m>A=IAI^{-1}</m>; that is, since
+	  <m>A</m> is already diagonal, it is diagonalized by the
+	  identity matrix. </p></li>
+
+	  <li><p> We find eigenvectors <m>\vvec_1=\threevec112</m>,
+	  <m>\vvec_2=\threevec010</m>, and <m>\vvec_3=\threevec001</m> 
+	  with associated eigenvalues <m>\lambda_1=-2</m>,
+	  <m>\lambda_2=-3</m>, and <m>\lambda_3=-3</m>.  Therefore,
+	  <m>A = PDP^{-1}</m> where
+	  <me>
+	    P = \left[\begin{array}{rrr}
+	    1 \amp 0 \amp 0 \\
+	    1 \amp 1 \amp 0 \\
+	    2 \amp 0 \amp 1 \\
+	    \end{array}\right], 
+	    D = \left[\begin{array}{rrr}
+	    -2 \amp 0 \amp 0 \\
+	    0 \amp -3 \amp 0 \\
+	    0 \amp 0 \amp -3 \\
+	    \end{array}\right]\text{.}
+	  </me>
+	  </p></li>
+
+	  <li><p> Once again, we see that <m>\lambda=-2</m> is an
+	  eigenvalue with multiplicity one and <m>\lambda=-3</m> is an
+	  eigenvalue with multiplicity two.  However, <m>\dim E_{-3} =
+	  1</m> so we are not able to find a basis for <m>\real^3</m>
+	  consisting of eigenvalues of <m>A</m>.  Therefore, <m>A</m>
+	  is not diagonalizable. </p></li>
+
+	  <li><p> If <m>A=PDP^{-1}</m>,
+	  <ol marker="1..">
+	    <li><p> <m>A</m> is invertible since <m>\det A = \det D =
+	    -3</m>. </p></li>
+
+	    <li><p> We know that <m>\vvec_1</m> and <m>\vvec_2</m> are
+	    eigenvectors of <m>A</m> with associated eigenvalues
+	    <m>\lambda_1=3</m> and <m>\lambda_2=-1</m>.  If
+	    <m>\vvec</m> is an eigenvector of <m>A</m> with associated
+	    eigenvalue <m>\lambda</m>, then <m>\vvec</m> is an
+	    eigenvector of <m>A^{-1}</m> with associated eigenvalue
+	    <m>\frac1{\lambda}</m>.  Therefore, <m>A^{-1} =
+	    PEP^{-1}</m> where <m>E =
+	    \mattwo{\frac13}00{-1}</m>. </p></li>
+
+	    <li><p> We have <m>A^3=PFP^{-1}</m> where
+	    <m>F=\mattwo{27}00{-1}</m>. </p></li>
+	  </ol>
+	  </p></li>
+	</ol></p>
+      </solution>
+    </activity>
+
+  </subsection>
+
+  <subsection>
+    <title> Powers of a diagonalizable matrix </title>
+
+    <p> In several earlier examples, we have been
+    interested in computing powers of a given matrix.  For instance,
+    in <xref ref="activity-eigen-intro" />, we had the matrix
+    <m>
+      A = \left[\begin{array}{rr}
+      0.8 \amp 0.6 \\
+      0.2 \amp 0.4 \\
+      \end{array}\right]
+    </m> and an initial vector <m>\xvec_0=\ctwovec{1000}{0}</m>, and we 
+    wanted to compute
+    <me>
+      \begin{aligned}
+      \xvec_1 \amp {}={} A\xvec_0 \\
+      \xvec_2 \amp {}={} A\xvec_1 = A^2\xvec_0 \\
+      \xvec_3 \amp {}={} A\xvec_2 = A^3\xvec_0\text{.} \\
+      \end{aligned}
+    </me>
+    In particular, we wanted to find <m>\xvec_k=A^k\xvec_0</m>
+    and determine what happens as <m>k</m> becomes very large.  If a
+    matrix <m>A</m> is diagonalizable, writing <m>A=PDP^{-1}</m> can
+    help us understand powers of <m>A</m> more easily. </p>
+
+    <activity>
+      <statement>
+      <p>
+	<ol marker="a.">
+	  <li><p> Let's begin with the diagonal matrix
+	  <me>
+	    D = \left[\begin{array}{rr}
+	    2 \amp 0 \\
+	    0 \amp -1 \\
+	    \end{array}\right]
+	  </me>.  Find the powers <m>D^2</m>, <m>D^3</m>, and
+	  <m>D^4</m>.  What is <m>D^k</m> for a general value of
+	  <m>k</m>? </p></li>
+
+	  <li><p> Suppose that <m>A</m> is a matrix with eigenvector
+	  <m>\vvec</m> and associated eigenvalue <m>\lambda</m>;  that
+	  is, <m>A\vvec = \lambda\vvec</m>.  By considering
+	  <m>A^2\vvec</m>, explain why <m>\vvec</m> is also an
+	  eigenvector of <m>A</m> with eigenvalue
+	  <m>\lambda^2</m>. </p></li>
+
+	  <li><p> Suppose that <m>A= PDP^{-1}</m> where
+	  <me>
+	    D = \left[\begin{array}{rr}
+	    2 \amp 0 \\
+	    0 \amp -1 \\
+	    \end{array}\right]
+	  </me>.  Remembering that the columns of <m>P</m> are
+	  eigenvectors of <m>A</m>,
+	  explain why <m>A^2</m> is diagonalizable and find a
+	  diagonalization in terms of <m>P</m> and <m>D</m>.</p></li>
+
+	  <li><p> Give another explanation of the diagonalizability of
+	  <m>A^2</m> by writing
+	  <me>
+	    A^2 = (PDP^{-1})(PDP^{-1}) = PD(P^{-1}P)DP^{-1}
+	  </me>. </p></li>
+
+	  <li><p> In the same way, find a diagonalization of
+	  <m>A^3</m>, <m>A^4</m>, and <m>A^k</m>. </p></li>
+
+	  <li><p> Suppose that <m>A</m> is a diagonalizable
+	  <m>2\times2</m> matrix with eigenvalues <m>\lambda_1 =
+	  0.5</m> and <m>\lambda_2=0.1</m>.  What happens to
+	  <m>A^k</m> as <m>k</m> becomes very large? </p></li>
+
+	</ol>
+      </p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> We have
+	  <me>
+	    D^2=\mattwo4001, D^3=\mattwo800{-1}, \ldots,
+	    D^k=\mattwo{2^k}00{(-1)^k}\text{.}
+	  </me>
+	  </p></li>
+
+	  <li><p> We know that <m>A^2\vvec = \lambda A\vvec =
+	  \lambda^2\vvec</m> so that <m>\vvec</m> is also an
+	  eigenvector of <m>A^2</m> with associated eigenvalue
+	  <m>\lambda^2</m>. </p></li>
+
+	  <li><p> Since eigenvectors of <m>A</m> are also eigenvectors
+	  of <m>A^2</m>, we can use the matrix <m>P</m> to diagonalize
+	  <m>A^2</m>.  The eigenvalues are squared, however, so we
+	  have <m>A^2=PEP^{-1}</m> where
+	  <m>E=D^2=\mattwo4001</m>. </p></li>
+
+	  <li><p> We can also see this by noting that
+	  <me>
+	    \begin{aligned}
+	    A^2 \amp = (PDP^{-1})(PDP^{-1})
+	    = PD(P^{-1}P)DP^{-1} \\
+	    \amp = PDIDP^{-1}
+	    = PD^2P^{-1}\text{.}\\
+	    \end{aligned}
+	  </me>
+	  </p></li>
+
+	  <li><p> <m>A^3=PD^3P^{-1}</m>, <m>A^4=PD^4P^{-1}</m>, and
+	  <m>A^k=PD^kP^{-1}</m>. </p></li>
+
+	  <li><p> We can write <m>A=PDP^{-1}</m> where
+	  <m>D=\mattwo{0.5}00{0.1}</m>.  Therefore,
+	  <m>A^k=PD^kP^{-1}</m> where
+	  <m>D^k=\mattwo{0.5^k}00{0.1^k}</m>.  As <m>k</m> becomes
+	  very large, <m>0.5^k</m> and <m>0.1^k</m> become very close
+	  to zero.  Hence <m>D^k</m> and <m>A^k</m> become very close
+	  to the zero matrix. </p></li>
+	</ol></p>
+      </solution>
+    </activity>
+
+    <p>
+      If <m>A</m> is diagonalizable, the activity demonstrates that
+      any power of <m>A</m> is as well.
+    </p>
+
+    <proposition>
+      <statement>
+	<p>
+	  If <m>A=PDP^{-1}</m>, then <m>A^k = PD^kP^{-1}</m>.  When
+	  <m>A</m> is invertible, we also have <m>A^{-1} =
+	  PD^{-1}P^{-1}</m>. 
+	</p>
+      </statement>
+    </proposition>
+
+    <example>
+      <p>
+	Let's revisit <xref ref="activity-eigen-intro"/> where we had
+	the matrix 
+	<m>A = \begin{bmatrix}
+	0.8 \amp 0.6 \\
+	0.2 \amp 0.4 \\
+	\end{bmatrix}
+	</m> and the initial vector <m>\xvec_0 = \ctwovec{1000}0</m>.
+	We were interested in understanding the sequence of vectors
+	<m>\xvec_{k+1} = A\xvec_k</m>, which means that <m>\xvec_k =
+	A^k\xvec_0</m>. 
+      </p>
+
+      <p>
+	We can verify that <m>\vvec_1 = \twovec31</m> and <m>\vvec_2 =
+	\twovec{-1}1</m> are eigenvectors of <m>A</m> having
+	associated eigenvalues <m>\lambda_1=1</m> and <m>\lambda_2 =
+	0.2</m>.  This means that <m>A = PDP^{-1}</m> where
+	<me>
+	  P = \begin{bmatrix}
+	  3 \amp -1 \\
+	  1 \amp 1 \\
+	  \end{bmatrix},~~~
+	  D = \begin{bmatrix}
+	  1 \amp 0 \\
+	  0 \amp 0.2 \\
+	  \end{bmatrix}.
+	</me>
+	Therefore, the powers of <m>A</m> have the form <m>A^k =
+	PD^kP^{-1}</m>. 
+      </p>
+
+      <p>
+	Notice that <m>D^k = \begin{bmatrix}
+	1^k \amp 0 \\
+	0 \amp 0.2^k \\
+	\end{bmatrix}
+	= \begin{bmatrix}
+	1 \amp 0 \\
+	0 \amp 0.2^k
+	\end{bmatrix}
+	</m>.  As <m>k</m> increases, <m>0.2^k</m> becomes
+	closer and closer to zero.  This means that for very large
+	powers <m>k</m>, we have
+	<me>
+	  D^k \approx \begin{bmatrix}
+	  1 \amp 0 \\
+	  0 \amp 0 \\
+	  \end{bmatrix}
+	</me>
+	and therefore
+	<me>
+	  A^k = PD^kP^{-1} \approx P\begin{bmatrix}
+	  1 \amp 0 \\
+	  0 \amp 0 \\
+	  \end{bmatrix}P^{-1} =
+	  \begin{bmatrix}
+	  \frac 34 \amp \frac 34 \\
+	  \frac 14 \amp \frac 14
+	  \end{bmatrix}.
+	</me>
+      </p>
+      <p>
+	Beginning with the vector <m>\xvec_0 = \ctwovec{1000}{0}</m>, 
+	we find that <m>\xvec_k = A^k\xvec_0\approx
+	\twovec{750}{250}</m> when <m>k</m> is very large.
+      </p>
+    </example>
+	
+  </subsection>
+
+  <subsection> 
+    <title> Similarity and complex eigenvalues </title>
+
+    <p>
+      We have been interested in diagonalizing a matrix <m>A</m>
+      because doing so relates a matrix <m>A</m> to a simpler
+      diagonal matrix <m>D</m>.  In particular, the effect of
+      multiplying a vector by <m>A=PDP^{-1}</m>, viewed in the basis
+      defined by the columns of <m>P</m>, is the same as the effect of
+      multiplying by <m>D</m> in the standard basis.
+    </p>
+
+    <p>
+      While many matrices are diagonalizable, there are some that are
+      not.  For example, if a matrix has complex eigenvalues, it is
+      not possible to find a basis of <m>\real^n</m> consisting of
+      eigenvectors, which means that the matrix is not
+      diagonalizable.  In this case, however, we can still relate the
+      matrix to a simpler form that explains the geometric effect this
+      matrix has on vectors.
+    </p>
+
+    <definition>
+      <statement>
+	<idx> similarity </idx>
+	<p> We say that <m>A</m> is <em>similar</em> to <m>B</m>
+	if there is an invertible matrix <m>P</m>
+	such that <m>A = PBP^{-1}</m>.
+	</p>
+      </statement>
+    </definition>
+
+    <p>
+      Notice that a matrix is diagonalizable if and only if
+      it is similar to a diagonal matrix.
+      In case a matrix <m>A</m> has complex eigenvalues, 
+      we will find a simpler
+      matrix <m>C</m> that is similar to <m>A</m> and note that
+      <m>A=PCP^{-1}</m> has the same effect, when viewed in the basis defined
+      by the columns of <m>P</m>, as <m>C</m>, when viewed in the
+      standard basis.
+    </p>
+
+    <p>
+      To begin, suppose that <m>A</m> is a <m>2\times2</m> matrix
+      having a complex eigenvalue 
+      <m>\lambda = a+bi</m>.  It turns out that <m>A</m> is similar to
+      <m>C=\begin{bmatrix}
+      a \amp -b \\
+      b \amp a \\
+      \end{bmatrix}
+      </m>.
+    </p>
+    
+    <sidebyside widths="60% 40%">
+      <p> The next activity shows that <m>C</m> has a simple geometric
+      effect on <m>\real^2</m>.  First, however, we will use polar
+      coordinates to rewrite <m>C</m>.  As shown in the figure, 
+      the point <m>(a,b)</m> defines <m>r</m>, the distance from
+      the origin, and <m>\theta</m>, the angle formed with the positive
+      horizontal axis.  We then have
+      <me>
+	\begin{aligned}
+	a \amp {}={} r\cos\theta \\
+	b \amp {}={} r\sin\theta\text{.} \\
+	\end{aligned}
+      </me>
+      Notice that the Pythagorean theorem says that
+      <m>r=\sqrt{a^2+b^2}</m>. 
+      </p>
+      
+      <image source="images/eigen-polar" />
+    </sidebyside>
+
+    <activity>
+      <statement>
+	<p> We begin by rewriting
+	<m>C</m> in terms of <m>r</m> and
+	  <m>\theta</m> and noting that
+	  <me>
+	    C = 
+	    \left[\begin{array}{rr}
+	    a \amp -b \\
+	    b \amp a \\
+	    \end{array}\right]
+	    = 
+	    \left[\begin{array}{rr}
+	    r\cos\theta \amp -r\sin\theta \\
+	    r\sin\theta \amp r\cos\theta \\
+	    \end{array}\right]
+	    =
+	    \left[\begin{array}{rr}
+	    r \amp 0 \\
+	    0 \amp r \\
+	    \end{array}\right]
+	    \left[\begin{array}{rr}
+	    \cos\theta \amp -\sin\theta \\
+	    \sin\theta \amp \cos\theta \\
+	    \end{array}\right].
+	  </me>
+	  <ol marker="a.">
+	    <li><p> Explain why <m>C</m> has the geometric effect of
+	    rotating vectors by <m>\theta</m> and scaling them by a
+	    factor of <m>r</m>. </p></li>
+	    
+	    <li><p> Let's now consider the matrix
+	    <me>
+	      A = \left[\begin{array}{rr}
+	      -2 \amp 2  \\
+	      -5 \amp 4 \\
+	      \end{array}\right]
+	    </me>
+	    whose eigenvalues are <m>\lambda_1 = 1+i</m> and <m>\lambda_2 =
+	    1-i</m>.  We will choose to focus on one of the eigenvalues
+	    <m>\lambda_1 = a+bi= 1+i. </m> </p>
+	    
+	    <p> Form the matrix <m>C</m> using these values of <m>a</m>
+	    and <m>b</m>.  Then rewrite the point <m>(a,b)</m> in polar
+	    coordinates by identifying the values of <m>r</m> and
+	    <m>\theta</m>.  Explain the geometric effect of multiplying
+	    vectors by <m>C</m>. </p>
+	    </li>
+	    
+	    <li><p> Suppose that
+	    <m>P=\left[\begin{array}{rr}
+	    1 \amp 1 \\
+	    2 \amp 1 \\
+	    \end{array}\right]
+	    </m>.  Verify that <m>A = PCP^{-1}</m>. </p>
+	    
+	    <sage>
+	      <input>
+C = 
+P = 
+P*C*P.inverse()
+	      </input>
+	    </sage>
+	    </li>
+	    
+	    <li><p> Explain why <m>A^k = PC^kP^{-1}</m>. </p></li>
+	    
+	    <li><p> We formed the matrix <m>C</m> by choosing the
+	    eigenvalue <m>\lambda_1=1+i</m>.  Suppose we had instead
+	    chosen <m>\lambda_2 = 1-i</m>.  Form the matrix <m>C'</m> and
+	    use polar coordinates to describe the geometric effect of
+	    <m>C</m>.  </p></li>
+	    
+	    <li><p> Using the matrix
+	    <m>
+	      P' = \left[\begin{array}{rr}
+	      1 \amp -1 \\
+	      2 \amp -1 \\
+	      \end{array}\right]
+	      </m>, show that <m>A = P'C'P'^{-1}</m>.
+	    </p></li>
+	</ol></p>
+      </statement>
+      
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> The matrix <m>S=\mattwo r00r</m> has the geometric
+	  effect of scaling vectors uniformly by a factor of
+	  <m>r</m> while the matrix
+	  <m>R=\mattwo{\cos\theta}{-\sin\theta}{\sin\theta}{\cos\theta}</m>
+	  rotates vectors by <m>\theta</m>. </p></li>
+
+	  <li><p> We have <m>a=b=1</m> so we form the matrix
+	  <m>C=\mattwo1{-1}11 =
+	  \mattwo{\sqrt{2}}00{\sqrt{2}}
+	  \mattwo{\cos(45^\circ)}{-\sin(45^\circ)}
+	  {\sin(45^\circ)}{\cos(45^\circ)}</m>.  This shows that
+	  <m>C</m> will scale vectors by a factor of <m>\sqrt2</m>
+	  while rotating them by <m>45^\circ</m>. </p></li>
+
+	  <li><p> Sage will verify this relationship.
+	  </p></li>
+
+	  <li><p> As we saw earlier, we have <m>A^2 =
+	  (PCP^{-1})(PCP^{-1}) = PC^2P^{-1}</m> and hence <m>A^k =
+	  PC^kP^{-1}</m>. </p></li>
+
+	  <li><p> We have <m>a=1</m> and <m>b=-1</m> so we form the
+	  matrix 
+	  <m>C'=\mattwo1{1}{-1}1 =
+	  \mattwo{\sqrt{2}}00{\sqrt{2}}
+	  \mattwo{\cos(-45^\circ)}{-\sin(-45^\circ)}
+	  {\sin(-45^\circ)}{\cos(-45^\circ)}</m>.  This shows that
+	  <m>C</m> will scale vectors by a factor of <m>\sqrt2</m>
+	  while rotating them by <m>-45^\circ</m>. </p></li>
+	</ol></p>
+      </solution>
+
+    </activity>
+
+    <p>
+      If the <m>2\times2</m> matrix <m>A</m> has a complex
+      eigenvalue <m>\lambda = a + bi</m>, it turns out that <m>A</m> is
+      always similar to the matrix
+      <m>
+	C = \left[\begin{array}{rr}
+	a \amp -b \\
+	b \amp a \\
+	\end{array}\right],
+      </m>
+      whose geometric effect on vectors can be described in terms of a
+      rotation and a scaling. There is, in fact, a method for finding
+      the matrix <m>P</m> so that <m>A=PCP^{-1}</m> that we'll see
+      in <xref ref="exercise-complex-eigenvector"/>.
+      For now, we note that <m>A</m> has the same 
+      geometric effect as <m>C</m>, when viewed in the basis provided by
+      the columns of <m>P</m>.  We will put this fact to use in the next
+      section to understand certain dynamical systems.
+    </p>
+
+    <proposition>
+      <statement>
+	<p>
+	  If <m>A</m> is a <m>2\times2</m> matrix with a complex
+	  eigenvalue <m>\lambda = a + bi</m>, then <m>A</m> is similar
+	  to <m>C = \begin{bmatrix}
+	  a \amp -b \\
+	  b \amp a \\
+	  \end{bmatrix}</m>;  that is, there is a matrix <m>P</m> such
+	  that <m>A= PCP^{-1}</m>.
+	</p>
+      </statement>
+    </proposition>
+     
+  </subsection>
+
+  <subsection>
+    <title> Summary </title>
+
+    <p>
+      Our goal in this section has been to use the eigenvalues and
+      eigenvectors of a matrix <m>A</m> to relate <m>A</m> to a
+      simpler matrix.
+    <ul>
+      <li><p> We said that <m>A</m> is diagonalizable if we can write
+      <m>A = PDP^{-1}</m> where <m>D</m> is a diagonal matrix.  The
+      columns of <m>P</m> consist of eigenvectors of <m>A</m> and the
+      diagonal entries of <m>D</m> are the associated eigenvalues.
+      </p></li>
+
+      <li><p> An <m>n\times n</m> matrix <m>A</m> is diagonalizable if
+      and only if there is a basis of <m>\real^n</m> consisting of
+      eigenvectors of <m>A</m>. </p></li>
+
+      <li><p> We said that <m>A</m> and <m>B</m> are similar if there
+      is an invertible matrix <m>P</m> such that <m>A=PBP^{-1}</m>.
+      In this case, <m>A^k = PB^kP^{-1}</m>. </p></li>
+
+      <li><p> If <m>A</m> is a <m>2\times2</m> matrix with complex
+      eigenvalue <m>\lambda = a+bi</m>, then <m>A</m> is similar to
+      <m>
+	C = \left[\begin{array}{rr}
+	a \amp -b \\
+	b \amp a \\
+	\end{array} \right]
+      </m>.  Writing the point <m>(a,b)</m> in polar coordinates
+      <m>r</m> and <m>\theta</m>, we see that <m>C</m> rotates vectors
+      through an angle <m>\theta</m> and scales them by a factor of
+      <m>r=\sqrt{a^2+b^2}</m>.
+      </p></li>
+    </ul>
+    </p>
+
+  </subsection>
+
+  <xi:include href="exercises/exercises4-3.ptx" />  
+
+</section>
+
+
+    

@@ -1,0 +1,865 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-python-introduction"
+	 xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <title>
+    Computational Linear Algebra 
+  </title>
+
+  <introduction>
+    <p>
+      Linear algebra owes its prominence as a powerful scientific tool
+      to the ever-growing power of computers.  Carl Cowen, a former
+      president of the Mathematical Association of America, has said,
+      <q> No serious application of linear algebra happens without a
+      computer.</q> Indeed, Cowen notes that, in the 1950s, working
+      with a system of 100 equations in 100 variables was difficult.
+      Today, scientists (including data scientists) routinely work on problems
+      that are vastly larger.  This is only possible because of today's
+      computing power.
+    </p>
+
+    <p>
+		For learning the principles of linear algebra, small examples
+		in 2 or 3 dimensions are useful because (a) we can visualize  
+		things geometrically, and (b) we can see all the numbers and 
+		computations involved.  But as we build our understanding and intuition 
+		with these small examples, we also want to be learning how to 
+		do linear algebra computationally so that we can work with much 
+		larger examples.
+    </p>
+
+	<p>
+	There are many computational tools that could be used.  One of them, Matlab
+	(and its open source analog, Octave), was specifically designed (and named) with 
+	matrix algebra as its primary use case.  Linear algebra is important for statistics 
+	and machine learning, but so are other things, like data wrangling and visualing data 
+	and models.  For this reason, langauges like R and Python are much more important in 
+	the data science community.  
+	Although linear algebra is used 
+	extensively in both languages, end users of Python are more likely to manipulate data 
+	in vector and matrix format than are users of R, where this is often hidden behind 
+	an additional layer of abstraction.
+	For this reason, we'll focus primarily on Python in this text, with some 
+	references to how things differ thrown in R along the way. 
+	</p>
+  </introduction>
+    
+  <subsection>
+    <title> Introduction to Python </title>
+    
+    <p>
+      SageMath is a free open-source mathematics software system licensed under the GPL. 
+	  It builds on top of many existing open-source packages: 
+	  NumPy, SciPy, matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. 
+	  Access their combined power through a common, Python-based language or directly via 
+	  interfaces or wrappers. 
+
+	  In this book we will use SageMath as a way to embed Python (and sometimes R) cells 
+	  that you can edit and execute as you learn linear algebra.
+	</p>
+
+	    <p> Here is a Python cell containing a command
+	    that asks Python to multiply 5 and 3.  You may execute the
+	    command by pressing the <em>Evaluate</em> button.
+	    
+	    <sage language="python">
+	      <input>
+		5 * 3
+	      </input>
+	    </sage>
+
+		Of course, you can run this sort of Python code in other Python 
+		environments as well, including in a Jupyter notebook, in an RMardkown
+		or Quarto document, in posit RStudio, in a Sage cell server, etc.
+		The Python cells in this text provide a handy way to try things out as 
+		you are reading, but you should adopt one of these other platforms for 
+		saving work.
+	    </p>
+
+
+    <p>
+      Throughout the text, we will introduce new Python commands that
+      allow us to explore linear algebra concepts.  These commands
+      are collected and summarized in the reference found in <xref
+      ref="app-python-reference" text="custom"> Appendix A</xref>.
+    </p>
+
+    <activity>
+      <title> Basic Python commands </title>
+
+      <statement>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p> Python uses the standard operators <c>+</c>, <c>-</c>, <c>*</c>, and <c>/</c> for the usual
+		  arithmetic operations.  <c>**</c> is used for exponentiation.
+		  By entering text in the cell below, ask Python to evaluate
+	      <me>
+		3 + 4(2^4 - 1)
+	      </me>
+	      <sage language="python">
+		<input>
+		</input>
+	      </sage>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Notice that we can create new lines by pressing
+		<em>Enter</em> and entering additional commands on
+		them. 	What happens when you evaluate this cell?
+		<sage language="python">
+		  <input>
+		    5 * 3
+		    10 - 4
+		  </input>
+		</sage>
+	      </p>
+	      
+	      <p>
+		Notice that we only see the result from the last command.
+		With the <c>print</c> command, we may see earlier results,
+		if we wish. 
+		<sage language="python">
+		  <input>
+		    print(5 * 3)
+		    print(10 - 4)
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p> We may give a name to the result of one command and
+	      refer to it in a later command.
+	      <sage language="python">
+		<input>
+		  income = 1500 * 12
+		  taxes = income * 0.15
+		  print(income - taxes)
+		</input>
+	      </sage>
+	      </p>
+	      
+	      <p> Suppose you have three tests in your linear algebra
+	      class and your scores are 90, 100, and 98.  In the cell
+	      below, add your scores together and call the result
+	      <c>total</c>.  On the next line, find the average of your
+	      test scores and print it.
+	      <sage language="python">
+		<input>
+		</input>
+	      </sage>
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p> We can run other sorts of Python code in these Python cells as well.
+		  For example, you may be familiar with Python for loops:
+	      <sage language="python">
+		<input>
+for i in range(10):
+    print(i)
+		</input>
+	      </sage>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+      <solution>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <cd>
+3 + 4*(2**4 - 1)
+	      </cd>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Only the results of the last line are displayed.
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      <cd>
+total = 90 + 100 + 98
+average = total / 3
+print(average)
+	      </cd>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      This cell prints the integers from 0 to 9.
+	    </p>
+	  </li>
+	</ol>
+      </solution>
+      <answer>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <cd>
+3 + 4*(2**4 - 1)
+	      </cd>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Only the results of the last line are displayed.
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      <cd>
+total = 90 + 100 + 98
+average = total / 3
+print(average)
+	      </cd>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      This cell prints the integers from 0 to 9.
+	    </p>
+	  </li>
+	</ol>
+      </answer>
+
+    </activity>
+  </subsection>
+
+  <subsection>
+    <title> Python and matrices </title>
+
+    <p>
+      When we encounter a matrix, <xref
+      ref="thm-rref-is-unique" /> tells us that there 
+      is exactly one reduced row echelon matrix that is row equivalent
+      to it.
+    </p>
+    
+    <p>
+      In fact, the uniqueness of this reduced row echelon matrix is
+      what motivates us to define this particular form.  When solving
+      a system of linear equations using Gaussian elimination, there
+      are other row equivalent matrices that reveal the structure of
+      the solution space.  The reduced row echelon matrix is simply a
+      convenience as it is an agreement we make with one another to
+      seek the same matrix.
+    </p>
+
+    <p>
+      An added benefit is that we can ask a computer 
+      to find reduced row echelon matrices for us.  We will
+      learn how to do this now that we have a little familiarity with
+      Python.
+    </p>
+
+    <p> 
+      First, notice
+      that a matrix has a certain number of rows and columns.  For
+      instance, the matrix
+      <me>
+      \left[
+      \begin{array}{rrrrr}
+      * \amp * \amp * \amp * \amp  * \\
+      * \amp * \amp * \amp * \amp  * \\
+      * \amp * \amp * \amp * \amp  * \\
+      \end{array}
+      \right]
+    </me>
+    has three rows and five columns.  We consequently refer to this as a 
+    <m>3\times 5</m> matrix.
+    </p>
+
+    <p> We may ask Python to create the <m>2\times4</m> matrix
+    <me>
+      \left[
+      \begin{array}{rrrr}
+      -1 \amp 0 \amp 2 \amp 7 \\
+      2 \amp 1 \amp -3 \amp -1 \\
+      \end{array}
+      \right]
+    </me>
+    by entering
+    <sage language="python">
+      <input>
+	import numpy as np
+	my_matrix = np.array(
+		[[-1, 0, 2, 7],
+	     [2, 1, -3, -1]
+		])
+	print(my_matrix)
+	print(my_matrix.shape) # how many rows and columns?
+      </input>
+    </sage>
+    </p>
+
+	<note>
+	  <title>Numpy</title>
+	  <p>
+	  Numpy is a python module that is heavily used in data science. <c>import numpy as np</c> 
+	  loads this module and declares that we will refer to it as <c>np</c> in subsequent code.
+	  Matrices are created using <c>np.array()</c>, which is provided with a list of matrix rows, each
+	  of which is also a list.
+	  </p>
+
+	  <p>Using <c>np.array()</c> is better than just using a list of lists, however, because 
+	  numpy provides tools to perform all sorts of useful computations with matrices, as we shall
+	  see.</p>
+
+	</note>
+
+	<note>
+	  <title>Augmented matrices in numpy</title>
+    <p>
+	Notice that there is no way of
+    specifying whether this is an augmented or coefficient matrix in numpy,
+	so it will be up to us to interpret our results appropriately.
+    </p>
+	</note>
+
+    <assemblage>
+      <title> Python syntax </title>
+      <p> Some common mistakes are
+      <ul>
+	<li> <p>
+          to forget the square brackets around the
+	  list of entries,
+	</p></li>
+	<li> <p>
+	  to omit an entry from the list or to add an extra one,
+	</p></li>
+	<li> <p>
+	  to forget to separate the rows, and entries within a row with commas, 
+	  and
+	</p></li>
+	<li> <p>
+	  to forget the closing parenthesis (because you are so worried about getting the 
+	  correct number of square brackets, perhaps). 
+	</p></li>
+      </ul>
+      If you see an error message, carefully proofread your input and
+      try again.
+      </p>
+    </assemblage>
+
+    
+    <activity>
+      <title> Using Python to find row reduced echelon matrices </title>
+
+      <statement>
+	<p>
+	  <ol marker="a.">
+	    <li xml:id = "li-example-rref">
+	      <p>
+		Enter the following matrix into Python.
+		<me>
+		  \left[
+		  \begin{array}{rrrr}
+		  -1 \amp -2 \amp 2 \amp -1 \\
+		  2 \amp 4 \amp -1 \amp 5 \\
+		  1 \amp 2 \amp 0 \amp 3
+		  \end{array}
+		  \right]
+		</me>
+		<sage language="python">
+		  <input> 
+		  </input>
+		</sage>
+		
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p> Give the matrix the name <m>A</m> by entering
+	      <cd>
+A = np.array([ ... ])
+	      </cd>
+	      We may then find its reduced row echelon form by
+	      entering 
+	      <cd>
+A = np.array([ ... ])
+sp.Matrix(A).rref()
+	      </cd>
+	      A common mistake is to forget the parentheses after
+	      <c>rref</c>.
+	      </p>
+	      
+	      <p> Use Python to find the reduced row echelon form of the
+	      matrix from <xref ref="li-example-rref" /> of this activity.
+	      <sage language="python">
+		<input>
+		</input>
+	      </sage>
+	      </p>
+	    </li>
+	    
+	    <li xml:id = "li-rref-solve">
+	      <p> Use Python to describe the
+	      solution space of the system 
+	      of linear equations
+	      <me>
+		\begin{alignedat}{5}
+		-x_1 \amp  \amp  \amp  \amp  \amp  {}+{}  \amp 2x_4 \amp
+		{}={}  \amp 4 \\ 
+		\amp  \amp 3x_2 \amp  {}+{}  \amp x_3 \amp  {}+{}  \amp 2x_4
+		\amp  {}={}  \amp 3 \\ 
+		4x_1 \amp  {}-{}  \amp 3x_2 \amp  \amp  \amp  {}+{}  \amp
+		x_4 \amp  {}={}  \amp 14 \\ 
+		\amp  \amp 2x_2 \amp  {}+{}  \amp 2x_3 \amp  {}+{}  \amp x_4
+		\amp  {}={}  \amp 1 \\ 
+		\end{alignedat}
+	      </me>
+	      <sage language="python">
+		<input>
+		</input>
+	      </sage>
+	      </p>
+	    </li>
+	    <li xml:id = "li-augmentation-principle">
+	      <p> Consider the two matrices:
+	      <me>
+		\begin{array}{rcl}
+		A \amp = \amp \left[
+		\begin{array}{rrrr}
+		1 \amp -2 \amp 1 \amp -3 \\
+		-2 \amp 4 \amp 1 \amp 1 \\
+		-4 \amp 8 \amp -1 \amp 7 \\
+		\end{array}\right] \\
+		B \amp = \amp \left[
+		\begin{array}{rrrrrr}
+		1 \amp -2 \amp 1 \amp -3 \amp 0 \amp 3 \\
+		-2 \amp 4 \amp 1 \amp 1 \amp 1 \amp -1 \\
+		-4 \amp 8 \amp -1 \amp 7 \amp 3 \amp 2 \\
+		\end{array}\right] \\
+		\end{array}
+	      </me>
+	      We say that <m>B</m> is an <em>augmentation</em> of <m>A</m>
+	      because it is obtained from <m>A</m> by adding some more
+	      columns.  
+	      </p>
+	      <p> Using Python, define the matrices and compare their reduced
+	      row echelon forms.  What do you notice about the relationship
+	      between the two reduced row echelon forms?
+	      </p>
+	      <p>
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p> Using the system of equations in <xref
+	      ref="li-rref-solve" />, write the
+	      augmented matrix corresponding to the system of equations.
+	      What did you find for the
+	      reduced row echelon form of the augmented matrix?
+	      </p>
+	      
+	      <p> Now write the coefficient matrix of this system of
+	      equations.  What does <xref ref="li-augmentation-principle" />
+	      of this activity tell you about its reduced row echelon form?
+	    </p> </li>
+	  </ol>
+	</p>
+      </statement>
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<cd>
+matrix(3, 4, [-1,-2, 2,-1,
+               2, 4,-1, 5,
+               1, 2, 0, 3])
+		</cd>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The reduced row echelon form of the matrix is
+		<me>
+		  \begin{bmatrix}
+		  1 \amp 2 \amp 0 \amp 3 \\
+		  0 \amp 0 \amp 1 \amp 1 \\
+		  0 \amp 0 \amp 0 \amp 0
+		  \end{bmatrix}.
+		</me>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Python tells us that the reduced row echelon form of the
+		corresponding augmented matrix is
+		<me>
+		  \begin{bmatrix}
+		  1 \amp 0 \amp 0 \amp 0 \amp -2 \\
+		  0 \amp 1 \amp 0 \amp 0 \amp -1 \\
+		  0 \amp 0 \amp 1 \amp 0 \amp 0 \\
+		  0 \amp 0 \amp 0 \amp 1 \amp 3 \\
+		  \end{bmatrix}
+		</me>
+		so there is a unique solution <m>(x_1,x_2,x_3,x_4) =
+		(-2,-1,0,3)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The first four columns of the reduced row echelon form
+		of <m>B</m> form the reduced row echelon form of
+		<m>A</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The reduced row echelon form of the coefficient matrix
+		is 
+		<me>
+		  \begin{bmatrix}
+		  1 \amp 0 \amp 0 \amp 0 \\
+		  0 \amp 1 \amp 0 \amp 0 \\
+		  0 \amp 0 \amp 1 \amp 0 \\
+		  0 \amp 0 \amp 0 \amp 1 \\
+		  \end{bmatrix}.
+		</me>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<cd>
+matrix(3, 4, [-1,-2, 2,-1,
+               2, 4,-1, 5,
+               1, 2, 0, 3])
+		</cd>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The reduced row echelon form of the matrix is
+		<me>
+		  \begin{bmatrix}
+		  1 \amp 2 \amp 0 \amp 3 \\
+		  0 \amp 0 \amp 1 \amp 1 \\
+		  0 \amp 0 \amp 0 \amp 0
+		  \end{bmatrix}.
+		</me>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		There is a unique solution <m>(x_1,x_2,x_3,x_4) =
+		(-2,-1,0,3)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The first four columns of the reduced row echelon form
+		of <m>B</m> form the reduced row echelon form of
+		<m>A</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The reduced row echelon form of the coefficient matrix
+		is 
+		<me>
+		  \begin{bmatrix}
+		  1 \amp 0 \amp 0 \amp 0 \\
+		  0 \amp 1 \amp 0 \amp 0 \\
+		  0 \amp 0 \amp 1 \amp 0 \\
+		  0 \amp 0 \amp 0 \amp 1 \\
+		  \end{bmatrix}.
+		</me>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+    </activity>
+
+    <assemblage>
+      <title> Python practices </title>
+      <p> Here are some practices that you may find helpful when
+      working with matrices in Python.
+      <ul>
+	<li> <p> Break the matrix entries across lines, one for each row,
+	for better readability by pressing <em>Enter</em> between rows.
+	<cd>
+A = matrix(2, 4, [ 1, 2, -1, 0,
+                  -3, 0,  4, 3 ])
+	</cd>
+	</p></li>
+	<li> <p> Print your original matrix to check that you have
+	entered it correctly.  You may want to also print a dividing
+	line to separate matrices.
+	<cd>
+A = matrix(2, 2, [ 1, 2,
+                   2, 2])
+print (A)
+print ("---------")
+A.rref()
+	</cd>
+      </p>
+	</li>
+      </ul>
+      </p>
+    </assemblage>
+
+    <p> The last part of the previous activity, <xref
+    ref="li-augmentation-principle" />, demonstrates something that
+    will be helpful for us in the future.  In that activity, we
+    started with a matrix <m>A</m>, which we augmented by adding some
+    columns to obtain a matrix <m>B</m>.  We then noticed that the
+    reduced row echelon form of <m>B</m> is itself an augmentation of
+    the reduced row echelon form of <m>A</m>.
+    </p>
+
+    <p>
+      To illustrate, we can consider the reduced row echelon form of
+      the augmented matrix:
+      <me>
+	\left[
+	\begin{array}{ccc|c}
+	-2 \amp 3 \amp 0 \amp 2 \\
+	-1 \amp 4 \amp 1 \amp 3 \\
+	3 \amp 0 \amp 2 \amp 2 \\
+	1 \amp 5 \amp 3 \amp 7 \\
+	\end{array}
+	\right]
+	\sim
+	\left[
+	\begin{array}{ccc|c}
+	1 \amp 0 \amp 0 \amp -4 \\
+	0 \amp 1 \amp 0 \amp -2 \\
+	0 \amp 0 \amp 1 \amp 7 \\
+	0 \amp 0 \amp 0 \amp 0 \\
+	\end{array}
+	\right]
+      </me>
+    </p>
+
+    <p>
+      We can then determine the reduced row echelon form of the
+      coefficient matrix by looking inside the augmented matrix.
+      <me>
+	\left[
+	\begin{array}{ccc}
+	-2 \amp 3 \amp 0 \\
+	-1 \amp 4 \amp 1 \\
+	3 \amp 0 \amp 2 \\
+	1 \amp 5 \amp 3 \\
+	\end{array}
+	\right]
+	\sim
+	\left[
+	\begin{array}{ccc}
+	1 \amp 0 \amp 0 \\
+	0 \amp 1 \amp 0 \\
+	0 \amp 0 \amp 1 \\
+	0 \amp 0 \amp 0 \\
+	\end{array}
+	\right]
+      </me>
+    </p>
+
+    <p> If we trace through the steps in the Gaussian elimination
+    algorithm carefully, we see that this is a general principle, which
+    we now state.
+    </p>
+
+    <proposition xml:id="principle-augmentation-principle">
+      <title> Augmentation Principle </title>
+
+      <p> If matrix <m>B</m> is an augmentation of matrix <m>A</m>,
+      then the reduced row echelon form of <m>B</m> is an augmentation
+      of the reduced row echelon form of <m>A</m>.
+      </p>
+    </proposition>
+
+  </subsection>
+
+  <subsection xml:id="subsec-compute-effort">
+    <title> Computational effort </title>
+    <p>
+      At the beginning of this section, we indicated that linear
+      algebra has become more prominent as computers have grown
+      more powerful.  Computers, however, still have limits.  Let's
+      consider how much effort is expended when we ask to find the
+      reduced row echelon form of a matrix.  We will measure, very
+      roughly, the effort by the number of times the algorithm
+      requires us to multiply or add two numbers.
+    </p>
+
+    <p>
+      We will assume that our matrix has the same number of rows
+      as columns, which we call <m>n</m>.  We are mainly interested in
+      the case when <m>n</m> is very large, which is when we need to
+      worry about how
+      much effort is required.
+    </p>
+
+    <p> Let's first consider the effort required for each of our row 
+    operations. 
+      <ul>
+	<li> <p> Scaling a row multiplies each of the <m>n</m> entries
+	in a row by some number, which requires <m>n</m>
+	operations. </p></li>
+	<li> <p> Interchanging two rows requires no multiplications or
+	additions so we won't worry about the effort required by an
+	interchange.  </p></li>
+	<li> <p> A replacement requires us to multiply
+	each entry in a row by some number, which takes <m>n</m>
+	operations, and then add the resulting entries to another row,
+	which requires another <m>n</m> operations.  The total number
+	of operations is <m>2n</m>.</p></li>
+      </ul>
+    </p>
+
+    <p>
+      Our goal is to transform a matrix to its reduced row echelon
+      form, which looks something like this:
+      <me>
+	\left[
+	\begin{array}{cccc}
+	1 \amp 0 \amp \ldots \amp 0 \\
+	0 \amp 1 \amp \ldots \amp 0 \\
+	\vdots \amp \vdots \amp \ddots \amp 0 \\
+	0 \amp 0 \amp \ldots \amp 1 \\
+	\end{array}
+	\right]
+	</me>.
+	We roughly perform one replacement operation for every 0 entry
+	in the reduced row echelon matrix.  When <m>n</m> is very
+	large, most of the <m>n^2</m> entries in the reduced row
+	echelon form are 0 so we need roughly <m>n^2</m>
+	replacements.  Since each replacement operation
+	requires <m>2n</m> operations, the number of operations
+	resulting from the needed replacements is roughly <m>n^2(2n) =
+	2n^3</m>.
+    </p>
+    
+    <p> Each row is scaled roughly one time so there are roughly
+    <m>n</m> scaling operations, each of which requires <m>n</m>
+    operations.  The number of operations due to scaling is roughly
+    <m>n^2</m>.
+    </p>
+
+    <p>
+      Therefore, the total number of operations is roughly
+      <me> 2n^3 + n^2</me>.  When <m>n</m> is very large, the
+      <m>n^2</m> term is much smaller than the <m>n^3</m> term.  We
+      therefore state that
+    </p>
+
+    <observation>
+      <statement>
+	<p>
+	The number of operations required to find the reduced row
+	echelon form of an <m>n\times n</m> matrix is roughly
+	proportional to <m>n^3</m>.
+	</p>
+      </statement>
+    </observation>
+
+    <p>
+      This is a very rough measure of the effort required to find the
+      reduced row echelon form;  a more careful accounting shows that
+      the number of arithmetic operations is roughly <m>\frac23
+      n^3</m>.  As we have seen, some matrices 
+      require more effort than others, but the upshot of this
+      observation is that the effort is proportional to <m>n^3</m>.
+      We can think of this in the following way: If the size of the
+      matrix grows by a factor of 10, then the effort required
+      grows by a factor of <m>10^3 = 1000</m>.
+    </p>
+
+    <p>
+      While today's computers are powerful, they cannot handle every
+      problem we might ask of them.  Eventually, we would like to be
+      able to consider matrices that have <m>n=10^{12}</m> (a
+      trillion) rows and columns.  In very broad terms, the effort
+      required to find the reduced row echelon matrix will require
+      roughly <m>(10^{12})^3 = 10^{36}</m> operations.
+    </p>
+
+    <p>
+      To put this into context, imagine we need to solve a linear
+      system with a trillion equations and a trillion variables and
+      that we have a computer that can perform a trillion,
+      <m>10^{12}</m>, operations every second.  Finding the reduced
+      row echelon form would take about <m>10^{16}</m> years.  At this
+      time, the universe is estimated to be approximately
+      <m>10^{10}</m> years old.  If we started the calculation when
+      the universe was born, we'd be about one-millionth of
+      the way through.  
+    </p>
+
+    <p> This may seem like an absurd situation, but
+      we'll see in <xref ref="subsec-google" /> how we use the results
+      of such a computation every day.
+      Clearly, we will need some better tools to deal with
+      <em>really</em> big problems like this one.
+    </p>
+	
+  </subsection>
+
+  <subsection>
+    <title> Summary </title>
+
+    <p> We learned some basic features of Python with an emphasis on
+    finding the reduced row echelon form of a matrix.
+    <ul>
+      <li> <p> Python can perform basic arithmetic using standard
+      operators.  Python can also save results from one command to be
+      reused in a later command.
+      </p></li>
+
+      <li> <p> We can define matrices in Python. Our preference is to use 
+	  <c>numpy.array()</c> to create matrices.
+      </p></li>
+	  <p>
+	  We can find the reduced row
+      echelon form using the <c>rref()</c> method <strong><em>after converting to a <c>sympy.Matrix</c></em></strong>.
+	  The output is a tuple of length 2.  The first element is the reduced row echelon form of the matrix and the 
+	  second is a tuple identifying the location of the pivots.
+      </p>
+      
+      <li> <p> We saw an example of the
+      <xref ref="principle-augmentation-principle" text="custom">
+	Augmentation Principle
+      </xref>, which
+      we then stated as a general principle. 
+      </p></li>
+
+      <li> <p> We saw that the computational effort required to find
+      the reduced row echelon form of an <m>n\times n</m> matrix is
+      proportional to <m>n^3</m>.
+      </p></li>
+    </ul>
+    <xref ref="app-python-reference" text="custom"> Appendix A</xref>
+    contains a reference outlining the Python commands that we have
+    encountered. 
+    </p>
+  </subsection>
+
+  <xi:include href="exercises/exercises1-3.ptx" />
+  
+</section>
