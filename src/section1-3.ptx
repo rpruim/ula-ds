@@ -42,201 +42,13 @@
 	in vector and matrix format than are users of R, where this is often hidden behind 
 	an additional layer of abstraction.
 	For this reason, we'll focus primarily on Python in this text, with some 
-	references to how things differ thrown in R along the way. 
+	references to how things differ in R thrown in along the way. 
 	</p>
   </introduction>
     
-  <subsection>
-    <title> Introduction to Python </title>
-    
-    <p>
-      SageMath is a free open-source mathematics software system licensed under the GPL. 
-	  It builds on top of many existing open-source packages: 
-	  NumPy, SciPy, matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. 
-	  Access their combined power through a common, Python-based language or directly via 
-	  interfaces or wrappers. 
-
-	  In this book we will use SageMath as a way to embed Python (and sometimes R) cells 
-	  that you can edit and execute as you learn linear algebra.
-	</p>
-
-	    <p> Here is a Python cell containing a command
-	    that asks Python to multiply 5 and 3.  You may execute the
-	    command by pressing the <em>Evaluate</em> button.
-	    
-	    <sage language="python">
-	      <input>
-		5 * 3
-	      </input>
-	    </sage>
-
-		Of course, you can run this sort of Python code in other Python 
-		environments as well, including in a Jupyter notebook, in an RMardkown
-		or Quarto document, in posit RStudio, in a Sage cell server, etc.
-		The Python cells in this text provide a handy way to try things out as 
-		you are reading, but you should adopt one of these other platforms for 
-		saving work.
-	    </p>
-
-
-    <p>
-      Throughout the text, we will introduce new Python commands that
-      allow us to explore linear algebra concepts.  These commands
-      are collected and summarized in the reference found in <xref
-      ref="app-python-reference" text="custom"> Appendix A</xref>.
-    </p>
-
-    <activity>
-      <title> Basic Python commands </title>
-
-      <statement>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p> Python uses the standard operators <c>+</c>, <c>-</c>, <c>*</c>, and <c>/</c> for the usual
-		  arithmetic operations.  <c>**</c> is used for exponentiation.
-		  By entering text in the cell below, ask Python to evaluate
-	      <me>
-		3 + 4(2^4 - 1)
-	      </me>
-	      <sage language="python">
-		<input>
-		</input>
-	      </sage>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Notice that we can create new lines by pressing
-		<em>Enter</em> and entering additional commands on
-		them. 	What happens when you evaluate this cell?
-		<sage language="python">
-		  <input>
-		    5 * 3
-		    10 - 4
-		  </input>
-		</sage>
-	      </p>
-	      
-	      <p>
-		Notice that we only see the result from the last command.
-		With the <c>print</c> command, we may see earlier results,
-		if we wish. 
-		<sage language="python">
-		  <input>
-		    print(5 * 3)
-		    print(10 - 4)
-		  </input>
-		</sage>
-	      </p>
-	    </li>
-	    
-	    <li>
-	      <p> We may give a name to the result of one command and
-	      refer to it in a later command.
-	      <sage language="python">
-		<input>
-		  income = 1500 * 12
-		  taxes = income * 0.15
-		  print(income - taxes)
-		</input>
-	      </sage>
-	      </p>
-	      
-	      <p> Suppose you have three tests in your linear algebra
-	      class and your scores are 90, 100, and 98.  In the cell
-	      below, add your scores together and call the result
-	      <c>total</c>.  On the next line, find the average of your
-	      test scores and print it.
-	      <sage language="python">
-		<input>
-		</input>
-	      </sage>
-	      </p>
-	    </li>
-	    
-	    <li>
-	      <p> We can run other sorts of Python code in these Python cells as well.
-		  For example, you may be familiar with Python for loops:
-	      <sage language="python">
-		<input>
-for i in range(10):
-    print(i)
-		</input>
-	      </sage>
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </statement>
-      <solution>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      <cd>
-3 + 4*(2**4 - 1)
-	      </cd>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      Only the results of the last line are displayed.
-	    </p>
-	  </li>
-
-	  <li>
-	    <p>
-	      <cd>
-total = 90 + 100 + 98
-average = total / 3
-print(average)
-	      </cd>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      This cell prints the integers from 0 to 9.
-	    </p>
-	  </li>
-	</ol>
-      </solution>
-      <answer>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      <cd>
-3 + 4*(2**4 - 1)
-	      </cd>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      Only the results of the last line are displayed.
-	    </p>
-	  </li>
-
-	  <li>
-	    <p>
-	      <cd>
-total = 90 + 100 + 98
-average = total / 3
-print(average)
-	      </cd>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      This cell prints the integers from 0 to 9.
-	    </p>
-	  </li>
-	</ol>
-      </answer>
-
-    </activity>
-  </subsection>
 
   <subsection>
-    <title> Python and matrices </title>
+    <title> Reduced row echelon form in Python </title>
 
     <p>
       When we encounter a matrix, <xref
@@ -262,87 +74,32 @@ print(average)
       Python.
     </p>
 
-    <p> 
-      First, notice
-      that a matrix has a certain number of rows and columns.  For
-      instance, the matrix
-      <me>
-      \left[
-      \begin{array}{rrrrr}
-      * \amp * \amp * \amp * \amp  * \\
-      * \amp * \amp * \amp * \amp  * \\
-      * \amp * \amp * \amp * \amp  * \\
-      \end{array}
-      \right]
-    </me>
-    has three rows and five columns.  We consequently refer to this as a 
-    <m>3\times 5</m> matrix.
-    </p>
-
-    <p> We may ask Python to create the <m>2\times4</m> matrix
-    <me>
-      \left[
-      \begin{array}{rrrr}
-      -1 \amp 0 \amp 2 \amp 7 \\
-      2 \amp 1 \amp -3 \amp -1 \\
-      \end{array}
-      \right]
-    </me>
-    by entering
-    <sage language="python">
-      <input>
-	import numpy as np
-	my_matrix = np.array(
-		[[-1, 0, 2, 7],
-	     [2, 1, -3, -1]
-		])
-	print(my_matrix)
-	print(my_matrix.shape) # how many rows and columns?
-      </input>
-    </sage>
-    </p>
-
-	<note>
-	  <title>Numpy</title>
-	  <p>
-	  Numpy is a python module that is heavily used in data science. <c>import numpy as np</c> 
-	  loads this module and declares that we will refer to it as <c>np</c> in subsequent code.
-	  Matrices are created using <c>np.array()</c>, which is provided with a list of matrix rows, each
-	  of which is also a list.
-	  </p>
-
-	  <p>Using <c>np.array()</c> is better than just using a list of lists, however, because 
-	  numpy provides tools to perform all sorts of useful computations with matrices, as we shall
-	  see.</p>
-
-	</note>
 
 	<note>
 	  <title>Augmented matrices in numpy</title>
     <p>
-	Notice that there is no way of
-    specifying whether this is an augmented or coefficient matrix in numpy,
+	Notice that in <c>numpy</c> there is no way of
+    specifying whether a matrix is an augmented matrix or a coefficient matrix,
 	so it will be up to us to interpret our results appropriately.
     </p>
 	</note>
 
     <assemblage>
       <title> Python syntax </title>
-      <p> Some common mistakes are
+      <p> Some common mistakes when entering a matrix in Python include 
       <ul>
 	<li> <p>
-          to forget the square brackets around the
-	  list of entries,
+          forgetting the square brackets around the list of entries,
 	</p></li>
 	<li> <p>
-	  to omit an entry from the list or to add an extra one,
+	  forgetting an entry from the list or to add an extra one,
 	</p></li>
 	<li> <p>
-	  to forget to separate the rows, and entries within a row with commas, 
+	  forgetting to separate the rows, and entries within a row with commas, 
 	  and
 	</p></li>
 	<li> <p>
-	  to forget the closing parenthesis (because you are so worried about getting the 
+	  forgetting the closing parenthesis (because you are so worried about getting the 
 	  correct number of square brackets, perhaps). 
 	</p></li>
       </ul>
@@ -383,12 +140,21 @@ print(average)
 	      <cd>
 A = np.array([ ... ])
 	      </cd>
+		  </p>
+			
+		  <p>
+		  <c>numpy</c> does not have a built-in method for computing the 
+		  reduced row echelon form of a matrix, so we will use another package,
+		  <c>sympy</c>.  
 	      We may then find its reduced row echelon form by
 	      entering 
 	      <cd>
+import sympy as sp
 A = np.array([ ... ])
 sp.Matrix(A).rref()
 	      </cd>
+		  Note that we must first convert our <c>numpy</c> array into a 
+		  <c>sympy</c> matrix.
 	      A common mistake is to forget the parentheses after
 	      <c>rref</c>.
 	      </p>
@@ -401,6 +167,14 @@ sp.Matrix(A).rref()
 	      </sage>
 	      </p>
 	    </li>
+
+		<li>
+			<p>
+				Notice that <c>rref()</c> returns a tuple with two elements.
+				The first element is the reduced row echelon form of our matrix.
+				See if you can figure out what the second element is.
+			</p>
+		</li>
 	    
 	    <li xml:id = "li-rref-solve">
 	      <p> Use Python to describe the
@@ -442,7 +216,7 @@ sp.Matrix(A).rref()
 		\end{array}\right] \\
 		\end{array}
 	      </me>
-	      We say that <m>B</m> is an <em>augmentation</em> of <m>A</m>
+	      We say that <m>B</m> is an <term>augmentation</term> of <m>A</m>
 	      because it is obtained from <m>A</m> by adding some more
 	      columns.  
 	      </p>
@@ -479,9 +253,9 @@ sp.Matrix(A).rref()
 	    <li>
 	      <p>
 		<cd>
-matrix(3, 4, [-1,-2, 2,-1,
-               2, 4,-1, 5,
-               1, 2, 0, 3])
+np.array([[-1,-2, 2,-1],
+          [ 2, 4,-1, 5],
+          [ 1, 2, 0, 3]])
 		</cd>
 	      </p>
 	    </li>
@@ -533,8 +307,30 @@ matrix(3, 4, [-1,-2, 2,-1,
 		  0 \amp 0 \amp 0 \amp 1 \\
 		  \end{bmatrix}.
 		</me>
+		This can be computed with 
+		<sage>
+			<input>
+import numpy as np
+import sympy as sp
+A = np.array([[-1, -2, 2, -1], [2, 4, -1, 5], [1, 2, 0, 3]])
+print(A)
+print(sp.Matrix(A).rref())
+			</input>
+			<output>
+				(for static output)
+			</output>
+		</sage>
+		
 	      </p>
 	    </li>
+		<li>
+			<p>
+				<c>(0,2)</c> tells us that the leading 1 in the row 0 is in column 0 and that 
+				the leading 1 in row 1 is in column 2.  This uses 0-based indexing.  We might 
+				more naturally say that the leading 1 in the first row is in the first column 
+				and the leading 1 in the second row is in the third column.
+			</p>
+		</li>
 	  </ol>
 	</p>
       </solution>
@@ -544,9 +340,9 @@ matrix(3, 4, [-1,-2, 2,-1,
 	    <li>
 	      <p>
 		<cd>
-matrix(3, 4, [-1,-2, 2,-1,
-               2, 4,-1, 5,
-               1, 2, 0, 3])
+np.array([[-1,-2, 2,-1],
+          [ 2, 4,-1, 5],
+          [ 1, 2, 0, 3]])
 		</cd>
 	      </p>
 	    </li>
@@ -595,33 +391,6 @@ matrix(3, 4, [-1,-2, 2,-1,
       </answer>
     </activity>
 
-    <assemblage>
-      <title> Python practices </title>
-      <p> Here are some practices that you may find helpful when
-      working with matrices in Python.
-      <ul>
-	<li> <p> Break the matrix entries across lines, one for each row,
-	for better readability by pressing <em>Enter</em> between rows.
-	<cd>
-A = matrix(2, 4, [ 1, 2, -1, 0,
-                  -3, 0,  4, 3 ])
-	</cd>
-	</p></li>
-	<li> <p> Print your original matrix to check that you have
-	entered it correctly.  You may want to also print a dividing
-	line to separate matrices.
-	<cd>
-A = matrix(2, 2, [ 1, 2,
-                   2, 2])
-print (A)
-print ("---------")
-A.rref()
-	</cd>
-      </p>
-	</li>
-      </ul>
-      </p>
-    </assemblage>
 
     <p> The last part of the previous activity, <xref
     ref="li-augmentation-principle" />, demonstrates something that
@@ -807,8 +576,8 @@ A.rref()
       <m>10^{12}</m>, operations every second.  Finding the reduced
       row echelon form would take about <m>10^{16}</m> years.  At this
       time, the universe is estimated to be approximately
-      <m>10^{10}</m> years old.  If we started the calculation when
-      the universe was born, we'd be about one-millionth of
+      <m>10^{10}</m> years old.  If we had started the calculation 
+      <m>10^{10}</m> years ago, then we'd be about one-millionth of
       the way through.  
     </p>
 
@@ -824,29 +593,28 @@ A.rref()
   <subsection>
     <title> Summary </title>
 
-    <p> We learned some basic features of Python with an emphasis on
+    <p> We learned some basic more features of Python with an emphasis on
     finding the reduced row echelon form of a matrix.
     <ul>
-      <li> <p> Python can perform basic arithmetic using standard
+      <!-- <li> <p> Python can perform basic arithmetic using standard
       operators.  Python can also save results from one command to be
       reused in a later command.
-      </p></li>
+      </p></li> -->
 
-      <li> <p> We can define matrices in Python. Our preference is to use 
-	  <c>numpy.array()</c> to create matrices.
+      <li> <p> Our preference is to use <c>numpy.array()</c> to create matrices.
       </p></li>
 	  <p>
-	  We can find the reduced row
-      echelon form using the <c>rref()</c> method <strong><em>after converting to a <c>sympy.Matrix</c></em></strong>.
-	  The output is a tuple of length 2.  The first element is the reduced row echelon form of the matrix and the 
-	  second is a tuple identifying the location of the pivots.
+	  We can find the reduced row echelon form using the <c>rref()</c> method
+	  <strong><em>after converting to a <c>sympy.Matrix</c></em></strong>.  The
+	  output is a tuple of length 2.  The first element is the reduced row
+	  echelon form of the matrix and the second is a tuple identifying the
+	  location of the pivots -- the topic of the next section.
       </p>
       
       <li> <p> We saw an example of the
       <xref ref="principle-augmentation-principle" text="custom">
 	Augmentation Principle
-      </xref>, which
-      we then stated as a general principle. 
+      </xref>, which we then stated as a general principle. 
       </p></li>
 
       <li> <p> We saw that the computational effort required to find

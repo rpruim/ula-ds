@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-vectors-in-python"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+
+  <title>
+    Vectors in Python
+  </title>
+
+  <introduction>
+    <p>
+      Now that we have been introduced to vectors, it's time to learn how  
+      to work with vectors in Python.  
+    </p>
+  </introduction>
+
+
+  <subsection xml:id="subsec-intro-to-python">
+    <title> Introduction to Python </title>
+    
+    <p>
+      SageMath is a free open-source mathematics software system licensed under the GPL. 
+	  It builds on top of many existing open-source packages: 
+	  NumPy, SciPy, matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. 
+	  Access their combined power through a common, Python-based language or directly via 
+	  interfaces or wrappers. 
+
+	  In this book we will use SageMath as a way to embed Python (and sometimes R) cells 
+	  that you can edit and execute as you learn linear algebra.
+	</p>
+
+	    <p> Here is a Python cell containing a command
+	    that asks Python to multiply 5 and 3.  You may execute the
+	    command by pressing the <em>Evaluate</em> button.
+	    
+	    <sage language="python">
+	      <input>
+		5 * 3
+	      </input>
+	    </sage>
+
+		Of course, you can run this sort of Python code in other Python 
+		environments as well, including in a Jupyter notebook, in an RMarkdown
+		or Quarto document, in posit RStudio, in a Sage cell server, etc.
+		The Python cells in this text provide a handy way to try things out as 
+		you are reading, but you should adopt one of these other platforms for 
+		saving work.
+	    </p>
+
+
+    <p>
+      Throughout the text, we will introduce new Python commands that
+      allow us to explore linear algebra concepts.  These commands
+      are collected and summarized in the reference found in <xref
+      ref="app-python-reference" text="custom"> Appendix A</xref>.
+    </p>
+
+    <activity>
+      <title> Basic Python commands </title>
+
+      <statement>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p> Python uses the standard operators <c>+</c>, <c>-</c>, <c>*</c>, and <c>/</c> for the usual
+		  arithmetic operations.  <c>**</c> is used for exponentiation.
+		  By entering text in the cell below, ask Python to evaluate
+	      <me>
+		3 + 4(2^4 - 1)
+	      </me>
+	      <sage language="python">
+		<input>
+		</input>
+	      </sage>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Notice that we can create new lines by pressing
+		<em>Enter</em> and entering additional commands on
+		them. 	What happens when you evaluate this cell?
+		<sage language="python">
+		  <input>
+		    5 * 3
+		    10 - 4
+		  </input>
+		</sage>
+	      </p>
+	      
+	      <p>
+		Notice that we don't see any output from the cell we just evaluated.
+    In order to see the results, we use <c>print()</c>:
+
+		<sage language="python">
+		  <input>
+		    print(5 * 3)
+		    print(10 - 4)
+		  </input>
+		</sage>
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p> We may give a name to the result of one command and
+	      refer to it in a later command.
+	      <sage language="python">
+		<input>
+		  income = 1500 * 12
+		  taxes = income * 0.15
+		  print(income - taxes)
+		</input>
+	      </sage>
+	      </p>
+	      
+	      <p> Suppose you have three tests in your linear algebra
+	      class and your scores are 90, 100, and 98.  In the cell
+	      below, add your scores together and call the result
+	      <c>total</c>.  On the next line, find the average of your
+	      test scores and print it.
+	      <sage language="python">
+		<input>
+		</input>
+	      </sage>
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p> We can run other sorts of Python code in these Python cells as well.
+		  For example, you may be familiar with Python for loops:
+	      <sage language="python">
+		<input>
+for i in range(10):
+    print(i)
+		</input>
+	      </sage>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+      <solution>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <cd>
+3 + 4*(2**4 - 1)
+	      </cd>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Only the results of the last line are displayed.
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      <cd>
+total = 90 + 100 + 98
+average = total / 3
+print(average)
+	      </cd>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      This cell prints the integers from 0 to 9.
+	    </p>
+	  </li>
+	</ol>
+      </solution>
+      <answer>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <cd>
+3 + 4*(2**4 - 1)
+	      </cd>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Only the results of the last line are displayed.
+	    </p>
+	  </li>
+
+	  <li>
+	    <p>
+	      <cd>
+total = 90 + 100 + 98
+average = total / 3
+print(average)
+	      </cd>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      This cell prints the integers from 0 to 9.
+	    </p>
+	  </li>
+	</ol>
+      </answer>
+
+    </activity>
+  </subsection>
+
+<subsection xml:id="subsec-numpy-vectors">
+  <title><c>numpy</c> vectors</title>
+  
+      <p> Since a vector is just a list of numbers, if you know Python, you might expect that we
+        will create vectors using Python lists. This is partially correct. But Python lists don't
+        know about our operations (scalar multiplication and vector addition). In order to get
+        vectors that know about these operations, we will convert our Python lists into <term>
+        ndarrays</term> (n-dimensional arrays) using the Python package <c>numpy</c>. </p>
+
+      <p> Python can perform scalar multiplication and vector addition. We define a vector using 
+      <c>np.array()</c>; then <c>*</c> and <c>+</c> denote scalar multiplication and vector addition. 
+        <sage
+          language="python">
+          <input>
+import numpy as np
+v = np.array([3,1])
+w = np.array([-1,2])
+print(type(v))
+print (2*v)
+print (v + w)
+          </input>
+        </sage>
+      </p>
+
+      <idx> shape </idx>
+
+	<note>
+	  <title>Numpy</title>
+	  <p>
+	  Numpy is a python module that is heavily used in data science. <c>import numpy as np</c> 
+	  loads this module and declares that we will refer to it as <c>np</c> in subsequent code.
+	  Vectors are created using <c>np.array()</c>, which is provided with a list of numbers.
+	  </p>
+
+	  <p>Using <c>np.array()</c> is better than just using a generic Python list, however, because 
+	  numpy provides tools to perform all sorts of useful computations with vectors (and matrices), 
+    as we shall see.</p>
+	</note>
+
+      <remark> numpy uses the term <em>dimension</em> differently from how we have been using it. In
+        numpy parlance, all of the vectors we have seen are 1-dimensional arrays because there is
+        just one column of numbers. This will make more sense when we see 2-dimensional arrays
+        (matrices) and higher dimensional arrays (tensors). We can use <c>.shape</c> to find out how
+        many components are in one of our vectors. Give it a try. Type <c>print(v.shape)</c> in the
+        code block above and re-evaluate. </remark>
+
+      <p>
+        For low dimensional vectors, manually typing in each component is reasonable.  But ofen we will  
+        work with vectors with many components.  So we will need some better ways to create these  
+        vectors. Here are some examples showing how to create structured or random vectors.
+        <sage
+          language="python">
+          <input>
+import numpy as np
+v = np.array(range(100))
+# 5 to 100 by 5's -- note the 101 here!
+w = np.array(range(5, 101, 5))  
+print(v.shape)
+print(v)
+print(w)
+r = np.random.normal(100, 10, 50)
+print(r.shape)
+print(r)
+          </input>
+        </sage>
+      </p>
+
+      <p>
+        Once we have an ndarray, we can compute various summaries of it.
+        The mean and standard deviation are two common examples.
+        <sage
+          language="python">
+          <input>
+import numpy as np
+r = np.random.normal(100, 10, 50)
+print("shape:", r.shape, "mean:", r.mean().round(2), "sd:", r.std().round(2))
+          </input>
+        </sage>
+      </p>
+
+  <subsection>
+    <title>Summary</title>
+    <ul>
+      <li>
+        <p>
+        </p>
+      </li>
+      <li><p>
+        </p>
+      </li>
+        <li>
+        </li>
+    </ul>
+    </subsection>
+
+    <!--
+      <xi:include href="exercises/exercises0-1.ptx" />
+  -->
+  </subsection>
+
+</section>

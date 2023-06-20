@@ -4,7 +4,7 @@
 	 xmlns:xi="http://www.w3.org/2001/XInclude">
 
   <title>
-    Pivots and their influence on solution spaces
+    Pivots and their relationship to solution spaces
   </title>
 
   <introduction>
@@ -209,6 +209,31 @@
       </answer>
     </exploration>
 
+	<example>
+		<title>Finding pivots in Python</title>
+		<p>
+			When we compute the reduced row echelon form of a matrix using 
+			<c>sympy.rref()</c>, the second part of the returned result tells us  
+			where the pivots positions are.
+
+			<sage>
+				<input>
+import numpy as np 
+import sympy as sp  
+A = np.array([[2,4,6,-1], [-3, 1,5, 0], [1, 3, 5, 1]])
+print(sp.Matrix(A).rref()[1])
+				</input>
+				<output>
+				</output>
+			</sage>
+			Executing this code shows us that the pivot positions 
+			(in Python 0-based indexing) are <m>(0,0), (1,1), (2,3))</m>.
+			Mathematically, using 1-based indexing, we would call these 
+			<m>(1,1), (2,2), (3,3))</m>.
+			
+		</p>
+	</example>
+
     <p> When we have looked at solution spaces of linear systems,
     we have frequently asked whether there are infinitely
     many solutions, exactly one solution, or no solutions.  We will
@@ -223,8 +248,8 @@
 	<dl>
 	  <li> <title> Existence </title>
 	  <p> Is there a solution to the linear system?  If
-	  so, we say that the system is <em> consistent </em>; if not,
-	  we say it is <em> inconsistent</em>.
+	  so, we say that the system is <term> consistent </term>; if not,
+	  we say it is <term> inconsistent</term>.
 	  <idx> consistent system </idx>
 	  <idx> inconsistent system </idx>
 	  </p>

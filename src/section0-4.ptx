@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-tensors"
+	xmlns:xi="http://www.w3.org/2001/XInclude">
+
+	<title> Tensors </title>
+
+	<introduction>
+		<idx>tensor</idx>
+		<p>
+			As we have seen, <c>numpy</c> treats vectors and matrices as 1-dimensional 
+			and 2-dimensional arrays (both created using <c>np.array()</c>). 
+			While mathematically 2-dimensional arrays (i.e, matrices) are the most 
+			important (and vectors can be treated like <m>n \timex 1</m> matrices); 
+			computationally, there is no reason we need to stop at rows 
+			and columns. We could add additional dimensions.  Higher dimensional 
+			arrays are often called <term>tensors</term>.
+		</p>
+
+	<p>
+		There are two primary reasons for taking some time to think about tensors here.
+		First, there are some interesting applications that use tensors.  One example of  
+		this is color images.  Recall that color images store a matrix of values 
+		<em>for each color channel</em>. So we have 3 indices into this data: 
+		vertical position (row), horizontal position (column), and color channel. 
+		If we have many images, we could store them in a 4-dimensional array, using 
+		the additional index to tell which photo is which.
+	</p>
+
+	<p>
+		The second reason to discuss tensors is that most of the numpy code that works with 
+		vectors and matrices is designed to work with higher dimensional tensors as well. 
+		Understanding this can help demistify how some of the <c>numpy</c> functions work.
+	</p>
+		
+	</introduction>
+
+<subsection xml:id="subsec-numpy-tensors">
+	<title>Tensors in np</title>
+	
+	<p>
+		Let's create a small 3-dimensional tensor.  Notice that we can assign the shape 
+		(as long as the product of the items in our tuple is equal to the number values 
+		in the array).
+
+	<sage language="python">
+	<input>
+import numpy as np
+A = np.array(np.arange(2 * 4 * 3))
+A.shape = (2, 4, 3)
+print(A)
+	</input>
+	</sage>
+	</p>
+
+	<p>We can refer to individual numbers in an ndarray by providing the required number of indices.
+	<sage language="python">
+	<input>
+print(A[0,1,2])
+	</input>
+	</sage>
+	</p>
+
+	<idx> slice </idx>
+	<p>
+		The indexing is more flexible than demonstrated above. In each slot we can provide a 
+		<term>slice</term> of values. A slice has the format <c>start:stop:step</c>. If omitted,
+		<c>start</c> is taken to be 0, <c>stop</c> is taken to be the length of the array in 
+		that dimension, and <c>step</c> is taken to be 1.  To get all the values in some dimension,
+		we can use <c>:</c>.  For example, to get the blue channel from an RGB image, we could use 
+		<c>image[:, :, 2]</c> to get all the rows, all the columns, but only the blue channel.
+	</p>
+
+	<example>
+		<statement>
+			<p>
+				A RGB image that is 400 pixels wide and 300 pixels tall 
+				might correspond to a tensor with shape <c>(400, 300, 3)</c>. 
+		Or perhaps <c>(3, 300, 400)</c>, or ... 
+		The computer doesn't really care, but we need to know which slot is being used for what 
+		in order to work with this image correctly.  The usual arrangement is column, row, channel.
+		This is called the <term>channels-last convention</term>.
+		Note that the ordering of columns and rows is reversed from how we
+		usually think about matrices.
+			</p>
+			<p>
+			  We can plot images (or other matrices that we would like to view as an image)	
+			  using a number of different tools.  Here we demonstrate how to do so using 
+			  <c>matplotlib</c>.
+			  <sage language="python">
+			  <input>
+import numpy as np
+from skimage import io
+import matplotlib.pyplot as plt 
+A = np.array(np.arange(20 * 50 * 3))
+A = (A / (20 * 50 * 3) * 255).round()
+A.shape = (20, 50, 3)
+plt.imshow(A) 
+plt.show()
+url = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
+dog = io.imread(url)
+print(dog.shape)
+plt.imshow(dog)
+plt.show()
+			  </input>
+			  </sage>
+
+				
+			</p>
+		</statement>
+		<solution>
+			<p>
+				
+			</p>
+		</solution>
+	</example>
+	<p>
+		
+	</p>
+
+</subsection>
+
+	<subsection xml:id="subsec-axes">
+		<title>Aggregation and Axes</title>
+
+
+	</subsection>
+
+	<subsection xml:id="subsec-broadcasting">
+		<title>Broadcasting</title>
+
+	</subsection>
+</section>
+
+
