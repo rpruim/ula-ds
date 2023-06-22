@@ -19,61 +19,31 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 </head>
 <body class="ignore-math">
 <article class="exercise exercise-like"><h4 class="heading">
-<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">8<span class="period">.</span></span>
+<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">4<span class="period">.</span></span>
 </h4>
-<div class="para">In <a href="sec-gaussian-revisited.html#subsec-partial-pivot" class="internal" title="Subsection 4.7.1: Partial pivoting">Subsection 4.7.1</a>, we saw how some linear algebraic computations are sensitive to round off error made by a computer.  A singular value decomposition can help us understand when this situation can occur.</div> <div class="para logical">
-<div class="para">For instance, consider the matrices</div>
-<div class="displaymath process-math">
-\begin{equation*}
-A = \begin{bmatrix}
-1.0001 \amp 1 \\
-1 \amp 1 \\
-\end{bmatrix},\hspace{24pt}
-B = \begin{bmatrix}
-1 \amp 1 \\
-1 \amp 1 \\
-\end{bmatrix}.
-\end{equation*}
+<div class="para logical">
+<div class="para">Evaluating the following cell loads in a dataset recording some features of 1057 houses.  Notice how the lot size varies over a relatively small range compared to the other features. For this reason, in addition to demeaning the data, we’ll scale each feature by dividing by its standard deviation so that the range of values is similar for each feature.  The matrix <span class="process-math">\(A\)</span> holds the result. <pre class="ptx-sagecell sagecell-sage" id="sage-287"><script type="text/x-sage">import pandas as pd
+df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/housing.csv', index_col=0)
+df = df.fillna(df.mean())
+std = (df-df.mean())/df.std()
+A = matrix(std.values).T
+df.T
+</script></pre>
 </div>
-<div class="para">The entries in these matrices are quite close to one another, but <span class="process-math">\(A\)</span> is invertible while <span class="process-math">\(B\)</span> is not.  It seems like <span class="process-math">\(A\)</span> is <em class="emphasis">almost</em> singular. In fact, we can measure how close a matrix is to being singular by forming the <em class="emphasis">condition number</em>, <span class="process-math">\(\sigma_1/\sigma_n\text{,}\)</span> the ratio of the largest to smallest singular value.  If <span class="process-math">\(A\)</span> were singular, the condition number would be undefined because the singular value <span class="process-math">\(\sigma_n=0\text{.}\)</span>  Therefore, we will think of matrices with large condition numbers as being close to singular.</div>
 <ol class="lower-alpha">
-<li><div class="para">Define the matrix <span class="process-math">\(A\)</span> and find a singular value decomposition.  What is the condition number of <span class="process-math">\(A\text{?}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-297"><script type="text/x-sage">
+<li><div class="para">Find the singular values of <span class="process-math">\(A\)</span> and use them to determine the variance in the direction of the principal components. <pre class="ptx-sagecell sagecell-sage" id="sage-288"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li><div class="para logical">
-<div class="para">Define the left singular vectors <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  Compare the results <span class="process-math">\(A^{-1}\bvec\)</span> when</div>
-<ol class="decimal">
-<li><div class="para"><span class="process-math">\(\bvec=\uvec_1+\uvec_2\text{.}\)</span></div></li>
-<li><div class="para"><span class="process-math">\(\bvec=2\uvec_1+\uvec_2\text{.}\)</span></div></li>
-</ol>
-<div class="para">Notice how a small change in the vector <span class="process-math">\(\bvec\)</span> leads to a small change in <span class="process-math">\(A^{-1}\bvec\text{.}\)</span>
-</div>
+<li><div class="para">For what fraction of the variance do the first two principal components account?</div></li>
+<li><div class="para">Find a singular value decomposition of <span class="process-math">\(A\)</span> and construct the <span class="process-math">\(2\times1057\)</span> matrix <span class="process-math">\(B\)</span> whose entries are the coordinates of the demeaned data points projected on to the two-dimensional subspace spanned by the first two principal components.  You can plot the projected data points using <code class="code-inline tex2jax_ignore">list_plot(B.columns())</code>. <pre class="ptx-sagecell sagecell-sage" id="sage-289"><script type="text/x-sage">
+</script></pre>
 </div></li>
-<li><div class="para logical">
-<div class="para">Now compare the results <span class="process-math">\(A^{-1}\bvec\)</span> when</div>
-<ol class="decimal">
-<li><div class="para"><span class="process-math">\(\bvec=\uvec_1+\uvec_2\text{.}\)</span></div></li>
-<li><div class="para"><span class="process-math">\(\bvec=\uvec_1+2\uvec_2\text{.}\)</span></div></li>
+<li><div class="para">Study the entries in the first two principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  Would a more expensive house lie on the left, right, top, or bottom of the plot you constructed?</div></li>
+<li><div class="para">In what ways does a house that lies on the far left of the plot you constructed differ from an average house? In what ways does a house that lies near the top of the plot you constructed differ from an average house?</div></li>
 </ol>
-<div class="para">Notice now how a small change in <span class="process-math">\(\bvec\)</span> leads to a large change in <span class="process-math">\(A^{-1}\bvec\text{.}\)</span>
-</div>
-</div></li>
-<li><div class="para logical">
-<div class="para">Previously, we saw that, if we write <span class="process-math">\(\xvec\)</span> in terms of left singular vectors <span class="process-math">\(\xvec=c_1\vvec_1+c_2\vvec_2\text{,}\)</span> then we have</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\bvec=A\xvec = c_1\sigma_1\uvec_1 +
-c_2\sigma_2\uvec_2.
-\end{equation*}
-</div>
-<div class="para">If we write <span class="process-math">\(\bvec=d_1\uvec_1+d_2\uvec_2\text{,}\)</span> explain why <span class="process-math">\(A^{-1}\bvec\)</span> is sensitive to small changes in <span class="process-math">\(d_2\text{.}\)</span>
-</div>
-</div></li>
-</ol>
-<div class="para">Generally speaking, a square matrix <span class="process-math">\(A\)</span> with a large condition number will demonstrate this type of behavior so that the computation of <span class="process-math">\(A^{-1}\)</span> is likely to be affected by round off error.  We call such a matrix <em class="emphasis">ill-conditioned</em>.</div>
 </div>
 <div class="solutions">
-<a href="" class="answer-knowl original" data-knowl="./knowl/answer-351-hidden.html" title="Answer 7.5.7.8.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-432-hidden.html" title="Solution 7.5.7.8.1"><span class="type">Solution</span><span class="period">.</span></a>
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-347-hidden.html" title="Answer 7.5.7.4.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-428-hidden.html" title="Solution 7.5.7.4.1"><span class="type">Solution</span><span class="period">.</span></a>
 </div></article><span class="incontext"><a href="sec-svd-uses.html#exercise-294" class="internal">in-context</a></span>
 </body>
 </html>

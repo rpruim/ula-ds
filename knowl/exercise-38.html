@@ -9,23 +9,113 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
 </head>
 <body class="ignore-math">
 <article class="exercise exercise-like"><h4 class="heading">
-<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">4<span class="period">.</span></span>
+<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">6<span class="period">.</span></span>
 </h4>
-<div class="para logical">
-<div class="para">Determine whether the following statements are true or false and provide a justification for your response.</div>
+<div class="para">We began this section by stating that increasing computational power has helped linear algebra assume a prominent role as a scientific tool.  Later, we looked at one computational limitation:  once a matrix gets to be too big, it is not reasonable to apply Gaussian elimination to find its reduced row echelon form.</div> <div class="para logical">
+<div class="para">In this exercise, we will see another limitation: computer arithmetic with real numbers is only an approximation because computers represent real numbers with only a finite number of bits.  For instance, the number pi</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\pi =
+3.141592653589793238462643383279502884197169399\ldots
+\end{equation*}
+</div>
+<div class="para">would be approximated inside a computer by, say,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\pi\approx 3.141592653589793
+\end{equation*}
+</div>
+<div class="para">Most of the time, this is not a problem.  However, when we perform millions or even billions of arithmetic operations, the error in these approximations starts to accumulate and can lead to results that are wildly inaccurate.  Here are two examples demonstrating this.</div>
 <ol class="lower-alpha">
-<li><div class="para">If the coefficient matrix of a linear system has a pivot in the rightmost column, then the system is inconsistent.</div></li>
-<li><div class="para">If a linear system has two equations and four variables, then it must be consistent.</div></li>
-<li><div class="para">If a linear system having four equations and three variables is consistent, then the solution is unique.</div></li>
-<li><div class="para">Suppose that a linear system has four equations and four variables and that the coefficient matrix has four pivots. Then the linear system is consistent and has a unique solution.</div></li>
-<li><div class="para">Suppose that a linear system has five equations and three variables and that the coefficient matrix has a pivot position in every column.  Then the linear system is consistent and has a unique solution.</div></li>
+<li>
+<div class="para logical">
+<div class="para">Let’s first see an example showing that computer arithmetic really is an approximation.  First, consider the linear system</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{4}
+x \amp {}+{} \amp \frac12y \amp {}+{} \amp \frac13z \amp
+{}={} \amp 1 \\
+\frac12x \amp {}+{} \amp \frac13y \amp {}+{} \amp \frac14z \amp
+{}={} \amp 0 \\
+\frac13x \amp {}+{} \amp \frac14y \amp {}+{} \amp \frac15z \amp
+{}={} \amp 0 \\
+\end{alignedat}
+\end{equation*}
+</div>
+<div class="para">If the coefficients are entered into Sage as fractions, Sage will find the exact reduced row echelon form.  Find the exact solution to this linear system. <pre class="ptx-sagecell sagecell-sage" id="sage-51"><script type="text/x-sage">
+</script></pre>
+</div>
+</div>
+<div class="para logical">
+<div class="para">Now let’s ask Sage to compute with real numbers.  We can do this by representing one of the coefficients as a decimal.  For instance, the same linear system can be represented as</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{4}
+x \amp {}+{} \amp 0.5y \amp {}+{} \amp \frac13z \amp
+{}={} \amp 1 \\
+\frac12x \amp {}+{} \amp \frac13y \amp {}+{} \amp \frac14z \amp
+{}={} \amp 0 \\
+\frac13x \amp {}+{} \amp \frac14y \amp {}+{} \amp \frac15z \amp
+{}={} \amp 0 \\
+\end{alignedat}
+\end{equation*}
+</div>
+<div class="para">Most computers do arithmetic using either 32 or 64 bits.  To magnify the problem so that we can see it better, we will ask Sage to do arithmetic using only 10 bits as follows. <pre class="ptx-sagecell sagecell-sage" id="sage-52"><script type="text/x-sage">R = RealNumber
+RealNumber = RealField(10)
+
+# enter the matrix below
+A = matrix( ..., ..., [ ... ] )
+
+print (A.rref())
+RealNumber = R
+</script></pre> What does Sage give for the solution now?  Compare this to the exact solution that you found previously.</div>
+</div>
+</li>
+<li>
+<div class="para logical">
+<div class="para">Some types of linear systems are particularly sensitive to errors resulting from computers’ approximate arithmetic. For instance, suppose we are interested in the linear system</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{3}
+x \amp {}+{} \amp y \amp {}={} \amp 2 \\
+x \amp {}+{} 1.001\amp y \amp {}={} \amp 2 \\
+\end{alignedat}
+\end{equation*}
+</div>
+<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-sage" id="sage-53"><script type="text/x-sage">
+</script></pre>
+</div>
+</div>
+<div class="para logical">
+<div class="para">Suppose now that the computer has accumulated some error in one of the entries of this system so that it incorrectly stores the system as</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{3}
+x \amp {}+{} \amp y \amp {}={} \amp 2 \\
+x \amp {}+{} 1.001\amp y \amp {}={} \amp 2.001 \\
+\end{alignedat}
+\end{equation*}
+</div>
+<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-sage" id="sage-54"><script type="text/x-sage">
+</script></pre>
+</div>
+</div>
+<div class="para">Notice how a small error in one of the entries in the linear system leads to a solution that has a dramatically large error.  Fortunately, this is an issue that has been well studied, and there are techniques that mitigate this type of behavior.</div>
+</li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" class="answer-knowl original" data-knowl="./knowl/answer-54-hidden.html" title="Answer 2.4.4.4.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-57-hidden.html" title="Solution 2.4.4.4.1"><span class="type">Solution</span><span class="period">.</span></a>
-</div></article><span class="incontext"><a href="sec-pivots.html#exercise-38" class="internal">in-context</a></span>
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-49-hidden.html" title="Answer 2.3.4.6.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-50-hidden.html" title="Solution 2.3.4.6.1"><span class="type">Solution</span><span class="period">.</span></a>
+</div></article><span class="incontext"><a href="sec-python-introduction.html#exercise-38" class="internal">in-context</a></span>
 </body>
 </html>

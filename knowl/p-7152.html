@@ -9,23 +9,37 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
 <div class="para logical"><ol class="lower-alpha">
-<li><div class="para">
-<span class="process-math">\(C\)</span> will be the <span class="process-math">\(2\times2\)</span> matrix <span class="process-math">\(C=\begin{bmatrix}
-1.38 \amp 0.70 \\
-0.70 \amp 0.37
-\end{bmatrix}\)</span>
+<li>
+<div class="para">Evaluating the following Sage cell loads a dataset consisting of 100 demeaned data points and provides a plot of them.  It also provides the demeaned data matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-215"><script type="text/x-sage">import pandas as pd
+df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/variance-data.csv', header=None)
+data = [vector(row) for row in df.values]
+A = matrix(data).T
+list_plot(data, size=20, color='blue', aspect_ratio=1)
+</script></pre>
+</div>
+<div class="para">What is the shape of the covariance matrix <span class="process-math">\(C\text{?}\)</span>  Find <span class="process-math">\(C\)</span> and verify your response. <pre class="ptx-sagecell sagecell-sage" id="sage-216"><script type="text/x-sage">
+</script></pre>
+</div>
+</li>
+<li><div class="para">By visually inspecting the data, determine which is larger, <span class="process-math">\(V_x\)</span> or <span class="process-math">\(V_y\text{.}\)</span>  Then compute both of these quantities to verify your response.</div></li>
+<li><div class="para">What is the total variance <span class="process-math">\(V\text{?}\)</span>
 </div></li>
-<li><div class="para">
-<span class="process-math">\(V_x = 1.38\)</span> and <span class="process-math">\(V_y=0.37\text{,}\)</span> which agrees with the fact that the data is more spread out in the horizontal than vertical direction.</div></li>
-<li><div class="para"><span class="process-math">\(\displaystyle V=V_x+V_y=1.75\)</span></div></li>
-<li><div class="para">It looks like the direction <span class="process-math">\(\twovec21\)</span> defined by the unit vector <span class="process-math">\(\uvec_1=\twovec{2/\sqrt{5}}{1/\sqrt{5}}\text{.}\)</span>  We find that <span class="process-math">\(V_{\uvec_1} = 1.74\text{,}\)</span> which is almost all of the total variance.</div></li>
-<li><div class="para">It looks like the direction <span class="process-math">\(\twovec{-1}{2}\)</span> defined by the unit vector <span class="process-math">\(\uvec_2=\twovec{-1/\sqrt{5}}{2/\sqrt{5}}\text{.}\)</span>  We find that <span class="process-math">\(V_{\uvec_2} = 0.01\text{.}\)</span>
+<li><div class="para">In approximately what direction is the variance greatest?  Choose a reasonable vector <span class="process-math">\(\uvec\)</span> that points in approximately that direction and find <span class="process-math">\(V_{\uvec}\text{.}\)</span>
 </div></li>
-<li><div class="para">They are orthogonal to one another.  Since the total variance <span class="process-math">\(V=V_{\uvec_1}+V_{\uvec_2}\)</span> when <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> are orthogonal, <span class="process-math">\(V_{\uvec_1}\)</span> will be as large as possible when <span class="process-math">\(V_{\uvec_2}\)</span> is as small as possible.</div></li>
+<li><div class="para">In approximately what direction is the variance smallest?  Choose a reasonable vector <span class="process-math">\(\wvec\)</span> that points in approximately that direction and find <span class="process-math">\(V_{\wvec}\text{.}\)</span>
+</div></li>
+<li><div class="para">How are the directions <span class="process-math">\(\uvec\)</span> and <span class="process-math">\(\wvec\)</span> in the last two parts of this problem related to one another?  Why does this relationship hold?</div></li>
 </ol></div>
 <span class="incontext"><a href="sec-symmetric-matrices.html#p-7152" class="internal">in-context</a></span>
 </body>
