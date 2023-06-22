@@ -6,7 +6,6 @@
 	<title> Tensors </title>
 
 	<introduction>
-		<idx>tensor</idx>
 		<p>
 			As we have seen, <c>numpy</c> treats vectors and matrices as 1-dimensional 
 			and 2-dimensional arrays (both created using <c>np.array()</c>). 
@@ -15,6 +14,7 @@
 			computationally, there is no reason we need to stop at rows 
 			and columns. We could add additional dimensions.  Higher dimensional 
 			arrays are often called <term>tensors</term>.
+		<idx>tensor</idx>
 		</p>
 
 	<p>
@@ -24,11 +24,11 @@
 		<em>for each color channel</em>. So we have 3 indices into this data: 
 		vertical position (row), horizontal position (column), and color channel. 
 		If we have many images, we could store them in a 4-dimensional array, using 
-		the additional index to tell which photo is which.
+		the additional index to indicate which photo is which.
 	</p>
 
 	<p>
-		The second reason to discuss tensors is that most of the numpy code that works with 
+		The second reason to discuss tensors is that most of the <c>numpy</c> code that works with 
 		vectors and matrices is designed to work with higher dimensional tensors as well. 
 		Understanding this can help demistify how some of the <c>numpy</c> functions work.
 	</p>
@@ -46,7 +46,7 @@
 	<sage language="python">
 	<input>
 import numpy as np
-A = np.array(np.arange(2 * 4 * 3))
+A = np.arange(2 * 4 * 3)
 A.shape = (2, 4, 3)
 print(A)
 	</input>
@@ -61,7 +61,6 @@ print(A[0,1,2])
 	</sage>
 	</p>
 
-	<idx> slice </idx>
 	<p>
 		The indexing is more flexible than demonstrated above. In each slot we can provide a 
 		<term>slice</term> of values. A slice has the format <c>start:stop:step</c>. If omitted,
@@ -69,34 +68,60 @@ print(A[0,1,2])
 		that dimension, and <c>step</c> is taken to be 1.  To get all the values in some dimension,
 		we can use <c>:</c>.  For example, to get the blue channel from an RGB image, we could use 
 		<c>image[:, :, 2]</c> to get all the rows, all the columns, but only the blue channel.
+	<idx> slice, of a matrix or tensor </idx>
+	</p>
+
+	<p>
+		Note that when using a single number as an index, the number of dimensions will decrease.
+		We can change this behavior by supplying an explicit slice or a list of length 1.
+		<sage language="python">
+			<input>
+import numpy as np 
+A = np.arange(10 * 10 * 10)				
+A.shape = (10, 10, 10)
+# this results in a 2-d array
+print(A[:,:,0].shape)
+# these produce 3-d arrays
+print(A[:,:,0:1].shape)
+print(A[:,:,[0].shape)
+			</input>
+		</sage>
 	</p>
 
 	<example>
 		<statement>
 			<p>
-				A RGB image that is 400 pixels wide and 300 pixels tall 
+				An RGB image that is 400 pixels wide and 300 pixels tall 
 				might correspond to a tensor with shape <c>(400, 300, 3)</c>. 
 		Or perhaps <c>(3, 300, 400)</c>, or ... 
 		The computer doesn't really care, but we need to know which slot is being used for what 
-		in order to work with this image correctly.  The usual arrangement is column, row, channel.
-		This is called the <term>channels-last convention</term>.
-		Note that the ordering of columns and rows is reversed from how we
-		usually think about matrices.
+		in order to work with this image correctly.  The usual arrangement is row, column, channel.
+		This is called the <term>channels-last convention</term>. But somtimes a channels-first 
+		convention is used instead.
+		<idx> channels-last convention </idx>
 			</p>
 			<p>
 			  We can plot images (or other matrices that we would like to view as an image)	
 			  using a number of different tools.  Here we demonstrate how to do so using 
-			  <c>matplotlib</c>.
+			  <c>matplotlib</c>. <c>matplotlib</c> supports a variety of image formats. For RGB 
+			  images, the RGB values can be integers from 0 to 255 or floating point 
+			  values between 0 and 1.
+			  <sage language="python">
+			  <input>
+import numpy as np
+import matplotlib.pyplot as plt 
+A = np.arange(20 * 50 * 3)
+A = A / (20 * 50 * 3)
+A.shape = (20, 50, 3)
+plt.imshow(A) 
+plt.show()
+			  </input>
+			  </sage>
 			  <sage language="python">
 			  <input>
 import numpy as np
 from skimage import io
 import matplotlib.pyplot as plt 
-A = np.array(np.arange(20 * 50 * 3))
-A = (A / (20 * 50 * 3) * 255).round()
-A.shape = (20, 50, 3)
-plt.imshow(A) 
-plt.show()
 url = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
 dog = io.imread(url)
 print(dog.shape)
@@ -108,11 +133,6 @@ plt.show()
 				
 			</p>
 		</statement>
-		<solution>
-			<p>
-				
-			</p>
-		</solution>
 	</example>
 	<p>
 		
