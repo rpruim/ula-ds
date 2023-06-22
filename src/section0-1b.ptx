@@ -211,7 +211,12 @@ print(average)
         will create vectors using Python lists. This is partially correct. But Python lists don't
         know about our operations (scalar multiplication and vector addition). In order to get
         vectors that know about these operations, we will convert our Python lists into <term>
-        ndarrays</term> (n-dimensional arrays) using the Python package <c>numpy</c>. </p>
+        ndarrays</term> (n-dimensional arrays) using the Python package <c>numpy</c>. 
+		In <c>numpy</c> parlance, a vector is a 1-dimensional array.
+		<idx> n-dimensional array </idx>
+		</p>
+
+     
 
       <p> Python can perform scalar multiplication and vector addition. We define a vector using 
       <c>np.array()</c>; then <c>*</c> and <c>+</c> denote scalar multiplication and vector addition. 
@@ -228,8 +233,6 @@ print (v + w)
         </sage>
       </p>
 
-      <idx> shape </idx>
-
 	<note>
 	  <title>Numpy</title>
 	  <p>
@@ -243,12 +246,28 @@ print (v + w)
     as we shall see.</p>
 	</note>
 
-      <remark> numpy uses the term <em>dimension</em> differently from how we have been using it. In
-        numpy parlance, all of the vectors we have seen are 1-dimensional arrays because there is
-        just one column of numbers. This will make more sense when we see 2-dimensional arrays
-        (matrices) and higher dimensional arrays (tensors). We can use <c>.shape</c> to find out how
+
+	  <p>Especially when we work with vectors with many components, we will often  
+	  want to have Python tell us how many components ther are.
+	  We can use <c>.shape</c> to find out how
         many components are in one of our vectors. Give it a try. Type <c>print(v.shape)</c> in the
-        code block above and re-evaluate. </remark>
+        code block above and re-evaluate. 
+      <idx> shape, of a vector </idx>
+	  </p>
+
+	<assemblage xml:id="assemblage-">
+		<title>Caution: Dimension vs Dimension</title>
+		<p>
+	   <c>numpy</c> uses the term <em>dimension</em> differently from how we used that 
+	   term in <xref ref="sec-vectors"/>.
+	   In numpy parlance, all of the vectors we have seen are 1-dimensional arrays 
+	   because there is just one column of numbers. 
+	   This will make more sense when we see 2-dimensional arrays
+       (matrices) and higher dimensional arrays (tensors). 
+	   The number returned by <c>.shape</c> is the other kind of dimension -- the number 
+	   of components in the vector.
+		</p>
+	</assemblage>
 
       <p>
         For low dimensional vectors, manually typing in each component is reasonable.  But ofen we will  
@@ -258,9 +277,9 @@ print (v + w)
           language="python">
           <input>
 import numpy as np
-v = np.array(range(100))
+v = np.arange(100)
 # 5 to 100 by 5's -- note the 101 here!
-w = np.array(range(5, 101, 5))  
+w = np.arange(5, 101, 5)  
 print(v.shape)
 print(v)
 print(w)
@@ -269,35 +288,60 @@ print(r.shape)
 print(r)
           </input>
         </sage>
+		<idx> <c>numpy.random.normal()</c> </idx>
+		<idx> <c>numpy.arange()</c> </idx>
       </p>
+
+	  <p>
+		Indexing in Python is 0-based.  So the first component of the vector <c>v</c>
+		is <c>v[0]</c>.  If <c>v</c> has 100 components, then the last component is  
+		<c>v[99]</c>.  We can also use <c>v[-1]</c> to access the last component.
+		More generally, <c>v[-k]</c> is the same as <c>v[v.shape - k]</c> when <c>k</c>
+		is positive (so <c>-k</c> is negative).
+		<idx>indexing, Python vectors</idx>
+	  </p>
 
       <p>
         Once we have an ndarray, we can compute various summaries of it.
-        The mean and standard deviation are two common examples.
+        The sum, mean, and standard deviation are commonly used summaries. 
+		For output purposes, it is often useful to round output values.
         <sage
           language="python">
           <input>
 import numpy as np
 r = np.random.normal(100, 10, 50)
-print("shape:", r.shape, "mean:", r.mean().round(2), "sd:", r.std().round(2))
+print("shape:", r.shape, 
+	  "sum:", r.sum().round(2),
+      "mean:", r.mean().round(2), 
+	  "sd:", r.std().round(2))
+# alternative syntax:
+print("shape:", r.shape, 
+	  "sum:", np.round(np.sum(r),2),
+      "mean:", np.round(np.mean(r),2), 
+      "sd:", np.round(np.std(r),2))
           </input>
         </sage>
+		<idx> <c>numpy.mean()</c> </idx>
+		<idx> <c>numpy.std()</c> </idx>
+		<idx> <c>numpy.sum()</c> </idx>
+		<idx> <c>numpy.round()</c> </idx>
       </p>
 
-  <subsection>
-    <title>Summary</title>
-    <ul>
-      <li>
-        <p>
-        </p>
-      </li>
-      <li><p>
-        </p>
-      </li>
-        <li>
-        </li>
-    </ul>
-    </subsection>
+	  <assemblage xml:id="assemblage-numpy-help">
+		<title>Numpy documentation</title>
+		<p>
+			Official <c>numpy</c> documentation can be found at 
+			<url href="https://numpy.org/doc/" />.  You may also find 
+			it handy to use <url href="https://devdocs.io/" /> which 
+			provides documentation on many languages (including Python) 
+			and packages (including <c>numpy</c>) and provides a powerful  
+			mechanism for searching within documentation.
+			
+		</p>
+	  </assemblage>
+
+
+
 
     <!--
       <xi:include href="exercises/exercises0-1.ptx" />
