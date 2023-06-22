@@ -5,7 +5,34 @@
   <title> Gaussian elimination revisited  </title>
 
   <introduction>
-    <p> In this section, we revisit Gaussian elimination and explore
+
+<p> Our principal tool for finding solutions to linear
+    systems has been Gaussian elimination, which we first met back
+    in <xref ref="sec-finding-solutions" />.  When presented with a
+    linear system, this method finds the reduced row echelon form of
+    the system's augmented matrix and uses it to read off the solution
+	(with the help of a little back substitution). </p>
+
+    <p> While this is a convenient approach for learning linear
+    algebra, people rarely use the reduced row echelon form of a
+    matrix.  In fact, many linear algebra software packages 
+	(including <c>numpy</c> and <c>scipy</c>) do not
+    include functions for finding the reduced row echelon form.  
+	</p>
+		
+	<p>
+	In this section, we will describe why this is the case and then
+    explore some alternatives.  The intent of this section is to
+    demonstrate how linear algebraic computations are handled in
+    practice and to introduce the important idea of 
+	<term>matrix factorization</term>, writing a matrix as the 
+	product of matrices, each of which has a specified form.  
+	<!-- More specifically, we will improve our techniques for
+    solving linear systems and for finding eigenvectors through
+    Gaussian elimination.  -->
+	</p>
+
+    <!-- <p> In this section, we revisit Gaussian elimination and explore
     some problems with implementing it in the straightforward way that
     we described back in <xref ref="sec-finding-solutions" />.  In
     particular, we will see how the fact that computers only
@@ -15,7 +42,7 @@
     devise a more efficient means of implementing it when we want to
     solve equations <m>A\xvec = \bvec</m> for several different
     vectors <m>\bvec</m>.  
-    </p>
+    </p> -->
 
     <exploration>
       <statement>
@@ -136,9 +163,20 @@
     computers do not perform arithemtic operations exactly.  For
     instance, if we ask Python to evaluate <c>0.1 + 0.2</c>, it
     reports <c>0.30000000000000004</c> though we know that the true
-    value is 0.3.  There are a couple of reasons for this.</p>
+    value is 0.3.  
 
-    <p> First, computers perform arithmetic using base 2 numbers,
+	<sage langauge="python">
+		<input>
+print(0.1 + 0.2)			
+		</input>
+	</sage>
+	
+
+	</p>
+
+    <p> 
+	There are a couple of reasons for this.
+	First, computers perform arithmetic using base 2 numbers,
     which means that numbers we enter in decimal form, such as
     <m>0.1</m>, must be converted to base 2.  Even though 0.1 has a
     simple decimal form, its representation in base 2 is the repeating
@@ -162,7 +200,7 @@
     sum as
     <c> 1.02 + 0.0234 = 1.04</c>, whose last digit is not correctly
     rounded.  Generally speaking, we will see this problem, which is
-    called <em>round off error</em>, whenever we
+    called <term>round off error</term>, whenever we
     add numbers of signficantly different magnitudes.
     <idx> round off error </idx>
     </p>
@@ -476,7 +514,7 @@
       \end{array}\right]\text{.}
     </me>
       <idx> partial pivoting </idx>
-    This technique is called <em>partial pivoting</em>, and it means
+    This technique is called <term>partial pivoting</term>, and it means
     that, in practice, we will perform many more row interchange
     operations than we typically do when computing exactly by hand.
     </p>
@@ -549,7 +587,7 @@
 	<m>L = E_1^{-1}E_2^{-1}E_3^{-1}</m>.  Then verify that
 	<m>A=LU</m>.
 
-	<sage>
+	<sage language="python">
 	  <input>
 	  </input>
 	</sage>
@@ -804,7 +842,7 @@
       triangular matrices, which requires about <m>n^2</m> operations.
       For example, if <m>A</m> is a <m>1000\times1000</m> matrix, we
       solve the equation <m>A\xvec = \bvec</m> using about one million
-      steps.  The compares with roughly a billion operations 
+      steps.  This compares with roughly a billion operations 
       needed to perform Gaussian elimination, which represents a
       significant savings.  Of course, we have to first find the
       <m>LU</m> factorization of <m>A</m> and this requires roughly
@@ -849,12 +887,30 @@
 
     <activity>
       <statement>
-      <p> Sage will create <m>LU</m> factorizations;  once we have a
-      matrix <c>A</c>, we write <c>P, L, U = A.LU()</c> to obtain the
-      matrices <m>P</m>, <m>L</m>, and <m>U</m> such that <m>PA =
-      LU</m>.
-      <sage>
+      <p> The <c>scipy.linalg</c> packae can compute <m>LU</m> factorizations;  once we have a
+      matrix <c>A</c>, we write <c>P, L, U = scipy.linalg.LU(A)</c> to obtain the
+      matrices <m>P</m>, <m>L</m>, and <m>U</m> such that 
+	  <m>PA = LU</m>.
+	  Here is an example.
+      <sage language="python">
 	<input>
+import numpy as np
+import scipy.linalg   # SciPy Linear Algebra Library
+
+A = np.array([ [7, 3, -1, 2], [3, 8, 1, -4], [-1, 1, 4, -1], [2, -4, -1, 6] ])
+P, L, U = scipy.linalg.lu(A)
+
+print("A:")
+print(A)
+
+print("P:")
+print(P)
+
+print("L:")
+print(L)
+
+print("U:")
+print(U)
 	</input>
       </sage>
 
@@ -880,20 +936,20 @@
 	  0 \amp 0 \amp 3
 	  \end{bmatrix}=LU.
 	</me>
-	Using Sage, define the matrix <m>A</m> and then ask Sage for
+	Using Python, define the matrix <m>A</m> and then ask for
 	the <m>LU</m> factorization.  What are the matrices <m>P</m>,
 	<m>L</m>, and <m>U</m>? </p>
 
-	<p> Notice that Sage finds a different
+	<p> Notice that <c>scipy.linalg.LI()</c> finds a different
 	<m>LU</m> factorization than we found in the previous
-	activity because Sage uses partial pivoting, as
+	activity because it is using partial pivoting, as
 	described in the previous section, when it performs Gaussian
 	elimination.  	
 	</p>
 	</li>
 
 	<li><p> Define the vector <m>\bvec = \threevec8{-13}{8}</m>
-	in Sage and compute <m>P\bvec</m>. </p></li>
+	in Python and compute <m>P\bvec</m>. </p></li>
 
 	<li><p> Use the matrices <c>L</c> and <c>U</c> to solve
 	<m>L\cvec = P\bvec</m> and <m>U\xvec = \cvec</m>.  You should
@@ -915,7 +971,7 @@
 	  2 \amp 1 \amp 3 \\
 	  \end{array}\right]
 	</me>.
-	Use Sage to find the <m>LU</m> factorization.  Explain how the
+	Use Python to find the <m>LU</m> factorization.  Explain how the
 	factorization shows that <m>B</m> is not invertible. </p></li>
 
 	<li><p> Consider the matrix
@@ -935,7 +991,7 @@
 
       <solution>
 	<p><ol marker="a.">
-	  <li><p> Sage gives us the matrices
+	  <li><p> Python gives us the matrices
 	  <me>
 	    P=\left[\begin{array}{rrr}
 	    0 \amp 1 \amp 0 \\
@@ -976,7 +1032,7 @@
 	  L \det U)/\det P\neq 0</m>, which means that <m>A</m> is
 	  invertible. </p></li>
 
-	  <li><p> Sage tells us that
+	  <li><p> Python tells us that
 	  <me>
 	    P = \left[\begin{array}{rrr}
 	    1 \amp 0 \amp 0 \\
@@ -1082,7 +1138,7 @@
 
     <ul>
       <li><p> We saw that the accuracy of computations implemented on
-      a computer could be improved using <em>partial pivoting</em>, a
+      a computer could be improved using <term>partial pivoting</term>, a
       technique that performs row interchanges so that the entry in a
       pivot position has the largest possible magnitude. </p></li>
 
