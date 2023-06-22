@@ -83,7 +83,7 @@
 	</me> is a basis for <m>\real^2</m>.  If
 	<m>\coords{\xvec}{\bcal} = \twovec{1}{-2}</m>, find the vector
 	<m>\xvec</m>.
-	<sage>
+	<sage language="python">
 	  <input>
 	  </input>
 	</sage>
@@ -136,8 +136,9 @@
     <m>\real^3</m>.  There are different ways in which we can
     represent colors, however, depending on whether a computer or a
     human will be processing the color.  We will describe two of these
-    representations, called <em>color models</em>, and demonstrate how
+    representations, called <term>color models</term>, and demonstrate how
     they are used in the JPEG compression algorithm.
+	<idx> color model </idx>
     </p>
 
     <p> Digital displays typically create colors by blending together
@@ -146,8 +147,8 @@
     and blue into a vector <m>\threevec{R}{G}{B}</m>.  The quantities
     <m>R</m>, <m>G</m>, and <m>B</m> are stored with one byte of
     information so they are integers between 0 and 255.  This
-    is called the <m>RGB</m> color model.
-    <idx> <m>RGB</m> color model </idx>
+    is called the <term>RGB color model</term>.
+    <idx> RGB color model </idx>
     </p>
 
     <p> We define a basis <m>\bcal=\{\vvec_1,\vvec_2,\vvec_3\}</m>
@@ -166,15 +167,16 @@
     </me>.
     <idx> luminance </idx>
     <idx> chrominance </idx>
-    The coordinate <m>Y</m> is called <em>luminance</em> while
+    The coordinate <m>Y</m> is called <term>luminance</term> while
     <m>C_b</m> and <m>C_r</m> are called blue and red
-    <em>chrominance</em>, respectively.  In this coordinate system,
+    <term>chrominance</term>, respectively.  In this coordinate system,
     luminance will vary from 0 to 255, while the chrominances vary
-    between -127.5 and 127.5.  This is known as the <m>YC_bC_r</m> color
-    model.  (To be completely accurate, we should add 127.5 to the
+    between -127.5 and 127.5.  This is known as the 
+	<term><m>YC_bC_r</m> color model</term>, 
+	also denoted YCbCr.  (To be completely accurate, we should add 127.5 to the
     chrominance values so that they lie between 0 and 255, but we
     won't worry about that here.)
-    <idx> <m>YC_bC_r</m> color model </idx>
+    <idx> YCbCr color model </idx>
     </p>
 
     <activity>
@@ -208,9 +210,8 @@
 	      </sbsgroup>
 	      <instructions>
 		<p>
-		  The diagram below enables you to create colors using
-		  various amounts of red, green, and blue.  For each
-		  of these three quantities, the slider varies between
+		  Create colors using various amounts of red, green, and blue.  
+		  For each of these three quantities, the slider varies between
 		  0 and 255.
 		</p>
 	      </instructions>
@@ -267,9 +268,8 @@
 	    </sbsgroup>
 	    <instructions>
 	      <p>
-		The diagram below enables you to create colors using
-		various amounts of luminance <m>Y</m>, blue
-		chrominance <m>C_b</m>, and red chrominance
+		Create colors using various amounts of luminance <m>Y</m>, 
+		blue chrominance <m>C_b</m>, and red chrominance
 		<m>C_r</m>.  The luminance slider moves between 0 and
 		255 while the chrominance sliders move between -127.5
 		and 127.5.
@@ -310,7 +310,7 @@
 	
 	<li><p> Verify that <m>\bcal</m> is a basis for
 	<m>\real^3</m>.
-	<sage>
+	<sage language="python">
 	  <input>
 	  </input>
 	</sage>
@@ -645,8 +645,8 @@
 
     <p>
       <idx> Discrete Fourier Transform </idx>
-      The JPEG compression algorithm uses the <em>Discrete Fourier
-    Transform</em>, which is defined using the basis <m>\bcal</m>
+      The JPEG compression algorithm uses the <term>Discrete Fourier
+    Transform</term>, which is defined using the basis <m>\bcal</m>
     whose basis vectors are
     <me>
       \begin{aligned}
@@ -689,7 +689,7 @@
     vectors.  Notice that <m>\vvec_0</m> is constantly 1,
     <m>\vvec_1</m> varies relatively slowly, <m>\vvec_2</m> varies
     a little more rapidly, and <m>\vvec_7</m> varies quite rapidly.
-    The main thing to notice is that:  the basis vectors vary at
+    The main thing to notice is that the basis vectors vary at
     different rates with the first vectors varying relatively slowly
     and the later vectors varying more rapidly.
     </p>
@@ -714,8 +714,8 @@
 	F_0 \\ F_1 \\ F_2 \\ \vdots \\ F_7
 	\end{array}\right]
       </me>.
-      The coordinates <m>F_j</m> are called the <em>Fourier
-      coefficients</em> of the vector <m>\xvec</m>.
+      The coordinates <m>F_j</m> are called the <term>Fourier
+      coefficients</term> of the vector <m>\xvec</m>.
       </p>
       <image source="images/jpeg-luminance-col-graph" />
     </sidebyside>
@@ -889,17 +889,21 @@
 	slowly, what would you expect to be true of the Fourier
 	coefficients <m>F_j</m>? </p></li>
 
-	<li><p> The Sage cell below will construct the vector
+	<li><p> The Python cell below will construct the vector
 	<m>P_{\bcal}</m>, which is denoted <c>P</c>, and its inverse
 	<m>P_{\bcal}^{-1}</m>,
-	which is denoted <c>Pinv</c>.  Evaluate this Sage cell and
+	which is denoted <c>Pinv</c>.  Evaluate this Python cell and
 	notice that it prints the matrix <m>P_{\bcal}^{-1}</m>.
-	<sage xml:id="sage-dct-def">
+	<sage language="python" xml:id="sage-dct-def">
 	  <input>
-mat = [[cos((2*i+1)*j*pi/16) for j in range(8)] for i in range(8)]
-P = matrix(mat).numerical_approx()
-Pinv = P.inverse()	
-print (Pinv.numerical_approx(digits=3))
+import numpy as np
+mat = [[math.cos((2*i+1)*j*pi/16) for j in range(8)] for i in range(8)]
+P = np.array(mat)
+print(P.dtype)
+print(P.round(3))
+print("------------")
+Pinv = np.linalg.inv(P)
+print (Pinv.round(3))
 	  </input>
 	</sage>
 	Now look at the form of 
@@ -908,7 +912,7 @@ print (Pinv.numerical_approx(digits=3))
 	<m>\xvec</m>.	
 	</p></li>
 
-	<li><p> The Sage cell below defines the vector <m>\xvec</m>,
+	<li><p> The Python cell below defines the vector <m>\xvec</m>,
 	which is the vector of luminance values in the first column,
 	as seen in <xref ref="fig-jpeg-block-luminance" />.
 	Use the cell below to find the vector
@@ -917,12 +921,13 @@ print (Pinv.numerical_approx(digits=3))
 	<m>F_0,F_1,\ldots,F_7</m>.  If you have
 	evaluated the cell above, you will still be able to refer to
 	<c>P</c> and <c>Pinv</c> in this cell.  
-	<sage>
+	<sage language="python">
 	  <input>
-x = vector([176,181,165,139,131,131,140,150])
+import numpy as np
+x = np.array([176,181,165,139,131,131,140,150])
 #  find the vector of Fourier coefficients f below
 f =
-print (f.numerical_approx(digits=4))
+print (f.round(4))
 	  </input>
 	</sage>
 	Write the Fourier coefficients and discuss the relative
@@ -937,15 +942,34 @@ print (f.numerical_approx(digits=4))
 	  This is an approximation to <m>\fvec</m>, the vector of
 	  Fourier coefficients.  Use the approximation to <m>\fvec</m>
 	  to form an approximation of the vector <m>\xvec</m>.
-	  <sage>
+	  <sage language="python">
 	    <input>
 # define fapprox below and then find xapprox
-fapprox =
-xapprox =
-print ("x      =", x)
-print ("xapprox=", xapprox.numerical_approx(digits=3))
+fapprox = 
+print(np.vstack((f, fapprox)))
+xapprox = 
+print ("x")
+print ("xapprox") 
+print(np.vstack((x, xapprox.round(0))))
+
+print("x - xapprox: ")
+print((x - xapprox).round(0))
 	    </input>
 	  </sage>
+<!-- 
+# define fapprox below and then find xapprox
+fapprox = f
+fapprox[6] = fapprox[7] = 0
+fapprox = fapprox.round(0)
+print(np.vstack((f, fapprox)))
+xapprox = P @ f
+print ("x")
+print ("xapprox") 
+print(np.vstack((x, xapprox.round(1))))
+
+print("x - xapprox: ")
+print((x - xapprox).round(3))
+-->
 	  How much does your approximation differ from the actual
 	  vector <m>\xvec</m>?
 	</p></li>
@@ -961,21 +985,22 @@ print ("xapprox=", xapprox.numerical_approx(digits=3))
       <p> So far, we have concentrated on only one column in our
       <m>8\times8</m> block of luminance values.  Let's now consider
       all of the columns.
-      The following Sage cell defines a matrix called
+      The following Python cell defines a matrix called
       <c>luminance</c>, which is the <m>8\times8</m> matrix of
       luminance values.  Find the <m>8\times8</m> matrix <m>F</m>
       whose columns are the Fourier coefficients of the columns of
       luminance values.
-      <sage>
+      <sage language="python">
 	<input>
-luminance = matrix(8,8, [176, 170, 170, 169, 162, 160, 155, 150, 181,
+luminance = np.array([176, 170, 170, 169, 162, 160, 155, 150, 181,
 179, 175, 167, 162, 160, 154, 149, 165, 170, 169, 161, 162, 161, 160,
 158, 139, 150, 164, 166, 159, 160, 162, 163, 131, 137, 157, 165, 163,
 163, 164, 164, 131, 132, 153, 161, 167, 167, 167, 169, 140, 142, 157,
 166, 166, 166, 167, 169, 150, 152, 160, 168, 172, 170, 168, 168])
+luminance.shape = c(8,8)
 # define your matrix F below
 F =
-print (F.numerical_approx(digits=3))
+print (F.round(3))
 
 	</input>
       </sage>
@@ -988,12 +1013,12 @@ print (F.numerical_approx(digits=3))
 	significantly as we move across the row.  In the Sage cell
 	below, write these entries in the vector <m>\yvec</m> and find
 	the corresponding Fourier coefficients.
-	<sage>
+	<sage language="python">
 	  <input>
 # define the vector y as the entries in the first row of F	    
 y = 
 y_fourier =
-print (y_fourier.numerical_approx(digits=3))
+print (y_fourier.round(digits=3))
 	  </input>
 	</sage>
 	</p></li>
@@ -1308,7 +1333,8 @@ image.
       <li><p>  There are several ways of representing colors, all of
       which use vectors in <m>\real^3</m>.  We explored the <m>RGB</m>
       color model, which is appropriate in digital applications, and
-      the <m>YC_bC_r</m> model, in which the most important visual
+      the <m>YC_bC_r</m> model,
+	  in which the most important visual
       information is conveyed by the <m>Y</m> component, known as
       luminance. </p></li>
 

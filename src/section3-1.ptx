@@ -9,11 +9,13 @@
 
   <introduction>
     <p> Up to this point, we have used the Gaussian elimination
-    algorithm to find solutions to linear systems.  We now
-    investigate another way to find solutions to the 
-    equation <m>A\xvec=\bvec</m> when the matrix <m>A</m> has the same
-    number of rows and columns.  To get started, let's look at some
-    familiar examples.
+    algorithm to find solutions to linear systems, which is equivalent 
+	to solving matrix equations of the form <m>A \xvec = \bvec</m>, where  
+	<m>\bvec</m> is a vector of constants, <m>A</m> a matrix of coefficients, 
+	and <m>x</m> a vector of variables, or unknowns. 
+	We now investigate another way to find solutions to the 
+    equation <m>A\xvec=\bvec</m> when the matrix <m>A</m> is square.
+	To get started, let's look at some familiar examples.
     </p>
     
     <exploration>
@@ -25,8 +27,15 @@
 	  division. </p></li>
 
 	  <li><p> Find the <m>2\times2</m> matrix <m>A</m> that
-	  rotates vectors counterclockwise by
-	  <m>90^\circ</m>. </p></li>
+	  rotates vectors counterclockwise by <m>90^\circ</m>. 
+	  <!-- That is, for any vector <m>\xvec</m>,
+	  <m>A \xvec</m> is the vector the results from rotating 
+	  <m>\xvec</m> <m>90^\circ</m> counterclockwise.  
+	  For example, 
+	  <m>A \twovec 10 = \twovec{0}{1}</m>,
+	  <m>A \twovec 01 = \twovec{-1}{0}</m> and 
+	  <m>A \twovec 11 = \twovec{-1}{1}</m>. -->
+	  </p></li>
 
 	  <li><p> Find the <m>2\times2</m> matrix <m>B</m> that
 	  rotates vectors <em>clockwise</em> by
@@ -38,7 +47,7 @@
 
 	  <li><p> Solve the equation <m>A\xvec = \twovec{3}{-2}</m>
 	  using Gaussian elimination.
-	  <sage>
+	  <sage language="python">
 	    <input>
 	    </input>
 	  </sage>
@@ -152,10 +161,10 @@
 	<idx> invertible </idx>
 	<idx> matrix, inverse </idx>
 	<p> An <m>n\times n</m> matrix <m>A</m> is called
-	<em>invertible</em> if there is a matrix <m>B</m> such that
+	<term>invertible</term> if there is a matrix <m>B</m> such that
 	<m>AB = I_n</m>, where <m>I_n</m> is the <m>n\times n</m>
 	identity matrix.  The matrix <m>B</m> is called the
-	<em>inverse</em> of <m>A</m> and denoted <m>A^{-1}</m>.
+	<term>inverse</term> of <m>A</m> and denoted <m>A^{-1}</m>.
 	</p>
       </statement>
     </definition>
@@ -252,7 +261,7 @@
 		verify that <m>AB=I</m>.  This is enough for us to
 		conclude that <m>B</m> is
 		the inverse of <m>A</m>.
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -262,7 +271,7 @@
 	      <p>
 		Find the product <m>BA</m> and explain why we now know
 		that <m>B</m> is invertible and <m>B^{-1}=A</m>.
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -587,7 +596,7 @@
 		Describe the solution space to the equation <m>A\xvec
 		= \threevec343</m> by augmenting <m>A</m> and finding
 		the reduced row echelon form.
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -610,10 +619,9 @@
 		
 	    <li>
 	      <p>
-		If you have defined a matrix <c>B</c> in Sage, you can
-		find it's inverse as <c>B.inverse()</c> or
-		<c>B^-1</c>.  Use Sage to 
-		find the inverse of the matrix
+		If you have defined a matrix <c>B</c> in Python, you can
+		find it's inverse as <c>np.linalg.inv(B)</c>. 
+		Use Python to find the inverse of the matrix
 		<me>
 		  B = \left[\begin{array}{rrr}
 		  1 \amp -2 \amp -1 \\
@@ -621,9 +629,9 @@
 		  5 \amp -4 \amp 6 \\
 		  \end{array}\right]
 		</me>
-		and use it to solve the equation <m>B\xvec =
+		and use the inverse to solve the equation <m>B\xvec =
 		\threevec83{36}</m>. 
-		  <sage>
+		  <sage language="python">
 		    <input>
 		    </input>
 		  </sage>
@@ -716,13 +724,13 @@
 	  </li>
 	  <li>
 	    <p>
-	      Sage tells us that <m>B^{-1}\threevec{8}3{36} =
+	      Python tells us that <m>B^{-1}\threevec{8}3{36} =
 	      \threevec4{-1}2</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      Sage helps us see that <m>(AB)\sim I</m>, which tells us
+	      Python helps us see that <m>(AB)\sim I</m>, which tells us
 	      that <m>AB</m> is invertible.
 	    </p>
 	  </li>
@@ -778,7 +786,9 @@
 	</p>
       </statement>
     </proposition>
-    
+
+   <remark>
+	<title>Formulas for inverse matrices</title>
     <p> There is a simple formula for finding the inverse of a
     <m>2\times2</m> matrix:
     <me>
@@ -801,6 +811,7 @@
     There is a similar formula for the inverse of a <m>3\times
     3</m> matrix, but there is not a good reason to write it here.
     </p>
+   </remark> 
 
   </subsection>
 
@@ -826,16 +837,19 @@
       <statement>
 	<idx> lower triangular matrix </idx>
 	<idx> upper triangular matrix </idx>
-	<p> We say that a matrix <m>A</m> is <em>lower triangular</em>
+	<idx> diagonal matrix </idx>
+	<p> We say that a matrix <m>A</m> is <term>lower triangular</term>
 	if all its entries above the diagonal are zero.  Similarly,
-	<m>A</m> is <em>upper triangular</em> if all the entries below
-	the diagonal are zero.
+	<m>A</m> is <term>upper triangular</term> if all the entries below
+	the diagonal are zero.  A matrix that is both upper and lower triangular 
+	is called <term>diagonal</term> because all of its non-zero entries are 
+	along the diagonal of the matrix.
 	</p>
       </statement>
     </definition>
 
     <p> For example, the matrix <m>L</m> below is a lower triangular
-    matrix while <m>U</m> is an upper triangular one.
+    matrix while <m>U</m> is upper triangular and <m>D</m> is diagonal.
     <me>
       L = \left[\begin{array}{rrrr}
       * \amp 0 \amp 0 \amp 0 \\
@@ -843,12 +857,20 @@
       * \amp * \amp * \amp 0 \\
       * \amp * \amp * \amp * \\
       \end{array}\right],
-      \hspace{24pt}
+      \hspace{20pt}
       U = 
       \left[\begin{array}{rrrr}
       * \amp * \amp * \amp * \\
       0 \amp * \amp * \amp * \\
       0 \amp 0 \amp * \amp * \\
+      0 \amp 0 \amp 0 \amp * \\
+      \end{array}\right],
+      \hspace{20pt}
+      D = 
+      \left[\begin{array}{rrrr}
+      * \amp 0 \amp 0 \amp 0 \\
+      0 \amp * \amp 0 \amp 0 \\
+      0 \amp 0 \amp * \amp 0 \\
       0 \amp 0 \amp 0 \amp * \\
       \end{array}\right]
     </me>.
@@ -967,7 +989,7 @@
 	    <li><p>
 	      Show that the product <m>RA</m> is the result of
 	      applying the replacement operation to <m>A</m>.
-	      <sage>
+	      <sage language="python">
 		<input>
 		</input>
 	      </sage>
@@ -988,7 +1010,7 @@
 	    <m>S</m> so that <m>SA</m> is the same as that obtained
 	    from the scaling operation.  Why is <m>S</m> invertible
 	    and what is <m>S^{-1}</m>?
-	    <sage>
+	    <sage language="python">
 	      <input>
 	      </input>
 	    </sage>
@@ -996,7 +1018,7 @@
 
 	    <li><p> Finally, suppose we want to interchange the first
 	    and third rows of <m>A</m>.  Find a matrix <m>P</m>,
-	    usually called a <em>permutation matrix</em> that performs
+	    usually called a <term>permutation matrix</term> that performs
 	    this operation.  What is <m>P^{-1}</m>?
 	    </p></li>
 	      
@@ -1024,7 +1046,7 @@
 	      invertible and use this fact to write <m>A = LU</m>.  What
 	      is the matrix <m>L</m> that you find?  Why do you think we
 	      denote it by <m>L</m>?
-	      <sage>
+	      <sage language="python">
 		<input>
 		</input>
 	      </sage>
@@ -1152,7 +1174,7 @@
     <p>
       <idx> matrix, elementary </idx>
       The following are examples of matrices, known as 
-      <em>elementary matrices</em>,
+      <term>elementary matrices</term>,
       that perform the row operations on a matrix having three rows.
       <dl>
 	<li><title> Replacement </title>
