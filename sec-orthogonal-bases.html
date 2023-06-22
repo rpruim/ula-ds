@@ -1,0 +1,2046 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Orthogonal bases and projections</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="Understanding Linear Algebra">
+<meta property="book:author" content=" Randall Pruim ">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.98,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+  startup: {
+    pageReady() {
+      return MathJax.startup.defaultPageReady().then(function () {
+      console.log("in ready function");
+      rsMathReady();
+      }
+    )}
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/colors_blue_grey.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '7.0.0dev3';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runtime.71ffd81c0faeb38b.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.1f1f63d2cda36a4d.css">
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="ula.html"><span class="title">Understanding Linear Algebra:</span> <span class="subtitle">Data Science Edition</span></a></h1>
+<p class="byline">Randall Pruim</p>
+</div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<div id="searchempty"><span>No results.</span></div>
+<ol id="searchresults"></ol>
+</div>
+</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+<li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden avatar">
+<li data-val="You!" tabindex="-1">
+<span id="theYou!" class="avatarcheck">✔️</span>You!</li>
+<li data-val="😺" tabindex="-1">
+<span id="the😺" class="avatarcheck"></span>😺</li>
+<li data-val="👤" tabindex="-1">
+<span id="the👤" class="avatarcheck"></span>👤</li>
+<li data-val="👽" tabindex="-1">
+<span id="the👽" class="avatarcheck"></span>👽</li>
+<li data-val="🐶" tabindex="-1">
+<span id="the🐶" class="avatarcheck"></span>🐶</li>
+<li data-val="🐼" tabindex="-1">
+<span id="the🐼" class="avatarcheck"></span>🐼</li>
+<li data-val="🌈" tabindex="-1">
+<span id="the🌈" class="avatarcheck"></span>🌈</li>
+</ol>
+</li>
+<li data-env="fontfamily" tabindex="-1">Font family<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fontfamily">
+<li data-val="face" data-change="OS" tabindex="-1" style="font-family: 'Open Sans'">
+<span id="theOS" class="ffcheck">✔️</span><span class="name">Open Sans</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+<li data-val="face" data-change="RS" tabindex="-1" style="font-family: 'Roboto Serif'">
+<span id="theRS" class="ffcheck"></span><span class="name">Roboto Serif</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+</ol>
+</li>
+<li data-env="font" tabindex="-1">Adjust font<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fonts">
+<li>Size</li>
+<li><span id="thesize">12</span></li>
+<li data-val="size" data-change="-1" tabindex="-1" style="font-size: 80%">Smaller</li>
+<li data-val="size" data-change="1" tabindex="-1" style="font-size: 110%">Larger</li>
+<li>Width</li>
+<li><span id="thewdth">100</span></li>
+<li data-val="wdth" data-change="-5" tabindex="-1" style="font-variation-settings: 'wdth' 60">narrower</li>
+<li data-val="wdth" data-change="5" tabindex="-1" style="font-variation-settings: 'wdth' 150">wider</li>
+<li>Weight</li>
+<li><span id="thewght">400</span></li>
+<li data-val="wght" data-change="-50" tabindex="-1" style="font-weight: 200">thinner</li>
+<li data-val="wght" data-change="50" tabindex="-1" style="font-weight: 700">heavier</li>
+<li>Letter spacing</li>
+<li>
+<span id="thelspace">0</span><span class="byunits">/200</span>
+</li>
+<li data-val="lspace" data-change="-1" tabindex="-1">closer</li>
+<li data-val="lspace" data-change="1" tabindex="-1">f a r t h e r</li>
+<li>Word spacing</li>
+<li>
+<span id="thewspace">0</span><span class="byunits">/50</span>
+</li>
+<li data-val="wspace" data-change="-1" tabindex="-1">smaller gap </li>
+<li data-val="wspace" data-change="1" tabindex="-1">larger gap</li>
+<li>Line Spacing</li>
+<li>
+<span id="theheight">135</span><span class="byunits">/100</span>
+</li>
+<li data-val="height" data-change="-5" tabindex="-1" style="line-height: 1">closer<br>together</li>
+<li data-val="height" data-change="5" tabindex="-1" style="line-height: 1.75">further<br>apart</li>
+</ol>
+</li>
+<li data-env="atmosphere" tabindex="-1">Light/dark mode<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden atmosphere">
+<li data-val="default" tabindex="-1">
+<span id="thedefault" class="atmospherecheck">✔️</span>default</li>
+<li data-val="pastel" tabindex="-1">
+<span id="thepastel" class="atmospherecheck"></span>pastel</li>
+<li data-val="darktwilight" tabindex="-1">
+<span id="thedarktwilight" class="atmospherecheck"></span>twilight</li>
+<li data-val="dark" tabindex="-1">
+<span id="thedark" class="atmospherecheck"></span>dark</li>
+<li data-val="darkmidnight" tabindex="-1">
+<span id="thedarkmidnight" class="atmospherecheck"></span>midnight</li>
+</ol>
+</li>
+<li data-env="ruler" tabindex="-1">Reading ruler<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden ruler">
+<li data-val="none" tabindex="-1">
+<span id="thenone" class="rulercheck">✔️</span>none</li>
+<li data-val="underline" tabindex="-1">
+<span id="theunderline" class="rulercheck"></span>underline</li>
+<li data-val="lunderline" tabindex="-1">
+<span id="thelunderline" class="rulercheck"></span>L-underline</li>
+<li data-val="greybar" tabindex="-1">
+<span id="thegreybar" class="rulercheck"></span>grey bar</li>
+<li data-val="lightbox" tabindex="-1">
+<span id="thelightbox" class="rulercheck"></span>light box</li>
+<li data-val="sunrise" tabindex="-1">
+<span id="thesunrise" class="rulercheck"></span>sunrise</li>
+<li data-val="sunriseunderline" tabindex="-1">
+<span id="thesunriseunderline" class="rulercheck"></span>sunrise underline</li>
+<li class="moveQ">Motion by:</li>
+<li data-val="mouse" tabindex="-1">
+<span id="themouse" class="motioncheck">✔️</span>follow the mouse</li>
+<li data-val="arrow" tabindex="-1">
+<span id="thearrow" class="motioncheck"></span>up/down arrows - not yet</li>
+<li data-val="eye" tabindex="-1">
+<span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
+</ol>
+</li>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="sec-transpose.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="chap6.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="sec-gram-schmidt.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchwrapper" role="search"><div class="gcse-search"></div></div>
+<div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\avec}{{\boldsymbol a}}
+\newcommand{\bvec}{{\boldsymbol b}}
+\newcommand{\cvec}{{\boldsymbol c}}
+\newcommand{\dvec}{{\boldsymbol d}}
+\newcommand{\dtil}{\widetilde{\boldsymbol d}}
+\newcommand{\evec}{{\boldsymbol e}}
+\newcommand{\fvec}{{\boldsymbol f}}
+\newcommand{\mvec}{{\boldsymbol m}}
+\newcommand{\nvec}{{\boldsymbol n}}
+\newcommand{\pvec}{{\boldsymbol p}}
+\newcommand{\qvec}{{\boldsymbol q}}
+\newcommand{\rvec}{{\boldsymbol r}}
+\newcommand{\svec}{{\boldsymbol s}}
+\newcommand{\tvec}{{\boldsymbol t}}
+\newcommand{\uvec}{{\boldsymbol u}}
+\newcommand{\vvec}{{\boldsymbol v}}
+\newcommand{\wvec}{{\boldsymbol w}}
+\newcommand{\xvec}{{\boldsymbol x}}
+\newcommand{\yvec}{{\boldsymbol y}}
+\newcommand{\zvec}{{\boldsymbol z}}
+\newcommand{\E}{\operatorname{E}}
+\newcommand{\zerovec}{{\boldsymbol 0}}
+\newcommand{\onevec}{{\boldsymbol 1}}
+\newcommand{\real}{{\mathbb R}}
+\newcommand{\twovec}[2]{\left[\begin{array}{r}#1 \\ #2
+\end{array}\right]}
+\newcommand{\ctwovec}[2]{\left[\begin{array}{c}#1 \\ #2
+\end{array}\right]}
+\newcommand{\threevec}[3]{\left[\begin{array}{r}#1 \\ #2 \\ #3
+\end{array}\right]}
+\newcommand{\cthreevec}[3]{\left[\begin{array}{c}#1 \\ #2 \\ #3
+\end{array}\right]}
+\newcommand{\fourvec}[4]{\left[\begin{array}{r}#1 \\ #2 \\ #3 \\ #4
+\end{array}\right]}
+\newcommand{\cfourvec}[4]{\left[\begin{array}{c}#1 \\ #2 \\ #3 \\ #4
+\end{array}\right]}
+\newcommand{\fivevec}[5]{\left[\begin{array}{r}#1 \\ #2 \\ #3 \\
+#4 \\ #5 \\ \end{array}\right]}
+\newcommand{\cfivevec}[5]{\left[\begin{array}{c}#1 \\ #2 \\ #3 \\
+#4 \\ #5 \\ \end{array}\right]}
+\newcommand{\mattwo}[4]{\left[\begin{array}{rr}#1 \amp #2 \\ #3 \amp #4 \\ \end{array}\right]}
+\newcommand{\laspan}[1]{\text{Span}\{#1\}}
+\newcommand{\bcal}{{\cal B}}
+\newcommand{\ccal}{{\cal C}}
+\newcommand{\scal}{{\cal S}}
+\newcommand{\wcal}{{\cal W}}
+\newcommand{\ecal}{{\cal E}}
+\newcommand{\coords}[2]{\left\{#1\right\}_{#2}}
+\newcommand{\gray}[1]{\color{gray}{#1}}
+\newcommand{\lgray}[1]{\color{lightgray}{#1}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\row}{\text{Row}}
+\newcommand{\col}{\text{Col}}
+\renewcommand{\row}{\text{Row}}
+\newcommand{\nul}{\text{Nul}}
+\newcommand{\var}{\text{Var}}
+\newcommand{\corr}{\text{corr}}
+\newcommand{\len}[1]{\left|#1\right|}
+\newcommand{\bbar}{\overline{\bvec}}
+\newcommand{\bhat}{\widehat{\bvec}}
+\newcommand{\bperp}{\bvec^\perp}
+\newcommand{\vhat}{\widehat{\vvec}}
+\newcommand{\uhat}{\widehat{\uvec}}
+\newcommand{\what}{\widehat{\wvec}}
+\newcommand{\xhat}{\widehat{\xvec}}
+\newcommand{\yhat}{\widehat{\yvec}}
+\newcommand{\Sighat}{\widehat{\Sigma}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<li>
+<div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="colophon-1.html" class="internal"><span class="title">Colophon</span></a></div></li>
+<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Our goals</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap0.html" class="internal"><span class="codenumber">1</span> <span class="title">Scalars, Vectors and Matrices</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-vectors.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-vectors.html#subsection-1" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Three ways to think about vectors</span></a></div></li>
+<li>
+<div class="toc-item"><a href="sec-vectors.html#subsection-2" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Vector operations: scalar multiplication and vector addition.</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-vectors.html#subsubsec-scalar-multiplication" class="internal"><span class="codenumber">1.1.2.1</span> <span class="title">Scalar Multiplication</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors.html#subsubsec-vector-addition" class="internal"><span class="codenumber">1.1.2.2</span> <span class="title">Vector addition</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors.html#subsubsec-vector-properties" class="internal"><span class="codenumber">1.1.2.3</span> <span class="title">Mathematical properties of vector operations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors.html#subsubsection-4" class="internal"><span class="codenumber">1.1.2.4</span> <span class="title">Summary</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-vectors-in-python.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Vectors in Python</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-vectors-in-python.html#subsec-intro-to-python" class="internal"><span class="codenumber">1.2.1</span> <span class="title">Introduction to Python</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors-in-python.html#subsec-numpy-vectors" class="internal"><span class="codenumber">1.2.2</span> <span class="title"><code class="code-inline tex2jax_ignore">numpy</code> vectors</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-linear-combos-of-vectors.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Linear combinations of vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-linear-combos-of-vectors.html#subsection-5" class="internal"><span class="codenumber">1.3.1</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-combos-of-vectors.html#exercises-1" class="internal"><span class="codenumber">1.3.2</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-matrices.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Matrices</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-matrices.html#subsec-matrices-and-their-uses" class="internal"><span class="codenumber">1.4.1</span> <span class="title">Matrices and their uses</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-7" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Scalar multiplication and addition of matrices</span></a></div></li>
+<li>
+<div class="toc-item"><a href="sec-matrices.html#subsection-8" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Matrix-vector multiplication and linear combinations</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="sec-matrices.html#sec-matrices-in-python" class="internal"><span class="codenumber">1.4.3.1</span> <span class="title">Matrices in Python</span></a></div></li></ul>
+</li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-9" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Matrix-matrix products</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsec-special-matrices" class="internal"><span class="codenumber">1.4.5</span> <span class="title">Some special types of matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-11" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#exercises-2" class="internal"><span class="codenumber">1.4.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-tensors.html" class="internal"><span class="codenumber">1.5</span> <span class="title">Tensors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in np</span></a></div></li>
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-axes" class="internal"><span class="codenumber">1.5.2</span> <span class="title">Aggregation and Axes</span></a></div></li>
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-broadcasting" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Broadcasting</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap1.html" class="internal"><span class="codenumber">2</span> <span class="title">Systems of equations: Solving <span class="process-math">\(A \xvec = \bvec\)</span></span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-expect.html" class="internal"><span class="codenumber">2.1</span> <span class="title">What can we expect</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-expect.html#subsection-15" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Some simple examples</span></a></div></li>
+<li><div class="toc-item"><a href="sec-expect.html#subsection-16" class="internal"><span class="codenumber">2.1.2</span> <span class="title">Systems of linear equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-expect.html#subsection-17" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Summary</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-finding-solutions.html" class="internal"><span class="codenumber">2.2</span> <span class="title">Finding solutions to linear systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-18" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Gaussian elimination</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-19" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Augmented matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-20" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Reduced row echelon form</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsec-solving-matrix-equations" class="internal"><span class="codenumber">2.2.4</span> <span class="title">Solving matrix equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-22" class="internal"><span class="codenumber">2.2.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#exercises-3" class="internal"><span class="codenumber">2.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-python-introduction.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Computational Linear Algebra</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-23" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Reduced row echelon form in Python</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsec-compute-effort" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Computational effort</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-25" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#exercises-4" class="internal"><span class="codenumber">2.3.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-pivots.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Pivots and their relationship to solution spaces</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-26" class="internal"><span class="codenumber">2.4.1</span> <span class="title">The existence of solutions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-27" class="internal"><span class="codenumber">2.4.2</span> <span class="title">The uniqueness of solutions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-28" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#exercises-5" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap2.html" class="internal"><span class="codenumber">3</span> <span class="title">Vectors, matrices, and linear combinations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-span.html" class="internal"><span class="codenumber">3.1</span> <span class="title">The span of a set of vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-span.html#subsection-29" class="internal"><span class="codenumber">3.1.1</span> <span class="title">The span of a set of vectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-30" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Pivot positions and span</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-31" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#exercises-6" class="internal"><span class="codenumber">3.1.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-linear-dep.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Linear independence</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-32" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Linear dependence</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-33" class="internal"><span class="codenumber">3.2.2</span> <span class="title">How to recognize linear dependence</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-34" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Homogeneous equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-35" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#exercises-7" class="internal"><span class="codenumber">3.2.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-linear-trans.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Matrix transformations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-36" class="internal"><span class="codenumber">3.3.1</span> <span class="title">Matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-37" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Composing matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsec-dynamical-systems" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Discrete Dynamical Systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-39" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#exercises-8" class="internal"><span class="codenumber">3.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-transforms-geom.html" class="internal"><span class="codenumber">3.4</span> <span class="title">The geometry of matrix transformations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-40" class="internal"><span class="codenumber">3.4.1</span> <span class="title">The geometry of <span class="process-math">\(2\times2\)</span> matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-41" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Matrix transformations and computer animation</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-42" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#exercises-9" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap3.html" class="internal"><span class="codenumber">4</span> <span class="title">Invertibility, bases, and coordinate systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-matrix-inverse.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Invertibility</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-43" class="internal"><span class="codenumber">4.1.1</span> <span class="title">Invertible matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-44" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Solving equations with an inverse</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-45" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#exercises-10" class="internal"><span class="codenumber">4.1.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="subsec-triangular-invertible.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Triangular matrices and Gaussian elimination</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsec-triangular-matrices" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Triangular matrices</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsec-elementary-matrices" class="internal"><span class="codenumber">4.2.2</span> <span class="title">Elementary matrices</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsection-48" class="internal"><span class="codenumber">4.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#exercises-11" class="internal"><span class="codenumber">4.2.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-bases.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Bases and coordinate systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-bases.html#subsection-49" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Bases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-50" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Coordinate systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-51" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Examples of bases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-52" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#exercises-12" class="internal"><span class="codenumber">4.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-jpeg.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Image compression</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-53" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Color models</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-54" class="internal"><span class="codenumber">4.4.2</span> <span class="title">The JPEG compression algorithm</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-55" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#exercises-13" class="internal"><span class="codenumber">4.4.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-determinants.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Determinants</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-56" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Determinants of <span class="process-math">\(2\times2\)</span> matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-57" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Determinants and invertibility</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-58" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Cofactor expansions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-59" class="internal"><span class="codenumber">4.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#exercises-14" class="internal"><span class="codenumber">4.5.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-subspaces.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Subspaces</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-60" class="internal"><span class="codenumber">4.6.1</span> <span class="title">Subspaces</span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-61" class="internal"><span class="codenumber">4.6.2</span> <span class="title">The column space of <span class="process-math">\(A\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-62" class="internal"><span class="codenumber">4.6.3</span> <span class="title">The null space of <span class="process-math">\(A\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-63" class="internal"><span class="codenumber">4.6.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#exercises-15" class="internal"><span class="codenumber">4.6.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-gaussian-revisited.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Partial pivoting and LU factorizations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsec-partial-pivot" class="internal"><span class="codenumber">4.7.1</span> <span class="title">Partial pivoting</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-65" class="internal"><span class="codenumber">4.7.2</span> <span class="title"><span class="process-math">\(LU\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-66" class="internal"><span class="codenumber">4.7.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#exercises-16" class="internal"><span class="codenumber">4.7.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap4.html" class="internal"><span class="codenumber">5</span> <span class="title">Eigenvalues and eigenvectors</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-eigen-intro.html" class="internal"><span class="codenumber">5.1</span> <span class="title">An introduction to eigenvalues and eigenvectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-67" class="internal"><span class="codenumber">5.1.1</span> <span class="title">A few examples</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsec-eigen-use" class="internal"><span class="codenumber">5.1.2</span> <span class="title">The usefulness of eigenvalues and eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-69" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#exercises-17" class="internal"><span class="codenumber">5.1.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-eigen-find.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Finding eigenvalues and eigenvectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-70" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The characteristic polynomial</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-71" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Finding eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-72" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The characteristic polynomial and the dimension of eigenspaces</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-73" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Using Sage to find eigenvalues and eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-74" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#exercises-18" class="internal"><span class="codenumber">5.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-eigen-diag.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Diagonalization, similarity, and powers of a matrix</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-75" class="internal"><span class="codenumber">5.3.1</span> <span class="title">Diagonalization of matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-76" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Powers of a diagonalizable matrix</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-77" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Similarity and complex eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-78" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#exercises-19" class="internal"><span class="codenumber">5.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-dynamical.html" class="internal"><span class="codenumber">5.4</span> <span class="title">Dynamical systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-79" class="internal"><span class="codenumber">5.4.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-80" class="internal"><span class="codenumber">5.4.2</span> <span class="title">Classifying dynamical systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-81" class="internal"><span class="codenumber">5.4.3</span> <span class="title">A <span class="process-math">\(3\times3\)</span> system</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-82" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#exercises-20" class="internal"><span class="codenumber">5.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-stochastic.html" class="internal"><span class="codenumber">5.5</span> <span class="title">Markov chains and Google’s PageRank algorithm</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-83" class="internal"><span class="codenumber">5.5.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-84" class="internal"><span class="codenumber">5.5.2</span> <span class="title">Markov chains</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsec-google" class="internal"><span class="codenumber">5.5.3</span> <span class="title">Google’s PageRank algorithm</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-86" class="internal"><span class="codenumber">5.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#exercises-21" class="internal"><span class="codenumber">5.5.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-power-method.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Finding eigenvectors numerically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-87" class="internal"><span class="codenumber">5.6.1</span> <span class="title">The power method</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-88" class="internal"><span class="codenumber">5.6.2</span> <span class="title">Finding other eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-89" class="internal"><span class="codenumber">5.6.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#exercises-22" class="internal"><span class="codenumber">5.6.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap6.html" class="internal"><span class="codenumber">6</span> <span class="title">Orthogonality and Least Squares</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-dot-product.html" class="internal"><span class="codenumber">6.1</span> <span class="title">The dot product</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-90" class="internal"><span class="codenumber">6.1.1</span> <span class="title">The geometry of the dot product</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-91" class="internal"><span class="codenumber">6.1.2</span> <span class="title"><span class="process-math">\(k\)</span>-means clustering</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-92" class="internal"><span class="codenumber">6.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#exercises-23" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-transpose.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Orthogonal complements and the matrix transpose</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-93" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Orthogonal complements</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-94" class="internal"><span class="codenumber">6.2.2</span> <span class="title">The matrix transpose</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-95" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Properties of the matrix transpose</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-96" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#exercises-24" class="internal"><span class="codenumber">6.2.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li class="active">
+<div class="toc-item"><a href="sec-orthogonal-bases.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Orthogonal bases and projections</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-97" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Orthogonal sets</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-98" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Orthogonal projections</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-99" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#exercises-25" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-gram-schmidt.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Finding orthogonal bases</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-100" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Gram-Schmidt orthogonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-101" class="internal"><span class="codenumber">6.4.2</span> <span class="title"><span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-102" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#exercises-26" class="internal"><span class="codenumber">6.4.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Orthogonal least squares</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-103" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-104" class="internal"><span class="codenumber">6.5.2</span> <span class="title">Solving least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-105" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-106" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Polynomial Regression</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-107" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#exercises-27" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap7.html" class="internal"><span class="codenumber">7</span> <span class="title">The Spectral Theorem and singular value decompositions</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-108" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-109" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-110" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#exercises-28" class="internal"><span class="codenumber">7.1.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Quadratic forms</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-111" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-112" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-113" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#exercises-29" class="internal"><span class="codenumber">7.2.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Principal Component Analysis</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-pca.html#subsection-114" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-115" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-116" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#exercises-30" class="internal"><span class="codenumber">7.3.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Singular Value Decompositions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-117" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-118" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-119" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-120" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#exercises-31" class="internal"><span class="codenumber">7.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Using Singular Value Decompositions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-121" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-122" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-123" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-124" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-125" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-126" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#exercises-32" class="internal"><span class="codenumber">7.5.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">A</span> <span class="title">Python Reference</span></a></div></li>
+<li><div class="toc-item"><a href="app-sage-experiments.html" class="internal"><span class="codenumber">B</span> <span class="title">Sage Experiments</span></a></div></li>
+<li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
+<li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-orthogonal-bases"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">6.3</span> <span class="title">Orthogonal bases and projections</span>
+</h2>
+<section class="introduction" id="introduction-34"><div class="para" id="p-6052">We know that a linear system <span class="process-math">\(A\xvec=\bvec\)</span> is inconsistent when <span class="process-math">\(\bvec\)</span> is not in <span class="process-math">\(\col(A)\text{,}\)</span> the column space of <span class="process-math">\(A\text{.}\)</span>  Later in this chapter, we’ll develop a strategy for dealing with inconsistent systems by finding <span class="process-math">\(\bhat\text{,}\)</span> the vector in <span class="process-math">\(\col(A)\)</span> that minimizes the distance to <span class="process-math">\(\bvec\text{.}\)</span>  The equation <span class="process-math">\(A\xvec=\bhat\)</span> is therefore consistent and its solution set can provide us with useful information about the original system <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>
+</div> <div class="para" id="p-6053">In this section and the next, we’ll develop some techniques that enable us to find <span class="process-math">\(\bhat\text{,}\)</span> the vector in a given subspace <span class="process-math">\(W\)</span> that is closest to a given vector <span class="process-math">\(\bvec\text{.}\)</span>
+</div> <article class="exploration project-like" id="preview-orthogonal-basis"><h3 class="heading">
+<span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">6.3.1</span><span class="period">.</span>
+</h3>
+<div class="para logical" id="p-6054">
+<div class="para">For this activity, it will be helpful to recall the distributive property of dot products:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\vvec\cdot(c_1\wvec_1+c_2\wvec_2) = c_1\vvec\cdot\wvec_1 +
+c_2\vvec\cdot\wvec_2\text{.}
+\end{equation*}
+</div>
+<div class="para">We’ll work with the basis of <span class="process-math">\(\real^2\)</span> formed by the vectors</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\wvec_1=\twovec12,\hspace{24pt}
+\wvec_2=\twovec{-2}1\text{.}
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-4140"><div class="para" id="p-6055">Verify that the vectors <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> are orthogonal.</div></li>
+<li id="li-4141"><div class="para" id="p-6056">Suppose that <span class="process-math">\(\bvec =\twovec74\)</span> and find the dot products <span class="process-math">\(\wvec_1\cdot\bvec\)</span> and <span class="process-math">\(\wvec_2\cdot\bvec\text{.}\)</span>
+</div></li>
+<li id="li-4142"><div class="para logical" id="p-6057">
+<div class="para">We would like to express <span class="process-math">\(\bvec\)</span> as a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{,}\)</span> which means that we need to find weights <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\)</span> such that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bvec = c_1\wvec_1 + c_2\wvec_2\text{.}
+\end{equation*}
+</div>
+<div class="para">To find the weight <span class="process-math">\(c_1\text{,}\)</span> dot both sides of this expression with <span class="process-math">\(\wvec_1\text{:}\)</span>
+</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bvec\cdot\wvec_1 = (c_1\wvec_1 +
+c_2\wvec_2)\cdot\wvec_1\text{,}
+\end{equation*}
+</div>
+<div class="para">and apply the distributive property.</div>
+</div></li>
+<li id="li-4143"><div class="para" id="p-6058">In a similar fashion, find the weight <span class="process-math">\(c_2\text{.}\)</span>
+</div></li>
+<li id="li-4144"><div class="para" id="p-6059">Verify that <span class="process-math">\(\bvec = c_1\wvec_1+c_2\wvec_2\)</span> using the weights you have found.</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-316" id="solution-316"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-316"><div class="solution solution-like"><div class="para logical" id="p-6060"><ol class="lower-alpha">
+<li id="li-4145"><div class="para" id="p-6061">We can compute that <span class="process-math">\(\wvec_1\cdot\wvec_2 = 0\text{.}\)</span>
+</div></li>
+<li id="li-4146"><div class="para" id="p-6062">
+<span class="process-math">\(\bvec\cdot\wvec_1 = 15\)</span> and <span class="process-math">\(\bvec\cdot\wvec_2 = -10\text{.}\)</span>
+</div></li>
+<li id="li-4147"><div class="para" id="p-6063"><span class="process-math">\(c_1 = \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}
+= 3\text{.}\)</span></div></li>
+<li id="li-4148"><div class="para" id="p-6064"><span class="process-math">\(c_2 = \frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}
+= -2\text{.}\)</span></div></li>
+<li id="li-4149"><div class="para" id="p-6065"><span class="process-math">\(\bvec = 3\wvec_1 - 2\wvec_2\text{.}\)</span></div></li>
+</ol></div></div></div>
+</div></article> <div class="para" id="p-6066">We frequently ask to write a given vector as a linear combination of given basis vectors.  In the past, we have done this by solving a linear system.  The preview activity illustrates how this task can be simplified when the basis vectors are orthogonal to each other.  We’ll explore this and other uses of orthogonal bases in this section.</div></section><section class="subsection" id="subsection-97"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.3.1</span> <span class="title">Orthogonal sets</span>
+</h3>
+<div class="para" id="p-6067">The preview activity dealt with a basis of <span class="process-math">\(\real^2\)</span> formed by two orthogonal vectors.  More generally, we will consider a set of orthogonal vectors, as described in the next definition.</div>
+<article class="definition definition-like" id="definition-30"><h4 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">6.3.1</span><span class="period">.</span>
+</h4> <div class="para" id="p-6068">By an <em class="emphasis">orthogonal set</em> of vectors, we mean a set of nonzero vectors each of which is orthogonal to the others.</div></article><article class="example example-like" id="example-orthogonal-basis"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.3.2</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6069">
+<div class="para">The 3-dimensional vectors</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\wvec_1 = \threevec1{-1}1,\hspace{24pt}
+\wvec_2 = \threevec1{1}0,\hspace{24pt}
+\wvec_3 = \threevec1{-1}{-2}.
+\end{equation*}
+</div>
+<div class="para">form an orthogonal set, which can be verified by computing</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{array}{rcl}
+\wvec_1\cdot\wvec_2 \amp {}={} \amp 0 \\
+\wvec_1\cdot\wvec_3 \amp {}={} \amp 0 \\
+\wvec_2\cdot\wvec_3 \amp {}={} \amp 0\text{.} \\
+\end{array}
+\end{equation*}
+</div>
+<div class="para">Notice that this set of vectors forms a basis for <span class="process-math">\(\real^3\text{.}\)</span>
+</div>
+</div></article><article class="example example-like" id="example-orthogonal-set"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.3.3</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6070">
+<div class="para">The vectors</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\wvec_1 = \fourvec1111,\hspace{24pt}
+\wvec_2 = \fourvec11{-1}{-1},\hspace{24pt}
+\wvec_3 = \fourvec1{-1}1{-1}
+\end{equation*}
+</div>
+<div class="para">form an orthogonal set of 4-dimensional vectors.  Since there are only three vectors, this set does not form a basis for <span class="process-math">\(\real^4\text{.}\)</span>  It does, however, form a basis for a 3-dimensional subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^4\text{.}\)</span>
+</div>
+</div></article><div class="para logical" id="p-6071">
+<div class="para">Suppose that a vector <span class="process-math">\(\bvec\)</span> is a linear combination of an orthogonal set of vectors <span class="process-math">\(\wvec_1,\wvec_2,\ldots,\wvec_n\text{;}\)</span>  that is, suppose that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+c_1\wvec_1 + c_2\wvec_2 + \cdots + c_n\wvec_n = \bvec.
+\end{equation*}
+</div>
+<div class="para">Just as in the preview activity, we can find the weight <span class="process-math">\(c_1\)</span> by dotting both sides with <span class="process-math">\(\wvec_1\)</span> and applying the distributive property of dot products:</div>
+<div class="displaymath process-math" id="md-8">
+\begin{align*}
+(c_1\wvec_1 + c_2\wvec_2 + \cdots + c_n\wvec_n)\cdot\wvec_1
+\amp = \bvec\cdot\wvec_1\\
+c_1\wvec_1\cdot\wvec_1 + c_2\wvec_2\cdot\wvec_1 +\cdots +
+c_n\wvec_n\cdot\wvec_1  \amp = \bvec\cdot\wvec_1\\
+c_1\wvec_1\cdot\wvec_1 \amp = \bvec\cdot\wvec_1\\
+c_1 \amp = 
+\frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\text{.}
+\end{align*}
+</div>
+<div class="para">Notice how the presence of an orthogonal set causes most of the terms in the sum to vanish.  In the same way, we find that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+c_i = \frac{\bvec\cdot\wvec_i}{\wvec_i\cdot\wvec_i}
+\end{equation*}
+</div>
+<div class="para">so that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bvec = \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
+\cdots +
+\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para" id="p-6072">We’ll record this fact in the following proposition.</div>
+<article class="proposition theorem-like" id="prop-orthog-lincomb"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.3.4</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6073">
+<div class="para">If a vector <span class="process-math">\(\bvec\)</span> is a linear combination of an orthogonal set of vectors <span class="process-math">\(\wvec_1,\wvec_2,\ldots,\wvec_n\text{,}\)</span> then</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bvec = \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
+\cdots +
+\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n\text{.}
+\end{equation*}
+</div>
+</div></article><div class="para logical" id="p-6074">
+<div class="para">Using this proposition, we can see that an orthogonal set of vectors must be linearly independent.  Suppose, for instance, that <span class="process-math">\(\wvec_1,\wvec_2,\ldots,\wvec_n\)</span> is a set of nonzero orthogonal vectors and that one of the vectors is a linear combination of the others, say,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\wvec_3 = c_1\wvec_1 + c_2\wvec_2\text{.}
+\end{equation*}
+</div>
+<div class="para">We therefore know that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\wvec_3 =
+\frac{\wvec_3\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+\frac{\wvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_1}\wvec_2
+= \zerovec\text{,}
+\end{equation*}
+</div>
+<div class="para">which cannot happen since we know that <span class="process-math">\(\wvec_3\)</span> is nonzero. This tells us that</div>
+</div>
+<article class="proposition theorem-like" id="prop-orthog-lin-indep"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.3.5</span><span class="period">.</span>
+</h4>
+<div class="para" id="p-6075">An orthogonal set of vectors <span class="process-math">\(\wvec_1,\wvec_2,\ldots,\wvec_n\)</span> is linearly independent.</div></article><div class="para" id="p-6076">If the vectors in an orthogonal set have dimension <span class="process-math">\(m\text{,}\)</span> they form a linearly independent set in <span class="process-math">\(\real^m\)</span> and are therefore a basis for the subspace <span class="process-math">\(W=\laspan{\wvec_1,\wvec_2,\ldots,\wvec_n}\text{.}\)</span>  If there are <span class="process-math">\(m\)</span> vectors in the orthogonal set, they form a basis for <span class="process-math">\(\real^m\text{.}\)</span>
+</div>
+<article class="activity project-like" id="activity-75"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.3.2</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6077">
+<div class="para">Consider the vectors</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-orthog-lincomb.html ./knowl/prop-transpose-multiplication.html">
+\begin{equation*}
+\wvec_1 = \threevec1{-1}1,\hspace{24pt}
+\wvec_2 = \threevec1{1}0,\hspace{24pt}
+\wvec_3 = \threevec1{-1}{-2}.
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-4150">
+<div class="para" id="p-6078">Verify that this set forms an orthogonal set of <span class="process-math">\(3\)</span>-dimensional vectors.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-172"><script type="text/x-sage">
+</script></pre>
+</li>
+<li id="li-4151"><div class="para" id="p-6079">Explain why we know that this set of vectors forms a basis for <span class="process-math">\(\real^3\text{.}\)</span>
+</div></li>
+<li id="li-4152"><div class="para" id="p-6080">Suppose that <span class="process-math">\(\bvec=\threevec24{-4}\text{.}\)</span>  Find the weights <span class="process-math">\(c_1\text{,}\)</span> <span class="process-math">\(c_2\text{,}\)</span> and <span class="process-math">\(c_3\)</span> that express <span class="process-math">\(\bvec\)</span> as a linear combination <span class="process-math">\(\bvec=c_1\wvec_1 + c_2\wvec_2 + c_3\wvec_3\)</span> using <a href="" class="xref" data-knowl="./knowl/prop-orthog-lincomb.html" title="Proposition 6.3.4">Proposition 6.3.4</a>.</div></li>
+<li id="li-4153">
+<div class="para" id="p-6081">If we multiply a vector <span class="process-math">\(\vvec\)</span> by a positive scalar <span class="process-math">\(s\text{,}\)</span> the length of <span class="process-math">\(\vvec\)</span> is also multiplied by <span class="process-math">\(s\text{;}\)</span>  that is, <span class="process-math">\(\len{s\vvec} = s\len{\vvec}\text{.}\)</span>
+</div>
+<div class="para" id="p-6082"> Using this observation, find a vector <span class="process-math">\(\uvec_1\)</span> that is parallel to <span class="process-math">\(\wvec_1\)</span> and has length 1. Such vectors are called <em class="emphasis">unit vectors</em>. <pre class="ptx-sagecell sagecell-sage" id="sage-173"><script type="text/x-sage">
+</script></pre>
+</div>
+</li>
+<li id="li-4154"><div class="para" id="p-6083">Similarly, find a unit vector <span class="process-math">\(\uvec_2\)</span> that is parallel to <span class="process-math">\(\wvec_2\)</span> and a unit vector <span class="process-math">\(\uvec_3\)</span> that is parallel to <span class="process-math">\(\wvec_3\text{.}\)</span>
+</div></li>
+<li id="li-4155"><div class="para" id="p-6084">Construct the matrix <span class="process-math">\(Q=\begin{bmatrix}
+\uvec_1 \amp \uvec_2 \amp \uvec_3
+\end{bmatrix}\)</span> and find the product <span class="process-math">\(Q^TQ\text{.}\)</span>  Use <a href="" class="xref" data-knowl="./knowl/prop-transpose-multiplication.html" title="Proposition 6.2.8">Proposition 6.2.8</a> to explain your result.</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-244" id="answer-244"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-244"><div class="answer solution-like"><div class="para logical" id="p-6092"><ol class="lower-alpha">
+<li id="li-4162"><div class="para" id="p-6093">We compute the dot products <span class="process-math">\(\wvec_1\cdot\wvec_2=0\text{,}\)</span> <span class="process-math">\(\wvec_1\cdot\wvec_3=0\text{,}\)</span> and <span class="process-math">\(\wvec_2\cdot\wvec_3=0\text{.}\)</span>
+</div></li>
+<li id="li-4163"><div class="para" id="p-6094">An orthogonal set of vectors is linearly independent.</div></li>
+<li id="li-4164"><div class="para" id="p-6095"><span class="process-math">\(\bvec = -2\wvec_1 + 3\wvec_2 +
+\wvec_3\text{.}\)</span></div></li>
+<li id="li-4165"><div class="para" id="p-6096"><span class="process-math">\(\displaystyle \uvec_1 = \frac{1}{\sqrt{3}}\wvec_1 =
+\threevec{1/\sqrt{3}}{-1/\sqrt{3}}{1/\sqrt{3}}\)</span></div></li>
+<li id="li-4166"><div class="para logical" id="p-6097">
+<div class="para">We find that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\uvec_2 =
+\threevec{1/\sqrt{2}}{1/\sqrt{2}}0,\hspace{24pt}
+\uvec_3 =
+\threevec{1/\sqrt{6}}{-1/\sqrt{6}}{-2/\sqrt{6}}
+\end{equation*}
+</div>
+</div></li>
+<li id="li-4167"><div class="para" id="p-6098"><span class="process-math">\(\displaystyle Q^TQ=I\)</span></div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-317" id="solution-317"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-317"><div class="solution solution-like"><div class="para logical" id="p-6085"><ol class="lower-alpha">
+<li id="li-4156"><div class="para" id="p-6086">We compute the dot products <span class="process-math">\(\wvec_1\cdot\wvec_2=0\text{,}\)</span> <span class="process-math">\(\wvec_1\cdot\wvec_3=0\text{,}\)</span> and <span class="process-math">\(\wvec_2\cdot\wvec_3=0\text{.}\)</span>
+</div></li>
+<li id="li-4157"><div class="para" id="p-6087">We know that an orthogonal set of vectors is linearly independent.  Therefore, we have a set of three linearly independent vectors in <span class="process-math">\(\real^3\)</span> so they must form a basis for <span class="process-math">\(\real^3\text{.}\)</span>
+</div></li>
+<li id="li-4158"><div class="para" id="p-6088">We find that <span class="process-math">\(\bvec = -2\wvec_1 + 3\wvec_2 +
+\wvec_3\text{.}\)</span>
+</div></li>
+<li id="li-4159"><div class="para logical" id="p-6089">
+<div class="para">Since <span class="process-math">\(\len{\wvec_1} = \sqrt{3}\text{,}\)</span> we find</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\uvec_1 = \frac{1}{\sqrt{3}}\wvec_1 =
+\threevec{1/\sqrt{3}}{-1/\sqrt{3}}{1/\sqrt{3}}
+\end{equation*}
+</div>
+</div></li>
+<li id="li-4160"><div class="para logical" id="p-6090">
+<div class="para">We find that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\uvec_2 =
+\threevec{1/\sqrt{2}}{1/\sqrt{2}}0,\hspace{24pt}
+\uvec_3 =
+\threevec{1/\sqrt{6}}{-1/\sqrt{6}}{-2/\sqrt{6}}
+\end{equation*}
+</div>
+</div></li>
+<li id="li-4161"><div class="para" id="p-6091">We find <span class="process-math">\(Q^TQ=I\)</span> since each entry in this matrix product is the dot product of two columns of <span class="process-math">\(Q\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><div class="para logical" id="p-6099">
+<div class="para">This activity introduces an important way of modifying an orthogonal set so that the vectors in the set have unit length. Recall that we may multiply any nonzero vector <span class="process-math">\(\wvec\)</span> by a scalar so that the new vector has length 1. For instance, we know that if <span class="process-math">\(s\)</span> is a positive scalar, then <span class="process-math">\(\len{s\wvec} = s\len{\wvec}\text{.}\)</span>  To obtain a vector <span class="process-math">\(\uvec\)</span> having unit length, we want</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\len{\uvec} = \len{s\wvec} = s\len{\wvec} = 1
+\end{equation*}
+</div>
+<div class="para">so that <span class="process-math">\(s=1/\len{\wvec}\text{.}\)</span>  Therefore,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\uvec = \frac{1}{\len{\wvec}}\wvec
+\end{equation*}
+</div>
+<div class="para">becomes a unit vector parallel to <span class="process-math">\(\wvec\text{.}\)</span>
+</div>
+</div>
+<div class="para" id="p-6100">Orthogonal sets in which the vectors have unit length are called <em class="emphasis">orthonormal</em> and are especially convenient.</div>
+<article class="definition definition-like" id="definition-31"><h4 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">6.3.6</span><span class="period">.</span>
+</h4> <div class="para" id="p-6101">An <em class="emphasis">orthonormal</em> set is an orthogonal set of vectors each of which has unit length.</div></article><article class="example example-like" id="example-64"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.3.7</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6102">
+<div class="para">The vectors</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\uvec_1=\twovec{1/\sqrt{2}}{1/\sqrt{2}},\hspace{24pt}
+\uvec_2=\twovec{-1/\sqrt{2}}{1/\sqrt{2}}
+\end{equation*}
+</div>
+<div class="para">are an orthonormal set of vectors in <span class="process-math">\(\real^2\)</span> and form an orthonormal basis for <span class="process-math">\(\real^2\text{.}\)</span>
+</div>
+</div> <div class="para logical" id="p-6103">
+<div class="para">If we form the matrix</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-transpose-multiplication.html">
+\begin{equation*}
+Q=\begin{bmatrix}
+\uvec_1 \amp \uvec_2
+\end{bmatrix}
+= \begin{bmatrix}
+1/\sqrt{2} \amp -1/\sqrt{2} \\
+1/\sqrt{2} \amp 1/\sqrt{2} \\
+\end{bmatrix}\text{,}
+\end{equation*}
+</div>
+<div class="para">we find that <span class="process-math">\(Q^TQ = I\)</span> since <a href="" class="xref" data-knowl="./knowl/prop-transpose-multiplication.html" title="Proposition 6.2.8">Proposition 6.2.8</a> tells us that</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-transpose-multiplication.html">
+\begin{equation*}
+Q^TQ = \begin{bmatrix}
+\uvec_1\cdot\uvec_1 \amp \uvec_1\cdot\uvec_2 \\
+\uvec_2\cdot\uvec_1 \amp \uvec_2\cdot\uvec_2 \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 \amp 0 \\
+0 \amp 1 \\
+\end{bmatrix}
+\end{equation*}
+</div>
+</div></article><div class="para" id="p-6104">The previous activity and example illustrate the next proposition.</div>
+<article class="proposition theorem-like" id="prop-orthonormal-QTQ"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.3.8</span><span class="period">.</span>
+</h4>
+<div class="para" id="p-6105">If the columns of the <span class="process-math">\(m\times n\)</span> matrix <span class="process-math">\(Q\)</span> form an orthonormal set, then <span class="process-math">\(Q^TQ = I_n\text{,}\)</span> the <span class="process-math">\(n\times n\)</span> identity matrix.</div></article></section><section class="subsection" id="subsection-98"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.3.2</span> <span class="title">Orthogonal projections</span>
+</h3>
+<div class="para" id="p-6106">We now turn to an important problem that will appear in many forms in the rest of our explorations.  Suppose, as shown in <a href="" class="xref" data-knowl="./knowl/fig-3d-orthog-proj.html" title="Figure 6.3.9">Figure 6.3.9</a>, that we have a subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^m\)</span> and a vector <span class="process-math">\(\bvec\)</span> that is not in that subspace.  We would like to find the vector <span class="process-math">\(\bhat\)</span> in <span class="process-math">\(W\)</span> that is closest to <span class="process-math">\(\bvec\text{,}\)</span> meaning the distance between <span class="process-math">\(\bhat\)</span> and <span class="process-math">\(\bvec\)</span> is as small as possible.</div>
+<figure class="figure figure-like" id="fig-3d-orthog-proj"><div class="sidebyside"><div class="sbsrow" style="margin-left:22.5%;margin-right:22.5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/3d-orthog-proj-3.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.3.9<span class="period">.</span></span><span class="space"> </span>Given a plane in <span class="process-math">\(\real^3\)</span> and a vector <span class="process-math">\(\bvec\)</span> not in the plane, we wish to find the vector <span class="process-math">\(\bhat\)</span> in the plane that is closest to <span class="process-math">\(\bvec\text{.}\)</span></figcaption></figure><div class="para" id="p-6107">To get started, let’s consider a simpler problem where we have a line <span class="process-math">\(L\)</span> in <span class="process-math">\(\real^2\text{,}\)</span> defined by the vector <span class="process-math">\(\wvec\text{,}\)</span> and another vector <span class="process-math">\(\bvec\)</span> that is not on the line, as shown on the left of <a href="" class="xref" data-knowl="./knowl/fig-projection-line-a.html" title="Figure 6.3.10">Figure 6.3.10</a>.  We wish to find <span class="process-math">\(\bhat\text{,}\)</span> the vector on the line that is closest to <span class="process-math">\(\bvec\text{,}\)</span> as illustrated in the right of <a href="" class="xref" data-knowl="./knowl/fig-projection-line-a.html" title="Figure 6.3.10">Figure 6.3.10</a>.</div>
+<figure class="figure figure-like" id="fig-projection-line-a"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
+<div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/projection-line-1.svg" role="img" class="contained"></div>
+<div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/projection-line-4.svg" role="img" class="contained"></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.3.10<span class="period">.</span></span><span class="space"> </span>Given a line <span class="process-math">\(L\)</span> and a vector <span class="process-math">\(\bvec\text{,}\)</span> we seek the vector <span class="process-math">\(\bhat\)</span> on <span class="process-math">\(L\)</span> that is closest to <span class="process-math">\(\bvec\text{.}\)</span></figcaption></figure><div class="para logical" id="p-6108">
+<div class="para">To find <span class="process-math">\(\bhat\text{,}\)</span> we require that <span class="process-math">\(\bvec-\bhat\)</span> be orthogonal to <span class="process-math">\(L\text{.}\)</span>  For instance, if <span class="process-math">\(\yvec\)</span> is another vector on the line, as shown in <a href="" class="xref" data-knowl="./knowl/fig-projection-line-b.html" title="Figure 6.3.11">Figure 6.3.11</a>, then the Pythagorean theorem implies that</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/fig-projection-line-b.html">
+\begin{equation*}
+\len{\bvec-\yvec}^2 = |\bvec-\bhat|^2 +
+|\bhat-\yvec|^2
+\end{equation*}
+</div>
+<div class="para">which means that <span class="process-math">\(\len{\bvec-\yvec}\geq|\bvec-\bhat|\text{.}\)</span> Therefore, <span class="process-math">\(\bhat\)</span> is closer to <span class="process-math">\(\bvec\)</span> than any other vector on the line <span class="process-math">\(L\text{.}\)</span>
+</div>
+</div>
+<figure class="figure figure-like" id="fig-projection-line-b"><div class="sidebyside"><div class="sbsrow" style="margin-left:27.5%;margin-right:27.5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/projection-line-3.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.3.11<span class="period">.</span></span><span class="space"> </span>The vector <span class="process-math">\(\bhat\)</span> is closer to <span class="process-math">\(\bvec\)</span> than <span class="process-math">\(\yvec\)</span> because <span class="process-math">\(\bvec-\bhat\)</span> is orthogonal to <span class="process-math">\(L\text{.}\)</span></figcaption></figure><article class="definition definition-like" id="definition-32"><h4 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">6.3.12</span><span class="period">.</span>
+</h4> <div class="para" id="p-6109">Given a vector <span class="process-math">\(\bvec\)</span> in <span class="process-math">\(\real^m\)</span> and a subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^m\text{,}\)</span> the <em class="emphasis">orthogonal projection</em> of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W\)</span> is the vector <span class="process-math">\(\bhat\)</span> in <span class="process-math">\(W\)</span> that is closest to <span class="process-math">\(\bvec\text{.}\)</span> It is characterized by the property that <span class="process-math">\(\bvec-\bhat\)</span> is orthogonal to <span class="process-math">\(W\text{.}\)</span>
+</div></article><article class="activity project-like" id="activity-76"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.3.3</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6110">
+<div class="para">This activity demonstrates how to determine the orthogonal projection of a vector onto a subspace of <span class="process-math">\(\real^m\text{.}\)</span>
+</div>
+<ol class="lower-alpha">
+<li id="li-4168">
+<div class="para" id="p-6111">Let’s begin by considering a line <span class="process-math">\(L\text{,}\)</span> defined by the vector <span class="process-math">\(\wvec=\twovec21\text{,}\)</span> and a vector <span class="process-math">\(\bvec=\twovec24\)</span> not on <span class="process-math">\(L\text{,}\)</span> as illustrated in <a href="" class="xref" data-knowl="./knowl/fig-projection-line-c.html" title="Figure 6.3.13">Figure 6.3.13</a>.</div>
+<figure class="figure figure-like" id="fig-projection-line-c"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
+<div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/projection-line-4.svg" role="img" class="contained"></div>
+<div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/projection-line-2.svg" role="img" class="contained"></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.3.13<span class="period">.</span></span><span class="space"> </span>Finding the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto the line defined by <span class="process-math">\(\wvec\text{.}\)</span></figcaption></figure><div class="para logical" id="p-6112"><ol class="decimal">
+<li id="li-4169"><div class="para logical" id="p-6113">
+<div class="para">To find <span class="process-math">\(\bhat\text{,}\)</span> first notice that <span class="process-math">\(\bhat =
+s\wvec\)</span> for some scalar <span class="process-math">\(s\text{.}\)</span> Since <span class="process-math">\(\bvec-\bhat = \bvec -
+s\wvec\)</span> is orthogonal to <span class="process-math">\(\wvec\text{,}\)</span> what do we know about the dot product</div>
+<div class="displaymath process-math">
+\begin{equation*}
+(\bvec-s\wvec)\cdot\wvec\text{?}
+\end{equation*}
+</div>
+</div></li>
+<li id="li-4170"><div class="para" id="p-6114">Apply the distributive property of dot products to find the scalar <span class="process-math">\(s\text{.}\)</span>  What is the vector <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(L\text{?}\)</span>
+</div></li>
+<li id="li-4171"><div class="para logical" id="p-6115">
+<div class="para">More generally, explain why the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto the line defined by <span class="process-math">\(\wvec\)</span> is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bhat=
+\frac{\bvec\cdot\wvec}{\wvec\cdot\wvec}~\wvec\text{.} 
+\end{equation*}
+</div>
+</div></li>
+</ol></div>
+</li>
+<li id="li-4172">
+<div class="para" id="p-6116">The same ideas apply more generally.  Suppose we have an orthogonal set of vectors <span class="process-math">\(\wvec_1=\threevec22{-1}\)</span> and <span class="process-math">\(\wvec_2=\threevec102\)</span> that define a plane <span class="process-math">\(W\)</span> in <span class="process-math">\(\real^3\text{.}\)</span> If <span class="process-math">\(\bvec=\threevec396\)</span> another vector in <span class="process-math">\(\real^3\text{,}\)</span> we seek the vector <span class="process-math">\(\bhat\)</span> on the plane <span class="process-math">\(W\)</span> closest to <span class="process-math">\(\bvec\text{.}\)</span> As before, the vector <span class="process-math">\(\bvec-\bhat\)</span> will be orthogonal to <span class="process-math">\(W\text{,}\)</span> as illustrated in <a href="" class="xref" data-knowl="./knowl/fig-3d-orthog.html" title="Figure 6.3.14">Figure 6.3.14</a>.</div>
+<figure class="figure figure-like" id="fig-3d-orthog"><div class="sidebyside"><div class="sbsrow" style="margin-left:22.5%;margin-right:22.5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/3d-orthog-proj-2.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.3.14<span class="period">.</span></span><span class="space"> </span>Given a plane <span class="process-math">\(W\)</span> defined by the orthogonal vectors <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> and another vector <span class="process-math">\(\bvec\text{,}\)</span> we seek the vector <span class="process-math">\(\bhat\)</span> on <span class="process-math">\(W\)</span> closest to <span class="process-math">\(\bvec\text{.}\)</span></figcaption></figure><div class="para logical" id="p-6117"><ol class="decimal">
+<li id="li-4173"><div class="para" id="p-6118">The vector <span class="process-math">\(\bvec-\bhat\)</span> is orthogonal to <span class="process-math">\(W\text{.}\)</span> What does this say about the dot products: <span class="process-math">\((\bvec-\bhat)\cdot\wvec_1\)</span> and <span class="process-math">\((\bvec-\bhat)\cdot\wvec_2\text{?}\)</span>
+</div></li>
+<li id="li-4174"><div class="para logical" id="p-6119">
+<div class="para">Since <span class="process-math">\(\bhat\)</span> is in the plane <span class="process-math">\(W\text{,}\)</span> we can write it as a linear combination <span class="process-math">\(\bhat = c_1\wvec_1 + c_2\wvec_2\text{.}\)</span> Then</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bvec-\bhat = \bvec - (c_1\wvec_1+c_2\wvec_2)\text{.}
+\end{equation*}
+</div>
+<div class="para">Find the weight <span class="process-math">\(c_1\)</span> by dotting <span class="process-math">\(\bvec-\bhat\)</span> with <span class="process-math">\(\wvec_1\)</span> and applying the distributive property of dot products.  Similarly, find the weight <span class="process-math">\(c_2\text{.}\)</span>
+</div>
+</div></li>
+<li id="li-4175"><div class="para" id="p-6120">What is the vector <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto the plane <span class="process-math">\(W\text{?}\)</span>
+</div></li>
+</ol></div>
+</li>
+<li id="li-4176"><div class="para logical" id="p-6121">
+<div class="para">Suppose that <span class="process-math">\(W\)</span> is a subspace of <span class="process-math">\(\real^m\)</span> with orthogonal basis <span class="process-math">\(\wvec_1,\wvec_2,\ldots,\wvec_n\)</span> and that <span class="process-math">\(\bvec\)</span> is a vector in <span class="process-math">\(\real^m\text{.}\)</span>  Explain why the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W\)</span> is the vector</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bhat =
+\frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}~\wvec_1 + 
+\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}~\wvec_2 +
+\cdots + 
+\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n\text{.} 
+\end{equation*}
+</div>
+</div></li>
+<li id="li-4177"><div class="para logical" id="p-6122">
+<div class="para">Suppose that <span class="process-math">\(\uvec_1,\uvec_2,\ldots,\uvec_n\)</span> is an <em class="emphasis">orthonormal</em> basis for <span class="process-math">\(W\text{;}\)</span>  that is, the vectors are orthogonal to one another and have unit length.  Explain why the orthogonal projection is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bhat=
+(\bvec\cdot\uvec_1)~\uvec_1 + 
+(\bvec\cdot\uvec_2)~\uvec_2 +
+\cdots +
+(\bvec\cdot\uvec_n)~\uvec_n\text{.}
+\end{equation*}
+</div>
+</div></li>
+<li id="li-4178"><div class="para" id="p-6123">If <span class="process-math">\(Q=\begin{bmatrix}
+\uvec_1 \amp \uvec_2 \amp \ldots \amp \uvec_n
+\end{bmatrix}\)</span> is the matrix whose columns are an orthonormal basis of <span class="process-math">\(W\text{,}\)</span> use <a href="" class="xref" data-knowl="./knowl/prop-transpose-multiplication.html" title="Proposition 6.2.8">Proposition 6.2.8</a> to explain why <span class="process-math">\(\bhat = QQ^T\bvec\text{.}\)</span>
+</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-245" id="answer-245"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-245"><div class="answer solution-like"><div class="para logical" id="p-6137"><ol class="lower-alpha">
+<li id="li-4190"><div class="para logical" id="p-6138"><ol class="decimal">
+<li id="li-4191"><div class="para" id="p-6139">0</div></li>
+<li id="li-4192"><div class="para" id="p-6140"><span class="process-math">\(\bhat = \twovec{16/5}{8/5}\text{.}\)</span></div></li>
+<li id="li-4193"><div class="para" id="p-6141"><span class="process-math">\(\displaystyle \bhat=
+\frac{\bvec\cdot\wvec}{\wvec\cdot\wvec}\wvec\)</span></div></li>
+</ol></div></li>
+<li id="li-4194"><div class="para logical" id="p-6142"><ol class="decimal">
+<li id="li-4195"><div class="para" id="p-6143">0</div></li>
+<li id="li-4196">
+<div class="para" id="p-6144"><span class="process-math">\(c_1= 2\)</span></div>
+<div class="para" id="p-6145"><span class="process-math">\(c_2=3\)</span></div>
+</li>
+<li id="li-4197"><div class="para" id="p-6146"><span class="process-math">\(\displaystyle \bhat = \threevec744\)</span></div></li>
+</ol></div></li>
+<li id="li-4198"><div class="para" id="p-6147">We require that <span class="process-math">\(\bvec-\bhat\)</span> be orthogonal to every vector <span class="process-math">\(\wvec_i\text{.}\)</span>
+</div></li>
+<li id="li-4199"><div class="para" id="p-6148"><span class="process-math">\(\displaystyle c_i=\frac{\bvec\cdot\uvec_i}{\uvec_i\cdot\uvec_i} =
+\bvec\cdot\uvec_i\)</span></div></li>
+<li id="li-4200"><div class="para" id="p-6149">Use the fact that <span class="process-math">\(Q^T\bvec =
+\threevec{\bvec\cdot\uvec_1}{\vdots}{\bvec\cdot\uvec_n}\)</span>
+</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-318" id="solution-318"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-318"><div class="solution solution-like"><div class="para logical" id="p-6124"><ol class="lower-alpha">
+<li id="li-4179"><div class="para logical" id="p-6125"><ol class="decimal">
+<li id="li-4180"><div class="para" id="p-6126">This dot product should be 0 since the vectors are orthogonal.</div></li>
+<li id="li-4181"><div class="para" id="p-6127"><span class="process-math">\(\bhat=\frac{b\cdot\wvec}{\wvec\cdot\wvec}\wvec
+= \twovec{16/5}{8/5}\text{.}\)</span></div></li>
+<li id="li-4182"><div class="para" id="p-6128">As before, <span class="process-math">\(\bhat=
+\frac{\bvec\cdot\wvec}{\wvec\cdot\wvec}\wvec\)</span>
+</div></li>
+</ol></div></li>
+<li id="li-4183"><div class="para logical" id="p-6129"><ol class="decimal">
+<li id="li-4184"><div class="para" id="p-6130">These dot products are 0.</div></li>
+<li id="li-4185">
+<div class="para" id="p-6131"><span class="process-math">\(c_1=\frac{\bvec\cdot\wvec_1}
+{\wvec_1\cdot\wvec_1} = 2\)</span></div>
+<div class="para" id="p-6132"><span class="process-math">\(c_2=\frac{\bvec\cdot\wvec_2}
+{\wvec_2\cdot\wvec_2}  = 3\)</span></div>
+</li>
+<li id="li-4186"><div class="para" id="p-6133"><span class="process-math">\(\displaystyle \bhat = \threevec744\)</span></div></li>
+</ol></div></li>
+<li id="li-4187"><div class="para" id="p-6134">We know <span class="process-math">\(\bhat=c_1\wvec_1 + c_2\wvec_2 + \cdots +
+c_n\wvec_n\)</span> and we can find <span class="process-math">\(c_i=\frac{\bvec\cdot\wvec_i}{\wvec_i\cdot\wvec_i}\)</span> by requiring that <span class="process-math">\(\bvec-\bhat\)</span> be orthogonal to every vector <span class="process-math">\(\wvec_i\text{.}\)</span>
+</div></li>
+<li id="li-4188"><div class="para" id="p-6135">The vectors <span class="process-math">\(\uvec_i\)</span> form an orthogonal set and since <span class="process-math">\(\uvec_i\cdot\uvec_i = \len{\uvec_i}^2 =
+1\text{,}\)</span> the weights are <span class="process-math">\(c_i=\frac{\bvec\cdot\uvec_i}{\uvec_i\cdot\uvec_i} =
+\bvec\cdot\uvec_i\text{.}\)</span>
+</div></li>
+<li id="li-4189"><div class="para logical" id="p-6136">
+<div class="para">We have <span class="process-math">\(Q^T\bvec =
+\cthreevec{\bvec\cdot\uvec_1}{\vdots}{\bvec\cdot\uvec_n}\)</span> so that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+QQ^T\bvec = 
+(\bvec\cdot\uvec_1)~\uvec_1 + 
+(\bvec\cdot\uvec_2)~\uvec_2 +
+\cdots +
+(\bvec\cdot\uvec_n)~\uvec_n=\bhat\text{.}
+\end{equation*}
+</div>
+</div></li>
+</ol></div></div></div>
+</div></article><div class="para" id="p-6150">In all the cases considered in the activity, we are looking for <span class="process-math">\(\bhat\text{,}\)</span> the vector in a subspace <span class="process-math">\(W\)</span> closest to a vector <span class="process-math">\(\bvec\text{,}\)</span> which is found by requiring that <span class="process-math">\(\bvec-\bhat\)</span> be orthogonal to <span class="process-math">\(W\text{.}\)</span>  This means that <span class="process-math">\((\bvec-\bhat)\cdot\wvec = 0\)</span> for any vector <span class="process-math">\(\wvec\)</span> in <span class="process-math">\(W\text{.}\)</span>
+</div>
+<div class="para logical" id="p-6151">
+<div class="para">If we have an orthogonal basis <span class="process-math">\(\wvec_1,\wvec_2,\ldots,\wvec_n\)</span> for <span class="process-math">\(W\text{,}\)</span> then <span class="process-math">\(\bhat = c_1\wvec_1+c_w\wvec_2+\cdots+c_n\wvec_n\text{.}\)</span>  Therefore,</div>
+<div class="displaymath process-math" id="md-9">
+\begin{align*}
+(\bvec-\bhat)\cdot\wvec_i \amp = 0\\
+\bvec\cdot\wvec_i \amp = \bhat\cdot\wvec_i\\
+\bvec\cdot\wvec_i \amp =
+(c_1\wvec_1+c_2\wvec_2+\cdots + c_n\wvec_n)\cdot\wvec_i\\
+\bvec\cdot\wvec_i \amp = c_i\wvec_i\cdot\wvec_i\\
+c_i \amp = \frac{\bvec\cdot\wvec_i}{\wvec_i\cdot\wvec_i}.
+\end{align*}
+</div>
+<div class="para">This leads to the projection formula:</div>
+</div>
+<article class="proposition theorem-like" id="prop-proj-formula"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.3.15</span><span class="period">.</span><span class="space"> </span><span class="title">Projection formula.</span>
+</h4>
+<div class="para logical" id="p-6152">
+<div class="para">If <span class="process-math">\(W\)</span> is a subspace of <span class="process-math">\(\real^m\)</span> having an orthogonal basis <span class="process-math">\(\wvec_1,\wvec_2,\ldots, \wvec_n\)</span> and <span class="process-math">\(\bvec\)</span> is a vector in <span class="process-math">\(\real^m\text{,}\)</span> then the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W\)</span> is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bhat=
+\frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}~\wvec_1 + 
+\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}~\wvec_2 +
+\cdots +
+\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n\text{.}
+\end{equation*}
+</div>
+</div></article><article class="assemblage assemblage-like" id="assemblage-15"><h4 class="heading"><span class="title">Caution.</span></h4>
+<div class="para" id="p-6153">Remember that the projection formula given in <a href="" class="xref" data-knowl="./knowl/prop-proj-formula.html" title="Proposition 6.3.15: Projection formula">Proposition 6.3.15</a> applies only when the basis <span class="process-math">\(\wvec_1,\wvec_2,\cdots,\wvec_n\)</span> of <span class="process-math">\(W\)</span> is <em class="emphasis">orthogonal</em>.</div></article><div class="para logical" id="p-6154">
+<div class="para">If we have an orthonormal basis <span class="process-math">\(\uvec_1,\uvec_2,\ldots,\uvec_n\)</span> for <span class="process-math">\(W\text{,}\)</span> the projection formula simplifies to</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bhat=
+(\bvec\cdot\uvec_1)~\uvec_1 + 
+(\bvec\cdot\uvec_2)~\uvec_2 +
+\cdots + 
+(\bvec\cdot\uvec_n)~\uvec_n\text{.}
+\end{equation*}
+</div>
+<div class="para">If we then form the matrix</div>
+<div class="displaymath process-math">
+\begin{equation*}
+Q =
+\begin{bmatrix}
+\uvec_1 \amp \uvec_2 \amp \ldots \amp \uvec_n 
+\end{bmatrix}\text{,}
+\end{equation*}
+</div>
+<div class="para">this expression may be succintly written</div>
+<div class="displaymath process-math" id="md-10">
+\begin{align*}
+\bhat \amp {}={}
+(\bvec\cdot\uvec_1)~\uvec_1 + 
+(\bvec\cdot\uvec_2)~\uvec_2 +
+\cdots + 
+(\bvec\cdot\uvec_n)~\uvec_n\\
+\amp {}={}
+\begin{bmatrix}
+\uvec_1\amp\uvec_2\amp\ldots\amp\uvec_n
+\end{bmatrix}
+\begin{bmatrix}
+\uvec_1\cdot\bvec \\
+\uvec_2\cdot\bvec \\
+\vdots \\
+\uvec_n\cdot\bvec \\
+\end{bmatrix}\\
+\amp {}={} QQ^T\bvec
+\end{align*}
+</div>
+</div>
+<div class="para" id="p-6155">This leads to the following proposition.</div>
+<article class="proposition theorem-like" id="prop-proj-orthonormal"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.3.16</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6156">
+<div class="para">If <span class="process-math">\(\uvec_1,\uvec_2,\ldots,\uvec_n\)</span> is an orthonormal basis for a subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^m\text{,}\)</span> then the matrix transformation that projects vectors in <span class="process-math">\(\real^m\)</span> orthogonally onto <span class="process-math">\(W\)</span> is represented by the matrix <span class="process-math">\(QQ^T\)</span> where</div>
+<div class="displaymath process-math">
+\begin{equation*}
+Q =
+\begin{bmatrix}
+\uvec_1 \amp \uvec_2 \amp \ldots \amp \uvec_n \\
+\end{bmatrix}\text{.}
+\end{equation*}
+</div>
+</div></article><article class="example example-like" id="example-projection-matrix"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.3.17</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6157">
+<div class="para">In the previous activity, we looked at the plane <span class="process-math">\(W\)</span> defined by the two orthogonal vectors</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\wvec_1=\threevec22{-1},\hspace{24pt}
+\wvec_2=\threevec102\text{.}
+\end{equation*}
+</div>
+<div class="para">We can form an orthonormal basis by scalar multiplying these vectors to have unit length:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\uvec_1=\frac13\threevec22{-1} =
+\threevec{2/3}{2/3}{-1/3},\hspace{24pt}
+\uvec_2=\frac1{\sqrt{5}}\threevec102 =
+\threevec{1/\sqrt{5}}0{2/\sqrt{5}}\text{.}
+\end{equation*}
+</div>
+<div class="para">Using these vectors, we form the matrix</div>
+<div class="displaymath process-math">
+\begin{equation*}
+Q =
+\begin{bmatrix}
+2/3 \amp 1/\sqrt{5} \\
+2/3 \amp 0 \\
+-1/3 \amp 2/\sqrt{5} \\
+\end{bmatrix}\text{.}
+\end{equation*}
+</div>
+<div class="para">The projection onto the plane <span class="process-math">\(W\)</span> is then given by the matrix</div>
+<div class="displaymath process-math">
+\begin{equation*}
+QQ^T =
+\begin{bmatrix}
+2/3 \amp 1/\sqrt{5} \\
+2/3 \amp 0 \\
+-1/3 \amp 2/\sqrt{5} \\
+\end{bmatrix}
+\begin{bmatrix}
+2/3 \amp 2/3 \amp -1/3 \\
+1/\sqrt{5} \amp 0 \amp 2/\sqrt{5} \\
+\end{bmatrix}
+=
+\begin{bmatrix}
+{29}/{45} \amp {4}/{9} \amp {8}/{45} \\
+{4}/{9} \amp {4}/{9} \amp -{2}/{9} \\
+{8}/{45} \amp -{2}/{9} \amp {41}/{45}
+\end{bmatrix}\text{.}
+\end{equation*}
+</div>
+</div> <div class="para logical" id="p-6158">
+<div class="para">Let’s check that this works by considering the vector <span class="process-math">\(\bvec=\threevec100\)</span> and finding <span class="process-math">\(\bhat\text{,}\)</span> its orthogonal projection onto the plane <span class="process-math">\(W\text{.}\)</span>  In terms of the original basis <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{,}\)</span> the projection formula from <a href="" class="xref" data-knowl="./knowl/prop-proj-formula.html" title="Proposition 6.3.15: Projection formula">Proposition 6.3.15</a> tells us that</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-proj-formula.html">
+\begin{equation*}
+\bhat=\frac{\bvec\cdot\wvec_1}
+{\wvec_1\cdot\wvec_1}~\wvec_1 + 
+\frac{\bvec\cdot\wvec_2}
+{\wvec_2\cdot\wvec_2}~\wvec_2 
+=
+\cthreevec{{29}/{45}}{4/9}{8/{45}} \\
+\end{equation*}
+</div>
+</div> <div class="para logical" id="p-6159">
+<div class="para">Alternatively, we use the matrix <span class="process-math">\(QQ^T\text{,}\)</span> as in <a href="" class="xref" data-knowl="./knowl/prop-proj-orthonormal.html" title="Proposition 6.3.16">Proposition 6.3.16</a>, to find that</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-proj-orthonormal.html">
+\begin{equation*}
+\bhat = QQ^T\bvec = 
+\begin{bmatrix}
+{29}/{45} \amp {4}/{9} \amp {8}/{45} \\
+{4}/{9} \amp {4}/{9} \amp -{2}/{9} \\
+{8}/{45} \amp -{2}/{9} \amp {41}/{45}
+\end{bmatrix}\threevec100
+=
+\cthreevec{{29}/{45}}{4/9}{8/{45}}\text{.}
+\end{equation*}
+</div>
+</div></article><article class="activity project-like" id="activity-77"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.3.4</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6160"><ol class="lower-alpha">
+<li id="li-4201"><div class="para logical" id="p-6161">
+<div class="para">Suppose that <span class="process-math">\(L\)</span> is the line in <span class="process-math">\(\real^3\)</span> defined by the vector <span class="process-math">\(\wvec=\threevec{1}{2}{-2}\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-174"><script type="text/x-sage">
+</script></pre>
+</div>
+<ol class="decimal">
+<li id="li-4202"><div class="para" id="p-6162">Find an orthonormal basis <span class="process-math">\(\uvec\)</span> for <span class="process-math">\(L\text{.}\)</span>
+</div></li>
+<li id="li-4203"><div class="para" id="p-6163">Construct the matrix <span class="process-math">\(Q = \begin{bmatrix}\uvec\end{bmatrix}\)</span> and use it to construct the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(L\text{.}\)</span>
+</div></li>
+<li id="li-4204"><div class="para" id="p-6164">Use your matrix to find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec=\threevec111\)</span> onto <span class="process-math">\(L\text{.}\)</span>
+</div></li>
+<li id="li-4205"><div class="para" id="p-6165">Find <span class="process-math">\(\rank(P)\)</span> and explain its geometric significance.</div></li>
+</ol>
+</div></li>
+<li id="li-4206"><div class="para logical" id="p-6166">
+<div class="para">The vectors</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-proj-formula.html">
+\begin{equation*}
+\wvec_1 = \fourvec1111,\hspace{24pt}
+\wvec_2 = \fourvec011{-2}
+\end{equation*}
+</div>
+<div class="para">form an orthogonal basis of <span class="process-math">\(W\text{,}\)</span> a two-dimensional subspace of <span class="process-math">\(\real^4\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-175"><script type="text/x-sage">
+</script></pre>
+</div>
+<ol class="decimal">
+<li id="li-4207"><div class="para" id="p-6167">Use the projection formula from <a href="" class="xref" data-knowl="./knowl/prop-proj-formula.html" title="Proposition 6.3.15: Projection formula">Proposition 6.3.15</a> to find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec=\fourvec92{-2}3\)</span> onto <span class="process-math">\(W\text{.}\)</span>
+</div></li>
+<li id="li-4208"><div class="para" id="p-6168">Find an orthonormal basis <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> for <span class="process-math">\(W\)</span> and use it to construct the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(W\text{.}\)</span>  Check that <span class="process-math">\(P\bvec = \bhat\text{,}\)</span> the orthogonal projection you found in the previous part of this activity.</div></li>
+<li id="li-4209"><div class="para" id="p-6169">Find <span class="process-math">\(\rank(P)\)</span> and explain its geometric significance.</div></li>
+<li id="li-4210"><div class="para" id="p-6170">Find a basis for <span class="process-math">\(W^\perp\text{.}\)</span>
+</div></li>
+<li id="li-4211"><div class="para logical" id="p-6171">
+<div class="para">Find a vector <span class="process-math">\(\bvec^\perp\)</span> in <span class="process-math">\(W^\perp\)</span> such that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bvec = \bhat + \bvec^\perp.
+\end{equation*}
+</div>
+</div></li>
+<li id="li-4212"><div class="para" id="p-6172">Find the product <span class="process-math">\(Q^TQ\)</span> and explain your result.</div></li>
+</ol>
+</div></li>
+</ol></div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-246" id="answer-246"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-246"><div class="answer solution-like"><div class="para logical" id="p-6186"><ol class="lower-alpha">
+<li id="li-4225"><div class="para logical" id="p-6187"><ol class="decimal">
+<li id="li-4226"><div class="para" id="p-6188"><span class="process-math">\(\displaystyle \uvec=\threevec{1/3}{2/3}{-2/3}\)</span></div></li>
+<li id="li-4227"><div class="para" id="p-6189"><span class="process-math">\(\displaystyle QQ^T = \begin{bmatrix}
+1/9 \amp 2/9 \amp -2/9 \\
+2/9 \amp 4/9 \amp -4/9 \\
+-2/9 \amp -4/9 \amp 4/9
+\end{bmatrix}\)</span></div></li>
+<li id="li-4228"><div class="para" id="p-6190"><span class="process-math">\(\displaystyle \bhat=\threevec{1/9}{2/9}{-2/9}\)</span></div></li>
+<li id="li-4229"><div class="para" id="p-6191"><span class="process-math">\(\displaystyle \rank(P)=1\)</span></div></li>
+</ol></div></li>
+<li id="li-4230"><div class="para logical" id="p-6192"><ol class="decimal">
+<li id="li-4231"><div class="para" id="p-6193"><span class="process-math">\(\displaystyle \bhat = \fourvec3235\)</span></div></li>
+<li id="li-4232"><div class="para" id="p-6194"><span class="process-math">\(\displaystyle P = \begin{bmatrix}
+1/4 \amp 1/4 \amp 1/4 \amp 1/4 \\
+1/4 \amp 5/12 \amp 5/12 \amp -1/12 \\
+1/4 \amp 5/12 \amp 5/12 \amp 1/12 \\
+1/4 \amp -1/12 \amp -1/12 \amp 11/12
+\end{bmatrix}\)</span></div></li>
+<li id="li-4233"><div class="para" id="p-6195"><span class="process-math">\(\displaystyle \rank(P)=2\)</span></div></li>
+<li id="li-4234"><div class="para" id="p-6196">
+<span class="process-math">\(\vvec_1=\fourvec0{-1}10\)</span> and <span class="process-math">\(\vvec_2=\fourvec{-3}{-2}01\)</span>
+</div></li>
+<li id="li-4235"><div class="para" id="p-6197"><span class="process-math">\(\displaystyle \bvec^\perp = 
+\fourvec60{-4}{-2}\)</span></div></li>
+<li id="li-4236"><div class="para" id="p-6198"><span class="process-math">\(\displaystyle Q^TQ = \begin{bmatrix}
+1 \amp 0 \\
+0 \amp 1
+\end{bmatrix}\)</span></div></li>
+</ol></div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-319" id="solution-319"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-319"><div class="solution solution-like"><div class="para logical" id="p-6173"><ol class="lower-alpha">
+<li id="li-4213"><div class="para logical" id="p-6174"><ol class="decimal">
+<li id="li-4214"><div class="para" id="p-6175"><span class="process-math">\(\displaystyle \uvec=\threevec{1/3}{2/3}{-2/3}\)</span></div></li>
+<li id="li-4215"><div class="para" id="p-6176"><span class="process-math">\(\displaystyle QQ^T = \begin{bmatrix}
+1/9 \amp 2/9 \amp -2/9 \\
+2/9 \amp 4/9 \amp -4/9 \\
+-2/9 \amp -4/9 \amp 4/9
+\end{bmatrix}\)</span></div></li>
+<li id="li-4216"><div class="para" id="p-6177"><span class="process-math">\(\displaystyle \bhat=\threevec{1/9}{2/9}{-2/9}\)</span></div></li>
+<li id="li-4217"><div class="para" id="p-6178">We find that <span class="process-math">\(\rank(P)\text{,}\)</span> which makes sense because <span class="process-math">\(\col(P) = L\text{,}\)</span> a 1-dimensional subspace of <span class="process-math">\(\real^3\text{.}\)</span>
+</div></li>
+</ol></div></li>
+<li id="li-4218"><div class="para logical" id="p-6179"><ol class="decimal">
+<li id="li-4219"><div class="para" id="p-6180"><span class="process-math">\(\displaystyle \bhat = \fourvec3235\)</span></div></li>
+<li id="li-4220"><div class="para" id="p-6181"><span class="process-math">\(\displaystyle P = \begin{bmatrix}
+1/4 \amp 1/4 \amp 1/4 \amp 1/4 \\
+1/4 \amp 5/12 \amp 5/12 \amp -1/12 \\
+1/4 \amp 5/12 \amp 5/12 \amp 1/12 \\
+1/4 \amp -1/12 \amp -1/12 \amp 11/12
+\end{bmatrix}\)</span></div></li>
+<li id="li-4221"><div class="para" id="p-6182">
+<span class="process-math">\(\rank(P)=2\)</span> since <span class="process-math">\(\col(P) = W\)</span>
+</div></li>
+<li id="li-4222"><div class="para" id="p-6183">Since <span class="process-math">\(W=\col(P)\text{,}\)</span> then <span class="process-math">\(W^\perp =
+\nul(P)\text{,}\)</span> which gives <span class="process-math">\(\vvec_1=\fourvec0{-1}10\)</span> and <span class="process-math">\(\vvec_2=\fourvec{-3}{-2}01\)</span>
+</div></li>
+<li id="li-4223"><div class="para" id="p-6184">We can find <span class="process-math">\(\bvec^\perp = \bvec - \bhat =
+\fourvec60{-4}{-2}\)</span>
+</div></li>
+<li id="li-4224"><div class="para" id="p-6185">
+<span class="process-math">\(Q^TQ = \begin{bmatrix}
+1 \amp 0 \\
+0 \amp 1
+\end{bmatrix}\)</span> since this product computes the dot products between the columns of <span class="process-math">\(Q\text{.}\)</span>
+</div></li>
+</ol></div></li>
+</ol></div></div></div>
+</div></article><div class="para" id="p-6199">This activity demonstrates one issue of note.  We found <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W\text{,}\)</span> by requiring that <span class="process-math">\(\bvec-\bhat\)</span> be orthogonal to <span class="process-math">\(W\text{.}\)</span>  In other words, <span class="process-math">\(\bvec-\bhat\)</span> is a vector in the orthogonal complement <span class="process-math">\(W^\perp\text{,}\)</span> which we may denote <span class="process-math">\(\bvec^\perp\text{.}\)</span>  This explains the following proposition, which is illustrated in <a href="" class="xref" data-knowl="./knowl/fig-orthog-decomp.html" title="Figure 6.3.19">Figure 6.3.19</a>
+</div>
+<article class="proposition theorem-like" id="prop-orthog-decomp"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.3.18</span><span class="period">.</span>
+</h4>If <span class="process-math">\(W\)</span> is a subspace of <span class="process-math">\(\real^n\)</span> with orthogonal complement <span class="process-math">\(W^\perp\text{,}\)</span> then any <span class="process-math">\(n\)</span>-dimensional vector <span class="process-math">\(\bvec\)</span> can be uniquely written as<div class="displaymath process-math">
+\begin{equation*}
+\bvec = \bhat + \bvec^\perp
+\end{equation*}
+</div>where <span class="process-math">\(\bhat\)</span> is in <span class="process-math">\(W\)</span> and <span class="process-math">\(\bvec^\perp\)</span> is in <span class="process-math">\(W^\perp\text{.}\)</span>  The vector <span class="process-math">\(\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W\)</span> and <span class="process-math">\(\bvec^\perp\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W^\perp\text{.}\)</span></article><figure class="figure figure-like" id="fig-orthog-decomp"><div class="sidebyside"><div class="sbsrow" style="margin-left:27.5%;margin-right:27.5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/orthog-decomp.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.3.19<span class="period">.</span></span><span class="space"> </span>A vector <span class="process-math">\(\bvec\)</span> along with <span class="process-math">\(\bhat\text{,}\)</span> its orthogonal projection onto the line <span class="process-math">\(L\text{,}\)</span> and <span class="process-math">\(\bvec^\perp\text{,}\)</span> its orthogonal projection onto the orthogonal complement <span class="process-math">\(L^\perp\text{.}\)</span></figcaption></figure><div class="para logical" id="p-6200">
+<div class="para">Let’s summarize what we’ve found.  If <span class="process-math">\(Q\)</span> is a matrix whose columns <span class="process-math">\(\uvec_1, \uvec_2,\ldots,\uvec_n\)</span> form an orthonormal set in <span class="process-math">\(\real^m\text{,}\)</span> then</div>
+<ul class="disc">
+<li id="li-4237"><div class="para" id="p-6201">
+<span class="process-math">\(Q^TQ = I_n\text{,}\)</span> the <span class="process-math">\(n\times n\)</span> identity matrix, because this product computes the dot products between the columns of <span class="process-math">\(Q\text{.}\)</span>
+</div></li>
+<li id="li-4238"><div class="para" id="p-6202">
+<span class="process-math">\(QQ^T\)</span> is the matrix the projects vectors orthogonally onto <span class="process-math">\(W\text{,}\)</span> the subspace of <span class="process-math">\(\real^m\)</span> spanned by <span class="process-math">\(\uvec_1,\ldots,\uvec_n\text{.}\)</span>
+</div></li>
+</ul>
+<div class="para">As we’ve said before, matrix multiplication depends on the order in which we multiply the matrices, and we see this clearly here.</div>
+</div>
+<div class="para" id="p-6203">Because <span class="process-math">\(Q^TQ=I\text{,}\)</span> there is a temptation to say that <span class="process-math">\(Q\)</span> is invertible.  This is usually not the case, however. Remember that an invertible matrix must be a square matrix, and the matrix <span class="process-math">\(Q\)</span> will only be square if <span class="process-math">\(n=m\text{.}\)</span>  In this case, there are <span class="process-math">\(m\)</span> vectors in the orthonormal set so the subspace <span class="process-math">\(W\)</span> spanned by the vectors <span class="process-math">\(\uvec_1,\uvec_2,\ldots,\uvec_m\)</span> is <span class="process-math">\(\real^m\text{.}\)</span>  If <span class="process-math">\(\bvec\)</span> is a vector in <span class="process-math">\(\real^m\text{,}\)</span> then <span class="process-math">\(\bhat=QQ^T\bvec\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\real^m\text{.}\)</span>  In other words, <span class="process-math">\(QQ^T\bvec\)</span> is the closest vector in <span class="process-math">\(\real^m\)</span> to <span class="process-math">\(\bvec\text{,}\)</span> and this closest vector must be <span class="process-math">\(\bvec\)</span> itself.  Therefore, <span class="process-math">\(QQ^T\bvec = \bvec\text{,}\)</span> which means that <span class="process-math">\(QQ^T=I\text{.}\)</span>  In this case, <span class="process-math">\(Q\)</span> is an invertible matrix.</div>
+<article class="example example-like" id="example-66"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.3.20</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6204">
+<div class="para">Consider the orthonormal set of vectors</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\uvec_1=\threevec{1/\sqrt{3}}{-1/\sqrt{3}}{1/\sqrt{3}},
+\hspace{24pt}
+\uvec_2=\threevec{1/\sqrt{2}}{1/\sqrt{2}}0
+\end{equation*}
+</div>
+<div class="para">and the matrix they define</div>
+<div class="displaymath process-math">
+\begin{equation*}
+Q = \begin{bmatrix}
+1/\sqrt{3} \amp 1/\sqrt{2} \\
+-1/\sqrt{3} \amp 1/\sqrt{2} \\
+1/\sqrt{3} \amp 0 \\
+\end{bmatrix}\text{.}
+\end{equation*}
+</div>
+<div class="para">In this case, <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> span a plane, a 2-dimensional subspace of <span class="process-math">\(\real^3\text{.}\)</span>  We know that <span class="process-math">\(Q^TQ = I_2\)</span> and <span class="process-math">\(QQ^T\)</span> projects vectors orthogonally onto the plane.  However, <span class="process-math">\(Q\)</span> is not a square matrix so it cannot be invertible.</div>
+</div></article><article class="example example-like" id="example-67"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">6.3.21</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-6205">
+<div class="para">Now consider the orthonormal set of vectors</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\uvec_1=\threevec{1/\sqrt{3}}{-1/\sqrt{3}}{1/\sqrt{3}},
+\hspace{24pt}
+\uvec_2=\threevec{1/\sqrt{2}}{1/\sqrt{2}}0,
+\hspace{24pt}
+\uvec_3=\threevec{1/\sqrt{6}}{-1/\sqrt{6}}{-2/\sqrt{6}}
+\end{equation*}
+</div>
+<div class="para">and the matrix they define</div>
+<div class="displaymath process-math">
+\begin{equation*}
+Q = \begin{bmatrix}
+1/\sqrt{3} \amp 1/\sqrt{2} \amp 1/\sqrt{6} \\
+-1/\sqrt{3} \amp 1/\sqrt{2} \amp -1/\sqrt{6} \\
+1/\sqrt{3} \amp 0 \amp -2/\sqrt{6} \\
+\end{bmatrix}\text{.}
+\end{equation*}
+</div>
+<div class="para">Here, <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\)</span> form a basis for <span class="process-math">\(\real^3\)</span> so that both <span class="process-math">\(Q^TQ=I_3\)</span> and <span class="process-math">\(QQ^T=I_3\text{.}\)</span>  Therefore, <span class="process-math">\(Q\)</span> is a square matrix and is invertible.</div>
+</div> <div class="para" id="p-6206">Moreover, since <span class="process-math">\(Q^TQ = I\text{,}\)</span> we see that <span class="process-math">\(Q^{-1} =
+Q^T\)</span> so finding the inverse of <span class="process-math">\(Q\)</span> is as simple as writing its transpose.  Matrices with this property are very special and will play an important role in our upcoming work.  We will therefore give them a special name.</div></article><article class="definition definition-like" id="definition-33"><h4 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">6.3.22</span><span class="period">.</span>
+</h4> <div class="para" id="p-6207">A square <span class="process-math">\(m\times m\)</span> matrix <span class="process-math">\(Q\)</span> whose columns form an orthonormal basis for <span class="process-math">\(\real^m\)</span> is called <em class="emphasis">orthogonal</em>.</div></article><div class="para" id="p-6208">This terminology can be a little confusing.  We call a basis orthogonal if the basis vectors are orthogonal to one another. However, a matrix is orthogonal if the columns are orthogonal to one another and have unit length.  It pays to keep this in mind when reading statements about orthogonal bases and orthogonal matrices.  In the meantime, we record the following proposition.</div>
+<article class="proposition theorem-like" id="prop-orthog-matrix"><h4 class="heading">
+<span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.3.23</span><span class="period">.</span>
+</h4>
+<div class="para" id="p-6209">An orthogonal matrix <span class="process-math">\(Q\)</span> is invertible and its inverse <span class="process-math">\(Q^{-1} = Q^T\text{.}\)</span>
+</div></article></section><section class="subsection" id="subsection-99"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">6.3.3</span> <span class="title">Summary</span>
+</h3>
+<div class="para logical" id="p-6210">
+<div class="para">This section introduced orthogonal sets and the projection formula that allows us to project vectors orthogonally onto a subspace.</div>
+<ul class="disc">
+<li id="li-4239"><div class="para logical" id="p-6211">
+<div class="para">Given an orthogonal set <span class="process-math">\(\wvec_1,\wvec_2,\ldots,\wvec_n\)</span> that spans an <span class="process-math">\(n\)</span>-dimensional subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^m\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W\)</span> is the vector in <span class="process-math">\(W\)</span> closest to <span class="process-math">\(\bvec\)</span> and may be written as</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bhat =
+\frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}~\wvec_1 + 
+\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}~\wvec_2 +
+\cdots + 
+\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n\text{.}
+\end{equation*}
+</div>
+</div></li>
+<li id="li-4240"><div class="para" id="p-6212">If <span class="process-math">\(\uvec_1,\uvec_2,\ldots,\uvec_n\)</span> is an orthonormal basis of <span class="process-math">\(W\)</span> and <span class="process-math">\(Q\)</span> is the matrix whose columns are <span class="process-math">\(\uvec_i\text{,}\)</span> then the matrix <span class="process-math">\(P=QQ^T\)</span> projects vectors orthogonally onto <span class="process-math">\(W\text{.}\)</span>
+</div></li>
+<li id="li-4241"><div class="para" id="p-6213">If the columns of <span class="process-math">\(Q\)</span> form an orthonormal basis for an <span class="process-math">\(n\)</span>-dimensional subspace of <span class="process-math">\(\real^m\text{,}\)</span> then <span class="process-math">\(Q^TQ=I_n\text{.}\)</span>
+</div></li>
+<li id="li-4242"><div class="para" id="p-6214">An orthogonal matrix <span class="process-math">\(Q\)</span> is a square matrix whose columns form an orthonormal basis.  In this case, <span class="process-math">\(QQ^T=Q^TQ = I\)</span> so that <span class="process-math">\(Q^{-1} = Q^T\text{.}\)</span>
+</div></li>
+</ul>
+</div></section><section class="exercises" id="exercises-25"><h3 class="heading hide-type">
+<span class="type">Exercises</span> <span class="codenumber">6.3.4</span> <span class="title">Exercises</span>
+</h3>
+<article class="exercise exercise-like" id="exercise-220"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6215">
+<div class="para">Suppose that</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-proj-formula.html">
+\begin{equation*}
+\wvec_1=\threevec111,\hspace{24pt}
+\wvec_2=\threevec1{-2}1.
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-4243"><div class="para" id="p-6216">Verify that <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> form an orthogonal basis for a plane <span class="process-math">\(W\)</span> in <span class="process-math">\(\real^3\text{.}\)</span>
+</div></li>
+<li id="li-4244"><div class="para" id="p-6217">Use <a href="" class="xref" data-knowl="./knowl/prop-proj-formula.html" title="Proposition 6.3.15: Projection formula">Proposition 6.3.15</a> to find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec=\threevec21{-1}\)</span> onto <span class="process-math">\(W\text{.}\)</span>
+</div></li>
+<li id="li-4245"><div class="para" id="p-6218">Find an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\)</span> for <span class="process-math">\(W\text{.}\)</span>
+</div></li>
+<li id="li-4246"><div class="para" id="p-6219">Find the matrix <span class="process-math">\(P\)</span> representing the matrix transformation that projects vectors in <span class="process-math">\(\real^3\)</span> orthogonally onto <span class="process-math">\(W\text{.}\)</span>  Verify that <span class="process-math">\(\bhat =
+P\bvec\text{.}\)</span>
+</div></li>
+<li id="li-4247"><div class="para" id="p-6220">Determine <span class="process-math">\(\rank(P)\)</span> and explain its geometric significance.</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-247" id="answer-247"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-247"><div class="answer solution-like"><div class="para logical" id="p-6221"><ol class="lower-alpha">
+<li id="li-4248"><div class="para" id="p-6222"><span class="process-math">\(\wvec_1\cdot\wvec_2=0\text{.}\)</span></div></li>
+<li id="li-4249"><div class="para" id="p-6223"><span class="process-math">\(\bhat =
+\threevec{1/2}1{1/2}\text{.}\)</span></div></li>
+<li id="li-4250"><div class="para" id="p-6224">
+<span class="process-math">\(\uvec_1=\frac{1}{\len{\wvec_1}}\wvec_1 =
+\threevec{1/\sqrt{3}}{1/\sqrt{3}}{1/\sqrt{3}}\)</span> and <span class="process-math">\(\uvec_2=\frac{1}{\len{\wvec_2}}\wvec_2 =
+\threevec{1/\sqrt{6}}{-2/\sqrt{6}}{1/\sqrt{6}}\)</span>
+</div></li>
+<li id="li-4251"><div class="para" id="p-6225"><span class="process-math">\(\displaystyle P=\begin{bmatrix}
+1/2 \amp 0 \amp 1/2 \\
+0 \amp 1 \amp 0 \\
+1/2 \amp 0 \amp 1/2
+\end{bmatrix}\)</span></div></li>
+<li id="li-4252"><div class="para" id="p-6226"><span class="process-math">\(\displaystyle \rank(P) = 2\)</span></div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-320" id="solution-320"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-320"><div class="solution solution-like"><div class="para logical" id="p-6227"><ol class="lower-alpha">
+<li id="li-4253"><div class="para" id="p-6228">Check that <span class="process-math">\(\wvec_1\cdot\wvec_2=0\text{.}\)</span>
+</div></li>
+<li id="li-4254"><div class="para" id="p-6229">Applying the Projection Formula gives <span class="process-math">\(\bhat =
+\threevec{1/2}1{1/2}\text{.}\)</span>
+</div></li>
+<li id="li-4255"><div class="para" id="p-6230">
+<span class="process-math">\(\uvec_1=\frac{1}{\len{\wvec_1}}\wvec_1 =
+\threevec{1/\sqrt{3}}{1/\sqrt{3}}{1/\sqrt{3}}\)</span> and <span class="process-math">\(\uvec_2=\frac{1}{\len{\wvec_2}}\wvec_2 =
+\threevec{1/\sqrt{6}}{-2/\sqrt{6}}{1/\sqrt{6}}\)</span>
+</div></li>
+<li id="li-4256"><div class="para" id="p-6231">Form <span class="process-math">\(Q=\begin{bmatrix}\uvec_1 \amp \uvec_2
+\end{bmatrix}\)</span> so that <span class="process-math">\(P=QQ^T=\begin{bmatrix}
+1/2 \amp 0 \amp 1/2 \\
+0 \amp 1 \amp 0 \\
+1/2 \amp 0 \amp 1/2
+\end{bmatrix}\)</span>
+</div></li>
+<li id="li-4257"><div class="para" id="p-6232">Since <span class="process-math">\(\col(P)=W\text{,}\)</span> we have <span class="process-math">\(\rank(P) = 2\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-221"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6233">
+<div class="para">Consider the vectors</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\wvec_1=\threevec111,\hspace{24pt}
+\wvec_2=\threevec{-1}01,\hspace{24pt}
+\wvec_3=\threevec1{-2}1.
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-4258"><div class="para" id="p-6234">Explain why these vectors form an orthogonal basis for <span class="process-math">\(\real^3\text{.}\)</span>
+</div></li>
+<li id="li-4259"><div class="para" id="p-6235">Suppose that <span class="process-math">\(A=\begin{bmatrix} \wvec_1 \amp \wvec_2 \amp \wvec_3
+\end{bmatrix}\)</span> and evaluate the product <span class="process-math">\(A^TA\text{.}\)</span> Why is this product a diagonal matrix and what is the significance of the diagonal entries?</div></li>
+<li id="li-4260"><div class="para" id="p-6236">Express the vector <span class="process-math">\(\bvec=\threevec{-3}{-6}3\)</span> as a linear combination of <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\text{.}\)</span>
+</div></li>
+<li id="li-4261"><div class="para" id="p-6237">Multiply the vectors <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> <span class="process-math">\(\wvec_3\)</span> by appropriate scalars to find an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> <span class="process-math">\(\uvec_3\)</span> of <span class="process-math">\(\real^3\text{.}\)</span>
+</div></li>
+<li id="li-4262"><div class="para" id="p-6238">If <span class="process-math">\(Q=\begin{bmatrix} \uvec_1 \amp \uvec_2 \amp
+\uvec_3
+\end{bmatrix}\text{,}\)</span> find the matrix product <span class="process-math">\(QQ^T\)</span> and explain the result.</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-248" id="answer-248"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-248"><div class="answer solution-like"><div class="para logical" id="p-6239"><ol class="lower-alpha">
+<li id="li-4263"><div class="para" id="p-6240">
+<span class="process-math">\(\wvec_1\cdot\wvec_1=0\text{,}\)</span> <span class="process-math">\(\wvec_1\cdot\wvec_3=0\text{,}\)</span> and <span class="process-math">\(\wvec_2\cdot\wvec_3=0\text{.}\)</span>
+</div></li>
+<li id="li-4264"><div class="para" id="p-6241"><span class="process-math">\(\displaystyle A^TA = \begin{bmatrix}
+3 \amp 0 \amp 0 \\
+0 \amp 2 \amp 0 \\
+0 \amp 0 \amp 6
+\end{bmatrix}\)</span></div></li>
+<li id="li-4265"><div class="para" id="p-6242"><span class="process-math">\(\bvec=-2\wvec_1+3\wvec_2+2\wvec_3\text{.}\)</span></div></li>
+<li id="li-4266"><div class="para logical" id="p-6243"><div class="displaymath process-math">
+\begin{equation*}
+\uvec_1=\threevec{1/\sqrt{3}}{1/\sqrt{3}}
+{1/\sqrt{3}},\hspace{24pt}
+\uvec_2=\threevec{-1/\sqrt{2}}0{1/\sqrt{2}},
+\hspace{24pt}
+\uvec_3=\threevec{1/\sqrt{6}}{-2/\sqrt{6}}
+{1/\sqrt{6}},\hspace{24pt}
+\end{equation*}
+</div></div></li>
+<li id="li-4267"><div class="para" id="p-6244"><span class="process-math">\(\displaystyle QQ^T=I\)</span></div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-321" id="solution-321"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-321"><div class="solution solution-like"><div class="para logical" id="p-6245"><ol class="lower-alpha">
+<li id="li-4268"><div class="para" id="p-6246">Check that all three dot products <span class="process-math">\(\wvec_1\cdot\wvec_1=0\text{,}\)</span> <span class="process-math">\(\wvec_1\cdot\wvec_3=0\text{,}\)</span> and <span class="process-math">\(\wvec_2\cdot\wvec_3=0\text{.}\)</span>
+</div></li>
+<li id="li-4269"><div class="para" id="p-6247">
+<span class="process-math">\(A^TA = \begin{bmatrix}
+3 \amp 0 \amp 0 \\
+0 \amp 2 \amp 0 \\
+0 \amp 0 \amp 6
+\end{bmatrix}
+=
+\begin{bmatrix}
+\wvec_1\cdot\wvec_1\amp \wvec_1\cdot\wvec_2\amp
+\wvec_1\cdot\wvec_3 \\
+\wvec_2\cdot\wvec_1\amp \wvec_2\cdot\wvec_2\amp
+\wvec_2\cdot\wvec_3 \\
+\wvec_3\cdot\wvec_1\amp \wvec_3\cdot\wvec_2\amp
+\wvec_3\cdot\wvec_3 \\
+\end{bmatrix}
+\text{.}\)</span>  This matrix is diagonal because the vectors form an orthogonal set.</div></li>
+<li id="li-4270"><div class="para" id="p-6248">We may find the weights of this linear combination by finding <span class="process-math">\(c_i=\frac{b\cdot\wvec_i}{\wvec_i\cdot\wvec_i}\)</span> so that <span class="process-math">\(\bvec=-2\wvec_1+3\wvec_2+2\wvec_3\text{.}\)</span>
+</div></li>
+<li id="li-4271"><div class="para logical" id="p-6249"><div class="displaymath process-math">
+\begin{equation*}
+\uvec_1=\threevec{1/\sqrt{3}}{1/\sqrt{3}}
+{1/\sqrt{3}},\hspace{24pt}
+\uvec_2=\threevec{-1/\sqrt{2}}0{1/\sqrt{2}},
+\hspace{24pt}
+\uvec_3=\threevec{1/\sqrt{6}}{-2/\sqrt{6}}
+{1/\sqrt{6}},\hspace{24pt}
+\end{equation*}
+</div></div></li>
+<li id="li-4272"><div class="para" id="p-6250">The columns of <span class="process-math">\(Q\)</span> form an orthonormal basis for <span class="process-math">\(\real^3\)</span> so <span class="process-math">\(Q\)</span> is orthogonal.  Therefore, <span class="process-math">\(QQ^T=I\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-222"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6251">
+<div class="para">Suppose that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\wvec_1=\fourvec110{-1}, \hspace{24pt}
+\wvec_2=\fourvec1011
+\end{equation*}
+</div>
+<div class="para">form an orthogonal basis for a subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^4\text{.}\)</span>
+</div>
+<ol class="lower-alpha">
+<li id="li-4273"><div class="para" id="p-6252">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec=\fourvec{2}{-1}{-6}{7}\)</span> onto <span class="process-math">\(W\text{.}\)</span>
+</div></li>
+<li id="li-4274"><div class="para" id="p-6253">Find the vector <span class="process-math">\(\bvec^\perp\)</span> in <span class="process-math">\(W^\perp\)</span> such that <span class="process-math">\(\bvec = \bhat + \bvec^\perp\text{.}\)</span>
+</div></li>
+<li id="li-4275"><div class="para" id="p-6254">Find a basis for <span class="process-math">\(W^\perp\text{.}\)</span> and express <span class="process-math">\(\bvec^\perp\)</span> as a linear combination of the basis vectors.</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-249" id="answer-249"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-249"><div class="answer solution-like"><div class="para logical" id="p-6255"><ol class="lower-alpha">
+<li id="li-4276"><div class="para" id="p-6256"><span class="process-math">\(\displaystyle \bhat = \fourvec{-1}{-2}13\)</span></div></li>
+<li id="li-4277"><div class="para" id="p-6257"><span class="process-math">\(\displaystyle \bvec^\perp = \fourvec{3}{1}{-7}4\)</span></div></li>
+<li id="li-4278"><div class="para" id="p-6258">A basis for <span class="process-math">\(W^\perp\)</span> is <span class="process-math">\(\vvec_1=\fourvec{-1}110\)</span> and <span class="process-math">\(\vvec_2=\fourvec{-1}201\text{.}\)</span>  We then have <span class="process-math">\(\bvec^\perp = -7\vvec_1 + 4\vvec_2\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-322" id="solution-322"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-322"><div class="solution solution-like"><div class="para logical" id="p-6259"><ol class="lower-alpha">
+<li id="li-4279"><div class="para" id="p-6260">Apply the Projection Formula to find <span class="process-math">\(\bhat = \fourvec{-1}{-2}13\text{.}\)</span>
+</div></li>
+<li id="li-4280"><div class="para" id="p-6261"><span class="process-math">\(\bvec^\perp = \fourvec{3}{1}{-7}4\text{.}\)</span></div></li>
+<li id="li-4281"><div class="para" id="p-6262">Constructing a matrix <span class="process-math">\(A\)</span> whose columns are <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> allows us to find a basis for <span class="process-math">\(W^\perp=\nul(A^T)\text{.}\)</span>  This gives the basis <span class="process-math">\(\vvec_1=\fourvec{-1}110\)</span> and <span class="process-math">\(\vvec_2=\fourvec{-1}201\text{.}\)</span>  We then have <span class="process-math">\(\bvec^\perp = -7\vvec_1 + 4\vvec_2\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-223"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6263">
+<div class="para">Consider the vectors</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\wvec_1=\fourvec1100,\hspace{24pt}
+\wvec_2=\fourvec0011,\hspace{24pt}
+\bvec=\fourvec2{-4}13.
+\end{equation*}
+</div>
+<ol class="lower-alpha">
+<li id="li-4282"><div class="para" id="p-6264">If <span class="process-math">\(L\)</span> is the line defined by the vector <span class="process-math">\(\wvec_1\text{,}\)</span> find the vector in <span class="process-math">\(L\)</span> closest to <span class="process-math">\(\bvec\text{.}\)</span>  Call this vector <span class="process-math">\(\bhat_1\text{.}\)</span>
+</div></li>
+<li id="li-4283"><div class="para" id="p-6265">If <span class="process-math">\(W\)</span> is the subspace spanned by <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{,}\)</span> find the vector in <span class="process-math">\(W\)</span> closest to <span class="process-math">\(\bvec\text{.}\)</span>  Call this vector <span class="process-math">\(\bhat_2\text{.}\)</span>
+</div></li>
+<li id="li-4284"><div class="para" id="p-6266">Determine whether <span class="process-math">\(\bhat_1\)</span> or <span class="process-math">\(\bhat_2\)</span> is closer to <span class="process-math">\(\bvec\)</span> and explain why.</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-250" id="answer-250"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-250"><div class="answer solution-like"><div class="para logical" id="p-6267"><ol class="lower-alpha">
+<li id="li-4285"><div class="para" id="p-6268"><span class="process-math">\(\displaystyle \bhat_1 = \fourvec{-1}{-1}00\)</span></div></li>
+<li id="li-4286"><div class="para" id="p-6269"><span class="process-math">\(\displaystyle \bhat_2 = \fourvec{-1}{-1}22\)</span></div></li>
+<li id="li-4287"><div class="para" id="p-6270"><span class="process-math">\(\displaystyle \bhat_2\)</span></div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-323" id="solution-323"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-323"><div class="solution solution-like"><div class="para logical" id="p-6271"><ol class="lower-alpha">
+<li id="li-4288"><div class="para" id="p-6272">Applying the Projection Formula gives <span class="process-math">\(\bhat_1 = \fourvec{-1}{-1}00\)</span>
+</div></li>
+<li id="li-4289"><div class="para" id="p-6273">Applying the Projection Formula gives <span class="process-math">\(\bhat_2 = \fourvec{-1}{-1}22\)</span>
+</div></li>
+<li id="li-4290"><div class="para" id="p-6274">
+<span class="process-math">\(\bhat_2\)</span> is the closest vector in <span class="process-math">\(W\)</span> to <span class="process-math">\(\bvec\text{.}\)</span>  Since <span class="process-math">\(L\)</span> is contained in <span class="process-math">\(W\text{,}\)</span> <span class="process-math">\(\bhat_1\)</span> cannot be closer.  Therefore, <span class="process-math">\(\bhat_2\)</span> must be closer to <span class="process-math">\(\bvec\)</span> than <span class="process-math">\(\bhat_1\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-224"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6275">
+<div class="para">Suppose that <span class="process-math">\(\wvec=\threevec2{-1}2\)</span> defines a line <span class="process-math">\(L\)</span> in <span class="process-math">\(\real^3\text{.}\)</span>
+</div>
+<ol class="lower-alpha">
+<li id="li-4291"><div class="para" id="p-6276">Find the orthogonal projections of the vectors <span class="process-math">\(\threevec100\text{,}\)</span> <span class="process-math">\(\threevec010\text{,}\)</span> <span class="process-math">\(\threevec001\)</span> onto <span class="process-math">\(L\text{.}\)</span>
+</div></li>
+<li id="li-4292"><div class="para" id="p-6277">Find the matrix <span class="process-math">\(P = \frac{1}{\len{\wvec}^2} \wvec
+\wvec^T\text{.}\)</span>
+</div></li>
+<li id="li-4293"><div class="para" id="p-6278">Use <a href="" class="xref" data-knowl="./knowl/prop-linear-trans-columns.html" title="Proposition 3.3.6">Proposition 3.3.6</a> to explain why the columns of <span class="process-math">\(P\)</span> are related to the orthogonal projections you found in the first part of this exericse.</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-251" id="answer-251"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-251"><div class="answer solution-like"><div class="para logical" id="p-6279"><ol class="lower-alpha">
+<li id="li-4294"><div class="para logical" id="p-6280"><div class="displaymath process-math">
+\begin{equation*}
+\threevec{4/9}{-2/9}{4/9},\hspace{24pt}
+\threevec{-2/9}{1/9}{4/9},\hspace{24pt}
+\threevec{4/9}{-2/9}{4/9}
+\end{equation*}
+</div></div></li>
+<li id="li-4295"><div class="para" id="p-6281"><span class="process-math">\(\displaystyle P=\begin{bmatrix}
+4/9 \amp -2/9 \amp 4/9\\
+-2/9 \amp 1/9 \amp -2/9\\
+4/9 \amp -2/9 \amp 4/9\\
+\end{bmatrix}\)</span></div></li>
+<li id="li-4296"><div class="para" id="p-6282">The columns of <span class="process-math">\(P\)</span> are the results of projecting the standard basis vectors onto <span class="process-math">\(L\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-324" id="solution-324"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-324"><div class="solution solution-like"><div class="para logical" id="p-6283"><ol class="lower-alpha">
+<li id="li-4297"><div class="para logical" id="p-6284">
+<div class="para">Applying the Projection Formula gives the projections</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\threevec{4/9}{-2/9}{4/9},\hspace{24pt}
+\threevec{-2/9}{1/9}{4/9},\hspace{24pt}
+\threevec{4/9}{-2/9}{4/9}
+\end{equation*}
+</div>
+</div></li>
+<li id="li-4298"><div class="para" id="p-6285"><span class="process-math">\(\displaystyle P=\begin{bmatrix}
+4/9 \amp -2/9 \amp 4/9\\
+-2/9 \amp 1/9 \amp -2/9\\
+4/9 \amp -2/9 \amp 4/9\\
+\end{bmatrix}\)</span></div></li>
+<li id="li-4299"><div class="para" id="p-6286">If <span class="process-math">\(\uvec = \frac{1}{\len{\wvec}}\wvec\text{,}\)</span> then <span class="process-math">\(P=\uvec\uvec^T\text{,}\)</span> which projects vectors orthogonally onto <span class="process-math">\(L\text{.}\)</span>  The columns of <span class="process-math">\(P\)</span> are the results of projecting the standard basis vectors onto <span class="process-math">\(L\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-225"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6287">
+<div class="para">Suppose that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\vvec_1=\threevec103,\hspace{24pt}
+\vvec_2=\threevec222
+\end{equation*}
+</div>
+<div class="para">form the basis for a plane <span class="process-math">\(W\)</span> in <span class="process-math">\(\real^3\text{.}\)</span>
+</div>
+<ol class="lower-alpha">
+<li id="li-4300"><div class="para" id="p-6288">Find a basis for the line that is the orthogonal complement <span class="process-math">\(W^\perp\text{.}\)</span>
+</div></li>
+<li id="li-4301"><div class="para" id="p-6289">Given the vector <span class="process-math">\(\bvec=\threevec6{-6}2\text{,}\)</span> find <span class="process-math">\(\yvec\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto the line <span class="process-math">\(W^\perp\text{.}\)</span>
+</div></li>
+<li id="li-4302"><div class="para" id="p-6290">Explain why the vector <span class="process-math">\(\zvec = \bvec-\yvec\)</span> must be in <span class="process-math">\(W\)</span> and write <span class="process-math">\(\zvec\)</span> as a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>
+</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-252" id="answer-252"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-252"><div class="answer solution-like"><div class="para logical" id="p-6291"><ol class="lower-alpha">
+<li id="li-4303"><div class="para" id="p-6292"><span class="process-math">\(\displaystyle \threevec{-3}21\)</span></div></li>
+<li id="li-4304"><div class="para" id="p-6293"><span class="process-math">\(\displaystyle \yvec = \threevec6{-4}{-2}\)</span></div></li>
+<li id="li-4305"><div class="para" id="p-6294"><span class="process-math">\(\zvec = \threevec0{-2}4 = 2\vvec_1-\vvec_2\text{.}\)</span></div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-325" id="solution-325"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-325"><div class="solution solution-like"><div class="para logical" id="p-6295"><ol class="lower-alpha">
+<li id="li-4306"><div class="para" id="p-6296">A basis vector is <span class="process-math">\(\threevec{-3}21\)</span>
+</div></li>
+<li id="li-4307"><div class="para" id="p-6297"><span class="process-math">\(\displaystyle \yvec = \threevec6{-4}{-2}\)</span></div></li>
+<li id="li-4308"><div class="para" id="p-6298">
+<span class="process-math">\(\yvec\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W^\perp\)</span> so <span class="process-math">\(\zvec=\bvec-\yvec\)</span> must be orthogonal to <span class="process-math">\(W^\perp\text{,}\)</span> which means that it is in <span class="process-math">\(W\text{.}\)</span> We see that <span class="process-math">\(\zvec = \threevec0{-2}4 = 2\vvec_1-\vvec_2\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-226"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6299">
+<div class="para">Determine whether the following statements are true or false and explain your thinking.</div>
+<ol class="lower-alpha">
+<li id="li-4309"><div class="para" id="p-6300">If the columns of <span class="process-math">\(Q\)</span> form an orthonormal basis for a subspace <span class="process-math">\(W\)</span> and <span class="process-math">\(\wvec\)</span> is a vector in <span class="process-math">\(W\text{,}\)</span> then <span class="process-math">\(QQ^T\wvec = \wvec\text{.}\)</span>
+</div></li>
+<li id="li-4310"><div class="para" id="p-6301">An orthogonal set of vectors in <span class="process-math">\(\real^8\)</span> can have no more than 8 vectors.</div></li>
+<li id="li-4311"><div class="para" id="p-6302">If <span class="process-math">\(Q\)</span> is a <span class="process-math">\(7\times5\)</span> matrix whose columns are orthonormal, then <span class="process-math">\(QQ^T = I_7\text{.}\)</span>
+</div></li>
+<li id="li-4312"><div class="para" id="p-6303">If <span class="process-math">\(Q\)</span> is a <span class="process-math">\(7\times5\)</span> matrix whose columns are orthonormal, then <span class="process-math">\(Q^TQ = I_5\text{.}\)</span>
+</div></li>
+<li id="li-4313"><div class="para" id="p-6304">If the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto a subspace <span class="process-math">\(W\)</span> satisfies <span class="process-math">\(\bhat =
+\zerovec\text{,}\)</span> then <span class="process-math">\(\bvec\)</span> is in <span class="process-math">\(W^\perp\text{.}\)</span>
+</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-253" id="answer-253"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-253"><div class="answer solution-like"><div class="para logical" id="p-6305"><ol class="lower-alpha">
+<li id="li-4314"><div class="para" id="p-6306">True</div></li>
+<li id="li-4315"><div class="para" id="p-6307">True</div></li>
+<li id="li-4316"><div class="para" id="p-6308">False</div></li>
+<li id="li-4317"><div class="para" id="p-6309">True</div></li>
+<li id="li-4318"><div class="para" id="p-6310">True</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-326" id="solution-326"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-326"><div class="solution solution-like"><ol class="lower-alpha">
+<li id="li-4319"><div class="para" id="p-6311">True, because <span class="process-math">\(\wvec\)</span> is the closest vector in <span class="process-math">\(W\)</span> to <span class="process-math">\(\wvec\text{.}\)</span>  Therefore, <span class="process-math">\(\widehat{\wvec} =
+QQ^T\wvec = \wvec\text{.}\)</span>
+</div></li>
+<li id="li-4320"><div class="para" id="p-6312">True, because the orthogonal set of vectors is linearly independent.</div></li>
+<li id="li-4321"><div class="para" id="p-6313">False, <span class="process-math">\(QQ^T\)</span> projects vectors orthogonally onto the 5-dimensional subspace <span class="process-math">\(\col(A)\text{.}\)</span>
+</div></li>
+<li id="li-4322"><div class="para" id="p-6314">True, because <span class="process-math">\(Q^TQ\)</span> computes the dot products between the columns of <span class="process-math">\(Q\)</span>
+</div></li>
+<li id="li-4323"><div class="para" id="p-6315">True, because <span class="process-math">\(\bvec=\bhat+\bvec^\perp =
+\bvec^\perp\text{.}\)</span>  Therefore, <span class="process-math">\(\bvec\)</span> is in <span class="process-math">\(W^\perp\text{.}\)</span>
+</div></li>
+</ol></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-227"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6316">
+<div class="para">Suppose that <span class="process-math">\(Q\)</span> is an orthogonal matrix.</div>
+<ol class="lower-alpha">
+<li id="li-4324"><div class="para logical" id="p-6317">
+<div class="para">Remembering that <span class="process-math">\(\vvec\cdot\wvec=\vvec^T\wvec\text{,}\)</span> explain why</div>
+<div class="displaymath process-math">
+\begin{equation*}
+Q\xvec\cdot(Q\yvec) = \xvec\cdot\yvec.
+\end{equation*}
+</div>
+</div></li>
+<li id="li-4325">
+<div class="para" id="p-6318">Explain why <span class="process-math">\(\len{Q\xvec} = \len{\xvec}\text{.}\)</span>
+</div>
+<div class="para" id="p-6319">This means that the length of a vector is unchanged after multiplying by an orthogonal matrix.</div>
+</li>
+<li id="li-4326"><div class="para" id="p-6320">If <span class="process-math">\(\lambda\)</span> is a real eigenvalue of <span class="process-math">\(Q\text{,}\)</span> explain why <span class="process-math">\(\lambda=\pm1\text{.}\)</span>
+</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-254" id="answer-254"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-254"><div class="answer solution-like"><div class="para logical" id="p-6321"><ol class="lower-alpha">
+<li id="li-4327"><div class="para" id="p-6322"><span class="process-math">\(Q\xvec\cdot(Q\yvec) = (Q\xvec)^T\cdot(Q\yvec) =
+\xvec^TQ^TQ\yvec = \xvec^T\yvec=\xvec\cdot\yvec\text{.}\)</span></div></li>
+<li id="li-4328"><div class="para" id="p-6323"><span class="process-math">\(\displaystyle \len{Q\xvec}^2 = (Q\xvec)\cdot(Q\xvec) =
+\xvec\cdot\xvec = \len{\xvec}^2\)</span></div></li>
+<li id="li-4329"><div class="para" id="p-6324">If <span class="process-math">\(Q\vvec = \lambda\vvec\text{,}\)</span> then <span class="process-math">\(\len{Q\vvec} =
+|\lambda|\len{\vvec}=\len{\vvec}\)</span> so <span class="process-math">\(|\lambda|=1\)</span>
+</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-327" id="solution-327"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-327"><div class="solution solution-like"><div class="para logical" id="p-6325"><ol class="lower-alpha">
+<li id="li-4330"><div class="para" id="p-6326"><span class="process-math">\(Q\xvec\cdot(Q\yvec) = (Q\xvec)^T\cdot(Q\yvec) =
+\xvec^TQ^TQ\yvec = \xvec^T\yvec=\xvec\cdot\yvec\text{.}\)</span></div></li>
+<li id="li-4331"><div class="para" id="p-6327"><span class="process-math">\(\displaystyle \len{Q\xvec}^2 = (Q\xvec)\cdot(Q\xvec) =
+\xvec\cdot\xvec = \len{\xvec}^2\)</span></div></li>
+<li id="li-4332"><div class="para" id="p-6328">If <span class="process-math">\(Q\vvec = \lambda\vvec\text{,}\)</span> then <span class="process-math">\(\len{Q\vvec} =
+|\lambda|\len{\vvec}=\len{\vvec}\)</span> so <span class="process-math">\(|\lambda|=1\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-228"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6329">
+<div class="para">Explain why the following statements are true.</div>
+<ol class="lower-alpha">
+<li id="li-4333"><div class="para" id="p-6330">If <span class="process-math">\(Q\)</span> is an orthogonal matrix, then <span class="process-math">\(\det Q =
+\pm 1\text{.}\)</span>
+</div></li>
+<li id="li-4334"><div class="para" id="p-6331">If <span class="process-math">\(Q\)</span> is a <span class="process-math">\(8\times 4\)</span> matrix whose columns are orthonormal, then <span class="process-math">\(QQ^T\)</span> is an <span class="process-math">\(8\times8\)</span> matrix whose rank is 4.</div></li>
+<li id="li-4335"><div class="para" id="p-6332">If <span class="process-math">\(\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto a subspace <span class="process-math">\(W\text{,}\)</span> then <span class="process-math">\(\bvec-\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W^\perp\text{.}\)</span>
+</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-255" id="answer-255"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-255"><div class="answer solution-like"><div class="para logical" id="p-6333"><ol class="lower-alpha">
+<li id="li-4336"><div class="para" id="p-6334">Since <span class="process-math">\(Q^TQ=I\text{,}\)</span> we have <span class="process-math">\(\det(Q^TQ)=\det(I)=1\text{.}\)</span>
+</div></li>
+<li id="li-4337"><div class="para" id="p-6335">The four columns of <span class="process-math">\(Q\)</span> form a basis for the column space <span class="process-math">\(\col(QQ^T)\)</span>
+</div></li>
+<li id="li-4338"><div class="para" id="p-6336">If <span class="process-math">\(\bvec^\perp=\bvec-\bhat\text{,}\)</span> then <span class="process-math">\(\bvec-\bperp
+= \bhat\)</span> is in <span class="process-math">\(W\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-328" id="solution-328"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-328"><div class="solution solution-like"><div class="para logical" id="p-6337"><ol class="lower-alpha">
+<li id="li-4339"><div class="para" id="p-6338">Since <span class="process-math">\(Q^TQ=I\text{,}\)</span> we have <span class="process-math">\(\det(Q^TQ)=\det(Q^T)\det(Q)=(\det(Q))^2 = \det(I) =
+1\)</span>
+</div></li>
+<li id="li-4340"><div class="para" id="p-6339">The columns of <span class="process-math">\(Q\)</span> form an orthonormal basis for <span class="process-math">\(W\text{,}\)</span> a 4-dimensional subspace of <span class="process-math">\(\real^8\text{.}\)</span> Therefore, <span class="process-math">\(QQ^T\)</span> projects vectors orthogonally onto <span class="process-math">\(W\)</span> so <span class="process-math">\(\col(QQ^T)=W\)</span> and <span class="process-math">\(\rank(QQ^T)=4\text{.}\)</span>
+</div></li>
+<li id="li-4341"><div class="para" id="p-6340">If <span class="process-math">\(\bvec^\perp=\bvec-\bhat\text{,}\)</span> then <span class="process-math">\(\bvec-\bperp
+= \bhat\)</span> is in <span class="process-math">\(W\text{,}\)</span> the orthogonal complement of <span class="process-math">\(W^\perp\text{.}\)</span>  This means that <span class="process-math">\(\bperp\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W^\perp\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><article class="exercise exercise-like" id="exercise-229"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6341">
+<div class="para">This exercise is about <span class="process-math">\(2\times2\)</span> orthogonal matrices.</div>
+<ol class="lower-alpha">
+<li id="li-4342"><div class="para" id="p-6342">In <a href="sec-transforms-geom.html" class="internal" title="Section 3.4: The geometry of matrix transformations">Section 3.4</a>, we saw that the matrix <span class="process-math">\(\begin{bmatrix}
+\cos\theta \amp -\sin\theta \\
+\sin\theta \amp \cos\theta
+\end{bmatrix}\)</span> represents a rotation by an angle <span class="process-math">\(\theta\text{.}\)</span> Explain why this matrix is an orthogonal matrix.</div></li>
+<li id="li-4343"><div class="para" id="p-6343">We also saw that the matrix <span class="process-math">\(\begin{bmatrix}
+\cos\theta \amp \sin\theta \\
+\sin\theta \amp -\cos\theta
+\end{bmatrix}\)</span> represents a reflection in a line. Explain why this matrix is an orthogonal matrix.</div></li>
+<li id="li-4344"><div class="para" id="p-6344">Suppose that <span class="process-math">\(\uvec_1=\twovec{\cos\theta}{\sin\theta}\)</span> is a 2-dimensional unit vector.  Use a sketch to indicate all the possible vectors <span class="process-math">\(\uvec_2\)</span> such that <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> form an orthonormal basis of <span class="process-math">\(\real^2\text{.}\)</span>
+</div></li>
+<li id="li-4345"><div class="para" id="p-6345">Explain why every <span class="process-math">\(2\times2\)</span> orthogonal matrix is either a rotation or a reflection.</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-256" id="answer-256"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-256"><div class="answer solution-like"><div class="para logical" id="p-6346"><ol class="lower-alpha">
+<li id="li-4346"><div class="para" id="p-6347"><span class="process-math">\(Q^TQ=I\text{.}\)</span></div></li>
+<li id="li-4347"><div class="para" id="p-6348"><span class="process-math">\(Q^TQ=I\text{.}\)</span></div></li>
+<li id="li-4348"><div class="para" id="p-6349">
+<span class="process-math">\(\uvec_2=\twovec{-\sin\theta}{\cos\theta}\)</span> or <span class="process-math">\(\twovec{\sin\theta}{-\cos\theta}\)</span>
+</div></li>
+<li id="li-4349"><div class="para" id="p-6350">The first column of <span class="process-math">\(Q\)</span> has the form <span class="process-math">\(\uvec_1=\twovec{\cos\theta}{\sin\theta}\text{.}\)</span> Now apply the result of the last part of this problem.</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-329" id="solution-329"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-329"><div class="solution solution-like"><div class="para logical" id="p-6351"><ol class="lower-alpha">
+<li id="li-4350"><div class="para" id="p-6352">If this matrix is <span class="process-math">\(Q\text{,}\)</span> we have <span class="process-math">\(Q^TQ=I\text{.}\)</span>
+</div></li>
+<li id="li-4351"><div class="para" id="p-6353">If this matrix is <span class="process-math">\(Q\text{,}\)</span> we have <span class="process-math">\(Q^TQ=I\text{.}\)</span>
+</div></li>
+<li id="li-4352"><div class="para" id="p-6354">
+<span class="process-math">\(\uvec_2=\twovec{-\sin\theta}{\cos\theta}\)</span> or <span class="process-math">\(\twovec{\sin\theta}{-\cos\theta}\)</span>
+</div></li>
+<li id="li-4353"><div class="para" id="p-6355">If <span class="process-math">\(Q=\begin{bmatrix}\uvec_1\amp\uvec_2\end{bmatrix}\)</span> is an orthogonal <span class="process-math">\(2\times2\)</span> matrix, then <span class="process-math">\(\uvec_1\)</span> is a unit vector and has the form <span class="process-math">\(\uvec_1=\twovec{\cos\theta}{\sin\theta}\)</span> for some angle <span class="process-math">\(\theta\text{.}\)</span>  By the last part of this problem, there are only two choices for <span class="process-math">\(\uvec_2\text{,}\)</span> one of which gives a rotation and one of which gives a reflection.</div></li>
+</ol></div></div></div>
+</div></article></section></section></div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="sec-transpose.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-gram-schmidt.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
+</div>
+</body>
+</html>

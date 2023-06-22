@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<html lang="en-US">
+<head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>What can we expect</title>
+<meta name="Keywords" content="Authored in PreTeXt">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:type" content="book">
+<meta property="book:title" content="Understanding Linear Algebra">
+<meta property="book:author" content=" Randall Pruim ">
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)']],
+    tags: "none",
+    tagSide: "right",
+    tagIndent: ".8em",
+    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  },
+  options: {
+    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
+    processHtmlClass: "process-math",
+    renderActions: {
+        findScript: [10, function (doc) {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
+                var display = !!node.type.match(/; *mode=display/);
+                var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                var text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = {node: text, delim: '', n: 0};
+                math.end = {node: text, delim: '', n: 0};
+                doc.math.push(math);
+            });
+        }, '']
+    },
+  },
+  chtml: {
+    scale: 0.98,
+    mtextInheritFont: true
+  },
+  loader: {
+    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
+    paths: {pretext: "https://pretextbook.org/js/lib"},
+  },
+  startup: {
+    pageReady() {
+      return MathJax.startup.defaultPageReady().then(function () {
+      console.log("in ready function");
+      rsMathReady();
+      }
+    )}
+  },
+};
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+</script><link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/colors_blue_grey.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
+<!--** eBookCongig is necessary to configure interactive       **-->
+<!--** Runestone components to run locally in reader's browser **-->
+<!--** No external communication:                              **-->
+<!--**     log level is 0, Runestone Services are disabled     **-->
+<script type="text/javascript">
+eBookConfig = {};
+eBookConfig.useRunestoneServices = false;
+eBookConfig.host = 'http://127.0.0.1:8000';
+eBookConfig.course = 'PTX_Course_Title_Here';
+eBookConfig.basecourse = 'PTX_Base_Course';
+eBookConfig.isLoggedIn = false;
+eBookConfig.email = '';
+eBookConfig.isInstructor = false;
+eBookConfig.logLevel = 0;
+eBookConfig.username = '';
+eBookConfig.readings = null;
+eBookConfig.activities = null;
+eBookConfig.downloadsEnabled = false;
+eBookConfig.allow_pairs = false;
+eBookConfig.enableScratchAC = false;
+eBookConfig.build_info = "";
+eBookConfig.python3 = null;
+eBookConfig.runestone_version = '7.0.0dev3';
+eBookConfig.jobehost = '';
+eBookConfig.proxyuri_runs = '';
+eBookConfig.proxyuri_files = '';
+eBookConfig.enable_chatcodes =  false;
+</script>
+<!--*** Runestone Services ***-->
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runtime.71ffd81c0faeb38b.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.1f1f63d2cda36a4d.css">
+</head>
+<body class="pretext book ignore-math">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" href=""></a><div class="title-container">
+<h1 class="heading"><a href="ula.html"><span class="title">Understanding Linear Algebra:</span> <span class="subtitle">Data Science Edition</span></a></h1>
+<p class="byline">Randall Pruim</p>
+</div>
+<div id="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+</h2>
+<div id="searchempty"><span>No results.</span></div>
+<ol id="searchresults"></ol>
+</div>
+</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+<li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden avatar">
+<li data-val="You!" tabindex="-1">
+<span id="theYou!" class="avatarcheck">✔️</span>You!</li>
+<li data-val="😺" tabindex="-1">
+<span id="the😺" class="avatarcheck"></span>😺</li>
+<li data-val="👤" tabindex="-1">
+<span id="the👤" class="avatarcheck"></span>👤</li>
+<li data-val="👽" tabindex="-1">
+<span id="the👽" class="avatarcheck"></span>👽</li>
+<li data-val="🐶" tabindex="-1">
+<span id="the🐶" class="avatarcheck"></span>🐶</li>
+<li data-val="🐼" tabindex="-1">
+<span id="the🐼" class="avatarcheck"></span>🐼</li>
+<li data-val="🌈" tabindex="-1">
+<span id="the🌈" class="avatarcheck"></span>🌈</li>
+</ol>
+</li>
+<li data-env="fontfamily" tabindex="-1">Font family<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fontfamily">
+<li data-val="face" data-change="OS" tabindex="-1" style="font-family: 'Open Sans'">
+<span id="theOS" class="ffcheck">✔️</span><span class="name">Open Sans</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+<li data-val="face" data-change="RS" tabindex="-1" style="font-family: 'Roboto Serif'">
+<span id="theRS" class="ffcheck"></span><span class="name">Roboto Serif</span><span class="sample">AaBbCc 123 PreTeXt</span>
+</li>
+</ol>
+</li>
+<li data-env="font" tabindex="-1">Adjust font<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden fonts">
+<li>Size</li>
+<li><span id="thesize">12</span></li>
+<li data-val="size" data-change="-1" tabindex="-1" style="font-size: 80%">Smaller</li>
+<li data-val="size" data-change="1" tabindex="-1" style="font-size: 110%">Larger</li>
+<li>Width</li>
+<li><span id="thewdth">100</span></li>
+<li data-val="wdth" data-change="-5" tabindex="-1" style="font-variation-settings: 'wdth' 60">narrower</li>
+<li data-val="wdth" data-change="5" tabindex="-1" style="font-variation-settings: 'wdth' 150">wider</li>
+<li>Weight</li>
+<li><span id="thewght">400</span></li>
+<li data-val="wght" data-change="-50" tabindex="-1" style="font-weight: 200">thinner</li>
+<li data-val="wght" data-change="50" tabindex="-1" style="font-weight: 700">heavier</li>
+<li>Letter spacing</li>
+<li>
+<span id="thelspace">0</span><span class="byunits">/200</span>
+</li>
+<li data-val="lspace" data-change="-1" tabindex="-1">closer</li>
+<li data-val="lspace" data-change="1" tabindex="-1">f a r t h e r</li>
+<li>Word spacing</li>
+<li>
+<span id="thewspace">0</span><span class="byunits">/50</span>
+</li>
+<li data-val="wspace" data-change="-1" tabindex="-1">smaller gap </li>
+<li data-val="wspace" data-change="1" tabindex="-1">larger gap</li>
+<li>Line Spacing</li>
+<li>
+<span id="theheight">135</span><span class="byunits">/100</span>
+</li>
+<li data-val="height" data-change="-5" tabindex="-1" style="line-height: 1">closer<br>together</li>
+<li data-val="height" data-change="5" tabindex="-1" style="line-height: 1.75">further<br>apart</li>
+</ol>
+</li>
+<li data-env="atmosphere" tabindex="-1">Light/dark mode<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden atmosphere">
+<li data-val="default" tabindex="-1">
+<span id="thedefault" class="atmospherecheck">✔️</span>default</li>
+<li data-val="pastel" tabindex="-1">
+<span id="thepastel" class="atmospherecheck"></span>pastel</li>
+<li data-val="darktwilight" tabindex="-1">
+<span id="thedarktwilight" class="atmospherecheck"></span>twilight</li>
+<li data-val="dark" tabindex="-1">
+<span id="thedark" class="atmospherecheck"></span>dark</li>
+<li data-val="darkmidnight" tabindex="-1">
+<span id="thedarkmidnight" class="atmospherecheck"></span>midnight</li>
+</ol>
+</li>
+<li data-env="ruler" tabindex="-1">Reading ruler<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
+<ol class="hidden ruler">
+<li data-val="none" tabindex="-1">
+<span id="thenone" class="rulercheck">✔️</span>none</li>
+<li data-val="underline" tabindex="-1">
+<span id="theunderline" class="rulercheck"></span>underline</li>
+<li data-val="lunderline" tabindex="-1">
+<span id="thelunderline" class="rulercheck"></span>L-underline</li>
+<li data-val="greybar" tabindex="-1">
+<span id="thegreybar" class="rulercheck"></span>grey bar</li>
+<li data-val="lightbox" tabindex="-1">
+<span id="thelightbox" class="rulercheck"></span>light box</li>
+<li data-val="sunrise" tabindex="-1">
+<span id="thesunrise" class="rulercheck"></span>sunrise</li>
+<li data-val="sunriseunderline" tabindex="-1">
+<span id="thesunriseunderline" class="rulercheck"></span>sunrise underline</li>
+<li class="moveQ">Motion by:</li>
+<li data-val="mouse" tabindex="-1">
+<span id="themouse" class="motioncheck">✔️</span>follow the mouse</li>
+<li data-val="arrow" tabindex="-1">
+<span id="thearrow" class="motioncheck"></span>up/down arrows - not yet</li>
+<li data-val="eye" tabindex="-1">
+<span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
+</ol>
+</li>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="chap1.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="chap1.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="sec-finding-solutions.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchwrapper" role="search"><div class="gcse-search"></div></div>
+<div class="searchbox"><div class="searchwidget">
+<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+</div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\avec}{{\boldsymbol a}}
+\newcommand{\bvec}{{\boldsymbol b}}
+\newcommand{\cvec}{{\boldsymbol c}}
+\newcommand{\dvec}{{\boldsymbol d}}
+\newcommand{\dtil}{\widetilde{\boldsymbol d}}
+\newcommand{\evec}{{\boldsymbol e}}
+\newcommand{\fvec}{{\boldsymbol f}}
+\newcommand{\mvec}{{\boldsymbol m}}
+\newcommand{\nvec}{{\boldsymbol n}}
+\newcommand{\pvec}{{\boldsymbol p}}
+\newcommand{\qvec}{{\boldsymbol q}}
+\newcommand{\rvec}{{\boldsymbol r}}
+\newcommand{\svec}{{\boldsymbol s}}
+\newcommand{\tvec}{{\boldsymbol t}}
+\newcommand{\uvec}{{\boldsymbol u}}
+\newcommand{\vvec}{{\boldsymbol v}}
+\newcommand{\wvec}{{\boldsymbol w}}
+\newcommand{\xvec}{{\boldsymbol x}}
+\newcommand{\yvec}{{\boldsymbol y}}
+\newcommand{\zvec}{{\boldsymbol z}}
+\newcommand{\E}{\operatorname{E}}
+\newcommand{\zerovec}{{\boldsymbol 0}}
+\newcommand{\onevec}{{\boldsymbol 1}}
+\newcommand{\real}{{\mathbb R}}
+\newcommand{\twovec}[2]{\left[\begin{array}{r}#1 \\ #2
+\end{array}\right]}
+\newcommand{\ctwovec}[2]{\left[\begin{array}{c}#1 \\ #2
+\end{array}\right]}
+\newcommand{\threevec}[3]{\left[\begin{array}{r}#1 \\ #2 \\ #3
+\end{array}\right]}
+\newcommand{\cthreevec}[3]{\left[\begin{array}{c}#1 \\ #2 \\ #3
+\end{array}\right]}
+\newcommand{\fourvec}[4]{\left[\begin{array}{r}#1 \\ #2 \\ #3 \\ #4
+\end{array}\right]}
+\newcommand{\cfourvec}[4]{\left[\begin{array}{c}#1 \\ #2 \\ #3 \\ #4
+\end{array}\right]}
+\newcommand{\fivevec}[5]{\left[\begin{array}{r}#1 \\ #2 \\ #3 \\
+#4 \\ #5 \\ \end{array}\right]}
+\newcommand{\cfivevec}[5]{\left[\begin{array}{c}#1 \\ #2 \\ #3 \\
+#4 \\ #5 \\ \end{array}\right]}
+\newcommand{\mattwo}[4]{\left[\begin{array}{rr}#1 \amp #2 \\ #3 \amp #4 \\ \end{array}\right]}
+\newcommand{\laspan}[1]{\text{Span}\{#1\}}
+\newcommand{\bcal}{{\cal B}}
+\newcommand{\ccal}{{\cal C}}
+\newcommand{\scal}{{\cal S}}
+\newcommand{\wcal}{{\cal W}}
+\newcommand{\ecal}{{\cal E}}
+\newcommand{\coords}[2]{\left\{#1\right\}_{#2}}
+\newcommand{\gray}[1]{\color{gray}{#1}}
+\newcommand{\lgray}[1]{\color{lightgray}{#1}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\row}{\text{Row}}
+\newcommand{\col}{\text{Col}}
+\renewcommand{\row}{\text{Row}}
+\newcommand{\nul}{\text{Nul}}
+\newcommand{\var}{\text{Var}}
+\newcommand{\corr}{\text{corr}}
+\newcommand{\len}[1]{\left|#1\right|}
+\newcommand{\bbar}{\overline{\bvec}}
+\newcommand{\bhat}{\widehat{\bvec}}
+\newcommand{\bperp}{\bvec^\perp}
+\newcommand{\vhat}{\widehat{\vvec}}
+\newcommand{\uhat}{\widehat{\uvec}}
+\newcommand{\what}{\widehat{\wvec}}
+\newcommand{\xhat}{\widehat{\xvec}}
+\newcommand{\yhat}{\widehat{\yvec}}
+\newcommand{\Sighat}{\widehat{\Sigma}}
+\newcommand{\lt}{&lt;}
+\newcommand{\gt}{&gt;}
+\newcommand{\amp}{&amp;}
+\definecolor{fillinmathshade}{gray}{0.9}
+\newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
+\)</span></div>
+<div class="ptx-page">
+<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<li>
+<div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="colophon-1.html" class="internal"><span class="title">Colophon</span></a></div></li>
+<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Our goals</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap0.html" class="internal"><span class="codenumber">1</span> <span class="title">Scalars, Vectors and Matrices</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-vectors.html" class="internal"><span class="codenumber">1.1</span> <span class="title">Vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-vectors.html#subsection-1" class="internal"><span class="codenumber">1.1.1</span> <span class="title">Three ways to think about vectors</span></a></div></li>
+<li>
+<div class="toc-item"><a href="sec-vectors.html#subsection-2" class="internal"><span class="codenumber">1.1.2</span> <span class="title">Vector operations: scalar multiplication and vector addition.</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-vectors.html#subsubsec-scalar-multiplication" class="internal"><span class="codenumber">1.1.2.1</span> <span class="title">Scalar Multiplication</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors.html#subsubsec-vector-addition" class="internal"><span class="codenumber">1.1.2.2</span> <span class="title">Vector addition</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors.html#subsubsec-vector-properties" class="internal"><span class="codenumber">1.1.2.3</span> <span class="title">Mathematical properties of vector operations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors.html#subsubsection-4" class="internal"><span class="codenumber">1.1.2.4</span> <span class="title">Summary</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-vectors-in-python.html" class="internal"><span class="codenumber">1.2</span> <span class="title">Vectors in Python</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-vectors-in-python.html#subsec-intro-to-python" class="internal"><span class="codenumber">1.2.1</span> <span class="title">Introduction to Python</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors-in-python.html#subsec-numpy-vectors" class="internal"><span class="codenumber">1.2.2</span> <span class="title"><code class="code-inline tex2jax_ignore">numpy</code> vectors</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-linear-combos-of-vectors.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Linear combinations of vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-linear-combos-of-vectors.html#subsection-5" class="internal"><span class="codenumber">1.3.1</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-combos-of-vectors.html#exercises-1" class="internal"><span class="codenumber">1.3.2</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-matrices.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Matrices</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-matrices.html#subsec-matrices-and-their-uses" class="internal"><span class="codenumber">1.4.1</span> <span class="title">Matrices and their uses</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-7" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Scalar multiplication and addition of matrices</span></a></div></li>
+<li>
+<div class="toc-item"><a href="sec-matrices.html#subsection-8" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Matrix-vector multiplication and linear combinations</span></a></div>
+<ul class="structural"><li><div class="toc-item"><a href="sec-matrices.html#sec-matrices-in-python" class="internal"><span class="codenumber">1.4.3.1</span> <span class="title">Matrices in Python</span></a></div></li></ul>
+</li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-9" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Matrix-matrix products</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsec-special-matrices" class="internal"><span class="codenumber">1.4.5</span> <span class="title">Some special types of matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-11" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#exercises-2" class="internal"><span class="codenumber">1.4.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-tensors.html" class="internal"><span class="codenumber">1.5</span> <span class="title">Tensors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in np</span></a></div></li>
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-axes" class="internal"><span class="codenumber">1.5.2</span> <span class="title">Aggregation and Axes</span></a></div></li>
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-broadcasting" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Broadcasting</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap1.html" class="internal"><span class="codenumber">2</span> <span class="title">Systems of equations: Solving <span class="process-math">\(A \xvec = \bvec\)</span></span></a></div>
+<ul class="structural">
+<li class="active">
+<div class="toc-item"><a href="sec-expect.html" class="internal"><span class="codenumber">2.1</span> <span class="title">What can we expect</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-expect.html#subsection-15" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Some simple examples</span></a></div></li>
+<li><div class="toc-item"><a href="sec-expect.html#subsection-16" class="internal"><span class="codenumber">2.1.2</span> <span class="title">Systems of linear equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-expect.html#subsection-17" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Summary</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-finding-solutions.html" class="internal"><span class="codenumber">2.2</span> <span class="title">Finding solutions to linear systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-18" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Gaussian elimination</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-19" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Augmented matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-20" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Reduced row echelon form</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsec-solving-matrix-equations" class="internal"><span class="codenumber">2.2.4</span> <span class="title">Solving matrix equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-22" class="internal"><span class="codenumber">2.2.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#exercises-3" class="internal"><span class="codenumber">2.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-python-introduction.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Computational Linear Algebra</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-23" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Reduced row echelon form in Python</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsec-compute-effort" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Computational effort</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-25" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#exercises-4" class="internal"><span class="codenumber">2.3.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-pivots.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Pivots and their relationship to solution spaces</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-26" class="internal"><span class="codenumber">2.4.1</span> <span class="title">The existence of solutions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-27" class="internal"><span class="codenumber">2.4.2</span> <span class="title">The uniqueness of solutions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-28" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#exercises-5" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap2.html" class="internal"><span class="codenumber">3</span> <span class="title">Vectors, matrices, and linear combinations</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-span.html" class="internal"><span class="codenumber">3.1</span> <span class="title">The span of a set of vectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-span.html#subsection-29" class="internal"><span class="codenumber">3.1.1</span> <span class="title">The span of a set of vectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-30" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Pivot positions and span</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-31" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#exercises-6" class="internal"><span class="codenumber">3.1.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-linear-dep.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Linear independence</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-32" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Linear dependence</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-33" class="internal"><span class="codenumber">3.2.2</span> <span class="title">How to recognize linear dependence</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-34" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Homogeneous equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-35" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#exercises-7" class="internal"><span class="codenumber">3.2.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-linear-trans.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Matrix transformations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-36" class="internal"><span class="codenumber">3.3.1</span> <span class="title">Matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-37" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Composing matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsec-dynamical-systems" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Discrete Dynamical Systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-39" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#exercises-8" class="internal"><span class="codenumber">3.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-transforms-geom.html" class="internal"><span class="codenumber">3.4</span> <span class="title">The geometry of matrix transformations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-40" class="internal"><span class="codenumber">3.4.1</span> <span class="title">The geometry of <span class="process-math">\(2\times2\)</span> matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-41" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Matrix transformations and computer animation</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-42" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#exercises-9" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap3.html" class="internal"><span class="codenumber">4</span> <span class="title">Invertibility, bases, and coordinate systems</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-matrix-inverse.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Invertibility</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-43" class="internal"><span class="codenumber">4.1.1</span> <span class="title">Invertible matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-44" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Solving equations with an inverse</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-45" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#exercises-10" class="internal"><span class="codenumber">4.1.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="subsec-triangular-invertible.html" class="internal"><span class="codenumber">4.2</span> <span class="title">Triangular matrices and Gaussian elimination</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsec-triangular-matrices" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Triangular matrices</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsec-elementary-matrices" class="internal"><span class="codenumber">4.2.2</span> <span class="title">Elementary matrices</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsection-48" class="internal"><span class="codenumber">4.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#exercises-11" class="internal"><span class="codenumber">4.2.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-bases.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Bases and coordinate systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-bases.html#subsection-49" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Bases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-50" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Coordinate systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-51" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Examples of bases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-52" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#exercises-12" class="internal"><span class="codenumber">4.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-jpeg.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Image compression</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-53" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Color models</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-54" class="internal"><span class="codenumber">4.4.2</span> <span class="title">The JPEG compression algorithm</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-55" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#exercises-13" class="internal"><span class="codenumber">4.4.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-determinants.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Determinants</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-56" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Determinants of <span class="process-math">\(2\times2\)</span> matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-57" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Determinants and invertibility</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-58" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Cofactor expansions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-59" class="internal"><span class="codenumber">4.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#exercises-14" class="internal"><span class="codenumber">4.5.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-subspaces.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Subspaces</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-60" class="internal"><span class="codenumber">4.6.1</span> <span class="title">Subspaces</span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-61" class="internal"><span class="codenumber">4.6.2</span> <span class="title">The column space of <span class="process-math">\(A\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-62" class="internal"><span class="codenumber">4.6.3</span> <span class="title">The null space of <span class="process-math">\(A\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-63" class="internal"><span class="codenumber">4.6.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#exercises-15" class="internal"><span class="codenumber">4.6.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-gaussian-revisited.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Partial pivoting and LU factorizations</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsec-partial-pivot" class="internal"><span class="codenumber">4.7.1</span> <span class="title">Partial pivoting</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-65" class="internal"><span class="codenumber">4.7.2</span> <span class="title"><span class="process-math">\(LU\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-66" class="internal"><span class="codenumber">4.7.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#exercises-16" class="internal"><span class="codenumber">4.7.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap4.html" class="internal"><span class="codenumber">5</span> <span class="title">Eigenvalues and eigenvectors</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-eigen-intro.html" class="internal"><span class="codenumber">5.1</span> <span class="title">An introduction to eigenvalues and eigenvectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-67" class="internal"><span class="codenumber">5.1.1</span> <span class="title">A few examples</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsec-eigen-use" class="internal"><span class="codenumber">5.1.2</span> <span class="title">The usefulness of eigenvalues and eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-69" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#exercises-17" class="internal"><span class="codenumber">5.1.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-eigen-find.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Finding eigenvalues and eigenvectors</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-70" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The characteristic polynomial</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-71" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Finding eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-72" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The characteristic polynomial and the dimension of eigenspaces</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-73" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Using Sage to find eigenvalues and eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-74" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#exercises-18" class="internal"><span class="codenumber">5.2.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-eigen-diag.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Diagonalization, similarity, and powers of a matrix</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-75" class="internal"><span class="codenumber">5.3.1</span> <span class="title">Diagonalization of matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-76" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Powers of a diagonalizable matrix</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-77" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Similarity and complex eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-78" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#exercises-19" class="internal"><span class="codenumber">5.3.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-dynamical.html" class="internal"><span class="codenumber">5.4</span> <span class="title">Dynamical systems</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-79" class="internal"><span class="codenumber">5.4.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-80" class="internal"><span class="codenumber">5.4.2</span> <span class="title">Classifying dynamical systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-81" class="internal"><span class="codenumber">5.4.3</span> <span class="title">A <span class="process-math">\(3\times3\)</span> system</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-82" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#exercises-20" class="internal"><span class="codenumber">5.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-stochastic.html" class="internal"><span class="codenumber">5.5</span> <span class="title">Markov chains and Google’s PageRank algorithm</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-83" class="internal"><span class="codenumber">5.5.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-84" class="internal"><span class="codenumber">5.5.2</span> <span class="title">Markov chains</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsec-google" class="internal"><span class="codenumber">5.5.3</span> <span class="title">Google’s PageRank algorithm</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-86" class="internal"><span class="codenumber">5.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#exercises-21" class="internal"><span class="codenumber">5.5.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-power-method.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Finding eigenvectors numerically</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-87" class="internal"><span class="codenumber">5.6.1</span> <span class="title">The power method</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-88" class="internal"><span class="codenumber">5.6.2</span> <span class="title">Finding other eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-89" class="internal"><span class="codenumber">5.6.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#exercises-22" class="internal"><span class="codenumber">5.6.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap6.html" class="internal"><span class="codenumber">6</span> <span class="title">Orthogonality and Least Squares</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-dot-product.html" class="internal"><span class="codenumber">6.1</span> <span class="title">The dot product</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-90" class="internal"><span class="codenumber">6.1.1</span> <span class="title">The geometry of the dot product</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-91" class="internal"><span class="codenumber">6.1.2</span> <span class="title"><span class="process-math">\(k\)</span>-means clustering</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-92" class="internal"><span class="codenumber">6.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#exercises-23" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-transpose.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Orthogonal complements and the matrix transpose</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-93" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Orthogonal complements</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-94" class="internal"><span class="codenumber">6.2.2</span> <span class="title">The matrix transpose</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-95" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Properties of the matrix transpose</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-96" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#exercises-24" class="internal"><span class="codenumber">6.2.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-orthogonal-bases.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Orthogonal bases and projections</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-97" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Orthogonal sets</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-98" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Orthogonal projections</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-99" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#exercises-25" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-gram-schmidt.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Finding orthogonal bases</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-100" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Gram-Schmidt orthogonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-101" class="internal"><span class="codenumber">6.4.2</span> <span class="title"><span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-102" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#exercises-26" class="internal"><span class="codenumber">6.4.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Orthogonal least squares</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-103" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-104" class="internal"><span class="codenumber">6.5.2</span> <span class="title">Solving least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-105" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-106" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Polynomial Regression</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-107" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#exercises-27" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="chap7.html" class="internal"><span class="codenumber">7</span> <span class="title">The Spectral Theorem and singular value decompositions</span></a></div>
+<ul class="structural">
+<li>
+<div class="toc-item"><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-108" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-109" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-110" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#exercises-28" class="internal"><span class="codenumber">7.1.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Quadratic forms</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-111" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-112" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-113" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#exercises-29" class="internal"><span class="codenumber">7.2.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Principal Component Analysis</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-pca.html#subsection-114" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-115" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-116" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#exercises-30" class="internal"><span class="codenumber">7.3.4</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Singular Value Decompositions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-117" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-118" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-119" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-120" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#exercises-31" class="internal"><span class="codenumber">7.4.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Using Singular Value Decompositions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-121" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-122" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-123" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-124" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-125" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-126" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#exercises-32" class="internal"><span class="codenumber">7.5.7</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">A</span> <span class="title">Python Reference</span></a></div></li>
+<li><div class="toc-item"><a href="app-sage-experiments.html" class="internal"><span class="codenumber">B</span> <span class="title">Sage Experiments</span></a></div></li>
+<li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
+<li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
+</ul>
+</li>
+</ul></nav></div>
+<main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-expect"><h2 class="heading hide-type">
+<span class="type">Section</span> <span class="codenumber">2.1</span> <span class="title">What can we expect</span>
+</h2>
+<section class="introduction" id="introduction-7"><div class="para" id="p-587">At its heart, the subject of linear algebra is about linear equations and, more specifically, sets of two or more linear equations.  Google routinely deals with a set of trillions of equations each of which has trillions of unknowns. We will eventually understand how to deal with that kind of complexity.  To begin, however, we will look at a more familiar situation in which there are a small number of equations and a small number of unknowns.  In spite of its relative simplicity, this situation is rich enough to demonstrate some fundamental concepts that will motivate much of our exploration.</div></section><section class="subsection" id="subsection-15"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.1.1</span> <span class="title">Some simple examples</span>
+</h3>
+<article class="activity project-like" id="activity-7"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">2.1.1</span><span class="period">.</span>
+</h4>
+<div class="para" id="p-588">In this activity, we consider sets of linear equations having just two unknowns.  In this case, we can graph the solutions sets for the equations, which allows us to visualize different types of behavior.</div> <div class="para logical" id="p-589"><ol class="lower-alpha">
+<li id="li-378">
+<div class="para logical" id="p-590">
+<div class="para">On the grid below, graph the lines</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{aligned}
+y \amp = x+1 \\
+y \amp = 2x-1\text{.} \\
+\end{aligned}
+\end{equation*}
+</div>
+</div>
+<div class="para" id="p-591">At what point or points <span class="process-math">\((x,y)\text{,}\)</span> do the lines intersect?  How many points <span class="process-math">\((x,y)\)</span> satisfy both equations?</div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-4.svg" role="img" class="contained"></div></div></div>
+</li>
+<li id="li-379">
+<div class="para logical" id="p-592">
+<div class="para">On the grid below, graph the lines</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{aligned}
+y \amp = x+1 \\
+y \amp = x-1\text{.} \\
+\end{aligned}
+\end{equation*}
+</div>
+</div>
+<div class="para" id="p-593">At what point or points <span class="process-math">\((x,y)\text{,}\)</span> do the lines intersect?  How many points <span class="process-math">\((x,y)\)</span> satisfy both equations?</div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-4.svg" role="img" class="contained"></div></div></div>
+</li>
+<li id="li-380">
+<div class="para logical" id="p-594">
+<div class="para">On the grid below, graph the line</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = x+1\text{.}
+\end{equation*}
+</div>
+</div>
+<div class="para" id="p-595">How many points <span class="process-math">\((x,y)\)</span> satisfy this equation?</div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-4.svg" role="img" class="contained"></div></div></div>
+</li>
+<li id="li-381">
+<div class="para logical" id="p-596">
+<div class="para">On the grid below, graph the lines</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{aligned}
+y \amp = x+1 \\
+y \amp = 2x-1 \\
+y \amp = -x. \\
+\end{aligned}
+\end{equation*}
+</div>
+</div>
+<div class="para" id="p-597">At what point or points <span class="process-math">\((x,y)\text{,}\)</span> do the lines intersect?  How many points <span class="process-math">\((x,y)\)</span> satisfy all three equations?</div>
+<div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-4.svg" role="img" class="contained"></div></div></div>
+</li>
+</ol></div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-29" id="answer-29"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-29"><div class="answer solution-like"><div class="para logical" id="p-603"><ol class="lower-alpha">
+<li id="li-386"><div class="para" id="p-604">This is exactly one point, the point <span class="process-math">\((2,3)\text{,}\)</span> that satisfies both equations.</div></li>
+<li id="li-387"><div class="para" id="p-605">There are no points that satisfy both equations.</div></li>
+<li id="li-388"><div class="para" id="p-606">There are infinitely many points.</div></li>
+<li id="li-389"><div class="para" id="p-607">There are no points that satisfy all three equations.</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original has-image" data-refid="hk-solution-30" id="solution-30"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-30"><div class="solution solution-like"><div class="para logical" id="p-598"><ol class="lower-alpha">
+<li id="li-382"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:50%;"><div class="para" id="p-599">The graph of the two lines is as shown on the right. There is a single point, the point <span class="process-math">\((2,3)\text{,}\)</span> at which the lines intersect.  Therefore, there is a single point that satisfies both equations.</div></div>
+<div class="sbspanel top" style="width:40%;"><img src="external/images/intro-two.svg" role="img" class="contained"></div>
+</div></div></li>
+<li id="li-383"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:50%;"><div class="para" id="p-600">These two lines are parallel, which means there is no point at which the lines intersect.  Therefore, there is no point that satisfies both equations.</div></div>
+<div class="sbspanel top" style="width:40%;"><img src="external/images/intro-parallel.svg" role="img" class="contained"></div>
+</div></div></li>
+<li id="li-384"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:50%;"><div class="para" id="p-601">There are infinitely many points that lie on this line and that, therefore, satisfy this single equation.</div></div>
+<div class="sbspanel top" style="width:40%;"><img src="external/images/intro-single.svg" role="img" class="contained"></div>
+</div></div></li>
+<li id="li-385"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:50%;"><div class="para" id="p-602">These three lines do not have a common intersection point.  Consequently, there is no point satisfying all three equations.</div></div>
+<div class="sbspanel top" style="width:40%;"><img src="external/images/intro-three.svg" role="img" class="contained"></div>
+</div></div></li>
+</ol></div></div></div>
+</div></article><div class="para" id="p-608">The examples in this introductory activity demonstrate several possible outcomes for the solutions to a set of linear equations.  Notice that we are interested in points that satisfy each equation in the set and that these are seen as intersection points of the lines.  Similar to the examples considered in the activity, three types of outcomes are seen in <a href="" class="xref" data-knowl="./knowl/fig-three-possibilities.html" title="Figure 2.1.1">Figure 2.1.1</a>.</div>
+<figure class="figure figure-like" id="fig-three-possibilities"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/three-possibilities-2.svg" role="img" class="contained"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.1<span class="period">.</span></span><span class="space"> </span>Three possible graphs for sets of linear equations in two unknowns.</figcaption></figure><div class="para" id="p-609">In this figure, we see that</div>
+<ul class="disc">
+<li id="li-390"><div class="para" id="p-derived-li-390">With a single equation, there are infinitely many points <span class="process-math">\((x,y)\)</span> satisfying that equation.</div></li>
+<li id="li-391"><div class="para" id="p-derived-li-391">Adding a second equation adds another condition we place on the points <span class="process-math">\((x,y)\)</span> resulting in a single point that satisfies both equations.</div></li>
+<li id="li-392"><div class="para" id="p-derived-li-392">Adding a third equation adds a third condition on the points <span class="process-math">\((x,y)\text{,}\)</span> and there is no point that satisfies all three equations.</div></li>
+</ul>
+<div class="para" id="p-610">Generally speaking, a single equation will have many solutions, in fact, infinitely many.  As we add equations, we add conditions which lead, in a sense we will make precise later, to a smaller number of solutions.  Eventually, we have too many equations and find there are no points that satisfy all of them.</div>
+<div class="para" id="p-611">This example illustrates a general principle to which we will frequently return.</div>
+<article class="assemblage assemblage-like" id="solution-possibilities"><h4 class="heading"><span class="title">Solutions to sets of linear equations.</span></h4>
+<div class="para logical" id="p-612">
+<div class="para">Given a set of linear equations, there are either:</div>
+<ul class="disc">
+<li id="li-393"><div class="para" id="p-613">infinitely many points,</div></li>
+<li id="li-394"><div class="para" id="p-614">exactly one point, or</div></li>
+<li id="li-395"><div class="para" id="p-615">no points</div></li>
+</ul>
+<div class="para">that satisfy every equation in the set.</div>
+</div></article><div class="para logical" id="p-616">
+<div class="para">Notice that we can see a bit more.  In <a href="" class="xref" data-knowl="./knowl/fig-three-possibilities.html" title="Figure 2.1.1">Figure 2.1.1</a>, we are looking at equations in two unknowns.  Here we see that</div>
+<ul class="disc">
+<li id="li-396"><div class="para" id="p-617">One equation has infinitely solutions.</div></li>
+<li id="li-397"><div class="para" id="p-618">Two equations have exactly one solution.</div></li>
+<li id="li-398"><div class="para" id="p-619">Three equations have no solutions.</div></li>
+</ul>
+</div>
+<div class="para" id="p-620">It seems reasonable to wonder if the number of solutions depends on whether the number of equations is less than, equal to, or greater than the number of unknowns.  Of course, one of the examples in the activity shows that there are exceptions to this simple rule, as seen in <a href="" class="xref" data-knowl="./knowl/solution-exceptions.html" title="Figure 2.1.2">Figure 2.1.2</a>.  For instance, two equations in two unknowns may correspond to parallel lines so that the set of equations has no solutions. It may also happen that a set of three equations in two unknowns has a single solution.  However, it seems safe to think that the more equations we have, the smaller the set of solutions will be.</div>
+<figure class="figure figure-like" id="solution-exceptions"><div class="sidebyside"><div class="sbsrow" style="margin-left:8%;margin-right:8%;">
+<div class="sbspanel top" style="width:47.6190476190476%;"><img src="external/images/intro-parallel.svg" role="img" class="contained"></div>
+<div class="sbspanel top" style="width:47.6190476190476%;"><img src="external/images/intro-coincident.svg" role="img" class="contained"></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.2<span class="period">.</span></span><span class="space"> </span>A set of two equations in two unknowns can have no solutions, and a set of three equations can have one solution.</figcaption></figure><div class="para" id="p-621">Let’s also consider some examples of equations having three unknowns, which we call <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\text{.}\)</span>  Just as solutions to linear equations in two unknowns formed straight lines, solutions to linear equations in three unknowns form planes.</div>
+<div class="para" id="p-622">When we consider an equation in three unknowns graphically, we need to add a third coordinate axis, as shown in <a href="" class="xref" data-knowl="./knowl/fig-coordinates.html" title="Figure 2.1.3">Figure 2.1.3</a>.</div>
+<figure class="figure figure-like" id="fig-coordinates"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;">
+<div class="sbspanel top" style="width:44.4444444444444%;"><img src="external/images/coordinates-2d.svg" role="img" class="contained"></div>
+<div class="sbspanel top" style="width:44.4444444444444%;"><img src="external/images/coordinates-3d.svg" role="img" class="contained"></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.3<span class="period">.</span></span><span class="space"> </span>Coordinate systems in two and three dimensions.</figcaption></figure><div class="para" id="p-623">As shown in <a href="" class="xref" data-knowl="./knowl/fig-plane-z0.html" title="Figure 2.1.4">Figure 2.1.4</a>, a linear equation in two unknowns, such as <span class="process-math">\(y=0\text{,}\)</span> is a line while a linear equation in three unknowns, such as <span class="process-math">\(z=0\text{,}\)</span> is a plane.</div>
+<figure class="figure figure-like" id="fig-plane-z0"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;">
+<div class="sbspanel top" style="width:44.4444444444444%;"><img src="external/images/2dy0.svg" role="img" class="contained"></div>
+<div class="sbspanel top" style="width:44.4444444444444%;"><img src="external/images/3dz0.svg" role="img" class="contained"></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.4<span class="period">.</span></span><span class="space"> </span>The solutions to the equation <span class="process-math">\(y=0\)</span> in two dimensions and <span class="process-math">\(z=0\)</span> in three.</figcaption></figure><div class="para" id="p-624">In three unknowns, the set of solutions to one linear equation forms a plane.  The set of solutions to a pair of linear equations is seen graphically as the intersection of the two planes.  As in <a href="" class="xref" data-knowl="./knowl/fig-two-planes.html" title="Figure 2.1.5">Figure 2.1.5</a>, we typically expect this intersection to be a line.</div>
+<figure class="figure figure-like" id="fig-two-planes"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:50%;"><img src="external/images/plane-simple.svg" role="img" class="contained"></div>
+<div class="sbspanel top" style="width:50%;"><img src="external/images/plane-int-1.svg" role="img" class="contained"></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.5<span class="period">.</span></span><span class="space"> </span>A single plane and the intersection of two planes.</figcaption></figure><div class="para" id="p-625">When we add a third equation, we are looking for the intersection of three planes, which we expect to form a point, as in the left of <a href="" class="xref" data-knowl="./knowl/fig-three-planes.html" title="Figure 2.1.6">Figure 2.1.6</a>.  However, in certain special cases, it may happen that there are no solutions, as seen on the right.</div>
+<figure class="figure figure-like" id="fig-three-planes"><div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel top" style="width:50%;"><img src="external/images/plane-int-2.svg" role="img" class="contained"></div>
+<div class="sbspanel top" style="width:50%;"><img src="external/images/plane-int-3.svg" role="img" class="contained"></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">2.1.6<span class="period">.</span></span><span class="space"> </span>Two examples showing the intersections of three planes.</figcaption></figure><article class="activity project-like" id="activity-8"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">2.1.2</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-626">
+<div class="para">This activity considers sets of equations having three unknowns.  In this case, we know that the solutions of a single equation form a plane.  If it helps with visualization, consider using <span class="process-math">\(3\times5\)</span>-inch index cards to represent planes.</div>
+<ol class="lower-alpha">
+<li id="li-399"><div class="para" id="p-627">Is it possible that there are no solutions to two linear equations in three unknowns?  Either sketch an example or state a reason why it can’t happen.</div></li>
+<li id="li-400"><div class="para" id="p-628">Is it possible that there is exactly one solution to two linear equations in three unknowns?  Either sketch an example or state a reason why it can’t happen.</div></li>
+<li id="li-401"><div class="para" id="p-629">Is it possible that the solutions to four equations in three unknowns form a line?  Either sketch an example or state a reason why it can’t happen.</div></li>
+<li id="li-402"><div class="para" id="p-630">What would you usually expect for the set of solutions to four equations in three unknowns?</div></li>
+<li id="li-403"><div class="para" id="p-631">Suppose we have a set of 500 linear equations in 10 unknowns.  Which of the <a href="" class="xref" data-knowl="./knowl/solution-possibilities.html" title="Assemblage: Solutions to sets of linear equations">three possibilities</a> would you expect to hold?</div></li>
+<li id="li-404"><div class="para" id="p-632">Suppose we have a set of 10 linear equations in 500 unknowns.  Which of the three possibilities would you expect to hold?</div></li>
+</ol>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-30" id="answer-30"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-30"><div class="answer solution-like"><div class="para logical" id="p-640"><ol class="lower-alpha">
+<li id="li-411"><div class="para" id="p-641">Yes.</div></li>
+<li id="li-412"><div class="para" id="p-642">No.</div></li>
+<li id="li-413"><div class="para" id="p-643">Yes.</div></li>
+<li id="li-414"><div class="para" id="p-644">We would expect there to be no solutions.</div></li>
+<li id="li-415"><div class="para" id="p-645">We would expect there to be no solutions.</div></li>
+<li id="li-416"><div class="para" id="p-646">We would expect there to be infinitely many solutions.</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-31" id="solution-31"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-31"><div class="solution solution-like"><div class="para logical" id="p-633"><ol class="lower-alpha">
+<li id="li-405"><div class="para" id="p-634">Yes, it is possible if the two planes are parallel to one another.</div></li>
+<li id="li-406"><div class="para" id="p-635">No, this is not possible.  Two planes will either intersect in a line, if they are not parallel, or not intersect at all, if they are parallel.</div></li>
+<li id="li-407"><div class="para" id="p-636">Yes, it is possible that four planes intersect in a line.  One may sketch four planes that intersect in, say, the <span class="process-math">\(z\)</span>-axis.</div></li>
+<li id="li-408"><div class="para" id="p-637">In general, we would expect there to be no solutions to four equations in three unknowns because there are more equations than unknowns.</div></li>
+<li id="li-409"><div class="para" id="p-638">Since there are more equations than unknowns, we would expect there to be no solutions.  We cannot guarantee this, however.</div></li>
+<li id="li-410"><div class="para" id="p-639">Since there are fewer equations than unknowns, we would expect there to be infinitely many solutions.  We cannot guarantee this, however.</div></li>
+</ol></div></div></div>
+</div></article></section><section class="subsection" id="subsection-16"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.1.2</span> <span class="title">Systems of linear equations</span>
+</h3>
+<div class="para" id="p-647">Now that we have seen some simple examples, let’s agree on some terminology to help us think more precisely about sets of equations.</div>
+<div class="para logical" id="p-648">
+<div class="para">First, we considered a linear equation having the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+y = 2x - 1\text{.}
+\end{equation*}
+</div>
+<div class="para">It will be convenient for us to rewrite this so that all the unknowns are on one side of the equation:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+-2x + y = -1\text{.}
+\end{equation*}
+</div>
+<div class="para">More generally, the equation of a line can always be expressed in the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+ax + by = c,
+\end{equation*}
+</div>
+<div class="para">which gives us the flexibility to describe all lines.  For instance, vertical lines, such as <span class="process-math">\(x=3\text{,}\)</span> may be represented in this form.</div>
+</div>
+<div class="para" id="p-649">Notice that each term on the left is the product of a constant and the first power of an unknown.  In the future, we will want to consider equations having many more unknowns, which we will sometimes denote as <span class="process-math">\(x_1, x_2, \ldots, x_n\text{.}\)</span>  This leads to the following definition:</div>
+<article class="definition definition-like" id="definition-4"><h4 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">2.1.7</span><span class="period">.</span>
+</h4>
+<div class="para logical" id="p-650">
+<div class="para"> A linear equation in the unknowns <span class="process-math">\(x_1,x_2,\ldots,x_n\)</span> may be written in the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+a_1x_1 + a_2x_2 + \ldots + a_nx_n = b\text{,}
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(a_1,a_2,\ldots,a_n\)</span> are real numbers known as <em class="emphasis">coefficients</em>.  We also say that <span class="process-math">\(x_1,x_2,\ldots,x_n\)</span> are the <em class="emphasis">variables</em> in the equation.</div>
+</div> <div class="para" id="p-651">By a <dfn class="terminology">system of linear equations</dfn> or a  <dfn class="terminology">linear system</dfn>, we mean a set of linear equations written in a common set of unknowns.</div></article><div class="para logical" id="p-652">
+<div class="para">For instance,</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{4}
+2x_1 \amp {} + \amp {} 1.2x_2 \amp {}-{} \amp 4x_3 \amp {}={}
+\amp 3.7 \\
+-0.1x_1 \amp {} \amp {}  \amp {}  + {} \amp x_3 \amp {}={}
+\amp 2 \\
+x_1 \amp {}+{} \amp x_2 \amp {}-{} \amp x_3 \amp {}={} \amp
+1.4 \\
+\end{alignedat}
+\end{equation*}
+</div>
+<div class="para">is an example of a linear system.</div>
+</div>
+<article class="definition definition-like" id="definition-5"><h4 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">2.1.8</span><span class="period">.</span>
+</h4>
+<div class="para" id="p-653"> A <dfn class="terminology">solution</dfn> to a linear system is simply a set of numbers <span class="process-math">\(x_1 = s_1, x_2 = s_2, \ldots, x_n=s_n\)</span> that satisfy all the equations in the system.</div></article><div class="para logical" id="p-654">
+<div class="para">For instance, we earlier considered the linear system</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{3}
+-x \amp {}+{} \amp y \amp {} = {} \amp 1 \\
+-2x \amp {}+{} \amp y \amp {} = {} \amp -1. \\
+\end{alignedat}
+\end{equation*}
+</div>
+<div class="para">To check that <span class="process-math">\((x,y) = (2,3)\)</span> is a solution, we verify that the following equations are true.</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{3}
+-2 \amp {}+{} \amp 3 \amp {} = {} \amp 1 \\
+-2(2) \amp {}+{} \amp 3 \amp {} = {} \amp -1. \\
+\end{alignedat}
+\end{equation*}
+</div>
+</div>
+<article class="definition definition-like" id="definition-6"><h4 class="heading">
+<span class="type">Definition</span><span class="space"> </span><span class="codenumber">2.1.9</span><span class="period">.</span>
+</h4>
+<div class="para" id="p-655"> We call the set of all solutions the <dfn class="terminology">solution space</dfn> of the linear system.</div></article><article class="activity project-like" id="activity-9"><h4 class="heading">
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">2.1.3</span><span class="period">.</span><span class="space"> </span><span class="title">Linear equations and their solutions.</span>
+</h4>
+<div class="para logical" id="p-656"><ol class="lower-alpha">
+<li id="li-417"><div class="para logical" id="p-657">
+<div class="para">Which of the following equations are linear?  Please provide a justification for your response.</div>
+<ol class="decimal">
+<li id="li-418"><div class="para logical" id="p-658"><div class="displaymath process-math">
+\begin{equation*}
+2x + xy -3y^2 = 2 \text{.}
+\end{equation*}
+</div></div></li>
+<li id="li-419"><div class="para logical" id="p-659"><div class="displaymath process-math">
+\begin{equation*}
+-2x_1 + 3x_2 +4x_3 - x_5 = 0 \text{.}
+\end{equation*}
+</div></div></li>
+<li id="li-420"><div class="para logical" id="p-660"><div class="displaymath process-math">
+\begin{equation*}
+x = 3z - 4y \text{.}
+\end{equation*}
+</div></div></li>
+</ol>
+</div></li>
+<li id="li-421"><div class="para logical" id="p-661">
+<div class="para">Consider the system of linear equations:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{4}
+x \amp {}+{} \amp y \amp \amp \amp {}={}
+\amp 3 \\
+\amp \amp y  \amp {}-{} \amp z \amp {}={}
+\amp 2 \\
+2x \amp {}+{} \amp y \amp {}+{} \amp z \amp {}={} \amp
+4. \\
+\end{alignedat}
+\end{equation*}
+</div>
+<ol class="decimal">
+<li id="li-422"><div class="para" id="p-662">Is <span class="process-math">\((x,y,z) = (1,2,0)\)</span> a solution?</div></li>
+<li id="li-423"><div class="para" id="p-663">Is <span class="process-math">\((x,y,z) = (-2,1,0)\)</span> a solution?</div></li>
+<li id="li-424"><div class="para" id="p-664">Is <span class="process-math">\((x,y,z) = (0,-3,1)\)</span> a solution?</div></li>
+<li id="li-425"><div class="para" id="p-665">Can you find a solution in which <span class="process-math">\(y = 0\text{?}\)</span>
+</div></li>
+<li id="li-426"><div class="para" id="p-666">Do you think there are other solutions? Please explain your response.</div></li>
+</ol>
+</div></li>
+</ol></div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-31" id="answer-31"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-31"><div class="answer solution-like"><div class="para logical" id="p-678"><ol class="lower-alpha">
+<li id="li-437"><div class="para logical" id="p-679">
+<div class="para">There are two linear equations in this list.</div>
+<ol class="decimal">
+<li id="li-438"><div class="para" id="p-680">This is not a linear equation.</div></li>
+<li id="li-439"><div class="para" id="p-681">This is a linear equation.</div></li>
+<li id="li-440"><div class="para" id="p-682">This is a linear equation.</div></li>
+</ol>
+</div></li>
+<li id="li-441"><div class="para logical" id="p-683">
+<div class="para">We will see that the system of linear equations has infinitely many solutions.</div>
+<ol class="decimal">
+<li id="li-442"><div class="para" id="p-684">This is a solution.</div></li>
+<li id="li-443"><div class="para" id="p-685">This is a not solution.</div></li>
+<li id="li-444"><div class="para" id="p-686">This is a not solution.</div></li>
+<li id="li-445"><div class="para" id="p-687">Yes, <span class="process-math">\((x,y,z) = (3,0,-2)\)</span> is a solution.</div></li>
+<li id="li-446"><div class="para" id="p-688">Yes, because there should be infinitely many solutions.</div></li>
+</ol>
+</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-32" id="solution-32"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-32"><div class="solution solution-like"><div class="para logical" id="p-667"><ol class="lower-alpha">
+<li id="li-427"><div class="para logical" id="p-668">
+<div class="para">There are two linear equations in this list.</div>
+<ol class="decimal">
+<li id="li-428"><div class="para" id="p-669">This is not a linear equation due to the presence of <span class="process-math">\(y^2\)</span> in the third term on the left.</div></li>
+<li id="li-429"><div class="para" id="p-670">This is a linear equation.</div></li>
+<li id="li-430"><div class="para" id="p-671">This is a linear equation since it can be rewritten in the form <span class="process-math">\(x + 4y - 3z = 0\text{.}\)</span>
+</div></li>
+</ol>
+</div></li>
+<li id="li-431"><div class="para logical" id="p-672">
+<div class="para">We will see that the system of linear equations has infinitely many solutions.</div>
+<ol class="decimal">
+<li id="li-432"><div class="para" id="p-673">Yes, this is a solution since all three equations are satisfied if we set <span class="process-math">\(x=1\text{,}\)</span> <span class="process-math">\(y=2\text{,}\)</span> and <span class="process-math">\(z=0\text{.}\)</span>
+</div></li>
+<li id="li-433"><div class="para" id="p-674">No, this is not a solution since the first equation is not satisfied if <span class="process-math">\(x=-2\)</span> and <span class="process-math">\(y=1\text{.}\)</span>
+</div></li>
+<li id="li-434"><div class="para" id="p-675">This is also not a solution.</div></li>
+<li id="li-435"><div class="para logical" id="p-676">
+<div class="para">If <span class="process-math">\(y=0\text{,}\)</span> then we arrive at the system of three linear equations:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{4}
+x \amp \amp \amp {}={}
+\amp 3 \\
+\amp {}-{} \amp z \amp {}={}
+\amp 2 \\
+2x \amp {}+{} \amp z \amp {}={} \amp
+4. \\
+\end{alignedat}
+\end{equation*}
+</div>
+<div class="para">We have a solution when <span class="process-math">\(x=3\)</span> and <span class="process-math">\(z=-2\text{.}\)</span> Therefore, <span class="process-math">\((x,y,z)=(3,0,-2)\)</span> is a solution to the original system of equations.</div>
+</div></li>
+<li id="li-436"><div class="para" id="p-677">Since we have found two solutions to the system of equations, we should expect that there are infinitely many.  Therefore, there should be many other solutions.</div></li>
+</ol>
+</div></li>
+</ol></div></div></div>
+</div></article></section><section class="subsection" id="subsection-17"><h3 class="heading hide-type">
+<span class="type">Subsection</span> <span class="codenumber">2.1.3</span> <span class="title">Summary</span>
+</h3>
+<div class="para" id="p-689">The point of this section is to build some intuition about the behavior of solutions to linear systems through consideration of some simple examples.  We will develop a deeper and more precise understanding of these phenomena in our future explorations.</div>
+<div class="para logical" id="p-690"><ul class="disc">
+<li id="li-447"><div class="para logical" id="p-691">
+<div class="para">A linear equation is one that may be written in the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+a_1x_1 + a_2x_2 + \ldots + a_nx_n = b\text{.}
+\end{equation*}
+</div>
+</div></li>
+<li id="li-448"><div class="para" id="p-692">A linear system is a set of linear equations and a solution is a set of values assigned to the unknowns that make each equation true.</div></li>
+<li id="li-449"><div class="para" id="p-693">We came to expect that a linear system has either infinitely many solutions, exactly one solution, or no solutions.</div></li>
+<li id="li-450"><div class="para" id="p-694">When we add more equations to a system, the solution space usually seems to become smaller.</div></li>
+</ul></div></section></section></div>
+<div class="ptx-content-footer">
+<a class="previous-button button" href="chap1.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-finding-solutions.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+</div></main>
+</div>
+<div id="ptx-page-footer">
+<a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
+</div>
+</body>
+</html>

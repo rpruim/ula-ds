@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
+</script>
+</head>
+<body class="ignore-math">
+<article class="li"><h2 class="heading"><span class="title">Multiplication</span></h2>
+<div class="para">From a mathematical perspecitve, the <code class="code-inline tex2jax_ignore">*</code> operator performs scalar multiplication of vectors and matrices. <pre class="ptx-sagecell sagecell-python" id="sage-308"><script type="text/x-sage"></script></pre>
+</div>
+<div class="para">Computationally, numpy is using something called <dfn class="terminology">broadcasting</dfn>, which is more general than scalar multiplication. When two numpy arrays have different shapes, numpy starts from the end of the shape tuples and compares their values.  If they match, that’s good.  But it is also OK if one of them is 1 (or non-existant, which amounts to nearly the samething) and the other is not.  In this case, we can imagine duplicating the array with 1 in that dimension to fill out its shape to match the other. (Numpy does not actually do this duplication, since that would be ineffcient, but it is a good mental model for how the operation behaves.) Working from back to front, each axis is considered, and in the end, if the shapes are compatible, they can be treated as if they had the same shape.  At that point, the opreation proceeds element by element in the expanded arrays.</div>
+<div class="para">You can find out much more about broadcasting at <a class="external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html" target="_blank"><code class="code-inline tex2jax_ignore">https://numpy.org/doc/stable/user/basics.broadcasting.html</code></a>.</div>
+<div class="para">Broadcasting means that <code class="code-inline tex2jax_ignore">*</code> cannot be used for for matrix-vector and matrix-matrix multiplication in the linear algebra sense.  Instead we use <code class="code-inline tex2jax_ignore">@</code>. <pre class="ptx-sagecell sagecell-python" id="sage-309"><script type="text/x-sage"></script></pre>
+</div></article><span class="incontext"><a href="app-python-reference.html#li-5925" class="internal">in-context</a></span>
+</body>
+</html>
