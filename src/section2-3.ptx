@@ -32,7 +32,7 @@
 
       </ul>
       In this section, we focus on the existence question and
-      see how it leads to the concept of the <em>span</em> of a set of
+      see how it leads to the concept of the <term>span</term> of a set of
       vectors. 
     </p>
 
@@ -59,15 +59,18 @@
 	  </me>.
 	  If <m>\bvec=\threevec{2}{2}{5}</m>, is the equation
 	  <m>A\xvec = \bvec</m> consistent?  If so, find a solution.
-	  <sage>
+	  <sage language="python">
 	    <input>
+import numpy as np 
+A = np.array([[1, 0 ,-2], [-2, 2, 2], [1, 1, -3]])
+b = np.array([2, 2, 5])
 	    </input>
 	  </sage>
 	</p></li>
 
 	<li> <p> If <m>\bvec=\threevec{2}{2}{6}</m>, is the equation
 	<m>A\xvec = \bvec</m> consistent?  If so, find a solution.
-	<sage>
+	<sage language="python">
 	  <input>
 	  </input>
 	</sage>
@@ -166,7 +169,7 @@
     matrix <m>A</m> and found that the equation <m>A\xvec = \bvec</m>
     has a solution for some vectors <m>\bvec</m> in <m>\real^3</m> and
     has no solution for others.  We will introduce a concept called
-    <em>span</em> that describes the vectors <m>\bvec</m> for which
+    <term>span</term> that describes the vectors <m>\bvec</m> for which
     there is a solution.
     </p>
 
@@ -214,6 +217,33 @@
 	</p>
 
 	<p>
+		Equivalently, since 
+		<me>
+			\begin{bmatrix}
+			  -2 \amp 8 \\
+			   1 \amp -4 \\ 
+			\end{bmatrix}
+			\twovec{3}{1} = \twovec{2}{-1}
+		</me>
+		we know that <me>\bvec = \twovec 52 </me> is in the span of  
+		<m>\vvec</m> and <m>\wvec</m>:
+
+		<sage language="python">
+			<input>
+import numpy as np
+v = np.array([-2, 1])
+w = np.array([8, -4])
+A = np.column_stack((v,w))
+print(A)
+x = np.array([3, 1])
+print(A @ x)
+			</input>
+			<output>
+			</output>
+		</sage>
+	</p>
+
+	<p>
 	  To determine whether the vector <m>\bvec=\twovec{5}{2}</m>
 	  is in the span of <m>\vvec</m> and <m>\wvec</m>, we form the
 	  matrix
@@ -224,7 +254,23 @@
 	    1 \amp -4 \\
 	    \end{bmatrix}
 	  </me>
-	  and consider the equation <m>A\xvec=\bvec</m>.  We have
+	  and consider the equation <m>A\xvec=\bvec</m>.  
+	  <sage language="python">
+		<input>
+import numpy as np
+import sympy as sp
+v = np.array([-2,  1])
+w = np.array([ 8, -4])
+b = np.array([ 5,  2])
+A = np.column_stack((v, w, b))
+print(A)
+print(sp.Matrix(A).rref())
+		</input>
+		<output>
+		</output>
+	  </sage>
+	  
+	  We have
 	  <me>
 	    \left[
 	    \begin{array}{rr|r}
@@ -570,7 +616,7 @@
 	  The figure shows us that <m>\bvec = \vvec + 2\wvec =
 	  \twovec02</m> is a linear combination of <m>\vvec</m> and
 	  <m>\wvec</m>.  Indeed, we can verify this algebraically by
-	  constructing the linear system
+	  solving the matrix equation
 	  <me>
 	    \begin{bmatrix}\vvec \amp \wvec \end{bmatrix} ~
 	    \xvec = \twovec02,
@@ -594,7 +640,8 @@
 	  </me>
 	  Because this system is consistent, we know that
 	  <m>\bvec=\twovec02</m> is in the span of <m>\vvec</m> and
-	  <m>\wvec</m>.
+	  <m>\wvec</m>.  The solution <m>\xvec = \twovec12</m> provides 
+	  the weights.
 	</p>
 	<p>
 	  In fact, we can say more.  Notice that the coefficient
@@ -771,7 +818,7 @@
     <p>
       A set of vectors <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> naturally
       defines a matrix <m>A =
-      \begin{bmatrix}\vvec_1\amp\vvec_2\amp\cdots\vvec_n\end{bmatrix}
+      \begin{bmatrix}\vvec_1\amp\vvec_2\amp \cdots \amp \vvec_n\end{bmatrix}
       </m> whose columns are the given vectors.  As we've seen, a
       vector <m>\bvec</m> is in
       <m>\laspan{\vvec_1,\vvec_2,\ldots,\vvec_n}</m> precisely when
@@ -867,7 +914,7 @@
 	    <li> <p> Is the vector <m>\bvec=\threevec{1}{-2}{4}</m> in
 	    <m>\laspan{\vvec_1,\vvec_2}</m>?
 
-	    <sage>
+	    <sage language="python">
 	      <input>
 	      </input>
 	    </sage>
@@ -875,7 +922,7 @@
 
 	    <li> <p> Is the vector <m>\bvec=\threevec{-2}{0}{3}</m> in
 	    <m>\laspan{\vvec_1,\vvec_2}</m>?
-	    <sage>
+	    <sage language="python">
 	      <input>
 	      </input>
 	    </sage>
@@ -897,7 +944,7 @@
 	  Form the matrix <m>\left[\begin{array}{rrrr} \vvec_1 \amp \vvec_2
 	  \amp \vvec_3 \end{array}\right]</m> and find its reduced row
 	  echelon form.
-	    <sage>
+	    <sage language="python">
 	      <input>
 	      </input>
 	    </sage>
