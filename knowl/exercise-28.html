@@ -9,62 +9,99 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
+</script>
 </head>
 <body class="ignore-math">
 <article class="exercise exercise-like"><h4 class="heading">
-<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">2<span class="period">.</span></span>
+<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">6<span class="period">.</span></span>
 </h4>
-<div class="para logical">
-<div class="para">Consider each matrix below and determine if it is in reduced row echelon form.  If not, indicate the reason and apply a sequence of row operations to find its reduced row echelon matrix. For each matrix, indicate whether the corresponding linear system has infinitely many solutions, exactly one solution, or no solutions.</div>
+<div class="para">We began this section by stating that increasing computational power has helped linear algebra assume a prominent role as a scientific tool.  Later, we looked at one computational limitation:  once a matrix gets to be too big, it is not reasonable to apply Gaussian elimination to find its reduced row echelon form.</div> <div class="para logical">
+<div class="para">In this exercise, we will see another limitation: computer arithmetic with real numbers is only an approximation because computers represent real numbers with only a finite number of bits.  For instance, the number pi</div>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\pi =
+3.141592653589793238462643383279502884197169399\ldots
+\end{equation*}
+</div>
+<div class="para">would be approximated inside a computer by, say,</div>
+<div class="displaymath process-math" data-contains-math-knowls="">
+\begin{equation*}
+\pi\approx 3.141592653589793
+\end{equation*}
+</div>
+<div class="para">Most of the time, this is not a problem.  However, when we perform millions or even billions of arithmetic operations, the error in these approximations starts to accumulate and can lead to results that are wildly inaccurate.  Here are two examples demonstrating this.</div>
 <ol class="lower-alpha">
-<li><div class="para logical"><div class="displaymath process-math">
+<li>
+<div class="para logical">
+<div class="para">Let’s first see an example showing that computer arithmetic really is an approximation.  Consider the linear system</div>
+<div class="displaymath process-math">
 \begin{equation*}
-\left[
-\begin{array}{rrrr|r}
-1 \amp 1 \amp 0 \amp 3 \amp 3 \\
-0 \amp 1 \amp 0 \amp -2 \amp 1 \\
-0 \amp 0 \amp 1 \amp 3 \amp 4 \\
-\end{array}
-\right]
+\begin{alignedat}{4}
+x \amp {}+{} \amp \frac12y \amp {}+{} \amp \frac13z \amp
+{}={} \amp 1 \\
+\frac12x \amp {}+{} \amp \frac13y \amp {}+{} \amp \frac14z \amp
+{}={} \amp 0 \\
+\frac13x \amp {}+{} \amp \frac14y \amp {}+{} \amp \frac15z \amp
+{}={} \amp 0 \\
+\end{alignedat}
 \end{equation*}
-</div></div></li>
-<li><div class="para logical"><div class="displaymath process-math">
+</div>
+<div class="para">Let’s solve this three ways, taking advantage of some features of <code class="code-inline tex2jax_ignore">sympy</code>. As the name suggests, <code class="code-inline tex2jax_ignore">sympy</code> is capable of doing symbolic mathematics as well as numerical mathematics. In particular, <code class="code-inline tex2jax_ignore">sympy</code> can work with rational numbers (fractions) and do exact arithmetic with them.  Consider these three ways to represent <span class="process-math">\(\frac13\text{:}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-42"><script type="text/x-sage">print(1/3, s.Rational(1/3), s.Rational(1,3))
+</script></pre> The first is our usual floating point approximation.  The second attempts to approximate that approximation with a rational number. (Sometimes this works better; try <code class="code-inline tex2jax_ignore">s.Rational(1/2)</code>, for example.) The third represents <span class="process-math">\(\frac13\)</span> <em class="emphasis">exactly</em> by storing the numerator and denominator.</div>
+</div>
+<div class="para">Create the augmented matrix for this linear system in the three corresponding ways. Call them <code class="code-inline tex2jax_ignore">A</code>, <code class="code-inline tex2jax_ignore">B</code>, and <code class="code-inline tex2jax_ignore">C</code>. With each, have <code class="code-inline tex2jax_ignore">sympy</code> compute the reduce row echelon form and use it to find the solutoin the original linear system. <pre class="ptx-sagecell sagecell-python" id="sage-43"><script type="text/x-sage">A = s.Matrix([[1,1/2,1/3,1] , [1/2, 1/3, 1/4, 0], [1/3, 1/4, 1/5, 0]])
+B = s.Matrix()
+C = s.Matrix()
+</script></pre>
+</div>
+<div class="para">Most computers do arithmetic using either 32 or 64 bits.  We can exagerate the effect by rounding the matrix more heavily. Solve the linear system again using <pre class="ptx-sagecell sagecell-python" id="sage-44"><script type="text/x-sage"># feval() is sympy's version of round()
+A3 = A.evalf(3)
+</script></pre> What does Python give for the solution now? Compare this to the exact solution that you found previously.</div>
+</li>
+<li>
+<div class="para logical">
+<div class="para">Some types of linear systems are particularly sensitive to errors resulting from computers’ approximate arithmetic. For instance, suppose we are interested in the linear system</div>
+<div class="displaymath process-math">
 \begin{equation*}
-\left[
-\begin{array}{rrrr|r}
-1 \amp 0 \amp 0 \amp 0 \amp 0 \\
-0 \amp 2 \amp 0 \amp 0 \amp 0 \\
-0 \amp 0 \amp -3 \amp 0 \amp 0 \\
-0 \amp 0 \amp 0 \amp 1 \amp 0 \\
-0 \amp 0 \amp 0 \amp 0 \amp 1 \\
-\end{array}
-\right]
+\begin{alignedat}{3}
+x \amp {}+{} \amp y \amp {}={} \amp 2 \\
+x \amp {}+{} 1.001\amp y \amp {}={} \amp 2 \\
+\end{alignedat}
 \end{equation*}
-</div></div></li>
-<li><div class="para logical"><div class="displaymath process-math">
+</div>
+<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-python" id="sage-45"><script type="text/x-sage">
+</script></pre>
+</div>
+</div>
+<div class="para logical">
+<div class="para">Suppose now that the computer has accumulated some error in one of the entries of this system so that it incorrectly stores the system as</div>
+<div class="displaymath process-math">
 \begin{equation*}
-\left[
-\begin{array}{rrrr|r}
-1 \amp 0 \amp 0 \amp 3 \amp 3 \\
-0 \amp 1 \amp 0 \amp -2 \amp 1 \\
-0 \amp 0 \amp 1 \amp 3 \amp 4 \\
-0 \amp 0 \amp 0 \amp 3 \amp 3 \\
-\end{array}
-\right]
+\begin{alignedat}{3}
+x \amp {}+{} \amp y \amp {}={} \amp 2 \\
+x \amp {}+{} 1.001\amp y \amp {}={} \amp 2.001 \\
+\end{alignedat}
 \end{equation*}
-</div></div></li>
-<li><div class="para logical"><div class="displaymath process-math">
-\begin{equation*}
-\left[
-\begin{array}{rrrr|r}
-0 \amp 0 \amp 1 \amp 0 \amp -1 \\
-0 \amp 1 \amp 0 \amp 0 \amp 3 \\
-1 \amp 1 \amp 1 \amp 1 \amp 2 \\
-\end{array}
-\right]
-\end{equation*}
-</div></div></li>
+</div>
+<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-python" id="sage-46"><script type="text/x-sage">
+</script></pre>
+</div>
+</div>
+<div class="para">Notice how a small error in one of the entries in the linear system leads to a solution that has a dramatically large error.  Fortunately, this is an issue that has been well studied, and there are techniques that mitigate this type of behavior.  (See <code class="code-inline tex2jax_ignore">[cross-reference to target(s) "sec-gaussian-revisted" missing or not unique]</code>.)</div>
+</li>
 </ol>
-</div></article><span class="incontext"><a href="sec-finding-solutions.html#exercise-28" class="internal">in-context</a></span>
+</div></article><span class="incontext"><a href="sec-python-introduction.html#exercise-28" class="internal">in-context</a></span>
 </body>
 </html>
