@@ -726,7 +726,10 @@ A.rref().numerical_approx(digits=4)
 	of <c>sympy</c>. As the name suggests, <c>sympy</c> is capable 
 	of doing symbolic mathematics as well as numerical mathematics.
 	In particular, <c>sympy</c> can work with rational numbers (fractions) 
-	and do exact arithmetic with them.  Consider these three ways to represent 
+	and do exact arithmetic with them.  
+	<idx><h><c>sympy.Rational()</c></h></idx>
+	<idx><h><c>Rational()</c></h><see><c>sympy.Rational()</c></see></idx>
+	Consider these three ways to represent 
 	<m>\frac13</m>:
 	<sage language="python">
 		<input>
@@ -754,12 +757,16 @@ C = s.Matrix()
 	</sage>
 		</p>
 
-	<p> Most computers do arithmetic using either 32 or 64 bits. We can
+	<p> Most computers do arithmetic using either 32 or 64 bits. 
+	<idx><h><c>sympy.evalf()</c></h></idx>
+	<idx><h><c>evalf()</c></h><see><c>sympy.evalf()</c></see></idx>
+		We can
 		exagerate the effect by rounding the matrix more heavily. Solve the
 		linear system again using 
 		<sage language="python">
 		<input>
-A4 = A.feval(4) # feval() is sympy's version of round()
+# feval() is sympy's version of round()
+A3 = A.evalf(3) 
 		</input>
 		</sage>
 		What does Python give for the solution now? Compare this to the exact
@@ -804,7 +811,7 @@ A4 = A.feval(4) # feval() is sympy's version of round()
       linear system leads to a solution that has a dramatically
       large error.  Fortunately, this is an issue that has been
       well studied, and there are techniques that mitigate
-      this type of behavior.
+      this type of behavior.  (See <xref ref="sec-gaussian-revisted" />.)
       </p>
       </li>
     </ol>
