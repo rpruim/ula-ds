@@ -9,55 +9,33 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
+</script>
 </head>
 <body class="ignore-math">
 <article class="exercise exercise-like"><h4 class="heading">
-<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">5<span class="period">.</span></span>
+<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">3<span class="period">.</span></span>
 </h4>
-<div class="para logical">
-<div class="para">We have seen that the matrix</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\left[\begin{array}{rr}
-\cos\theta \amp -\sin\theta \\
-\sin\theta \amp \cos\theta \\
-\end{array}\right]
-\end{equation*}
-</div>
-<div class="para">performs a rotation through an angle <span class="process-math">\(\theta\)</span> about the origin.  Suppose instead that we would like to rotate by <span class="process-math">\(90^\circ\)</span> about the point <span class="process-math">\((1,2)\text{.}\)</span>  Using homogeneous coordinates, we will develop a matrix that performs this operation.</div>
-</div> <div class="para logical">
-<div class="para">Our strategy is to</div>
-<ul class="disc">
-<li><div class="para">begin with a vector whose tail is at the point <span class="process-math">\((1,2)\text{,}\)</span>
+<div class="para">Shown below in <a href="" class="xref" data-knowl="./knowl/fig-3d-basis.html" title="Figure 3.4.19">Figure 3.4.19</a> are the vectors <span class="process-math">\(\evec_1\text{,}\)</span> <span class="process-math">\(\evec_2\text{,}\)</span> and <span class="process-math">\(\evec_3\)</span> in <span class="process-math">\(\real^3\text{.}\)</span>
+</div> <figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:30%;margin-right:30%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/3d-basis.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.4.19<span class="period">.</span></span><span class="space"> </span>The vectors <span class="process-math">\(\evec_1\text{,}\)</span> <span class="process-math">\(\evec_2\text{,}\)</span> and <span class="process-math">\(\evec_3\)</span> in <span class="process-math">\(\real^3\text{.}\)</span></figcaption></figure> <div class="para logical"><ol class="lower-alpha">
+<li><div class="para">Imagine that the thumb of your right hand points in the direction of <span class="process-math">\(\evec_1\text{.}\)</span>  A positive rotation about the <span class="process-math">\(x\)</span> axis corresponds to a rotation in the direction in which your fingers point. Find the matrix definining the matrix transformation <span class="process-math">\(T\)</span> that rotates vectors by <span class="process-math">\(90^\circ\)</span> around the <span class="process-math">\(x\)</span>-axis.</div></li>
+<li><div class="para">In the same way, find the matrix that rotates vectors by <span class="process-math">\(90^\circ\)</span> around the <span class="process-math">\(y\)</span>-axis.</div></li>
+<li><div class="para">Find the matrix that rotates vectors by <span class="process-math">\(90^\circ\)</span> around the <span class="process-math">\(z\)</span>-axis.</div></li>
+<li><div class="para">What is the cumulative effect of rotating by <span class="process-math">\(90^\circ\)</span> about the <span class="process-math">\(x\)</span>-axis, followed by a <span class="process-math">\(90^\circ\)</span> rotation about the <span class="process-math">\(y\)</span>-axis, followed by a <span class="process-math">\(-90^\circ\)</span> rotation about the <span class="process-math">\(x\)</span>-axis. <pre class="ptx-sagecell sagecell-python" id="sage-84"><script type="text/x-sage">
+</script></pre>
 </div></li>
-<li><div class="para">translate the vector so that its tail is at the origin,</div></li>
-<li><div class="para">rotate by <span class="process-math">\(90^\circ\text{,}\)</span> and</div></li>
-<li><div class="para">translate the vector so that its tail is back at <span class="process-math">\((1,2)\text{.}\)</span>
-</div></li>
-</ul>
-<div class="para">This is shown in <a href="" class="xref" data-knowl="./knowl/fig-ex-rotate-about-p.html" title="Figure 3.4.20">Figure 3.4.20</a>.</div>
-</div> <figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:17.5%;margin-right:17.5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/ex-rotate-about-p.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.4.20<span class="period">.</span></span><span class="space"> </span>A sequence of matrix transformations that, when read right to left and top to bottom, rotate a vector about the point <span class="process-math">\((1,2)\text{.}\)</span></figcaption></figure> <div class="para logical">
-<div class="para">Remember that, when working with homogeneous coordinates, we consider matrices of the form</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\left[\begin{array}{rrr}
-a \amp b \amp c \\
-d \amp e \amp f \\
-0 \amp 0 \amp 1 \\
-\end{array}\right]\text{.}
-\end{equation*}
-</div>
-<ol class="lower-alpha">
-<li><div class="para">The first operation is a translation by <span class="process-math">\((-1,-2)\text{.}\)</span>  Find the matrix that performs this translation.</div></li>
-<li><div class="para">The second operation is a <span class="process-math">\(90^\circ\)</span> rotation about the origin.  Find the matrix that performs this rotation.</div></li>
-<li><div class="para">The third operation is a translation by <span class="process-math">\((1,2)\text{.}\)</span> Find the matrix that performs this translation.</div></li>
-<li><div class="para">Use these matrices to find the matrix that performs a <span class="process-math">\(90^\circ\)</span> rotation about <span class="process-math">\((1,2)\text{.}\)</span>
-</div></li>
-<li><div class="para">Use your matrix to determine where the point <span class="process-math">\((-10,
-5)\)</span> ends up if rotated by <span class="process-math">\(90^\circ\)</span> about the <span class="process-math">\((1,2)\text{.}\)</span>
-</div></li>
-</ol>
-</div></article><span class="incontext"><a href="sec-transforms-geom.html#exercise-83" class="internal">in-context</a></span>
+</ol></div></article><span class="incontext"><a href="sec-transforms-geom.html#exercise-83" class="internal">in-context</a></span>
 </body>
 </html>

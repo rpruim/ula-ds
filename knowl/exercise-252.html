@@ -9,35 +9,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
 </head>
 <body class="ignore-math">
 <article class="exercise exercise-like"><h4 class="heading">
-<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">11<span class="period">.</span></span>
+<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">9<span class="period">.</span></span>
 </h4>
-<div class="para">We observed that if the columns of <span class="process-math">\(A\)</span> are linearly independent, then there is a unique least squares approximate solution to the equation <span class="process-math">\(A\xvec=\bvec\)</span> because the equation <span class="process-math">\(A\xhat=\bhat\)</span> has a unique solution.  We also said that <span class="process-math">\(\xhat\)</span> is the unique solution to the normal equation <span class="process-math">\(A^TA\xhat = A^T\bvec\)</span> without explaining why this equation has a unique solution.  This exercise offers an explanation.</div> <div class="para logical">
-<div class="para">Assuming that the columns of <span class="process-math">\(A\)</span> are linearly independent, we would like to conclude that the equation <span class="process-math">\(A^TA\xhat=A^T\bvec\)</span> has a unique solution.</div>
+<div class="para logical">
+<div class="para">Evaluating the following cell loads a data set describing the temperature in the Earth’s atmosphere at various altitudes. There are also two vectors <code class="code-inline tex2jax_ignore">altitude</code>, expressed in kilometers, and <code class="code-inline tex2jax_ignore">temperature</code>, in degrees Celsius. <pre class="ptx-sagecell sagecell-sage" id="sage-213"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/altitude-temps.csv')
+data = [vector(row) for row in df.values]
+altitude = vector(df['Altitude'])
+temperature = vector(df['Temperature'])
+print(df)
+list_plot(data, size=40, color='blue')
+</script></pre>
+</div>
 <ol class="lower-alpha">
-<li><div class="para logical">
-<div class="para">Suppose that <span class="process-math">\(\xvec\)</span> is a vector for which <span class="process-math">\(A^TA\xvec = \zerovec\text{.}\)</span>  Explain why the following argument is valid and allows us to conclude that <span class="process-math">\(A\xvec = \zerovec\text{.}\)</span>
-</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\begin{aligned}
-A^TA\xvec \amp = \zerovec \\
-\xvec\cdot A^TA\xvec \amp = \xvec\cdot\zerovec = 0 \\
-(A\xvec)\cdot(A\xvec) \amp = 0 \\
-\len{A\xvec}^2 \amp = 0. \\
-\end{aligned}
-\end{equation*}
-</div>
-<div class="para">In other words, if <span class="process-math">\(A^TA\xvec = \zerovec\text{,}\)</span> we know that <span class="process-math">\(A\xvec = \zerovec\text{.}\)</span>
-</div>
+<li><div class="para">Describe how to form the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> so that the linear system <span class="process-math">\(A\xvec=\bvec\)</span> describes a degree <span class="process-math">\(k\)</span> polynomial fitting the data.</div></li>
+<li><div class="para">After choosing a value of <span class="process-math">\(k\text{,}\)</span> construct the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\text{,}\)</span> and find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
 </div></li>
-<li><div class="para">If the columns of <span class="process-math">\(A\)</span> are linearly independent and <span class="process-math">\(A\xvec = \zerovec\text{,}\)</span> what do we know about the vector <span class="process-math">\(\xvec\text{?}\)</span>
-</div></li>
-<li><div class="para">Explain why <span class="process-math">\(A^TA\xvec = \zerovec\)</span> can only happen when <span class="process-math">\(\xvec = \zerovec\text{.}\)</span>
-</div></li>
-<li><div class="para">Assuming that the columns of <span class="process-math">\(A\)</span> are linearly independent, explain why <span class="process-math">\(A^TA\xhat=A^T\bvec\)</span> has a unique solution.</div></li>
+<li><div class="para">Plot the polynomial and data using <code class="code-inline tex2jax_ignore">plot_model(xhat, data)</code>.</div></li>
+<li><div class="para">Now examine what happens as you vary the degree of the polynomial <span class="process-math">\(k\text{.}\)</span>  Choose an appropriate value of <span class="process-math">\(k\)</span> that seems to capture the most important features of the data while avoiding overfitting, and explain your choice.</div></li>
+<li><div class="para">Use your value of <span class="process-math">\(k\)</span> to estimate the temperature at an altitude of 55 kilometers.</div></li>
 </ol>
 </div></article><span class="incontext"><a href="sec-least-squares.html#exercise-252" class="internal">in-context</a></span>
 </body>
