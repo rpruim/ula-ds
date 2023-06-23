@@ -311,13 +311,14 @@
     <p>
       Set up a linear system to find the temperature
       at these six points inside the plate.  Then use Python to solve
-      the linear system.  If all the entries of the matrix are
+      the linear system.  
+	  <!-- If all the entries of the matrix are
       integers, Python will compute the reduced row echelon form using
       rational numbers.  To view a decimal approximation of the
       results, you may use
       <cd>
 A.rref().numerical_approx(digits=4)
-      </cd>
+      </cd> -->
       <sage language="python">
 	<input>
 	</input>
@@ -709,7 +710,7 @@ A.rref().numerical_approx(digits=4)
     <ol marker="a.">
       <li> <p>
 	Let's first see an example showing that computer
-	arithmetic really is an approximation.  First, consider
+	arithmetic really is an approximation.  Consider
 	the linear system
 	<me>
 	  \begin{alignedat}{4}
@@ -721,48 +722,49 @@ A.rref().numerical_approx(digits=4)
 	  {}={} \amp 0 \\
 	  \end{alignedat}
 	</me>
-	If the coefficients are entered into Python as fractions,
-	Python will find the exact reduced row echelon form.  Find
-	the exact solution to this linear system.
+	Let's solve this three ways, taking advantage of some features 
+	of <c>sympy</c>. As the name suggests, <c>sympy</c> is capable 
+	of doing symbolic mathematics as well as numerical mathematics.
+	In particular, <c>sympy</c> can work with rational numbers (fractions) 
+	and do exact arithmetic with them.  Consider these three ways to represent 
+	<m>\frac13</m>:
 	<sage language="python">
-	  <input>
-	  </input>
+		<input>
+print(1/3, s.Rational(1/3), s.Rational(1,3))
+		</input>
 	</sage>
-      </p>
+	The first is our usual floating point approximation.  The second 
+	attempts to approximate that approximation with a rational number. 
+	(Sometimes this works better; try <c>s.Rational(1/2)</c>, for example.)
+	The third represents <m>\frac13</m> <em>exactly</em> by storing the 
+	numerator and denominator.
+	</p>
 
-      <p>
-	Now let's ask Python to compute with real numbers.  We can
-	do this by representing one of the coefficients as a
-	decimal.  For instance, the same linear system can be
-	represented as 
-	<me>
-	  \begin{alignedat}{4}
-	  x \amp {}+{} \amp 0.5y \amp {}+{} \amp \frac13z \amp
-	  {}={} \amp 1 \\
-	  \frac12x \amp {}+{} \amp \frac13y \amp {}+{} \amp \frac14z \amp
-	  {}={} \amp 0 \\
-	  \frac13x \amp {}+{} \amp \frac14y \amp {}+{} \amp \frac15z \amp
-	  {}={} \amp 0 \\
-	  \end{alignedat}
-	</me>
-	Most computers do arithmetic using either 32 or 64 bits.  To
-	magnify the problem so that we can see it better, we
-	will ask Python to do arithmetic using only 10 bits as follows.
+	<p>
+		Create the augmented matrix for this linear system in the three 
+		corresponding ways. Call them <c>A</c>, <c>B</c>, and <c>C</c>.
+		With each, have <c>sympy</c> compute the reduce row echelon form 
+		and use it to find the solutoin the original linear system.
 	<sage language="python">
-	  <input>
-	    R = RealNumber
-	    RealNumber = RealField(10)
-	    
-	    # enter the matrix below
-	    A = matrix( ..., ..., [ ... ] )
-
-	    print (A.rref())
-	    RealNumber = R
-	  </input>
+		<input>
+A = s.Matrix([[1,1/2,1/3,1] , [1/2, 1/3, 1/4, 0], [1/3, 1/4, 1/5, 0]])
+B = s.Matrix()
+C = s.Matrix()
+		</input>
 	</sage>
-	What does Python give for the solution now?  Compare this to
-	the exact solution that you found previously.
-      </p></li>
+		</p>
+
+	<p> Most computers do arithmetic using either 32 or 64 bits. We can
+		exagerate the effect by rounding the matrix more heavily. Solve the
+		linear system again using 
+		<sage language="python">
+		<input>
+A4 = A.feval(4) # feval() is sympy's version of round()
+		</input>
+		</sage>
+		What does Python give for the solution now? Compare this to the exact
+		solution that you found previously. </p>
+	</li>
 
       <li> <p>
 	Some types of linear systems are particularly sensitive to
@@ -818,11 +820,38 @@ A.rref().numerical_approx(digits=4)
 	    <me>
 	      x=9, y=-36, z=30\text{.}
 	    </me>
-	    However, if we compute with only 10 bits, we find the
+	    However, if we first round to 3 digits, we find the
 	    approximate solution
 	    <me>
-	      x=8.9, y=-35, z=29\text{.}
+		  x = 9.04, y = -36.2, z = 30.2
 	    </me>
+		<sage language="python">
+			<input>
+import numpy as np
+import sympy as s
+
+A = s.Matrix([[1,1/2,1/3,1] , [1/2, 1/3, 1/4, 0], [1/3, 1/4, 1/5, 0]])
+B = s.Matrix(3, 4, lambda i,j: s.Rational(A[i,j]))
+C = s.Matrix([
+    [s.Rational(1,1), s.Rational(1,2), s.Rational(1,3), s.Rational(1,1)],
+    [s.Rational(1,2), s.Rational(1,3), s.Rational(1,4), s.Rational(0,1)],
+    [s.Rational(1,3), s.Rational(1,4), s.Rational(1,5), s.Rational(0,1)]
+])
+
+print("Using A:")
+print(A.rref())
+print("\nB:")
+print(B)
+print("Using B:")
+print(B.rref()[0])
+print(B.rref()[0].evalf(10))
+print("\nUsing C:")
+print(C.rref())
+
+print("\nUsing A, rounded to 3 digits:")
+print(A.evalf(3).rref())	
+			</input>
+		</sage>
 	  </p>
 	</li>
 
@@ -831,6 +860,20 @@ A.rref().numerical_approx(digits=4)
 	    This solution to the first system is <m>x=2</m> and
 	    <m>y=0</m>.  However, with just a small change in the
 	    system, we find the solution <m>x=1</m> and <m>y=1</m>.
+
+		<sage langauge="python">
+			<input>
+import numpy as np
+import sympy as s
+
+A = np.array([[1,1,2],[1, 1.001, 2]])
+print(s.Matrix(A).rref())
+
+B = np.array([[1,1,2],[1, 1.001, 2.001]])
+print(s.Matrix(B).rref())
+			</input>
+		</sage>
+		
 	  </p>
 	</li>
       </ol>
@@ -846,10 +889,11 @@ A.rref().numerical_approx(digits=4)
 	    <me>
 	      x=9, y=-36, z=30
 	    </me>
-	    while the approximate solution is
+	    while the 3-digit approximate solution is
 	    <me>
-	      x=8.9, y=-35, z=29\text{.}
+		  x = 9.04, y = -36.2, z = 30.2
 	    </me>
+		
 	  </p>
 	</li>
 
