@@ -711,15 +711,15 @@ eBookConfig.enable_chatcodes =  false;
 <section class="section" id="sec-least-squares"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">6.5</span> <span class="title">Orthogonal least squares</span>
 </h2>
-<section class="introduction" id="introduction-36"><div class="para" id="p-6609">Suppose we collect some data when performing an experiment and plot it as shown on the left of <a href="" class="xref" data-knowl="./knowl/lst-squares-intro.html" title="Figure 6.5.1">Figure 6.5.1</a>.  Notice that there is no line on which all the points lie; in fact, it would be surprising if there were since we can expect some uncertainty in the measurements recorded.  There does, however, appear to be a line, as shown on the right, on which the points <em class="emphasis">almost</em> lie.</div> <figure class="figure figure-like" id="lst-squares-intro"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
+<section class="introduction" id="introduction-36"><div class="para" id="p-6610">Suppose we collect some data when performing an experiment and plot it as shown on the left of <a href="" class="xref" data-knowl="./knowl/lst-squares-intro.html" title="Figure 6.5.1">Figure 6.5.1</a>.  Notice that there is no line on which all the points lie; in fact, it would be surprising if there were since we can expect some uncertainty in the measurements recorded.  There does, however, appear to be a line, as shown on the right, on which the points <em class="emphasis">almost</em> lie.</div> <figure class="figure figure-like" id="lst-squares-intro"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/lst-squares-1.svg" role="img" class="contained"></div>
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/lst-squares-2.svg" role="img" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.1<span class="period">.</span></span><span class="space"> </span>A collection of points and a line approximating the linear relationship implied by them.</figcaption></figure> <div class="para" id="p-6610">In this section, we’ll explore how the techniques developed in this chapter enable us to find the line that best approximates the data.  More specifically, we’ll see how the search for a line passing through the data points leads to an inconsistent system <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>  Since we are unable to find a solution, we instead seek the vector <span class="process-math">\(\xvec\)</span> where <span class="process-math">\(A\xvec\)</span> is as close as possible to <span class="process-math">\(\bvec\text{.}\)</span> Orthogonal projection gives us just the right tool for doing this.</div> <article class="exploration project-like" id="exploration-25"><h3 class="heading">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.1<span class="period">.</span></span><span class="space"> </span>A collection of points and a line approximating the linear relationship implied by them.</figcaption></figure> <div class="para" id="p-6611">In this section, we’ll explore how the techniques developed in this chapter enable us to find the line that best approximates the data.  More specifically, we’ll see how the search for a line passing through the data points leads to an inconsistent system <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>  Since we are unable to find a solution, we instead seek the vector <span class="process-math">\(\xvec\)</span> where <span class="process-math">\(A\xvec\)</span> is as close as possible to <span class="process-math">\(\bvec\text{.}\)</span> Orthogonal projection gives us just the right tool for doing this.</div> <article class="exploration project-like" id="exploration-25"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">6.5.1</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-6611"><ol class="lower-alpha">
-<li id="li-4546"><div class="para logical" id="p-6612">
+<div class="para logical" id="p-6612"><ol class="lower-alpha">
+<li id="li-4546"><div class="para logical" id="p-6613">
 <div class="para">Is there a solution to the equation <span class="process-math">\(A\xvec=\bvec\)</span> where <span class="process-math">\(A\)</span> and <span class="process-math">\(\bvec\)</span> are such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -731,45 +731,45 @@ eBookConfig.enable_chatcodes =  false;
 \xvec = \threevec5{-3}{-1}\text{.}
 \end{equation*}
 </div>
-<div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-185"><script type="text/x-sage">
+<div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-188"><script type="text/x-sage">
 </script></pre></div>
 </div></li>
-<li id="li-4547"><div class="para" id="p-6613">We know that <span class="process-math">\(\threevec12{-1}\)</span> and <span class="process-math">\(\threevec250\)</span> form a basis for <span class="process-math">\(\col(A)\text{.}\)</span>  Find an orthogonal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4547"><div class="para" id="p-6614">We know that <span class="process-math">\(\threevec12{-1}\)</span> and <span class="process-math">\(\threevec250\)</span> form a basis for <span class="process-math">\(\col(A)\text{.}\)</span>  Find an orthogonal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4548"><div class="para" id="p-6614">Find the orthogonal projection <span class="process-math">\(\widehat\bvec\)</span> of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4548"><div class="para" id="p-6615">Find the orthogonal projection <span class="process-math">\(\widehat\bvec\)</span> of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4549"><div class="para" id="p-6615">Explain why the equation <span class="process-math">\(A\xvec=\widehat\bvec\)</span> must be consistent and then find its solution.</div></li>
+<li id="li-4549"><div class="para" id="p-6616">Explain why the equation <span class="process-math">\(A\xvec=\widehat\bvec\)</span> must be consistent and then find its solution.</div></li>
 </ol></div></article></section><section class="subsection" id="subsection-103"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.5.1</span> <span class="title">A first example</span>
 </h3>
-<div class="para" id="p-6621">When we’ve encountered inconsistent systems in the past, we’ve simply said there is no solution and moved on.  The preview activity, however, shows how we can find approximate solutions to an inconsistent system: if there are no solutions to <span class="process-math">\(A\xvec = \bvec\text{,}\)</span> we instead solve the consistent system <span class="process-math">\(A\xvec = \bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>  As we’ll see, this solution is, in a specific sense, the best possible.</div>
+<div class="para" id="p-6622">When we’ve encountered inconsistent systems in the past, we’ve simply said there is no solution and moved on.  The preview activity, however, shows how we can find approximate solutions to an inconsistent system: if there are no solutions to <span class="process-math">\(A\xvec = \bvec\text{,}\)</span> we instead solve the consistent system <span class="process-math">\(A\xvec = \bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>  As we’ll see, this solution is, in a specific sense, the best possible.</div>
 <article class="activity project-like" id="activity-82"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.5.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6622">
+<div class="para logical" id="p-6623">
 <div class="para">Suppose we have three data points <span class="process-math">\((1,1)\text{,}\)</span> <span class="process-math">\((2,1)\text{,}\)</span> and <span class="process-math">\((3,3)\)</span> and that we would like to find a line passing through them.</div>
 <ol class="lower-alpha">
-<li id="li-4554"><div class="para" id="p-6623">Plot these three points in <a href="" class="xref" data-knowl="./knowl/fig-ls-empty.html" title="Figure 6.5.2">Figure 6.5.2</a>.  Are you able to draw a line that passes through all three points? <figure class="figure figure-like" id="fig-ls-empty"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-ls.svg" role="img" class="contained"></div></div></div>
+<li id="li-4554"><div class="para" id="p-6624">Plot these three points in <a href="" class="xref" data-knowl="./knowl/fig-ls-empty.html" title="Figure 6.5.2">Figure 6.5.2</a>.  Are you able to draw a line that passes through all three points? <figure class="figure figure-like" id="fig-ls-empty"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-ls.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.2<span class="period">.</span></span><span class="space"> </span>Plot the three data points here.</figcaption></figure>
 </div></li>
 <li id="li-4555">
-<div class="para" id="p-6624">Remember that the equation of a line can be written as <span class="process-math">\(b + mx=y\)</span> where <span class="process-math">\(m\)</span> is the slope and <span class="process-math">\(b\)</span> is the <span class="process-math">\(y\)</span>-intercept.  We will try to find <span class="process-math">\(b\)</span> and <span class="process-math">\(m\)</span> so that the three points lie on the line.</div>
-<div class="para" id="p-6625">The first data point <span class="process-math">\((1,1)\)</span> gives an equation for <span class="process-math">\(b\)</span> and <span class="process-math">\(m\text{.}\)</span>  In particular, we know that when <span class="process-math">\(x=1\text{,}\)</span> then <span class="process-math">\(y=1\)</span> so we have <span class="process-math">\(b + m(1) = 1\)</span> or <span class="process-math">\(b + m = 1\text{.}\)</span>  Use the other two data points to create a linear system describing <span class="process-math">\(m\)</span> and <span class="process-math">\(b\text{.}\)</span>
+<div class="para" id="p-6625">Remember that the equation of a line can be written as <span class="process-math">\(b + mx=y\)</span> where <span class="process-math">\(m\)</span> is the slope and <span class="process-math">\(b\)</span> is the <span class="process-math">\(y\)</span>-intercept.  We will try to find <span class="process-math">\(b\)</span> and <span class="process-math">\(m\)</span> so that the three points lie on the line.</div>
+<div class="para" id="p-6626">The first data point <span class="process-math">\((1,1)\)</span> gives an equation for <span class="process-math">\(b\)</span> and <span class="process-math">\(m\text{.}\)</span>  In particular, we know that when <span class="process-math">\(x=1\text{,}\)</span> then <span class="process-math">\(y=1\)</span> so we have <span class="process-math">\(b + m(1) = 1\)</span> or <span class="process-math">\(b + m = 1\text{.}\)</span>  Use the other two data points to create a linear system describing <span class="process-math">\(m\)</span> and <span class="process-math">\(b\text{.}\)</span>
 </div>
 </li>
 <li id="li-4556">
-<div class="para" id="p-6626">We have obtained a linear system having three equations, one from each data point, for the two unknowns <span class="process-math">\(b\)</span> and <span class="process-math">\(m\text{.}\)</span> Identify a matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> so that the system has the form <span class="process-math">\(A\xvec=\bvec\text{,}\)</span> where <span class="process-math">\(\xvec=\ctwovec bm\text{.}\)</span>
+<div class="para" id="p-6627">We have obtained a linear system having three equations, one from each data point, for the two unknowns <span class="process-math">\(b\)</span> and <span class="process-math">\(m\text{.}\)</span> Identify a matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> so that the system has the form <span class="process-math">\(A\xvec=\bvec\text{,}\)</span> where <span class="process-math">\(\xvec=\ctwovec bm\text{.}\)</span>
 </div>
-<div class="para" id="p-6627">Notice that the unknown vector <span class="process-math">\(\xvec=\ctwovec bm\)</span> describes the line that we seek.</div>
+<div class="para" id="p-6628">Notice that the unknown vector <span class="process-math">\(\xvec=\ctwovec bm\)</span> describes the line that we seek.</div>
 </li>
-<li id="li-4557"><div class="para" id="p-6628">Is there a solution to this linear system?  How does this question relate to your attempt to draw a line through the three points above? <pre class="ptx-sagecell sagecell-sage" id="sage-186"><script type="text/x-sage">
+<li id="li-4557"><div class="para" id="p-6629">Is there a solution to this linear system?  How does this question relate to your attempt to draw a line through the three points above? <pre class="ptx-sagecell sagecell-sage" id="sage-189"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-4558"><div class="para" id="p-6629">Since this system is inconsistent, we know that <span class="process-math">\(\bvec\)</span> is not in the column space <span class="process-math">\(\col(A)\text{.}\)</span> Find an orthogonal basis for <span class="process-math">\(\col(A)\)</span> and use it to find the orthogonal projection <span class="process-math">\(\widehat\bvec\)</span> of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4558"><div class="para" id="p-6630">Since this system is inconsistent, we know that <span class="process-math">\(\bvec\)</span> is not in the column space <span class="process-math">\(\col(A)\text{.}\)</span> Find an orthogonal basis for <span class="process-math">\(\col(A)\)</span> and use it to find the orthogonal projection <span class="process-math">\(\widehat\bvec\)</span> of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4559"><div class="para" id="p-6630">Since <span class="process-math">\(\widehat\bvec\)</span> is in <span class="process-math">\(\col(A)\text{,}\)</span> the equation <span class="process-math">\(A\xvec = \widehat\bvec\)</span> is consistent.  Find its solution <span class="process-math">\(\xvec = \ctwovec{b}{m}\)</span> and sketch the line <span class="process-math">\(y=b + mx\)</span> in <a href="" class="xref" data-knowl="./knowl/fig-ls-empty.html" title="Figure 6.5.2">Figure 6.5.2</a>.  We say that this is the line of best fit.</div></li>
+<li id="li-4559"><div class="para" id="p-6631">Since <span class="process-math">\(\widehat\bvec\)</span> is in <span class="process-math">\(\col(A)\text{,}\)</span> the equation <span class="process-math">\(A\xvec = \widehat\bvec\)</span> is consistent.  Find its solution <span class="process-math">\(\xvec = \ctwovec{b}{m}\)</span> and sketch the line <span class="process-math">\(y=b + mx\)</span> in <a href="" class="xref" data-knowl="./knowl/fig-ls-empty.html" title="Figure 6.5.2">Figure 6.5.2</a>.  We say that this is the line of best fit.</div></li>
 </ol>
-</div></article><div class="para logical" id="p-6645">
+</div></article><div class="para logical" id="p-6646">
 <div class="para">This activity illustrates the idea behind a technique known as <em class="emphasis">orthogonal least squares</em>, which we have been working toward throughout this chapter.  If the data points are denoted as <span class="process-math">\((x_i, y_i)\text{,}\)</span> we construct the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> as</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -784,9 +784,9 @@ A =
 </div>
 <div class="para">With the vector <span class="process-math">\(\xvec=\ctwovec bm\)</span> representing the line <span class="process-math">\(b+mx = y\text{,}\)</span> we see that the equation <span class="process-math">\(A\xvec=\bvec\)</span> describes a line passing through all the data points.  In our activity, it is visually apparent that there is no such line, which agrees with the fact that the equation <span class="process-math">\(A\xvec=\bvec\)</span> is inconsistent.</div>
 </div>
-<div class="para" id="p-6646">Remember that <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{,}\)</span> is the closest vector in <span class="process-math">\(\col(A)\)</span> to <span class="process-math">\(\bvec\text{.}\)</span>  Therefore, when we solve the equation <span class="process-math">\(A\xvec=\bhat\text{,}\)</span> we are finding the vector <span class="process-math">\(\xvec\)</span> so that <span class="process-math">\(A\xvec = 
+<div class="para" id="p-6647">Remember that <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{,}\)</span> is the closest vector in <span class="process-math">\(\col(A)\)</span> to <span class="process-math">\(\bvec\text{.}\)</span>  Therefore, when we solve the equation <span class="process-math">\(A\xvec=\bhat\text{,}\)</span> we are finding the vector <span class="process-math">\(\xvec\)</span> so that <span class="process-math">\(A\xvec = 
 \threevec{b+mx_1}{b+mx_2}{b+mx_3}\)</span> is as close to <span class="process-math">\(\bvec=\threevec{y_1}{y_2}{y_3}\)</span> as possible.  Let’s think about what this means within the context of this problem.</div>
-<div class="para logical" id="p-6647">
+<div class="para logical" id="p-6648">
 <div class="para">The difference <span class="process-math">\(\bvec-A\xvec =
 \threevec{y_1-(b+mx_1)}{y_2-(b+mx_2)}{y_3-(b+mx_3)}\)</span> so that the square of the distance between <span class="process-math">\(A\xvec\)</span> and <span class="process-math">\(\bvec\)</span> is</div>
 <div class="displaymath process-math" id="md-17">
@@ -799,16 +799,16 @@ A =
 </div>
 <div class="para">Our approach finds the values for <span class="process-math">\(b\)</span> and <span class="process-math">\(m\)</span> that make this sum of squares as small as possible, which is why we call this a <em class="emphasis">least squares</em> problem.</div>
 </div>
-<div class="para" id="p-6648">Drawing the line defined by the vector <span class="process-math">\(\xvec=\ctwovec bm\text{,}\)</span> the quantity <span class="process-math">\(y_i - (b + mx_i)\)</span> reflects the vertical distance between the line and the data point <span class="process-math">\((x_i, y_i)\text{,}\)</span> as shown in <a href="" class="xref" data-knowl="./knowl/fig-least-squares-def.html" title="Figure 6.5.5">Figure 6.5.5</a>.  Seen in this way, the square of the distance <span class="process-math">\(\len{\bvec-A\xvec}^2\)</span> is a measure of how much the line defined by the vector <span class="process-math">\(\xvec\)</span> misses the data points.  The solution to the least squares problem is the line that misses the data points by the smallest amount possible.</div>
+<div class="para" id="p-6649">Drawing the line defined by the vector <span class="process-math">\(\xvec=\ctwovec bm\text{,}\)</span> the quantity <span class="process-math">\(y_i - (b + mx_i)\)</span> reflects the vertical distance between the line and the data point <span class="process-math">\((x_i, y_i)\text{,}\)</span> as shown in <a href="" class="xref" data-knowl="./knowl/fig-least-squares-def.html" title="Figure 6.5.5">Figure 6.5.5</a>.  Seen in this way, the square of the distance <span class="process-math">\(\len{\bvec-A\xvec}^2\)</span> is a measure of how much the line defined by the vector <span class="process-math">\(\xvec\)</span> misses the data points.  The solution to the least squares problem is the line that misses the data points by the smallest amount possible.</div>
 <figure class="figure figure-like" id="fig-least-squares-def"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/line-regress-1.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.5<span class="period">.</span></span><span class="space"> </span>The solution of the least squares problem and the vertical distances between the line and the data points.</figcaption></figure></section><section class="subsection" id="subsection-104"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.5.2</span> <span class="title">Solving least squares problems</span>
 </h3>
-<div class="para" id="p-6649">Now that we’ve seen an example of what we’re trying to accomplish, let’s put this technique into a more general framework.</div>
-<div class="para" id="p-6650">Given an inconsistent system <span class="process-math">\(A\xvec = \bvec\text{,}\)</span> we seek the vector <span class="process-math">\(\xvec\)</span> that minimizes the distance from <span class="process-math">\(A\xvec\)</span> to <span class="process-math">\(\bvec\text{.}\)</span>  In other words, <span class="process-math">\(\xvec\)</span> satisfies <span class="process-math">\(A\xvec = \widehat\bvec\text{,}\)</span> where <span class="process-math">\(\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto the column space <span class="process-math">\(\col(A)\text{.}\)</span>  We know the equation <span class="process-math">\(A\xvec=\bhat\)</span> is consistent since <span class="process-math">\(\bhat\)</span> is in <span class="process-math">\(\col(A)\text{,}\)</span> and we know there is only one solution if we assume that the columns of <span class="process-math">\(A\)</span> are linearly independent.</div>
-<div class="para" id="p-6651">We will usually denote the solution of <span class="process-math">\(A\xvec = \bhat\)</span> by <span class="process-math">\(\xhat\)</span> and call this vector the <em class="emphasis">least squares approximate solution</em> of <span class="process-math">\(A\xvec=\bvec\)</span> to distinguish it from a (possibly non-existent) solution of <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>
+<div class="para" id="p-6650">Now that we’ve seen an example of what we’re trying to accomplish, let’s put this technique into a more general framework.</div>
+<div class="para" id="p-6651">Given an inconsistent system <span class="process-math">\(A\xvec = \bvec\text{,}\)</span> we seek the vector <span class="process-math">\(\xvec\)</span> that minimizes the distance from <span class="process-math">\(A\xvec\)</span> to <span class="process-math">\(\bvec\text{.}\)</span>  In other words, <span class="process-math">\(\xvec\)</span> satisfies <span class="process-math">\(A\xvec = \widehat\bvec\text{,}\)</span> where <span class="process-math">\(\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto the column space <span class="process-math">\(\col(A)\text{.}\)</span>  We know the equation <span class="process-math">\(A\xvec=\bhat\)</span> is consistent since <span class="process-math">\(\bhat\)</span> is in <span class="process-math">\(\col(A)\text{,}\)</span> and we know there is only one solution if we assume that the columns of <span class="process-math">\(A\)</span> are linearly independent.</div>
+<div class="para" id="p-6652">We will usually denote the solution of <span class="process-math">\(A\xvec = \bhat\)</span> by <span class="process-math">\(\xhat\)</span> and call this vector the <em class="emphasis">least squares approximate solution</em> of <span class="process-math">\(A\xvec=\bvec\)</span> to distinguish it from a (possibly non-existent) solution of <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>
 </div>
-<div class="para logical" id="p-6652">
+<div class="para logical" id="p-6653">
 <div class="para">There is an alternative method for finding <span class="process-math">\(\xhat\)</span> that does not involve first finding the orthogonal projection <span class="process-math">\(\bhat\text{.}\)</span> Remember that <span class="process-math">\(\bhat\)</span> is defined by the fact that <span class="process-math">\(\widehat\bvec - \bvec\)</span> is orthogonal to <span class="process-math">\(\col(A)\text{.}\)</span>  In other words, <span class="process-math">\(\bhat-\bvec\)</span> is in the orthogonal complement <span class="process-math">\(\col(A)^\perp\text{,}\)</span> which <a href="" class="xref" data-knowl="./knowl/prop-col-orthog.html" title="Proposition 6.2.10">Proposition 6.2.10</a> tells us is the same as <span class="process-math">\(\nul(A^T)\text{.}\)</span>  Since <span class="process-math">\(\bhat-\bvec\)</span> is in <span class="process-math">\(\nul(A^T)\text{,}\)</span> it follows that</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-col-orthog.html">
 \begin{equation*}
@@ -829,7 +829,7 @@ A^TA\xhat \amp = A^T\bvec\text{.}
 <article class="proposition theorem-like" id="proposition-46"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.5.6</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6653">
+<div class="para logical" id="p-6654">
 <div class="para">If the columns of <span class="process-math">\(A\)</span> are linearly independent, then there is a unique least squares approximate solution <span class="process-math">\(\xhat\)</span> to the equation <span class="process-math">\(A\xvec=\bvec\)</span> given by the normal equation</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -839,7 +839,7 @@ A^TA\xhat = A^T\bvec\text{.}
 </div></article><article class="example example-like" id="example-70"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">6.5.7</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6654">
+<div class="para logical" id="p-6655">
 <div class="para">Consider the equation</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -864,8 +864,8 @@ A^TA\xhat = \begin{bmatrix} 9 \amp -1 \\ -1 \amp 10 \\
 </div></article><article class="activity project-like" id="activity-83"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.5.3</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6655">
-<div class="para">The rate at which a cricket chirps is related to the outdoor temperature, as reflected in some experimental data that we’ll study in this activity.  The chirp rate <span class="process-math">\(C\)</span> is expressed in chirps per second while the temperature <span class="process-math">\(T\)</span> is in degrees Fahrenheit.  Evaluate the following cell to load the data: <pre class="ptx-sagecell sagecell-sage" id="sage-187"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+<div class="para logical" id="p-6656">
+<div class="para">The rate at which a cricket chirps is related to the outdoor temperature, as reflected in some experimental data that we’ll study in this activity.  The chirp rate <span class="process-math">\(C\)</span> is expressed in chirps per second while the temperature <span class="process-math">\(T\)</span> is in degrees Fahrenheit.  Evaluate the following cell to load the data: <pre class="ptx-sagecell sagecell-sage" id="sage-190"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
 df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/crickets.csv')
 data = [vector(row) for row in df.values]
 chirps = vector(df['Chirps'])
@@ -874,11 +874,11 @@ print(df)
 list_plot(data, color='blue', size=40, xmin=12, xmax=22, ymin=60, ymax=100)
 </script></pre> Evaluating this cell also provides:</div>
 <ul class="disc">
-<li id="li-4572"><div class="para" id="p-6656">the vectors <code class="code-inline tex2jax_ignore">chirps</code> and <code class="code-inline tex2jax_ignore">temps</code> formed from the columns of the dataset.</div></li>
-<li id="li-4573"><div class="para" id="p-6657">the command <code class="code-inline tex2jax_ignore">onesvec(n)</code>, which creates an <span class="process-math">\(n\)</span>-dimensional vector whose entries are all one.</div></li>
-<li id="li-4574"><div class="para" id="p-6658">Remember that you can form a matrix whose columns are the vectors <code class="code-inline tex2jax_ignore">v1</code> and <code class="code-inline tex2jax_ignore">v2</code> with <code class="code-inline tex2jax_ignore">matrix([v1, v2]).T</code>.</div></li>
+<li id="li-4572"><div class="para" id="p-6657">the vectors <code class="code-inline tex2jax_ignore">chirps</code> and <code class="code-inline tex2jax_ignore">temps</code> formed from the columns of the dataset.</div></li>
+<li id="li-4573"><div class="para" id="p-6658">the command <code class="code-inline tex2jax_ignore">onesvec(n)</code>, which creates an <span class="process-math">\(n\)</span>-dimensional vector whose entries are all one.</div></li>
+<li id="li-4574"><div class="para" id="p-6659">Remember that you can form a matrix whose columns are the vectors <code class="code-inline tex2jax_ignore">v1</code> and <code class="code-inline tex2jax_ignore">v2</code> with <code class="code-inline tex2jax_ignore">matrix([v1, v2]).T</code>.</div></li>
 </ul>
-</div> <div class="para logical" id="p-6659">
+</div> <div class="para logical" id="p-6660">
 <div class="para">We would like to represent this relationship by a linear function</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -886,39 +886,39 @@ list_plot(data, color='blue', size=40, xmin=12, xmax=22, ymin=60, ymax=100)
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-4575"><div class="para" id="p-6660">Use the first data point <span class="process-math">\((C_1,T_1)=(20.0,88.6)\)</span> to write an equation involving <span class="process-math">\(\beta_0\)</span> and <span class="process-math">\(\beta_1\text{.}\)</span>
+<li id="li-4575"><div class="para" id="p-6661">Use the first data point <span class="process-math">\((C_1,T_1)=(20.0,88.6)\)</span> to write an equation involving <span class="process-math">\(\beta_0\)</span> and <span class="process-math">\(\beta_1\text{.}\)</span>
 </div></li>
-<li id="li-4576"><div class="para" id="p-6661">Suppose that we represent the unknowns using a vector <span class="process-math">\(\xvec = \twovec{\beta_0}{\beta_1}\text{.}\)</span>  Use the 15 data points to create the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> so that the linear system <span class="process-math">\(A\xvec= \bvec\)</span> describes the unknown vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-188"><script type="text/x-sage">
+<li id="li-4576"><div class="para" id="p-6662">Suppose that we represent the unknowns using a vector <span class="process-math">\(\xvec = \twovec{\beta_0}{\beta_1}\text{.}\)</span>  Use the 15 data points to create the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> so that the linear system <span class="process-math">\(A\xvec= \bvec\)</span> describes the unknown vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-191"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-4577"><div class="para" id="p-6662">Write the normal equations <span class="process-math">\(A^TA\xhat =
+<li id="li-4577"><div class="para" id="p-6663">Write the normal equations <span class="process-math">\(A^TA\xhat =
 A^T\bvec\text{;}\)</span> that is, find the matrix <span class="process-math">\(A^TA\)</span> and the vector <span class="process-math">\(A^T\bvec\text{.}\)</span>
 </div></li>
 <li id="li-4578">
-<div class="para" id="p-6663">Solve the normal equations to find <span class="process-math">\(\xhat\text{,}\)</span> the least squares approximate solution to the equation <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>  Call your solution <code class="code-inline tex2jax_ignore">xhat</code> since <code class="code-inline tex2jax_ignore">x</code> has another meaning in Sage. <pre class="ptx-sagecell sagecell-sage" id="sage-189"><script type="text/x-sage">
+<div class="para" id="p-6664">Solve the normal equations to find <span class="process-math">\(\xhat\text{,}\)</span> the least squares approximate solution to the equation <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>  Call your solution <code class="code-inline tex2jax_ignore">xhat</code> since <code class="code-inline tex2jax_ignore">x</code> has another meaning in Sage. <pre class="ptx-sagecell sagecell-sage" id="sage-192"><script type="text/x-sage">
 </script></pre>
 </div>
-<div class="para" id="p-6664">What are the values of <span class="process-math">\(\beta_0\)</span> and <span class="process-math">\(\beta_1\)</span> that you found?</div>
+<div class="para" id="p-6665">What are the values of <span class="process-math">\(\beta_0\)</span> and <span class="process-math">\(\beta_1\)</span> that you found?</div>
 </li>
 <li id="li-4579">
-<div class="para" id="p-6665">If the chirp rate is 22 chirps per second, what is your prediction for the temperature?</div>
-<div class="para" id="p-6666">You can plot the data and your line, assuming you called the solution <code class="code-inline tex2jax_ignore">xhat</code>, using the cell below. <pre class="ptx-sagecell sagecell-sage" id="sage-190"><script type="text/x-sage">plot_model(xhat, data, domain=(12, 22))
+<div class="para" id="p-6666">If the chirp rate is 22 chirps per second, what is your prediction for the temperature?</div>
+<div class="para" id="p-6667">You can plot the data and your line, assuming you called the solution <code class="code-inline tex2jax_ignore">xhat</code>, using the cell below. <pre class="ptx-sagecell sagecell-sage" id="sage-193"><script type="text/x-sage">plot_model(xhat, data, domain=(12, 22))
 </script></pre>
 </div>
 </li>
 </ol>
-</div></article><div class="para" id="p-6679">This example demonstrates an approach, called <em class="emphasis">linear regression</em>, in which a collection of data is modeled using a linear function found by solving a least squares problem. Once we have the linear function that best fits the data, we can make predictions about situations that we haven’t encountered in the data.</div>
-<div class="para" id="p-6680">If we’re going to use our function to make predictions, it’s natural to ask how much confidence we have in these predictions.  This is a statistical question that leads to a rich and well-developed theory, which we won’t explore in much detail here.  However, there is one simple measure of how well our linear function fits the data that is known as the coefficient of determination and denoted by <span class="process-math">\(R^2\text{.}\)</span>
+</div></article><div class="para" id="p-6680">This example demonstrates an approach, called <em class="emphasis">linear regression</em>, in which a collection of data is modeled using a linear function found by solving a least squares problem. Once we have the linear function that best fits the data, we can make predictions about situations that we haven’t encountered in the data.</div>
+<div class="para" id="p-6681">If we’re going to use our function to make predictions, it’s natural to ask how much confidence we have in these predictions.  This is a statistical question that leads to a rich and well-developed theory, which we won’t explore in much detail here.  However, there is one simple measure of how well our linear function fits the data that is known as the coefficient of determination and denoted by <span class="process-math">\(R^2\text{.}\)</span>
 </div>
-<div class="para" id="p-6681">We have seen that the square of the distance <span class="process-math">\(\len{\bvec-A\xvec}^2\)</span> measures the amount by which the line fails to pass through the data points.  When the line is close to the data points, we expect this number to be small.  However, the size of this measure depends on the scale of the data.  For instance, the two lines shown in <a href="" class="xref" data-knowl="./knowl/fig-regression-scale.html" title="Figure 6.5.8">Figure 6.5.8</a> seem to fit the data equally well, but <span class="process-math">\(|\bvec-A\xhat|^2\)</span> is 100 times larger on the right.</div>
+<div class="para" id="p-6682">We have seen that the square of the distance <span class="process-math">\(\len{\bvec-A\xvec}^2\)</span> measures the amount by which the line fails to pass through the data points.  When the line is close to the data points, we expect this number to be small.  However, the size of this measure depends on the scale of the data.  For instance, the two lines shown in <a href="" class="xref" data-knowl="./knowl/fig-regression-scale.html" title="Figure 6.5.8">Figure 6.5.8</a> seem to fit the data equally well, but <span class="process-math">\(|\bvec-A\xhat|^2\)</span> is 100 times larger on the right.</div>
 <figure class="figure figure-like" id="fig-regression-scale"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/line-regress-1.svg" role="img" class="contained"></div>
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/line-regress-10.svg" role="img" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.8<span class="period">.</span></span><span class="space"> </span>The lines appear to fit equally well in spite of the fact that <span class="process-math">\(\len{\bvec-A\xhat}^2\)</span> differs by a factor of 100.</figcaption></figure><div class="para" id="p-6682">The coefficient of determination <span class="process-math">\(R^2\)</span> is defined by normalizing <span class="process-math">\(|\bvec-A\xhat|^2\)</span> so that it is independent of the scale.  Recall that we described how to demean a vector in <a href="sec-dot-product.html" class="internal" title="Section 6.1: The dot product">Section 6.1</a>:  given a vector <span class="process-math">\(\vvec\text{,}\)</span> we obtain <span class="process-math">\(\widetilde{\vvec}\)</span> by subtracting the average of the components from each component.</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.5.8<span class="period">.</span></span><span class="space"> </span>The lines appear to fit equally well in spite of the fact that <span class="process-math">\(\len{\bvec-A\xhat}^2\)</span> differs by a factor of 100.</figcaption></figure><div class="para" id="p-6683">The coefficient of determination <span class="process-math">\(R^2\)</span> is defined by normalizing <span class="process-math">\(|\bvec-A\xhat|^2\)</span> so that it is independent of the scale.  Recall that we described how to demean a vector in <a href="sec-dot-product.html" class="internal" title="Section 6.1: The dot product">Section 6.1</a>:  given a vector <span class="process-math">\(\vvec\text{,}\)</span> we obtain <span class="process-math">\(\widetilde{\vvec}\)</span> by subtracting the average of the components from each component.</div>
 <article class="definition definition-like" id="definition-34"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">6.5.9</span><span class="period">.</span><span class="space"> </span><span class="title">Coefficient of determination.</span>
-</h4>  <div class="para logical" id="p-6683">
+</h4>  <div class="para logical" id="p-6684">
 <div class="para">The coefficient of determination is</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -928,17 +928,17 @@ R^2 = 1 - \frac{|\bvec - A\xhat|^2}
 </div>
 <div class="para">where <span class="process-math">\(\widetilde{\bvec}\)</span> is the vector obtained by demeaning <span class="process-math">\(\bvec\text{.}\)</span>
 </div>
-</div></article><div class="para" id="p-6684">A more complete explanation of this definition relies on the concept of variance, which we explore in <a href="" class="xref" data-knowl="./knowl/ex-r2-meaning.html" title="Exercise 6.5.6.12">Exercise 6.5.6.12</a> and the next chapter.  For the time being, it’s enough to know that <span class="process-math">\(0\leq R^2 \leq 1\)</span> and that the closer <span class="process-math">\(R^2\)</span> is to 1, the better the line fits the data. In our original example, illustrated in <a href="" class="xref" data-knowl="./knowl/fig-regression-scale.html" title="Figure 6.5.8">Figure 6.5.8</a>, we find that <span class="process-math">\(R^2 = 0.75\text{,}\)</span> and in our study of cricket chirp rates, we have <span class="process-math">\(R^2=0.69\text{.}\)</span>  However, assessing the confidence we have in predictions made by solving a least squares problem can require considerable thought, and it would be naive to rely only on the value of <span class="process-math">\(R^2\text{.}\)</span>
+</div></article><div class="para" id="p-6685">A more complete explanation of this definition relies on the concept of variance, which we explore in <a href="" class="xref" data-knowl="./knowl/ex-r2-meaning.html" title="Exercise 6.5.6.12">Exercise 6.5.6.12</a> and the next chapter.  For the time being, it’s enough to know that <span class="process-math">\(0\leq R^2 \leq 1\)</span> and that the closer <span class="process-math">\(R^2\)</span> is to 1, the better the line fits the data. In our original example, illustrated in <a href="" class="xref" data-knowl="./knowl/fig-regression-scale.html" title="Figure 6.5.8">Figure 6.5.8</a>, we find that <span class="process-math">\(R^2 = 0.75\text{,}\)</span> and in our study of cricket chirp rates, we have <span class="process-math">\(R^2=0.69\text{.}\)</span>  However, assessing the confidence we have in predictions made by solving a least squares problem can require considerable thought, and it would be naive to rely only on the value of <span class="process-math">\(R^2\text{.}\)</span>
 </div></section><section class="subsection" id="subsection-105"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.5.3</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span>
 </h3>
-<div class="para" id="p-6685">As we’ve seen, the least squares approximate solution <span class="process-math">\(\xhat\)</span> to <span class="process-math">\(A\xvec=\bvec\)</span> may be found by solving the normal equation <span class="process-math">\(A^TA\xhat = A^T\bvec\text{,}\)</span> and this can be a practical strategy for some problems.  However, this approach can be problematic as small rounding errors can accumulate and lead to inaccurate final results.</div>
-<div class="para" id="p-6686">As the next activity demonstrates, there is an alternate method for finding the least squares approximate solution <span class="process-math">\(\xhat\)</span> using a <span class="process-math">\(QR\)</span> factorization of the matrix <span class="process-math">\(A\text{,}\)</span> and this method is preferable as it is numerically more reliable.</div>
+<div class="para" id="p-6686">As we’ve seen, the least squares approximate solution <span class="process-math">\(\xhat\)</span> to <span class="process-math">\(A\xvec=\bvec\)</span> may be found by solving the normal equation <span class="process-math">\(A^TA\xhat = A^T\bvec\text{,}\)</span> and this can be a practical strategy for some problems.  However, this approach can be problematic as small rounding errors can accumulate and lead to inaccurate final results.</div>
+<div class="para" id="p-6687">As the next activity demonstrates, there is an alternate method for finding the least squares approximate solution <span class="process-math">\(\xhat\)</span> using a <span class="process-math">\(QR\)</span> factorization of the matrix <span class="process-math">\(A\text{,}\)</span> and this method is preferable as it is numerically more reliable.</div>
 <article class="activity project-like" id="activity-BFI"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.5.4</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6687"><ol class="lower-alpha">
-<li id="li-4590"><div class="para logical" id="p-6688">
+<div class="para logical" id="p-6688"><ol class="lower-alpha">
+<li id="li-4590"><div class="para logical" id="p-6689">
 <div class="para">Suppose we are interested in finding the least squares approximate solution to the equation <span class="process-math">\(A\xvec =
 \bvec\)</span> and that we have the <span class="process-math">\(QR\)</span> factorization <span class="process-math">\(A=QR\text{.}\)</span>  Explain why the least squares approximation solution is given by solving</div>
 <div class="displaymath process-math" id="md-19">
@@ -949,7 +949,7 @@ QR\xhat \amp = QQ^T\bvec \\
 </div>
 </div></li>
 <li id="li-4591">
-<div class="para logical" id="p-6689">
+<div class="para logical" id="p-6690">
 <div class="para">Multiply both sides of the second expression by <span class="process-math">\(Q^T\)</span> and explain why</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -957,7 +957,7 @@ R\xhat = Q^T\bvec.
 \end{equation*}
 </div>
 </div>
-<div class="para logical" id="p-6690">
+<div class="para logical" id="p-6691">
 <div class="para">Since <span class="process-math">\(R\)</span> is upper triangular, this is a relatively simple equation to solve using back substitution, as we saw in <a href="sec-gaussian-revisited.html" class="internal" title="Section 4.7: Partial pivoting and LU factorizations">Section 4.7</a>.  We will therefore write the least squares approximate solution as</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/sec-gaussian-revisited.html">
 \begin{equation*}
@@ -968,7 +968,7 @@ R\xhat = Q^T\bvec.
 </div>
 </li>
 <li id="li-4592">
-<div class="para logical" id="p-6691">
+<div class="para logical" id="p-6692">
 <div class="para">Brozak’s formula, which is used to calculate a person’s body fat index <span class="process-math">\(BFI\text{,}\)</span> is</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -978,8 +978,8 @@ BFI = 100 \left(\frac{4.57}{\rho} - 4.142\right)
 <div class="para">where <span class="process-math">\(\rho\)</span> denotes a person’s body density in grams per cubic centimeter.  Obtaining an accurate measure of <span class="process-math">\(\rho\)</span> is difficult, however, because it requires submerging the person in water and measuring the volume of water displaced.  Instead, we will gather several other body measurements, which are more easily obtained, and use it to predict <span class="process-math">\(BFI\text{.}\)</span>
 </div>
 </div>
-<div class="para logical" id="p-6692">
-<div class="para">For instance, suppose we take 10 patients and measure their weight <span class="process-math">\(w\)</span> in pounds, height <span class="process-math">\(h\)</span> in inches, abdomen <span class="process-math">\(a\)</span> in centimeters, wrist circumference <span class="process-math">\(r\)</span> in centimeters, neck circumference <span class="process-math">\(n\)</span> in centimeters, and <span class="process-math">\(BFI\text{.}\)</span>  Evaluating the following cell loads and displays the data. <pre class="ptx-sagecell sagecell-sage" id="sage-191"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+<div class="para logical" id="p-6693">
+<div class="para">For instance, suppose we take 10 patients and measure their weight <span class="process-math">\(w\)</span> in pounds, height <span class="process-math">\(h\)</span> in inches, abdomen <span class="process-math">\(a\)</span> in centimeters, wrist circumference <span class="process-math">\(r\)</span> in centimeters, neck circumference <span class="process-math">\(n\)</span> in centimeters, and <span class="process-math">\(BFI\text{.}\)</span>  Evaluating the following cell loads and displays the data. <pre class="ptx-sagecell sagecell-sage" id="sage-194"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
 df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/bfi.csv')
 weight = vector(df['Weight'])
 height = vector(df['Height'])
@@ -990,14 +990,14 @@ BFI = vector(df['BFI'])
 print(df)
 </script></pre> In addition, that cell provides:</div>
 <ol class="lower-alpha">
-<li id="li-4593"><div class="para" id="p-6693">vectors <code class="code-inline tex2jax_ignore">weight</code>, <code class="code-inline tex2jax_ignore">height</code>, <code class="code-inline tex2jax_ignore">abdomen</code>, <code class="code-inline tex2jax_ignore">wrist</code>, <code class="code-inline tex2jax_ignore">neck</code>, and <code class="code-inline tex2jax_ignore">BFI</code> formed from the columns of the dataset.</div></li>
-<li id="li-4594"><div class="para" id="p-6694">the command <code class="code-inline tex2jax_ignore">onesvec(n)</code>, which returns an <span class="process-math">\(n\)</span>-dimensional vector whose entries are all one.</div></li>
-<li id="li-4595"><div class="para" id="p-6695">the command <code class="code-inline tex2jax_ignore">QR(A)</code> that returns the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\)</span> as <code class="code-inline tex2jax_ignore">Q, R = QR(A)</code>.</div></li>
-<li id="li-4596"><div class="para" id="p-6696">the command <code class="code-inline tex2jax_ignore">demean(v)</code>, which returns the demeaned vector <span class="process-math">\(\widetilde{\vvec}\text{.}\)</span>
+<li id="li-4593"><div class="para" id="p-6694">vectors <code class="code-inline tex2jax_ignore">weight</code>, <code class="code-inline tex2jax_ignore">height</code>, <code class="code-inline tex2jax_ignore">abdomen</code>, <code class="code-inline tex2jax_ignore">wrist</code>, <code class="code-inline tex2jax_ignore">neck</code>, and <code class="code-inline tex2jax_ignore">BFI</code> formed from the columns of the dataset.</div></li>
+<li id="li-4594"><div class="para" id="p-6695">the command <code class="code-inline tex2jax_ignore">onesvec(n)</code>, which returns an <span class="process-math">\(n\)</span>-dimensional vector whose entries are all one.</div></li>
+<li id="li-4595"><div class="para" id="p-6696">the command <code class="code-inline tex2jax_ignore">QR(A)</code> that returns the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\)</span> as <code class="code-inline tex2jax_ignore">Q, R = QR(A)</code>.</div></li>
+<li id="li-4596"><div class="para" id="p-6697">the command <code class="code-inline tex2jax_ignore">demean(v)</code>, which returns the demeaned vector <span class="process-math">\(\widetilde{\vvec}\text{.}\)</span>
 </div></li>
 </ol>
 </div>
-<div class="para logical" id="p-6697">
+<div class="para logical" id="p-6698">
 <div class="para">We would like to find the linear function</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1007,25 +1007,25 @@ print(df)
 </div>
 <div class="para">that best fits the data.</div>
 </div>
-<div class="para" id="p-6698">Use the first data point to write an equation for the parameters <span class="process-math">\(\beta_0,\beta_1,\ldots,\beta_5\text{.}\)</span>
+<div class="para" id="p-6699">Use the first data point to write an equation for the parameters <span class="process-math">\(\beta_0,\beta_1,\ldots,\beta_5\text{.}\)</span>
 </div>
 </li>
-<li id="li-4597"><div class="para" id="p-6699">Describe the linear system <span class="process-math">\(A\xvec = \bvec\)</span> for these parameters.  More specifically, describe how the matrix <span class="process-math">\(A\)</span> and the vector <span class="process-math">\(\bvec\)</span> are formed.</div></li>
-<li id="li-4598"><div class="para" id="p-6700">Construct the matrix <span class="process-math">\(A\)</span> and find its <span class="process-math">\(QR\)</span> factorization in the cell below. <pre class="ptx-sagecell sagecell-sage" id="sage-192"><script type="text/x-sage">
+<li id="li-4597"><div class="para" id="p-6700">Describe the linear system <span class="process-math">\(A\xvec = \bvec\)</span> for these parameters.  More specifically, describe how the matrix <span class="process-math">\(A\)</span> and the vector <span class="process-math">\(\bvec\)</span> are formed.</div></li>
+<li id="li-4598"><div class="para" id="p-6701">Construct the matrix <span class="process-math">\(A\)</span> and find its <span class="process-math">\(QR\)</span> factorization in the cell below. <pre class="ptx-sagecell sagecell-sage" id="sage-195"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-4599"><div class="para" id="p-6701">Find the least squares approximate solution <span class="process-math">\(\xhat\)</span> by solving the equation <span class="process-math">\(R\xhat =
+<li id="li-4599"><div class="para" id="p-6702">Find the least squares approximate solution <span class="process-math">\(\xhat\)</span> by solving the equation <span class="process-math">\(R\xhat =
 Q^T\bvec\text{.}\)</span>  You may want to use <code class="code-inline tex2jax_ignore">N(xhat)</code> to display a decimal approximation of the vector. What are the parameters <span class="process-math">\(\beta_0,\beta_1,\ldots,\beta_5\)</span> that best fit the data?</div></li>
-<li id="li-4600"><div class="para" id="p-6702">Find the coefficient of determination <span class="process-math">\(R^2\)</span> for your parameters.  What does this imply about the quality of the fit? <pre class="ptx-sagecell sagecell-sage" id="sage-193"><script type="text/x-sage">
+<li id="li-4600"><div class="para" id="p-6703">Find the coefficient of determination <span class="process-math">\(R^2\)</span> for your parameters.  What does this imply about the quality of the fit? <pre class="ptx-sagecell sagecell-sage" id="sage-196"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-4601"><div class="para" id="p-6703">Suppose a person’s measurements are: weight 190, height 70, abdomen 90, wrist 18, and neck 35.  Estimate this person’s <span class="process-math">\(BFI\text{.}\)</span>
+<li id="li-4601"><div class="para" id="p-6704">Suppose a person’s measurements are: weight 190, height 70, abdomen 90, wrist 18, and neck 35.  Estimate this person’s <span class="process-math">\(BFI\text{.}\)</span>
 </div></li>
-</ol></div></article><div class="para" id="p-6722">To summarize, we have seen that</div>
+</ol></div></article><div class="para" id="p-6723">To summarize, we have seen that</div>
 <article class="proposition theorem-like" id="proposition-47"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.5.10</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6723">
+<div class="para logical" id="p-6724">
 <div class="para">If the columns of <span class="process-math">\(A\)</span> are linearly independent and we have the <span class="process-math">\(QR\)</span> factorization <span class="process-math">\(A=QR\text{,}\)</span> then the least squares approximate solution <span class="process-math">\(\xhat\)</span> to the equation <span class="process-math">\(A\xvec=\bvec\)</span> is given by</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1035,28 +1035,28 @@ Q^T\bvec\text{.}\)</span>  You may want to use <code class="code-inline tex2jax_
 </div></article></section><section class="subsection" id="subsection-106"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.5.4</span> <span class="title">Polynomial Regression</span>
 </h3>
-<div class="para" id="p-6724">In the examples we’ve seen so far, we have fit a linear function to a dataset.  Sometimes, however, a polynomial, such as a quadratic function, may be more appropriate.  It turns out that the techniques we’ve developed in this section are still useful as the next activity demonstrates.</div>
+<div class="para" id="p-6725">In the examples we’ve seen so far, we have fit a linear function to a dataset.  Sometimes, however, a polynomial, such as a quadratic function, may be more appropriate.  It turns out that the techniques we’ve developed in this section are still useful as the next activity demonstrates.</div>
 <article class="activity project-like" id="activity-85"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.5.5</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6725"><ol class="lower-alpha">
+<div class="para logical" id="p-6726"><ol class="lower-alpha">
 <li id="li-4618">
-<div class="para logical" id="p-6726">
-<div class="para">Suppose that we have a small dataset containing the points <span class="process-math">\((0,2)\text{,}\)</span> <span class="process-math">\((1,1)\text{,}\)</span> <span class="process-math">\((2,3)\text{,}\)</span> and <span class="process-math">\((3,3)\text{,}\)</span> such as appear when the following cell is evaluated. <pre class="ptx-sagecell sagecell-sage" id="sage-194"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py',
+<div class="para logical" id="p-6727">
+<div class="para">Suppose that we have a small dataset containing the points <span class="process-math">\((0,2)\text{,}\)</span> <span class="process-math">\((1,1)\text{,}\)</span> <span class="process-math">\((2,3)\text{,}\)</span> and <span class="process-math">\((3,3)\text{,}\)</span> such as appear when the following cell is evaluated. <pre class="ptx-sagecell sagecell-sage" id="sage-197"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py',
 globals())
 data = [[0, 2], [1, 1], [2, 3], [3, 3]]
 list_plot(data, color='blue', size=40)
 </script></pre> In addition to loading and plotting the data, evaluating that cell provides the following commands:</div>
 <ul class="disc">
-<li id="li-4619"><div class="para" id="p-6727">
+<li id="li-4619"><div class="para" id="p-6728">
 <code class="code-inline tex2jax_ignore">Q, R = QR(A)</code> returns the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-4620"><div class="para" id="p-6728">
+<li id="li-4620"><div class="para" id="p-6729">
 <code class="code-inline tex2jax_ignore">demean(v)</code> returns the demeaned vector <span class="process-math">\(\widetilde{\vvec}\text{.}\)</span>
 </div></li>
 </ul>
 </div>
-<div class="para logical" id="p-6729">
+<div class="para logical" id="p-6730">
 <div class="para">Let’s fit a quadratic function of the form</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1065,41 +1065,41 @@ list_plot(data, color='blue', size=40)
 </div>
 <div class="para">to this dataset.</div>
 </div>
-<div class="para" id="p-6730">Write four equations, one for each data point, that describe the coefficients <span class="process-math">\(\beta_0\text{,}\)</span> <span class="process-math">\(\beta_1\text{,}\)</span> and <span class="process-math">\(\beta_2\text{.}\)</span>
+<div class="para" id="p-6731">Write four equations, one for each data point, that describe the coefficients <span class="process-math">\(\beta_0\text{,}\)</span> <span class="process-math">\(\beta_1\text{,}\)</span> and <span class="process-math">\(\beta_2\text{.}\)</span>
 </div>
 </li>
 <li id="li-4621">
-<div class="para" id="p-6731">Express these four equations as a linear system <span class="process-math">\(A\xvec = \bvec\)</span> where <span class="process-math">\(\xvec =
+<div class="para" id="p-6732">Express these four equations as a linear system <span class="process-math">\(A\xvec = \bvec\)</span> where <span class="process-math">\(\xvec =
 \threevec{\beta_0}{\beta_1}{\beta_2}\text{.}\)</span>
 </div>
-<div class="para" id="p-6732">Find the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\)</span> and use it to find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-195"><script type="text/x-sage">
+<div class="para" id="p-6733">Find the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\)</span> and use it to find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-198"><script type="text/x-sage">
 </script></pre>
 </div>
 </li>
-<li id="li-4622"><div class="para" id="p-6733">Use the parameters <span class="process-math">\(\beta_0\text{,}\)</span> <span class="process-math">\(\beta_1\text{,}\)</span> and <span class="process-math">\(\beta_2\)</span> that you found to write the quadratic function that fits the data.  You can plot this function, along with the data, by entering your function in the place indicated below. <pre class="ptx-sagecell sagecell-sage" id="sage-196"><script type="text/x-sage">list_plot(data, color='blue', size=40) + plot( **your function here**,
+<li id="li-4622"><div class="para" id="p-6734">Use the parameters <span class="process-math">\(\beta_0\text{,}\)</span> <span class="process-math">\(\beta_1\text{,}\)</span> and <span class="process-math">\(\beta_2\)</span> that you found to write the quadratic function that fits the data.  You can plot this function, along with the data, by entering your function in the place indicated below. <pre class="ptx-sagecell sagecell-sage" id="sage-199"><script type="text/x-sage">list_plot(data, color='blue', size=40) + plot( **your function here**,
 0, 3, color='red')
 </script></pre>
 </div></li>
-<li id="li-4623"><div class="para" id="p-6734">What is your predicted <span class="process-math">\(y\)</span> value when <span class="process-math">\(x=1.5\text{.}\)</span>
+<li id="li-4623"><div class="para" id="p-6735">What is your predicted <span class="process-math">\(y\)</span> value when <span class="process-math">\(x=1.5\text{.}\)</span>
 </div></li>
-<li id="li-4624"><div class="para" id="p-6735">Find the coefficient of determination <span class="process-math">\(R^2\)</span> for the quadratic function?  What does this say about the quality of the fit?</div></li>
-<li id="li-4625"><div class="para logical" id="p-6736">
+<li id="li-4624"><div class="para" id="p-6736">Find the coefficient of determination <span class="process-math">\(R^2\)</span> for the quadratic function?  What does this say about the quality of the fit?</div></li>
+<li id="li-4625"><div class="para logical" id="p-6737">
 <div class="para">Now fit a cubic polynomial of the form</div>
 <div class="displaymath process-math">
 \begin{equation*}
 \beta_0 + \beta_1x + \beta_2 x^2 + \beta_3x^3 = y
 \end{equation*}
 </div>
-<div class="para">to this dataset. <pre class="ptx-sagecell sagecell-sage" id="sage-197"><script type="text/x-sage">
+<div class="para">to this dataset. <pre class="ptx-sagecell sagecell-sage" id="sage-200"><script type="text/x-sage">
 </script></pre>
 </div>
 </div></li>
-<li id="li-4626"><div class="para" id="p-6737">Find the coefficient of determination <span class="process-math">\(R^2\)</span> for the cubic function.  What does this say about the quality of the fit?</div></li>
-<li id="li-4627"><div class="para" id="p-6738">What do you notice when you plot the cubic function along with the data?  How does this reflect the value of <span class="process-math">\(R^2\)</span> that you found? <pre class="ptx-sagecell sagecell-sage" id="sage-198"><script type="text/x-sage">list_plot(data, color='blue', size=40) + plot( **your function here**,
+<li id="li-4626"><div class="para" id="p-6738">Find the coefficient of determination <span class="process-math">\(R^2\)</span> for the cubic function.  What does this say about the quality of the fit?</div></li>
+<li id="li-4627"><div class="para" id="p-6739">What do you notice when you plot the cubic function along with the data?  How does this reflect the value of <span class="process-math">\(R^2\)</span> that you found? <pre class="ptx-sagecell sagecell-sage" id="sage-201"><script type="text/x-sage">list_plot(data, color='blue', size=40) + plot( **your function here**,
 0, 3, color='red')
 </script></pre>
 </div></li>
-</ol></div></article><div class="para logical" id="p-6757">
+</ol></div></article><div class="para logical" id="p-6758">
 <div class="para">The matrices <span class="process-math">\(A\)</span> that you created in the last activity when fitting a quadratic and cubic function to a dataset have a special form.  In particular, if the data points are labeled <span class="process-math">\((x_i, y_i)\)</span> and we seek a degree <span class="process-math">\(k\)</span> polynomial, then</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1118,9 +1118,9 @@ A =
 <article class="activity project-like" id="activity-86"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.5.6</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-6758">This activity explores a dataset describing Arctic sea ice and that comes from <a class="external" href="http://sustainabilitymath.org/" target="_blank">Sustainability Math.</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-2" id="fn-2"><sup> 1 </sup></a>
-</div> <div class="para logical" id="p-6759">
-<div class="para">Evaluating the cell below will plot the extent of Arctic sea ice, in millions of square kilometers, during the twelve months of 2012. <pre class="ptx-sagecell sagecell-sage" id="sage-199"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+<div class="para" id="p-6759">This activity explores a dataset describing Arctic sea ice and that comes from <a class="external" href="http://sustainabilitymath.org/" target="_blank">Sustainability Math.</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-2" id="fn-2"><sup> 1 </sup></a>
+</div> <div class="para logical" id="p-6760">
+<div class="para">Evaluating the cell below will plot the extent of Arctic sea ice, in millions of square kilometers, during the twelve months of 2012. <pre class="ptx-sagecell sagecell-sage" id="sage-202"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
 df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/sea_ice.csv')
 data = [vector([row[0], row[2]]) for row in df.values]
 month = vector(df['Month'])
@@ -1129,72 +1129,72 @@ print(df[['Month', '2012']])
 list_plot(data, color='blue', size=40)
 </script></pre> In addition, you have access to a few special variables and commands:</div>
 <ul class="disc">
-<li id="li-4644"><div class="para" id="p-6760">
+<li id="li-4644"><div class="para" id="p-6761">
 <code class="code-inline tex2jax_ignore">month</code> is the vector of month values and <code class="code-inline tex2jax_ignore">ice</code> is the vector of sea ice values from the table above.</div></li>
-<li id="li-4645"><div class="para" id="p-6761">
+<li id="li-4645"><div class="para" id="p-6762">
 <code class="code-inline tex2jax_ignore">vandermonde(x, k)</code> constructs the Vandermonde matrix of degree <span class="process-math">\(k\)</span> using the points in the vector <code class="code-inline tex2jax_ignore">x</code>.</div></li>
-<li id="li-4646"><div class="para" id="p-6762">
+<li id="li-4646"><div class="para" id="p-6763">
 <code class="code-inline tex2jax_ignore">Q, R = QR(A)</code> provides the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-4647"><div class="para" id="p-6763">
+<li id="li-4647"><div class="para" id="p-6764">
 <code class="code-inline tex2jax_ignore">demean(v)</code> returns the demeaned vector <span class="process-math">\(\widetilde{\vvec}\text{.}\)</span>
 </div></li>
 </ul>
-</div> <div class="para logical" id="p-6764"><ol class="lower-alpha">
-<li id="li-4648"><div class="para" id="p-6765">Find the vector <span class="process-math">\(\xhat\text{,}\)</span> the least squares approximate solution to the linear system that results from fitting a degree 5 polynomial to the data. <pre class="ptx-sagecell sagecell-sage" id="sage-200"><script type="text/x-sage">
+</div> <div class="para logical" id="p-6765"><ol class="lower-alpha">
+<li id="li-4648"><div class="para" id="p-6766">Find the vector <span class="process-math">\(\xhat\text{,}\)</span> the least squares approximate solution to the linear system that results from fitting a degree 5 polynomial to the data. <pre class="ptx-sagecell sagecell-sage" id="sage-203"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-4649"><div class="para" id="p-6766">If your result is stored in the variable <code class="code-inline tex2jax_ignore">xhat</code>, you may plot the polynomial and the data together using the following cell. <pre class="ptx-sagecell sagecell-sage" id="sage-201"><script type="text/x-sage">plot_model(xhat, data)
+<li id="li-4649"><div class="para" id="p-6767">If your result is stored in the variable <code class="code-inline tex2jax_ignore">xhat</code>, you may plot the polynomial and the data together using the following cell. <pre class="ptx-sagecell sagecell-sage" id="sage-204"><script type="text/x-sage">plot_model(xhat, data)
 </script></pre>
 </div></li>
-<li id="li-4650"><div class="para" id="p-6767">Find the coefficient of determination <span class="process-math">\(R^2\)</span> for this polynomial fit.</div></li>
-<li id="li-4651"><div class="para" id="p-6768">Repeat these steps to fit a degree 8 polynomial to the data, plot the polynomial with the data, and find <span class="process-math">\(R^2\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-202"><script type="text/x-sage">
+<li id="li-4650"><div class="para" id="p-6768">Find the coefficient of determination <span class="process-math">\(R^2\)</span> for this polynomial fit.</div></li>
+<li id="li-4651"><div class="para" id="p-6769">Repeat these steps to fit a degree 8 polynomial to the data, plot the polynomial with the data, and find <span class="process-math">\(R^2\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-205"><script type="text/x-sage">
 </script></pre>
 </div></li>
 <li id="li-4652">
-<div class="para" id="p-6769">Repeat one more time by fitting a degree 11 polynomial to the data, creating a plot, and finding <span class="process-math">\(R^2\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-203"><script type="text/x-sage">
+<div class="para" id="p-6770">Repeat one more time by fitting a degree 11 polynomial to the data, creating a plot, and finding <span class="process-math">\(R^2\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-206"><script type="text/x-sage">
 </script></pre>
 </div>
-<div class="para" id="p-6770">It’s certainly true that higher degree polynomials fit the data better, as seen by the increasing values of <span class="process-math">\(R^2\text{,}\)</span> but that’s not always a good thing. For instance, when <span class="process-math">\(k=11\text{,}\)</span> you may notice that the graph of the polynomial wiggles a little more than we would expect. In this case, the polynomial is trying too hard to fit the data, which usually contains some uncertainty, especially if it’s obtained from measurements.  The error built in to the data is called <em class="emphasis">noise,</em> and its presence means that we shouldn’t expect our polynomial to fit the data perfectly.  When we choose a polynomial whose degree is too high, we give the noise too much weight in the model, which leads to some undesirable behavior, like the wiggles in the graph.</div>
-<div class="para" id="p-6771">Fitting the data with a polynomial whose degree is too high is called <em class="emphasis">overfitting</em>, a phenomenon that can appear in many machine learning applications. Generally speaking, we would like to choose <span class="process-math">\(k\)</span> large enough to capture the essential features of the data but not so large that we overfit and build the noise into the model.  There are ways to determine the optimal value of <span class="process-math">\(k\text{,}\)</span> but we won’t pursue that here.</div>
+<div class="para" id="p-6771">It’s certainly true that higher degree polynomials fit the data better, as seen by the increasing values of <span class="process-math">\(R^2\text{,}\)</span> but that’s not always a good thing. For instance, when <span class="process-math">\(k=11\text{,}\)</span> you may notice that the graph of the polynomial wiggles a little more than we would expect. In this case, the polynomial is trying too hard to fit the data, which usually contains some uncertainty, especially if it’s obtained from measurements.  The error built in to the data is called <em class="emphasis">noise,</em> and its presence means that we shouldn’t expect our polynomial to fit the data perfectly.  When we choose a polynomial whose degree is too high, we give the noise too much weight in the model, which leads to some undesirable behavior, like the wiggles in the graph.</div>
+<div class="para" id="p-6772">Fitting the data with a polynomial whose degree is too high is called <em class="emphasis">overfitting</em>, a phenomenon that can appear in many machine learning applications. Generally speaking, we would like to choose <span class="process-math">\(k\)</span> large enough to capture the essential features of the data but not so large that we overfit and build the noise into the model.  There are ways to determine the optimal value of <span class="process-math">\(k\text{,}\)</span> but we won’t pursue that here.</div>
 </li>
-<li id="li-4653"><div class="para" id="p-6772">Choosing a reasonable value of <span class="process-math">\(k\text{,}\)</span> estimate the extent of Arctic sea ice at month 6.5, roughly at the Summer Solstice.</div></li>
+<li id="li-4653"><div class="para" id="p-6773">Choosing a reasonable value of <span class="process-math">\(k\text{,}\)</span> estimate the extent of Arctic sea ice at month 6.5, roughly at the Summer Solstice.</div></li>
 </ol></div></article></section><section class="subsection" id="subsection-107"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">6.5.5</span> <span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-6787">
+<div class="para logical" id="p-6788">
 <div class="para">This section introduced some types of least squares problems and a framework for working with them.</div>
 <ul class="disc">
-<li id="li-4666"><div class="para" id="p-6788">Given an inconsistent system <span class="process-math">\(A\xvec=\bvec\text{,}\)</span> we find <span class="process-math">\(\xhat\text{,}\)</span> the least squares approximate solution, by requiring that <span class="process-math">\(A\xhat\)</span> be as possible to <span class="process-math">\(\bvec\)</span> as possible.  In other words, <span class="process-math">\(A\xhat = \bhat\)</span> where <span class="process-math">\(\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4666"><div class="para" id="p-6789">Given an inconsistent system <span class="process-math">\(A\xvec=\bvec\text{,}\)</span> we find <span class="process-math">\(\xhat\text{,}\)</span> the least squares approximate solution, by requiring that <span class="process-math">\(A\xhat\)</span> be as possible to <span class="process-math">\(\bvec\)</span> as possible.  In other words, <span class="process-math">\(A\xhat = \bhat\)</span> where <span class="process-math">\(\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4667"><div class="para" id="p-6789">One way to find <span class="process-math">\(\xhat\)</span> is by solving the normal equations <span class="process-math">\(A^TA\xhat = A^T\bvec.\)</span>  This is not our preferred method since numerical problems can arise.</div></li>
-<li id="li-4668"><div class="para" id="p-6790">A second way to find <span class="process-math">\(\xhat\)</span> uses a <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>  If <span class="process-math">\(A=QR\text{,}\)</span> then <span class="process-math">\(\xhat
+<li id="li-4667"><div class="para" id="p-6790">One way to find <span class="process-math">\(\xhat\)</span> is by solving the normal equations <span class="process-math">\(A^TA\xhat = A^T\bvec.\)</span>  This is not our preferred method since numerical problems can arise.</div></li>
+<li id="li-4668"><div class="para" id="p-6791">A second way to find <span class="process-math">\(\xhat\)</span> uses a <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>  If <span class="process-math">\(A=QR\text{,}\)</span> then <span class="process-math">\(\xhat
 = R^{-1}Q^T\bvec\)</span> and finding <span class="process-math">\(R^{-1}\)</span> is computationally feasible since <span class="process-math">\(R\)</span> is upper triangular.</div></li>
-<li id="li-4669"><div class="para" id="p-6791">This technique may be applied widely and is useful for modeling data.  We saw examples in this section where linear functions of several input variables and polynomials provided effective models for different datasets.</div></li>
-<li id="li-4670"><div class="para" id="p-6792">A simple measure of the quality of the fit is the coefficient of determination <span class="process-math">\(R^2\)</span> though some additional thought should be given in real applications.</div></li>
+<li id="li-4669"><div class="para" id="p-6792">This technique may be applied widely and is useful for modeling data.  We saw examples in this section where linear functions of several input variables and polynomials provided effective models for different datasets.</div></li>
+<li id="li-4670"><div class="para" id="p-6793">A simple measure of the quality of the fit is the coefficient of determination <span class="process-math">\(R^2\)</span> though some additional thought should be given in real applications.</div></li>
 </ul>
 </div></section><section class="exercises" id="exercises-28"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber">6.5.6</span> <span class="title">Exercises</span>
 </h3>
-<div class="para logical" id="p-6793">
+<div class="para logical" id="p-6794">
 <div class="para">Evaluating the following cell loads in some commands that will be helpful in the following exercises.  In particular, there are commands</div>
 <ul class="disc">
-<li id="li-4671"><div class="para" id="p-6794">
+<li id="li-4671"><div class="para" id="p-6795">
 <code class="code-inline tex2jax_ignore">QR(A)</code> that returns the <span class="process-math">\(QR\)</span> factorization of <code class="code-inline tex2jax_ignore">A</code> as <code class="code-inline tex2jax_ignore">Q, R = QR(A)</code>,</div></li>
-<li id="li-4672"><div class="para" id="p-6795">
+<li id="li-4672"><div class="para" id="p-6796">
 <code class="code-inline tex2jax_ignore">onesvec(n)</code> that returns the <span class="process-math">\(n\)</span>-dimensional vector whose entries are all 1,</div></li>
-<li id="li-4673"><div class="para" id="p-6796">
+<li id="li-4673"><div class="para" id="p-6797">
 <code class="code-inline tex2jax_ignore">demean(v)</code> that demeans the vector <code class="code-inline tex2jax_ignore">v</code>,</div></li>
-<li id="li-4674"><div class="para" id="p-6797">
+<li id="li-4674"><div class="para" id="p-6798">
 <code class="code-inline tex2jax_ignore">vandermonde(x, k)</code> that returns the Vandermonde matrix of degree <span class="process-math">\(k\)</span> formed from the components of the vector <code class="code-inline tex2jax_ignore">x</code>, and</div></li>
-<li id="li-4675"><div class="para" id="p-6798">
+<li id="li-4675"><div class="para" id="p-6799">
 <code class="code-inline tex2jax_ignore">plot_model(xhat, data)</code> that plots the <code class="code-inline tex2jax_ignore">data</code> and the model <code class="code-inline tex2jax_ignore">xhat</code>.</div></li>
 </ul>
-<div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-204"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+<div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-207"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
 </script></pre></div>
 </div>
 <article class="exercise exercise-like" id="exercise-242"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6799">
+<div class="para logical" id="p-6800">
 <div class="para">Suppose we write the linear system</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1209,16 +1209,16 @@ list_plot(data, color='blue', size=40)
 <div class="para">as <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-4676"><div class="para" id="p-6800">Find an orthogonal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4676"><div class="para" id="p-6801">Find an orthogonal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4677"><div class="para" id="p-6801">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4677"><div class="para" id="p-6802">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4678"><div class="para" id="p-6802">Find a solution to the linear system <span class="process-math">\(A\xvec =
+<li id="li-4678"><div class="para" id="p-6803">Find a solution to the linear system <span class="process-math">\(A\xvec =
 \bhat\text{.}\)</span>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="ex-lst-squares-line"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6811">
+<div class="para logical" id="p-6812">
 <div class="para">Consider the data in <a href="" class="xref" data-knowl="./knowl/table-lst-squares-line.html" title="Table 6.5.11: A data set with four points.">Table 6.5.11</a>. <figure class="table table-like" id="table-lst-squares-line"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">6.5.11<span class="period">.</span></span><span class="space"> </span>A data set with four points.</figcaption><div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="c m b1 r0 l0 t0 lines"><span class="process-math">\(x\)</span></td>
@@ -1240,26 +1240,26 @@ list_plot(data, color='blue', size=40)
 <td class="c m b0 r0 l0 t0 lines">4</td>
 <td class="c m b0 r0 l0 t0 lines">2</td>
 </tr>
-</table></div></figure> <pre class="ptx-sagecell sagecell-sage" id="sage-205"><script type="text/x-sage">
+</table></div></figure> <pre class="ptx-sagecell sagecell-sage" id="sage-208"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-4685"><div class="para" id="p-6812">Set up the linear system <span class="process-math">\(A\xvec=\bvec\)</span> that describes the line <span class="process-math">\(b + mx = y\)</span> passing through these points.</div></li>
-<li id="li-4686"><div class="para" id="p-6813">Write the normal equations that describe the least squares approximate solution to <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>
+<li id="li-4685"><div class="para" id="p-6813">Set up the linear system <span class="process-math">\(A\xvec=\bvec\)</span> that describes the line <span class="process-math">\(b + mx = y\)</span> passing through these points.</div></li>
+<li id="li-4686"><div class="para" id="p-6814">Write the normal equations that describe the least squares approximate solution to <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>
 </div></li>
-<li id="li-4687"><div class="para" id="p-6814">Find the least squares approximate solution <span class="process-math">\(\xhat\)</span> and plot the data and the resulting line.</div></li>
-<li id="li-4688"><div class="para" id="p-6815">What is your predicted <span class="process-math">\(y\)</span>-value when <span class="process-math">\(x=3.5\text{?}\)</span>
+<li id="li-4687"><div class="para" id="p-6815">Find the least squares approximate solution <span class="process-math">\(\xhat\)</span> and plot the data and the resulting line.</div></li>
+<li id="li-4688"><div class="para" id="p-6816">What is your predicted <span class="process-math">\(y\)</span>-value when <span class="process-math">\(x=3.5\text{?}\)</span>
 </div></li>
-<li id="li-4689"><div class="para" id="p-6816">Find the coefficient of determination <span class="process-math">\(R^2\text{.}\)</span>
+<li id="li-4689"><div class="para" id="p-6817">Find the coefficient of determination <span class="process-math">\(R^2\text{.}\)</span>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-244"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6829">
-<div class="para">Consider the four points in <a href="" class="xref" data-knowl="./knowl/table-lst-squares-line.html" title="Table 6.5.11: A data set with four points.">Table 6.5.11</a>. <pre class="ptx-sagecell sagecell-sage" id="sage-206"><script type="text/x-sage">
+<div class="para logical" id="p-6830">
+<div class="para">Consider the four points in <a href="" class="xref" data-knowl="./knowl/table-lst-squares-line.html" title="Table 6.5.11: A data set with four points.">Table 6.5.11</a>. <pre class="ptx-sagecell sagecell-sage" id="sage-209"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-4700"><div class="para logical" id="p-6830">
+<li id="li-4700"><div class="para logical" id="p-6831">
 <div class="para">Set up a linear system <span class="process-math">\(A\xvec = \bvec\)</span> that describes a quadratic function</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1268,14 +1268,14 @@ list_plot(data, color='blue', size=40)
 </div>
 <div class="para">passing through the points.</div>
 </div></li>
-<li id="li-4701"><div class="para" id="p-6831">Use a <span class="process-math">\(QR\)</span> factorization to find the least squares approximate solution <span class="process-math">\(\xhat\)</span> and plot the data and the graph of the resulting quadratic function.</div></li>
-<li id="li-4702"><div class="para" id="p-6832">What is your predicted <span class="process-math">\(y\)</span>-value when <span class="process-math">\(x=3.5\text{?}\)</span>
+<li id="li-4701"><div class="para" id="p-6832">Use a <span class="process-math">\(QR\)</span> factorization to find the least squares approximate solution <span class="process-math">\(\xhat\)</span> and plot the data and the graph of the resulting quadratic function.</div></li>
+<li id="li-4702"><div class="para" id="p-6833">What is your predicted <span class="process-math">\(y\)</span>-value when <span class="process-math">\(x=3.5\text{?}\)</span>
 </div></li>
-<li id="li-4703"><div class="para" id="p-6833">Find the coefficient of determination <span class="process-math">\(R^2\text{.}\)</span>
+<li id="li-4703"><div class="para" id="p-6834">Find the coefficient of determination <span class="process-math">\(R^2\text{.}\)</span>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-245"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6839">
+<div class="para logical" id="p-6840">
 <div class="para">Consider the data in <a href="" class="xref" data-knowl="./knowl/table-lst-squares-multi.html" title="Table 6.5.12: A simple data set">Table 6.5.12</a>. <figure class="table table-like" id="table-lst-squares-multi"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">6.5.12<span class="period">.</span></span><span class="space"> </span>A simple data set</figcaption><div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="c m b1 r0 l0 t0 lines"><span class="process-math">\(x_1\)</span></td>
@@ -1312,11 +1312,11 @@ list_plot(data, color='blue', size=40)
 <td class="c m b0 r0 l0 t0 lines">3</td>
 <td class="c m b0 r0 l0 t0 lines">6.3</td>
 </tr>
-</table></div></figure> <pre class="ptx-sagecell sagecell-sage" id="sage-207"><script type="text/x-sage">
+</table></div></figure> <pre class="ptx-sagecell sagecell-sage" id="sage-210"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-4708"><div class="para logical" id="p-6840">
+<li id="li-4708"><div class="para logical" id="p-6841">
 <div class="para">Set up a linear system <span class="process-math">\(A\xvec = \bvec\)</span> that describes the relationship</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1324,40 +1324,40 @@ list_plot(data, color='blue', size=40)
 \end{equation*}
 </div>
 </div></li>
-<li id="li-4709"><div class="para" id="p-6841">Find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
+<li id="li-4709"><div class="para" id="p-6842">Find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
 </div></li>
-<li id="li-4710"><div class="para" id="p-6842">What is your predicted <span class="process-math">\(y\)</span>-value when <span class="process-math">\(x_1 =
+<li id="li-4710"><div class="para" id="p-6843">What is your predicted <span class="process-math">\(y\)</span>-value when <span class="process-math">\(x_1 =
 2.4\)</span> and <span class="process-math">\(x_2=2.9\text{?}\)</span>
 </div></li>
-<li id="li-4711"><div class="para" id="p-6843">Find the coefficient of determination <span class="process-math">\(R^2\text{.}\)</span>
+<li id="li-4711"><div class="para" id="p-6844">Find the coefficient of determination <span class="process-math">\(R^2\text{.}\)</span>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-246"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6854">
+<div class="para logical" id="p-6855">
 <div class="para">Determine whether the following statements are true or false and explain your thinking.</div>
 <ol class="lower-alpha">
-<li id="li-4720"><div class="para" id="p-6855">If <span class="process-math">\(A\xvec=\bvec\)</span> is consistent, then <span class="process-math">\(\xhat\)</span> is a solution to <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>
+<li id="li-4720"><div class="para" id="p-6856">If <span class="process-math">\(A\xvec=\bvec\)</span> is consistent, then <span class="process-math">\(\xhat\)</span> is a solution to <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>
 </div></li>
-<li id="li-4721"><div class="para" id="p-6856">If <span class="process-math">\(R^2=1\text{,}\)</span> then the least squares approximate solution <span class="process-math">\(\xhat\)</span> is also a solution to the original equation <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>
+<li id="li-4721"><div class="para" id="p-6857">If <span class="process-math">\(R^2=1\text{,}\)</span> then the least squares approximate solution <span class="process-math">\(\xhat\)</span> is also a solution to the original equation <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>
 </div></li>
-<li id="li-4722"><div class="para" id="p-6857">Given the <span class="process-math">\(QR\)</span> factorization <span class="process-math">\(A=QR\text{,}\)</span> we have <span class="process-math">\(A\xhat=Q^TQ\bvec\text{.}\)</span>
+<li id="li-4722"><div class="para" id="p-6858">Given the <span class="process-math">\(QR\)</span> factorization <span class="process-math">\(A=QR\text{,}\)</span> we have <span class="process-math">\(A\xhat=Q^TQ\bvec\text{.}\)</span>
 </div></li>
-<li id="li-4723"><div class="para" id="p-6858">A <span class="process-math">\(QR\)</span> factorization provides a method for finding the approximate least squares solution to <span class="process-math">\(A\xvec=\bvec\)</span> that is more reliable than solving the normal equations.</div></li>
-<li id="li-4724"><div class="para" id="p-6859">A solution to <span class="process-math">\(AA^T\xvec = A\bvec\)</span> is the least squares approximate solution to <span class="process-math">\(A\xvec = \bvec\text{.}\)</span>
+<li id="li-4723"><div class="para" id="p-6859">A <span class="process-math">\(QR\)</span> factorization provides a method for finding the approximate least squares solution to <span class="process-math">\(A\xvec=\bvec\)</span> that is more reliable than solving the normal equations.</div></li>
+<li id="li-4724"><div class="para" id="p-6860">A solution to <span class="process-math">\(AA^T\xvec = A\bvec\)</span> is the least squares approximate solution to <span class="process-math">\(A\xvec = \bvec\text{.}\)</span>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-247"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6872">
+<div class="para logical" id="p-6873">
 <div class="para">Explain your response to the following questions.</div>
 <ol class="lower-alpha">
-<li id="li-4735"><div class="para" id="p-6873">If <span class="process-math">\(\xhat=\zerovec\text{,}\)</span> what does this say about the vector <span class="process-math">\(\bvec\text{?}\)</span>
+<li id="li-4735"><div class="para" id="p-6874">If <span class="process-math">\(\xhat=\zerovec\text{,}\)</span> what does this say about the vector <span class="process-math">\(\bvec\text{?}\)</span>
 </div></li>
-<li id="li-4736"><div class="para" id="p-6874">If the columns of <span class="process-math">\(A\)</span> are orthonormal, how can you easily find the least squares approximate solution to <span class="process-math">\(A\xvec=\bvec\text{?}\)</span>
+<li id="li-4736"><div class="para" id="p-6875">If the columns of <span class="process-math">\(A\)</span> are orthonormal, how can you easily find the least squares approximate solution to <span class="process-math">\(A\xvec=\bvec\text{?}\)</span>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-248"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6881">
-<div class="para">The following cell loads in some data showing the number of people in Bangladesh living without electricity over 27 years. It also defines vectors <code class="code-inline tex2jax_ignore">year</code>, which records the years in the data set, and <code class="code-inline tex2jax_ignore">people</code>, which records the number of people. <pre class="ptx-sagecell sagecell-sage" id="sage-208"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+<div class="para logical" id="p-6882">
+<div class="para">The following cell loads in some data showing the number of people in Bangladesh living without electricity over 27 years. It also defines vectors <code class="code-inline tex2jax_ignore">year</code>, which records the years in the data set, and <code class="code-inline tex2jax_ignore">people</code>, which records the number of people. <pre class="ptx-sagecell sagecell-sage" id="sage-211"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
 df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/bangladesh.csv')
 data = [vector(row) for row in df.values]
 year = vector(df['Year'])
@@ -1367,7 +1367,7 @@ list_plot(data, size=40, color='blue')
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-4741"><div class="para logical" id="p-6882">
+<li id="li-4741"><div class="para logical" id="p-6883">
 <div class="para">Suppose we want to write</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1377,22 +1377,22 @@ N = \beta_0 + \beta_1 t
 <div class="para">where <span class="process-math">\(t\)</span> is the year and <span class="process-math">\(N\)</span> is the number of people. Construct the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> so that the linear system <span class="process-math">\(A\xvec=\bvec\)</span> describes the vector <span class="process-math">\(\xvec=\twovec{\beta_0}{\beta_1}\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-4742"><div class="para" id="p-6883">Using a <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\text{,}\)</span> find the values of <span class="process-math">\(\beta_0\)</span> and <span class="process-math">\(\beta_1\)</span> in the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
+<li id="li-4742"><div class="para" id="p-6884">Using a <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\text{,}\)</span> find the values of <span class="process-math">\(\beta_0\)</span> and <span class="process-math">\(\beta_1\)</span> in the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
 </div></li>
-<li id="li-4743"><div class="para" id="p-6884">What is the coefficient of determination <span class="process-math">\(R^2\)</span> and what does this tell us about the quality of the approximation?</div></li>
-<li id="li-4744"><div class="para" id="p-6885">What is your prediction for the number of people living without electricity in 1985?</div></li>
-<li id="li-4745"><div class="para" id="p-6886">Estimate the year in which there will be no people living without electricity.</div></li>
+<li id="li-4743"><div class="para" id="p-6885">What is the coefficient of determination <span class="process-math">\(R^2\)</span> and what does this tell us about the quality of the approximation?</div></li>
+<li id="li-4744"><div class="para" id="p-6886">What is your prediction for the number of people living without electricity in 1985?</div></li>
+<li id="li-4745"><div class="para" id="p-6887">Estimate the year in which there will be no people living without electricity.</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-249"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
-<div class="para" id="p-6899">This problem concerns a data set describing planets in our Solar system. For each planet, we have the length <span class="process-math">\(L\)</span> of the semi-major axis, essentially the distance from the planet to the Sun in AU (astronomical units), and the period <span class="process-math">\(P\text{,}\)</span> the length of time in years required to complete one orbit around the Sun.</div> <div class="para logical" id="p-6900">
+<div class="para" id="p-6900">This problem concerns a data set describing planets in our Solar system. For each planet, we have the length <span class="process-math">\(L\)</span> of the semi-major axis, essentially the distance from the planet to the Sun in AU (astronomical units), and the period <span class="process-math">\(P\text{,}\)</span> the length of time in years required to complete one orbit around the Sun.</div> <div class="para logical" id="p-6901">
 <div class="para">We would like to model this data using the function <span class="process-math">\(P = CL^r\)</span> where <span class="process-math">\(C\)</span> and <span class="process-math">\(r\)</span> are parameters we need to determine.  Since this isn’t a linear function, we will transform this relationship by taking the natural logarithm of both sides to obtain</div>
 <div class="displaymath process-math">
 \begin{equation*}
 \ln(P) = \ln(C) + r\ln(L).
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-6901">
-<div class="para">Evaluating the following cell loads the data set and defines two vectors <code class="code-inline tex2jax_ignore">logaxis</code>, whose components are <span class="process-math">\(\ln(L)\text{,}\)</span> and <code class="code-inline tex2jax_ignore">logperiod</code>, whose components are <span class="process-math">\(\ln(P)\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-209"><script type="text/x-sage">import numpy as np	    
+</div> <div class="para logical" id="p-6902">
+<div class="para">Evaluating the following cell loads the data set and defines two vectors <code class="code-inline tex2jax_ignore">logaxis</code>, whose components are <span class="process-math">\(\ln(L)\text{,}\)</span> and <code class="code-inline tex2jax_ignore">logperiod</code>, whose components are <span class="process-math">\(\ln(P)\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-212"><script type="text/x-sage">import numpy as np	    
 sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
 df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/planets.csv',index_col=0)
 logaxis = vector(np.log(df['Semi-major axis']))
@@ -1401,17 +1401,17 @@ print(df)
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-4756"><div class="para" id="p-6902">Construct the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> so that the solution to <span class="process-math">\(A\xvec=\bvec\)</span> is the vector <span class="process-math">\(\xvec=\ctwovec{\ln(C)}r\text{.}\)</span>
+<li id="li-4756"><div class="para" id="p-6903">Construct the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> so that the solution to <span class="process-math">\(A\xvec=\bvec\)</span> is the vector <span class="process-math">\(\xvec=\ctwovec{\ln(C)}r\text{.}\)</span>
 </div></li>
-<li id="li-4757"><div class="para" id="p-6903">Find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>  What does this give for the values of <span class="process-math">\(C\)</span> and <span class="process-math">\(r\text{?}\)</span>
+<li id="li-4757"><div class="para" id="p-6904">Find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>  What does this give for the values of <span class="process-math">\(C\)</span> and <span class="process-math">\(r\text{?}\)</span>
 </div></li>
-<li id="li-4758"><div class="para" id="p-6904">Find the coefficient of determination <span class="process-math">\(R^2\text{.}\)</span>  What does this tell us about the quality of the approximation?</div></li>
+<li id="li-4758"><div class="para" id="p-6905">Find the coefficient of determination <span class="process-math">\(R^2\text{.}\)</span>  What does this tell us about the quality of the approximation?</div></li>
 <li id="li-4759"><div class="para" id="p-derived-li-4759">Suppose that the orbit of an asteroid has a semi-major axis whose length is <span class="process-math">\(L=4.0\)</span> AU.  Estimate the period <span class="process-math">\(P\)</span> of the asteroid’s orbit.</div></li>
-<li id="li-4760"><div class="para" id="p-6905">Halley’s Comet has a period of <span class="process-math">\(P=75\)</span> years. Estimate the length of its semi-major axis.</div></li>
+<li id="li-4760"><div class="para" id="p-6906">Halley’s Comet has a period of <span class="process-math">\(P=75\)</span> years. Estimate the length of its semi-major axis.</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-250"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6918">
-<div class="para">Evaluating the following cell loads a data set describing the temperature in the Earth’s atmosphere at various altitudes. There are also two vectors <code class="code-inline tex2jax_ignore">altitude</code>, expressed in kilometers, and <code class="code-inline tex2jax_ignore">temperature</code>, in degrees Celsius. <pre class="ptx-sagecell sagecell-sage" id="sage-210"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+<div class="para logical" id="p-6919">
+<div class="para">Evaluating the following cell loads a data set describing the temperature in the Earth’s atmosphere at various altitudes. There are also two vectors <code class="code-inline tex2jax_ignore">altitude</code>, expressed in kilometers, and <code class="code-inline tex2jax_ignore">temperature</code>, in degrees Celsius. <pre class="ptx-sagecell sagecell-sage" id="sage-213"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
 df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/altitude-temps.csv')
 data = [vector(row) for row in df.values]
 altitude = vector(df['Altitude'])
@@ -1421,16 +1421,16 @@ list_plot(data, size=40, color='blue')
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-4771"><div class="para" id="p-6919">Describe how to form the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> so that the linear system <span class="process-math">\(A\xvec=\bvec\)</span> describes a degree <span class="process-math">\(k\)</span> polynomial fitting the data.</div></li>
-<li id="li-4772"><div class="para" id="p-6920">After choosing a value of <span class="process-math">\(k\text{,}\)</span> construct the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\text{,}\)</span> and find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
+<li id="li-4771"><div class="para" id="p-6920">Describe how to form the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\)</span> so that the linear system <span class="process-math">\(A\xvec=\bvec\)</span> describes a degree <span class="process-math">\(k\)</span> polynomial fitting the data.</div></li>
+<li id="li-4772"><div class="para" id="p-6921">After choosing a value of <span class="process-math">\(k\text{,}\)</span> construct the matrix <span class="process-math">\(A\)</span> and vector <span class="process-math">\(\bvec\text{,}\)</span> and find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
 </div></li>
-<li id="li-4773"><div class="para" id="p-6921">Plot the polynomial and data using <code class="code-inline tex2jax_ignore">plot_model(xhat, data)</code>.</div></li>
-<li id="li-4774"><div class="para" id="p-6922">Now examine what happens as you vary the degree of the polynomial <span class="process-math">\(k\text{.}\)</span>  Choose an appropriate value of <span class="process-math">\(k\)</span> that seems to capture the most important features of the data while avoiding overfitting, and explain your choice.</div></li>
-<li id="li-4775"><div class="para" id="p-6923">Use your value of <span class="process-math">\(k\)</span> to estimate the temperature at an altitude of 55 kilometers.</div></li>
+<li id="li-4773"><div class="para" id="p-6922">Plot the polynomial and data using <code class="code-inline tex2jax_ignore">plot_model(xhat, data)</code>.</div></li>
+<li id="li-4774"><div class="para" id="p-6923">Now examine what happens as you vary the degree of the polynomial <span class="process-math">\(k\text{.}\)</span>  Choose an appropriate value of <span class="process-math">\(k\)</span> that seems to capture the most important features of the data while avoiding overfitting, and explain your choice.</div></li>
+<li id="li-4775"><div class="para" id="p-6924">Use your value of <span class="process-math">\(k\)</span> to estimate the temperature at an altitude of 55 kilometers.</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-251"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6936">
-<div class="para">The following cell loads some data describing 1057 houses in a particular real estate market.  For each house, we record the living area in square feet, the lot size in acres, the age in years, and the price in dollars.  The cell also defines variables <code class="code-inline tex2jax_ignore">area</code>, <code class="code-inline tex2jax_ignore">size</code>, <code class="code-inline tex2jax_ignore">age</code>, and <code class="code-inline tex2jax_ignore">price</code>. <pre class="ptx-sagecell sagecell-sage" id="sage-211"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+<div class="para logical" id="p-6937">
+<div class="para">The following cell loads some data describing 1057 houses in a particular real estate market.  For each house, we record the living area in square feet, the lot size in acres, the age in years, and the price in dollars.  The cell also defines variables <code class="code-inline tex2jax_ignore">area</code>, <code class="code-inline tex2jax_ignore">size</code>, <code class="code-inline tex2jax_ignore">age</code>, and <code class="code-inline tex2jax_ignore">price</code>. <pre class="ptx-sagecell sagecell-sage" id="sage-214"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
 df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/housing.csv',index_col=0)
 df = df.fillna(df.mean())
 area = vector(df['Living.Area'])
@@ -1446,19 +1446,19 @@ df
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-4786"><div class="para" id="p-6937">Use a <span class="process-math">\(QR\)</span> factorization to find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
+<li id="li-4786"><div class="para" id="p-6938">Use a <span class="process-math">\(QR\)</span> factorization to find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
 </div></li>
-<li id="li-4787"><div class="para" id="p-6938">Discuss the significance of the signs of <span class="process-math">\(\beta_1\text{,}\)</span> <span class="process-math">\(\beta_2\text{,}\)</span> and <span class="process-math">\(\beta_3\text{.}\)</span>
+<li id="li-4787"><div class="para" id="p-6939">Discuss the significance of the signs of <span class="process-math">\(\beta_1\text{,}\)</span> <span class="process-math">\(\beta_2\text{,}\)</span> and <span class="process-math">\(\beta_3\text{.}\)</span>
 </div></li>
-<li id="li-4788"><div class="para" id="p-6939">If two houses are identical except for differing in age by one year, how would you predict that their prices compare to each another?</div></li>
-<li id="li-4789"><div class="para" id="p-6940">Find the coefficient of determination <span class="process-math">\(R^2\text{.}\)</span>  What does this say about the quality of the fit?</div></li>
-<li id="li-4790"><div class="para" id="p-6941">Predict the price of a house whose living area is 2000 square feet, lot size is 1.5 acres, and age is 50 years.</div></li>
+<li id="li-4788"><div class="para" id="p-6940">If two houses are identical except for differing in age by one year, how would you predict that their prices compare to each another?</div></li>
+<li id="li-4789"><div class="para" id="p-6941">Find the coefficient of determination <span class="process-math">\(R^2\text{.}\)</span>  What does this say about the quality of the fit?</div></li>
+<li id="li-4790"><div class="para" id="p-6942">Predict the price of a house whose living area is 2000 square feet, lot size is 1.5 acres, and age is 50 years.</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-252"><h4 class="heading"><span class="codenumber">11<span class="period">.</span></span></h4>
-<div class="para" id="p-6954">We observed that if the columns of <span class="process-math">\(A\)</span> are linearly independent, then there is a unique least squares approximate solution to the equation <span class="process-math">\(A\xvec=\bvec\)</span> because the equation <span class="process-math">\(A\xhat=\bhat\)</span> has a unique solution.  We also said that <span class="process-math">\(\xhat\)</span> is the unique solution to the normal equation <span class="process-math">\(A^TA\xhat = A^T\bvec\)</span> without explaining why this equation has a unique solution.  This exercise offers an explanation.</div> <div class="para logical" id="p-6955">
+<div class="para" id="p-6955">We observed that if the columns of <span class="process-math">\(A\)</span> are linearly independent, then there is a unique least squares approximate solution to the equation <span class="process-math">\(A\xvec=\bvec\)</span> because the equation <span class="process-math">\(A\xhat=\bhat\)</span> has a unique solution.  We also said that <span class="process-math">\(\xhat\)</span> is the unique solution to the normal equation <span class="process-math">\(A^TA\xhat = A^T\bvec\)</span> without explaining why this equation has a unique solution.  This exercise offers an explanation.</div> <div class="para logical" id="p-6956">
 <div class="para">Assuming that the columns of <span class="process-math">\(A\)</span> are linearly independent, we would like to conclude that the equation <span class="process-math">\(A^TA\xhat=A^T\bvec\)</span> has a unique solution.</div>
 <ol class="lower-alpha">
-<li id="li-4801"><div class="para logical" id="p-6956">
+<li id="li-4801"><div class="para logical" id="p-6957">
 <div class="para">Suppose that <span class="process-math">\(\xvec\)</span> is a vector for which <span class="process-math">\(A^TA\xvec = \zerovec\text{.}\)</span>  Explain why the following argument is valid and allows us to conclude that <span class="process-math">\(A\xvec = \zerovec\text{.}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -1474,17 +1474,17 @@ A^TA\xvec \amp = \zerovec \\
 <div class="para">In other words, if <span class="process-math">\(A^TA\xvec = \zerovec\text{,}\)</span> we know that <span class="process-math">\(A\xvec = \zerovec\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-4802"><div class="para" id="p-6957">If the columns of <span class="process-math">\(A\)</span> are linearly independent and <span class="process-math">\(A\xvec = \zerovec\text{,}\)</span> what do we know about the vector <span class="process-math">\(\xvec\text{?}\)</span>
+<li id="li-4802"><div class="para" id="p-6958">If the columns of <span class="process-math">\(A\)</span> are linearly independent and <span class="process-math">\(A\xvec = \zerovec\text{,}\)</span> what do we know about the vector <span class="process-math">\(\xvec\text{?}\)</span>
 </div></li>
-<li id="li-4803"><div class="para" id="p-6958">Explain why <span class="process-math">\(A^TA\xvec = \zerovec\)</span> can only happen when <span class="process-math">\(\xvec = \zerovec\text{.}\)</span>
+<li id="li-4803"><div class="para" id="p-6959">Explain why <span class="process-math">\(A^TA\xvec = \zerovec\)</span> can only happen when <span class="process-math">\(\xvec = \zerovec\text{.}\)</span>
 </div></li>
-<li id="li-4804"><div class="para" id="p-6959">Assuming that the columns of <span class="process-math">\(A\)</span> are linearly independent, explain why <span class="process-math">\(A^TA\xhat=A^T\bvec\)</span> has a unique solution.</div></li>
+<li id="li-4804"><div class="para" id="p-6960">Assuming that the columns of <span class="process-math">\(A\)</span> are linearly independent, explain why <span class="process-math">\(A^TA\xhat=A^T\bvec\)</span> has a unique solution.</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="ex-r2-meaning"><h4 class="heading"><span class="codenumber">12<span class="period">.</span></span></h4>
-<div class="para" id="p-6970">This problem is about the meaning of the coefficient of determination <span class="process-math">\(R^2\)</span> and its connection to variance, a topic that appears in the next section.  Throughout this problem, we consider the linear system <span class="process-math">\(A\xvec=\bvec\)</span> and the approximate least squares solution <span class="process-math">\(\xhat\text{,}\)</span> where <span class="process-math">\(A\xhat=\bhat\text{.}\)</span>  We suppose that <span class="process-math">\(A\)</span> is an <span class="process-math">\(m\times n\)</span> matrix, and we will denote the <span class="process-math">\(m\)</span>-dimensional vector <span class="process-math">\(\onevec =
+<div class="para" id="p-6971">This problem is about the meaning of the coefficient of determination <span class="process-math">\(R^2\)</span> and its connection to variance, a topic that appears in the next section.  Throughout this problem, we consider the linear system <span class="process-math">\(A\xvec=\bvec\)</span> and the approximate least squares solution <span class="process-math">\(\xhat\text{,}\)</span> where <span class="process-math">\(A\xhat=\bhat\text{.}\)</span>  We suppose that <span class="process-math">\(A\)</span> is an <span class="process-math">\(m\times n\)</span> matrix, and we will denote the <span class="process-math">\(m\)</span>-dimensional vector <span class="process-math">\(\onevec =
 \fourvec11{\vdots}1\text{.}\)</span>
-</div> <div class="para logical" id="p-6971"><ol class="lower-alpha">
-<li id="li-4813"><div class="para logical" id="p-6972">
+</div> <div class="para logical" id="p-6972"><ol class="lower-alpha">
+<li id="li-4813"><div class="para logical" id="p-6973">
 <div class="para">Explain why <span class="process-math">\(\bbar\text{,}\)</span> the mean of the components of <span class="process-math">\(\bvec\text{,}\)</span> can be found as the dot product</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1492,9 +1492,9 @@ A^TA\xvec \amp = \zerovec \\
 \end{equation*}
 </div>
 </div></li>
-<li id="li-4814"><div class="para" id="p-6973">In the examples we have seen in this section, explain why <span class="process-math">\(\onevec\)</span> is in <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4814"><div class="para" id="p-6974">In the examples we have seen in this section, explain why <span class="process-math">\(\onevec\)</span> is in <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4815"><div class="para logical" id="p-6974">
+<li id="li-4815"><div class="para logical" id="p-6975">
 <div class="para">If we write <span class="process-math">\(\bvec = \bhat + \bvec^\perp\text{,}\)</span> explain why</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1504,9 +1504,9 @@ A^TA\xvec \amp = \zerovec \\
 <div class="para">and hence why the mean of the components of <span class="process-math">\(\bvec^\perp\)</span> is zero.</div>
 </div></li>
 <li id="li-4816">
-<div class="para" id="p-6975">The variance of an <span class="process-math">\(m\)</span>-dimensional vector <span class="process-math">\(\vvec\)</span> is <span class="process-math">\(\var(\vvec) = \frac1m \len{\widetilde{\vvec}}^2\text{,}\)</span> where <span class="process-math">\(\widetilde{\vvec}\)</span> is the vector obtained by demeaning <span class="process-math">\(\vvec\text{.}\)</span>
+<div class="para" id="p-6976">The variance of an <span class="process-math">\(m\)</span>-dimensional vector <span class="process-math">\(\vvec\)</span> is <span class="process-math">\(\var(\vvec) = \frac1m \len{\widetilde{\vvec}}^2\text{,}\)</span> where <span class="process-math">\(\widetilde{\vvec}\)</span> is the vector obtained by demeaning <span class="process-math">\(\vvec\text{.}\)</span>
 </div>
-<div class="para logical" id="p-6976">
+<div class="para logical" id="p-6977">
 <div class="para">Explain why</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1516,7 +1516,7 @@ A^TA\xvec \amp = \zerovec \\
 </div>
 </li>
 <li id="li-4817">
-<div class="para logical" id="p-6977">
+<div class="para logical" id="p-6978">
 <div class="para">Explain why</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1532,9 +1532,9 @@ R^2 = \frac{\var(\bhat)}{\var(\bvec)} =
 \end{equation*}
 </div>
 </div>
-<div class="para" id="p-6978">These expressions indicate why it is sometimes said that <span class="process-math">\(R^2\)</span> measures the “fraction of variance explained” by the function we are using to fit the data.  As seen in the previous exercise, there may be other features that are not recorded in the dataset that influence the quantity we wish to predict.</div>
+<div class="para" id="p-6979">These expressions indicate why it is sometimes said that <span class="process-math">\(R^2\)</span> measures the “fraction of variance explained” by the function we are using to fit the data.  As seen in the previous exercise, there may be other features that are not recorded in the dataset that influence the quantity we wish to predict.</div>
 </li>
-<li id="li-4818"><div class="para" id="p-6979">Explain why <span class="process-math">\(0\leq R^2 \leq 1\text{.}\)</span>
+<li id="li-4818"><div class="para" id="p-6980">Explain why <span class="process-math">\(0\leq R^2 \leq 1\text{.}\)</span>
 </div></li>
 </ol></div></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-2"><div class="fn"><code class="code-inline tex2jax_ignore">sustainabilitymath.org</code></div></div>
 </div>

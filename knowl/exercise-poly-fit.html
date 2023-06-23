@@ -15,6 +15,12 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
 </script>
 </head>
 <body class="ignore-math">
@@ -42,10 +48,14 @@ p(3) = a + 3b + 9c + 27d = 1\text{.}
 </div>
 <ol class="lower-alpha">
 <li><div class="para">Write the four linear equations for the coefficients obtained by requiring that the graph of the polynomial <span class="process-math">\(p(x)\)</span> passes through the four points above.</div></li>
-<li><div class="para">Write the augmented matrix corresponding to this system of equations and use the Sage cell below to solve for the coefficients. <pre class="ptx-sagecell sagecell-sage" id="sage-57"><script type="text/x-sage">
+<li><div class="para">Write the augmented matrix corresponding to this system of equations and use the Python cell below to solve for the coefficients. <pre class="ptx-sagecell sagecell-python" id="sage-60"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li><div class="para">Write the polynomial <span class="process-math">\(p(x)\)</span> that you found and check your work by graphing it in the Sage cell below and verifying that it passes through the four points.  To plot a function over a range, you may use a command like <code class="code-inline tex2jax_ignore"> plot(1 + x- 2*x^2, xmin = -1, xmax = 4)</code>. <pre class="ptx-sagecell sagecell-sage" id="sage-58"><script type="text/x-sage">
+<li><div class="para">Write the polynomial <span class="process-math">\(p(x)\)</span> that you found and check your work by graphing it in the Python cell below and verifying that it passes through the four points. <pre class="ptx-sagecell sagecell-python" id="sage-61"><script type="text/x-sage">import numpy as np 
+import seaborn.objects as so 
+x = np.arange(-1, 4, 0.1)
+p = lambda x: x**2 + 2   # you will need to change the polynomial
+so.Plot(x = x, y = p(x)).add(so.Line())
 </script></pre>
 </div></li>
 <li><div class="para logical">
@@ -55,7 +65,7 @@ p(3) = a + 3b + 9c + 27d = 1\text{.}
 p(x) = a + bx + cx^2\text{.}
 \end{equation*}
 </div>
-<div class="para">Solve the linear system for the coefficients. What can you say about the existence and uniqueness of a degree two polynomial passing through these four points? <pre class="ptx-sagecell sagecell-sage" id="sage-59"><script type="text/x-sage">
+<div class="para">Solve the linear system for the coefficients. What can you say about the existence and uniqueness of a degree two polynomial passing through these four points? <pre class="ptx-sagecell sagecell-python" id="sage-62"><script type="text/x-sage">
 </script></pre>
 </div>
 </div></li>
@@ -66,7 +76,7 @@ p(x) = a + bx + cx^2\text{.}
 p(x) = a + bx + cx^2 + dx^3 + ex^4\text{.}
 \end{equation*}
 </div>
-<div class="para">Solve the linear system for the coefficients. What can you say about the existence and uniqueness of a degree four polynomial passing through these four points? <pre class="ptx-sagecell sagecell-sage" id="sage-60"><script type="text/x-sage">
+<div class="para">Solve the linear system for the coefficients. What can you say about the existence and uniqueness of a degree four polynomial passing through these four points? <pre class="ptx-sagecell sagecell-python" id="sage-63"><script type="text/x-sage">
 </script></pre>
 </div>
 </div></li>

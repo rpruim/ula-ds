@@ -43,7 +43,7 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
 <ol class="lower-alpha">
 <li>
 <div class="para logical">
-<div class="para">Let’s first see an example showing that computer arithmetic really is an approximation.  First, consider the linear system</div>
+<div class="para">Let’s first see an example showing that computer arithmetic really is an approximation.  Consider the linear system</div>
 <div class="displaymath process-math">
 \begin{equation*}
 \begin{alignedat}{4}
@@ -56,34 +56,16 @@ x \amp {}+{} \amp \frac12y \amp {}+{} \amp \frac13z \amp
 \end{alignedat}
 \end{equation*}
 </div>
-<div class="para">If the coefficients are entered into Python as fractions, Python will find the exact reduced row echelon form.  Find the exact solution to this linear system. <pre class="ptx-sagecell sagecell-python" id="sage-51"><script type="text/x-sage">
+<div class="para">Let’s solve this three ways, taking advantage of some features of <code class="code-inline tex2jax_ignore">sympy</code>. As the name suggests, <code class="code-inline tex2jax_ignore">sympy</code> is capable of doing symbolic mathematics as well as numerical mathematics. In particular, <code class="code-inline tex2jax_ignore">sympy</code> can work with rational numbers (fractions) and do exact arithmetic with them.  Consider these three ways to represent <span class="process-math">\(\frac13\text{:}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-51"><script type="text/x-sage">print(1/3, s.Rational(1/3), s.Rational(1,3))
+</script></pre> The first is our usual floating point approximation.  The second attempts to approximate that approximation with a rational number. (Sometimes this works better; try <code class="code-inline tex2jax_ignore">s.Rational(1/2)</code>, for example.) The third represents <span class="process-math">\(\frac13\)</span> <em class="emphasis">exactly</em> by storing the numerator and denominator.</div>
+</div>
+<div class="para">Create the augmented matrix for this linear system in the three corresponding ways. Call them <code class="code-inline tex2jax_ignore">A</code>, <code class="code-inline tex2jax_ignore">B</code>, and <code class="code-inline tex2jax_ignore">C</code>. With each, have <code class="code-inline tex2jax_ignore">sympy</code> compute the reduce row echelon form and use it to find the solutoin the original linear system. <pre class="ptx-sagecell sagecell-python" id="sage-52"><script type="text/x-sage">A = s.Matrix([[1,1/2,1/3,1] , [1/2, 1/3, 1/4, 0], [1/3, 1/4, 1/5, 0]])
+B = s.Matrix()
+C = s.Matrix()
 </script></pre>
 </div>
-</div>
-<div class="para logical">
-<div class="para">Now let’s ask Python to compute with real numbers.  We can do this by representing one of the coefficients as a decimal.  For instance, the same linear system can be represented as</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\begin{alignedat}{4}
-x \amp {}+{} \amp 0.5y \amp {}+{} \amp \frac13z \amp
-{}={} \amp 1 \\
-\frac12x \amp {}+{} \amp \frac13y \amp {}+{} \amp \frac14z \amp
-{}={} \amp 0 \\
-\frac13x \amp {}+{} \amp \frac14y \amp {}+{} \amp \frac15z \amp
-{}={} \amp 0 \\
-\end{alignedat}
-\end{equation*}
-</div>
-<div class="para">Most computers do arithmetic using either 32 or 64 bits.  To magnify the problem so that we can see it better, we will ask Python to do arithmetic using only 10 bits as follows. <pre class="ptx-sagecell sagecell-python" id="sage-52"><script type="text/x-sage">R = RealNumber
-RealNumber = RealField(10)
-
-# enter the matrix below
-A = matrix( ..., ..., [ ... ] )
-
-print (A.rref())
-RealNumber = R
-</script></pre> What does Python give for the solution now?  Compare this to the exact solution that you found previously.</div>
-</div>
+<div class="para">Most computers do arithmetic using either 32 or 64 bits. We can exagerate the effect by rounding the matrix more heavily. Solve the linear system again using <pre class="ptx-sagecell sagecell-python" id="sage-53"><script type="text/x-sage">A4 = A.feval(4) # feval() is sympy's version of round()
+</script></pre> What does Python give for the solution now? Compare this to the exact solution that you found previously.</div>
 </li>
 <li>
 <div class="para logical">
@@ -96,7 +78,7 @@ x \amp {}+{} 1.001\amp y \amp {}={} \amp 2 \\
 \end{alignedat}
 \end{equation*}
 </div>
-<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-python" id="sage-53"><script type="text/x-sage">
+<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-python" id="sage-54"><script type="text/x-sage">
 </script></pre>
 </div>
 </div>
@@ -110,7 +92,7 @@ x \amp {}+{} 1.001\amp y \amp {}={} \amp 2.001 \\
 \end{alignedat}
 \end{equation*}
 </div>
-<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-python" id="sage-54"><script type="text/x-sage">
+<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-python" id="sage-55"><script type="text/x-sage">
 </script></pre>
 </div>
 </div>

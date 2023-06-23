@@ -11,16 +11,47 @@
 <meta name="robots" content="noindex, nofollow">
 </head>
 <body class="ignore-math">
-<h4 class="heading"><span class="type">Paragraph</span></h4>
+<h5 class="heading"><span class="type">Paragraph</span></h5>
 <div class="para logical">
-<div class="para">We returned to Gaussian elimination, which we have used as a primary tool for finding solutions to linear systems, and explored its practicality, both in terms of numerical accuracy and computational effort.</div>
-<ul class="disc">
-<li><div class="para">We saw that the accuracy of computations implemented on a computer could be improved using <dfn class="terminology">partial pivoting</dfn>, a technique that performs row interchanges so that the entry in a pivot position has the largest possible magnitude.</div></li>
-<li><div class="para">Beginning with a matrix <span class="process-math">\(A\text{,}\)</span> we used the Gaussian elimination algorithm to write <span class="process-math">\(PA = LU\text{,}\)</span> where <span class="process-math">\(P\)</span> is a permutation matrix, <span class="process-math">\(L\)</span> is lower triangular, and <span class="process-math">\(U\)</span> is upper triangular.</div></li>
-<li><div class="para">Finding this factorization involves roughly as much work as performing Gaussian elimination.  However, once we have the factorization, we are able to quickly solve equations of the form <span class="process-math">\(A\xvec = \bvec\)</span> by first solving <span class="process-math">\(L\cvec =
-P\bvec\)</span> and then <span class="process-math">\(U\xvec = \cvec\text{.}\)</span>
-</div></li>
-</ul>
+<div class="para">Notice that <span class="process-math">\(U\)</span> is upper triangular, which means that it is straightforward to find its reduced row echelon form:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{array}{rcl}
+U=
+\left[\begin{array}{rrrr}
+3 \amp 2 \amp -1 \amp 0 \\
+0 \amp \frac{7}{3} \amp \frac{4}{3} \amp -1 \\
+0 \amp 0 \amp \frac{9}{7} \amp \frac{9}{7}
+\end{array}\right]
+\amp
+\sim
+\amp
+\left[\begin{array}{rrrr}
+3 \amp 2 \amp -1 \amp 0 \\
+0 \amp 7 \amp 4 \amp -3 \\
+0 \amp 0 \amp 1 \amp 1
+\end{array}\right] \\
+\amp
+\sim
+\amp
+\left[\begin{array}{rrrr}
+3 \amp 2 \amp 0 \amp 1 \\
+0 \amp 1 \amp 0 \amp -1 \\
+0 \amp 0 \amp 1 \amp 1
+\end{array}\right] \\
+\amp
+\sim
+\amp
+\left[\begin{array}{rrrr}
+1 \amp 0 \amp 0 \amp 1 \\
+0 \amp 1 \amp 0 \amp -1 \\
+0 \amp 0 \amp 1 \amp 1
+\end{array}\right]\text{.} \\
+\end{array}
+\end{equation*}
+</div>
+<div class="para">This shows that a basis for <span class="process-math">\(\nul(C)=\nul(U)\)</span> is <span class="process-math">\(\fourvec{-1}1{-1}1\text{.}\)</span>
+</div>
 </div>
 <span class="incontext"><a href="sec-gaussian-revisited.html#p-3792" class="internal">in-context</a></span>
 </body>

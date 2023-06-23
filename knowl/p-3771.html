@@ -12,7 +12,27 @@
 </head>
 <body class="ignore-math">
 <h4 class="heading"><span class="type">Paragraph</span></h4>
-<div class="para">In fact, solving an equation with an <span class="process-math">\(n\times n\)</span> triangular matrix requires approximately <span class="process-math">\(\frac 12 n^2\)</span> operations. Once we have the factorization <span class="process-math">\(A=LU\text{,}\)</span> we solve the equation <span class="process-math">\(A\xvec=\bvec\)</span> by solving two equations involving triangular matrices, which requires about <span class="process-math">\(n^2\)</span> operations. For example, if <span class="process-math">\(A\)</span> is a <span class="process-math">\(1000\times1000\)</span> matrix, we solve the equation <span class="process-math">\(A\xvec = \bvec\)</span> using about one million steps.  This compares with roughly a billion operations needed to perform Gaussian elimination, which represents a significant savings.  Of course, we have to first find the <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\)</span> and this requires roughly the same amount of work as performing Gaussian elimination. However, once we have the <span class="process-math">\(LU\)</span> factorization, we can use it to solve <span class="process-math">\(A\xvec=\bvec\)</span> for different right hand sides <span class="process-math">\(\bvec\text{.}\)</span>
+<div class="para logical">
+<div class="para">An <span class="process-math">\(LU\)</span> factorization allow us to trade in one equation <span class="process-math">\(A\xvec = \bvec\)</span> for two simpler equations</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{aligned}
+L\cvec \amp = \bvec \\
+U\xvec \amp = \cvec. \\
+\end{aligned}
+\end{equation*}
+</div>
+<div class="para">For instance, the equation <span class="process-math">\(L\cvec = \bvec\)</span> in our example has the form</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+-2 \amp 1 \amp 0 \\
+1 \amp -1 \amp 1
+\end{array}\right]\cvec = \threevec8{-13}8\text{.}
+\end{equation*}
+</div>
+<div class="para">Because <span class="process-math">\(L\)</span> is a lower-triangular matrix, we can read off the first component of <span class="process-math">\(\cvec\)</span> directly from the equations:  <span class="process-math">\(c_1 = 8\text{.}\)</span>  We then have <span class="process-math">\(-2c_1+c_2 = -13\text{,}\)</span> which gives <span class="process-math">\(c_2 = 3\text{,}\)</span> and <span class="process-math">\(c_1 - c_2 + c_3 = 8\text{,}\)</span> which gives <span class="process-math">\(c_3=3\text{.}\)</span> Solving a triangular system is simplified because we only need to perform a sequence of substitutions.</div>
 </div>
 <span class="incontext"><a href="sec-gaussian-revisited.html#p-3771" class="internal">in-context</a></span>
 </body>
