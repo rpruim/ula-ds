@@ -47,11 +47,13 @@
 	</m>.  Explain how we know that <m>1</m> is an eigenvalue of
 	<m>A</m> and then explain why the following Sage computation
 	is incorrect.
-	<sage>
+	<sage language="python">
 	  <input>
-A = matrix(2,2,[0.8, 0.4, 0.2, 0.6])
-I = matrix(2,2,[1, 0, 0, 1])	  
-(A-I).rref()
+import numpy as np
+import sympy as s   
+A = s.Matrix([[0.8, 0.4], [0.2, 0.6]])
+I = s.eye(2) 
+print((A-I).rref())
 	  </input>
 	</sage>
 	</p></li>
@@ -258,7 +260,7 @@ I = matrix(2,2,[1, 0, 0, 1])
       \end{array}\right]
       </m> and the initial vector <m>\xvec_0 = \twovec{1}{0}</m>.
 
-      <sage>
+      <sage language="python">
 	<input>
 	</input>
       </sage>
@@ -287,13 +289,14 @@ I = matrix(2,2,[1, 0, 0, 1])
 	multiplier <m>m</m> and the vectors
 	<m>\overline{\xvec}_k</m> for <m>N</m> steps of the power method.
 
-	  <sage>
+	  <sage language="python">
 	    <input>
+import sympy as s
 def power(A, x, N):
     for i in range(N):
-        x = A*x
-        m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
-        x = 1/float(m)*x
+        x = A@x
+        m = max([comp for comp in x], key = abs).feval(digits = 14)
+        x = 1 / float(m) * x
         print (m, x)
 
 ### Define the matrix A and initial vector x0 below
@@ -454,18 +457,23 @@ power(A, x0, 20)
 	</m>
 	having the smallest absolute value.
 
+	<!-- TODO: Convert to Python -->
+
 	<sage>
 	  <input>
+import numpy as np
+from scipy import linalg
 def inverse_power(A, x, N):
+	result = []
     for i in range(N):
-        x = A \ x
-        m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
-        x = 1/float(m)*x
-        print (1/float(m), x)
+        x = linalg.solve(A, x)
+        m = max([comp for comp in x], key=abs) # .numerical_approx(digits=14)
+        x = 1/m * x  # 1/float(m)*x
+        result.append((1/m, x))
 ### define the matrix A and vector x0
 A =
 x0 =
-inverse_power(A, x0, 20)
+print(inverse_power(A, x0, 20))
 	  </input>
 	</sage>
 	</p></li>
@@ -584,7 +592,7 @@ inverse_power(A, x0, 20)
 	  </caption>
 	</figure>
 
-	<p> The Sage cell below has a function
+	<p> The Python cell below has a function
 	<c>find_closest_eigenvalue(A, s, x, N)</c> that implements
 	<m>N</m> steps of the inverse power method using the matrix
 	<m>A-sI</m> and an initial vector <m>x</m>.  This function
@@ -594,19 +602,23 @@ inverse_power(A, x0, 20)
 	shown in <xref ref="fig-numerical-power-line"/>, find the
 	other two eigenvalues of <m>A</m>.
 
-	<sage>
+	<sage language="python">
 	  <input>
+from scipy import linalg 
 def find_closest_eigenvalue(A, s, x, N):
-    B = A-s*identity_matrix(A.nrows())
+    B = A - s @ linalg.eye(A.shape[0])
+	result = []
     for i in range(N):
-        x = B \ x
-        m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
-        x = 1/float(m)*x
-        print (1/float(m)+s, x)
+        x = B.solve(x)
+        m = max([comp for comp in x], key=abs)
+        x = 1/m * x
+		result.append((1/m + s, x))
+	return result
+
 ### define the matrix A and vector x0
 A =
 x0 =
-find_closest_eigenvalue(A, 2, x0, 20)
+print(find_closest_eigenvalue(A, 2, x0, 20))
 	  </input>
 	</sage>
 	</p></li>

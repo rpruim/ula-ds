@@ -234,15 +234,16 @@
 
 	<li>
 	  <p>
-	    Use the Sage cell below to define the matrices <m>P</m>
+	    Use the Python cell below to define the matrices <m>P</m>
 	    and <m>D</m> and then verify that <m>A=PDP^{-1}</m>.
 	  </p> 
-	<sage>
+	<sage language="python">
 	  <input>
+import numpy as np
 # enter the matrices P and D below	    
 P =
 D =	    
-P*D*P.inverse()
+np.linalg.inv(P@D@P)
 	  </input>
 	</sage>
 	</li>
@@ -294,7 +295,7 @@ P*D*P.inverse()
 	  </li>
 	</ol></p>
 	<p>
-	  The rest of the activity can be verified using Sage.
+	  The rest of the activity can be verified using Python.
 	</p>
       </solution>
     </activity>
@@ -388,9 +389,10 @@ P*D*P.inverse()
     
     <definition>
       <statement>
-	<idx> diagonalizable </idx>
+	<idx> diagonalizable matrix</idx>
+	<idx> <h>matrix</h> <h>diagonalizable</h> </idx>
 	<p> We say that the matrix <m>A</m> is
-	<em>diagonalizable</em> if there is a diagonal matrix <m>D</m>
+	<term>diagonalizable</term> if there is a diagonal matrix <m>D</m>
 	and invertible matrix <m>P</m> such that
 	<me>
 	  A = PDP^{-1}.
@@ -615,7 +617,7 @@ P*D*P.inverse()
 	    \end{array}\right]
 	  </me>.
 	</p>
-	<sage>
+	<sage language="python">
 	  <input>
 	  </input>
 	</sage>
@@ -631,7 +633,7 @@ P*D*P.inverse()
 	    \end{array}\right]
 	  </me>.
 	</p>
-	<sage>
+	<sage language="python">
 	  <input>
 	  </input>
 	</sage>
@@ -960,8 +962,14 @@ P*D*P.inverse()
 
     <definition>
       <statement>
-	<idx> similarity </idx>
-	<p> We say that <m>A</m> is <em>similar</em> to <m>B</m>
+				<idx>
+					<h>similar matrices</h>
+				</idx>
+				<idx>
+					<h>matrix</h>
+					<h>similar</h>
+				</idx>
+	<p> We say that <m>A</m> is <term>similar</term> to <m>B</m>
 	if there is an invertible matrix <m>P</m>
 	such that <m>A = PBP^{-1}</m>.
 	</p>
@@ -1066,11 +1074,12 @@ P*D*P.inverse()
 	    \end{array}\right]
 	    </m>.  Verify that <m>A = PCP^{-1}</m>. </p>
 	    
-	    <sage>
+	    <sage language="python">
 	      <input>
+import numpy as np
 C = 
 P = 
-P*C*P.inverse()
+np.linalg.inv(P*C*P)
 	      </input>
 	    </sage>
 	    </li>
@@ -1110,7 +1119,7 @@ P*C*P.inverse()
 	  <m>C</m> will scale vectors by a factor of <m>\sqrt2</m>
 	  while rotating them by <m>45^\circ</m>. </p></li>
 
-	  <li><p> Sage will verify this relationship.
+	  <li><p> Python will verify this relationship.
 	  </p></li>
 
 	  <li><p> As we saw earlier, we have <m>A^2 =
