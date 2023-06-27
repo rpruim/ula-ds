@@ -15,16 +15,25 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
 </script>
 </head>
 <body class="ignore-math">
 <article class="li"><h5 class="heading">
 <span class="type">Item</span><span class="space"> </span><span class="codenumber">a</span><span class="period">.</span>
 </h5>
-<div class="para">Construct the Google matrix <span class="process-math">\(G\)</span> for this Internet.  Then use a Markov chain to find the steady-state PageRank vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-145"><script type="text/x-sage">def markov_chain(A, x0, N):
+<div class="para">Construct the Google matrix <span class="process-math">\(G\)</span> for this Internet.  Then use a Markov chain to find the steady-state PageRank vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-145"><script type="text/x-sage">def markov_chain(A, x0, N):
+    result = [x0]
     for i in range(N):
-        x0 = A*x0
-        print (x0.numerical_approx(digits=3))
+        x_new = A@result[-1]
+        result.append(x_new)
+    return result
+
 ## define the matrix G and x0
 G =
 x0 =

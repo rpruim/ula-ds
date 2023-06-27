@@ -24,10 +24,16 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
 </script>
 </head>
 <body class="ignore-math">
-<article class="li"><h3 class="heading">
+<article class="li"><h4 class="heading">
 <span class="type">Item</span><span class="period">.</span>
-</h3>
-<div class="para">The <span class="process-math">\(LU\)</span> factorization of a matrix <pre class="ptx-sagecell sagecell-python" id="sage-305"><script type="text/x-sage"></script></pre> gives matrices so that <span class="process-math">\(PA = LU\text{.}\)</span>
-</div></article><span class="incontext"><a href="app-python-reference.html#li-5963" class="internal">in-context</a></span>
+</h4>
+<div class="para">A singular value decomposition is obtained with <pre class="ptx-sagecell sagecell-python" id="sage-321"><script type="text/x-sage">A = np.array(np.arange(12)).reshape(3,4)
+U, s, V = linalg.svd(A)
+print([x.shape for x in [U, s, V]])
+</script></pre> Note that <code class="code-inline tex2jax_ignore">s</code> is not a matric but a 1-d array of singular values. If the matrix is needed, we can construct it with <pre class="ptx-sagecell sagecell-sage" id="sage-322"><script type="text/x-sage">Sigma = linalg.diagsvd(s, 3, 4)  # must specify the shape 
+print(s.round(3)) 
+print(Sigma.round(3))
+</script></pre>
+</div></article><span class="incontext"><a href="subsec-frequently-used-python.html#li-5963" class="internal">in-context</a></span>
 </body>
 </html>

@@ -63,6 +63,12 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
 </script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
 <script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,15 +109,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.0.0dev3';
+eBookConfig.runestone_version = '7.0.0dev4';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runtime.71ffd81c0faeb38b.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.f9add1ca35d5ad93.css">
-<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.1f1f63d2cda36a4d.css">
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
 </head>
 <body class="pretext book ignore-math">
 <a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
@@ -702,7 +708,14 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="app-notation.html" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></div></li>
-<li><div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div></li>
+<li>
+<div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="subsection-127.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-128.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span></a></div></li>
+</ul>
+</li>
 <li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
 <li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
 </ul>
@@ -1289,24 +1302,24 @@ A-(-1)I = \begin{bmatrix}
 <ol class="lower-alpha">
 <li id="li-2844">
 <div class="para" id="p-4237">We can find the characteristic polynomial of a matrix <span class="process-math">\(A\)</span> by writing <code class="code-inline tex2jax_ignore">A.charpoly('lambda')</code>.  Notice that we have to give Sage a variable in which to write the polynomial;  here, we use <code class="code-inline tex2jax_ignore">lambda</code> though <code class="code-inline tex2jax_ignore">x</code> works just as well.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-124"><script type="text/x-sage">A = matrix(2,2,[1,2,2,1])
+<pre class="ptx-sagecell sagecell-python" id="sage-124"><script type="text/x-sage">A = matrix(2,2,[1,2,2,1])
 A.charpoly('lambda')
 </script></pre>
 <div class="para" id="p-4238">The factored form of the characteristic polynomial may be more useful since it will tell us the eigenvalues and their multiplicities.  The factored characteristic polynomial is found with <code class="code-inline tex2jax_ignore">A.fcp('lambda')</code>.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-125"><script type="text/x-sage">A = matrix(2,2,[-3,1,0,-3])
+<pre class="ptx-sagecell sagecell-python" id="sage-125"><script type="text/x-sage">A = matrix(2,2,[-3,1,0,-3])
 A.fcp('lambda')
 </script></pre>
 </li>
 <li id="li-2845">
 <div class="para" id="p-4239">If we only want the eigenvalues, we can use <code class="code-inline tex2jax_ignore">A.eigenvalues()</code>.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-126"><script type="text/x-sage">A = matrix(2,2,[-3,1,0,-3])
+<pre class="ptx-sagecell sagecell-python" id="sage-126"><script type="text/x-sage">A = matrix(2,2,[-3,1,0,-3])
 A.eigenvalues()
 </script></pre>
 <div class="para" id="p-4240">Notice that the multiplicity of an eigenvalue is the number of times it is repeated in the list of eigenvalues.</div>
 </li>
 <li id="li-2846">
 <div class="para" id="p-4241">Finally, we can find eigenvectors by <code class="code-inline tex2jax_ignore">A.eigenvectors_right()</code>.  (We are looking for <em class="emphasis">right</em> eigenvalues since the vector <span class="process-math">\(\vvec\)</span> appears to the right of <span class="process-math">\(A\)</span> in the definition <span class="process-math">\(A\vvec=\lambda \vvec\text{.}\)</span>)</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-127"><script type="text/x-sage">A = matrix(2,2,[-3,1,0,-3])
+<pre class="ptx-sagecell sagecell-python" id="sage-127"><script type="text/x-sage">A = matrix(2,2,[-3,1,0,-3])
 A.eigenvectors_right()
 </script></pre>
 <div class="para" id="p-4242">At first glance, the result of this command can be a little confusing to interpret.  What we see is a list with one entry for each eigenvalue.  For each eigenvalue, there is a triple consisting of (i) the eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> (ii) a basis for <span class="process-math">\(E_\lambda\text{,}\)</span> and (iii) the multiplicity of <span class="process-math">\(\lambda\text{.}\)</span>
@@ -1326,14 +1339,14 @@ A.eigenvectors_right()
 <li id="li-2850">
 <div class="para" id="p-4246">Let’s now use Sage to determine the reduced row echelon form of <span class="process-math">\(A-I\text{:}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-128"><script type="text/x-sage">A = matrix(2,2,[0.4,0.3,0.6,0.7])
+<pre class="ptx-sagecell sagecell-python" id="sage-128"><script type="text/x-sage">A = matrix(2,2,[0.4,0.3,0.6,0.7])
 (A-identity_matrix(2)).rref()
 </script></pre>
 <div class="para" id="p-4247">What result does Sage report for the reduced row echelon form?  Why is this result not correct?</div>
 </li>
 <li id="li-2851">
 <div class="para" id="p-4248">Because the arithmetic Sage performs with floating point entries is only approximate, we are not able to find the eigenspace <span class="process-math">\(E_1\text{.}\)</span>  In this next chapter, we will learn how to address this issue.  In the meantime, we can get around this problem by writing the entries in the matrix as rational numbers:</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-129"><script type="text/x-sage">A = matrix(2,2,[4/10,3/10,6/10,7/10])
+<pre class="ptx-sagecell sagecell-python" id="sage-129"><script type="text/x-sage">A = matrix(2,2,[4/10,3/10,6/10,7/10])
 A.eigenvectors_right()
 </script></pre>
 </li>

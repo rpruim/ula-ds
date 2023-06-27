@@ -63,6 +63,12 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
 </script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
 <script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,15 +109,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.0.0dev3';
+eBookConfig.runestone_version = '7.0.0dev4';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runtime.71ffd81c0faeb38b.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.f9add1ca35d5ad93.css">
-<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.1f1f63d2cda36a4d.css">
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
 </head>
 <body class="pretext book ignore-math">
 <a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
@@ -702,7 +708,14 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="app-notation.html" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></div></li>
-<li><div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div></li>
+<li>
+<div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="subsection-127.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-128.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span></a></div></li>
+</ul>
+</li>
 <li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
 <li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
 </ul>
@@ -728,9 +741,11 @@ I\text{?}\)</span>
 0.8 \amp 0.4 \\
 0.2 \amp 0.6 \\
 \end{array}\right]
-\text{.}\)</span>  Explain how we know that <span class="process-math">\(1\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> and then explain why the following Sage computation is incorrect. <pre class="ptx-sagecell sagecell-sage" id="sage-152"><script type="text/x-sage">A = matrix(2,2,[0.8, 0.4, 0.2, 0.6])
-I = matrix(2,2,[1, 0, 0, 1])	  
-(A-I).rref()
+\text{.}\)</span>  Explain how we know that <span class="process-math">\(1\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> and then explain why the following Sage computation is incorrect. <pre class="ptx-sagecell sagecell-python" id="sage-152"><script type="text/x-sage">import numpy as np
+import sympy as s   
+A = s.Matrix([[0.8, 0.4], [0.2, 0.6]])
+I = s.eye(2) 
+print((A-I).rref())
 </script></pre>
 </div></li>
 <li id="li-3621"><div class="para" id="p-5309">Suppose that <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{,}\)</span> and we define a sequence <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{;}\)</span>  in other words, <span class="process-math">\(\xvec_{k} = A^k\xvec_0\text{.}\)</span>  What happens to <span class="process-math">\(\xvec_k\)</span> as <span class="process-math">\(k\)</span> grows increasingly large?</div></li>
@@ -814,7 +829,7 @@ I = matrix(2,2,[1, 0, 0, 1])
 <div class="para">Let’s begin by considering the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
 0.5 \amp 0.2 \\
 0.4 \amp 0.7 \\
-\end{array}\right]\)</span> and the initial vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-153"><script type="text/x-sage">
+\end{array}\right]\)</span> and the initial vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-153"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
@@ -828,11 +843,12 @@ A\xvec_0\text{.}\)</span>
 \frac1{m_2}\overline{\xvec}_1\)</span> to obtain a vector in which the component with the largest absolute value is <span class="process-math">\(1\text{.}\)</span>
 </div></li>
 <li id="li-3632">
-<div class="para" id="p-5330">The Sage cell below defines a function that implements the power method.  Define the matrix <span class="process-math">\(A\)</span> and initial vector <span class="process-math">\(\xvec_0\)</span> below.  The command <code class="code-inline tex2jax_ignore">power(A, x0,	N)</code> will print out the multiplier <span class="process-math">\(m\)</span> and the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> for <span class="process-math">\(N\)</span> steps of the power method. <pre class="ptx-sagecell sagecell-sage" id="sage-154"><script type="text/x-sage">def power(A, x, N):
+<div class="para" id="p-5330">The Sage cell below defines a function that implements the power method.  Define the matrix <span class="process-math">\(A\)</span> and initial vector <span class="process-math">\(\xvec_0\)</span> below.  The command <code class="code-inline tex2jax_ignore">power(A, x0,	N)</code> will print out the multiplier <span class="process-math">\(m\)</span> and the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> for <span class="process-math">\(N\)</span> steps of the power method. <pre class="ptx-sagecell sagecell-python" id="sage-154"><script type="text/x-sage">import sympy as s
+def power(A, x, N):
     for i in range(N):
-        x = A*x
-        m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
-        x = 1/float(m)*x
+        x = A@x
+        m = max([comp for comp in x], key = abs).feval(digits = 14)
+        x = 1 / float(m) * x
         print (m, x)
 
 ### Define the matrix A and initial vector x0 below
@@ -882,16 +898,19 @@ A^k\xvec_0=\lambda_2^k\vvec_2\)</span> will not detect the eigenvector <span cla
 A^{-1}\xvec_k\text{,}\)</span> and multipliers <span class="process-math">\(\frac{1}{m_k}\text{,}\)</span> which approximate the eigenvalue of <span class="process-math">\(A\text{.}\)</span>  Use it to find the eigenvalue of <span class="process-math">\(A=\left[\begin{array}{rr}
 -5.1 \amp 5.7 \\
 -3.8 \amp 4.4 \\
-\end{array}\right]\)</span> having the smallest absolute value. <pre class="ptx-sagecell sagecell-sage" id="sage-155"><script type="text/x-sage">def inverse_power(A, x, N):
+\end{array}\right]\)</span> having the smallest absolute value.  <pre class="ptx-sagecell sagecell-sage" id="sage-155"><script type="text/x-sage">import numpy as np
+from scipy import linalg
+def inverse_power(A, x, N):
+	result = []
     for i in range(N):
-        x = A \ x
-        m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
-        x = 1/float(m)*x
-        print (1/float(m), x)
+        x = linalg.solve(A, x)
+        m = max([comp for comp in x], key=abs) # .numerical_approx(digits=14)
+        x = 1/m * x  # 1/float(m)*x
+        result.append((1/m, x))
 ### define the matrix A and vector x0
 A =
 x0 =
-inverse_power(A, x0, 20)
+print(inverse_power(A, x0, 20))
 </script></pre>
 </div></li>
 <li id="li-3648"><div class="para" id="p-5353">The inverse power method only works if <span class="process-math">\(A\)</span> is invertible.  If <span class="process-math">\(A\)</span> is not invertible, what is its eigenvalue having the smallest absolute value?</div></li>
@@ -927,17 +946,21 @@ inverse_power(A, x0, 20)
 \end{array}\right]
 \text{.}\)</span> If we use the power method and inverse power method, we find two eigenvalues, <span class="process-math">\(\lambda_1=16.35\)</span> and <span class="process-math">\(\lambda_2=0.75\text{.}\)</span>  Viewing these eigenvalues on a number line, we know that the other eigenvalues lie in the range between <span class="process-math">\(-\lambda_1\)</span> and <span class="process-math">\(\lambda_1\text{,}\)</span> as shaded in <a href="" class="xref" data-knowl="./knowl/fig-numerical-power-line.html" title="Figure 5.6.3">Figure 5.6.3</a>.</div>
 <figure class="figure figure-like" id="fig-numerical-power-line"><div class="sidebyside"><div class="sbsrow" style="margin-left:12.5%;margin-right:12.5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/numerical-power-line.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.6.3<span class="period">.</span></span><span class="space"> </span>The range of eigenvalues of <span class="process-math">\(A\text{.}\)</span></figcaption></figure><div class="para" id="p-5370">The Sage cell below has a function <code class="code-inline tex2jax_ignore">find_closest_eigenvalue(A, s, x, N)</code> that implements <span class="process-math">\(N\)</span> steps of the inverse power method using the matrix <span class="process-math">\(A-sI\)</span> and an initial vector <span class="process-math">\(x\text{.}\)</span>  This function prints approximations to the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\)</span> and its associated eigenvector.  By trying different values of <span class="process-math">\(s\)</span> in the shaded regions of the number line shown in <a href="" class="xref" data-knowl="./knowl/fig-numerical-power-line.html" title="Figure 5.6.3">Figure 5.6.3</a>, find the other two eigenvalues of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-156"><script type="text/x-sage">def find_closest_eigenvalue(A, s, x, N):
-    B = A-s*identity_matrix(A.nrows())
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.6.3<span class="period">.</span></span><span class="space"> </span>The range of eigenvalues of <span class="process-math">\(A\text{.}\)</span></figcaption></figure><div class="para" id="p-5370">The Python cell below has a function <code class="code-inline tex2jax_ignore">find_closest_eigenvalue(A, s, x, N)</code> that implements <span class="process-math">\(N\)</span> steps of the inverse power method using the matrix <span class="process-math">\(A-sI\)</span> and an initial vector <span class="process-math">\(x\text{.}\)</span>  This function prints approximations to the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\)</span> and its associated eigenvector.  By trying different values of <span class="process-math">\(s\)</span> in the shaded regions of the number line shown in <a href="" class="xref" data-knowl="./knowl/fig-numerical-power-line.html" title="Figure 5.6.3">Figure 5.6.3</a>, find the other two eigenvalues of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-156"><script type="text/x-sage">from scipy import linalg 
+def find_closest_eigenvalue(A, s, x, N):
+    B = A - s @ linalg.eye(A.shape[0])
+	result = []
     for i in range(N):
-        x = B \ x
-        m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
-        x = 1/float(m)*x
-        print (1/float(m)+s, x)
+        x = B.solve(x)
+        m = max([comp for comp in x], key=abs)
+        x = 1/m * x
+		result.append((1/m + s, x))
+	return result
+
 ### define the matrix A and vector x0
 A =
 x0 =
-find_closest_eigenvalue(A, 2, x0, 20)
+print(find_closest_eigenvalue(A, 2, x0, 20))
 </script></pre>
 </div>
 </li>

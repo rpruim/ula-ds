@@ -63,6 +63,12 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
 </script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
 <script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,15 +109,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.0.0dev3';
+eBookConfig.runestone_version = '7.0.0dev4';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runtime.71ffd81c0faeb38b.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.f9add1ca35d5ad93.css">
-<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.1f1f63d2cda36a4d.css">
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
 </head>
 <body class="pretext book ignore-math">
 <a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
@@ -702,7 +708,14 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="app-notation.html" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></div></li>
-<li><div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div></li>
+<li>
+<div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="subsection-127.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-128.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span></a></div></li>
+</ul>
+</li>
 <li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
 <li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
 </ul>
@@ -773,7 +786,7 @@ Q_{k+1} \amp {}={} 0.2 P_k + 0.6Q_k\text{.} \\
 </div></li>
 <li id="li-3415"><div class="para" id="p-4999">Explain why <span class="process-math">\(A\)</span> is a stochastic matrix.</div></li>
 <li id="li-3416"><div class="para" id="p-5000">Suppose that initially 40% of citizens vote for party <span class="process-math">\(P\text{,}\)</span> 30% vote for party <span class="process-math">\(Q\text{,}\)</span> and 30% vote for party <span class="process-math">\(R\text{.}\)</span>  Form the vector <span class="process-math">\(\xvec_0\)</span> and explain why <span class="process-math">\(\xvec_0\)</span> is a probability vector.</div></li>
-<li id="li-3417"><div class="para" id="p-5001">Find <span class="process-math">\(\xvec_1\text{,}\)</span> the percentages who vote for the three parties in the next election.  Verify that <span class="process-math">\(\xvec_1\)</span> is also a probability vector and explain why <span class="process-math">\(\xvec_k\)</span> will be a probability vector for every <span class="process-math">\(k\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-139"><script type="text/x-sage">
+<li id="li-3417"><div class="para" id="p-5001">Find <span class="process-math">\(\xvec_1\text{,}\)</span> the percentages who vote for the three parties in the next election.  Verify that <span class="process-math">\(\xvec_1\)</span> is also a probability vector and explain why <span class="process-math">\(\xvec_k\)</span> will be a probability vector for every <span class="process-math">\(k\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-139"><script type="text/x-sage">
 </script></pre>
 </div></li>
 <li id="li-3418"><div class="para" id="p-5002">Find the eigenvalues of the matrix <span class="process-math">\(A\)</span> and explain why the eigenspace <span class="process-math">\(E_1\)</span> is a one-dimensional subspace of <span class="process-math">\(\real^3\text{.}\)</span>  Then verify that <span class="process-math">\(\vvec=\threevec{1}{2}{2}\)</span> is a basis vector for <span class="process-math">\(E_1\text{.}\)</span>
@@ -895,10 +908,13 @@ B=\left[\begin{array}{rr}
 <li id="li-3421"><div class="para" id="p-5021">Verify that both <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are stochastic matrices.</div></li>
 <li id="li-3422"><div class="para" id="p-5022">Find the eigenvalues of <span class="process-math">\(A\)</span> and then find a steady-state vector for <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-3423"><div class="para" id="p-5023">We will form the Markov chain beginning with the vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\)</span> and defining <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{.}\)</span>  The Sage cell below constructs the first <span class="process-math">\(N\)</span> terms of the Markov chain with the command <code class="code-inline tex2jax_ignore">markov_chain(A, x0, N)</code>.  Define the matrix <code class="code-inline tex2jax_ignore">A</code> and vector <code class="code-inline tex2jax_ignore">x0</code> and evaluate the cell to find the first 10 terms of the Markov chain. <pre class="ptx-sagecell sagecell-sage" id="sage-140"><script type="text/x-sage">def markov_chain(A, x0, N):
+<li id="li-3423"><div class="para" id="p-5023">We will form the Markov chain beginning with the vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\)</span> and defining <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{.}\)</span>  The Python cell below constructs the first <span class="process-math">\(N\)</span> terms of the Markov chain with the command <code class="code-inline tex2jax_ignore">markov_chain(A, x0, N)</code>.  Define the matrix <code class="code-inline tex2jax_ignore">A</code> and vector <code class="code-inline tex2jax_ignore">x0</code> and evaluate the cell to find the first 10 terms of the Markov chain. <pre class="ptx-sagecell sagecell-python" id="sage-140"><script type="text/x-sage">def markov_chain(A, x0, N):
+    result = [x0]
     for i in range(N):
-        x0 = A*x0
-        print (x0)
+        x_new = A@result[-1]
+        result.append(x_new)
+    return result
+
 ## define the matrix A and x0
 A =
 x0 =
@@ -973,14 +989,17 @@ markov_chain(A, x0, 10)
 1 \amp 0.5 \\
 \end{array}\right]
 \text{.}\)</span> This is a positive matrix, as we saw in the previous example.  Find the eigenvectors of <span class="process-math">\(C\)</span> and verify there is a unique steady-state vector.</div></li>
-<li id="li-3437"><div class="para" id="p-5049">Using the Sage cell below, construct the Markov chain with initial vector <span class="process-math">\(\xvec_0= \twovec{1}{0}\)</span> and describe what happens to <span class="process-math">\(\xvec_k\)</span> as <span class="process-math">\(k\)</span> becomes large. <pre class="ptx-sagecell sagecell-sage" id="sage-141"><script type="text/x-sage">def markov_chain(A, x0, N):
+<li id="li-3437"><div class="para" id="p-5049">Using the Python cell below, construct the Markov chain with initial vector <span class="process-math">\(\xvec_0= \twovec{1}{0}\)</span> and describe what happens to <span class="process-math">\(\xvec_k\)</span> as <span class="process-math">\(k\)</span> becomes large. <pre class="ptx-sagecell sagecell-python" id="sage-141"><script type="text/x-sage">def markov_chain(A, x0, N):
+    result = [x0]
     for i in range(N):
-        x0 = A*x0
-        print (x0)
+        x_new = A@result[-1]
+        result.append(x_new)
+    return result
+
 ## define the matrix C and x0
 C =
 x0 =
-markov_chain(C, x0, 10)
+print(markov_chain(C, x0, 10))
 </script></pre>
 </div></li>
 <li id="li-3438"><div class="para" id="p-5050">Construct another Markov chain with initial vector <span class="process-math">\(\xvec_0=\twovec{0.2}{0.8}\)</span> and describe what happens to <span class="process-math">\(\xvec_k\)</span> as <span class="process-math">\(k\)</span> becomes large.</div></li>
@@ -988,7 +1007,7 @@ markov_chain(C, x0, 10)
 0 \amp 0.5 \amp 0 \\
 1 \amp 0.5 \amp 0 \\
 0 \amp 0 \amp 1 \\
-\end{array}\right]\)</span> and compute several powers of <span class="process-math">\(D\)</span> below. <pre class="ptx-sagecell sagecell-sage" id="sage-142"><script type="text/x-sage">
+\end{array}\right]\)</span> and compute several powers of <span class="process-math">\(D\)</span> below. <pre class="ptx-sagecell sagecell-python" id="sage-142"><script type="text/x-sage">
 </script></pre> Determine whether <span class="process-math">\(D\)</span> is a positive matrix.</div></li>
 <li id="li-3440"><div class="para" id="p-5052">Find the eigenvalues of <span class="process-math">\(D\)</span> and then find the steady-state vectors.  Is there a unique steady-state vector?</div></li>
 <li id="li-3441"><div class="para" id="p-5053">What happens to the Markov chain defined by <span class="process-math">\(D\)</span> with initial vector <span class="process-math">\(\xvec_0 =\threevec{1}{0}{0}\text{?}\)</span>  What happens to the Markov chain with initial vector <span class="process-math">\(\xvec_0=\threevec{0}{0}{1}\text{.}\)</span>
@@ -1020,20 +1039,23 @@ x_1 = x_2 + \frac12 x_3\text{.}
 <li id="li-3451"><div class="para" id="p-5071">We now form the PageRank vector <span class="process-math">\(\xvec =
 \threevec{x_1}{x_2}{x_3}\text{.}\)</span>  Find a matrix <span class="process-math">\(G\)</span> such that the expressions for <span class="process-math">\(x_1\text{,}\)</span> <span class="process-math">\(x_2\text{,}\)</span> and <span class="process-math">\(x_3\)</span> can be written in the form <span class="process-math">\(G\xvec = \xvec\text{.}\)</span>  The matrix <span class="process-math">\(G\)</span> is called the “Google matrix”.</div></li>
 <li id="li-3452"><div class="para" id="p-5072">Explain why <span class="process-math">\(G\)</span> is a stochastic matrix.</div></li>
-<li id="li-3453"><div class="para" id="p-5073">Since <span class="process-math">\(\xvec\)</span> is defined by the equation <span class="process-math">\(G\xvec = \xvec\text{,}\)</span> any vector in the eigenspace <span class="process-math">\(E_1\)</span> satisfies this equation.  So that we might work with a specific vector, we will define the PageRank vector to be the steady-state vector of the stochastic matrix <span class="process-math">\(G\text{.}\)</span>  Find this steady state vector. <pre class="ptx-sagecell sagecell-sage" id="sage-143"><script type="text/x-sage">
+<li id="li-3453"><div class="para" id="p-5073">Since <span class="process-math">\(\xvec\)</span> is defined by the equation <span class="process-math">\(G\xvec = \xvec\text{,}\)</span> any vector in the eigenspace <span class="process-math">\(E_1\)</span> satisfies this equation.  So that we might work with a specific vector, we will define the PageRank vector to be the steady-state vector of the stochastic matrix <span class="process-math">\(G\text{.}\)</span>  Find this steady state vector. <pre class="ptx-sagecell sagecell-python" id="sage-143"><script type="text/x-sage">
 </script></pre>
 </div></li>
 <li id="li-3454"><div class="para" id="p-5074">The PageRank vector <span class="process-math">\(\xvec\)</span> is composed of the PageRanks for each of the three pages.  Which page of the three is assessed to have the highest quality?  By referring to the structure of this small model of the Internet, explain why this is a good choice.</div></li>
 <li id="li-3455"><div class="para" id="p-5075">If we begin with the initial vector <span class="process-math">\(\xvec_0 =
 \threevec{1}{0}{0}\)</span> and form the Markov chain <span class="process-math">\(\xvec_{k+1} = G\xvec_k\text{,}\)</span> what does the Perron-Frobenius theorem tell us about the long-term behavior of the Markov chain?</div></li>
-<li id="li-3456"><div class="para" id="p-5076">Verify that this Markov chain converges to the steady-state PageRank vector. <pre class="ptx-sagecell sagecell-sage" id="sage-144"><script type="text/x-sage">def markov_chain(A, x0, N):
+<li id="li-3456"><div class="para" id="p-5076">Verify that this Markov chain converges to the steady-state PageRank vector. <pre class="ptx-sagecell sagecell-python" id="sage-144"><script type="text/x-sage">def markov_chain(A, x0, N):
+    result = [x0]
     for i in range(N):
-        x0 = A*x0
-        print (x0.numerical_approx(digits=3))
+        x_new = A@result[-1]
+        result.append(x_new)
+    return result
+
 ## define the matrix G and x0
 G =
 x0 =
-markov_chain(G, x0, 20)
+print(markov_chain(G, x0, 20))
 </script></pre>
 </div></li>
 </ol></div></article><div class="para" id="p-5087">This activity shows us two ways to find the PageRank vector. In the first, we determine a steady-state vector directly by finding a description of the eigenspace <span class="process-math">\(E_1\)</span> and then finding the appropriate scalar multiple of a basis vector that gives us the steady-state vector.  To find a description of the eigenspace <span class="process-math">\(E_1\text{,}\)</span> however, we need to find the null space <span class="process-math">\(\nul(G-I)\text{.}\)</span>  Remember that the real Internet has 35 trillion pages so finding <span class="process-math">\(\nul(G-I)\)</span> requires us to row reduce a matrix with 35 trillion rows and columns.  As we saw in <a href="sec-python-introduction.html#subsec-compute-effort" class="internal" title="Subsection 2.3.2: Computational effort">Subsection 2.3.2</a>, that is not computationally feasible.</div>
@@ -1043,10 +1065,13 @@ markov_chain(G, x0, 20)
 </h4>
 <div class="para" id="p-5089">Consider the Internet with eight web pages, shown in <a href="" class="xref" data-knowl="./knowl/fig-google-irreducible.html" title="Figure 5.5.8">Figure 5.5.8</a>.</div> <figure class="figure figure-like" id="fig-google-irreducible"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/google-irreducible.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.5.8<span class="period">.</span></span><span class="space"> </span>A simple model of the Internet with eight web pages.</figcaption></figure> <div class="para logical" id="p-5090"><ol class="lower-alpha">
-<li id="li-3464"><div class="para" id="p-5091">Construct the Google matrix <span class="process-math">\(G\)</span> for this Internet.  Then use a Markov chain to find the steady-state PageRank vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-145"><script type="text/x-sage">def markov_chain(A, x0, N):
+<li id="li-3464"><div class="para" id="p-5091">Construct the Google matrix <span class="process-math">\(G\)</span> for this Internet.  Then use a Markov chain to find the steady-state PageRank vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-145"><script type="text/x-sage">def markov_chain(A, x0, N):
+    result = [x0]
     for i in range(N):
-        x0 = A*x0
-        print (x0.numerical_approx(digits=3))
+        x_new = A@result[-1]
+        result.append(x_new)
+    return result
+
 ## define the matrix G and x0
 G =
 x0 =
@@ -1100,22 +1125,25 @@ G' = 0.85 G + 0.15H_n\text{.}
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.5.7</span><span class="period">.</span>
 </h4>
 <div class="para logical" id="p-5109">
-<div class="para">The following Sage cell will generate the Markov chain for the modified Google matrix <span class="process-math">\(G\)</span> if you simply enter the original Google matrix <span class="process-math">\(G\)</span> in the appropriate line. <pre class="ptx-sagecell sagecell-sage" id="sage-146"><script type="text/x-sage">def modified_markov_chain(A, x0, N):
-    r = A.nrows()
-    A = 0.85*A + 0.15*matrix(r,r,[1.0/r]*(r*r))	      
+<div class="para">The following Python cell will generate the Markov chain for the modified Google matrix <span class="process-math">\(G\)</span> if you simply enter the original Google matrix <span class="process-math">\(G\)</span> in the appropriate line. <pre class="ptx-sagecell sagecell-python" id="sage-146"><script type="text/x-sage">def modified_markov_chain(A, x0, N):
+    r = A.shape[0]
+    A = 0.85 * A + 0.15 * np.full((r,r),  1.0 / r)	      
+    result = [x0]
     for i in range(N):
-        x0 = A*x0
-        print (x0.numerical_approx(digits=3))
+        x_new = A@result[-1]
+        result.append(x_new)
+    return result
+
 ## Define original Google matrix G and initial vector x0.
 ## The function above finds the modified Google matrix
 ## and resulting Markov chain 
 G =
 x0 =
-modified_markov_chain(G, x0, 20)
+print(modified_markov_chain(G, x0, 20).round(3))
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-3474"><div class="para" id="p-5110">Consider the original Internet with three pages shown in <a href="" class="xref" data-knowl="./knowl/fig-google-intro.html" title="Figure 5.5.7">Figure 5.5.7</a> and find the PageRank vector <span class="process-math">\(\xvec\)</span> using the modified Google matrix in the Sage cell above. How does this modified PageRank vector compare to the vector we found using the original Google matrix <span class="process-math">\(G\text{?}\)</span>
+<li id="li-3474"><div class="para" id="p-5110">Consider the original Internet with three pages shown in <a href="" class="xref" data-knowl="./knowl/fig-google-intro.html" title="Figure 5.5.7">Figure 5.5.7</a> and find the PageRank vector <span class="process-math">\(\xvec\)</span> using the modified Google matrix in the Python cell above. How does this modified PageRank vector compare to the vector we found using the original Google matrix <span class="process-math">\(G\text{?}\)</span>
 </div></li>
 <li id="li-3475"><div class="para" id="p-5111">Find the modified PageRank vector for the Internet shown in <a href="" class="xref" data-knowl="./knowl/fig-google-cyclic.html" title="Figure 5.5.9">Figure 5.5.9</a>.  Explain why this vector seems to be the correct one.</div></li>
 <li id="li-3476"><div class="para" id="p-5112">Find the modified PageRank vector for the Internet shown in <a href="" class="xref" data-knowl="./knowl/fig-google-reducible.html" title="Figure 5.5.10">Figure 5.5.10</a>.  Explain why this modified PageRank vector fixes the problem that appeared with the original PageRank vector.</div></li>

@@ -63,6 +63,12 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
 </script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
 <script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,15 +109,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.0.0dev3';
+eBookConfig.runestone_version = '7.0.0dev4';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runtime.71ffd81c0faeb38b.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-347.f9add1ca35d5ad93.css">
-<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev3/prefix-runestone.1f1f63d2cda36a4d.css">
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
 </head>
 <body class="pretext book ignore-math">
 <a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
@@ -702,7 +708,14 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-item"><a href="backmatter.html" class="internal"><span class="title">Back Matter</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="app-notation.html" class="internal"><span class="codenumber">A</span> <span class="title">Notation</span></a></div></li>
-<li><div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div></li>
+<li>
+<div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="subsection-127.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-128.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span></a></div></li>
+</ul>
+</li>
 <li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
 <li><div class="toc-item"><a href="colophon-2.html" class="internal"><span class="title">Colophon</span></a></div></li>
 </ul>
@@ -784,12 +797,13 @@ AP = A\begin{bmatrix}
 \end{bmatrix}\text{.}\)</span>  Verify that <span class="process-math">\(\vvec_1=\twovec11\)</span> and <span class="process-math">\(\vvec_2=\twovec2{-1}\)</span> are eigenvectors of <span class="process-math">\(A\)</span> with eigenvalues <span class="process-math">\(\lambda_1 = 3\)</span> and <span class="process-math">\(\lambda_2=-6\text{.}\)</span>
 </div></li>
 <li id="li-2975">
-<div class="para" id="p-4405">Use the Sage cell below to define the matrices <span class="process-math">\(P\)</span> and <span class="process-math">\(D\)</span> and then verify that <span class="process-math">\(A=PDP^{-1}\text{.}\)</span>
+<div class="para" id="p-4405">Use the Python cell below to define the matrices <span class="process-math">\(P\)</span> and <span class="process-math">\(D\)</span> and then verify that <span class="process-math">\(A=PDP^{-1}\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-131"><script type="text/x-sage"># enter the matrices P and D below	    
+<pre class="ptx-sagecell sagecell-python" id="sage-131"><script type="text/x-sage">import numpy as np
+# enter the matrices P and D below	    
 P =
 D =	    
-P*D*P.inverse()
+np.linalg.inv(P@D@P)
 </script></pre>
 </li>
 </ol>
@@ -871,7 +885,7 @@ D = \begin{bmatrix}
 </div></article><article class="definition definition-like" id="definition-22"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">5.3.4</span><span class="period">.</span>
 </h4> <div class="para logical" id="p-4417">
-<div class="para">We say that the matrix <span class="process-math">\(A\)</span> is <em class="emphasis">diagonalizable</em> if there is a diagonal matrix <span class="process-math">\(D\)</span> and invertible matrix <span class="process-math">\(P\)</span> such that</div>
+<div class="para">We say that the matrix <span class="process-math">\(A\)</span> is <dfn class="terminology">diagonalizable</dfn> if there is a diagonal matrix <span class="process-math">\(D\)</span> and invertible matrix <span class="process-math">\(P\)</span> such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
 A = PDP^{-1}.
@@ -1073,7 +1087,7 @@ A = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-132"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-132"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-2983">
@@ -1089,7 +1103,7 @@ A = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-133"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-133"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-2984"><div class="para logical" id="p-4436">
@@ -1251,7 +1265,7 @@ A^k = PD^kP^{-1} \approx P\begin{bmatrix}
 <div class="para" id="p-4471">While many matrices are diagonalizable, there are some that are not.  For example, if a matrix has complex eigenvalues, it is not possible to find a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors, which means that the matrix is not diagonalizable.  In this case, however, we can still relate the matrix to a simpler form that explains the geometric effect this matrix has on vectors.</div>
 <article class="definition definition-like" id="definition-23"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">5.3.11</span><span class="period">.</span>
-</h4> <div class="para" id="p-4472">We say that <span class="process-math">\(A\)</span> is <em class="emphasis">similar</em> to <span class="process-math">\(B\)</span> if there is an invertible matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A = PBP^{-1}\text{.}\)</span>
+</h4> <div class="para" id="p-4472">We say that <span class="process-math">\(A\)</span> is <dfn class="terminology">similar</dfn> to <span class="process-math">\(B\)</span> if there is an invertible matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A = PBP^{-1}\text{.}\)</span>
 </div></article><div class="para" id="p-4473">Notice that a matrix is diagonalizable if and only if it is similar to a diagonal matrix. In case a matrix <span class="process-math">\(A\)</span> has complex eigenvalues, we will find a simpler matrix <span class="process-math">\(C\)</span> that is similar to <span class="process-math">\(A\)</span> and note that <span class="process-math">\(A=PCP^{-1}\)</span> has the same effect, when viewed in the basis defined by the columns of <span class="process-math">\(P\text{,}\)</span> as <span class="process-math">\(C\text{,}\)</span> when viewed in the standard basis.</div>
 <div class="para" id="p-4474">To begin, suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\times2\)</span> matrix having a complex eigenvalue <span class="process-math">\(\lambda = a+bi\text{.}\)</span>  It turns out that <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C=\begin{bmatrix}
 a \amp -b \\
@@ -1331,9 +1345,10 @@ A = \left[\begin{array}{rr}
 \end{array}\right]
 \text{.}\)</span>  Verify that <span class="process-math">\(A = PCP^{-1}\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-134"><script type="text/x-sage">C = 
+<pre class="ptx-sagecell sagecell-python" id="sage-134"><script type="text/x-sage">import numpy as np
+C = 
 P = 
-P*C*P.inverse()
+np.linalg.inv(P*C*P)
 </script></pre>
 </li>
 <li id="li-3011"><div class="para" id="p-4481">Explain why <span class="process-math">\(A^k = PC^kP^{-1}\text{.}\)</span>

@@ -15,6 +15,12 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
 </script>
 </head>
 <body class="ignore-math">
@@ -33,9 +39,11 @@ I\text{?}\)</span>
 0.8 \amp 0.4 \\
 0.2 \amp 0.6 \\
 \end{array}\right]
-\text{.}\)</span>  Explain how we know that <span class="process-math">\(1\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> and then explain why the following Sage computation is incorrect. <pre class="ptx-sagecell sagecell-sage" id="sage-152"><script type="text/x-sage">A = matrix(2,2,[0.8, 0.4, 0.2, 0.6])
-I = matrix(2,2,[1, 0, 0, 1])	  
-(A-I).rref()
+\text{.}\)</span>  Explain how we know that <span class="process-math">\(1\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> and then explain why the following Sage computation is incorrect. <pre class="ptx-sagecell sagecell-python" id="sage-152"><script type="text/x-sage">import numpy as np
+import sympy as s   
+A = s.Matrix([[0.8, 0.4], [0.2, 0.6]])
+I = s.eye(2) 
+print((A-I).rref())
 </script></pre>
 </div></li>
 <li><div class="para">Suppose that <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{,}\)</span> and we define a sequence <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{;}\)</span>  in other words, <span class="process-math">\(\xvec_{k} = A^k\xvec_0\text{.}\)</span>  What happens to <span class="process-math">\(\xvec_k\)</span> as <span class="process-math">\(k\)</span> grows increasingly large?</div></li>
