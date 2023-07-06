@@ -8,7 +8,7 @@
     <p>
       In this section, we will revisit the theory of eigenvalues and
       eigenvectors for the special class of matrices that are
-      <em>symmetric</em>, meaning that the matrix equals its
+      <term>symmetric</term>, meaning that the matrix equals its
       transpose.  This understanding of symmetric matrices will enable
       us to form singular value decompositions later in the chapter.
       We'll also begin studying variance in this section as it
@@ -246,8 +246,11 @@
     <p>
       In this way, we see that the matrix transformations defined by
       these two matrices are equivalent 
-      after a <m>45^\circ</m> rotation.  This notion of equivalence
-      is what we called <em>similarity</em> in 
+      after a <m>45^\circ</m> rotation.  
+	  <idx><h>similar matrices</h></idx>
+	  <idx><h>matrix</h><h>similar</h></idx>
+	  This notion of equivalence
+      is what we called <term>similarity</term> in 
       <xref ref="sec-eigen-diag" />.  There we considered a square
       <m>m\times m</m> matrix <m>A</m> that provided enough
       eigenvectors to form a basis of <m>\real^m</m>.  For example,
@@ -268,8 +271,11 @@
 	0 \amp 0 \amp \ldots \amp \lambda_m
 	\end{bmatrix},
       </me>
-      enables us to write <m>A = PDP^{-1}</m>.  This is what it means
-      for <m>A</m> to be diagonalizable.
+      enables us to write <m>A = PDP^{-1}</m>.  
+	  <idx><h>diagonalizable matrix</h></idx>
+	  <idx><h>matrix</h><h>diagonalizable</h></idx>
+	  This is what it means for <m>A</m> to be <term>diagonalizable</term>.
+	  
     </p>
 
     <p>
@@ -314,14 +320,13 @@
     <activity>
       <statement>
 	<p>
-	  Remember that the Sage command <c>A.right_eigenmatrix()</c>
+	  Remember that the Python command <c>scipy.linalg.eig(A)</c>
 	  attempts to find a basis for <m>\real^m</m> consisting of
-	  eigenvectors of <m>A</m>.  In particular,
-	  <c>D, P = A.right_eigenmatrix()</c>
-	  provides a diagonal matrix <m>D</m>
-	  constructed from the eigenvalues of <m>A</m> with the columns
-	  of <m>P</m> containing the associated eigenvectors.
-	  <sage>
+	  eigenvectors of <m>A</m>.  If successful,
+	  <c>e, E = linalg.aig(A)</c>
+	  provides a vector of eigen values <c>e</c> and a matrix <c>E</c>
+	  containing the associated eigenvectors as columns.
+	  <sage language="python">
 	    <input>
 	    </input>
 	  </sage>
@@ -331,8 +336,8 @@
 		For each of the following matrices, determine whether
 		there is a basis for <m>\real^2</m> consisting of
 		eigenvectors of that matrix.  When there is such a
-		basis, form the matrices <m>P</m> and <m>D</m> and
-		verify that the matrix equals <m>PDP^{-1}</m>.
+		basis, form the matrices <m>P</m> and <m>D</m> such that 
+		<m>A = PDP^{-1}</m>.
 		<ol marker="1.">
 		  <li>
 		    <p>
@@ -597,18 +602,18 @@
       <me>
 	A = QDQ^{-1} = QDQ^T.
       </me>
-      In this case, we say that <m>A</m> is <em> orthogonally
-      diagonalizable</em>.
+      In this case, we say that <m>A</m> is <term> orthogonally
+      diagonalizable</term>.
     </p>
 
     <definition xml:id="def-orthog-diag">
-      <idx> orthogonal diagonalization </idx>
+      <idx> <h>orthogonal diagonalization</h> </idx>
+      <idx> <h>diagonalization</h><h>orthogonal</h> </idx>
       <statement>
 	<p>
 	  If there is an orthonormal basis of <m>\real^n</m>
 	  consisting of eigenvectors of the matrix <m>A</m>, we say
-	  that <m>A</m> is <em>orthogonally 
-	  diagonalizable</em>.  In particular, we can write
+	  that <m>A</m> is <term>orthogonally diagonalizable</term>.  In particular, we can write
 	  <m>A=QDQ^T</m> where <m>Q</m> is an orthogonal matrix.
 	</p>
       </statement>
@@ -620,14 +625,15 @@
 	A^T=(QDQ^T)^T = (Q^T)^TD^TQ^T = QDQ^T = A.
       </me>
       That is, when <m>A</m> is orthogonally diagonalizable,
-      <m>A=A^T</m> and we say that <m>A</m> is <em>symmetric</em>. 
+      <m>A=A^T</m> and we say that <m>A</m> is <term>symmetric</term>. 
     </p>
 
     <definition>
-      <idx> symmetric matrix </idx>
+      <idx> <h>symmetric matrix</h> </idx>
+      <idx> <h>matrix</h><h>symmetric</h> </idx>
       <statement>
 	<p>
-	  A <em>symmetric</em> matrix <m>A</m> is one for which
+	  A <term>symmetric</term> matrix <m>A</m> is one for which
 	  <m>A=A^T</m>.
 	</p>
       </statement>
@@ -651,7 +657,7 @@
 	  <me>
 	    \uvec_1 = \twovec{4/5}{3/5},
 	    \hspace{24pt}
-	    \uvec_1 = \twovec{3/5}{-4/5}\text{.}
+	    \uvec_2 = \twovec{3/5}{-4/5}\text{.}
 	  </me>
 	</p>
 
@@ -773,7 +779,7 @@
 	  bases together to find an orthogonal basis for <m>\real^m</m>
 	  consisting of eigenvectors.  Use this basis to write an
 	  orthogonal diagonalization of the matrix.
-	  <sage>
+	  <sage language="python">
 	    <input>
 
 	    </input>
@@ -1481,11 +1487,13 @@
 	    <li>
 	      <p>
 		In general, the matrix <m>C=\frac1N~AA^T</m> is called
-		the <em>covariance</em> matrix of the dataset, and it
-		is useful because the variance <m>V_{\uvec} =
-		\uvec\cdot(C\uvec)</m>, as we have just seen.  Find
-		the matrix <m>C</m> for our dataset with three points.
-		<sage>
+		the <term>covariance matrix</term> of the dataset, and it
+		is useful because the variance <m>V_{\uvec} = \uvec\cdot(C\uvec)</m>, 
+		as we have just seen.  
+		<idx><h>covariance matrix</h></idx>
+		<idx><h>matrix</h><h>covariance</h></idx>
+		Find the matrix <m>C</m> for our dataset with three points.
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -1691,7 +1699,7 @@
 		consisting of 100 demeaned data points and provides a plot
 		of them.  It also provides the demeaned data matrix
 		<m>A</m>.
-		<sage>
+		<sage language="python">
 		  <input>
 import pandas as pd
 df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/variance-data.csv', header=None)
@@ -1705,7 +1713,7 @@ list_plot(data, size=20, color='blue', aspect_ratio=1)
 	      <p>
 		What is the shape of the covariance matrix
 		<m>C</m>?  Find <m>C</m> and verify your response.
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
