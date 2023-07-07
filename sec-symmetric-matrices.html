@@ -63,6 +63,12 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
 </script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
 <script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,15 +109,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.0.0dev4';
+eBookConfig.runestone_version = '7.0.0dev6';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
-<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev6/prefix-runtime.96a87521059a4710.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev6/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev6/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev6/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev6/prefix-runestone.931faef5361cf6e9.css">
 </head>
 <body class="pretext book ignore-math">
 <a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
@@ -718,7 +724,7 @@ eBookConfig.enable_chatcodes =  false;
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-symmetric-matrices"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span>
 </h2>
-<section class="introduction" id="introduction-38"><div class="para" id="p-6998">In this section, we will revisit the theory of eigenvalues and eigenvectors for the special class of matrices that are <em class="emphasis">symmetric</em>, meaning that the matrix equals its transpose.  This understanding of symmetric matrices will enable us to form singular value decompositions later in the chapter. We’ll also begin studying variance in this section as it provides an important context that motivates some of our later work.</div> <div class="para" id="p-6999">To begin, remember that if <span class="process-math">\(A\)</span> is a square matrix, we say that <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with associated eigenvalue <span class="process-math">\(\lambda\)</span> if <span class="process-math">\(A\vvec=\lambda\vvec\text{.}\)</span>  In other words, for these special vectors, the operation of matrix multiplication simplifies to scalar multiplication.</div> <article class="exploration project-like" id="exploration-26"><h3 class="heading">
+<section class="introduction" id="introduction-38"><div class="para" id="p-6998">In this section, we will revisit the theory of eigenvalues and eigenvectors for the special class of matrices that are <dfn class="terminology">symmetric</dfn>, meaning that the matrix equals its transpose.  This understanding of symmetric matrices will enable us to form singular value decompositions later in the chapter. We’ll also begin studying variance in this section as it provides an important context that motivates some of our later work.</div> <div class="para" id="p-6999">To begin, remember that if <span class="process-math">\(A\)</span> is a square matrix, we say that <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with associated eigenvalue <span class="process-math">\(\lambda\)</span> if <span class="process-math">\(A\vvec=\lambda\vvec\text{.}\)</span>  In other words, for these special vectors, the operation of matrix multiplication simplifies to scalar multiplication.</div> <article class="exploration project-like" id="exploration-26"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">7.1.1</span><span class="period">.</span>
 </h3>
 <div class="para" id="p-7000">This preview activity reminds us how a basis of eigenvectors can be used to relate a square matrix to a diagonal one.</div> <figure class="figure figure-like" id="fig-preview-similar"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
@@ -763,7 +769,7 @@ A\vvec_2 = -\vvec_2.
 </div> <figure class="figure figure-like" id="fig-eigen-diag-D"><div class="sidebyside"><div class="sbsrow" style="margin-left:10%;margin-right:10%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/eigen-diag-D.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.1.2<span class="period">.</span></span><span class="space"> </span>The matrix transformation defined by <span class="process-math">\(D\text{.}\)</span></figcaption></figure> <div class="para" id="p-7020">By contrast, the transformation defined by <span class="process-math">\(A\)</span> stretches the plane by a factor of 3 in the direction of <span class="process-math">\(\vvec_1\)</span> and reflects in the line defined by <span class="process-math">\(\vvec_1\text{,}\)</span> as seen in <a href="" class="xref" data-knowl="./knowl/fig-eigen-diag-general.html" title="Figure 7.1.3">Figure 7.1.3</a>.</div> <figure class="figure figure-like" id="fig-eigen-diag-general"><div class="sidebyside"><div class="sbsrow" style="margin-left:10%;margin-right:10%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/eigen-diag-A.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.1.3<span class="period">.</span></span><span class="space"> </span>The matrix transformation defined by <span class="process-math">\(A\text{.}\)</span></figcaption></figure> <div class="para logical" id="p-7021">
-<div class="para">In this way, we see that the matrix transformations defined by these two matrices are equivalent after a <span class="process-math">\(45^\circ\)</span> rotation.  This notion of equivalence is what we called <em class="emphasis">similarity</em> in <a href="sec-eigen-diag.html" class="internal" title="Section 5.3: Diagonalization, similarity, and powers of a matrix">Section 5.3</a>.  There we considered a square <span class="process-math">\(m\times m\)</span> matrix <span class="process-math">\(A\)</span> that provided enough eigenvectors to form a basis of <span class="process-math">\(\real^m\text{.}\)</span>  For example, suppose we can construct a basis for <span class="process-math">\(\real^m\)</span> using eigenvectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_m\)</span> having associated eigenvalues <span class="process-math">\(\lambda_1,\lambda_2,\ldots,\lambda_m\text{.}\)</span>  Forming the matrices,</div>
+<div class="para">In this way, we see that the matrix transformations defined by these two matrices are equivalent after a <span class="process-math">\(45^\circ\)</span> rotation.  This notion of equivalence is what we called <dfn class="terminology">similarity</dfn> in <a href="sec-eigen-diag.html" class="internal" title="Section 5.3: Diagonalization, similarity, and powers of a matrix">Section 5.3</a>.  There we considered a square <span class="process-math">\(m\times m\)</span> matrix <span class="process-math">\(A\)</span> that provided enough eigenvectors to form a basis of <span class="process-math">\(\real^m\text{.}\)</span>  For example, suppose we can construct a basis for <span class="process-math">\(\real^m\)</span> using eigenvectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_m\)</span> having associated eigenvalues <span class="process-math">\(\lambda_1,\lambda_2,\ldots,\lambda_m\text{.}\)</span>  Forming the matrices,</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/sec-eigen-diag.html">
 \begin{equation*}
 P = \begin{bmatrix}
@@ -778,7 +784,7 @@ D = \begin{bmatrix}
 \end{bmatrix},
 \end{equation*}
 </div>
-<div class="para">enables us to write <span class="process-math">\(A = PDP^{-1}\text{.}\)</span>  This is what it means for <span class="process-math">\(A\)</span> to be diagonalizable.</div>
+<div class="para">enables us to write <span class="process-math">\(A = PDP^{-1}\text{.}\)</span>  This is what it means for <span class="process-math">\(A\)</span> to be <dfn class="terminology">diagonalizable</dfn>.</div>
 </div> <div class="para logical" id="p-7022">
 <div class="para">For the example in the preview activity, we are led to form</div>
 <div class="displaymath process-math">
@@ -809,12 +815,12 @@ D = \begin{bmatrix}
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.1.2</span><span class="period">.</span>
 </h4>
 <div class="para logical" id="p-7025">
-<div class="para">Remember that the Sage command <code class="code-inline tex2jax_ignore">A.right_eigenmatrix()</code> attempts to find a basis for <span class="process-math">\(\real^m\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span>  In particular, <code class="code-inline tex2jax_ignore">D, P = A.right_eigenmatrix()</code> provides a diagonal matrix <span class="process-math">\(D\)</span> constructed from the eigenvalues of <span class="process-math">\(A\)</span> with the columns of <span class="process-math">\(P\)</span> containing the associated eigenvectors. <pre class="ptx-sagecell sagecell-sage" id="sage-215"><script type="text/x-sage">
+<div class="para">Remember that the Python command <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A)</code> attempts to find a basis for <span class="process-math">\(\real^m\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span>  If successful, <code class="code-inline tex2jax_ignore">e, E = linalg.aig(A)</code> provides a vector of eigen values <code class="code-inline tex2jax_ignore">e</code> and a matrix <code class="code-inline tex2jax_ignore">E</code> containing the associated eigenvectors as columns. <pre class="ptx-sagecell sagecell-python" id="sage-215"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
 <li id="li-4853"><div class="para logical" id="p-7026">
-<div class="para">For each of the following matrices, determine whether there is a basis for <span class="process-math">\(\real^2\)</span> consisting of eigenvectors of that matrix.  When there is such a basis, form the matrices <span class="process-math">\(P\)</span> and <span class="process-math">\(D\)</span> and verify that the matrix equals <span class="process-math">\(PDP^{-1}\text{.}\)</span>
+<div class="para">For each of the following matrices, determine whether there is a basis for <span class="process-math">\(\real^2\)</span> consisting of eigenvectors of that matrix.  When there is such a basis, form the matrices <span class="process-math">\(P\)</span> and <span class="process-math">\(D\)</span> such that <span class="process-math">\(A = PDP^{-1}\text{.}\)</span>
 </div>
 <ol class="decimal">
 <li id="li-4854"><div class="para" id="p-7027"><span class="process-math">\(\begin{bmatrix}
@@ -853,22 +859,22 @@ D = \begin{bmatrix}
 A = QDQ^{-1} = QDQ^T.
 \end{equation*}
 </div>
-<div class="para">In this case, we say that <span class="process-math">\(A\)</span> is <em class="emphasis">orthogonally diagonalizable</em>.</div>
+<div class="para">In this case, we say that <span class="process-math">\(A\)</span> is <dfn class="terminology">orthogonally diagonalizable</dfn>.</div>
 </div>
 <article class="definition definition-like" id="def-orthog-diag"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">7.1.4</span><span class="period">.</span>
-</h4> <div class="para" id="p-7057">If there is an orthonormal basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of the matrix <span class="process-math">\(A\text{,}\)</span> we say that <span class="process-math">\(A\)</span> is <em class="emphasis">orthogonally diagonalizable</em>.  In particular, we can write <span class="process-math">\(A=QDQ^T\)</span> where <span class="process-math">\(Q\)</span> is an orthogonal matrix.</div></article><div class="para logical" id="p-7058">
+</h4> <div class="para" id="p-7057">If there is an orthonormal basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of the matrix <span class="process-math">\(A\text{,}\)</span> we say that <span class="process-math">\(A\)</span> is <dfn class="terminology">orthogonally diagonalizable</dfn>.  In particular, we can write <span class="process-math">\(A=QDQ^T\)</span> where <span class="process-math">\(Q\)</span> is an orthogonal matrix.</div></article><div class="para logical" id="p-7058">
 <div class="para">When <span class="process-math">\(A\)</span> is orthogonally diagonalizable, notice that</div>
 <div class="displaymath process-math">
 \begin{equation*}
 A^T=(QDQ^T)^T = (Q^T)^TD^TQ^T = QDQ^T = A.
 \end{equation*}
 </div>
-<div class="para">That is, when <span class="process-math">\(A\)</span> is orthogonally diagonalizable, <span class="process-math">\(A=A^T\)</span> and we say that <span class="process-math">\(A\)</span> is <em class="emphasis">symmetric</em>.</div>
+<div class="para">That is, when <span class="process-math">\(A\)</span> is orthogonally diagonalizable, <span class="process-math">\(A=A^T\)</span> and we say that <span class="process-math">\(A\)</span> is <dfn class="terminology">symmetric</dfn>.</div>
 </div>
 <article class="definition definition-like" id="definition-36"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">7.1.5</span><span class="period">.</span>
-</h4> <div class="para" id="p-7059">A <em class="emphasis">symmetric</em> matrix <span class="process-math">\(A\)</span> is one for which <span class="process-math">\(A=A^T\text{.}\)</span>
+</h4> <div class="para" id="p-7059">A <dfn class="terminology">symmetric</dfn> matrix <span class="process-math">\(A\)</span> is one for which <span class="process-math">\(A=A^T\text{.}\)</span>
 </div></article><article class="example example-like" id="example-71"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">7.1.6</span><span class="period">.</span>
 </h4>
@@ -883,7 +889,7 @@ A^T=(QDQ^T)^T = (Q^T)^TD^TQ^T = QDQ^T = A.
 \begin{equation*}
 \uvec_1 = \twovec{4/5}{3/5},
 \hspace{24pt}
-\uvec_1 = \twovec{3/5}{-4/5}\text{.}
+\uvec_2 = \twovec{3/5}{-4/5}\text{.}
 \end{equation*}
 </div>
 </div> <div class="para logical" id="p-7061">
@@ -945,7 +951,7 @@ A\xvec = Q(D(Q^T\xvec)).
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.1.3</span><span class="period">.</span>
 </h4>
 <div class="para" id="p-7068">Each of the following matrices is symmetric so the Spectral Theorem tells us that each is orthogonally diagonalizable. The point of this activity is to find an orthogonal diagonalization for each matrix.</div> <div class="para logical" id="p-7069">
-<div class="para">To begin, find a basis for each eigenspace.  Use this basis to find an orthogonal basis for each eigenspace and put these bases together to find an orthogonal basis for <span class="process-math">\(\real^m\)</span> consisting of eigenvectors.  Use this basis to write an orthogonal diagonalization of the matrix. <pre class="ptx-sagecell sagecell-sage" id="sage-216"><script type="text/x-sage">
+<div class="para">To begin, find a basis for each eigenspace.  Use this basis to find an orthogonal basis for each eigenspace and put these bases together to find an orthogonal basis for <span class="process-math">\(\real^m\)</span> consisting of eigenvectors.  Use this basis to write an orthogonal diagonalization of the matrix. <pre class="ptx-sagecell sagecell-python" id="sage-216"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
@@ -1184,8 +1190,7 @@ V_{\uvec} =
 \end{equation*}
 </div>
 </div></li>
-<li id="li-4920"><div class="para" id="p-7131">In general, the matrix <span class="process-math">\(C=\frac1N~AA^T\)</span> is called the <em class="emphasis">covariance</em> matrix of the dataset, and it is useful because the variance <span class="process-math">\(V_{\uvec} =
-\uvec\cdot(C\uvec)\text{,}\)</span> as we have just seen.  Find the matrix <span class="process-math">\(C\)</span> for our dataset with three points. <pre class="ptx-sagecell sagecell-sage" id="sage-217"><script type="text/x-sage">
+<li id="li-4920"><div class="para" id="p-7131">In general, the matrix <span class="process-math">\(C=\frac1N~AA^T\)</span> is called the <dfn class="terminology">covariance matrix</dfn> of the dataset, and it is useful because the variance <span class="process-math">\(V_{\uvec} = \uvec\cdot(C\uvec)\text{,}\)</span> as we have just seen.  Find the matrix <span class="process-math">\(C\)</span> for our dataset with three points. <pre class="ptx-sagecell sagecell-python" id="sage-217"><script type="text/x-sage">
 </script></pre>
 </div></li>
 <li id="li-4921"><div class="para" id="p-7132">Use the covariance matrix to find the variance <span class="process-math">\(V_{\uvec_1}\)</span> when <span class="process-math">\(\uvec_1=\twovec{1/\sqrt{5}}{2/\sqrt{5}}\text{.}\)</span>
@@ -1219,14 +1224,14 @@ V_{\uvec} = \uvec\cdot C\uvec.
 </h4>
 <div class="para logical" id="p-7153"><ol class="lower-alpha">
 <li id="li-4938">
-<div class="para" id="p-7154">Evaluating the following Sage cell loads a dataset consisting of 100 demeaned data points and provides a plot of them.  It also provides the demeaned data matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-218"><script type="text/x-sage">import pandas as pd
+<div class="para" id="p-7154">Evaluating the following Sage cell loads a dataset consisting of 100 demeaned data points and provides a plot of them.  It also provides the demeaned data matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-218"><script type="text/x-sage">import pandas as pd
 df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/variance-data.csv', header=None)
 data = [vector(row) for row in df.values]
 A = matrix(data).T
 list_plot(data, size=20, color='blue', aspect_ratio=1)
 </script></pre>
 </div>
-<div class="para" id="p-7155">What is the shape of the covariance matrix <span class="process-math">\(C\text{?}\)</span>  Find <span class="process-math">\(C\)</span> and verify your response. <pre class="ptx-sagecell sagecell-sage" id="sage-219"><script type="text/x-sage">
+<div class="para" id="p-7155">What is the shape of the covariance matrix <span class="process-math">\(C\text{?}\)</span>  Find <span class="process-math">\(C\)</span> and verify your response. <pre class="ptx-sagecell sagecell-python" id="sage-219"><script type="text/x-sage">
 </script></pre>
 </div>
 </li>

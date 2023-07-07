@@ -109,15 +109,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.0.0dev4';
+eBookConfig.runestone_version = '7.0.0dev6';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runtime.3489f84c0d76065d.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-347.f9add1ca35d5ad93.css">
-<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev4/prefix-runestone.931faef5361cf6e9.css">
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev6/prefix-runtime.96a87521059a4710.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev6/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.0dev6/prefix-runestone.e543e0dd19670ae2.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev6/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.0dev6/prefix-runestone.931faef5361cf6e9.css">
 </head>
 <body class="pretext book ignore-math">
 <a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
@@ -724,20 +724,20 @@ eBookConfig.enable_chatcodes =  false;
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-tensors"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">1.5</span> <span class="title">Tensors</span>
 </h2>
-<section class="introduction" id="introduction-6"><div class="para" id="p-422">As we have seen, <code class="code-inline tex2jax_ignore">numpy</code> treats vectors and matrices as 1-dimensional and 2-dimensional arrays (both created using <code class="code-inline tex2jax_ignore">np.array()</code>). While mathematically 2-dimensional arrays (i.e, matrices) are the most important (and vectors can be treated like <span class="process-math">\(n \timex 1\)</span> matrices); computationally, there is no reason we need to stop at rows and columns. We could add additional dimensions.  Higher dimensional arrays are often called <dfn class="terminology">tensors</dfn>. </div> <div class="para" id="p-423">There are two primary reasons for taking some time to think about tensors here. First, there are some interesting applications that use tensors.  One example of this is color images.  Recall that color images store a matrix of values <em class="emphasis">for each color channel</em>. So we have 3 indices into this data: vertical position (row), horizontal position (column), and color channel. If we have many images, we could store them in a 4-dimensional array, using the additional index to indicate which photo is which.</div> <div class="para" id="p-424">The second reason to discuss tensors is that most of the <code class="code-inline tex2jax_ignore">numpy</code> code that works with vectors and matrices is designed to work with higher dimensional tensors as well. Understanding this can help demistify how some of the <code class="code-inline tex2jax_ignore">numpy</code> functions work.</div></section><section class="subsection" id="subsec-numpy-tensors"><h3 class="heading hide-type">
+<section class="introduction" id="introduction-6"><div class="para" id="p-358">As we have seen, <code class="code-inline tex2jax_ignore">numpy</code> treats vectors and matrices as 1-dimensional and 2-dimensional arrays (both created using <code class="code-inline tex2jax_ignore">np.array()</code>). While mathematically 2-dimensional arrays (i.e, matrices) are the most important (and vectors can be treated like <span class="process-math">\(n \timex 1\)</span> matrices); computationally, there is no reason we need to stop at rows and columns. We could add additional dimensions.  Higher dimensional arrays are often called <dfn class="terminology">tensors</dfn>. </div> <div class="para" id="p-359">There are two primary reasons for taking some time to think about tensors here. First, there are some interesting applications that use tensors.  One example of this is color images.  Recall that color images store a matrix of values <em class="emphasis">for each color channel</em>. So we have 3 indices into this data: vertical position (row), horizontal position (column), and color channel. If we have many images, we could store them in a 4-dimensional array, using the additional index to indicate which photo is which.</div> <div class="para" id="p-360">The second reason to discuss tensors is that most of the <code class="code-inline tex2jax_ignore">numpy</code> code that works with vectors and matrices is designed to work with higher dimensional tensors as well. Understanding this can help demistify how some of the <code class="code-inline tex2jax_ignore">numpy</code> functions work.</div></section><section class="subsection" id="subsec-numpy-tensors"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">1.5.1</span> <span class="title">Tensors in np</span>
 </h3>
-<div class="para" id="p-425">Let’s create a small 3-dimensional tensor.  Notice that we can assign the shape (as long as the product of the items in our tuple is equal to the number values in the array). <pre class="ptx-sagecell sagecell-python" id="sage-25"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-361">Let’s create a small 3-dimensional tensor.  Notice that we can assign the shape (as long as the product of the items in our tuple is equal to the number values in the array). <pre class="ptx-sagecell sagecell-python" id="sage-21"><script type="text/x-sage">import numpy as np
 A = np.arange(2 * 4 * 3)
 A.shape = (2, 4, 3)
 print(A)
 </script></pre>
 </div>
-<div class="para" id="p-426">We can refer to individual numbers in an ndarray by providing the required number of indices. <pre class="ptx-sagecell sagecell-python" id="sage-26"><script type="text/x-sage">print(A[0,1,2])
+<div class="para" id="p-362">We can refer to individual numbers in an ndarray by providing the required number of indices. <pre class="ptx-sagecell sagecell-python" id="sage-22"><script type="text/x-sage">print(A[0,1,2])
 </script></pre>
 </div>
-<div class="para" id="p-427">The indexing is more flexible than demonstrated above. In each slot we can provide a <dfn class="terminology">slice</dfn> of values. A slice has the format <code class="code-inline tex2jax_ignore">start:stop:step</code>. If omitted, <code class="code-inline tex2jax_ignore">start</code> is taken to be 0, <code class="code-inline tex2jax_ignore">stop</code> is taken to be the length of the array in that dimension, and <code class="code-inline tex2jax_ignore">step</code> is taken to be 1.  To get all the values in some dimension, we can use <code class="code-inline tex2jax_ignore">:</code>.  For example, to get the blue channel from an RGB image, we could use <code class="code-inline tex2jax_ignore">image[:, :, 2]</code> to get all the rows, all the columns, but only the blue channel. </div>
-<div class="para" id="p-428">Note that when using a single number as an index, the number of dimensions will decrease. We can change this behavior by supplying an explicit slice or a list of length 1. <pre class="ptx-sagecell sagecell-python" id="sage-27"><script type="text/x-sage">import numpy as np 
+<div class="para" id="p-363">The indexing is more flexible than demonstrated above. In each slot we can provide a <dfn class="terminology">slice</dfn> of values. A slice has the format <code class="code-inline tex2jax_ignore">start:stop:step</code>. If omitted, <code class="code-inline tex2jax_ignore">start</code> is taken to be 0, <code class="code-inline tex2jax_ignore">stop</code> is taken to be the length of the array in that dimension, and <code class="code-inline tex2jax_ignore">step</code> is taken to be 1.  To get all the values in some dimension, we can use <code class="code-inline tex2jax_ignore">:</code>.  For example, to get the blue channel from an RGB image, we could use <code class="code-inline tex2jax_ignore">image[:, :, 2]</code> to get all the rows, all the columns, but only the blue channel. </div>
+<div class="para" id="p-364">Note that when using a single number as an index, the number of dimensions will decrease. We can change this behavior by supplying an explicit slice or a list of length 1. <pre class="ptx-sagecell sagecell-python" id="sage-23"><script type="text/x-sage">import numpy as np 
 A = np.arange(10 * 10 * 10)				
 A.shape = (10, 10, 10)
 # this results in a 2-d array
@@ -750,14 +750,14 @@ print(A[:,:,[0].shape)
 <article class="example example-like" id="example-5"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.1</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-429">An RGB image that is 400 pixels wide and 300 pixels tall might correspond to a tensor with shape <code class="code-inline tex2jax_ignore">(400, 300, 3)</code>. Or perhaps <code class="code-inline tex2jax_ignore">(3, 300, 400)</code>, or ... The computer doesn’t really care, but we need to know which slot is being used for what in order to work with this image correctly.  The usual arrangement is row, column, channel. This is called the <dfn class="terminology">channels-last convention</dfn>. But somtimes a channels-first convention is used instead. </div> <div class="para" id="p-430">We can plot images (or other matrices that we would like to view as an image) using a number of different tools.  Here we demonstrate how to do so using <code class="code-inline tex2jax_ignore">matplotlib</code>. <code class="code-inline tex2jax_ignore">matplotlib</code> supports a variety of image formats. For RGB images, the RGB values can be integers from 0 to 255 or floating point values between 0 and 1. <pre class="ptx-sagecell sagecell-python" id="sage-28"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-365">An RGB image that is 400 pixels wide and 300 pixels tall might correspond to a tensor with shape <code class="code-inline tex2jax_ignore">(400, 300, 3)</code>. Or perhaps <code class="code-inline tex2jax_ignore">(3, 300, 400)</code>, or ... The computer doesn’t really care, but we need to know which slot is being used for what in order to work with this image correctly.  The usual arrangement is row, column, channel. This is called the <dfn class="terminology">channels-last convention</dfn>. But somtimes a channels-first convention is used instead. </div> <div class="para" id="p-366">We can plot images (or other matrices that we would like to view as an image) using a number of different tools.  Here we demonstrate how to do so using <code class="code-inline tex2jax_ignore">matplotlib</code>. <code class="code-inline tex2jax_ignore">matplotlib</code> supports a variety of image formats. For RGB images, the RGB values can be integers from 0 to 255 or floating point values between 0 and 1. <pre class="ptx-sagecell sagecell-python" id="sage-24"><script type="text/x-sage">import numpy as np
 import matplotlib.pyplot as plt 
 A = np.arange(20 * 50 * 3)
 A = A / (20 * 50 * 3)
 A.shape = (20, 50, 3)
 plt.imshow(A) 
 plt.show()
-</script></pre> <pre class="ptx-sagecell sagecell-python" id="sage-29"><script type="text/x-sage">import numpy as np
+</script></pre> <pre class="ptx-sagecell sagecell-python" id="sage-25"><script type="text/x-sage">import numpy as np
 from skimage import io
 import matplotlib.pyplot as plt 
 url = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
@@ -766,7 +766,7 @@ print(dog.shape)
 plt.imshow(dog)
 plt.show()
 </script></pre>
-</div></article><div class="para" id="p-431"></div></section><section class="subsection" id="subsec-axes"><h3 class="heading hide-type">
+</div></article><div class="para" id="p-367"></div></section><section class="subsection" id="subsec-axes"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">1.5.2</span> <span class="title">Aggregation and Axes</span>
 </h3></section><section class="subsection" id="subsec-broadcasting"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">1.5.3</span> <span class="title">Broadcasting</span>
