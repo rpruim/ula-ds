@@ -115,6 +115,7 @@ print((A-I).rref())
 
   <subsection>
     <title> The power method </title>
+	<idx><h>power method</h></idx>
 
     <p> Our goal is to find a technique that produces numerical
     approximations to the eigenvalues and associated eigenvectors of a
@@ -126,6 +127,8 @@ print((A-I).rref())
     </p>
 
     <example>
+	  <idx><h>stochastic matrix</h></idx>
+	  <idx><h>matrix</h> <h>stochastic</h></idx>
       <p> Let's begin with the positive stochastic matrix
       <m>A=\left[\begin{array}{rr}
       0.7 \amp 0.6 \\
@@ -295,7 +298,7 @@ import sympy as s
 def power(A, x, N):
     for i in range(N):
         x = A@x
-        m = max([comp for comp in x], key = abs).feval(digits = 14)
+        m = max([comp for comp in x], key = abs).evalf(digits = 14)
         x = 1 / float(m) * x
         print (m, x)
 
