@@ -1,98 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="sec-linear-dep"
+<section xml:id="sec-pivots"
 	 xmlns:xi="http://www.w3.org/2001/XInclude">
 
   <title>
-    Linear independence
+    Pivots and their relationship to solution spaces
   </title>
 
   <introduction>
-    <p>
-      In the previous section, questions about the existence of
-      solutions of a linear system led to the concept of the span of
-      a set of vectors.  In particular, the span of a set of vectors
-      <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is the set of vectors
-      <m>\bvec</m> for which a solution to the linear system <m>
-      \left[\begin{array}{rrrr}
-      \vvec_1\amp\vvec_2\amp\ldots\amp\vvec_n \end{array}\right] ~\xvec
-      = \bvec </m> exists.
+    <p> By now, we have seen several examples illustrating how the
+    reduced row echelon matrix leads to a convenient description of
+    the solution space to a linear system.  In this
+    section, we will use this understanding to make some general
+    observations about how certain features of the reduced row echelon
+    matrix reflect the nature of the solution space.
     </p>
 
     <p>
-      In this section, we turn to the uniqueness of solutions of a
-      linear system, the second of our <xref
-      ref="fundamental-questions" text="custom"> two fundamental
-      questions</xref>.  This will lead us to the concept of linear
-      independence.
+      Remember that a leading entry in a reduced row echelon matrix is
+      the leftmost nonzero entry in a row of the matrix.  As we'll
+      see, the positions of these leading entries encode a lot of
+      information about the solution space of the corresponding linear
+      system.  For this reason, we make the following definition.
+    </p>
+
+    <definition>
+      <idx> pivot position </idx>
+      <p> A <term> pivot position </term> in a matrix <m>A</m> is the
+      position of a leading entry in the reduced row echelon matrix of
+      <m>A</m>.  
+      </p>
+    </definition>
+
+    <p>
+      For instance, in this reduced row echelon matrix, the pivot
+      positions are indicated in bold:
+      <me>
+	\begin{bmatrix}
+	{\mathbf 1} \amp \gray{0} \amp \gray{*} \amp \gray{0} \\
+	\gray{0} \amp {\mathbf 1} \amp \gray{*} \amp \gray{0} \\
+	\gray{0} \amp \gray{0} \amp \gray{0} \amp {\mathbf 1} \\
+	\gray{0} \amp \gray{0} \amp \gray{0} \amp \gray{0} \\
+	\end{bmatrix}.
+      </me>
+      We can refer to pivot positions by their row and column number
+      saying, for instance, that there is a pivot position in the
+      second row and fourth column.
     </p>
 
     <exploration>
+      <title> Some basic observations about pivots </title>
+
       <statement>
-      <p>
-	Let's begin by looking at some sets of vectors in
-	<m>\real^3</m>.  As we saw in the previous section, the span of
-	a set of vectors in <m>\real^3</m> will be either a line, a
-	plane, or <m>\real^3</m> itself.
+      <p> 
       <ol marker="a.">
-	<li> <p>
-	  Consider the following vectors in <m>\real^3</m>:
-	  <me>
-	    \vvec_1=\threevec{0}{-1}{2},
-	    \vvec_2=\threevec{3}{1}{-1},
-	    \vvec_3=\threevec{2}{0}{1}
-	  </me>.
-	  Describe the span of these vectors,
-	  <m>\laspan{\vvec_1,\vvec_2,\vvec_3}</m>, as a line, a plane,
-	  or <m>\real^3</m>. 
-	  <sage language="python">
-	    <input>
-	    </input>
-	  </sage>
+	<li> <p>  Shown below is a matrix and its reduced row echelon
+	form.  Indicate the pivot positions.
+	<me>
+	  \left[
+	  \begin{array}{rrrr}
+	  2 \amp 4 \amp 6 \amp -1 \\
+	  -3 \amp 1 \amp 5 \amp 0 \\
+	  1 \amp 3 \amp 5 \amp 1 \\
+	  \end{array}
+	  \right]
+	  \sim
+	  \left[
+	  \begin{array}{rrrr}
+	  1 \amp 0 \amp -1 \amp 0 \\
+	  0 \amp 1 \amp 2 \amp 0 \\
+	  0 \amp 0 \amp 0 \amp 1 \\
+	  \end{array}
+	  \right]
+	</me>.
 	</p></li>
 
-	<li><p>
-	  Now consider the set of vectors:
-	  <me>
-	    \wvec_1=\threevec{0}{-1}{2},
-	    \wvec_2=\threevec{3}{1}{-1},
-	    \wvec_3=\threevec{3}{0}{1}
-	  </me>.
-	  Describe the span of these vectors,
-	  <m>\laspan{\wvec_1,\wvec_2,\wvec_3}</m>, as a line, a plane,
-	  or <m>\real^3</m>.
-	  <sage language="python">
-	    <input>
-	    </input>
-	  </sage>
+	<li> <p> How many pivot positions can there be in one row?  In
+	a <m>3\times5</m> matrix, what is the largest possible number
+	of pivot positions?  Give an example of a
+	<m>3\times5</m> matrix that has the 
+	largest possible number of pivot positions.
 	</p></li>
 
-	<li><p> 
-	  Show that the vector <m>\wvec_3</m> is a linear combination
-	  of <m>\wvec_1</m> and <m>\wvec_2</m> by finding weights such
-	  that
-	  <me>
-	    \wvec_3 = c\wvec_1 + d\wvec_2
-	  </me>.
-	</p></li>
+	<li> <p> How many pivots can there be in one column?  In a
+	<m>5\times3</m> matrix, what is the largest possible number of
+	pivot positions?  Give an example of a <m>5\times3</m> matrix
+	that has the 
+	largest possible number of pivot positions. </p></li>
 
-	<li><p>
-	  Explain why any linear combination of <m>\wvec_1</m>,
-	  <m>\wvec_2</m>, and <m>\wvec_3</m>,
-	  <me>
-	    c_1\wvec_1 + c_2\wvec_2 + c_3\wvec_3
-	  </me>
-	  can be written as a linear combination of <m>\wvec_1</m> and
-	  <m>\wvec_2</m>. 
-	</p></li>
-
-	<li><p>
-	  Explain why
-	  <me>
-	    \laspan{\wvec_1,\wvec_2,\wvec_3} = \laspan{\wvec_1,\wvec_2}
-	  </me>.
-	</p></li>
-
+	<li> <p> Give an example of a matrix with a pivot position in
+	every row and every column.  What is special about 
+	such a matrix? </p></li>
       </ol>
       </p>
       </statement>
@@ -100,976 +98,893 @@
       <solution>
 	<p>
 	  <ol marker="a.">
-	    <li>
-	      <p>
-		We will construct the matrix whose columns are
-		<m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m>:
-		<me>
-		  \begin{bmatrix}
-		  0 \amp 3 \amp 2 \\
-		  -1 \amp 1 \amp 0 \\
-		  2 \amp -1 \amp 1 \\
-		  \end{bmatrix}
-		  \sim
-		  \begin{bmatrix}
-		  1 \amp 0 \amp 0 \\
-		  0 \amp 1 \amp 0 \\
-		  0 \amp 0 \amp 1 \\
-		  \end{bmatrix}.
-		</me>
-		Because there is a pivot in every row, <xref
-		ref="prop-pivot-row" /> tells us that
-		<m>\laspan{\vvec_1,\vvec_2,\vvec_3} = \real^3</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Similarly,
-		<me>
-		  \begin{bmatrix}
-		  0 \amp 3 \amp 3 \\
-		  -1 \amp 1 \amp 0 \\
-		  2 \amp -1 \amp 1 \\
-		  \end{bmatrix}
-		  \sim
-		  \begin{bmatrix}
-		  1 \amp 0 \amp 1 \\
-		  0 \amp 1 \amp 1 \\
-		  0 \amp 0 \amp 0 \\
-		  \end{bmatrix}.
-		</me>
-		As there are two pivot positions, we see that
-		<m>\laspan{\wvec_1, \wvec_2, \wvec_3}</m> is a plane
-		in <m>\real^3</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		We see that
-		<me>
-		  \left[
-		  \begin{array}{rr|r}
-		  0 \amp 3 \amp 3 \\
-		  -1 \amp 1 \amp 0 \\
-		  2 \amp -1 \amp 1 \\
-		  \end{array}
-		  \right]
-		  \sim
-		  \left[
-		  \begin{array}{rr|r}
-		  1 \amp 0 \amp 1 \\
-		  0 \amp 1 \amp 1 \\
-		  0 \amp 0 \amp 0 \\
-		  \end{array}
-		  \right],
-		</me>
-		which tells us that <m>\wvec_3 = \wvec_1 +
-		\wvec_2</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		We have
-		<me>
-		  c_1\wvec_1 + c_2\wvec_2 + c_3\wvec_3 =
-		  c_1\wvec_1 + c_2\wvec_2 + c_3(\wvec_1+\wvec_2)=
-		  (c_1+c_3)\wvec_1 + (c_2+c_3)\wvec_2.
-		</me>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Any linear combination of <m>\wvec_1</m>,
-		<m>\wvec_2</m>, and <m>\wvec_3</m> is itself a linear
-		combination of <m>\wvec_1</m> and <m>\wvec_2</m>.
-	      </p>
-	    </li>
+	    <li><p>
+	      The pivot positions are indicated below
+	      <me>
+		\left[
+		\begin{array}{rrrr}
+		{\mathbf 2} \amp 4 \amp 6 \amp -1 \\
+		-3 \amp {\mathbf 1} \amp 5 \amp 0 \\
+		1 \amp 3 \amp 5 \amp {\mathbf 1} \\
+		\end{array}
+		\right]
+		\sim
+		\left[
+		\begin{array}{rrrr}
+		{\mathbf 1} \amp 0 \amp -1 \amp 0 \\
+		0 \amp {\mathbf 1} \amp 2 \amp 0 \\
+		0 \amp 0 \amp 0 \amp {\mathbf 1} \\
+		\end{array}
+		\right]\text{.}
+	      </me>
+	    </p></li>
+
+	    <li><p>
+	      A row contains at most one pivot position.  Therefore, a
+	      <m>3\times 5</m> matrix, which has three rows, contains
+	      at most three pivot positions.  Here is an example:
+	      <me>
+		\left[\begin{array}{rrrrr}
+		1 \amp 0 \amp 0 \amp -1 \amp 2 \\
+		0 \amp 1 \amp 0 \amp 1 \amp 3 \\
+		0 \amp 0 \amp 1 \amp 2 \amp 3 \\
+		\end{array}\right]\text{.}
+	      </me>
+	    </p></li>
+
+	    <li><p>
+	      A column contains at most one pivot position.
+	      Therefore, a 
+	      <m>5\times 3</m> matrix, which has three columns,
+	      contains at most three pivot positions.  Here is an example
+	      <me>
+		\left[\begin{array}{rrr}
+		1 \amp 0 \amp 0 \\
+		0 \amp 1 \amp 0 \\
+		0 \amp 0 \amp 1 \\
+		0 \amp 0 \amp 0 \\
+		0 \amp 0 \amp 0 \\
+		\end{array}\right]\text{.}
+	      </me>
+	    </p></li>
+
+	    <li><p>
+	      A matrix with a pivot position in every row and every
+	      column would have the following reduced row echelon
+	      form:
+	      <me>
+		\left[\begin{array}{rrr}
+		1 \amp 0 \amp 0 \\
+		0 \amp 1 \amp 0 \\
+		0 \amp 0 \amp 1 \\
+		\end{array}\right]\text{.}
+	      </me>
+	      Such a matrix must necessarily have the same number of
+	      rows and columns, which means it is what we call a
+	      square matrix.
+	    </p></li>
 	  </ol>
 	</p>
       </solution>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li><p>
+	      The pivot positions are indicated below
+	      <me>
+		\left[
+		\begin{array}{rrrr}
+		{\mathbf 2} \amp 4 \amp 6 \amp -1 \\
+		-3 \amp {\mathbf 1} \amp 5 \amp 0 \\
+		1 \amp 3 \amp 5 \amp {\mathbf 1} \\
+		\end{array}
+		\right]
+		\sim
+		\left[
+		\begin{array}{rrrr}
+		{\mathbf 1} \amp 0 \amp -1 \amp 0 \\
+		0 \amp {\mathbf 1} \amp 2 \amp 0 \\
+		0 \amp 0 \amp 0 \amp {\mathbf 1} \\
+		\end{array}
+		\right]\text{.}
+	      </me>
+	    </p></li>
+
+	    <li><p>
+	      Three.
+	    </p></li>
+
+	    <li><p>
+	      Three.
+	    </p></li>
+
+	    <li><p>
+	      Such a matrix must necessarily have the same number of
+	      rows and columns, which means it is what we call a
+	      square matrix.
+	    </p></li>
+	  </ol>
+	</p>
+      </answer>
     </exploration>
+
+	<example>
+		<title>Finding pivots in Python</title>
+		<p>
+			When we compute the reduced row echelon form of a matrix using 
+			<c>sympy.rref()</c>, the second part of the returned result tells us  
+			where the pivots positions are.
+
+			<sage language="python">
+				<input>
+import numpy as np 
+import sympy 
+A = np.array([[2,4,6,-1], [-3, 1,5, 0], [1, 3, 5, 1]])
+print(sympy.Matrix(A).rref()[1])
+				</input>
+				<output>
+				</output>
+			</sage>
+			Executing this code shows us that the pivot positions 
+			(in Python 0-based indexing) are <m>(0,0), (1,1), (2,3))</m>.
+			Mathematically, using 1-based indexing, we would call these 
+			<m>(1,1), (2,2), (3,4))</m>.
+			
+		</p>
+	</example>
+
+    <p> When we have looked at solution spaces of linear systems,
+    we have frequently asked whether there are infinitely
+    many solutions, exactly one solution, or no solutions.  We will
+    now break this question into two separate questions.
+    </p>
+
+    <question xml:id="fundamental-questions">
+      <title> Two Fundamental Questions </title>
+      <p>
+	When we
+	encounter a linear system, we often ask
+	<dl>
+	  <li> <title> Existence </title>
+	  <p> Is there a solution to the linear system?  If
+	  so, we say that the system is <term> consistent </term>; if not,
+	  we say it is <term> inconsistent</term>.
+	  <idx> consistent system </idx>
+	  <idx> inconsistent system </idx>
+	  </p>
+	  </li>
+	  
+	  <li> <title> Uniqueness </title>
+	  <p> If the linear system is consistent, is the solution
+	  unique or are there infinitely many solutions?
+	  </p>
+	  </li>
+	</dl>
+      </p>
+    </question>
+
+    <p> These two questions represent two sides of a coin that appear
+    in many variations throughout our explorations.  In this section, we
+    will study how the location of the pivots influence the answers to
+    these two questions.  We begin by considering the first question
+    concerning the existence of solutions.
+    </p>
 
   </introduction>
 
   <subsection>
-    <title> Linear dependence </title>
-    <p>
-      We have seen examples where the span of a set of three vectors in
-      <m>\real^3</m> is <m>\real^3</m> and other examples where the
-      span of three vectors is a plane.  We would like to understand
-      the difference between these two situations.
-    </p>
-
-    <example xml:id="example-span-r3">
-      <statement>
-	<p>
-	  Let's consider the set of three vectors in <m>\real^3</m>:
-	  <me>
-	    \vvec_1 = \threevec220,~~~
-	    \vvec_2 = \threevec11{-1},~~~
-	    \vvec_3 = \threevec{-1}01.
-	  </me>
-	  Forming the associated matrix gives
-	  <me>
-	    \begin{bmatrix}\vvec_1\amp\vvec_2\amp\vvec_3\end{bmatrix}
-	    = 
-	    \begin{bmatrix}
-	    2 \amp 1 \amp -1 \\
-	    2 \amp 1 \amp 0 \\
-	    0 \amp -1 \amp 1 \\
-	    \end{bmatrix}
-	    \sim
-	    \begin{bmatrix}
-	    1 \amp 0 \amp 0 \\
-	    0 \amp 1 \amp 0 \\
-	    0 \amp 0 \amp 1 \\
-	    \end{bmatrix}.
-	  </me>
-	  Because there is a pivot position in every row, 
-	  <xref ref="prop-pivot-row" /> tells us that
-	  <m>\laspan{\vvec_1, \vvec_2, \vvec_3} = \real^3</m>.
-	</p>
-      </statement>
-    </example>
-
-    <example xml:id="example-span-plane">
-      <statement>
-	<p>
-	  Now let's consider the set of three vectors:
-	  <me>
-	    \wvec_1 = \threevec220,~~~
-	    \wvec_2 = \threevec11{-1},~~~
-	    \wvec_3 = \threevec{-5}{-5}{1}.
-	  </me>
-	  Forming the associated matrix gives
-	  <me>
-	    \begin{bmatrix}\wvec_1\amp\wvec_2\amp\wvec_3\end{bmatrix}
-	    = 
-	    \begin{bmatrix}
-	    2 \amp 1 \amp -5 \\
-	    2 \amp 1 \amp -5 \\
-	    0 \amp -1 \amp 1 \\
-	    \end{bmatrix}
-	    \sim
-	    \begin{bmatrix}
-	    1 \amp 0 \amp -2 \\
-	    0 \amp 1 \amp -1 \\
-	    0 \amp 0 \amp 0 \\
-	    \end{bmatrix}.
-	  </me>
-	  Since the last row does not have a pivot position, we know
-	  that the span of these vectors is not <m>\real^3</m> but is
-	  instead a plane.
-	</p>
-
-	<p>
-	  In fact, we can say more if we shift our perspective
-	  slightly and view this as an augmented matrix:
-	  <me>
-	    \left[
-	    \begin{array}{rr|r}\wvec_1\amp\wvec_2\amp\wvec_3
-	    \end{array}
-	    \right]
-	    =
-	    \left[
-	    \begin{array}{rr|r}
-	    2 \amp 1 \amp -5 \\
-	    2 \amp 1 \amp -5 \\
-	    0 \amp -1 \amp 1 \\
-	    \end{array}
-	    \right]
-	    \sim
-	    \left[
-	    \begin{array}{rr|r}
-	    1 \amp 0 \amp -2 \\
-	    0 \amp 1 \amp -1 \\
-	    0 \amp 0 \amp 0 \\
-	    \end{array}
-	    \right].
-	  </me>
-	  In this way, we see that <m>\wvec_3 = -2\wvec_1 -
-	  \wvec_2</m>, which enables us to rewrite any linear
-	  combination of these three vectors:
-	  <me>
-	    \begin{aligned}
-	    c_1\wvec_1 + c_2\wvec_2 + c_3\wvec_3 \amp
-	    {}={}
-	    c_1\wvec_1 + c_2\wvec_2 + c_3(-2\wvec_1-\wvec_2) \\
-	    \amp {}={}
-	    (c_1-2c_3)\wvec_1 + (c_2-c_3)\wvec_2. \\
-	    \end{aligned}
-	  </me>
-	</p>
-	  
-	<p>
-	  In other words, any linear combination of <m>\wvec_1</m>,
-	  <m>\wvec_2</m>, and <m>\wvec_3</m> may be written as a linear
-	  combination using only the vectors <m>\wvec_1</m> and
-	  <m>\wvec_2</m>.  Since the span of a set of vectors is simply
-	  the set of their linear combinations, this shows that
-	  <me>
-	    \laspan{\wvec_1,\wvec_2,\wvec_3} = \laspan{\wvec_1,\wvec_2}.
-	  </me>
-	  As a result, adding the vector <m>\wvec_3</m> to the set of
-	  vectors <m>\wvec_1</m> and <m>\wvec_2</m> does not change the
-	  span.
-	</p>
-
-      </statement>
-    </example>
-
-    <p>
-      Before exploring this type of behavior more generally,
-      let's think about it from a geometric point of view.  Suppose
-      that we begin with the two vectors <m>\vvec_1</m> and
-      <m>\vvec_2</m> in <xref ref="example-span-r3"/>.  The span of
-      these two vectors is a plane in <m>\real^3</m>, as seen on the
-      left of <xref ref="figure-span-r3"/>.
-    </p>
-    
-    <figure xml:id="figure-span-r3">
-      <caption>
-	The span of the vectors <m>\vvec_1</m>, <m>\vvec_2</m>, and
-	<m>\vvec_3</m>.
-      </caption>
-      <sidebyside widths="45% 45%">
-	<image source="images/3d-plane-nonstd" />
-	<image source="images/3d-plane-span-no-w" />
-      </sidebyside>
-    </figure>
-
-    <p>
-      Because the vector <m>\vvec_3</m> is not a linear combination of
-      <m>\vvec_1</m> and <m>\vvec_2</m>, it provides a direction to move
-      that is independent of
-      <m>\vvec_1</m> and <m>\vvec_2</m>.  Adding this third vector
-      <m>\vvec_3</m> therefore forms a set whose span is
-      <m>\real^3</m>, as seen on the right of <xref
-      ref="figure-span-r3"/>. 
-    </p>
-    
-    <p>
-      Similarly, the span of the vectors <m>\wvec_1</m> and
-      <m>\wvec_2</m> in <xref ref="example-span-plane"/> is also a
-      plane.  However, the third vector <m>\wvec_3</m> is a linear
-      combination of <m>\wvec_1</m> and <m>\wvec_2</m>, which means
-      that it already lies in the plane formed by <m>\wvec_1</m> and
-      <m>\wvec_2</m>, as seen in <xref
-      ref="figure-span-plane"/>.
-      Since we can already move in this direction using just 
-      <m>\wvec_1</m> and <m>\wvec_2</m>, adding
-      <m>\wvec_3</m> to the set does not change the span.  As a
-      result, it remains a plane.
-    </p>
-
-    <figure xml:id="figure-span-plane">
-      <caption>
-	The span of the vectors <m>\wvec_1</m>, <m>\wvec_2</m>, and
-	<m>\wvec_3</m>.
-      </caption>
-      <sidebyside widths="45% 45%">
-	<image source="images/3d-plane-nonstd-w" />
-	<image source="images/3d-plane-span-yes-w" />
-      </sidebyside>
-    </figure>
-
-    <p>
-      What distinguishes these two examples is whether one of the
-      vectors is a linear combination of the others, an observation
-      that leads to the following definition.
-    </p>
-
-    <definition>
-      <idx> linearly independent </idx>
-      <idx> linearly dependent </idx>
-      <statement>
-	<p> A set of vectors is
-	called <em> linearly dependent </em> if one of the vectors is
-	a linear combination of the others.  Otherwise, the set of
-	vectors is called <em> linearly independent</em>.
-	</p>
-      </statement>
-    </definition>
-
-    <p> For the sake of completeness, we say that a set of vectors
-    containing only one nonzero vector is linearly independent.
-    </p>
-
-  </subsection>
-
-  <subsection>
-    <title> How to recognize linear dependence </title>
+    <title> The existence of solutions </title>
 
     <activity>
       <statement>
-      <p> We would like to develop a means to detect when a set of
-      vectors is linearly dependent.  This activity will point the
-      way. 
+      <p>
       <ol marker="a.">
-	<li ><p> Suppose we have five vectors in <m>\real^4</m> that
-	form the columns of a matrix having reduced row echelon form
-	<me>
-	  \left[\begin{array}{rrrrr}
-	  \vvec_1 \amp 	  \vvec_2 \amp 	  \vvec_3 \amp
-	  \vvec_4 \amp	  \vvec_5 
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rrrrr}
-	  1 \amp 0 \amp -1 \amp 0 \amp 2 \\
-	  0 \amp 1 \amp 2 \amp 0 \amp 3 \\
-	  0 \amp 0 \amp 0 \amp 1 \amp -1 \\
-	  0 \amp 0 \amp 0 \amp 0 \amp 0 \\
-	  \end{array}\right]
-	</me>.
-	Is it possible to write one of the vectors
-	<m>\vvec_1,\vvec_2,\ldots,\vvec_5</m> as a linear
-	combination of the others?  If so, show explicitly how one
-	vector appears as a linear combination of some of the other
-	vectors.  Is this set of vectors linearly dependent or
-	independent? 
-	</p></li>
-
-	<li><p> Suppose we have another set of three vectors in
-	<m>\real^4</m> that form the columns of a matrix having 
-	reduced row echelon form
-	<me>
-	  \left[\begin{array}{rrr}
-	  \wvec_1 \amp 	  \wvec_2 \amp 	  \wvec_3 \\
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rrr}
-	  1 \amp 0 \amp 0 \\
-	  0 \amp 1 \amp 0 \\
-	  0 \amp 0 \amp 1 \\
-	  0 \amp 0 \amp 0 \\
-	  \end{array}\right]
-	</me>.
-	Is it possible to write one of these vectors <m>\wvec_1</m>,
-	<m>\wvec_2</m>, <m>\wvec_3</m> as a linear
-	combination of the others?  If so, show explicitly how one
-	vector appears as a linear combination of some of the other
-	vectors.  Is this set of vectors linearly dependent or
-	independent? 
-	</p></li>
-
-	<li><p>
-	  By looking at the pivot positions, how can you determine
-	  whether the columns of a matrix are linearly dependent or
-	  independent?
-	</p></li>
-
-	<li><p>
-	  If one vector in a set is the zero vector <m>\zerovec</m>,
-	  can the set of vectors be linearly independent?
-	</p></li>
-
-	<li><p>
-	  Suppose a set of vectors in <m>\real^{10}</m> has twelve
-	  vectors.  Is it possible for this set to be linearly
-	  independent?
-	</p></li>
-      </ol></p>
-      </statement>
-
-      <solution>
-	<p><ol marker="a.">
-	  <li><p>
-	    Let's focus on the first three vectors and view the matrix
-	    as an augmented one:
+	<li xml:id="li-existence-examples"> <p>
+	  Shown below are three augmented matrices in reduced row
+	  echelon form.
+	  </p>
+	  <sidebyside>
+	  <p>
 	    <me>
-	      \left[\begin{array}{rr|r}
-	      \vvec_1 \amp \vvec_2 \amp \vvec_3
-	      \end{array}\right]
-	      \sim
-	      \left[\begin{array}{rr|r}
-	      1 \amp 0 \amp -1 \\
-	      0 \amp 1 \amp 2 \\
-	      0 \amp 0 \amp 0 \\
-	      0 \amp 0 \amp 0 \\
-	      \end{array}\right]\text{.}
+	      \left[
+	      \begin{array}{rrr|r}
+	      1 \amp 0 \amp 0 \amp 3 \\
+	      0 \amp 1 \amp 0 \amp 0 \\
+	      0 \amp 0 \amp 1 \amp -2 \\
+	      0 \amp 0 \amp 0 \amp 0 \\
+	      \end{array}
+	      \right]
 	    </me>
-	    This shows that <m>\vvec_3=-\vvec_1+2\vvec_2</m> so it is
-	    possible to write one of the vectors as a linear
-	    combination of the others.  
-	    Therefore, the set is linearly dependent.
-	  </p></li>
+	  </p>
+	  
+	  <p>
+	    <me>
+	      \left[
+	      \begin{array}{rrr|r}
+	      1 \amp 0 \amp 2 \amp 3 \\
+	      0 \amp 1 \amp -1 \amp 0 \\
+	      0 \amp 0 \amp 0 \amp 0 \\
+	      0 \amp 0 \amp 0 \amp 0 \\
+	      \end{array}
+	      \right]
+	    </me>
+	  </p>
 
-	  <li><p>
-	    Applying the same reasoning as in the previous part, we
-	    see that we cannot write any of the vectors as a linear
-	    combination of the others.  Therefore, the set is linearly
-	    independent.   
-	  </p></li>
-
-	  <li><p>
-	    The columns of a matrix are linearly independent exactly
-	    when there is a pivot position in every column of the
-	    matrix.
-	  </p></li>
-
-	  <li><p>
-	    No, because we can write the zero vector <m>\zerovec</m>
-	    as a linear combination of the other vectors: <m>\zerovec
-	    = 0\vvec_2 + \ldots + 0\vvec_n</m>.
-	  </p></li>
-
-	  <li><p>
-	    No, because the matrix formed by the vectors would have 12
-	    columns and only 10 rows.  There can at most be 10 pivot
-	    positions so there are at least two columns without pivot
-	    positions.
-	  </p></li>
-	</ol></p>
-      </solution>
-    </activity>
-
-    <p>
-      By now, we should expect that the pivot positions
-      play an important role in determining whether the columns of a
-      matrix are linearly dependent.  For instance, suppose we have
-      four vectors and their associated matrix
-      <me>
-	\left[\begin{array}{rrrr}
-	\vvec_1 \amp 	  \vvec_2 \amp 	  \vvec_3 \amp
-	\vvec_4 
-	\end{array}\right]
-	\sim
-	\left[\begin{array}{rrrrr}
-	1 \amp 0 \amp 2 \amp 0 \\
-	0 \amp 1 \amp -3 \amp 0 \\
-	0 \amp 0 \amp 0 \amp 1 \\
-	0 \amp 0 \amp 0 \amp 0 \\
-	\end{array}\right].
-      </me>
-      Since the third column does not contain a pivot position,
-      let's just focus on the first three columns and view them
-      as an augmented matrix:
-      <me>
-	\left[\begin{array}{rr|r}
-	\vvec_1 \amp 	  \vvec_2 \amp 	  \vvec_3 
-	\end{array}\right]
-	\sim
-	\left[\begin{array}{rr|r}
-	1 \amp 0 \amp 2 \\
-	0 \amp 1 \amp -3 \\
-	0 \amp 0 \amp 0 \\
-	0 \amp 0 \amp 0 \\
-	\end{array}\right].
-      </me>
-      This says that 
-      <me>
-	\vvec_3 = 2\vvec_1 -3\vvec_2,
-      </me>
-      which tells us that the set of vectors
-      <m>\vvec_1,\vvec_2,\vvec_3,\vvec_4</m> is linearly dependent.
-      Moreover, we see that
-      <me>
-	\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4} =
-	\laspan{\vvec_1,\vvec_2,\vvec_4}.
-      </me>
-    </p>
-    
-    <p>
-      More generally, the same reasoning implies that a set of
-      vectors is linearly dependent if the associated matrix has a
-      column without a pivot position.  Indeed, as illustrated here,
-      a vector corresponding to a column without a pivot
-      position can be expressed as a linear combination of the
-      vectors whose columns do contain pivot positions.
-    </p>
-    
-    <p>
-      Suppose instead that the matrix associated to a set of vectors 
-      has a pivot position in every column.
-      <me>
-	\left[\begin{array}{rrrr}
-	\wvec_1 \amp 	  \wvec_2 \amp 	  \wvec_3 \amp \wvec_4 \\
-	\end{array}\right]
-	\sim
-	\left[\begin{array}{rrrr}
-	1 \amp 0 \amp 0 \amp 0 \\
-	0 \amp 1 \amp 0 \amp 0\\
-	0 \amp 0 \amp 1 \amp 0\\
-	0 \amp 0 \amp 0 \amp 1 \\
-	0 \amp 0 \amp 0 \amp 0 \\
-	\end{array}\right].
-      </me>
-      Viewing this as an augmented matrix again, we see
-      that the linear system is inconsistent since there is a pivot in
-      the rightmost column, which means that <m>\wvec_4</m> cannot be
-      expressed as a linear combination of the other vectors.
-      Similarly, <m>\wvec_3</m> cannot be expressed as a linear
-      combination of <m>\wvec_1</m> and <m>\wvec_2</m>. In
-      fact, none of the vectors can be written as a linear
-      combination of the others so this set of vectors is linearly
-      independent. 
-    </p>
-    
-      
-    <p> The following proposition summarizes these findings. </p>
-    
-    <proposition>
-      <statement>
-	<p> The columns of a matrix are linearly independent if and
-	only if every column contains a pivot position.
-	</p>
-      </statement>
-    </proposition>
-
-    <p>
-      This condition imposes a constraint on how many vectors we can
-      have in a linearly independent set.  Here is an example of the
-      reduced row echelon form of a matrix whose columns form a set of
-      three linearly independent vectors in <m>\real^5</m>:
-      <me>
-	\left[\begin{array}{rrr}
-	1 \amp 0 \amp 0 \\
-	0 \amp 1 \amp 0 \\
-	0 \amp 0 \amp 1 \\
-	0 \amp 0 \amp 0 \\
-	0 \amp 0 \amp 0 \\
-	\end{array}\right].
-      </me>
-      Notice that there are at least as many rows as columns, which
-      must be the case if every column is to have a pivot position.
-    </p>
-
-    <p>
-      More generally, if
-      <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is a 
-      linearly independent set of vectors in <m>\real^m</m>,
-      the associated matrix must have a
-      pivot position in every column.  Since every row
-      contains at most one pivot position, the number of columns can
-      be no greater than the number of rows.
-      This means that the number of vectors in a linearly independent
-      set can be no greater than the number of dimensions.
-    </p>
-
-    <proposition xml:id="prop-linear-indep-bound">
-      <statement>
-	<p> A linearly independent set of vectors in <m>\real^m</m>
-	contains at most <m>m</m> vectors.
-	</p>
-      </statement>
-    </proposition>
-	
-    <p>
-      This says, for instance, that any linearly independent
-      set of vectors in <m>\real^3</m> can contain no more three
-      vectors.  We usually
-      imagine three independent directions, such as up/down,
-      front/back, left/right, in our three-dimensional world.  This
-      proposition tells us that there can be no more independent
-      directions.
-    </p>
-
-    <p>
-      The proposition above says that a set of vectors in
-      <m>\real^m</m> that is linearly independent has at most
-      <m>m</m> vectors.  By comparison,
-      <xref ref="prop-span-bound"/> says that a set of vectors 
-      whose span is <m>\real^m</m> has at least
-      <m>m</m> vectors.
-    </p>
-
+	  <p>
+	    <me>
+	      \left[
+	      \begin{array}{rrr|r}
+	      1 \amp 0 \amp 2 \amp 0 \\
+	      0 \amp 1 \amp -1 \amp 0 \\
+	      0 \amp 0 \amp 0 \amp 1 \\
+	      0 \amp 0 \amp 0 \amp 0 \\
+	      \end{array}
+	      \right]
+	    </me>
+	  </p>
+	</sidebyside>
 	<p>
-		This implies that a set of linearly independent vectors 
-		that spans <m>\real^m</m> must have exactly <m>m</m> vectors.
-		Such a set is called a <term>basis</term> for <m>\real^m</m>.
-		We will have more to say about bases in <xref ref="sec-bases"/>
+	  For each matrix, identify the pivot positions and determine if
+	  the corresponding linear system is consistent.
+	  Explain how the location of the pivots determines whether
+	  the system is consistent or inconsistent.
 	</p>
-  </subsection>
+	</li>
+	
+	<li> <p> Each of the augmented matrices above has a row in
+	which each entry is zero.  What, if anything, does the
+	presence of such a row tell us about the consistency of the
+	corresponding linear system?  </p></li>
 
-  <subsection>
-    <title> Homogeneous equations </title>
-
-    <p>
-      If <m>A</m> is a matrix, we call the equation <m>A\xvec =
-      \zerovec</m> a <em>homogeneous</em> equation.  As we'll see, the
-      uniqueness of solutions to this equation reflects on the
-      linear independence of the columns of <m>A</m>.
-    </p>
-
-    <activity>
-      <title> Linear independence and homogeneous equations </title>
-
-      <statement>
-      <p><ol marker="a.">
-	<li><p> Explain why the homogeneous equation <m>A\xvec =
-	\zerovec</m> is consistent no matter the matrix <m>A</m>.
+	<li> <p> Give an example of a <m>3\times5</m> augmented matrix
+	in reduced row echelon form that represents a consistent
+	system.  Indicate the pivot positions in your matrix and
+	explain why these pivot positions guarantee a consistent
+	system. 
 	</p></li>
 
-	<li><p> Consider the matrix
+	<li xml:id="li-pivots-existence">
+	  <p> Give an example of a <m>3\times5</m> augmented matrix in
+	  reduced row echelon form that represents an inconsistent
+	  system.  Indicate the pivot positions in your matrix and
+	  explain why these pivot positions guarantee an inconsistent
+	  system.
+	</p></li>
+
+	<li> <p> Write the reduced row echelon form of the coefficient
+	matrix of the corresponding linear system in
+	<xref ref="li-pivots-existence" />?  (Remember that the
+	<xref ref="principle-augmentation-principle" text="custom">
+	Augmentation Principle </xref>
+	says that the
+	reduced row echelon form of the coefficient matrix simply
+	consists of the first four columns of the augmented matrix.)
+	What do you notice about the pivot positions in this
+	coefficient matrix?  </p></li>
+
+	<li> <p> Suppose we have a linear system for
+	which the <em> coefficient</em> matrix has the following
+	reduced row echelon form.
 	<me>
-	A = \left[\begin{array}{rrr}
-	3 \amp 2 \amp 0 \\
-	-1 \amp 0 \amp -2 \\
-	2 \amp 1 \amp 1
-	\end{array}\right]
+	  \left[
+	  \begin{array}{rrrrr}
+	  1 \amp 0 \amp 0 \amp 0 \amp -1 \\
+	  0 \amp 1 \amp 0 \amp 0 \amp 2  \\
+	  0 \amp 0 \amp 1 \amp 0 \amp 0  \\
+	  0 \amp 0 \amp 0 \amp 1 \amp -3 \\
+	  \end{array}
+	  \right]
 	</me>
-	whose columns we denote by <m>\vvec_1</m>, <m>\vvec_2</m>, and
-	<m>\vvec_3</m>.
-	Describe the solution space of
-	the homogeneous equation <m>A\xvec = \zerovec</m> using a
-	parametric description, if appropriate.
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
+	What can you say about the consistency of the linear system?
 	</p></li>
-
-	<li><p>
-	  Find a nonzero solution to the homogeneous equation
-	  and use it to find weights 
-	  <m>c_1</m>, <m>c_2</m>, and <m>c_3</m> such that
-	  <me>
-	    c_1\vvec_1 + c_2\vvec_2 + c_3\vvec_3 = \zerovec
-	  </me>.
-	</p></li>
-
-	<li><p>
-	  Use the equation you found in the previous part to write
-	  one of the vectors as a linear combination of the others.
-	</p></li>
-	<li><p>
-	Are the vectors <m>\vvec_1</m>, <m>\vvec_2</m>, and
-	<m>\vvec_3</m> linearly dependent or independent?
-	</p></li>
-
-      </ol></p>
+      </ol>
+      </p>
       </statement>
 
       <solution>
-	<p><ol marker="a.">
-	  <li><p>
-	    The vector <m>\zerovec</m> is always a solution.
-	  </p></li>
-
-	  <li><p>
-	    We have
-	    <me>
-	      \left[\begin{array}{rrr}
-	      3 \amp 2 \amp 0 \\
-	      -1 \amp 0 \amp -2 \\
-	      2 \amp 1 \amp 1
-	      \end{array}\right]
-	      \sim
-	      \left[\begin{array}{rrr}
-	      1 \amp 0 \amp 2 \\
-	      0 \amp 1 \amp -3 \\
-	      0 \amp 0 \amp 0
-	      \end{array}\right].
-	    </me>
-	    From the reduced row echelon form, we see that <m>x_3</m>
-	    is a free variable and that we have
-	    <me>
-	      \begin{alignedat}{2}
-	      x_1 \amp {}={} -2x_3 \\
-	      x_2 \amp {}={} 3x_3\text{.} \\
-	      \end{alignedat}
-	    </me>
-	    The solution space is then written parametrically as
-	    <me>
-	      \xvec=\threevec{x_1}{x_2}{x_3} = x_3\threevec{-2}{3}{1}\text{.}
-	    </me>
-	  </p></li>
-
-	  <li><p>
-	    If we set <m>x_3=1</m>, then we have the solution
-	    <m>\xvec=\threevec{-2}{3}{1}</m>, which says that
-	    <me>
-	      -2\vvec_1+3\vvec_2+\vvec_3 = \zerovec\text{.}
-	    </me>
-	  </p></li>
-
-	  <li><p>
-	    We may rewrite this expression as
-	    <m>\vvec_3=2\vvec_1-3\vvec_2</m>, showing that
-	    <m>\vvec_3</m> is a linear combination of <m>\vvec_1</m>
-	    and <m>\vvec_2</m>.
-	  </p></li>
-
-	  <li>
-	    <p>
-	      The vectors <m>\vvec_1</m>, <m>\vvec_2</m>, and
-	      <m>\vvec_3</m> are linearly dependent, and we know this
-	      in two ways.  We have seen how to express one vector as
-	      a linear combination of the others.  Also, we have seen
-	      that the associated matrix has a column without a pivot
-	      position.
+	<p>
+	  <ol marker="a.">
+	    <li><p> The pivot positions are indicated below.
+	      <sidebyside>
+		<p>
+		  <me>
+		    \left[
+		    \begin{array}{rrr|r}
+		    {\mathbf 1} \amp 0 \amp 0 \amp 3 \\
+		    0 \amp {\mathbf 1} \amp 0 \amp 0 \\
+		    0 \amp 0 \amp {\mathbf 1} \amp -2 \\
+		    0 \amp 0 \amp 0 \amp 0 \\
+		    \end{array}
+		    \right]
+		  </me>
+		</p>
+		
+		<p>
+		  <me>
+		    \left[
+		    \begin{array}{rrr|r}
+		    {\mathbf 1} \amp 0 \amp 2 \amp 3 \\
+		    0 \amp {\mathbf 1} \amp -1 \amp 0 \\
+		    0 \amp 0 \amp 0 \amp 0 \\
+		    0 \amp 0 \amp 0 \amp 0 \\
+		    \end{array}
+		    \right]
+		  </me>
+		</p>
+		
+		<p>
+		  <me>
+		    \left[
+		    \begin{array}{rrr|r}
+		    {\mathbf 1} \amp 0 \amp 2 \amp 0 \\
+		    0 \amp {\mathbf 1} \amp -1 \amp 0 \\
+		    0 \amp 0 \amp 0 \amp {\mathbf 1} \\
+		    0 \amp 0 \amp 0 \amp 0 \\
+		    \end{array}
+		    \right]
+		  </me>
+		</p>
+	      </sidebyside>
+	      The first two augmented matrices correspond to
+	      consistent linear systems.  The third does not, however,
+	      since the third row corresponds to the equation
+	      <m>0=1</m>.
 	    </p>
-	  </li>
-	</ol></p>
+
+	    <p> In general, a linear system is inconsistent exactly
+	    when there
+	    is a pivot position in the rightmost column of the
+	    augmented matrix.
+	    </p></li>
+
+	    <li><p>
+	      A row in which every entry is zero corresponds to the
+	      equation <m>0=0</m>, which is always true.  Such an
+	      equation has no bearing on the consistency of the linear
+	      system. 
+	    </p></li>
+
+	    <li><p>
+	      <me>
+		\left[\begin{array}{rrrr|r}
+		{\mathbf 1} \amp 0 \amp 0 \amp 2 \amp 4 \\
+		0 \amp {\mathbf 1} \amp 0 \amp -2 \amp 1 \\
+		0 \amp 0 \amp {\mathbf 1} \amp 0 \amp 3 \\
+		\end{array}\right]
+	      </me>
+	      This corresponds to a consistent system because there is
+	      not a pivot in the rightmost column.
+	    </p></li>
+
+	    <li><p>
+	      <me>
+		\left[\begin{array}{rrrr|r}
+		{\mathbf 1} \amp 0 \amp 0 \amp 2 \amp 4 \\
+		0 \amp {\mathbf 1} \amp 0 \amp -2 \amp 1 \\
+		0 \amp 0 \amp 0 \amp 0 \amp {\mathbf 1} \\
+		\end{array}\right]
+	      </me>
+	      This is an inconsistent system because the third row
+	      corresponds to the equation <m>0=1</m>, which is never
+	      satisfied.
+	    </p></li>
+
+	    <li><p>
+	      <me>
+		\left[\begin{array}{rrrr}
+		{\mathbf 1} \amp 0 \amp 0 \amp 2 \\
+		0 \amp {\mathbf 1} \amp 0 \amp -2 \\
+		0 \amp 0 \amp 0 \amp 0 \\
+		\end{array}\right]
+	      </me>
+	      In the coefficient matrix, there is a row without a
+	      pivot position so that each
+	      entry is <m>0</m>.  This allows a pivot position to
+	      appear in the rightmost column of the augmented matrix.
+	    </p></li>
+
+	    <li><p>
+	      This linear system must be consistent because the
+	      augmented matrix cannot have a pivot position in the
+	      rightmost column.
+	    </p></li>
+	      
+	  </ol>
+	</p>
       </solution>
 	      
     </activity>
 
     <p>
-      This activity shows how the solution space of the homogeneous
-      equation <m>A\xvec = \zerovec</m> indicates whether the columns
-      of <m>A</m> are linearly dependent or independent.  First, we
-      know that the equation <m>A\xvec = \zerovec</m> always has at
-      least 
-      one solution, the vector <m>\xvec = \zerovec</m>.  Any
-      other solution is a nonzero solution.
+      Let's summarize the results of this activity by considering the
+      following reduced row echelon matrix:
+      <me>
+	\left[
+	\begin{array}{rrr|r}
+	1 \amp * \amp 0 \amp 0 \\
+	0 \amp 0 \amp 1 \amp 0 \\
+	0 \amp 0 \amp 0 \amp 1 \\
+	0 \amp 0 \amp 0 \amp 0 \\
+	\end{array}
+	\right]
+	</me>.
+      In terms of variables <m>x</m>, <m>y</m>, and <m>z</m>,
+      the final equation says
+      <me>
+	0x + 0y + 0z = 0
+	</me>.
+	If we evaluate the left-hand side with any values of <m>x</m>,
+	<m>y</m>, and <m>z</m>, we get 0, which means that the
+	equation always holds.  Therefore, its presence has no
+	effect on the solution space defined by the other three
+	equations.
     </p>
 
-    <example>
+    <p> The third equation, however, says that <me> 0x + 0y + 0z = 1
+    </me>.  Again, if we evaluate the left-hand side with any values
+    of <m>x</m>, <m>y</m>, and <m>z</m>, we get 0 so this equation 
+    cannot be satisfied for any <m>(x,y,z)</m>.  This means that the
+    entire linear 
+    system has no solution and is therefore inconsistent.
+    </p>
+
+    <p>
+      An equation like this appears in the reduced row echelon matrix
+      as
+      <me>
+	\left[
+	\begin{array}{cccc|c}
+	\vdots \amp \vdots \amp \vdots \amp \vdots \amp \vdots \\
+	0 \amp 0 \amp \cdots \amp 0 \amp 1 \\
+	\vdots \amp \vdots \amp \vdots \amp \vdots \amp \vdots \\
+	\end{array}
+	\right]
+	</me>.
+	The pivot positions make this condition clear:
+	<em>the system is inconsistent if there is a pivot position in
+	the 
+	rightmost column of the corresponding augmented matrix.</em>
+    </p>
+
+    <p>
+      In fact, we will soon see that the system is consistent if there
+      is not a pivot in the rightmost column of the corresponding
+      augmented matrix.  This leaves us with the following
+    </p>
+
+    <proposition xml:id="thm-pivot-inconsistency">
       <statement>
 	<p>
-	  Let's consider the vectors
-	  <me>
-	    \vvec_1 = \fourvec2{-4}10,~~~
-	    \vvec_2 = \fourvec113{-2},~~~
-	    \vvec_3 = \fourvec3{-3}4{-2}
-	  </me>
-	  and their associated matrix
-	  <m>A = \begin{bmatrix}
-	  \vvec_1 \amp \vvec_2 \amp \vvec_3
-	  \end{bmatrix}
-	  </m>.
-	</p>
-
-	<p>
-	  The homogeneous equation <m>A\xvec = \zerovec</m> has the
-	  associated augmented matrix
-	  <me>
-	    \left[
-	    \begin{array}{rrr|r}
-	    2 \amp 1 \amp 3 \amp 0 \\
-	    -4 \amp 1 \amp -3 \amp 0 \\
-	    1 \amp 3 \amp 4 \amp 0 \\
-	    0 \amp -2 \amp -2 \amp 0 \\
-	    \end{array}
-	    \right]
-	    \sim
-	    \left[
-	    \begin{array}{rrr|r}
-	    1 \amp 0 \amp 1 \amp 0 \\
-	    0 \amp 1 \amp 1 \amp 0 \\
-	    0 \amp 0 \amp 0 \amp 0 \\
-	    0 \amp 0 \amp 0 \amp 0 \\
-	    \end{array}
-	    \right].
-	  </me>
-	  Therefore, <m>A</m> has a column without a
-	  pivot position, which tells us that the vectors
-	  <m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m> are
-	  linearly dependent.  However, we can also see this fact in
-	  another way.
-	</p>
-
-	<p>
-	  The reduced row echelon matrix tells us that the homogeneous
-	  equation has a free variable so that there must be
-	  infinitely many solutions.  In particular, we have
-	  <me>
-	    \begin{aligned}
-	    x_1 \amp {}={} -x_3 \\
-	    x_2 \amp {}={} -x_3 \\
-	    \end{aligned}
-	  </me>
-	  so the solutions have the form
-	  <me>
-	    \xvec = \threevec{x_1}{x_2}{x_3} =
-	    \threevec{-x_3}{-x_3}{x_3} = x_3\threevec{-1}{-1}1.
-	  </me>
-	</p>
-
-	<p>
-	  If we choose <m>x_3=1</m>, then we obtain the nonzero
-	  solution to the homogeneous equation <m>\xvec =
-	  \threevec{-1}{-1}1</m>, which implies that
-	  <me>
-	    A\threevec{-1}{-1}1 =
-	    \begin{bmatrix}
-	    \vvec_1\amp\vvec_2\amp\vvec_3
-	    \end{bmatrix}
-	    \threevec{-1}{-1}1 =
-	    -\vvec_1 -\vvec_2 + \vvec_3 = \zerovec.
-	  </me>
-	  In other words,
-	  <me>
-	    \begin{aligned}
-	    -\vvec_1 -\vvec_2 + \vvec_3 \amp{}={} \zerovec \\
-	    \vvec_3 \amp{}={} \vvec_1 + \vvec_2. \\
-	    \end{aligned}
-	  </me>
-	</p>
-
-	<p>
-	  Because <m>\vvec_3</m> is a linear combination of
-	  <m>\vvec_1</m> and <m>\vvec_2</m>, we know that this set of
-	  vectors is linearly dependent.
+	  A linear system is inconsistent if and only if
+	  there is a pivot position in the rightmost column of the
+	  corresponding augmented matrix.
 	</p>
       </statement>
-    </example>
-	    
+    </proposition>
+
     <p>
-      As this example demonstrates, there are many ways we can view
-      the question of linear independence, some of which are recorded 
-      in the following proposition.
+      This also says something about the pivot positions of the
+      coefficient matrix.  Consider an example of an inconsistent
+      system corresponding to the 
+      reduced row echelon form of the following augmented matrix
+      <me>
+	\left[
+	\begin{array}{ccc|c}
+	1 \amp 0 \amp * \amp 0 \\
+	0 \amp 1 \amp * \amp 0 \\
+	0 \amp 0 \amp 0 \amp 1 \\
+	\end{array}
+	\right]
+	</me>. The
+	<xref ref="principle-augmentation-principle" text="custom">
+	  Augmentation Principle
+	</xref> says that 
+	that the reduced row echelon form of the
+	coefficient matrix is
+      <me>
+	\left[
+	\begin{array}{ccc}
+	1 \amp 0 \amp * \\
+	0 \amp 1 \amp * \\
+	0 \amp 0 \amp 0 \\
+	\end{array}
+	\right],
+      </me>
+      which shows that the coefficient matrix has a row without a
+      pivot position.  To turn this around, we see that <em> if every row
+      of the coefficient matrix has a pivot position, then the system
+      must be consistent. </em> For instance, if our linear system 
+      has a coefficient matrix whose reduced row echelon
+      form is
+      <me>
+	\left[
+	\begin{array}{ccc}
+	1 \amp 0 \amp 0 \\
+	0 \amp 1 \amp 0 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}
+	\right]
+	</me>,
+	then we can guarantee that the linear system is
+	consistent because there is no way to obtain a pivot in the
+	rightmost column of the augmented matrix.
     </p>
 
     <proposition>
       <statement>
-	<p> For a matrix <m>A = \left[\begin{array}{rrrr}
-	\vvec_1\amp\vvec_2\amp\ldots\amp\vvec_n
-	\end{array}\right]
-	</m>,
-	the following statements are equivalent:
-	<ul>
-	  <li> <p> The columns of <m>A</m> are linearly
-	  dependent. </p></li>
-
-	  <li> <p> One of the vectors in the set
-	  <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is a linear
-	  combination of the others. </p></li>
-
-	  <li> <p> The matrix <m>A</m> has a column without a pivot
-	  position. </p></li>
-
-	  <li> <p> The homogeneous equation <m>A\xvec = \zerovec</m>
-	  has infinitely many solutions and hence a nonzero
-	  solution. </p></li> 
-
-	  <li> <p> There are weights <m>c_1,c_2,\ldots,c_n</m>, not
-	  all of which are zero, such that
-	  <me>
-	    c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n = \zerovec
-	  </me>. </p></li>
-	</ul>
-	</p>
+	If every row of the coefficient matrix has a pivot position,
+	then the corresponding system of linear equations is
+	consistent.
       </statement>
     </proposition>
-	  
+
   </subsection>
 
   <subsection>
-    <title>
-      Summary
-    </title>
+    <title> The uniqueness of solutions </title>
 
-    <p> This section developed the concept of linear dependence
-    of a set of vectors.  More specifically, we saw that:
-    <ul>
-      <li><p> A set of vectors is linearly dependent if one of the
-      vectors is a linear combination of the others. </p></li>
-
-      <li><p> A set of vectors is linearly independent if and only if
-      the vectors form a matrix that has a pivot position in every
-      column. </p></li>
-
-      <li><p> A set of linearly independent vectors in <m>\real^m</m>
-      contains no more than <m>m</m> vectors. </p></li>
-
-      <li><p> The columns of the matrix <m>A</m> are linearly
-      dependent if the homogeneous equation <m>A\xvec = \zerovec</m>
-      has a nonzero solution. </p></li>
-
-      <li><p> A set of vectors <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m>
-      is linearly dependent if there are weights
-      <m>c_1,c_2,\ldots,c_n</m>, not all of which are zero, such that
-      <me>
-	c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n = \zerovec
-      </me>.
-      </p></li>
-    </ul></p>
-
-    <p>
-      At the beginning of the section, we said
-      that this concept addressed the second of our 
-      <xref ref="fundamental-questions" text="custom">
-	two fundamental questions
-      </xref>
-      concerning the uniqueness of solutions to a linear system.  It is
-      worth comparing the results of this section with those of the
-      previous one so that the parallels between them become clear.
-    </p>
-    
-    <p>
-      As usual, we will write a matrix as a collection
-      of vectors,
-      <me>A=\left[\begin{array}{rrrr} \vvec_1\amp\vvec_2 \amp
-      \ldots \amp \vvec_n \end{array}\right].
-      </me>
+    <p> Now that we have studied the role that pivot positions play in
+    the existence of solutions, let's turn to the question of
+    uniqueness.
     </p>
 
-    <table>
-      <title> Span and Linear Independence </title>
-      <tabular bottom="minor" valign="top">
-	<col width="50%" />
-	<col width="50%" />
-	<row header="yes" bottom="medium">
-	  <cell halign="center"> Span </cell>
-	  <cell halign="center"> Linear independence </cell>
-	</row>
-	<row>
-	  <cell valign="top">
-	    <p>
-	      A vector <m>\bvec</m> is in the span of a set of vectors 
-	      if it is a linear combination of those vectors.
-	    </p>
-	  </cell>
-	  <cell valign="top">
-	    <p>
-	      A set of vectors is linearly dependent if one of the
-	      vectors is a linear combination of the others.
-	    </p>
-	  </cell>
-	</row>
-	<row>
-	  <cell valign="top">
-	    <p>
-	      A vector <m>\bvec</m> is in the span of <m>\vvec_1,
-	      \vvec_2, \ldots, \vvec_n</m> if there exists a solution
-	      to <m>A\xvec = \bvec</m>.
-	    </p>
-	  </cell>
-	  <cell valign="top">
-	    <p>
-	      The vectors <m>\vvec_1, \vvec_2, \ldots, \vvec_n</m> are
-	      linearly independent if <m>\xvec=\zerovec</m> is the
-	      only solution to <m>A\xvec = \zerovec</m>.
-	    </p>
-	  </cell>
-	</row>
-	<row>
-	  <cell valign="top">
-	    <p>
-	      The columns of an <m>m\times n</m> matrix span
-	      <m>\real^m</m> if the matrix has a pivot position in every
-	      row.
-	    </p>
-	  </cell>
-	  <cell valign="top">
-	    <p>
-	      The columns of a matrix are linearly independent if the
-	      matrix has a pivot position in every column.
-	    </p>
-	  </cell>
-	</row>
-	<row>
-	  <cell valign="top">
-	    <p>
-	      A set of vectors that span <m>\real^m</m> has at least
-	      <m>m</m> vectors.
-	    </p>
-	  </cell>
-	  <cell valign="top">
-	    <p>
-	      A set of linearly independent vectors in <m>\real^m</m>
-	      has at most <m>m</m> vectors.
-	    </p>
-	  </cell>
-	</row>
-      </tabular>
-    </table>
+    <activity>
+      <statement>
+	<p><ol marker="a.">
+	  <li><p>
+	    Here are the three augmented matrices in reduced row echelon
+	    form that we considered in the previous section.
+	    <sidebyside>
+	      <p>
+		<me>
+		  \left[
+		  \begin{array}{rrr|r}
+		  1 \amp 0 \amp 0 \amp 3 \\
+		  0 \amp 1 \amp 0 \amp 0 \\
+		  0 \amp 0 \amp 1 \amp -2 \\
+		  0 \amp 0 \amp 0 \amp 0 \\
+		  \end{array}
+		  \right]
+		</me>
+	      </p>
+	      
+	      <p>
+		<me>
+		  \left[
+		  \begin{array}{rrr|r}
+		  1 \amp 0 \amp 2 \amp 3 \\
+		  0 \amp 1 \amp -1 \amp 0 \\
+		  0 \amp 0 \amp 0 \amp 0 \\
+		  0 \amp 0 \amp 0 \amp 0 \\
+		  \end{array}
+		  \right]
+		</me>
+	      </p>
+
+	      <p>
+		<me>
+		  \left[
+		  \begin{array}{rrr|r}
+		  1 \amp 0 \amp 2 \amp 0 \\
+		  0 \amp 1 \amp -1 \amp 0 \\
+		  0 \amp 0 \amp 0 \amp 1 \\
+		  0 \amp 0 \amp 0 \amp 0 \\
+		  \end{array}
+		  \right]
+		</me>
+	      </p>
+	    </sidebyside>
+	  </p>
+	  <p>
+	    For each matrix, identify the pivot positions and state
+	    whether the corresponding linear system is
+	    consistent.  If the system is consistent, explain whether
+	    the solution is unique or whether there are infinitely many
+	    solutions.  
+	  </p>
+	  </li>
+
+	  <li><p> If possible, give an example of a <m>3\times5</m>
+	  augmented matrix that corresponds to a linear system
+	  having a unique solution.  If it is not possible, explain why.
+	  </p></li>
+
+	  <li><p> If possible, give an example of a <m>5\times3</m>
+	  augmented matrix that corresponds to a linear system
+	  having a unique solution.  If it is not possible, explain why.
+	  </p></li>
+
+	  <li> <p>
+	    What condition on the pivot positions guarantees that a
+	    linear system has a unique solution?
+	  </p></li>
+
+	  <li> <p>
+	    If a linear system has a unique solution, what
+	    can we say about the relationship between the number of
+	    equations and the number of variables?
+	  </p></li>
+	</ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li><p> The pivot positions are indicated below.
+	      <sidebyside>
+		<p>
+		  <me>
+		    \left[
+		    \begin{array}{rrr|r}
+		    {\mathbf 1} \amp 0 \amp 0 \amp 3 \\
+		    0 \amp {\mathbf 1} \amp 0 \amp 0 \\
+		    0 \amp 0 \amp {\mathbf 1} \amp -2 \\
+		    0 \amp 0 \amp 0 \amp 0 \\
+		    \end{array}
+		    \right]
+		  </me>
+		</p>
+		
+		<p>
+		  <me>
+		    \left[
+		    \begin{array}{rrr|r}
+		    {\mathbf 1} \amp 0 \amp 2 \amp 3 \\
+		    0 \amp {\mathbf 1} \amp -1 \amp 0 \\
+		    0 \amp 0 \amp 0 \amp 0 \\
+		    0 \amp 0 \amp 0 \amp 0 \\
+		    \end{array}
+		    \right]
+		  </me>
+		</p>
+		
+		<p>
+		  <me>
+		    \left[
+		    \begin{array}{rrr|r}
+		    {\mathbf 1} \amp 0 \amp 2 \amp 0 \\
+		    0 \amp {\mathbf 1} \amp -1 \amp 0 \\
+		    0 \amp 0 \amp 0 \amp {\mathbf 1} \\
+		    0 \amp 0 \amp 0 \amp 0 \\
+		    \end{array}
+		    \right]
+		  </me>
+		</p>
+	      </sidebyside>
+	      The third linear system is inconsistent.  The first
+	      system is consistent and has exactly one solution
+	      because <m>x_1=3</m>, <m>x_2=0</m>, and <m>x_3=-2</m>.  The
+	      second system is consistent and has infinitely many
+	      solutions since we can write the equations as
+	      <me>
+		\begin{alignedat}{2}
+		x_1 \amp {}={} \amp 3 -2x_3 \\
+		x_2 \amp {}={} \amp x_3\text{.} \\
+		\end{alignedat}
+	      </me>
+	    </p></li>
+
+	    <li><p>
+	      This is not possible as we see by considering the shape
+	      of a typical matrix:
+	      <me>
+		\left[\begin{array}{rrrr|r}
+		1 \amp 0 \amp 0 \amp -3 \amp 1  \\
+		0 \amp 1 \amp 0 \amp 1 \amp 2 \\
+		0 \amp 0 \amp 1 \amp 2 \amp 4 \\
+		\end{array}\right]
+	      </me>
+	      In this case, the variable <m>x_4</m> is free meaning
+	      there are infinitely many solutions.
+	    </p></li>
+
+	    <li><p>
+	      This is possible as the following matrix illustrates:
+	      <me>
+		\left[\begin{array}{rr|r}
+		1 \amp 0 \amp 0 \\
+		0 \amp 1 \amp -3 \\
+		0 \amp 0 \amp 0 \\
+		0 \amp 0 \amp 0 \\
+		0 \amp 0 \amp 0 \\
+		\end{array}\right]\text{.}
+	      </me>
+	    </p></li>
+
+	    <li><p>
+	      If every column of the coefficient matrix has a pivot
+	      position, we can guarantee that the solution is unique.
+	    </p></li>
+
+	    <li><p>
+	      If the coefficient matrix has a
+	      pivot position in every column, there must be at least
+	      many rows as columns.  Therefore, the number of
+	      equations must be less than or equal to 
+	      the number of variables.
+	    </p></li>
+	  </ol>
+	</p>
+      </solution>
+    </activity>
+
+    <p>
+      Let's consider what we've learned in this activity.  Since we are
+      interested in the question of whether a consistent linear system
+      has a unique solution or infinitely many, we will only consider
+      consistent systems.  By the results of the previous section,
+      this means that there is not a pivot in the rightmost column of
+      the augmented matrix.  Here are two possible examples:
+      <sidebyside>
+	<p>
+	  <me>
+	    \left[
+	    \begin{array}{rrr|r}
+	    1 \amp 0 \amp 0 \amp 4 \\
+	    0 \amp 1 \amp 0 \amp -1 \\
+	    0 \amp 0 \amp 1 \amp 2 \\
+	    \end{array}
+	    \right]
+	  </me>
+	</p>
+
+	<p>
+	  <me>
+	    \left[
+	    \begin{array}{rrr|r}
+	    1 \amp 0 \amp 2 \amp -2 \\
+	    0 \amp 1 \amp 1 \amp 4 \\
+	    0 \amp 0 \amp 0 \amp 0 \\
+	    \end{array}
+	    \right]
+	  </me>
+	</p>
 	
+      </sidebyside>
+    </p>
+
+    <p>
+      In the first example, we have the equations
+      <me>
+	\begin{alignedat}{4}
+	x_1 \amp {}={} \amp 4 \\
+	x_2 \amp {}={} \amp -1 \\
+	x_3 \amp {}={} \amp 2 \\
+	\end{alignedat}
+      </me>
+      demonstrating the fact that there is a unique solution
+      <m>(x_1,x_2,x_3) = (4,-1,2)</m>.
+    </p>
+
+    <p>
+      In the second example, we have the equations
+      <me>
+	\begin{alignedat}{4}
+	x_1 \amp \amp \amp {}+{} \amp 2x_3\amp {}={} \amp -2 \\
+	\amp \amp x_2 \amp {}+{} \amp x_3\amp {}={} \amp 4 \\
+	\end{alignedat}
+      </me>
+      that we may rewrite in parametric form as
+      <me>
+	\begin{alignedat}{4}
+	x_1 \amp {}={} \amp -2-2x_3 \\
+	x_2 \amp {}={} \amp 4-x_3 \\
+	\end{alignedat}
+      </me>.
+      Here we see that <m>x_1</m> and <m>x_2</m> are basic
+      variables that may be expressed in terms of the free variable
+      <m>x_3</m>.  In this case, the presence of the free variable
+      leads to infinitely many solutions.
+    </p>
+
+    <p>
+      Remember that every column of the coefficient matrix corresponds
+      to a variable in our linear system.  In the first example, we
+      see that every column of the coefficient contains a pivot
+      position, which means that every variable is uniquely
+      determined.  In the second example, the column of the
+      coefficient matrix corresponding to <m>x_3</m> does not contain
+      a pivot position, which  results in <m>x_3</m> appearing as a free
+      variable.  This illustrates the following principle.
+    </p>
+
+    <principle>
+      <statement>
+	<p>Suppose that we consider a consistent linear system.
+	<ul>
+	  <li><p> If every column of the coefficient matrix contains
+	  a pivot position, then the system has a unique solution.
+	  </p></li>
+	  <li><p>If there
+	  is a column in the coefficient matrix that contains no pivot
+	  position, then the system has infinitely many solutions.
+	  </p></li>
+	  <li><p> Columns that contain a pivot position
+	  correspond to basic variables while columns that do not
+	  correspond to free variables.
+	  </p></li>
+	</ul>
+	</p>
+      </statement>
+    </principle>
+
+    <p>
+      When a linear system has a unique solution, every column of the
+      coefficient matrix has a pivot position.  Since every row
+      contains at most one pivot position, there must be at least as
+      many rows as columns in the coefficient matrix.  Therefore, the
+      linear system has at least as many equations as variables, which
+      is something we intuitively suspected in <xref ref="sec-expect" />.
+    </p>
+
+    <p>
+      It is reasonable to ask how we choose the free variables.  For
+      instance, if we have a single equation
+      <me>
+	x + 2y = 4
+      </me>,
+      then we may write
+      <me>
+	x = 4-2y
+      </me>
+      or, equivalently,
+      <me>
+	y = 2 - \frac12 x
+      </me>.
+      Clearly, either variable may be considered as a free variable in
+      this case.
+    </p>
+
+    <p>
+      As we'll see in the future, we are more interested in the
+      <em>number</em> of free variables rather than in their choice.
+      For convenience, we will adopt the convention that free
+      variables correspond to columns without a pivot
+      position, which allows us to quickly identify them.  For
+      example, the variables <m>x_2</m> and <m>x_4</m> appear as
+      free variables in the following linear system:
+      <me>
+	\left[
+	\begin{array}{rrrr|r}
+	1 \amp 0 \amp 0 \amp 2 \amp 3 \\
+	0 \amp 0 \amp 1 \amp -1 \amp 0 \\
+	\end{array}
+	\right]
+      </me>.
+    </p>
+
   </subsection>
 
-  <xi:include href="exercises/exercises2-4.ptx" />
-  
-</section>
+  <subsection>
+    <title> Summary </title>
 
+    <p> We have seen how the locations of pivot positions, in both the
+    augmented and coefficient matrices, give vital information about
+    the existence and uniqueness of solutions to linear systems.  More
+    specifically,
+    </p>
+    <p>
+      <ul>
+	<li> <p> A linear system is inconsistent exactly when a
+	pivot position appears in the rightmost column of the
+	<em>augmented</em> matrix. </p></li>
+
+	<li> <p> If a linear system is consistent, the solution is
+	unique when every column of the <em>coefficient</em> matrix
+	contains a pivot position.  There are infinitely solutions
+	when there is a column of the <em>coefficient</em> matrix
+	without a pivot position.  </p></li>
+
+	<li> <p> If a linear system is consistent, the columns of the
+	coefficient matrix containing pivot positions correspond to
+	basic variables and the columns without pivot positions
+	correspond to free variables. </p></li>
+      </ul>
+    </p>
+  </subsection>
+
+  <xi:include href="exercises/exercises1-4.ptx" />
+
+</section>

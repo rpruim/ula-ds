@@ -1,990 +1,1626 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="sec-pivots"
+<section xml:id="sec-matrices"
 	 xmlns:xi="http://www.w3.org/2001/XInclude">
 
   <title>
-    Pivots and their relationship to solution spaces
+    Matrices 
   </title>
 
   <introduction>
-    <p> By now, we have seen several examples illustrating how the
-    reduced row echelon matrix leads to a convenient description of
-    the solution space to a linear system.  In this
-    section, we will use this understanding to make some general
-    observations about how certain features of the reduced row echelon
-    matrix reflect the nature of the solution space.
-    </p>
-
     <p>
-      Remember that a leading entry in a reduced row echelon matrix is
-      the leftmost nonzero entry in a row of the matrix.  As we'll
-      see, the positions of these leading entries encode a lot of
-      information about the solution space of the corresponding linear
-      system.  For this reason, we make the following definition.
+
     </p>
+  </introduction>
 
-    <definition>
-      <idx> pivot position </idx>
-      <p> A <term> pivot position </term> in a matrix <m>A</m> is the
-      position of a leading entry in the reduced row echelon matrix of
-      <m>A</m>.  
-      </p>
-    </definition>
 
-    <p>
-      For instance, in this reduced row echelon matrix, the pivot
-      positions are indicated in bold:
+  <introduction>
+    <!-- <p>
+      The previous section introduced vectors and linear combinations
+      and demonstrated how they provide a way to think about linear
+      systems geometrically.  In particular, we saw that the vector
+      <m>\bvec</m> is a linear combination of the vectors
+      <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> precisely when the linear
+      system corresponding to the augmented matrix
       <me>
-	\begin{bmatrix}
-	{\mathbf 1} \amp \gray{0} \amp \gray{*} \amp \gray{0} \\
-	\gray{0} \amp {\mathbf 1} \amp \gray{*} \amp \gray{0} \\
-	\gray{0} \amp \gray{0} \amp \gray{0} \amp {\mathbf 1} \\
-	\gray{0} \amp \gray{0} \amp \gray{0} \amp \gray{0} \\
-	\end{bmatrix}.
+	\left[\begin{array}{rrrr|r}
+	\vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_n \amp \bvec
+	\end{array}\right]
       </me>
-      We can refer to pivot positions by their row and column number
-      saying, for instance, that there is a pivot position in the
-      second row and fourth column.
+      is consistent.
+    </p> -->
+
+    <p>
+      Our goal in this section is to introduce matrices, operations on matrices,
+      and their connection to linear combinations and linear systems.
+    </p>
+    
+  </introduction>
+
+  <subsection xml:id="subsec-matrices-and-their-uses">
+    <title>Matrices and their uses</title>
+    <p>
+      A matrix is a rectangular array of numbers.
+      <idx><h>shape</h> <h>of a matrix</h></idx>
+	  <idx><h>matrix</h><h> shape</h></idx>
+      If we say that the <term>shape</term> of a matrix is <m>m\times
+      n</m>, we mean that it has <m>m</m> rows and <m>n</m> columns.
+      For instance, the shape of the matrix below is <m>3\times4</m>:
+      <me>
+	\left[
+	\begin{array}{rrrr}
+	0 \amp 4 \amp -3 \amp 1 \\
+	3 \amp -1 \amp 2 \amp 0 \\
+	2 \amp 0 \amp -1 \amp 1 \\
+	\end{array}
+	\right]
+      </me>.
+    </p>
+
+	<p>
+  	There are many applications that use matrices, here are just a few.
+
+  <ol>
+    <li>
+      <title>Rectangular data</title>
+      <p>
+        The typical organization places <term>observational units</term>
+        (usually referred to a as a <term>case</term> or a <term>subject</term> when the 
+        observational units are people) in rows and the variables recorded for 
+        each of them in columns.
+		<idx><h>observational unit</h></idx>
+		<idx><h>case</h></idx>
+		<idx><h>subject</h></idx>
+        So if we have <m>k</m> numerical variables recorded for each of <m>n</m> 
+        observational units, we can store this information in an <m>n \times k</m> matrix.
+        For categorical variables, we will need to convert the values into numbers.
+      </p>
+    </li>
+    <li>
+      <title>Images</title>
+      <p>
+        Digital images can also be stored in matrices. For a black and white image,
+        each value in the matrix represents the color on a gray scale with 0 representing 
+        black, 255 representing white, and values between these extremes representing 
+        different shades of gray.   
+      </p>
+
+      <p>
+        For color images, we can use several matrices. For an <term>RGB</term> image, for example, 
+        there will be a matrix for red, another for green, and a third for blue.
+        The resulting images combine values from each of these <term>layers</term>. 
+		See <xref ref="sec-tensors"/> for a discussion of how to combine multiple 
+		layers into a single object, called a tensor.
+      </p>
+
+    </li>
+    <li>
+      <title>Coefficient matrices for linear systems</title>
+      <p>
+        All the important information in a linear system of equations like 
+	  <me>
+	    \begin{alignedat}{4}
+	    -x \amp  {}-{}  \amp 2y \amp  {}+{}  \amp 2z \amp  {}={}  \amp -1 \\
+	    2x \amp  {}+{}  \amp 4y \amp  {}-{}  \amp z \amp  {}={}  \amp 5 \\
+	    x \amp  {}+{}  \amp 2y \amp  \amp  \amp  {}={}  \amp 3 \\
+	    \end{alignedat}
+	  </me>
+        can be stored in a matrix of coefficients for the left hand side and a 
+        vector for the right hand side.
+	  <me>
+	    A = \left[
+	    \begin{array}{rrr}
+	    -1 \amp -2 \amp 2  \\
+	    2 \amp 4 \amp -1  \\
+	    1 \amp 2 \amp 0 \\
+	    \end{array}
+	    \right];
+      \qquad 
+      b = 
+      \left[
+	    \begin{array}{r}
+	     -1 \\
+	    5 \\
+	    3 \\
+	    \end{array}
+      \right]
+	  </me>
+      </p>
+
+    <p>
+      We could even combine both the matrix and vector into a single matrix:
+       <me>
+	    \left[
+	    \begin{array}{rrr|r}
+	    -1 \amp -2 \amp 2 \amp -1 \\
+	    2 \amp 4 \amp -1 \amp 5 \\
+	    1 \amp 2 \amp 0 \amp 3 \\
+	    \end{array}
+	    \right].
+	  </me>
+    </p>
+	<p>
+		As we will soon see, this matrix representation will allow us to 
+		solve these systems computationally.
+	</p>
+    </li>
+  </ol>
+  </p>
+
+  <p>
+  Recalling our connection between linear combinations of vectors and 
+  linear systems of equations, the linear system above will have a solution 
+  if and only if <me>\bvec = \threevec{-1}{5}{3}</me> is a linear combination of  
+  the vectors  
+  <me>
+	\vvec_1 = \threevec{-1}{2}{1}, 
+	\vvec_2 = \threevec{-2}{4}{2}, 
+	\vvec_3 = \threevec{2}{-1}{0}.
+  </me>
+  </p>
+  <p>
+	  As shorthand, we will write this augmented matrix replacing the
+      columns with their vector representation: <me>
+        \left[
+        \begin{array}{rrr|r}
+        \vvec_1 \amp \vvec_2 \amp \vvec_2 \amp \bvec
+        \end{array}
+        \right]
+      </me>.
+	  Using this shorthand, we can restate the connection between  
+	  linear combinations of vectors and linear systems of equations as the 
+	  following proposition.
+	  </p>
+
+    <proposition xml:id="prop-system-comb">
+      <statement>
+        <p> The vector <m>\bvec</m> is a linear combination of the vectors <m>
+          \vvec_1,\vvec_2,\ldots,\vvec_n</m> if and only if the linear system corresponding to the
+          augmented matrix <me>
+            \left[
+            \begin{array}{rrrr|r}
+            \vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_n \amp
+            \bvec
+            \end{array}
+            \right]
+          </me>
+          has a solution. A solution to this linear system gives weights <m>c_1,c_2,\ldots,c_n</m>
+          such that <me>
+            c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n = \bvec
+          </me>. </p>
+      </statement>
+    </proposition>
+
+  </subsection>
+
+    
+  <subsection>
+    <title> Scalar multiplication and addition of matrices </title>
+
+
+    <p>
+      It is often useful to think of the columns of a matrix as vectors. 
+      For instance, the matrix 
+      <me>
+	\left[
+	\begin{array}{rrrr}
+	0 \amp 4 \amp -3 \amp 1 \\
+	3 \amp -1 \amp 2 \amp 0 \\
+	2 \amp 0 \amp -1 \amp 1 \\
+	\end{array}
+	\right]
+      </me>.
+      may be represented as
+      <me>
+	\left[
+	\begin{array}{rrrr}
+	\vvec_1 \amp \vvec_2 \amp \vvec_3 \amp \vvec_4
+	\end{array}
+	\right]
+      </me>
+      where
+      <me>
+	\vvec_1=\left[\begin{array}{r}0\\3\\2\\ \end{array}\right],
+	\vvec_2=\left[\begin{array}{r}4\\-1\\0\\ \end{array}\right],
+	\vvec_3=\left[\begin{array}{r}-3\\2\\-1\\ \end{array}\right],
+	\vvec_4=\left[\begin{array}{r}1\\0\\1\\ \end{array}\right]
+      </me>.
+	In this way, we see that the <m>3\times 4</m> matrix is
+	equivalent to an ordered list of 4 vectors in <m>\real^3</m>.
+    </p>
+
+    <p>
+      <idx> matrix, addition </idx>
+      <idx> matrix, scalar multiplication </idx>
+      This means that we may define scalar multiplication and matrix
+      addition operations using the corresponding column-wise vector
+      operations.
+      For instance,
+      <me>
+	\begin{aligned}
+	c\left[\begin{array}{rrrr}
+	\vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_n
+	\end{array}
+	\right]
+	{}={} \amp
+	\left[\begin{array}{rrrr}
+	c\vvec_1 \amp c\vvec_2 \amp \cdots \amp c\vvec_n
+	\end{array}
+	\right] \\
+	\left[\begin{array}{rrrr}
+	\vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_n
+	\end{array}
+	\right]
+	{}+{} \amp
+	\left[\begin{array}{rrrr}
+	\wvec_1 \amp \wvec_2 \amp \cdots \amp \wvec_n
+	\end{array}
+	\right]
+	 \\
+	{}={} \amp
+	\left[\begin{array}{rrrr}
+	\vvec_1+\wvec_1 \amp \vvec_2+\wvec_2 \amp \cdots \amp
+	\vvec_n+\wvec_n 
+	\end{array}
+	\right]. \\
+	\end{aligned}
+      </me>
     </p>
 
     <exploration>
-      <title> Some basic observations about pivots </title>
-
-      <statement>
-      <p> 
+      <title> Matrix operations </title>
+      <statement><p>
       <ol marker="a.">
-	<li> <p>  Shown below is a matrix and its reduced row echelon
-	form.  Indicate the pivot positions.
+	<li> <p> Compute the scalar multiple
 	<me>
-	  \left[
-	  \begin{array}{rrrr}
-	  2 \amp 4 \amp 6 \amp -1 \\
-	  -3 \amp 1 \amp 5 \amp 0 \\
-	  1 \amp 3 \amp 5 \amp 1 \\
-	  \end{array}
-	  \right]
-	  \sim
-	  \left[
-	  \begin{array}{rrrr}
-	  1 \amp 0 \amp -1 \amp 0 \\
-	  0 \amp 1 \amp 2 \amp 0 \\
-	  0 \amp 0 \amp 0 \amp 1 \\
+	  -3\left[
+	  \begin{array}{rrr}
+	  3 \amp 1 \amp 0 \\
+	  -4 \amp 3 \amp -1 \\
 	  \end{array}
 	  \right]
 	</me>.
 	</p></li>
 
-	<li> <p> How many pivot positions can there be in one row?  In
-	a <m>3\times5</m> matrix, what is the largest possible number
-	of pivot positions?  Give an example of a
-	<m>3\times5</m> matrix that has the 
-	largest possible number of pivot positions.
+	<li> <p> Find the sum
+	<me>
+	  \left[
+	  \begin{array}{rr}
+	  0 \amp -3 \\ 
+	  1 \amp -2 \\
+	  3 \amp 4 \\
+	  \end{array}
+	  \right]
+	  +
+	  \left[
+	  \begin{array}{rrr}
+	  4 \amp -1 \\
+	  -2 \amp 2 \\
+	  1 \amp 1 \\
+	  \end{array}
+	  \right]
+	  </me>.
 	</p></li>
 
-	<li> <p> How many pivots can there be in one column?  In a
-	<m>5\times3</m> matrix, what is the largest possible number of
-	pivot positions?  Give an example of a <m>5\times3</m> matrix
-	that has the 
-	largest possible number of pivot positions. </p></li>
+	<li> <p> Suppose that <m>A</m> and <m>B</m> are two matrices.
+	What do we need to know about their shapes before we can
+	form the sum <m>A+B</m>? </p></li>
 
-	<li> <p> Give an example of a matrix with a pivot position in
-	every row and every column.  What is special about 
-	such a matrix? </p></li>
+	<li> 
+	<p> The matrix <m>I_n</m>, which we call the 
+	<term> identity matrix</term>, is the <m>n\times n</m> matrix whose
+	entries are zero except for the diagonal entries, all of which
+	are 1.  For instance,
+	<idx> <h>matrix</h> <h>identity</h> </idx>
+	<idx> <h>identity matrix</h>  </idx>
+	<notation>
+		<usage><m>I_n</m></usage>
+	  <description><m>n</m>-dimensional idenity matrix</description>
+	</notation>
+	<me>
+	  I_3 = 
+	  \left[
+	  \begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}
+	  \right]
+	</me>.
+	If we can form the sum <m>A+I_n</m>, what must be true about the
+	matrix <m>A</m>?
+	</p></li>
+
+	<li> <p>
+	  Find the matrix <m> A - 2I_3</m> where
+	<me>
+	  A = 
+	  \left[
+	  \begin{array}{rrr}
+	  1 \amp 2 \amp -2 \\
+	  2 \amp -3 \amp 3 \\
+	  -2 \amp 3 \amp 4 \\
+	  \end{array}
+	  \right]
+	</me>.
+	</p></li>
       </ol>
-      </p>
-      </statement>
+      </p></statement>
 
       <solution>
-	<p>
-	  <ol marker="a.">
-	    <li><p>
-	      The pivot positions are indicated below
-	      <me>
-		\left[
-		\begin{array}{rrrr}
-		{\mathbf 2} \amp 4 \amp 6 \amp -1 \\
-		-3 \amp {\mathbf 1} \amp 5 \amp 0 \\
-		1 \amp 3 \amp 5 \amp {\mathbf 1} \\
-		\end{array}
-		\right]
-		\sim
-		\left[
-		\begin{array}{rrrr}
-		{\mathbf 1} \amp 0 \amp -1 \amp 0 \\
-		0 \amp {\mathbf 1} \amp 2 \amp 0 \\
-		0 \amp 0 \amp 0 \amp {\mathbf 1} \\
-		\end{array}
-		\right]\text{.}
-	      </me>
-	    </p></li>
+	<p><ol marker="a.">
+	  <li><p>
+	    <m>\left[\begin{array}{rrr}
+	    -9 \amp -3 \amp 0 \\
+	    12 \amp -9 \amp 3 \\
+	    \end{array}\right]
+	    </m>
+	  </p></li>
 
-	    <li><p>
-	      A row contains at most one pivot position.  Therefore, a
-	      <m>3\times 5</m> matrix, which has three rows, contains
-	      at most three pivot positions.  Here is an example:
-	      <me>
-		\left[\begin{array}{rrrrr}
-		1 \amp 0 \amp 0 \amp -1 \amp 2 \\
-		0 \amp 1 \amp 0 \amp 1 \amp 3 \\
-		0 \amp 0 \amp 1 \amp 2 \amp 3 \\
-		\end{array}\right]\text{.}
-	      </me>
-	    </p></li>
+	  <li><p>
+	    <m>\left[\begin{array}{rr}
+	    4 \amp -4 \\
+	    -1 \amp 0 \\
+	    4 \amp 5 \\
+	    \end{array}\right]
+	    </m>
+	  </p></li>
 
-	    <li><p>
-	      A column contains at most one pivot position.
-	      Therefore, a 
-	      <m>5\times 3</m> matrix, which has three columns,
-	      contains at most three pivot positions.  Here is an example
-	      <me>
-		\left[\begin{array}{rrr}
-		1 \amp 0 \amp 0 \\
-		0 \amp 1 \amp 0 \\
-		0 \amp 0 \amp 1 \\
-		0 \amp 0 \amp 0 \\
-		0 \amp 0 \amp 0 \\
-		\end{array}\right]\text{.}
-	      </me>
-	    </p></li>
+	  <li><p>
+	    The shapes must be the same.
+	  </p></li>
 
-	    <li><p>
-	      A matrix with a pivot position in every row and every
-	      column would have the following reduced row echelon
-	      form:
-	      <me>
-		\left[\begin{array}{rrr}
-		1 \amp 0 \amp 0 \\
-		0 \amp 1 \amp 0 \\
-		0 \amp 0 \amp 1 \\
-		\end{array}\right]\text{.}
-	      </me>
-	      Such a matrix must necessarily have the same number of
-	      rows and columns, which means it is what we call a
-	      square matrix.
-	    </p></li>
-	  </ol>
-	</p>
+	  <li><p>
+	    The shape of <m>A</m> must be <m>n\times n</m>.
+	  </p></li>
+
+	  <li><p>
+	    <m>
+	      A-2I_3 = \left[\begin{array}{rrr}
+	      -1 \amp 2 \amp -2 \\
+	      2 \amp -5 \amp 3 \\
+	      -2 \amp 3 \amp 2 \\
+	      \end{array}\right]
+	    </m>
+	  </p></li>
+	</ol></p>
       </solution>
 
       <answer>
-	<p>
-	  <ol marker="a.">
-	    <li><p>
-	      The pivot positions are indicated below
-	      <me>
-		\left[
-		\begin{array}{rrrr}
-		{\mathbf 2} \amp 4 \amp 6 \amp -1 \\
-		-3 \amp {\mathbf 1} \amp 5 \amp 0 \\
-		1 \amp 3 \amp 5 \amp {\mathbf 1} \\
-		\end{array}
-		\right]
-		\sim
-		\left[
-		\begin{array}{rrrr}
-		{\mathbf 1} \amp 0 \amp -1 \amp 0 \\
-		0 \amp {\mathbf 1} \amp 2 \amp 0 \\
-		0 \amp 0 \amp 0 \amp {\mathbf 1} \\
-		\end{array}
-		\right]\text{.}
-	      </me>
-	    </p></li>
+	<p><ol marker="a.">
+	  <li><p>
+	    <m>\left[\begin{array}{rrr}
+	    -9 \amp -3 \amp 0 \\
+	    12 \amp -9 \amp 3 \\
+	    \end{array}\right]
+	    </m>
+	  </p></li>
 
-	    <li><p>
-	      Three.
-	    </p></li>
+	  <li><p>
+	    <m>\left[\begin{array}{rr}
+	    4 \amp -4 \\
+	    -1 \amp 0 \\
+	    4 \amp 5 \\
+	    \end{array}\right]
+	    </m>
+	  </p></li>
 
-	    <li><p>
-	      Three.
-	    </p></li>
+	  <li><p>
+	    The shapes must be the same.
+	  </p></li>
 
-	    <li><p>
-	      Such a matrix must necessarily have the same number of
-	      rows and columns, which means it is what we call a
-	      square matrix.
-	    </p></li>
-	  </ol>
-	</p>
+	  <li><p>
+	    The shape of <m>A</m> must be <m>n\times n</m>.
+	  </p></li>
+
+	  <li><p>
+	    <m>
+	      A-2I_3 = \left[\begin{array}{rrr}
+	      -1 \amp 2 \amp -2 \\
+	      2 \amp -5 \amp 3 \\
+	      -2 \amp 3 \amp 2 \\
+	      \end{array}\right]
+	    </m>
+	  </p></li>
+	</ol></p>
       </answer>
+      
     </exploration>
 
-	<example>
-		<title>Finding pivots in Python</title>
-		<p>
-			When we compute the reduced row echelon form of a matrix using 
-			<c>sympy.rref()</c>, the second part of the returned result tells us  
-			where the pivots positions are.
-
-			<sage language="python">
-				<input>
-import numpy as np 
-import sympy 
-A = np.array([[2,4,6,-1], [-3, 1,5, 0], [1, 3, 5, 1]])
-print(sympy.Matrix(A).rref()[1])
-				</input>
-				<output>
-				</output>
-			</sage>
-			Executing this code shows us that the pivot positions 
-			(in Python 0-based indexing) are <m>(0,0), (1,1), (2,3))</m>.
-			Mathematically, using 1-based indexing, we would call these 
-			<m>(1,1), (2,2), (3,4))</m>.
-			
-		</p>
-	</example>
-
-    <p> When we have looked at solution spaces of linear systems,
-    we have frequently asked whether there are infinitely
-    many solutions, exactly one solution, or no solutions.  We will
-    now break this question into two separate questions.
-    </p>
-
-    <question xml:id="fundamental-questions">
-      <title> Two Fundamental Questions </title>
-      <p>
-	When we
-	encounter a linear system, we often ask
-	<dl>
-	  <li> <title> Existence </title>
-	  <p> Is there a solution to the linear system?  If
-	  so, we say that the system is <term> consistent </term>; if not,
-	  we say it is <term> inconsistent</term>.
-	  <idx> consistent system </idx>
-	  <idx> inconsistent system </idx>
-	  </p>
-	  </li>
-	  
-	  <li> <title> Uniqueness </title>
-	  <p> If the linear system is consistent, is the solution
-	  unique or are there infinitely many solutions?
-	  </p>
-	  </li>
-	</dl>
-      </p>
-    </question>
-
-    <p> These two questions represent two sides of a coin that appear
-    in many variations throughout our explorations.  In this section, we
-    will study how the location of the pivots influence the answers to
-    these two questions.  We begin by considering the first question
-    concerning the existence of solutions.
-    </p>
-
-  </introduction>
-
-  <subsection>
-    <title> The existence of solutions </title>
-
-    <activity>
-      <statement>
-      <p>
-      <ol marker="a.">
-	<li xml:id="li-existence-examples"> <p>
-	  Shown below are three augmented matrices in reduced row
-	  echelon form.
-	  </p>
-	  <sidebyside>
-	  <p>
-	    <me>
-	      \left[
-	      \begin{array}{rrr|r}
-	      1 \amp 0 \amp 0 \amp 3 \\
-	      0 \amp 1 \amp 0 \amp 0 \\
-	      0 \amp 0 \amp 1 \amp -2 \\
-	      0 \amp 0 \amp 0 \amp 0 \\
-	      \end{array}
-	      \right]
-	    </me>
-	  </p>
-	  
-	  <p>
-	    <me>
-	      \left[
-	      \begin{array}{rrr|r}
-	      1 \amp 0 \amp 2 \amp 3 \\
-	      0 \amp 1 \amp -1 \amp 0 \\
-	      0 \amp 0 \amp 0 \amp 0 \\
-	      0 \amp 0 \amp 0 \amp 0 \\
-	      \end{array}
-	      \right]
-	    </me>
-	  </p>
-
-	  <p>
-	    <me>
-	      \left[
-	      \begin{array}{rrr|r}
-	      1 \amp 0 \amp 2 \amp 0 \\
-	      0 \amp 1 \amp -1 \amp 0 \\
-	      0 \amp 0 \amp 0 \amp 1 \\
-	      0 \amp 0 \amp 0 \amp 0 \\
-	      \end{array}
-	      \right]
-	    </me>
-	  </p>
-	</sidebyside>
-	<p>
-	  For each matrix, identify the pivot positions and determine if
-	  the corresponding linear system is consistent.
-	  Explain how the location of the pivots determines whether
-	  the system is consistent or inconsistent.
-	</p>
-	</li>
-	
-	<li> <p> Each of the augmented matrices above has a row in
-	which each entry is zero.  What, if anything, does the
-	presence of such a row tell us about the consistency of the
-	corresponding linear system?  </p></li>
-
-	<li> <p> Give an example of a <m>3\times5</m> augmented matrix
-	in reduced row echelon form that represents a consistent
-	system.  Indicate the pivot positions in your matrix and
-	explain why these pivot positions guarantee a consistent
-	system. 
-	</p></li>
-
-	<li xml:id="li-pivots-existence">
-	  <p> Give an example of a <m>3\times5</m> augmented matrix in
-	  reduced row echelon form that represents an inconsistent
-	  system.  Indicate the pivot positions in your matrix and
-	  explain why these pivot positions guarantee an inconsistent
-	  system.
-	</p></li>
-
-	<li> <p> Write the reduced row echelon form of the coefficient
-	matrix of the corresponding linear system in
-	<xref ref="li-pivots-existence" />?  (Remember that the
-	<xref ref="principle-augmentation-principle" text="custom">
-	Augmentation Principle </xref>
-	says that the
-	reduced row echelon form of the coefficient matrix simply
-	consists of the first four columns of the augmented matrix.)
-	What do you notice about the pivot positions in this
-	coefficient matrix?  </p></li>
-
-	<li> <p> Suppose we have a linear system for
-	which the <em> coefficient</em> matrix has the following
-	reduced row echelon form.
-	<me>
-	  \left[
-	  \begin{array}{rrrrr}
-	  1 \amp 0 \amp 0 \amp 0 \amp -1 \\
-	  0 \amp 1 \amp 0 \amp 0 \amp 2  \\
-	  0 \amp 0 \amp 1 \amp 0 \amp 0  \\
-	  0 \amp 0 \amp 0 \amp 1 \amp -3 \\
-	  \end{array}
-	  \right]
-	</me>
-	What can you say about the consistency of the linear system?
-	</p></li>
-      </ol>
-      </p>
-      </statement>
-
-      <solution>
-	<p>
-	  <ol marker="a.">
-	    <li><p> The pivot positions are indicated below.
-	      <sidebyside>
-		<p>
-		  <me>
-		    \left[
-		    \begin{array}{rrr|r}
-		    {\mathbf 1} \amp 0 \amp 0 \amp 3 \\
-		    0 \amp {\mathbf 1} \amp 0 \amp 0 \\
-		    0 \amp 0 \amp {\mathbf 1} \amp -2 \\
-		    0 \amp 0 \amp 0 \amp 0 \\
-		    \end{array}
-		    \right]
-		  </me>
-		</p>
-		
-		<p>
-		  <me>
-		    \left[
-		    \begin{array}{rrr|r}
-		    {\mathbf 1} \amp 0 \amp 2 \amp 3 \\
-		    0 \amp {\mathbf 1} \amp -1 \amp 0 \\
-		    0 \amp 0 \amp 0 \amp 0 \\
-		    0 \amp 0 \amp 0 \amp 0 \\
-		    \end{array}
-		    \right]
-		  </me>
-		</p>
-		
-		<p>
-		  <me>
-		    \left[
-		    \begin{array}{rrr|r}
-		    {\mathbf 1} \amp 0 \amp 2 \amp 0 \\
-		    0 \amp {\mathbf 1} \amp -1 \amp 0 \\
-		    0 \amp 0 \amp 0 \amp {\mathbf 1} \\
-		    0 \amp 0 \amp 0 \amp 0 \\
-		    \end{array}
-		    \right]
-		  </me>
-		</p>
-	      </sidebyside>
-	      The first two augmented matrices correspond to
-	      consistent linear systems.  The third does not, however,
-	      since the third row corresponds to the equation
-	      <m>0=1</m>.
-	    </p>
-
-	    <p> In general, a linear system is inconsistent exactly
-	    when there
-	    is a pivot position in the rightmost column of the
-	    augmented matrix.
-	    </p></li>
-
-	    <li><p>
-	      A row in which every entry is zero corresponds to the
-	      equation <m>0=0</m>, which is always true.  Such an
-	      equation has no bearing on the consistency of the linear
-	      system. 
-	    </p></li>
-
-	    <li><p>
-	      <me>
-		\left[\begin{array}{rrrr|r}
-		{\mathbf 1} \amp 0 \amp 0 \amp 2 \amp 4 \\
-		0 \amp {\mathbf 1} \amp 0 \amp -2 \amp 1 \\
-		0 \amp 0 \amp {\mathbf 1} \amp 0 \amp 3 \\
-		\end{array}\right]
-	      </me>
-	      This corresponds to a consistent system because there is
-	      not a pivot in the rightmost column.
-	    </p></li>
-
-	    <li><p>
-	      <me>
-		\left[\begin{array}{rrrr|r}
-		{\mathbf 1} \amp 0 \amp 0 \amp 2 \amp 4 \\
-		0 \amp {\mathbf 1} \amp 0 \amp -2 \amp 1 \\
-		0 \amp 0 \amp 0 \amp 0 \amp {\mathbf 1} \\
-		\end{array}\right]
-	      </me>
-	      This is an inconsistent system because the third row
-	      corresponds to the equation <m>0=1</m>, which is never
-	      satisfied.
-	    </p></li>
-
-	    <li><p>
-	      <me>
-		\left[\begin{array}{rrrr}
-		{\mathbf 1} \amp 0 \amp 0 \amp 2 \\
-		0 \amp {\mathbf 1} \amp 0 \amp -2 \\
-		0 \amp 0 \amp 0 \amp 0 \\
-		\end{array}\right]
-	      </me>
-	      In the coefficient matrix, there is a row without a
-	      pivot position so that each
-	      entry is <m>0</m>.  This allows a pivot position to
-	      appear in the rightmost column of the augmented matrix.
-	    </p></li>
-
-	    <li><p>
-	      This linear system must be consistent because the
-	      augmented matrix cannot have a pivot position in the
-	      rightmost column.
-	    </p></li>
-	      
-	  </ol>
-	</p>
-      </solution>
-	      
-    </activity>
-
     <p>
-      Let's summarize the results of this activity by considering the
-      following reduced row echelon matrix:
-      <me>
-	\left[
-	\begin{array}{rrr|r}
-	1 \amp * \amp 0 \amp 0 \\
-	0 \amp 0 \amp 1 \amp 0 \\
-	0 \amp 0 \amp 0 \amp 1 \\
-	0 \amp 0 \amp 0 \amp 0 \\
-	\end{array}
-	\right]
-	</me>.
-      In terms of variables <m>x</m>, <m>y</m>, and <m>z</m>,
-      the final equation says
-      <me>
-	0x + 0y + 0z = 0
-	</me>.
-	If we evaluate the left-hand side with any values of <m>x</m>,
-	<m>y</m>, and <m>z</m>, we get 0, which means that the
-	equation always holds.  Therefore, its presence has no
-	effect on the solution space defined by the other three
-	equations.
+      As this preview activity shows, the operations of scalar
+      multiplication and addition of matrices are natural extensions
+      of their vector counterparts.  Some care, however, is required
+      when adding matrices.  Since we need the same number of vectors
+      to add and since those vectors must be of the same dimension, two
+      matrices must have the same shape if we wish to
+      form their sum.
     </p>
-
-    <p> The third equation, however, says that <me> 0x + 0y + 0z = 1
-    </me>.  Again, if we evaluate the left-hand side with any values
-    of <m>x</m>, <m>y</m>, and <m>z</m>, we get 0 so this equation 
-    cannot be satisfied for any <m>(x,y,z)</m>.  This means that the
-    entire linear 
-    system has no solution and is therefore inconsistent.
-    </p>
-
-    <p>
-      An equation like this appears in the reduced row echelon matrix
-      as
-      <me>
-	\left[
-	\begin{array}{cccc|c}
-	\vdots \amp \vdots \amp \vdots \amp \vdots \amp \vdots \\
-	0 \amp 0 \amp \cdots \amp 0 \amp 1 \\
-	\vdots \amp \vdots \amp \vdots \amp \vdots \amp \vdots \\
-	\end{array}
-	\right]
-	</me>.
-	The pivot positions make this condition clear:
-	<em>the system is inconsistent if there is a pivot position in
-	the 
-	rightmost column of the corresponding augmented matrix.</em>
-    </p>
-
-    <p>
-      In fact, we will soon see that the system is consistent if there
-      is not a pivot in the rightmost column of the corresponding
-      augmented matrix.  This leaves us with the following
-    </p>
-
-    <proposition xml:id="thm-pivot-inconsistency">
-      <statement>
-	<p>
-	  A linear system is inconsistent if and only if
-	  there is a pivot position in the rightmost column of the
-	  corresponding augmented matrix.
-	</p>
-      </statement>
-    </proposition>
-
-    <p>
-      This also says something about the pivot positions of the
-      coefficient matrix.  Consider an example of an inconsistent
-      system corresponding to the 
-      reduced row echelon form of the following augmented matrix
-      <me>
-	\left[
-	\begin{array}{ccc|c}
-	1 \amp 0 \amp * \amp 0 \\
-	0 \amp 1 \amp * \amp 0 \\
-	0 \amp 0 \amp 0 \amp 1 \\
-	\end{array}
-	\right]
-	</me>. The
-	<xref ref="principle-augmentation-principle" text="custom">
-	  Augmentation Principle
-	</xref> says that 
-	that the reduced row echelon form of the
-	coefficient matrix is
-      <me>
-	\left[
-	\begin{array}{ccc}
-	1 \amp 0 \amp * \\
-	0 \amp 1 \amp * \\
-	0 \amp 0 \amp 0 \\
-	\end{array}
-	\right],
-      </me>
-      which shows that the coefficient matrix has a row without a
-      pivot position.  To turn this around, we see that <em> if every row
-      of the coefficient matrix has a pivot position, then the system
-      must be consistent. </em> For instance, if our linear system 
-      has a coefficient matrix whose reduced row echelon
-      form is
-      <me>
-	\left[
-	\begin{array}{ccc}
-	1 \amp 0 \amp 0 \\
-	0 \amp 1 \amp 0 \\
-	0 \amp 0 \amp 1 \\
-	\end{array}
-	\right]
-	</me>,
-	then we can guarantee that the linear system is
-	consistent because there is no way to obtain a pivot in the
-	rightmost column of the augmented matrix.
-    </p>
-
-    <proposition>
-      <statement>
-	If every row of the coefficient matrix has a pivot position,
-	then the corresponding system of linear equations is
-	consistent.
-      </statement>
-    </proposition>
 
   </subsection>
 
   <subsection>
-    <title> The uniqueness of solutions </title>
+    <title> Matrix-vector multiplication and linear combinations </title>
 
-    <p> Now that we have studied the role that pivot positions play in
-    the existence of solutions, let's turn to the question of
-    uniqueness.
+    <p>
+      A more important operation will be matrix multiplication as it
+      allows us to compactly express linear systems.  We now
+      introduce the product of a matrix and a vector with an example.
+    </p>
+
+    <example>
+      <title> Matrix-vector multiplication </title>
+      <statement>
+	<p>
+	Suppose we have the matrix <m>A</m> and vector <m>\xvec</m>:
+	<me>
+	  A = \left[\begin{array}{rr}
+	  -2 \amp 3 \\
+	  0 \amp 2 \\
+	  3 \amp 1 \\
+	  \end{array}\right],~~~
+	  \xvec = \left[\begin{array}{r}
+	  2 \\ 3 \\ \end{array}\right]
+	</me>.
+	Their product will be defined to be the linear combination of
+	the columns of <m>A</m> using the components of <m>\xvec</m>
+	as weights.  This means that
+	<me>
+	  \begin{aligned}
+	  A\xvec = 
+	  \left[\begin{array}{rr}
+	  -2 \amp 3 \\
+	  0 \amp 2 \\
+	  3 \amp 1 \\
+	  \end{array}\right]
+	  \left[\begin{array}{r} 2 \\ 3 \\ \end{array}\right]
+	  {}={} \amp
+	  2 \left[\begin{array}{r} -2 \\ 0 \\ 3 \\ \end{array}\right] +
+	  3 \left[\begin{array}{r} 3 \\ 2 \\ 1 \\ \end{array}\right]
+	  \\ \\
+	  {}={} \amp
+	  \left[\begin{array}{r} -4 \\ 0 \\ 6 \\ \end{array}\right] +
+	  \left[\begin{array}{r} 9 \\ 6 \\ 3 \\ \end{array}\right] \\ \\
+	  {}={} \amp
+	  \left[\begin{array}{r} 5 \\ 6 \\ 9 \\ \end{array}\right]. \\
+	  \end{aligned}
+	</me>
+	</p>
+
+	<p>
+	  Because <m>A</m> has two columns, we
+	  need two weights to form a linear combination of those
+	  columns, which means that <m>\xvec</m> must have two
+	  components.  
+	  In other words, the number of columns of <m>A</m> must equal
+	  the dimension of the vector <m>\xvec</m>.
+	</p>
+
+	<p>
+	  Similarly, the columns of <m>A</m> are 3-dimensional
+	  so any linear combination of them is 3-dimensional as well.
+	  Therefore, <m> A\xvec</m> will be 3-dimensional.
+	</p>
+
+	<p>
+	  We then see that if <m>A</m> is a <m>3\times2</m> matrix,
+	  <m>\xvec</m> must be a 2-dimensional vector and
+	  <m>A\xvec</m> will be 3-dimensional.
+	</p>
+      </statement>
+    </example>
+
+    <p>
+      More generally, we have the following definition.
+    </p>
+
+    <definition>
+      <title> Matrix-vector multiplication</title>
+      <idx> matrix-vector multiplication </idx>
+      <statement>
+	<p>
+	  The product of a matrix <m>A</m> by a vector
+	  <m>\xvec</m> will be the linear combination of the columns of
+	  <m>A</m> using the components of <m>\xvec</m> as weights.
+	  More specifically, if
+	  <me>
+	    A=\left[\begin{array}{rrrr}
+	    \vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_n
+	    \end{array}\right],~~~
+	    \xvec = \left[\begin{array}{r}
+	    c_1 \\ c_2 \\ \vdots \\ c_n \end{array}\right],
+	  </me>
+	  then
+	  <me>
+	    A\xvec = c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n
+	    </me>.
+	</p>
+	
+	<p>
+	  If <m>A</m> is an <m>m\times n</m> matrix, then <m>\xvec</m>
+	  must be an <m>n</m>-dimensional vector, and the product
+	  <m>A\xvec</m> will be an <m>m</m>-dimensional vector.
+	</p>
+      </statement>
+    </definition>
+
+    <p>
+      The next activity explores some properties of matrix-vector
+      multiplication. 
     </p>
 
     <activity>
-      <statement>
-	<p><ol marker="a.">
-	  <li><p>
-	    Here are the three augmented matrices in reduced row echelon
-	    form that we considered in the previous section.
-	    <sidebyside>
-	      <p>
-		<me>
-		  \left[
-		  \begin{array}{rrr|r}
-		  1 \amp 0 \amp 0 \amp 3 \\
-		  0 \amp 1 \amp 0 \amp 0 \\
-		  0 \amp 0 \amp 1 \amp -2 \\
-		  0 \amp 0 \amp 0 \amp 0 \\
-		  \end{array}
-		  \right]
-		</me>
-	      </p>
-	      
-	      <p>
-		<me>
-		  \left[
-		  \begin{array}{rrr|r}
-		  1 \amp 0 \amp 2 \amp 3 \\
-		  0 \amp 1 \amp -1 \amp 0 \\
-		  0 \amp 0 \amp 0 \amp 0 \\
-		  0 \amp 0 \amp 0 \amp 0 \\
-		  \end{array}
-		  \right]
-		</me>
-	      </p>
+      <title> Matrix-vector multiplication </title>
 
-	      <p>
-		<me>
-		  \left[
-		  \begin{array}{rrr|r}
-		  1 \amp 0 \amp 2 \amp 0 \\
-		  0 \amp 1 \amp -1 \amp 0 \\
-		  0 \amp 0 \amp 0 \amp 1 \\
-		  0 \amp 0 \amp 0 \amp 0 \\
-		  \end{array}
-		  \right]
-		</me>
-	      </p>
-	    </sidebyside>
-	  </p>
-	  <p>
-	    For each matrix, identify the pivot positions and state
-	    whether the corresponding linear system is
-	    consistent.  If the system is consistent, explain whether
-	    the solution is unique or whether there are infinitely many
-	    solutions.  
-	  </p>
-	  </li>
+      <statement><p>
+      <ol marker="a.">
+	<li xml:id = "li-example-product"> <p>
+	  Find the matrix product
+	  <me>
+	    \left[
+	    \begin{array}{rrrr}
+	    1 \amp 2 \amp 0 \amp -1 \\
+	    2 \amp 4 \amp -3 \amp -2 \\
+	    -1 \amp -2 \amp 6 \amp 1 \\
+	    \end{array}
+	    \right]
+	    \left[
+	    \begin{array}{r}
+	    3 \\ 1 \\ -1 \\ 1 \\
+	    \end{array}
+	    \right]
+	  </me>.
+	</p></li>
 
-	  <li><p> If possible, give an example of a <m>3\times5</m>
-	  augmented matrix that corresponds to a linear system
-	  having a unique solution.  If it is not possible, explain why.
-	  </p></li>
+	<li> <p>
+	  Suppose that <m>A</m> is the matrix
+	  <me>
+	    \left[
+	    \begin{array}{rrr}
+	    3 \amp -1 \amp 0 \\
+	    0 \amp -2 \amp 4 \\
+	    2 \amp 1 \amp 5 \\
+	    1 \amp 0 \amp 3 \\
+	    \end{array}
+	    \right]
+	  </me>.
+	  If <m>A\xvec</m> is defined, what is the dimension of the
+	  vector <m>\xvec</m> and what is the dimension of
+	  <m>A\xvec</m>?  
+	</p></li>
 
-	  <li><p> If possible, give an example of a <m>5\times3</m>
-	  augmented matrix that corresponds to a linear system
-	  having a unique solution.  If it is not possible, explain why.
-	  </p></li>
+	<li> <p>
+	  A vector whose entries are all zero is denoted by
+	  <m>\zerovec</m>.  If <m>A</m> is a matrix, what is the
+	  product <m>A\zerovec</m>?  
+	</p> </li>
 
-	  <li> <p>
-	    What condition on the pivot positions guarantees that a
-	    linear system has a unique solution?
-	  </p></li>
+	<li><p>
+	  Suppose that <m>I = \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  </m> is the identity matrix and
+	  <m>\xvec=\threevec{x_1}{x_2}{x_3}</m>.  Find the product
+	  <m>I\xvec</m> and explain why <m>I</m> is called the
+	  identity matrix.
+	</p></li>
 
-	  <li> <p>
-	    If a linear system has a unique solution, what
-	    can we say about the relationship between the number of
-	    equations and the number of variables?
-	  </p></li>
-	</ol>
-	</p>
-      </statement>
+	<li> <p>
+	  Suppose we write the matrix <m>A</m> in terms of its columns
+	  as 
+	  <me>
+	    A = \left[
+	    \begin{array}{rrrr}
+	    \vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_n \\
+	    \end{array}
+	    \right]
+	  </me>.
+	  If the vector <m>\evec_1 = \left[\begin{array}{c} 1 \\ 0 \\
+	  \vdots \\ 0 \end{array}\right]</m>, what is the product
+	  <m>A\evec_1</m>?
+	</p> </li>
+
+	<li> <p>
+	  Suppose that
+	  <me>
+	    A = \left[
+	    \begin{array}{rrrr}
+	    1 \amp 2 \\
+	    -1 \amp 1 \\
+	    \end{array}
+	    \right], \quad 
+		\xvec = \twovec{x_1}{y_1}, \quad 
+	    \bvec = \left[
+	    \begin{array}{r}
+	    6 \\ 0
+	    \end{array}
+	    \right]
+	  </me>.
+	  Express <m>A \xvec = \bvec</m> as a linear system of equations.
+	</p> </li>
+      </ol>
+      </p></statement>
 
       <solution>
-	<p>
-	  <ol marker="a.">
-	    <li><p> The pivot positions are indicated below.
-	      <sidebyside>
-		<p>
-		  <me>
-		    \left[
-		    \begin{array}{rrr|r}
-		    {\mathbf 1} \amp 0 \amp 0 \amp 3 \\
-		    0 \amp {\mathbf 1} \amp 0 \amp 0 \\
-		    0 \amp 0 \amp {\mathbf 1} \amp -2 \\
-		    0 \amp 0 \amp 0 \amp 0 \\
-		    \end{array}
-		    \right]
-		  </me>
-		</p>
-		
-		<p>
-		  <me>
-		    \left[
-		    \begin{array}{rrr|r}
-		    {\mathbf 1} \amp 0 \amp 2 \amp 3 \\
-		    0 \amp {\mathbf 1} \amp -1 \amp 0 \\
-		    0 \amp 0 \amp 0 \amp 0 \\
-		    0 \amp 0 \amp 0 \amp 0 \\
-		    \end{array}
-		    \right]
-		  </me>
-		</p>
-		
-		<p>
-		  <me>
-		    \left[
-		    \begin{array}{rrr|r}
-		    {\mathbf 1} \amp 0 \amp 2 \amp 0 \\
-		    0 \amp {\mathbf 1} \amp -1 \amp 0 \\
-		    0 \amp 0 \amp 0 \amp {\mathbf 1} \\
-		    0 \amp 0 \amp 0 \amp 0 \\
-		    \end{array}
-		    \right]
-		  </me>
-		</p>
-	      </sidebyside>
-	      The third linear system is inconsistent.  The first
-	      system is consistent and has exactly one solution
-	      because <m>x_1=3</m>, <m>x_2=0</m>, and <m>x_3=-2</m>.  The
-	      second system is consistent and has infinitely many
-	      solutions since we can write the equations as
-	      <me>
-		\begin{alignedat}{2}
-		x_1 \amp {}={} \amp 3 -2x_3 \\
-		x_2 \amp {}={} \amp x_3\text{.} \\
-		\end{alignedat}
-	      </me>
-	    </p></li>
+	<p><ol marker="a.">
+	  <li><p>
+	    We have
+	    <me>
+	      \begin{alignedat}{2}
+	      \left[\begin{array}{rrrr}
+	      1 \amp 2 \amp 0 \amp -2 \\
+	      2 \amp 4 \amp -3 \amp -2 \\
+	      -1 \amp -2 \amp 6 \amp 1 \\
+	      \end{array}\right]
+	      \amp
+	      \fourvec{3}{1}{-1}{1} \\
+	      \amp =
+	      \threevec{3(1)+1(2)-1(0)+1(-1)}
+	      {3(2)+1(4)-1(-3)+1(-2)}
+	      {3(-1)+1(-2)-1(6)+1(1)} \\
+	      \amp =\threevec{4}{11}{10}\text{.}
+	      \end{alignedat}
+	    </me>
+	  </p></li>
 
-	    <li><p>
-	      This is not possible as we see by considering the shape
-	      of a typical matrix:
-	      <me>
-		\left[\begin{array}{rrrr|r}
-		1 \amp 0 \amp 0 \amp -3 \amp 1  \\
-		0 \amp 1 \amp 0 \amp 1 \amp 2 \\
-		0 \amp 0 \amp 1 \amp 2 \amp 4 \\
-		\end{array}\right]
-	      </me>
-	      In this case, the variable <m>x_4</m> is free meaning
-	      there are infinitely many solutions.
-	    </p></li>
+	  <li><p>
+	    The dimension of <m>\xvec</m> must be the same as the
+	    number of columns of <m>A</m> so <m>\xvec</m> is
+	    three-dimensional.  The dimension of <m>A\xvec</m> equals
+	    the number of rows of <m>A</m> so <m>A\xvec</m> is
+	    four-dimensional.
+	  </p></li>
 
-	    <li><p>
-	      This is possible as the following matrix illustrates:
-	      <me>
-		\left[\begin{array}{rr|r}
-		1 \amp 0 \amp 0 \\
-		0 \amp 1 \amp -3 \\
-		0 \amp 0 \amp 0 \\
-		0 \amp 0 \amp 0 \\
-		0 \amp 0 \amp 0 \\
-		\end{array}\right]\text{.}
-	      </me>
-	    </p></li>
+	  <li><p> We have <m>A\zerovec = \zerovec</m>. </p></li>
 
-	    <li><p>
-	      If every column of the coefficient matrix has a pivot
-	      position, we can guarantee that the solution is unique.
-	    </p></li>
+	  <li><p> We have <m>I\xvec=\xvec</m>;  that is, multiplying a
+	  vector by <m>I</m> produces the same vector.
+	  </p></li>
 
-	    <li><p>
-	      If the coefficient matrix has a
-	      pivot position in every column, there must be at least
-	      many rows as columns.  Therefore, the number of
-	      equations must be less than or equal to 
-	      the number of variables.
-	    </p></li>
-	  </ol>
-	</p>
+	  <li><p>
+	    The product
+	    <m> A\evec_1 = 1\vvec_1+0\vvec_2+\ldots+0\vvec_n =
+	    \vvec_1</m>.
+	  </p></li>
+
+	  <li><p>
+	    If <m>A\xvec=\bvec</m>, then we have
+	    <me>
+	      \begin{alignedat}{3}
+	      x_1 \amp {}+{} \amp 2x_2 \amp {}={} \amp 6 \\
+	      -x_1 \amp {}+{} \amp x_2 \amp {}={} \amp 0\text{.} \\
+	      \end{alignedat}.
+	    </me>
+	    <m>\xvec=\twovec{2}{2}</m> is the unique solution.
+	    <!-- with corresponding augmented matrix
+	    <me>
+	      \left[\begin{array}{rr|r}
+	      1 \amp 2 \amp 6 \\
+	      -1 \amp 1 \amp 0
+	      \end{array}\right]
+	      \sim
+	      \left[\begin{array}{rr|r}
+	      1 \amp 0 \amp 2 \\
+	      0 \amp 1 \amp 2
+	      \end{array}\right]\text{.}
+	    </me>
+	    This means that <m>\xvec=\twovec{2}{2}</m> is the unique
+	    solution to the equation <m>A\xvec=\bvec</m>. -->
+	  </p></li>
+	</ol></p>
       </solution>
+	  
+      <answer>
+	<p><ol marker="a.">
+	  <li><p>
+	    <m>\threevec{4}{11}{9}\text{.}
+	    </m>
+	  </p></li>
+
+	  <li><p>
+	    The dimension of <m>\xvec</m> must three, and the
+	    dimension of <m>A\xvec</m> must be four.
+	  </p></li>
+
+	  <li><p> <m>A\zerovec = \zerovec</m>. </p></li>
+
+	  <li><p> <m>I\xvec = \xvec</m>. </p></li>
+
+	  <li><p>
+	    <m> A\evec_1 = 1\vvec_1+0\vvec_2+\ldots+0\vvec_n =
+	    \vvec_1</m>.
+	  </p></li>
+
+	  <li><p>
+		Carry out the multiplication and simplify to obtain 
+		a linear system.
+	  </p></li>
+	</ol></p>
+      </answer>
+	  
     </activity>
 
     <p>
-      Let's consider what we've learned in this activity.  Since we are
-      interested in the question of whether a consistent linear system
-      has a unique solution or infinitely many, we will only consider
-      consistent systems.  By the results of the previous section,
-      this means that there is not a pivot in the rightmost column of
-      the augmented matrix.  Here are two possible examples:
-      <sidebyside>
-	<p>
-	  <me>
-	    \left[
-	    \begin{array}{rrr|r}
-	    1 \amp 0 \amp 0 \amp 4 \\
-	    0 \amp 1 \amp 0 \amp -1 \\
-	    0 \amp 0 \amp 1 \amp 2 \\
-	    \end{array}
-	    \right]
-	  </me>
-	</p>
-
-	<p>
-	  <me>
-	    \left[
-	    \begin{array}{rrr|r}
-	    1 \amp 0 \amp 2 \amp -2 \\
-	    0 \amp 1 \amp 1 \amp 4 \\
-	    0 \amp 0 \amp 0 \amp 0 \\
-	    \end{array}
-	    \right]
-	  </me>
-	</p>
-	
-      </sidebyside>
-    </p>
-
-    <p>
-      In the first example, we have the equations
+      Multiplication of a matrix <m>A</m> and a vector is
+      defined as a linear combination of the columns of <m>A</m>.
+      However, there is another way to compute such a product.  
+	  Let's look at our previous example and focus on the
+      first row of the product.
       <me>
-	\begin{alignedat}{4}
-	x_1 \amp {}={} \amp 4 \\
-	x_2 \amp {}={} \amp -1 \\
-	x_3 \amp {}={} \amp 2 \\
-	\end{alignedat}
-      </me>
-      demonstrating the fact that there is a unique solution
-      <m>(x_1,x_2,x_3) = (4,-1,2)</m>.
-    </p>
-
-    <p>
-      In the second example, we have the equations
-      <me>
-	\begin{alignedat}{4}
-	x_1 \amp \amp \amp {}+{} \amp 2x_3\amp {}={} \amp -2 \\
-	\amp \amp x_2 \amp {}+{} \amp x_3\amp {}={} \amp 4 \\
-	\end{alignedat}
-      </me>
-      that we may rewrite in parametric form as
-      <me>
-	\begin{alignedat}{4}
-	x_1 \amp {}={} \amp -2-2x_3 \\
-	x_2 \amp {}={} \amp 4-x_3 \\
-	\end{alignedat}
+	\left[\begin{array}{rr}
+	-2 \amp 3 \\
+	0 \amp 2 \\
+	3 \amp 1 \\
+	\end{array}\right]
+	\left[\begin{array}{r} 2 \\ 3 \\ \end{array}\right]
+	=
+	2 \left[\begin{array}{r} -2 \\ * \\ * \\ \end{array}\right] +
+	3 \left[\begin{array}{r} 3 \\ * \\ * \\ \end{array}\right]
+	=
+	\left[\begin{array}{c} 2(-2)+3(3) \\ * \\ * \\ \end{array}\right] 
+	=
+	\left[\begin{array}{r} 5 \\ * \\ * \\ \end{array}\right]
       </me>.
-      Here we see that <m>x_1</m> and <m>x_2</m> are basic
-      variables that may be expressed in terms of the free variable
-      <m>x_3</m>.  In this case, the presence of the free variable
-      leads to infinitely many solutions.
     </p>
 
     <p>
-      Remember that every column of the coefficient matrix corresponds
-      to a variable in our linear system.  In the first example, we
-      see that every column of the coefficient contains a pivot
-      position, which means that every variable is uniquely
-      determined.  In the second example, the column of the
-      coefficient matrix corresponding to <m>x_3</m> does not contain
-      a pivot position, which  results in <m>x_3</m> appearing as a free
-      variable.  This illustrates the following principle.
+      To find the first component of the product, we consider the
+      first row of the matrix.  We then multiply the first entry in
+      that row by the first component of the vector, the second entry
+      by the second component of the vector, and so on, and add the
+      results.  In this way, we see that the third component of the
+      product would be obtained from the third row of the matrix by
+      computing
+      <m>2(3) + 3(1) = 9</m>.
+    </p>
+    
+    <p>
+      You are encouraged to evaluate the product <xref
+      ref="li-example-product" /> of the previous activity
+      using this shortcut and compare the result to what you found
+      while completing that activity.
     </p>
 
-    <principle>
+	<section xml:id="sec-matrices-in-python">
+		<title>Matrices in Python</title>
+
+<!-- 
+    <p> 
+      First, notice
+      that a matrix has a certain number of rows and columns.  For
+      instance, the matrix
+      <me>
+      \left[
+      \begin{array}{rrrrr}
+      * \amp * \amp * \amp * \amp  * \\
+      * \amp * \amp * \amp * \amp  * \\
+      * \amp * \amp * \amp * \amp  * \\
+      \end{array}
+      \right]
+    </me>
+    has three rows and five columns.  We consequently refer to this as a 
+    <m>3\times 5</m> matrix.
+    </p> 
+	-->
+
+    <p> We may ask Python to create the <m>2\times4</m> matrix
+    <me>
+      \left[
+      \begin{array}{rrrr}
+      -1 \amp 0 \amp 2 \amp 7 \\
+      2 \amp 1 \amp -3 \amp -1 \\
+      \end{array}
+      \right]
+    </me>
+    by using nested lists (a list of lists).  But just as we did with 
+	vectors, we will convert this to a <c>numpy</c> n-dimensional array 
+	using <c>np.array()</c>. The shape of the resulting array tells us the 
+	number of rows and columns in the matrix.
+
+    <sage language="python">
+      <input>
+	import numpy as np
+	my_matrix = np.array(
+		[[-1, 0, 2, 7],
+	     [2, 1, -3, -1]
+		])
+	print(my_matrix)
+	print(my_matrix.shape) # how many rows and columns?
+      </input>
+    </sage>
+    </p>
+
+		
+
+
+    <p> 
+      First, notice
+      that a matrix has a certain number of rows and columns.  For
+      instance, the matrix
+      <me>
+      \left[
+      \begin{array}{rrrrr}
+      * \amp * \amp * \amp * \amp  * \\
+      * \amp * \amp * \amp * \amp  * \\
+      * \amp * \amp * \amp * \amp  * \\
+      \end{array}
+      \right]
+    </me>
+    has three rows and five columns.  We consequently refer to this as a 
+    <m>3\times 5</m> matrix.
+    </p>
+
+    <p> We may ask Python to create the <m>2\times4</m> matrix
+    <me>
+      \left[
+      \begin{array}{rrrr}
+      -1 \amp 0 \amp 2 \amp 7 \\
+      2 \amp 1 \amp -3 \amp -1 \\
+      \end{array}
+      \right]
+    </me>
+    by entering
+    <sage language="python">
+      <input>
+	import numpy as np
+	my_matrix = np.array(
+		[[-1, 0, 2, 7],
+	     [2, 1, -3, -1]
+		])
+	print(my_matrix)
+	print(my_matrix.shape) # how many rows and columns?
+      </input>
+    </sage>
+    </p>
+
+	<note>
+	  <title>Numpy</title>
+	  <p>
+	  Numpy is a python module that is heavily used in data science. <c>import numpy as np</c> 
+	  loads this module and declares that we will refer to it as <c>np</c> in subsequent code.
+	  Matrices are created using <c>np.array()</c>, which is provided with a list of matrix rows, each
+	  of which is also a list.
+	  </p>
+
+	  <p>Using <c>np.array()</c> is better than just using a list of lists, however, because 
+	  numpy provides tools to perform all sorts of useful computations with matrices, as we shall
+	  see.</p>
+
+	</note>
+	</section>
+
+    <activity>
       <statement>
-	<p>Suppose that we consider a consistent linear system.
+      <p>
+	Python can find the product of a matrix and vector
+	using the <c>@</c> operator.  For example,
+	<sage language="python">
+	  <input>
+import numpy as np
+A = np.array([[1,2],[2,1]])
+v = np.array([3,-1])
+print(A@v)
+	  </input>
+	</sage>
+	<ol marker="a.">
+	  <li> <p> Use Python to evaluate the product
+	  <me>
+	    \left[
+	    \begin{array}{rrrr}
+	    1 \amp 2 \amp 0 \amp -1 \\
+	    2 \amp 4 \amp -3 \amp -2 \\
+	    -1 \amp -2 \amp 6 \amp 1 \\
+	    \end{array}
+	    \right]
+	    \left[
+	    \begin{array}{r}
+	    3 \\ 1 \\ -1 \\ 1 \\
+	    \end{array}
+	    \right]
+	  </me>
+	  from <xref ref="li-example-product" /> of the previous activity.
+	  <sage language="python">
+	    <input>
+	    </input>
+	  </sage>
+	  </p></li>
+
+	  <li> <p> In Python, define the matrix and vectors
+	  <me>
+	    A = \left[
+	    \begin{array}{rrr}
+	    -2 \amp 0 \\
+	    3 \amp 1 \\
+	    4 \amp 2 \\
+	    \end{array}
+	    \right],
+	    \zerovec = \left[
+	    \begin{array}{r} 0 \\ 0 \end{array}
+	    \right],
+	    \vvec = \left[
+	    \begin{array}{r} -2 \\ 3 \end{array}
+	    \right],
+	    \wvec = \left[
+	    \begin{array}{r} 1 \\ 2 \end{array}
+	    \right]
+	  </me>.
+	  <sage language="python">
+	    <input>
+	    </input>
+	  </sage>
+	  </p></li>
+
+	  <li><p> What do you find when you evaluate <m>A\zerovec</m>?
+	  </p></li>
+
+	  <li><p> What do you find when you evaluate
+	  <m>A(3\vvec)</m> and <m>3(A\vvec)</m> 
+	  and compare your results? </p></li>
+	  
+	  <li><p> What do you find when you evaluate
+	  <m>A(\vvec+\wvec)</m> and <m>A\vvec + A\wvec</m> 
+	  and compare your results? </p></li>
+
+	</ol>
+      </p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> We define
+	    <cd>
+A = matrix(3, 4, [1, 2, 0, -1,
+                  2, 4, -3, -2,
+                  -1, -2, 6, 1])
+v = vector([3, 1, -1, 1])
+A*v		  
+	    </cd>
+	  </p></li>
+
+	  <li><p> We define
+	    <cd>
+A = matrix(2, 3, [-2, 0, 3, 1, 4, 2])
+zero = vector([0, 0])
+v = vector([-2, 3])
+w = vector([1, 2])
+	    </cd>
+	  </p></li>
+
+	  <li><p>
+	    <m>A\zerovec = \zerovec</m>.
+	  </p></li>
+
+	  <li><p>
+	    <m>A(3\vvec) = 3(A\vvec)</m>.
+	  </p></li>
+
+	  <li><p>
+	    <m>A(\vvec+\wvec) = A\vvec + A\wvec</m>
+	  </p></li>
+
+	</ol></p>
+      </solution>
+	    
+      <answer>
+	<p><ol marker="a.">
+	  <li><p> We define
+	    <cd>
+A = np.array([[1, 2, 0, -1],
+              [2, 4, -3, -2],
+              [-1, -2, 6, 1]])
+v = np.array([3, 1, -1, 1])
+A@v		  
+	    </cd>
+	  </p></li>
+
+	  <li><p> We define
+	    <cd>
+A = np.array([[-2, 0, 3],[1, 4, 2]])
+zero = np.array([0, 0])
+v = np.array([-2, 3])
+w = np.array([1, 2])
+	    </cd>
+	  </p></li>
+
+	  <li><p>
+	    <m>A\zerovec = \zerovec</m>.
+	  </p></li>
+
+	  <li><p>
+	    <m>A(3\vvec) = 3(A\vvec)</m>.
+	  </p></li>
+
+	  <li><p>
+	    <m>A(\vvec+\wvec) = A\vvec + A\wvec</m>
+	  </p></li>
+
+	</ol></p>
+      </answer>
+	    
+    </activity>
+
+    <p>
+      This activity demonstrates several general properties satisfied
+      by matrix multiplication that we record here.
+    </p>
+
+    <proposition xml:id = "prop-matrix-mult-prop">
+      <title> Linearity of matrix multiplication </title>
+      <statement>
+	<p> If <m>A</m> is a matrix, <m>\vvec</m> and <m>\wvec</m>
+	vectors of the appropriate dimensions, and <m>c</m> a scalar, then
 	<ul>
-	  <li><p> If every column of the coefficient matrix contains
-	  a pivot position, then the system has a unique solution.
-	  </p></li>
-	  <li><p>If there
-	  is a column in the coefficient matrix that contains no pivot
-	  position, then the system has infinitely many solutions.
-	  </p></li>
-	  <li><p> Columns that contain a pivot position
-	  correspond to basic variables while columns that do not
-	  correspond to free variables.
-	  </p></li>
+	  <li> <p> <m>A\zerovec = \zerovec</m>. </p></li>
+	  <li> <p> <m>A(c\vvec) = cA\vvec</m>. </p></li>
+	  <li> <p> <m>A(\vvec+\wvec) = A\vvec + A\wvec</m>. </p></li>
 	</ul>
 	</p>
       </statement>
-    </principle>
+    </proposition>
 
-    <p>
-      When a linear system has a unique solution, every column of the
-      coefficient matrix has a pivot position.  Since every row
-      contains at most one pivot position, there must be at least as
-      many rows as columns in the coefficient matrix.  Therefore, the
-      linear system has at least as many equations as variables, which
-      is something we intuitively suspected in <xref ref="sec-expect" />.
-    </p>
-
-    <p>
-      It is reasonable to ask how we choose the free variables.  For
-      instance, if we have a single equation
-      <me>
-	x + 2y = 4
-      </me>,
-      then we may write
-      <me>
-	x = 4-2y
-      </me>
-      or, equivalently,
-      <me>
-	y = 2 - \frac12 x
-      </me>.
-      Clearly, either variable may be considered as a free variable in
-      this case.
-    </p>
-
-    <p>
-      As we'll see in the future, we are more interested in the
-      <em>number</em> of free variables rather than in their choice.
-      For convenience, we will adopt the convention that free
-      variables correspond to columns without a pivot
-      position, which allows us to quickly identify them.  For
-      example, the variables <m>x_2</m> and <m>x_4</m> appear as
-      free variables in the following linear system:
-      <me>
-	\left[
-	\begin{array}{rrrr|r}
-	1 \amp 0 \amp 0 \amp 2 \amp 3 \\
-	0 \amp 0 \amp 1 \amp -1 \amp 0 \\
-	\end{array}
-	\right]
-      </me>.
-    </p>
+	<assemblage>
+      <title> Python practices </title>
+      <p> Here are some practices that you may find helpful when
+      working with matrices in Python.
+      <ul>
+	<li> <p> Break the matrix entries across lines, one for each row,
+	for better readability by pressing <em>Enter</em> between rows.
+	<cd>
+A = np.arry([[ 1, 2, -1, 0],
+             [-3, 0,  4, 3 ])
+	</cd>
+	</p></li>
+	<li> <p> Print your original matrix to check that you have
+	entered it correctly.  You may want to also print a dividing
+	line to separate matrices.
+	<cd>
+A = np.array([ 1, 2, 2, 2])
+print (A)
+print ("---------")
+sp.Matrix(A).rref()
+	</cd>
+      </p>
+	</li>
+      </ul>
+      </p>
+    </assemblage> 
 
   </subsection>
 
   <subsection>
-    <title> Summary </title>
+    <title> Matrix-matrix products </title>
 
-    <p> We have seen how the locations of pivot positions, in both the
-    augmented and coefficient matrices, give vital information about
-    the existence and uniqueness of solutions to linear systems.  More
-    specifically,
+    <p> In this section, we have developed some algebraic operations
+    on matrices and seen how they can be used to simplifying our 
+	description of linear systems.  
+	We now introduce a final operation, the product of
+    two matrices, that will become important when we study linear
+    transformations in <xref ref="sec-linear-trans" />.  
     </p>
-    <p>
-      <ul>
-	<li> <p> A linear system is inconsistent exactly when a
-	pivot position appears in the rightmost column of the
-	<em>augmented</em> matrix. </p></li>
 
-	<li> <p> If a linear system is consistent, the solution is
-	unique when every column of the <em>coefficient</em> matrix
-	contains a pivot position.  There are infinitely solutions
-	when there is a column of the <em>coefficient</em> matrix
-	without a pivot position.  </p></li>
+    <definition>
+      <title> Matrix-matrix multiplication </title>
+      <statement>
+	<p> Given matrices <m>A</m> and <m>B</m>, we form their
+	product <m>AB</m> by first writing <m>B</m> in terms of its
+	columns
+	<me>
+	  B = \left[\begin{array}{rrrr}
+	  \vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_p
+	  \end{array}\right]
+	</me>
+	and then defining
+	<me>
+	  AB = \left[\begin{array}{rrrr}
+	  A\vvec_1 \amp A\vvec_2 \amp \cdots \amp A\vvec_p
+	  \end{array}\right].
+	</me>
+	</p>
+      </statement>
+    </definition>
 
-	<li> <p> If a linear system is consistent, the columns of the
-	coefficient matrix containing pivot positions correspond to
-	basic variables and the columns without pivot positions
-	correspond to free variables. </p></li>
-      </ul>
+    <example xml:id="example-matrix-product">
+      <statement>
+	<p> Given the matrices
+	<me>
+	  A = \left[\begin{array}{rr}
+	  4 \amp 2 \\
+	  0 \amp 1 \\
+	  -3 \amp 4 \\
+	  2 \amp 0 \\
+	  \end{array}\right],~~~
+	  B = \left[\begin{array}{rrr}
+	  -2 \amp 3 \amp 0 \\
+	  1 \amp 2 \amp -2 \\
+	  \end{array}\right]
+	</me>,
+	we have
+	<me>
+	  AB = \left[\begin{array}{rrr}
+	  A \twovec{-2}{1} \amp
+	  A \twovec{3}{2}  \amp
+	  A \twovec{0}{-2} 
+	  \end{array}\right]
+	  = \left[\begin{array}{rrr}
+	  -6 \amp 16 \amp -4 \\
+	  1 \amp 2 \amp -2 \\
+	  10 \amp -1 \amp -8 \\
+	  -4 \amp 6 \amp 0
+	  \end{array}\right]
+	</me>.
+	That is, we multiply <m>A</m> by each of the column vectors in <m>B</m> 
+	to obtain the column vectors of the product.
+	  </p>
+
+      </statement>
+    </example>
+
+    <observation>
+      <statement>
+	<p> It is important to note that we can only multiply matrices if
+	the shapes of the matrices are compatible.  More specifically,
+	when constructing the product <m>AB</m>, the matrix <m>A</m>
+	multiplies the columns of <m>B</m>.  Therefore, the number of
+	columns of <m>A</m> must equal the number of rows of
+	<m>B</m>.  When this condition is met, the number of rows of
+	<m>AB</m> is the number of rows of <m>A</m>, and the
+	number of columns of <m>AB</m> is the number of columns of
+	<m>B</m>. 
+	</p>
+	  <p>
+		This can be visualized by writing out the shapes of the two matrices, one after  
+		the other.  The "middle" values must match and "cancel", leaving the number of  
+		rows in the first matrix and the number of columns of the second matrix as the shape 
+		of the procuct. In <xref ref="example-matrix-product"/>, we have 
+
+		<me>
+			(4, 2) (2, 3) \to (4, \not{2}) (\not{2}, 3) \to (4, 3)
+		</me>
+		
+	  </p>
+      </statement>
+    </observation>
+
+    <activity>
+      <statement>
+      <p> Consider the matrices
+	<me>
+	  A = \left[\begin{array}{rrr}
+	  1 \amp 3 \amp 2 \\
+	  -3 \amp 4 \amp -1 \\
+	  \end{array}\right],~~~
+	  B = \left[\begin{array}{rr}
+	  3 \amp 0 \\
+	  1 \amp 2 \\
+	  -2 \amp -1 \\
+	  \end{array}\right]
+	</me>.
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      Before
+	      computing, first explain why the shapes of
+	      <m>A</m> and <m>B</m> enable us to form the product <m>AB</m>.
+	      Then describe the shape of <m>AB</m>.
+	    </p>
+	  </li>
+
+	  <li><p> Compute the product <m>AB</m> by hand. </p></li>
+
+	  <li><p> Python can multiply matrices using the <c>@</c>
+	  operator.  Define the matrices <m>A</m> and <m>B</m> in the
+	  Python cell below and check your work by computing <m>AB</m>.
+	  <sage language="python">
+	    <input>
+	    </input>
+	  </sage>
+	  </p></li>
+	  
+	  <li><p> Are we able to form the matrix product <m>BA</m>?  If
+	  so, use the Python cell above to find <m>BA</m>.  Is it
+	  generally true that <m>AB = BA</m>?
+	  </p></li>
+	  
+	  <li><p> Suppose we form the three matrices.
+	  <me>
+	    A = \left[\begin{array}{rr}
+	    1 \amp 2 \\
+	    3 \amp -2 \\
+	    \end{array}\right],
+	    B = \left[\begin{array}{rr}
+	    0 \amp 4 \\
+	    2 \amp -1 \\
+	    \end{array}\right],
+	    C = \left[\begin{array}{rr}
+	    -1 \amp 3 \\
+	    4 \amp 3 \\
+	    \end{array}\right]
+	    </me>.
+	    Compare what happens when you compute <m>A(B+C)</m> and <m>AB
+	    + AC</m>.  State your finding as a general principle.
+	    <sage language="python">
+	      <input>
+	      </input>
+	    </sage>
+	    
+	  </p></li>
+	  
+	  <li><p> Compare the results of evaluating <m>A(BC)</m> and
+	  <m>(AB)C</m> and state your finding as a general
+	  principle. </p></li> 
+	  
+	  <li><p> When we are dealing with real numbers, we know if
+	  <m>a\neq 0</m> and <m>ab = ac</m>, then <m>b=c</m>.  Define
+	  matrices 
+	  <me>
+	    A = \left[\begin{array}{rr}
+	    1 \amp 2 \\
+	    -2 \amp -4 \\
+	    \end{array}\right],
+	    B = \left[\begin{array}{rr}
+	    3 \amp 0 \\
+	    1 \amp 3 \\
+	    \end{array}\right],
+	    C = \left[\begin{array}{rr}
+	    1 \amp 2 \\
+	    2 \amp 2 \\
+	    \end{array}\right]
+	  </me>
+	  and compute <m>AB</m> and <m>AC</m>.
+	  <sage language="python">
+	    <input>
+	    </input>
+	  </sage>
+	  If <m>AB = AC</m>, is it necessarily true that <m>B = C</m>?
+	  </p></li>
+	  
+	  <li><p> Again, with real numbers, we know that if <m>ab =
+	  0</m>, then either <m>a = 0</m> or <m>b=0</m>.  Define
+	  <me>
+	    A = \left[\begin{array}{rr}
+	    1 \amp 2 \\
+	    -2 \amp -4 \\
+	    \end{array}\right],
+	    B = \left[\begin{array}{rr}
+	    2 \amp -4 \\
+	    -1 \amp 2 \\
+	    \end{array}\right]
+	  </me>
+	  and compute <m>AB</m>.
+	  <sage language="python">
+	    <input>
+	    </input>
+	  </sage>
+	  If <m>AB = 0</m>, is it necessarily true that either
+	  <m>A=0</m> or <m>B=0</m>?
+	  </p></li>
+	</ol>
+      </p>
+      </statement>
+      
+      <solution>
+	<p><ol marker="a.">
+	  <li><p>
+	    The product <m>AB</m> exists because the number of columns
+	    of <m>A</m> equals the number of rows of <m>B</m>.  The
+	    dimensions of <m>AB</m> are <m>2\times 2</m>.
+	  </p></li>
+
+	  <li><p>
+	    We have
+	    <m>AB =
+	    \left[\begin{array}{rr}
+	    2 \amp 4 \\
+	    -3 \amp 9
+	    \end{array}\right]
+	    </m>.
+	  </p></li>
+
+	  <li><p> Define
+	    <cd>
+A = matrix(2, 3, [1, 3, 2, -3, 4, -1])
+B = matrix(3, 2, [3, 0, 1, 2, -2, -1])
+A*B
+	    </cd>
+	  </p></li>
+
+	  <li><p>
+	    Yes, we can form the product <m>BA</m> because the number
+	    of columns of <m>B</m> equals the number of rows of
+	    <m>A</m>.  This product <m>AB</m> will be <m>3\times3</m>,
+	    however, so it must be true that <m>AB\neq BA</m>.
+	  </p></li>
+
+	  <li><p> We find that <m>A(B+C)=AB + AC</m>.
+	  </p></li>
+
+	  <li><p> We find that <m>A(BC) = (AB)C</m>.
+	  </p></li>
+
+	  <li><p>
+	    It is not generally true that <m>B=C</m> if <m>AB=AC</m>,
+	    as illustrated by this example.
+	  </p></li>
+
+	  <li><p>
+	    It is not generally true that <m>A=0</m> or <m>B=0</m> if
+	    <m>AB=0</m>, as illustrated by this example.
+	  </p></li>
+
+	</ol></p>
+      </solution>
+
+      <answer>
+	<p><ol marker="a.">
+	  <li><p>
+	    The product <m>AB</m> exists because the number of columns
+	    of <m>A</m> equals the number of rows of <m>B</m>.  The
+	    dimensions of <m>AB</m> are <m>2\times 2</m>.
+	  </p></li>
+
+	  <li><p>
+	    We have
+	    <m>AB =
+	    \left[\begin{array}{rr}
+	    2 \amp 4 \\
+	    -3 \amp 9
+	    \end{array}\right]
+	    </m>.
+	  </p></li>
+
+	  <li><p> Define
+	    <cd>
+A = matrix(2, 3, [1, 3, 2, -3, 4, -1])
+B = matrix(3, 2, [3, 0, 1, 2, -2, -1])
+A*B
+	    </cd>
+	  </p></li>
+
+	  <li><p>
+	    It is not generally true that <m>AB=BA</m>.
+	  </p></li>
+
+	  <li><p> We find that <m>A(B+C)=AB + AC</m>.
+	  </p></li>
+
+	  <li><p> We find that <m>A(BC) = (AB)C</m>.
+	  </p></li>
+
+	  <li><p>
+	    It is not generally true that <m>B=C</m> if <m>AB=AC</m>.
+	  </p></li>
+
+	  <li><p>
+	    It is not generally true that <m>A=0</m> or <m>B=0</m> if
+	    <m>AB=0</m>.
+	  </p></li>
+
+	</ol></p>
+      </answer>
+
+      
+    </activity>
+
+    <p> This activity demonstrated some general properties about
+    products of matrices, which mirror some properties about
+    operations with real numbers.
     </p>
+
+    <assemblage>
+      <title> Properties of Matrix-matrix Multiplication </title>
+
+      <p> If <m>A</m>, <m>B</m>, and <m>C</m> are matrices such that
+      the following operations are defined, it follows
+      that 
+	<dl>
+	  <li><title> Associativity: </title>
+	  <p> <m>A(BC) =  (AB)C</m>. </p></li>
+
+	  <li><title> Distributivity: </title>
+	  <p> <m> A(B+C) = AB+AC</m>. </p>
+	  <p> <m> (A+B)C = AC+BC</m>. </p>
+	  </li>
+	</dl>
+      </p>
+    </assemblage>
+
+    <p> At the same time, there are a few properties that hold for
+    real numbers that do not hold for matrices.
+    </p>
+
+    <assemblage>
+      <title> Caution </title>
+
+      <p> The following properties hold for real numbers but not for
+      matrices.  
+	<dl>
+	  <li><title> Commutativity: </title>
+	  <p> It is <em>not</em> generally true that <m>AB = BA</m>. </p>
+	  </li>
+
+	  <li><title> Cancellation: </title>
+	  <p> It is <em>not</em> generally true that <m>AB = AC</m>
+	  implies that <m>B = C</m>. </p>
+	  </li>
+
+	  <li><title> Zero divisors: </title>
+	  <p> It is <em>not</em> generally true that <m>AB = 0</m>
+	  implies that 
+	  either <m>A=0</m> or <m>B=0</m>. </p>
+	  </li>
+	</dl>
+      </p>
+    </assemblage>
+
   </subsection>
 
-  <xi:include href="exercises/exercises1-4.ptx" />
+  <subsection xml:id="subsec-special-matrices">
+	<title>Some special types of matrices</title>
 
+	<idx> identity matrix </idx>
+	<p>
+	We have already encountered the <m>n</m>- dimensional <term>identity matrix</term> <m>I_n</m>. 
+	This <m>n \times n</m> square matrix has ones along the diagonal (where the row number 
+	and column number are the same) and zeros everywhere else.  For example,
+	<me>
+	I_3 = \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right] .
+	</me>
+	</p>
+
+	<p>
+	More generally, a matrix is called <term>diagonal</term> if the only non-zero values  
+	are along the diagonal.  Here are some example of diagonal matrices.
+	<idx><h>diagonal matrix</h></idx>
+	<idx><h>matrix</h> <h>diagonal</h></idx>
+
+	<me>
+	\left[\begin{array}{rrr}
+	  -2 \amp \lgray{0} \amp \lgray{0} \\
+	  \lgray{0} \amp 4 \amp \lgray{0} \\
+	  \lgray{0} \amp \lgray{0} \amp 3 \\
+	  \end{array}\right], \qquad
+	\left[\begin{array}{rrr}
+	  0 \amp \lgray{0} \amp \lgray{0} \\
+	  \lgray{0} \amp 4 \amp \lgray{0} \\
+	  \lgray{0} \amp \lgray{0} \amp 3 \\
+	  \end{array}\right], \quad
+	\left[\begin{array}{rrr}
+	  1 \amp \lgray{0} \amp \lgray{0} \\
+	  \lgray{0} \amp 4 \amp \lgray{0} \\
+	  \lgray{0} \amp \lgray{0} \amp 3 \\
+	  \lgray{0} \amp \lgray{0} \amp \lgray{0} \\
+	  \end{array}\right], \quad
+	\left[\begin{array}{rrrr}
+	  1 \amp \lgray{0} \amp \lgray{0} \amp \lgray{0} \\
+	  \lgray{0} \amp 4 \amp \lgray{0} \amp \lgray{0} \\
+	  \lgray{0} \amp \lgray{0} \amp 3 \amp \lgray{0} \\
+	  \end{array}\right]
+	</me>
+	Note that 
+	<ol>
+		<li>
+			<p>
+				A diagonal matrix is allowed to have 0's along the digonal.
+			</p>
+		</li>
+		<li>
+			<p>
+				A diagonal matrix might not be square, but in that case all elements in the 
+				"extra" rows or columns must be 0's.  Square diagonal matrices are especially 
+				important, however.
+			</p>
+		</li>
+	</ol>
+	
+	</p>
+
+	<p>A square matrix <m> M </m> for which <m>M_{ij} = M_{ji}</m> for every <m>i</m> and <m>j</m> 
+		is called a <term>symmetric matrix</term>.  
+		<idx><h>symmetric matrix</h></idx>
+		<idx><h>matrix</h><h>symmetric</h></idx>
+		Here are some examples.
+	<me>
+	\left[\begin{array}{rrr}
+	  -2 \amp 1 \amp 2 \\
+	  1 \amp 4 \amp 5 \\
+	  2 \amp 5 \amp 3 \\
+	  \end{array}\right], \qquad
+	\left[\begin{array}{rrr}
+	  0 \amp 2 \amp 0 \\
+	  2 \amp 4 \amp 0 \\
+	  0 \amp 0 \amp 3 \\
+	  \end{array}\right], \quad
+	\left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 4 \amp 0 \\
+	  0 \amp 0 \amp 3 \\
+	  \end{array}\right]
+	</me>
+	</p>
+	<p>
+		The symmetry of a symmetric matrix is  
+		symmetry across the main diagonal: If we exchange the rows and the columns, we get the same 
+		matrix.  The matrix obtained by exchanging rows and columns of a matrix <m>A </m>
+		is called the <term>transpose</term> of <m>A</m>, written <m>A^\top</m>.
+		For formally, the transpose satisfies 
+		<me>
+			A^\top_{ij} = A_{ji}
+		</me>
+		for every <m>i</m> and <m>j</m>.
+		
+		
+	<idx><h>transpose of a matrix</h></idx>
+	<idx><h>matrix</h> <h>transpose</h></idx>
+	<notation>
+		<usage><m>A^\top</m></usage>
+	  <description>transpose of matrix <m>A</m></description>
+	</notation>
+		For example,
+	<me>
+	\left[\begin{array}{rrr}
+	  -2 \amp -1 \amp 3 \\
+	  1 \amp 4 \amp 0 \\
+	  2 \amp 5 \amp 3 \\
+	  \end{array}\right]^\top 
+	  = 
+	\left[\begin{array}{rrr}
+	  -2 \amp 1 \amp 2 \\
+	  -1 \amp 4 \amp 5 \\
+	  3 \amp 0 \amp 3 \\
+	  \end{array}\right]^\top .
+	</me>
+	</p>
+
+	<p>
+		Square diagonal matrices are always symmetric  
+		and symmetric matrices are always square.  So we will use the terms  
+		<term>square diagonal matrix</term> and <term>symmetric diagonal matrix</term> 
+		interchangeably.
+	</p>	
+  </subsection>
+  <subsection>
+    <title>
+      Summary
+    </title>
+
+    <p> In this section, we have found an especially simple way to
+    express linear systems using matrix multiplication.
+    <ul>
+      <li> <p> If <m>A</m> is an <m>m\times n</m> matrix and
+      <m>\xvec</m> an <m>n</m>-dimensional vector, then <m>A\xvec</m>
+      is the linear combination of the columns of <m>A</m> using the
+      components of <m>\xvec</m> as weights. The vector <m>A\xvec</m>
+      is <m>m</m>-dimensional. </p></li>
+
+      <li> <p> The solution space to the equation 
+	  <m>A\xvec = \bvec</m> is the same as the solution space to the 
+	  linear system using coefficients from <m>A</m>  and <m>b</m>.
+	  We can represent all these coefficients in a single <term>autmented matrix</term>:
+	  <idx><h>matrix</h><h>augmented</h></idx>
+	  <idx><h>augmented matrix</h></idx>
+      <m>\left[ \begin{array}{r|r} A \amp \bvec \end{array}\right]</m>.
+      </p></li>
+
+      <li><p> If <m>A</m> is an <m>m\times n</m> matrix and <m>B</m>
+      is an <m>n\times p</m> matrix, we can form the product <m>AB</m>.
+	  <m>AB</m> will be an <m>m\times p</m> matrix.  The columns of 
+	  <m>AB</m> are the products of <m>A</m> and the columns of <m>B</m>. 
+	  </p>
+	  </li>
+    </ul>
+    </p>
+
+  </subsection>
+
+
+  <xi:include href="exercises/exercises0-3.ptx" /> 
+  
 </section>
+
+

@@ -1,1300 +1,1238 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="sec-stochastic"
+<section xml:id="sec-determinants"
 	 xmlns:xi="http://www.w3.org/2001/XInclude">
-  <title> Markov chains and Google's PageRank algorithm  </title>
+
+  <title> Determinants </title>
 
   <introduction>
-    <p> In the last section, we used our understanding of eigenvalues
-    and eigenvectors to describe the long-term behavior of some
-    discrete dynamical systems.  The state of the system, which could
-    record, say, the populations of a few interacting species, at one
-    time is described by a vector <m>\xvec_k</m>.  The state vector
-    then evolves according to a linear rule <m>\xvec_{k+1} =
-    A\xvec_k</m>. </p>
+    <p> As invertibility plays a central role in this chapter, we need
+    a criterion that tells us when a matrix is invertible.  
+    We already know that a square matrix is invertible if and only if
+    it is row equivalent to the identity matrix.  In this section, we
+    will develop a second, numerical criterion that tells us when a
+    square matrix is invertible.
+    </p>
 
-    <p> This section continues this exploration by looking at
-    <em>Markov chains</em>, which form a specific type of discrete
-    dynamical system.  For instance, we could be interested in a
-    rental car company that rents cars from several locations.  From
-    one day to the next, the number of cars at different locations can
-    change, but the total number of cars stays the same.  Once again,
-    an understanding of eigenvalues and eigenvectors will help us make
-    predictions about the long-term behavior of the system. </p>
+    <p> To begin, let's consider a <m>2\times2</m> matrix <m>A</m>
+    whose columns are vectors <m>\vvec_1</m> and <m>\vvec_2</m>.  We
+    have frequently drawn the vectors and studied the linear
+    combinations they form using a figure such as <xref
+    ref="fig-intro-dets" />.
+    </p>
+
+    <figure xml:id="fig-intro-dets">
+      <sidebyside width="40%">
+	<image source="images/basis-1" />
+      </sidebyside>
+      <caption>
+	Linear combinations of two vectors <m>\vvec_1</m> and <m>\vvec_2</m> 
+	form a collection of congruent parallelograms.
+      </caption>
+    </figure>
+
+    <p> Notice how the linear combinations form a set of congruent
+    parallelograms in the plane.  In this section, we will use the
+    area of these parallelograms to define a numerical
+    quantity called the determinant that tells us whether the matrix
+    <m>A</m> is invertible.  
+    </p>
+
+    <sidebyside widths="60% 40%" valign="middle">
+      <p> To recall, the area of parallelogram
+      is found by multiplying the length of one side by the
+      perpendicular distance to its parallel side.  Using the notation
+      in the figure, the area of the
+      parallelogram is <m>bh</m>.
+      </p>
+      <image source="images/parallelogram-area" />
+    </sidebyside>
 
     <exploration>
       <statement>
-      <p> Suppose that our rental car company rents from two locations
-      <m>P</m> and <m>Q</m>.  We find that 80% of the cars rented from
-      location <m>P</m> are returned to <m>P</m> while the other 20% are
-      returned to <m>Q</m>.  For cars rented from location <m>Q</m>,
-      60% are returned to <m>Q</m> and 40% to <m>P</m>. </p>
-
-      <p> We will use <m>P_k</m> and <m>Q_k</m> to denote the number
-      of cars at the two locations on day <m>k</m>.  The following
-      day, the number of cars at <m>P</m> equals 80% of <m>P_k</m> and
-      40% of <m>Q_k</m>.  This shows that
-      <me>
-	\begin{aligned}
-	P_{k+1} \amp {}={} 0.8 P_k + 0.4Q_k \\
-	Q_{k+1} \amp {}={} 0.2 P_k + 0.6Q_k\text{.} \\
-	\end{aligned}
-      </me>
+      <p> We will explore the area formula in this preview
+      activity. 
 
       <ol marker="a.">
-	<li><p> If we use the vector <m>\xvec_k =
-	\twovec{P_k}{Q_k}</m> to represent the distribution of cars on
-	day <m>k</m>, find a matrix <m>A</m> such that
-	<m>\xvec_{k+1} = A\xvec_k</m>. </p></li>
+	<li><p> Find the area of the following parallelograms. </p>
 
-	<li><p> Find the eigenvalues and associated eigenvectors of
-	<m>A</m>.  </p></li>
+	<sbsgroup>
+	  <sidebyside widths="3% 30% 3% 30% 3% 30%">
+	    <p> 1. </p>
+	    <image source="images/parallelogram-a" /> 
+	    <p> 2. </p>
+	    <image source="images/parallelogram-b" /> 
+	    <p> 3. </p>
+	    <image source="images/parallelogram-c" /> 
+	  </sidebyside>
+	  <sidebyside widths="3% 30% 3% 30% 3% 30%">
+	    <p> 4. </p>
+	    <image source="images/parallelogram-d" /> 
+	    <p> 5. </p>
+	    <image source="images/parallelogram-e" />
+	    <p> 
+	    </p>
+	    <p>
+	    </p>
+	  </sidebyside>
+	</sbsgroup>
+	</li>
 
-	<li><p> Suppose that there are initially 1500 cars, all of
-	which are at location <m>P</m>.  Write the vector
-	<m>\xvec_0</m> as a linear combination of eigenvectors of
-	<m>A</m>. </p></li>
-
-	<li><p> Write the vectors <m>\xvec_k</m> as a linear
-	combination of eigenvectors of <m>A</m>. </p></li>
-
-	<li><p> What happens to the distribution of cars after a long
-	time? </p></li>
-
+	<li>
+	  <sidebyside widths="50% 40%" valign="middle">
+	    <p> Explain why the area of the parallelogram formed by 
+	      the vectors <m>\vvec</m> and <m>\wvec_1</m> is the same as
+	    that formed by <m>\vvec</m> and <m>\wvec_2</m>. </p>
+	    <image source="images/area-shear" />
+	  </sidebyside>
+	</li>
       </ol></p>
       </statement>
 
       <solution>
 	<p><ol marker="a.">
-	  <li><p> Expressing the set of equations in matrix form, we
-	  see that
-	  <m>A = \mattwo{0.8}{0.4}{0.2}{0.6}</m>.
+	  <li><p> We find the following areas.
+	  <ol marker="1.">
+	    <li><p> A <m>1\times1</m> square has area 1. </p></li>
+	    <li><p> A <m>2\times3</m> rectangle has area 6. </p></li>
+	    <li><p> The square has side length <m>\sqrt{2}</m> giving
+	    an area of 2. </p></li>
+	    <li><p> If we consider the horizontal length as the base,
+	    we see that <m>b=h=2</m> so that the area is 4. </p></li>
+	    <li><p> In the same way, we can consider both the base and
+	    height to be 2 so that the area is 4. </p></li>
+	  </ol>
 	  </p></li>
 
-	  <li><p> We have eigenvalues <m>\lambda_1 = 1</m> and
-	  <m>\lambda_2 = 0.4</m> with associated eigenvectors
-	  <m>\vvec_1 = \twovec21</m> and
-	  <m>\vvec_2=\twovec{-1}{1}</m>. </p></li>
-
-	  <li><p> We find that
-	  <m>\xvec_0=\twovec{1500}{0} = 500\vvec_1-500\vvec_2</m>.
-	  </p></li>
-
-	  <li><p> Multiplying by the matrix <m>A</m> has the effect of
-	  multiplying the eigenvectors by their associated
-	  eigenvalues.  Therefore,
-	  <m>\xvec_k=500\vvec_1-500(0.4)^k\vvec_2</m>.
-	  </p></li>
-
-	  <li><p> As <m>k</m> becomes large, <m>0.4^k</m> becomes very
-	  close to zero.  Therefore <m>\xvec_k\approx500\vvec_1 =
-	  \twovec{1000}{500}</m>.  This tells us that <m>1000</m> cars
-	  are at location <m>P</m> and <m>500</m> are at <m>Q</m>.
-	  </p></li>
+	  <li><p> If we consider the base to be the length of
+	  <m>\vvec</m>, then the height, which is the perpendicular
+	  distance to its parallel side, is the same in both
+	  parallelograms. </p></li>
 	</ol></p>
       </solution>
+	    
     </exploration>
 
   </introduction>
 
   <subsection>
-    <title> A first example </title>
+    <title> Determinants of <m>2\times2</m> matrices </title>
 
-    <p> In the preview activity, the distribution of rental cars was
-    described by the discrete dynamical system
-    <me>
-      \xvec_{k+1} = A\xvec_k=\left[\begin{array}{rr}
-      0.8 \amp 0.4 \\
-      0.2 \amp 0.6 \\
-      \end{array}\right]
-      \xvec_k
-    </me>.
-    This matrix has some special properties.  First, each entry
-    represents the probability that a car 
-    rented at one location is returned to another.  For instance,
-    there is an 80% chance that a car rented at <m>P</m> is
-    returned to <m>P</m>, which explains the entry of 0.8 in the upper
-    left corner.  Therefore, the entries of the matrix are between 0
-    and 1. </p>
-
-    <p> Second, a car rented at one location must be returned to one
-    of the locations.  For example, since 80% of the cars rented at
-    <m>P</m> are returned to <m>P</m>, it follows that the other 20%
-    of cars rented at <m>P</m> are returned to <m>Q</m>.  This implies
-    that the entries in each column must add to 1.  This will occur 
-    frequently in our discussion so we introduce the following
-    definitions. </p>
-
-    <definition>
-      <idx> probability vector </idx>
-      <idx> stochastic matrix </idx>
-      <p> A vector whose entries are nonnegative and add to 1 is
-      called a <em>probability vector</em>.  A square matrix whose
-      columns are probability vectors is called a
-      <em>stochastic</em> matrix. </p>
-    </definition>
-
-    <activity>
-      <statement>
-      <p> Suppose you live in a country with three political parties
-      <m>P</m>, <m>Q</m>, and <m>R</m>.  We use <m>P_k</m>,
-      <m>Q_k</m>, and <m>R_k</m> to denote the percentage of voters
-      voting for that party in election <m>k</m>.  </p>
-
-      <sidebyside widths="55% 45%">
-	<p> Voters will change parties from one election to the next as
-	shown in the figure.  We see that 60% of voters stay with the
-	same party.  However, 40% of those who vote for party <m>P</m>
-	will vote for party <m>Q</m> in the next election. </p>
-
-	<image source="images/stoch-parties" />
-      </sidebyside>
-
-      <p>
-	<ol marker="a.">
-	  <li><p> Write expressions for <m>P_{k+1}</m>,
-	  <m>Q_{k+1}</m>, and <m>R_{k+1}</m> in terms of <m>P_k</m>,
-	  <m>Q_k</m>, and <m>R_k</m>.  </p></li>
-
-	  <li><p> If we write <m>\xvec_k =
-	  \threevec{P_k}{Q_k}{R_k}</m>, find the matrix <m>A</m> such
-	  that <m>\xvec_{k+1} = A\xvec_k</m>.  </p></li>
-
-	  <li><p> Explain why <m>A</m> is a stochastic
-	  matrix. </p></li>
-
-	  <li><p> Suppose that initially 40% of citizens vote for
-	  party <m>P</m>, 30% vote for party <m>Q</m>, and 30% vote
-	  for party <m>R</m>.  Form the vector <m>\xvec_0</m> and
-	  explain why <m>\xvec_0</m> is a probability
-	  vector. </p></li>
-
-	  <li><p> Find <m>\xvec_1</m>, the percentages who vote for
-	  the three parties in the next election.  Verify that
-	  <m>\xvec_1</m> is 
-	  also a probability vector and explain why <m>\xvec_k</m> will
-	  be a probability vector for every <m>k</m>.
-	  <sage language="python">
-	    <input>
-	    </input>
-	  </sage>
-	  </p></li>
-
-	  <li><p> Find the eigenvalues of the matrix <m>A</m> and 
-	  explain why the eigenspace <m>E_1</m> is a one-dimensional
-	  subspace 
-	  of <m>\real^3</m>.  Then verify that
-	  <m>\vvec=\threevec{1}{2}{2}</m> is a basis vector for
-	  <m>E_1</m>.  </p></li> 
-
-	  <li><p> As every vector in <m>E_1</m> is a scalar multiple
-	  of <m>\vvec</m>, find a probability vector in <m>E_1</m> and
-	  explain why it is the only probability vector in
-	  <m>E_1</m>.  </p></li>
-
-	  <li><p> Describe what happens to <m>\xvec_k</m> after a very
-	  long time. </p></li>
-	</ol>
-      </p>
-      </statement>
-
-      <solution>
-	<p> The solutions to this activity are given in the following
-	text. </p>
-      </solution>
-    </activity>
-
-    <p> The previous activity illustrates some important points that
-    we wish to emphasize. </p>
-
-    <p> First, to determine <m>P_{k+1}</m>, we note that in election
-    <m>k+1</m>, party <m>P</m> retains 60% of its voters from the
-    previous election and adds 20% of those who voted for party <m>R</m>.
-    In this way, we see that
-    <me>
-      \begin{alignedat}{6}
-      P_{k+1} \amp {}={} 0.6P_k \amp \amp \amp + 0.2 R_k \\
-      Q_{k+1} \amp {}={} 0.4P_k \amp {}+{} \amp 0.6Q_k \amp {}+{}
-      0.2R_k \\
-      R_{k+1} \amp {}={} \amp {}{} \amp 0.4Q_k \amp {}+{}
-      0.6R_k\\
-      \end{alignedat}
-    </me>
-    We therefore define the matrix
-    <me>
-      A = \left[\begin{array}{rrr}
-      0.6 \amp 0 \amp 0.2 \\
-      0.4 \amp 0.6 \amp 0.2 \\
-      0 \amp 0.4 \amp 0.6 \\
-      \end{array}\right]
-    </me>
-    and note that <m>\xvec_{k+1} = A\xvec_k</m>.  </p>
-
-    <p> If we consider the first column of <m>A</m>, we see that the
-    entries represent the percentages of party <m>P</m>'s voters in
-    the last election who vote for each of the three parties in the
-    next election.  Since everyone who voted for party <m>P</m>
-    previously votes for one of the three parties in the next
-    election, the sum of these percentages must be 1.  This is true
-    for each of the columns of <m>A</m>, which explains why <m>A</m>
-    is a stochastic matrix. </p>
-
-    <p> We begin with the vector <m>\xvec_0 =
-    \threevec{0.4}{0.3}{0.3}</m>, the entries of which represent the
-    percentage of voters voting for each of the three parties.  Since
-    every voter votes for one of the three parties, the sum of these
-    entries must be 1, which means that <m>\xvec_0</m> is a
-    probability vector. We then find that
-    <me>
-      \begin{array}{cccc}
-      \xvec_1=\threevec{0.300}{0.400}{0.300},\amp
-      \xvec_2=\threevec{0.240}{0.420}{0.340},\amp
-      \xvec_3=\threevec{0.212}{0.416}{0.372},\amp
-      \ldots,\\ \\
-      \xvec_5=\threevec{0.199}{0.404}{0.397},\amp
-      \ldots,\amp
-      \xvec_{10}=\threevec{0.200}{0.400}{0.400},\amp
-      \ldots \\
-      \end{array}
-    </me>.
-    Notice that the vectors <m>\xvec_k</m> are also probability
-    vectors and that the sequence <m>\xvec_k</m> seems to be
-    converging to <m>\threevec{0.2}{0.4}{0.4}</m>.  It is this
-    behavior that we would like to understand more fully by
-    investigating the eigenvalues and eigenvectors of <m>A</m>.
-    </p>
-    
-    <p> We find that the eigenvalues of <m>A</m> are
-    <me>
-      \lambda_1 = 1, \qquad \lambda_2 = 0.4 + 0.2i, \qquad\lambda_3 =
-      0.4-0.2i 
-    </me>.
-    Notice that if <m>\vvec</m> is an eigenvector of <m>A</m> with
-    associated eigenvalue <m>\lambda_1=1</m>, then <m>A\vvec = 1\vvec
-    = \vvec</m>.  That is, <m>\vvec</m> is unchanged when we multiply
-    it by <m>A</m>.
+    <p> We will begin by defining
+    the determinant of a <m>2\times2</m> matrix <m>A =
+    \left[\begin{array}{rr} \vvec_1 \amp \vvec_2
+    \end{array}\right]</m>.  First, however, we need to define the
+    <term>orientation</term> of an ordered pair of vectors.  As shown in <xref
+    ref="fig-det-orientation" />, an ordered pair of vectors
+    <m>\vvec_1</m> and <m>\vvec_2</m> is called <em>positively</em>
+    oriented if the angle, measured in the counterclockwise direction,
+    from <m>\vvec_1</m> to <m>\vvec_2</m> is less than
+    <m>180^\circ</m>; we say the pair is <em>negatively</em> oriented if
+    it is more than <m>180^\circ</m>.
+	<idx> orientation, of a pair of vectors </idx>
     </p>
 
-    <sidebyside widths="55% 45%">
-      <p> Otherwise, we have <m>A=PEP^{-1}</m> where
-      <me>
-	E = \left[\begin{array}{rrr}
-	1 \amp 0 \amp 0 \\
-	0 \amp 0.4 \amp -0.2 \\
-	0 \amp 0.2 \amp 0.4 \\
-	\end{array}\right]
-      </me>
-      Notice that <m>|\lambda_2| = |\lambda_3| \lt 1</m> so the
-      trajectories <m>\xvec_k</m> spiral into the
-      eigenspace <m>E_1</m> as indicated in the figure.
-      </p>
-
-      <image source="images/eigen-3d-stoch" />
-    </sidebyside>
-
-    <p> This tells us that the sequence <m>\xvec_k</m> converges to a
-    vector in <m>E_1</m>.  
-    In the usual way, we see
-    that <m>\vvec=\threevec{1}{2}{2}</m> is a basis vector for
-    <m>E_1</m> because <m>A\vvec = \vvec</m> so we expect that
-    <m>\xvec_k</m> will converge to a scalar multiple of <m>\vvec</m>.
-    Indeed, since the vectors <m>\xvec_k</m>
-    are probability vectors, we expect them to converge to a
-    probability vector in <m>E_1</m>.
-    </p>
-
-    <p> We can find the probability vector in <m>E_1</m> by finding
-    the appropriate scalar multiple of <m>\vvec</m>.  Notice that
-    <m>c\vvec = \threevec{c}{2c}{2c}</m> is a probability vector when
-    <m>c+2c+2c=5c = 1</m>, which implies that <m>c = 1/5</m>.
-    Therefore, <m>\qvec=\threevec{0.2}{0.4}{0.4}</m> is the unique
-    probability vector in <m>E_1</m>.  Since the sequence
-    <m>\xvec_k</m> converges to a probability vector in <m>E_1</m>, we
-    see that <m>\xvec_k</m> converges to <m>\qvec</m>, which agrees
-    with the computations we showed above. </p>
-
-    <p> The role of the eigenvalues is important in this example.
-    Since <m>\lambda_1=1</m>, we can find a probability vector
-    <m>\qvec</m> that is unchanged by multiplication by <m>A</m>.
-    Also, the other eigenvalues satisfy <m>|\lambda_j| \lt 1</m>,
-    which means that all the trajectories get pulled in to the
-    eigenspace <m>E_1</m>.  Since <m>\xvec_k</m> is a sequence of
-    probability vectors, these vectors converge to the probability
-    vector <m>\qvec</m> as they are pulled into <m>E_1</m>. </p>
-    
-  </subsection>
-
-  <subsection>
-    <title> Markov chains </title>
-
-    <p> If we have a stochastic matrix <m>A</m> and a probability
-    vector <m>\xvec_0</m>, we can form the sequence <m>\xvec_k</m>
-    where <m>\xvec_{k+1} = A \xvec_k</m>.  We call this sequence of
-    vectors a <em>Markov chain</em>.
-    <xref ref="exercise-stochastic-probability" /> 
-    explains why we can guarantee that the vectors
-    <m>\xvec_k</m> are probability vectors.
-    <idx> Markov chain </idx>
-    </p>
-
-    <p> In the example that studied voting patterns, we constructed a
-    Markov chain that described how the percentages of voters choosing
-    different parties changed from one election to the next.  We saw that
-    the Markov chain converges to
-    <m>\qvec=\threevec{0.2}{0.4}{0.4}</m>, a probability vector in the
-    eigenspace <m>E_1</m>.  In other words, <m>\qvec</m> is a
-    probability vector that is unchanged under multiplication by
-    <m>A</m>; that is, <m>A\qvec = \qvec</m>.  This implies that,
-    after a long time, 20% of voters choose party <m>P</m>, 40% choose
-    <m>Q</m>, and 40% choose <m>R</m>. </p>
-
-    <definition>
-      <idx> steady-state vector </idx>
-      <idx> stationary vector </idx>
-      <p> If <m>A</m> is a stochastic matrix, we say that a
-      probability vector <m>\qvec</m>
-      is a <em>steady-state</em> or <em>stationary</em> vector if
-      <m>A\qvec = \qvec</m>.
-      </p>
-    </definition>
-
-    <p> An important question that arises from our previous example is
-    </p>
-
-    <question>
-      <p> If <m>A</m> is a stochastic matrix and <m>\xvec_k</m> a
-      Markov chain, does <m>\xvec_k</m> converge to a steady-state
-      vector? </p>
-    </question>
-
-    <activity>
-      <statement>
-      <p> Consider the matrices
-      <me>
-	A=\left[\begin{array}{rr}
-	0 \amp 1 \\
-	1 \amp 0 \\
-	\end{array}\right],\qquad
-	B=\left[\begin{array}{rr}
-	0.4 \amp 0.3 \\
-	0.6 \amp 0.7 \\
-	\end{array}\right]
-      </me>.
-      <ol marker="a.">
-	<li><p> Verify that both <m>A</m> and <m>B</m> are stochastic
-	matrices. </p></li>
-
-	<li><p> Find the eigenvalues of <m>A</m> and then find a
-	steady-state vector for <m>A</m>.  </p></li>
-
-	<li><p> We will form the Markov chain beginning with the
-	vector <m>\xvec_0 = \twovec{1}{0}</m> and defining
-	<m>\xvec_{k+1} = A\xvec_k</m>.  The Python cell below 
-	constructs the first <m>N</m> terms of the Markov chain with
-	the command <c>markov_chain(A, x0, N)</c>.  Define the matrix
-	<c>A</c> and vector <c>x0</c> and evaluate the cell to find
-	the first 10 terms of the Markov chain.
-	<sage language="python">
-	  <input>
-def markov_chain(A, x0, N):
-    result = [x0]
-    for i in range(N):
-        x_new = A@result[-1]
-        result.append(x_new)
-    return result
-
-## define the matrix A and x0
-A =
-x0 =
-markov_chain(A, x0, 10)
-	  </input>
-	</sage>
-	What do you notice about the Markov chain?  Does it converge
-	to the steady-state vector for <m>A</m>? </p></li>
-
-	<li><p> Now find the eigenvalues of <m>B</m> along with a
-	steady-state vector for <m>B</m>. </p></li>
-
-	<li><p> As before, find the first 10 terms in the Markov chain
-	beginning with <m>\xvec_0 = \twovec{1}{0}</m> and
-	<m>\xvec_{k+1} = B\xvec_k</m>.  What do you notice about the
-	Markov chain?  Does it converge to the steady-state vector for
-	<m>B</m>? </p></li>
-
-	<li><p> What condition on the eigenvalues of a stochastic
-	matrix will guarantee that a Markov chain will converge to a
-	steady-state vector? </p></li>
-      </ol></p>
-      </statement>
-
-      <solution>
-	<p><ol marker="a.">
-	  <li><p> If we add the entries in each column of <m>A</m>
-	  and each column of <m>B</m>, we obtain <m>1</m>.  Also, all
-	  the entries in both matrices are nonnegative.
-	  </p></li>
-
-	  <li><p> The matrix <m>A</m> has the eigenvalues <m>\lambda_1
-	  = 1</m> and <m>\lambda_2=-1</m> with associated eigenvectors
-	  <m>\vvec_1=\twovec11</m> and
-	  <m>\vvec_2=\twovec{-1}{1}</m>.  The steady-state vector is
-	  <m>\qvec=\twovec{\frac12}{\frac12}</m> as this is the unique
-	  probability vector in <m>E_1</m>. 
-	  </p></li>
-
-	  <li><p> The terms in the Markov chain are
-	  <me>
-	    \xvec_0 = \twovec10,
-	    \xvec_1 = \twovec01,
-	    \xvec_2 = \twovec10,
-	    \xvec_3 = \twovec01,\ldots
-	  </me>
-	  so the chain does not converge to any vector, much less the
-	  steady-state vector.
-	  </p></li>
-
-	  <li><p> The matrix <m>B</m> has eigenvalues
-	  <m>\lambda_1=1</m> and <m>\lambda_2=0.1</m> with associated
-	  eigenvectors <m>\vvec_1=\twovec12</m> and
-	  <m>\vvec_2=\twovec{-1}{1}</m>.  The unique steady-state
-	  vector is <m>\qvec=\twovec{\frac13}{\frac23}</m> since this
-	  is the only probability vector in <m>E_1</m>. </p></li>
-
-	  <li><p> Here we find
-	  <me>
-	    \begin{array}{rrrr}
-	    \xvec_0 = \twovec10, \amp
-	    \xvec_1 = \twovec{0.4}{0.6}, \amp
-	    \xvec_2 = \twovec{0.34}{0.66}, \\
-	    \xvec_3 = \twovec{0.334}{0.666}, \amp
-	    \xvec_4 = \twovec{0.3334}{0.6666}, \amp
-	    \xvec_5 = \twovec{0.33334}{0.66666},\amp\ldots
-	    \end{array}
-	  </me>
-	  which appears to be converging to the steady-state vector
-	  <m>\qvec=\twovec{\frac13}{\frac23}</m>.
-	  </p></li>
-
-	  <li><p> If there is one eigenvalue <m>\lambda_1=1</m> having
-	  multiplicity one with the other eigenvalues satisfying
-	  <m>|\lambda_j|\lt 1</m>, we can guarantee that any Markov
-	  chain will converge to a unique steady-state vector.
-	  </p></li>
-	</ol></p>
-      </solution>
-
-    </activity>
-
-    <p> As this activity implies, the eigenvalues of a stochastic
-    matrix tell us whether a Markov chain will converge to a
-    steady-state vector. 
-    Here are a few important facts about the
-    eigenvalues of a stochastic matrix.  
-    <ul>
-      <li><p> As is demonstrated in
-      <xref ref="exercise-stochastic-eigenvalue" />,
-      <m>\lambda=1</m> is
-      an eigenvalue of any stochastic matrix.  We usually order the
-      eigenvalues so it is the first eigenvalue meaning that
-      <m>\lambda_1=1</m>. </p> </li>
-
-      <li><p> All other eigenvalues satisfy the property that
-      <m>|\lambda_j| \leq 1</m>.  </p></li>
-
-      <li><p> Any stochastic matrix has at least one steady-state vector
-      <m>\qvec</m>. </p></li>
-
-    </ul></p>
-
-    <p> As illustrated in the activity, a Markov chain could fail to
-    converge to a steady-state vector if <m>|\lambda_2| = 1</m>.  This
-    happens for the matrix
-    <m>
-      A = \left[\begin{array}{rr}
-      0 \amp 1 \\
-      1 \amp 0 \\
-      \end{array}\right]
-    </m>, whose eigenvalues are <m>\lambda_1=1</m> and <m>\lambda_2 =
-    -1</m>. </p>
-
-    <p> However, if all but the first eigenvalue satisfy
-    <m>|\lambda_j|\lt 1</m>, then there is a unique steady-state vector
-    <m>\qvec</m> 
-    and any Markov chain will converge to <m>\qvec</m>.  This was the
-    case for the matrix
-    <m>
-      B = \left[\begin{array}{rr}
-      0.4 \amp 0.3 \\
-      0.6 \amp 0.7 \\
-      \end{array}\right]
-    </m>, whose eigenvalues are <m>\lambda_1=1</m> and <m>\lambda_2 =
-    0.1</m>.  In this case, any Markov chain will converge to the
-    unique steady-state vector <m>\qvec =
-    \twovec{\frac13}{\frac23}</m>. 
-    </p>
-
-    <p> In this way, we see that the eigenvalues of a stochastic matrix
-    tell us whether a Markov chain will converge to a steady-state
-    vector.  However, it is somewhat inconvenient to compute the
-    eigenvalues to answer this question.  Is there some way to 
-    conclude that every Markov chain will converge to a steady-state
-    vector without actually computing the eigenvalues?  It turns out
-    that there is a simple condition on the matrix <m>A</m> that
-    guarantees this.
-    </p>
-
-    <definition>
-      <idx> positive matrix </idx>
-      <p> We say that a matrix <m>A</m> is <em>positive</em> if either
-      <m>A</m> or some power <m>A^k</m> has all positive entries.
-      </p>
-    </definition>
-
-    <example>
-      <statement>
-	<p> The matrix
-	<m>A = \left[\begin{array}{rr}
-	0 \amp 1 \\
-	1 \amp 0 \\
-	\end{array}\right]
-	</m> is not positive.  We can see this because some of the
-	entries of <m>A</m> are zero and therefore not positive.  In
-	addition, we see that <m>A^2 = I</m>,
-	<m>A^3 = A</m> and so forth.  Therefore, every power of
-	<m>A</m> also has some zero entries, which means that <m>A</m>
-	is not positive.</p>
-
-	<p> The matrix
-	<m>B = \left[\begin{array}{rr}
-	0.4 \amp 0.3 \\
-	0.6 \amp 0.7 \\
-	\end{array}\right]
-	</m> is positive because every entry of <m>B</m> is
-	positive. </p>
-
-	<p> Also, the matrix
-	<m>C = \left[\begin{array}{rr}
-	0 \amp 0.5 \\
-	1 \amp 0.5 \\
-	\end{array}\right]
-	</m> clearly has a zero entry.  However,
-	<m>C^2 = \left[\begin{array}{rr}
-	0.5 \amp 0.25 \\
-	0.5 \amp 0.75 \\
-	\end{array}\right]
-	</m>, which has all positive entries.  Therefore, we see that
-	<m>C</m> is a positive matrix.</p>
-      </statement>
-    </example>
-
-    <p> Positive matrices are important because of the following
-    theorem. </p>
-
-    <theorem xml:id="theorem-perron">
-      <title> Perron-Frobenius </title>
-      <statement>
-	<p> If <m>A</m> is a positive stochastic matrix, then the
-	eigenvalues satisfy <m>\lambda_1=1</m> and <m>|\lambda_j| \lt
-	1</m> for <m>j\gt 1</m>.  This means that <m>A</m> has a
-	unique positive, steady-state vector <m>\qvec</m> and 
-	that every Markov chain defined by <m>A</m>
-	will converge to <m>\qvec</m>.
-	</p>
-      </statement>
-    </theorem>
-
-    <activity>
-      <statement>  <p> We will explore the meaning of the
-      Perron-Frobenius theorem in this activity. 
-      <ol marker="a.">
-	<li><p> Consider the matrix
-	<m>C = \left[\begin{array}{rr}
-	0 \amp 0.5 \\
-	1 \amp 0.5 \\
-	\end{array}\right]
-	</m>.
-	This is a positive matrix, as we saw in the
-	previous example.  Find the eigenvectors of <m>C</m> and
-	verify there is a unique
-	steady-state vector.</p></li>
-
-	<li><p> Using the Python cell below, construct the Markov chain
-	with initial vector <m>\xvec_0= \twovec{1}{0}</m> and describe
-	what happens to <m>\xvec_k</m> as <m>k</m> becomes large.
-	<sage language="python">
-	  <input>
-def markov_chain(A, x0, N):
-    result = [x0]
-    for i in range(N):
-        x_new = A@result[-1]
-        result.append(x_new)
-    return result
-
-## define the matrix C and x0
-C =
-x0 =
-print(markov_chain(C, x0, 10))
-	  </input>
-	</sage>
-	</p></li>
-
-	<li><p> Construct another Markov chain with initial vector
-	<m>\xvec_0=\twovec{0.2}{0.8}</m> and describe what happens to
-	<m>\xvec_k</m> as <m>k</m> becomes large. </p></li>
-
-	<li><p> Consider the matrix
-	<m>D = \left[\begin{array}{rrr}
-	0 \amp 0.5 \amp 0 \\
-	1 \amp 0.5 \amp 0 \\
-	0 \amp 0 \amp 1 \\
-	\end{array}\right]
-	</m> and compute several powers of <m>D</m> below.
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
-	Determine whether <m>D</m> is a positive matrix. </p></li>
-
-	<li><p> Find the eigenvalues of <m>D</m> and then find the
-	steady-state vectors.  Is there a unique steady-state
-	vector? </p></li>
-
-	<li><p> What happens to the Markov chain defined by <m>D</m>
-	with initial vector 
-	<m>\xvec_0 =\threevec{1}{0}{0}</m>?  What happens to the
-	Markov chain with initial vector
-	<m>\xvec_0=\threevec{0}{0}{1}</m>.  </p></li>
-
-	<li><p> Explain how the matrices <m>C</m> and <m>D</m>, which
-	we have considered in this activity, relate to the
-	Perron-Frobenius theorem. </p></li>
-      </ol></p>
-      </statement>
-
-      <solution>
-	<p><ol marker="a.">
-	  <li><p> We find that <m>C</m> has eigenvalues
-	  <m>\lambda_1=1</m> and <m>\lambda_2 = -\frac12</m> with
-	  eigenvectors <m>\vvec_1=\twovec12</m> and <m>\vvec_2 =
-	  \twovec{-1}{1}</m>.  Therefore, the unique steady-state
-	  vector is <m>\qvec=\twovec{\frac13}{\frac23}</m> for this is
-	  the only probability vector in the eigenspace
-	  <m>E_1</m>. </p></li>
-
-	  <li><p> We see that the Markov chain converges to the
-	  steady-state vector <m>\qvec=\twovec{\frac13}{\frac23}</m>
-	  as the Perron-Frobenius theorem tells us to
-	  expect. </p></li> 
-
-	  <li><p> Another Markov chain converges to the unique
-	  steady-state vector <m>\qvec=\twovec{\frac13}{\frac23}</m>
-	  as the Perron-Frobenius theorem tells us to
-	  expect. </p></li>
-
-	  <li><p> The matrix <m>D</m> is not positive because the
-	  first two entries in the bottom row of any
-	  power <m>D^k</m> are zero. </p></li>
-
-	  <li><p> The eigenvalues are <m>\lambda_1=1</m>, which has
-	  multiplicity two, and <m>\lambda_2=-1</m>.  The eigenspace
-	  <m>E_1</m> is two-dimensional and spanned by the probability
-	  vectors <m>\qvec_1=\threevec{\frac13}{\frac23}0</m> and
-	  <m>\qvec_2=\threevec001</m>.  Both of these vectors are
-	  steady-state vectors so there is not a unique steady-state
-	  vector. </p></li>
-
-	  <li><p> If <m>\xvec_0=\threevec100</m>, then the Markov
-	  chain converges to
-	  <m>\qvec_1=\threevec{\frac13}{\frac23}0</m>.  If
-	  <m>\xvec_0=\threevec001</m>, then the Markov 
-	  chain converges to
-	  <m>\qvec_1=\threevec001</m>.  </p></li>
-
-	  <li><p> Because <m>C</m> is a positive matrix, the
-	  Perron-Frobenius theorem tells us that there is a unique
-	  steady-state vector to which any Markov chain will
-	  converge.  Because <m>D</m> is not a positive matrix, the
-	  Perron-Frobenius theorem does not tell us anything, and,
-	  indeed, we see that there is not a unique steady-state
-	  vector and different Markov chains can converge to different
-	  vectors. </p></li>
-	</ol></p>
-      </solution>
-    </activity>
-
-  </subsection>
-	
-  <subsection xml:id="subsec-google">
-    <title> Google's PageRank algorithm </title>
-
-    <p> Markov chains and the Perron-Frobenius theorem are the central
-    ingredients in Google's PageRank algorithm, developed by Google to
-    assess the quality of web pages. </p>
-
-    <p> Suppose we enter <q>linear algebra</q> into Google's search
-    engine.  Google responds by telling us there are 138 million web
-    pages containing those terms.  On the first page, however, there
-    are links to ten web pages that Google judges to have the highest
-    quality and to be the ones we are most likely to be interested
-    in. How does Google assess the quality of web pages? </p>
-
-    <p> At the time this is being written, Google is tracking 35
-    trillion web pages.  Clearly, this is too many for humans to
-    evaluate.  Plus, human evaluators may inject their own biases into
-    their evaluations, perhaps even unintentionally.  Google's idea is
-    to use the structure of the Internet to assess the quality of web
-    pages without any human intervention.  For instance,
-    if a web page has quality content, other web pages will link to
-    it.  This means that the number of links to a page reflect the
-    quality of that page.  In addition, we would expect a page to have
-    even higher quality content if those links are coming from
-    pages that are themselves assessed to have high quality.  Simply
-    said, if many quality pages link to a page, that page must itself
-    be of high quality.  This
-    is the essence of the PageRank algorithm, which we introduce in
-    the next activity.  </p>
-
-    <activity>
-      <statement>
-      <sidebyside widths="50% 45%">
-	<p> We will consider a simple model of the Internet that has
-	three pages and links between them as shown here.  For
-	instance, page 1 links to both pages 2 and 3, but page 2 only
-	links to page 1.</p>
-	<figure xml:id="fig-google-intro">
-	  <image source="images/google-intro" />
-	  <caption> Our first Internet. </caption>
-	</figure>
-      </sidebyside>
-
-      <p> We will measure the quality of the <m>j^{th}</m> page with
-      a number <m>x_j</m>, which is called the PageRank of page
-      <m>j</m>.  The PageRank is determined by the following rule:  each
-      page divides its PageRank into equal pieces, one for each
-      outgoing link, and gives one piece to each of the pages it links
-      to.  A page's PageRank is the sum of all the PageRank it
-      receives from pages linking to it. </p>
-
-      <p> For instance, page 3 has two outgoing links.  It therefore
-      divides its PageRank <m>x_3</m> in half and gives half to page
-      1.  Page 2 has only one outgoing link so it gives all of its
-      PageRank <m>x_2</m> to page 1.  We therefore have
-      <me>
-	x_1 = x_2 + \frac12 x_3
-      </me>.
-      </p>
-
-      <p>
-	<ol marker="a.">
-	  <li><p> Find similar expressions for <m>x_2</m> and
-	  <m>x_3</m>. </p></li>
-
-	  <li><p> We now form the PageRank vector <m>\xvec =
-	  \threevec{x_1}{x_2}{x_3}</m>.  Find a matrix <m>G</m> such
-	  that the expressions for
-	  <m>x_1</m>, <m>x_2</m>, and <m>x_3</m> can be written in the
-	  form <m>G\xvec = \xvec</m>.  The matrix <m>G</m> is called
-	  the <q>Google matrix</q>. </p></li>
-
-	  <li><p> Explain why <m>G</m> is a stochastic
-	  matrix. </p></li>
-
-	  <li><p> Since <m>\xvec</m> is defined by
-	  the equation <m>G\xvec = \xvec</m>, any vector in the
-	  eigenspace <m>E_1</m> satisfies this equation.  So that we
-	  might work with a specific vector, we will define the
-	  PageRank vector to be the steady-state vector of the
-	  stochastic matrix <m>G</m>.  Find this steady state vector. 
-	  <sage language="python">
-	    <input>
-	    </input>
-	  </sage>
-	  </p></li>
-
-	  <li><p> The PageRank vector <m>\xvec</m> is composed of the
-	  PageRanks for each of the three pages.  Which page of the
-	  three is assessed to have the highest quality?  By referring
-	  to the structure of this small model of the Internet,
-	  explain why this is a good choice. </p></li>
-
-	  <li><p> If we begin with the initial vector <m>\xvec_0 =
-	  \threevec{1}{0}{0}</m> and form the Markov chain
-	  <m>\xvec_{k+1} = G\xvec_k</m>, what does the
-	  Perron-Frobenius theorem tell us about the long-term
-	  behavior of the Markov chain? </p></li>
-
-	  <li><p> Verify that this Markov chain converges to the steady-state
-	    PageRank vector.
-	    <sage language="python">
-	      <input>
-def markov_chain(A, x0, N):
-    result = [x0]
-    for i in range(N):
-        x_new = A@result[-1]
-        result.append(x_new)
-    return result
-
-## define the matrix G and x0
-G =
-x0 =
-print(markov_chain(G, x0, 20))
-	      </input>
-	    </sage>
-	  </p></li>
-	</ol>
-      </p>
-      </statement>
-
-      <solution>
-	<p><ol marker="a.">
-	  <li><p> Notice that page <m>2</m> receives half of the
-	  PageRank from pages
-	  <m>1</m> and <m>3</m>.  This means that
-	  <m>x_2=\frac12x_2+\frac12x_3</m>.  </p>
-
-	  <p> Also, page <m>3</m> receives half of the PageRank from
-	  page <m>1</m> and none from page <m>2</m> so we have
-	  <m>x_3=\frac12 x_1</m>.
-	  </p>
-
-	  <p> This means that
-	  <me>
-	    \begin{alignedat}{4}
-	    x_1 \amp {}={} \amp \amp \amp x_2 \amp {}+{} \amp
-	    \frac12x_3 \\
-	    x_2 \amp {}={} \amp \frac12x_1\amp \amp \amp {}+{} \amp
-	    \frac12x_3 \\
-	    x_3 \amp {}={} \amp \frac12x_1\amp \amp \amp \amp\text{.} \\
-	    \end{alignedat}
-	  </me>
-	  </p></li>
-
-	  <li><p> From the equations, we see that
-	  <m> G=\left[\begin{array}{rrr}
-	  0 \amp 1 \amp \frac12 \\
-	  \frac12 \amp 0 \amp \frac12 \\
-	  \frac12 \amp 0 \amp 0 \\
-	  \end{array}\right]</m>.
-	  </p></li>
-
-	  <li><p> All of the entries of <m>G</m> are nonnegative and
-	  the columns each add to <m>1</m>.  This tells us that
-	  <m>G</m> is stochastic.  </p></li>
-
-	  <li><p> We see that <m>\lambda_1=1</m> is an eigenvalue and
-	  that the eigenspace <m>E_1</m> is spanned by
-	  <m>\threevec432</m>.  The unique steady-state vector is then
-	  <m>\qvec=\threevec{\frac49}{\frac39}{\frac29}</m>. </p></li>
-
-	  <li><p> Page <m>1</m> is assessed to have the highest
-	  quality because its PageRank <m>x_1=\frac49</m> is the
-	  largest.  This makes sense as a reflection of the structure
-	  of this Internet.  Since Page <m>2</m> only links to Page
-	  <m>1</m> and not Page <m>3</m>, it is not as useful as Page
-	  <m>1</m>.  Furthermore, Page <m>3</m> only has one incoming
-	  link so it is not viewed by Page <m>2</m> as being useful.
-	  </p></li>
-
-	  <li><p> Since all the entries of <m>G^4</m> are positive, we
-	  can conclude that <m>G</m> is a positive matrix.  The
-	  Perron-Frobenius theorem tells us there is a unique
-	  steady-state vector, which we have already seen, and that
-	  any Markov chain will converge to it.
-	  </p></li>
-
-	  <li><p> We verify that the Markov chain converges to the
-	  unique steady-state vector
-	  <m>\qvec=\threevec{\frac49}{\frac39}{\frac29}</m>. </p></li>
-	</ol></p>
-      </solution>
-
-    </activity>
-
-    <p> This activity shows us two ways to find the PageRank vector.
-    In the first, we determine a steady-state vector directly by
-    finding a description of the eigenspace <m>E_1</m> and then
-    finding the appropriate scalar multiple of a basis vector that
-    gives us the steady-state vector.  To find a description of the
-    eigenspace <m>E_1</m>, however, we need to find the null space
-    <m>\nul(G-I)</m>.  Remember that the real Internet has
-    35 trillion pages so finding <m>\nul(G-I)</m> requires us to row
-    reduce a matrix with 35 trillion rows and columns.  As we saw in 
-    <xref ref="subsec-compute-effort" />, that is not computationally
-    feasible.  </p>
-
-    <p> As suggested by the activity, the second way to find the
-    PageRank vector is to use a Markov chain that converges to the
-    PageRank vector.  Since multiplying a vector by a matrix is
-    significantly less work than row reducing the matrix, this
-    approach is computationally feasible, and it is, in fact, how
-    Google computes the PageRank vector. </p>
-
-    <activity>
-      <statement>
-      <p> Consider the Internet with eight web pages, shown in <xref
-      ref="fig-google-irreducible" />. </p>
-
-      <figure xml:id="fig-google-irreducible">
-	<sidebyside width="90%">
-	  <image source="images/google-irreducible" />
-	</sidebyside>
-	<caption>
-	  A simple model of the Internet with eight web pages. 
-	</caption>
-      </figure>
-      
-      <p>
-	<ol marker="a.">
-	  <li><p> Construct the Google matrix <m>G</m> for this
-	  Internet.  Then use a Markov chain to find the steady-state
-	  PageRank vector <m>\xvec</m>.
-	  <sage language="python">
-	    <input>
-def markov_chain(A, x0, N):
-    result = [x0]
-    for i in range(N):
-        x_new = A@result[-1]
-        result.append(x_new)
-    return result
-
-## define the matrix G and x0
-G =
-x0 =
-markov_chain(G, x0, 20)		
-	    </input>
-	  </sage>
-	  </p></li>
-
-	  <li><p> What does this vector tell us about the relative
-	  quality of the pages in this Internet?  Which page has the
-	  highest quality and which the lowest? </p></li>
-
-	  <li><p> Now consider the Internet with five pages, shown in
-	  <xref ref="fig-google-cyclic" />. </p>
-
-	  <figure xml:id="fig-google-cyclic">
-	    <sidebyside width="50%">
-	      <image source="images/google-cyclic" />
-	    </sidebyside>
-	    <caption>
-	      A model of the Internet with five web pages. 
-	    </caption>
-	  </figure>	    
-
-	  <p> What happens when you begin the Markov chain with the
-	  vector <m>\xvec_0=\fivevec{1}{0}{0}{0}{0}</m>?  Explain why
-	  this behavior is consistent with the Perron-Frobenius
-	  theorem.  </p></li>
-
-	  <li><p> What do you think the PageRank vector for this
-	  Internet should be?  Is any one page of a higher quality
-	  than another? </p></li>
-
-	  <li><p> Now consider the Internet with eight web pages,
-	  shown in <xref ref="fig-google-reducible" />. </p>
-
-	  <figure xml:id="fig-google-reducible">
-	    <sidebyside width="90%">
-	      <image source="images/google-reducible" />
-	    </sidebyside>
-	    <caption>
-	      Another model of the Internet with eight web pages. 
-	    </caption>
-	  </figure>
-
-	  <p> Notice that this version of the Internet is identical to
-	  the first one that we saw in this activity, except that a single
-	  link from page 7 to page 1 has been removed.  We can
-	  therefore find its Google matrix <m>G</m> by slightly
-	  modifying the earlier matrix. </p>
-
-	  <p> What is the long-term behavior of a Markov chain defined
-	  by <m>G</m> and why is this behavior not desirable?  How is
-	  this behavior consistent with the Perron-Frobenius theorem? </p></li>
-	</ol>
-      </p>
-      </statement>
-
-      <solution>
-	<p><ol marker="a.">
-	  <li><p> After creating a Markov chain to find the
-	  steady-state vector, we find
-	  <me>
-	    \begin{array}{rrrr}
-	    x_1 = 0.057, \amp x_2=0.085, \amp x_3=0.028, \amp
-	    x_4=0.085, \\
-	    x_5 = 0.071, \amp x_6=0.212, \amp x_7=0.170, \amp
-	    x_8=0.292\text{.}
-	    \end{array}
-	  </me>
-	  </p></li>
-
-	  <li><p> This shows us that page <m>8</m> is judged to be the
-	  most important and page <m>3</m> the least important.  The
-	  pages <m>6</m>, <m>7</m>, and <m>8</m>, are the most
-	  important.  This makes sense because there are a lot of
-	  links between these pages without many links going out from
-	  these pages to the others.
-	  </p></li>
-
-	  <li><p> We have the matrix
-	  <me>
-	    G = \left[\begin{array}{rrrrr}
-	    0 \amp 0 \amp 0 \amp 0 \amp 1 \\
-	    1 \amp 0 \amp 0 \amp 0 \amp 0 \\
-	    0 \amp 1 \amp 0 \amp 0 \amp 0 \\
-	    0 \amp 0 \amp 1 \amp 0 \amp 0 \\
-	    0 \amp 0 \amp 0 \amp 1 \amp 0 \\
-	    \end{array}\right]\text{,}
-	  </me>
-	  which leads to the Markov chain
-	  <me>
-	    \xvec_0=\left[\begin{array}{c} 1\\ 0\\ 0 \\ 0
-	    \\0\end{array}\right], 
-	    \xvec_1=\left[\begin{array}{c} 0\\ 1\\ 0 \\ 0
-	    \\0\end{array}\right], 
-	    \xvec_2=\left[\begin{array}{c} 0\\ 0\\ 1 \\ 0
-	    \\0\end{array}\right], 
-	    \xvec_3=\left[\begin{array}{c} 0\\ 0\\ 0 \\ 1
-	    \\0\end{array}\right], 
-	    \xvec_4=\left[\begin{array}{c} 0\\ 0\\ 0 \\ 0
-	    \\1\end{array}\right], \ldots
-	  </me>
-	  This Markov chain does not converge to a steady-state
-	  vector. </p></li>
-
-	  <li><p> As all of the pages seem equally important, we
-	  should expect the PageRank vector to be
-	  <me>
-	    \xvec=\left[\begin{array}{c}
-	    \frac 15 \\
-	    \frac 15 \\
-	    \frac 15 \\
-	    \frac 15 \\
-	    \frac 15
-	    \end{array}\right]\text{.}
-	  </me>
-	  </p></li>
-
-	  <li><p> After generating some terms of a Markov chain, we
-	  see that 
-	  <me>
-	    \begin{array}{rrrr}
-	    x_1 = 0.000, \amp x_2=0.000, \amp x_3=0.000, \amp
-	    x_4=0.000, \\
-	    x_5 = 0.120, \amp x_6=0.240, \amp x_7=0.240, \amp
-	    x_8=0.400\text{.}
-	    \end{array}
-	  </me>
-	  These are not the components of a steady-state vector
-	  because some of the entries are zero.  The Google matrix
-	  <m>G</m> cannot be a positive matrix in this example.  This
-	  is not desirable because we lose any information about the
-	  importance of the first four pages.  All the PageRank drains
-	  out of the left side into the pages on the right side.
-	  </p></li>
-	</ol></p>
-      </solution>
-    </activity>
-
-    <p> The Perron-Frobenius theorem <xref ref="theorem-perron" />
-    tells us that a Markov chain <m>\xvec_{k+1}=G\xvec_k</m> converges
-    to a unique steady-state vector when the matrix <m>G</m> is
-    positive.  This means that <m>G</m> or some power of <m>G</m>
-    should have only positive entries.  Clearly, this is not the case
-    for the matrix formed from the Internet in <xref
-    ref="fig-google-cyclic" />.  </p>
-
-    <p> We can understand the problem with the Internet shown in <xref
-    ref="fig-google-reducible" /> by adding a box around some of the
-    pages as shown in <xref ref="fig-google-reducible-box" />.  Here
-    we see that the pages outside of the box give up all of their
-    PageRank to the pages inside the box.  This is not desirable
-    because the PageRanks of the pages outside of the box are found to
-    be zero.  Once again, the Google matrix <m>G</m> is not a positive
-    matrix. </p>
-
-    <figure xml:id="fig-google-reducible-box">
-      <sidebyside width="90%">
-	<image source="images/google-reducible-box" />
+    <figure xml:id="fig-det-orientation">
+      <sidebyside width="60%">
+	<image source="images/det-orientation" />
       </sidebyside>
       <caption>
-	The pages outside the box give up all of their PageRank to the
-	pages inside the box.
+	The vectors on the left are positively oriented while the ones
+	on the right are negatively oriented.
       </caption>
     </figure>
 
-    <p> Google solves this problem by slightly modifying the Google
-    matrix <m>G</m> to obtain a positive matrix <m>G'</m>.  To
-    understand this, think of the entries in the Google matrix as
-    giving the probability that an Internet user follows a link from
-    one page of another.  To create a positive matrix, we will allow
-    that user to randomly jump to any other page on the Internet with
-    a small probability.   </p>
+    <definition>
+      <statement>
+	<idx> determinant </idx>
+	<p> Suppose a <m>2\times2</m> matrix <m>A</m> has columns
+	<m>\vvec_1</m> and <m>\vvec_2</m>.  If the pair of vectors is
+	positively oriented, then the <term>determinant</term> of
+	<m>A</m>, denoted <m>\det(A)</m>, is the area of the
+	parallelogram formed by <m>\vvec_1</m> and <m>\vvec_2</m>.
+	If the pair is negatively oriented, then <m>\det(A)</m> is
+	minus the area of the parallelogram. </p>
+      </statement>
+    </definition>
 
-    <p> To make sense of this, suppose that there are <m>N</m> pages
-    on our internet.  The matrix
-    <me>
-      H_n = \left[\begin{array}{rrrr}
-      \frac1n \amp \frac1n \amp \ldots \amp \frac1n \\
-      \frac1n \amp \frac1n \amp \ldots \amp \frac1n \\
-      \vdots \amp \vdots \amp \ddots \amp \vdots \\
-      \frac1n \amp \frac1n \amp \ldots \amp \frac1n \\
-      \end{array}\right]
-    </me>
-    is a positive stochastic matrix describing a process where we can
-    move from 
-    any page to another with equal probability.  To form the modified
-    Google matrix <m>G'</m>, we choose a parameter <m>\alpha</m> that
-    is used to mix <m>G</m> and <m>H_n</m> together;  that is,
-    <m>G'</m> is the positive stochastic matrix
-    <me>
-      G' = \alpha G +(1-\alpha)H_n
-    </me>.
-    In practice, it is thought that Google uses a value of
-    <m>\alpha=0.85</m> (Google doesn't publish this number as it is
-    a trade secret) so that we have
-    <me>
-      G' = 0.85 G + 0.15H_n
-    </me>.
-    Intuitively, this means that an Internet user will randomly follow
-    a link from one page to another 85% of the time and will randomly
-    jump to any other page on the Internet 15% of the time.  Since the
-    matrix <m>G'</m> is positive, the Perron-Frobenius theorem tells
-    us that any Markov chain will converge to a
-    unique steady-state vector that we call the PageRank vector. </p>
+    <example xml:id="example-det-identity">
+      <statement>
+	<p>
+	  Consider the determinant of the identity matrix
+	  <me>I =
+	  \left[\begin{array}{rr} 1\amp 0 \\ 0 \amp 1 \\
+	  \end{array}\right]
+	  =
+	  \left[\begin{array}{rr} \evec_1 \amp \evec_2 \\
+	  \end{array}\right]
+	  </me>.
+	  As seen on the left of <xref ref="fig-det-identity" />,
+	  the vectors <m>\vvec_1 = \evec_1</m> 
+	  and <m>\vvec_2=\evec_2</m> form a positively oriented pair.
+	  Since the parallelogram they form is a <m>1\times1</m> square,
+	  we have <m>\det(I) = 1.</m>
+	</p>
+
+	<figure xml:id="fig-det-identity">
+	  <sidebyside width="75%">
+	    <image source="images/det-identity" />
+	  </sidebyside>
+	  <caption>
+	    The determinant <m>\det(I) = 1</m>, as seen on the left.
+	    On the right, we see that <m>\det(A) = -2</m>
+	    where <m>A</m> is the matrix whose columns are shown.
+	  </caption>
+	</figure>
+
+	<p> Now consider the matrix
+	  <me>A = 
+	  \left[\begin{array}{rr} -2\amp 0 \\ 0 \amp 1 \\
+	  \end{array}\right]
+	  =
+	  \left[\begin{array}{rr} \vvec_1 \amp \vvec_2 \\
+	  \end{array}\right]
+	  </me>.
+	  As seen on the right of <xref ref="fig-det-identity" />, the
+	  vectors <m>\vvec_1</m> and <m>\vvec_2</m> form a negatively
+	  oriented pair.  The parallelogram they define is a
+	  <m>2\times1</m> rectangle so we have <m>\det(A) = -2</m>.
+	  </p>
+      </statement>
+    </example>
 
     <activity>
       <statement>
-      <p> The following Python cell will generate the Markov chain for
-      the modified Google matrix <m>G</m> if you simply enter the
-      original Google matrix <m>G</m> in the appropriate line.
-	  <sage language="python">
-	    <input>
-def modified_markov_chain(A, x0, N):
-    r = A.shape[0]
-    A = 0.85 * A + 0.15 * np.full((r,r),  1.0 / r)	      
-    result = [x0]
-    for i in range(N):
-        x_new = A@result[-1]
-        result.append(x_new)
-    return result
+      <p> In this activity, we will find the determinant of some
+      simple <m>2\times2</m> matrices and discover some important
+      properties of determinants.
+      </p>
 
-## Define original Google matrix G and initial vector x0.
-## The function above finds the modified Google matrix
-## and resulting Markov chain 
-G =
-x0 =
-print(modified_markov_chain(G, x0, 20).round(3))		
-	    </input>
-	  </sage>
-      
-      <ol marker="a.">
-	<li><p> Consider the original Internet with three pages shown
-	in <xref ref="fig-google-intro" /> and find the PageRank vector
-	<m>\xvec</m> using the modified Google matrix in the Python cell
-	above. How does this modified PageRank vector compare to the
-	vector we found using the original Google matrix <m>G</m>?
+      <figure xml:id="js-det">
+	<caption>
+	  The geometric meaning of the determinant of a matrix.
+	</caption>
+
+	<interactive xml:id="interactive-det"
+		     platform="javascript" width="100%"
+		     aspect="100:80"
+		     source="jslibrary/figures.js
+			     jslibrary/det.js"
+		     preview="preview/det-preview.png">
+	  <sbsgroup>
+	    <sidebyside width="60%">
+	      <slate xml:id="det-sliders"
+		     aspect="9:2"
+		     surface="canvas" />
+	    </sidebyside>
+	    <sidebyside width="60%">
+	      <slate xml:id="det-canvas" aspect="1:1" surface="canvas" />
+	    </sidebyside>
+	  </sbsgroup>
+	  <instructions>
+	    <p>
+	      The sliders in the diagram below allow you to choose a
+	      matrix <m>A=\begin{bmatrix}a \amp b \\
+	      c \amp d \\
+	      \end{bmatrix}</m>.  The two vectors representing the columns
+	      of the matrix, along with the parallelograms they define,
+	      are shown below.
+	    </p>
+	  </instructions>
+	  <static>
+	    <sidebyside width="100%">
+	      <p>
+		There is an interactive diagram at
+		<url href="http://gvsu.edu/s/0J9"
+		     visual="gvsu.edu/s/0J9"/>
+		that accompanies this activity.
+	      </p>
+	    </sidebyside>
+	    <sidebyside width="50%">
+	      <image source="preview/det-preview.png"/>
+	    </sidebyside>
+	  </static>
+	</interactive>
+      </figure>
+
+      <p> <ol marker="a.">
+	<li><p>
+	  Use the diagram to find the determinant of the matrix
+	  <m>\left[\begin{array}{rr} -\frac12 \amp 0 \\ 0 \amp 2
+	  \end{array}\right]</m>.
+	  Along with <xref ref="example-det-identity"/>, what
+	  does this lead you to believe is generally true about 
+	  the determinant of a diagonal matrix?
 	</p></li>
 
-	<li><p> Find the modified PageRank vector for the Internet
-	shown in <xref ref="fig-google-cyclic" />.  Explain why this
-	vector seems to be the correct one. </p></li>
+	<li><p> Use the diagram to find the determinant of the matrix
+	<m>\left[\begin{array}{rr} 0 \amp 1 \\
+	1 \amp 0 \\
+	\end{array}\right]</m>.  What is the geometric effect of the
+	matrix transformation defined by this matrix?
+	</p></li>
 
-	<li><p> Find the modified PageRank vector for the Internet
-	shown in <xref ref="fig-google-reducible" />.  Explain why
-	this modified PageRank vector fixes the problem that appeared
-	with the original PageRank vector. </p></li>
+	<li><p> Use the diagram to find the determinant of the matrix
+	<m>\left[\begin{array}{rr} 2 \amp 1 \\
+	0 \amp 1 \\
+	\end{array}\right]</m>.  
+	More generally, what do you notice about the determinant of any matrix
+	of the form
+	<m>\left[\begin{array}{rr} 2 \amp k \\
+	0 \amp 1 \\
+	\end{array}\right]</m>?  What does this say about the
+	determinant of an upper triangular matrix?
+	</p></li>
+
+	<li><p> Use the diagram to find the determinant of any matrix
+	of the form
+	<m>\left[\begin{array}{rr} 2 \amp 0 \\
+	k \amp 1 \\
+	\end{array}\right]</m>.  What does this say about the
+	determinant of a 
+	lower triangular matrix?
+	</p></li>
+
+	<li><p> Use the diagram to find the determinant of the matrix
+	<m>\left[\begin{array}{rr} 1 \amp -1 \\
+	-2 \amp 2 \\
+	\end{array}\right]</m>.   In general,
+	what is the determinant of a matrix whose columns are linearly
+	dependent? 
+	</p></li>
+
+	<li><p> Consider the matrices
+	<me>
+	  A = \left[\begin{array}{rr}
+	  2 \amp 1 \\
+	  2 \amp -1 \\
+	  \end{array}\right],~~~
+	  B = \left[\begin{array}{rr}
+	  1 \amp 0 \\
+	  0 \amp 2 \\
+	  \end{array}\right]
+	  </me>.
+	  Use the diagram to find the determinants of <m>A</m>,
+	  <m>B</m>, and <m>AB</m>.  What does this suggest is
+	  generally true about the 
+	  relationship of <m>\det(AB)</m> to <m>\det(A)</m> and
+	  <m>\det(B)</m>?
+	</p></li>
       </ol></p>
       </statement>
 
       <solution>
 	<p><ol marker="a.">
-	  <li><p> The modified Google matrix has the steady-state
-	  vector <m>\threevec{0.433}{0.333}{0.234}</m>, which compares
-	  to <m>\threevec{0.444}{0.333}{0.222}</m>, the steady-state
-	  vector of the original Google matrix.  These vectors are
-	  quite close so it appears that the modification does not
-	  change the PageRank significantly.
+	  <li><p> The determinant is <m>-1</m> because the vectors are
+	  negatively oriented and the rectangle has sides of length
+	  <m>\frac12</m> and <m>2</m>.  
+	  The determinant of a diagonal matrix seems to be
+	  the product of the diagonal entries.
 	  </p></li>
 
-	  <li><p> We see that the Markov chain generated by the
-	  modified Google matrix converges to the steady-state vector
-	  <m>
-	    \left[\begin{array}{c}
-	    \frac15 \\
-	    \frac15 \\
-	    \frac15 \\
-	    \frac15 \\
-	    \frac15 \\
-	    \end{array}\right]
-	  </m>, which seems correct as all five pages should have the
-	  same PageRank.
+	  <li><p> The matrix transformation is a reflection over the
+	  line <m>y=x</m> and we see that the determinant is
+	  <m>-1</m>.
 	  </p></li>
 
-	  <li><p> We find that
-	  <me>
-	    \begin{array}{rrrr}
-	    x_1 = 0.019, \amp x_2=0.072, \amp x_3=0.027, \amp
-	    x_4=0.080, \\
-	    x_5 = 0.106, \amp x_6=0.213, \amp x_7=0.179, \amp
-	    x_8=0.305\text{.}
-	    \end{array}
-	  </me>
-	  Now the entries are all positive so we can make assessments about
-	  the relative quality of all the pages.  Due to the presence
-	  of the matrix <m>H_n</m> in the modified Google matrix, the
-	  PageRank is allowed to flow back from the four pages on the
-	  right to the four pages on the left. </p></li>
+	  <li><p> The determinant will continue to be <m>2</m> for any
+	  value of <m>k</m>.  This illustrates the fact that the
+	  determinant of an upper triangular matrix equals the product
+	  of its diagonal entries.
+	  </p></li>
+
+	  <li><p> The same reasoning tells us that this determinant is
+	  <m>2</m> and, in fact, the determinant of a lower triangular
+	  matrix equals the product of its diagonal entries.
+	  </p></li>
+
+	  <li><p> The determinant of this matrix is <m>0</m> because
+	  the parallelogram formed by the vector has no area.  This
+	  suggests that the determinant of a matrix whose columns are
+	  linearly dependent is <m>0</m>.  </p></li>
+
+	  <li><p> We find that <m>\det(A) = -4</m>, <m>\det(B) = 2</m>,
+	  and <m>\det(AB) = -8</m>.  This suggests that
+	  <m>\det(AB) = \det(A) \det(B)</m>.
+	  </p></li>
 	</ol></p>
       </solution>
 	  
     </activity>
 
-    <p> The ability to access almost anything we want to know through
-    the Internet is something we take for granted in today's society.
-    Without Google's PageRank algorithm, however, the Internet would
-    be a chaotic place indeed; imagine trying to find a useful web
-    page among the 30 trillion available pages without it.  (There are, of
-    course, other search algorithms, but Google's is the most widely
-    used.)  The fundamental role that Markov chains and the
-    Perron-Frobenius theorem play in Google's algorithm demonstrates
-    the vast power that mathematics has to shape our society. </p>
+    <p> Later in this section, we will learn an algebraic
+    technique for computing determinants.  In the meantime, 
+    we will simply note that we can define determinants for <m>n\times
+    n</m> matrices by measuring the volume of a box defined by the columns
+    of the matrix, even if this box resides in <m>\real^n</m> for
+    some very large <m>n</m>.  
+    </p>
+
+    <sidebyside widths="60% 40%">
+      <p> For example, the columns of a <m>3\times3</m> matrix
+      <m>A</m> will form a parallelpiped, like the one shown here, and
+      there is a means by which we can classify sets of such vectors
+      as either positively or negatively oriented.  Therefore, we can
+      define the determinant <m>\det(A)</m> in terms of the volume of
+      the parallelpiped, but we will not worry about the details here.
+      </p>
+      <image source="images/det-3d" />
+    </sidebyside>
+
+    <p> Though the previous activity deals with determinants of
+    <m>2\times2</m> matrices, it illustrates some important properties of
+    determinants that are true more generally.  
+    <ul>
+      <li><p> If <m>A</m> is a triangular matrix, then <m>\det(A)</m>
+      equals the product of the entries on the diagonal.  For example,
+      <me>
+	\det\left[\begin{array}{rr} 2 \amp 2 \\
+	0 \amp 3 \\ \end{array}\right] = 2\cdot 3 = 6
+	</me>, since the two parallelograms in <xref
+	ref="fig-parallelogram-f" /> have equal area.
+      </p>
+
+      <figure xml:id="fig-parallelogram-f">
+	<sidebyside widths="30% 30%">
+	  <image source="images/parallelogram-f" />
+	  <image source="images/parallelogram-b" />
+	</sidebyside>
+	<caption> The determinant of a triangular matrix equals the
+	product of its diagonal entries.
+	</caption>
+      </figure>
+      </li>
+
+      <li><p> We also saw that
+      <me>
+	\det \left[\begin{array}{rr}
+	0 \amp 1 \\
+	1 \amp 0 \\
+	\end{array}\right] = -1
+      </me>
+      because the columns form a negatively oriented pair.
+      You may remember from <xref ref="subsec-triangular-invertible"/>
+      that a matrix such as this is obtained by interchanging two rows
+      of the identity matrix.  
+      </p></li>
+
+      <li><p> The determinant satisfies a multiplicative property,
+      which says that
+      <me>
+	\det(AB) = \det(A)\det(B).
+      </me>
+      Rather than simply thinking of the
+      determinant as the area of a parallelogram, we may also think
+      of it as a factor by which areas are scaled under the matrix
+      transformation defined by the matrix.  Applying the matrix
+      transformation defined by <m>B</m> will scale area by
+      <m>\det(B)</m>.  If we then compose <m>B</m> with the matrix
+      transformation defined by <m>A</m>, area will scale a second
+      time by the factor <m>\det(A)</m>.  The net effect is that the
+      matrix transformation defined by <m>AB</m> scales area by
+      <m>\det(A)\det(B)</m> so that <m>\det(AB)=\det(A)\det(B)</m>.
+      </p></li>
+    </ul>
+    </p>
+
+    <proposition xml:id="proposition-det-properties">
+      <statement>
+	<p>
+	  The determinant satisfies these properties:
+	  <ul>
+	    <li>
+	      <p>
+		The determinant of a triangular matrix equals the
+		product of its diagonal entries.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>P</m> is obtained by interchanging two rows of
+		the identity matrix, then <m>\det(P) = -1</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\det(AB) = \det(A)\det(B)</m>.
+	      </p>
+	    </li>
+	  </ul>
+	</p>
+      </statement>
+    </proposition>
+
+  </subsection>
+
+  <subsection>
+    <title> Determinants and invertibility </title>
+
+    <p>
+      Perhaps the most important property of determinants also
+      appeared in the previous activity.  We saw that when the columns
+      of the matrix <m>A</m> are linearly dependent, the
+      parallelogram formed by those vectors folds down onto a line.
+      For instance, if <m>A=\begin{bmatrix} 1 \amp 2 \\ -1 \amp -2 \\
+      \end{bmatrix}</m>, then the resulting parallelogram, as shown
+      in
+      <xref ref="figure-linear-dep-det"/>, has zero area, which means
+      that <m>\det(A)=0</m>. 
+    </p>
+
+    <figure xml:id="figure-linear-dep-det">
+      <caption>
+	When the columns of <m>A</m> are linearly dependent, we find
+	that <m>\det(A) = 0</m>.
+      </caption>
+      <sidebyside width="40%">
+	<image source="images/parallelogram-g"/>
+      </sidebyside>
+    </figure>
+
+    <p>
+      The condition that the columns of <m>A</m> are linearly
+      dependent is precisely the same as the condition that <m>A</m>
+      is not invertible.  This leads us to believe that <m>A</m> is
+      not invertible if and only if its determinant is zero.  
+      The following proposition expresses this thought.
+    </p>
+
+    <proposition xml:id="prop-invertible-det">
+      <statement>
+	<p> The matrix <m>A</m> is invertible if and only if <m>\det(A)
+	\neq 0</m>.
+	</p>
+      </statement>
+    </proposition>
+
+    <p> To understand this proposition more fully, let's remember that the
+    matrix <m>A</m> is invertible if and only if it is row equivalent
+    to the identity matrix <m>I</m>.  We will therefore consider how
+    the determinant changes when we perform row operations on a matrix.
+    Along the way, we will discover an effective means to compute the
+    determinant.
+    </p>
+
+    <p> In <xref ref="subsec-triangular-invertible" />, we saw how to
+    describe the three row operations, scaling, interchange, and 
+    replacement, using matrix multiplication.  If we perform a row
+    operation on the matrix <m>A</m> to obtain the matrix <m>A'</m>,
+    we would like to relate <m>\det(A)</m> and <m>\det(A')</m>.  To do
+    so, 
+    remember that
+    <ul>
+      <li> <p> Scalings are performed by multiplying a matrix <m>A</m>
+      by a diagonal
+      matrix, such as 
+      <me>
+	S = \left[\begin{array}{rrr}
+	1 \amp 0 \amp 0 \\
+	0 \amp 3 \amp 0 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}\right],
+      </me>
+      which has the effect of multiplying the second row of <m>A</m>
+      by <m>3</m> to obtain <m>A'</m>.  Since <m>S</m> is diagonal, we
+      know that its determinant is the product of its diagonal entries
+      so that <m>\det(S) = 3</m>.  
+      This means that <m>A'=SA</m> and therefore
+      <me>\det(A')=\det(S)\det(A) = 3\det(A).</me> In general, if we
+      scale a row of <m>A</m> by 
+      <m>k</m>, we have <m>\det(A') =
+      k\det(A)</m>.  </p></li>
+
+      <li><p> Interchanges are performed by matrices such
+      as
+      <me>
+	P = \left[\begin{array}{rrr}
+	0 \amp 1 \amp 0 \\
+	1 \amp 0 \amp 0 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}\right],
+      </me>
+      which has the effect of interchanging the first and second rows
+      of <m>A</m>.  As we saw in <xref
+      ref="proposition-det-properties"/>, <m>\det(P) = -1</m>.
+      Therefore, when <m>PA=A'</m>, we have <me>\det(A')=\det(P)
+      \det(A) = -\det(A).</me> In other words, <m>\det(A') =
+      -\det(A)</m> when we perform an interchange.  </p></li>
+
+      <li><p> Row replacement operations are performed by matrices
+      such as
+      <me>
+	R = \left[\begin{array}{rrr}
+	1 \amp 0 \amp 0 \\
+	0 \amp 1 \amp 0 \\
+	-2 \amp 0 \amp 1 \\
+	\end{array}\right],
+      </me>
+      which multiplies the first row by <m>-2</m> and adds the result
+      to the third row.  Since this is a lower triangular matrix, we
+      know that the determinant is the product of the diagonal entries,
+      which says that <m>\det(R) = 1</m>.  This means that when
+      <m>RA = A'</m>,
+      we have <m>\det(A')=\det(R)\det(A) = \det(A)</m>.  In
+      other words, a row replacement does not change the determinant.
+      </p></li>
+    </ul>
+    </p>
+
+    <proposition xml:id="proposition-det-row-operations">
+      <title> The effect of row operations on the determinant </title>
+      <statement>
+	<p>
+	  <ul>
+	    <li>
+	      <p>
+		If <m>A'</m> is obtained from <m>A</m> by scaling a
+		row by <m>k</m>, then <m>\det(A') = k\det(A)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>A'</m> is obtained from <m>A</m> by
+		interchanging two rows, then <m>\det(A') =
+		-\det(A)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>A'</m> is obtained from <m>A</m> by performing a
+		replacement operation, then <m>\det(A') = \det(A)</m>.
+	      </p>
+	    </li>
+	  </ul>
+	</p>
+      </statement>
+    </proposition>
+    
+    <activity>
+      <statement>
+      <p> We will investigate the connection between the determinant
+      of a matrix and its invertibility using Gaussian elimination.
+      <ol marker="a.">
+	<li><p> Consider the two upper triangular matrices
+	<me>
+	  U_1 =
+	  \left[\begin{array}{rrr}
+	  1 \amp -1 \amp 2 \\
+	  0 \amp 2 \amp 4 \\
+	  0 \amp 0 \amp -2 \\
+	  \end{array}\right],~~~
+	  U_2 =
+	  \left[\begin{array}{rrr}
+	  1 \amp -1 \amp 2 \\
+	  0 \amp 2 \amp 4 \\
+	  0 \amp 0 \amp 0 \\
+	  \end{array}\right].
+	</me>
+	Remembering <xref
+	ref="proposition-triangular-invertibility"/>, 
+	which of the matrices <m>U_1</m> and <m>U_2</m> are
+	invertible?  What are the determinants <m>\det(U_1)</m> and
+	<m>\det(U_2)</m>? 
+	</p></li>
+
+	<li><p> Explain why an upper triangular matrix is invertible
+	if and only if its determinant is not zero.
+	</p></li>
+
+	<li><p> 
+	  Let's now consider the matrix
+	  <me>
+	    A = 
+	    \left[\begin{array}{rrr}
+	    1 \amp -1 \amp 2 \\
+	    -2 \amp 2 \amp -6 \\
+	    3 \amp -1 \amp 10 \\
+	    \end{array}\right]
+	  </me> and begin the Gaussian elimination process
+	  with a row replacement operation
+	  <me>
+	    A = 
+	    \left[\begin{array}{rrr}
+	    1 \amp -1 \amp 2 \\
+	    -2 \amp 2 \amp -6 \\
+	    3 \amp -1 \amp 10 \\
+	    \end{array}\right]
+	    \sim
+	    \left[\begin{array}{rrr}
+	    1 \amp -1 \amp 2 \\
+	    0 \amp 0 \amp -2 \\
+	    3 \amp -1 \amp 10 \\
+	    \end{array}\right]
+	    = A_1
+	    </me>.
+	    What is the relationship between <m>\det(A)</m> and
+	    <m>\det(A_1)</m>?
+	</p></li>
+
+	<li><p> Next we perform another row replacement operation:
+	<me>
+	  A_1=
+	\left[\begin{array}{rrr}
+	1 \amp -1 \amp 2 \\
+	0 \amp 0 \amp -2 \\
+	3 \amp -1 \amp 10 \\
+	\end{array}\right]
+	\sim
+	\left[\begin{array}{rrr}
+	1 \amp -1 \amp 2 \\
+	0 \amp 0 \amp -2 \\
+	0 \amp 2 \amp 4 \\
+	\end{array}\right]
+	= A_2
+	</me>.
+	What is the relationship between <m>\det(A)</m> and
+	<m>\det(A_2)</m>? 
+	</p></li>
+
+	<li><p> Finally, we perform an interchange:
+	<me>
+	  A_2 =
+	  \left[\begin{array}{rrr}
+	1 \amp -1 \amp 2 \\
+	0 \amp 0 \amp -2 \\
+	0 \amp 2 \amp 4 \\
+	\end{array}\right]
+	\sim
+	  \left[\begin{array}{rrr}
+	  1 \amp -1 \amp 2 \\
+	  0 \amp 2 \amp 4 \\
+	  0 \amp 0 \amp -2 \\
+	  \end{array}\right]
+	  = U
+	</me>
+	to arrive at an upper triangular matrix <m>U</m>.  What is the
+	relationship between <m>\det(A)</m> and <m>\det(U)</m>?
+	</p></li>
+
+	<li><p> Since <m>U</m> is upper
+	triangular, we can compute its determinant, which allows us to
+	find <m>\det(A)</m>.  What is <m>\det(A)</m>?  Is <m>A</m>
+	invertible?
+	</p></li>
+
+	<li><p> Now consider the matrix
+	<me>
+	  A = 
+	  \left[\begin{array}{rrr}
+	  1 \amp -1 \amp 3 \\
+	  0 \amp 2 \amp -2 \\
+	  2 \amp 1 \amp 3 \\
+	  \end{array}\right].
+	</me>
+	Perform a sequence of row operations to find an upper
+	triangular matrix <m>U</m> that is row equivalent to
+	<m>A</m>.  Use this to determine <m>\det(A)</m> and whether
+	<m>A</m> invertible?
+	</p></li>
+
+	<li><p> Suppose we apply a sequence of row operations on a
+	matrix <m>A</m> to obtain <m>A'</m>.  Explain why <m>\det(A)
+	\neq 0</m> if and only if <m>\det(A') \neq 0</m>.
+	</p></li>
+
+	<li><p> Explain why an <m>n\times n</m> matrix
+	<m>A</m> is invertible if and only if <m>\det(A) \neq 0</m>.
+	</p></li>
+
+      </ol></p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> The matrix <m>U_1</m> is invertible because we see
+	  there is a pivot position in every row and column.  The
+	  matrix <m>U_2</m>, however, is not invertible because there
+	  is not a pivot position in the third row.
+	  </p></li>
+
+	  <li><p> The determinant of an upper triangular matrix equals
+	  the product of its diagonal entries.  Consequently, if the
+	  determinant of an upper triangular matrix is not zero, then
+	  each of its diagonal entries must be nonzero.  In this case,
+	  there is a pivot position in every row and every column so
+	  that the matrix is invertible.  </p></li>
+
+	  <li><p> Row replacement operations do not change the
+	  determinant so <m>\det(A) = \det(A_1)</m>.
+	  </p></li>
+
+	  <li><p> In the same way, <m>\det(A) =
+	  \det(A_2)</m>. </p></li> 
+
+	  <li><p> Interchanges change the sign of the determinant so
+	  <m>\det(A) = -\det(U)</m>.
+	  </p></li>
+
+	  <li><p> The determinant <m>\det(U) = -4</m> since it is the
+	  product of the diagonal entries of <m>U</m>.  This means
+	  that <m>\det(A) = 4</m>.  We see that <m>A</m> is invertible
+	  because <m>U</m>, which has a pivot position in every row
+	  and every column, is invertible.
+	  </p></li>
+
+	  <li><p> Beginning with a row replacement operation, we
+	  arrive at
+	  <me>A_1=\left[\begin{array}{rrr}
+	  1 \amp - 1 \amp 3 \\
+	  0 \amp 2 \amp -2 \\
+	  0 \amp -3 \amp 3 \\
+	  \end{array}\right]</me>.  We next scale the second row by
+	  <m>\frac12</m> to obtain
+	  <me>A_2=\left[\begin{array}{rrr}
+	  1 \amp - 1 \amp 3 \\
+	  0 \amp 1 \amp -1 \\
+	  0 \amp -3 \amp 3 \\
+	  \end{array}\right]</me>.  Another row replacement operation
+	  gives
+	  <me>A_3=\left[\begin{array}{rrr}
+	  1 \amp - 1 \amp 3 \\
+	  0 \amp 1 \amp -1 \\
+	  0 \amp 0 \amp 0 \\
+	  \end{array}\right]</me>.  Putting these operations together,
+	  we see that <m>\det(A) = 2\det(U) = 0</m>.  In this case,
+	  <m>A</m> is not invertible because <m>U</m>, which has a row
+	  without a pivot position, is not invertible.
+	  </p></li>
+
+	  <li><p> Performing one of the three row operations either
+	  leaves the determinant unchanged (row replacement), changes
+	  its sign (interchange), or multiplies it by a nonzero number
+	  (scaling).  Therefore, if we begin with a matrix whose
+	  determinant is not zero, the determinant remains not zero
+	  after any row operation is applied.
+	  </p></li>
+
+	  <li><p> If we apply a sequence of row operations to <m>A</m>
+	  to find a
+	  row equivalent matrix <m>U</m> that is upper triangular, we
+	  know that <m>\det(A)\neq0</m> if and only if <m>\det(U) \neq 0</m>.
+	  We also know that <m>A</m> is invertible if and only if
+	  <m>U</m> is invertible.  Putting these facts together, we
+	  conclude that <m>\det(A)\neq 0</m> if and only if <m>A</m> is
+	  invertible. </p></li>
+
+	</ol></p>
+      </solution>
+	    
+    </activity>
+
+    <p> As seen in this activity, row operations can be used to
+    compute the determinant of a matrix.  More specifically, 
+    applying the forward substitution phase of Gaussian
+    elimination to the matrix <m>A</m> leads us to an upper triangular
+    matrix <m>U</m> so that <m>A\sim U</m>.
+    </p>
+
+    <p>
+      We know that <m>U</m> is
+      invertible when all of its diagonal entries are nonzero.  We also
+      know that <m>\det(U)\neq 0</m> under the same condition.  This
+      tells us <m>U</m> is invertible if and only if <m>\det(U) \neq 0</m>.
+    </p>
+
+    <p>
+      Now if <m>\det(A)\neq 0</m>, we also have <m>\det(U)\neq 0</m>
+      since applying a sequence of row operations to <m>A</m> only
+      multiplies the determinant by a nonzero number.  It then follows
+      that <m>U</m> is invertible so <m>U\sim I</m>.  Therefore, we
+      also know that <m>A\sim I</m> and so <m>A</m> must also be
+      invertible.
+    </p>
+
+    <p>
+      This explains <xref ref="prop-invertible-det"/> and so we know
+      that <m>A</m> is invertible
+      if and only if <m>\det(A)\neq 0</m>.
+    </p>
+
+    <p>
+      Finally, notice that if <m>A</m> is invertible, we have
+      <m>A^{-1}A = I</m>, 
+      which tells us that
+      <me>
+	\det(A^{-1}A) = \det(A^{-1})\det(A) = 1.
+      </me>
+      Therefore, <m>\det(A^{-1}) = 1/\det(A)</m>.
+    </p>
+
+    <proposition>
+      <statement>
+	<p>
+	  If <m>A</m> is an invertible matrix, then
+	  <m>\det(A^{-1}) = 1/\det(A)</m>.
+	</p>
+      </statement>
+    </proposition>
+	    
+  </subsection>
+
+  <subsection>
+    <title> Cofactor expansions </title>
+
+    <p> We now have a technique for computing the determinant of a
+    matrix using row operations.  There is another way to compute
+    determinants, using what are called <term>cofactor expansions</term>,
+    that will be important for us in the next chapter. 
+    We will describe this method here.
+    </p>
+
+    <p> To begin, the determinant of a <m>2\times2</m> matrix is
+    <me>
+      \det\left[\begin{array}{rr}
+      a \amp b \\
+      c \amp d \\
+      \end{array}\right]
+      =
+      ad-bc
+    </me>.  With a little bit of work, it can be shown that this
+    number is the same as the signed area of the parallelogram we
+    introduced earlier.
+    </p>
+
+    <p> Using a cofactor expansion to find the determinant of a more
+    general <m>n\times n</m> matrix is a little more work so we will
+    demonstrate it with an example.
+    </p>
+
+    <example>
+      <statement>
+	<p> We illustrate how to use a cofactor expansion to find the
+	determinant of <m>A</m> where
+	<me>
+	  A = 
+	  \left[\begin{array}{rrr}
+	  1 \amp -1 \amp 2 \\
+	  -2 \amp 2 \amp -6 \\
+	  3 \amp -1 \amp 10 \\
+	  \end{array}\right].
+	</me>
+	</p>
+
+	<p> To begin, we choose one row or column.  It doesn't matter
+	which we choose because the result will be the same in any
+	case.  Here, we choose the second row
+	<me>
+	  \left[\begin{array}{rrr}
+	  \lgray{1} \amp \lgray{-1} \amp \lgray{2} \\
+	  -2 \amp 2 \amp -6 \\
+	  \lgray{3} \amp \lgray{-1} \amp \lgray{10} \\
+	  \end{array}\right]
+	</me>.
+	</p>
+
+	<p> The determinant will be found by creating a sum of terms,
+	one for each entry in the row we have chosen.  For each entry
+	in the row, we form its term by
+	multiplying
+	<ul>
+	  <li><p> <m>(-1)^{i+j}</m> where <m>i</m> and <m>j</m> are
+	  the row and column numbers, respectively, of the
+	  entry, </p></li>
+	  <li><p> the entry itself, and </p></li>
+	  <li><p> the determinant of the entries left over when we
+	  have crossed out the row and column containing the
+	  entry. </p> </li>
+	</ul>
+	</p>
+
+	<p> Since we are computing the determinant of this matrix
+	<me>
+	  \left[\begin{array}{rrr}
+	  \gray{1} \amp \gray{-1} \amp \gray{2} \\
+	  -2 \amp 2 \amp -6 \\
+	  \gray{3} \amp \gray{-1} \amp \gray{10} \\
+	  \end{array}\right]
+	</me>
+	using the second row, the entry in the first column of this
+	row is <m>-2</m>.  Let's see 
+	how to form the term from this entry.
+	</p>
+
+	<p> The term itself is <m>-2</m>, and the matrix that is left
+	over when we cross out the second row and first column is
+	<me>
+	  \left[\begin{array}{rrr}
+	  \gray{1} \amp {-1} \amp {2} \\
+	  \gray{-2} \amp \gray{2} \amp \gray{-6} \\
+	  \gray{3} \amp {-1} \amp {10} \\
+	  \end{array}\right]
+	</me>
+	whose determinant is
+	<me>
+	  \det\left[\begin{array}{rr}
+	  -1 \amp 2 \\
+	  -1 \amp 10 \\
+	  \end{array}\right] =
+	  -1(10) - 2 (-1) = -8
+	</me>.
+	Since this entry is in the second row and first column, the
+	term we construct is
+	<m> (-1)^{2+1}(-2)(-8) = -16
+	</m>.
+	</p>
+
+	<p> Putting this together, we find the determinant to be
+	<me>
+	  \begin{aligned}
+	  \left[\begin{array}{rrr}
+	  {1} \amp {-1} \amp {2} \\
+	  -2 \amp {2} \amp {-6} \\
+	  {3} \amp {-1} \amp {10} \\
+	  \end{array}\right] 
+	  {}={}
+	  \amp
+	  (-1)^{2+1}(-2)\det\left[\begin{array}{rr}
+	  -1 \amp 2 \\
+	  -1 \amp 10 \\
+	  \end{array}\right] \\
+	  \amp
+	  {}+{}
+	  (-1)^{2+2}(2)\det\left[\begin{array}{rr}
+	  1 \amp 2 \\
+	  3 \amp 10 \\
+	  \end{array}\right] \\
+	  \amp
+	  {}+{}
+	  (-1)^{2+3}(-6)\det\left[\begin{array}{rr}
+	  -1 \amp -1 \\
+	  3 \amp -1 \\
+	  \end{array}\right] \\
+	  \\
+	  {}={}
+	  \amp
+	  (-1)(-2)(-1(10)-2(-1)) \\
+	  \amp + (1)(2)(1(10)-2(3)) \\
+	  \amp + (-1)(-6)((-1)(-1)-(-1)3) \\ \\
+	  {}={}
+	  \amp
+	  -16 + 8 + 12 \\
+	  {}={}
+	  \amp
+	  4 \\
+
+	  \end{aligned}
+	</me>.
+	Notice that this agrees with the determinant that we found for
+	this matrix using row operations in the last activity.
+	</p>	  
+	  
+      </statement>
+    </example>
+
+    <activity>
+      <statement>
+      <p> We will explore cofactor expansions through some
+      examples.
+      <ol marker="a.">
+	<li><p> Using a cofactor expansion, show that the determinant
+	of the following matrix 
+	<me> \det
+	  \left[\begin{array}{rrr}
+	  2 \amp 0 \amp -1 \\
+	  3 \amp 1 \amp 2 \\
+	  -2 \amp 4 \amp -3 \\
+	  \end{array}\right] = -36
+	</me>.  Remember that you can choose any row or column to
+	create the expansion, but the choice of a particular row or
+	column may simplify 
+	the computation.
+	</p></li>
+
+	<li><p> Use a cofactor expansion to find the determinant of
+	<me>
+	  \left[\begin{array}{rrrr}
+	  -3 \amp 0 \amp 0 \amp 0 \\
+	  4 \amp 1 \amp 0  \amp 0 \\
+	  -1 \amp 4 \amp -4 \amp 0\\
+	  0 \amp 3 \amp 2 \amp 3 \\
+	  \end{array}\right]
+	</me>.  Explain how the cofactor expansion technique shows
+	that the determinant of a triangular matrix is equal to the
+	product of its diagonal entries.
+	</p></li>
+
+	<li><p> Use a cofactor expansion to determine whether the
+	following vectors form a basis of <m>\real^3</m>:
+	<me>
+	  \threevec{2}{-1}{-2},
+	  \threevec{1}{-1}{2},
+	  \threevec{1}{0}{-4}
+	</me>.
+	</p></li>
+	
+	<li><p> Sage will compute the determinant of a matrix <c>A</c>
+	with the command <c>numpy.linalg.det()</c>.  Use Sage to find the
+	determinant of the matrix
+	<me>
+	  \left[\begin{array}{rrrr}
+	  2 \amp 1 \amp -2 \amp -3 \\
+	  3 \amp 0 \amp -1  \amp -2 \\
+	  -3 \amp 4 \amp 1 \amp 2\\
+	  1 \amp 3 \amp 3 \amp -1 \\
+	  \end{array}\right]
+	</me>.
+	<sage language="python">
+	  <input>
+	  </input>
+	</sage>
+	  
+	</p></li>
+
+      </ol></p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p> We will using a cofactor expansion along the first
+	  row so that
+	  <me>
+	    \begin{array}{rl}
+	    \det\left[\begin{array}{rrr}
+	    2 \amp 0 \amp -1 \\
+	    3 \amp 1 \amp 2 \\
+	    -2 \amp 4 \amp -3 \\
+	    \end{array}\right]
+	    = \amp
+	    (-1)^{1+1}\cdot 2 \det\left[\begin{array}{rr}
+	    1 \amp 2 \\
+	    4 \amp -3 \\
+	    \end{array}\right] \\
+	    \amp 
+	    + (-1)^{1+3}\cdot (-1) \det\left[\begin{array}{rr}
+	    3 \amp 1 \\
+	    -2 \amp 4 \\
+	    \end{array}\right] \\
+	    = \amp
+	    2(-11) - 14 = -36\text{.}
+	    \end{array}
+	  </me>
+	  </p></li>
+
+	  <li><p> Expanding along the first row gives
+	  <me>
+	    \begin{array}{rl}
+	    \det
+	    \left[\begin{array}{rrrr}
+	    -3 \amp 0 \amp 0 \amp 0 \\
+	    4 \amp 1 \amp 0  \amp 0 \\
+	    -1 \amp 4 \amp -4 \amp 0\\
+	    0 \amp 3 \amp 2 \amp 3 \\
+	    \end{array}\right] \amp
+	    = 3\det
+	    \left[\begin{array}{rrr}
+	    1 \amp 0  \amp 0 \\
+	    4 \amp -4 \amp 0\\
+	    3 \amp 2 \amp 3 \\
+	    \end{array}\right] \\
+	    \amp
+	    =-3(1)\det
+	    \left[\begin{array}{rr}
+	    -4 \amp 0 \\
+	    2 \amp 3 \\
+	    \end{array}\right] \\
+	    \amp
+	    =-3(1)(-4)(3) = 36\text{.}
+	    \end{array}
+	  </me>
+	  </p></li>
+
+	  <li><p> We form the matrix <m>A</m> whose columns are the
+	  three given vectors.  Expanding along either the second row or third
+	  column to take advantage of the zero in the <m>(2,3)</m>
+	  entry, we see that <m>\det(A) = 0</m>, which means that
+	  <m>A</m> is not invertible.  Therefore, the vectors do not
+	  form a basis for <m>\real^3</m>.
+	  </p></li>
+
+	  <li><p> Sage tells us that <m>\det(A) = 72</m>.
+	  </p></li>
+	</ol></p>
+      </solution>
+	    
+    </activity>
 
   </subsection>
 
   <subsection>
     <title> Summary </title>
 
-    <p> This section explored stochastic matrices and Markov chains.
+    <p> In this section, we associated a numerical quantity, the
+    determinant, to a square matrix and showed how it tells us whether
+    the matrix is invertible.
+
     <ul>
-      <li><p> A probability vector is one whose entries are
-      nonnegative and whose columns add to 1.  A stochastic matrix is
-      a square matrix whose columns are probability vectors. </p></li>
+      <li><p> The determinant of a matrix has a geometric
+      interpretation.  In particular, when
+      <m>n=2</m>, the determinant is the signed area of
+      the parallelogram formed by the two columns of the matrix.
+      </p></li>
 
-      <li><p> A Markov chain is formed from a stochastic matrix <m>A</m>
-      and an initial probability vector <m>\xvec_0</m> using
-      the rule <m>\xvec_{k+1}=A\xvec_k</m>.  We may think of the sequence
-      <m>\xvec_k</m> as describing the evolution of some conserved
-      quantity, such as the number of rental cars or voters, among a
-      number of possible states over time. </p></li>
+      <li><p> The determinant satisfies many properties, including the
+      facts that <m>\det(AB) = \det(A) \det(B)</m> and
+      that the determinant of a triangular matrix is equal to the
+      product of its diagonal entries. </p></li>
 
-      <li><p> A steady-state vector <m>\qvec</m> for a stochastic
-      matrix <m>A</m> is a probability vector that satisfies <m>A\qvec
-      = \qvec</m>. </p></li>
+      <li><p> These properties helped us compute the determinant of a
+      matrix using row operations.  This also led to the important
+      observation that the determinant of a matrix is nonzero if and
+      only if the matrix is invertible. </p></li>
 
-      <li><p> The Perron-Frobenius theorem tells us that, if <m>A</m>
-      is a positive stochastic matrix, then every Markov chain defined
-      by <m>A</m> converges to a unique, positive steady-state
-      vector. </p></li>
-
-      <li><p> Google's PageRank algorithm uses Markov chains and the
-      Perron-Frobenius theorem to assess the relative quality of web
-      pages on the Internet. </p></li>
+      <li><p> Finally, we learned how to compute the determinant of a
+      matrix using cofactor expansions, which will be
+      a valuable tool
+      for us in the next chapter. </p></li>
     </ul></p>
 
-  </subsection>
+    <p> We have seen three ways to compute the
+    determinant: by interpreting the determinant as a signed area or
+    volume; by applying appropriate row operations; and by using a
+    cofactor expansion.  It's worth spending a moment to think about
+    the relative merits of these approaches.
+    </p>
 
-  <xi:include href="exercises/exercises4-5.ptx" />  
+    <p> The geometric definition of the determinant tells us that the
+    determinant is measuring a natural geometric quantity, an insight
+    that does not easily come through the other two approaches.  The
+    intuition we gain by thinking about the determinant geometrically
+    makes it seem reasonable that the determinant should be zero for
+    matrices that are not invertible: if the columns are linearly
+    dependent, the vectors cannot create a positive volume.
+    </p>
+
+    <p> Approaching the determinant through row operations provides an
+    effective means of computing the determinant.  In fact, this is
+    what most computer programs do behind the scenes when they
+    compute a determinant.  This approach is also a useful theoretical
+    tool for explaining why the determinant tells us whether a matrix
+    is invertible.
+    </p>
+
+    <p> The cofactor expansion method will be useful to us in the next
+    chapter when we look at eigenvalues and eigenvectors.  It is not,
+    however, a practical way to compute a determinant.  To see why,
+    consider the fact that the determinant of a <m>2\times2</m>
+    matrix, written as <m>ad-bc</m>,
+    requires us to compute two terms, <m>ad</m> and <m>bc</m>.  To
+    compute the determinant of a <m>3\times3</m> matrix, we need to
+    compute three <m>2\times2</m> determinants, which involves
+    <m>3\cdot 2 = 6</m> terms.  For a <m>4\times4</m> matrix, we need
+    to compute four <m>3\times3</m> determinants, which produces
+    <m>4\cdot3\cdot2 = 24</m> terms.  Continuing in this way, we see
+    that the cofactor expansion of a <m>10\times10</m> matrix would
+    involve <m>10\cdot9\cdot8\ldots3\cdot2 = 10! = 3628800</m> terms.
+    </p>
+
+    <p> By contrast, we have seen that the number of steps required to
+    perform Gaussian elimination on an <m>n\times n</m> matrix is
+    proportional to <m>n^3</m>.  When <m>n=10</m>, we have <m>n^3 =
+    1000</m>, which points to the fact that finding the determinant
+    using Gaussian elimination is considerably less work.
+    </p>
+
+  </subsection>
+  
+  <xi:include href="exercises/exercises3-4.ptx" />
 
 </section>

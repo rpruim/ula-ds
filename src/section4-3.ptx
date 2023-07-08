@@ -1,1222 +1,1133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="sec-eigen-diag"
+<section xml:id="sec-bases"
 	 xmlns:xi="http://www.w3.org/2001/XInclude">
 
-  <title> Diagonalization, similarity, and powers of a matrix </title>
+  <title>
+    Bases and coordinate systems
+  </title>
 
   <introduction>
-    <p> The first example we considered in this chapter was the matrix
-    <m>A=\left[\begin{array}{rr}
-    1 \amp 2 \\
-    2 \amp 1 \\
-    \end{array}\right]
-    </m>, which has eigenvectors <m>\vvec_1=\twovec{1}{1}</m> and
-    <m>\vvec_2 = \twovec{-1}{1}</m> and associated eigenvalues
-    <m>\lambda_1=3</m> and <m>\lambda_2=-1</m>.  In <xref
-    ref="subsec-eigen-use" />, we described how <m>A</m> is, in some
-    sense, equivalent to the diagonal matrix
-    <m>D = \left[\begin{array}{rr}
-    3 \amp 0 \\
-    0 \amp -1\\
-    \end{array}\right]
-    </m>. </p>
-
-    <p> This equivalence is summarized by <xref ref="fig-eigen-diag-A"
-    />.  The diagonal matrix <m>D</m> has the geometric effect of
-    stretching vectors horizontally by a factor of <m>3</m> and
-    flipping vectors vertically.  The matrix <m>A</m> has the
-    geometric effect of stretching vectors by a factor of <m>3</m> in
-    the <m>\vvec_1</m> direction and flipping them in the
-    <m>\vvec_2</m> direction.  That is, the geometric effect of
-    <m>A</m> is the same as that of <m>D</m> when viewed in a basis of
-    eigenvectors of <m>A</m>.
+    <p> Standard Cartesian coordinates are commonly used to describe
+    points in the plane.  If we mention the point
+    <m>(4,3)</m>, we know that we arrive at this point from the origin
+    by moving four units to the right and three units up.
     </p>
-    
-    <figure xml:id="fig-eigen-diag-A">
-      <sidebyside width="80%">
-	<image source="images/eigen-intro-A" />
+
+    <p> Sometimes, however, it is more natural to work in a different
+    coordinate system.  Suppose that you live in the
+    city whose map is shown in <xref ref = "fig-city-map" /> and that
+    you would like to give a guest directions for getting from your
+    house to the store.  You would probably say something like, "Go
+    four blocks up Maple.  Then turn left on Main for three blocks."
+    The grid of streets in the city gives a more
+    natural coordinate system than standard north-south, east-west
+    coordinates. 
+    </p>
+
+    <figure xml:id="fig-city-map">
+      <sidebyside width="40%" >
+	<image source="images/city-map" />
       </sidebyside>
-      <caption> The matrix <m>A</m> has the same geometric effect as
-      the diagonal matrix <m>D</m> when viewed in
-      the basis of eigenvectors.  
+      <caption>
+	A city map.
       </caption>
     </figure>
 
-    <p>
-      Our goal in this section is to express this geometric
-      observation in algebraic terms.  In doing so, we will make
-      precise the sense in which <m>A</m> and <m>D</m> are equivalent.
+    <p> In this section, we will develop the concept of a
+    <em>basis</em> through which we will create new coordinate systems
+    in <m>\real^m</m>.  We will see that the right choice of a
+    coordinate system provides a more natural way to approach some
+    problems.
     </p>
 
     <exploration>
       <statement>
-	<p> In this preview activity, we will review some familiar
-	properties about matrix multiplication that appear in this
-	section.
+      <p> Consider the vectors
+      <me>
+	\vvec_1 = \twovec{2}{1},
+	\vvec_2 = \twovec{1}{2}
+      </me>
+      in <m>\real^2</m>, which are shown in
+      <xref ref="fig-basis-1" />.
+      </p>
+
+      <figure xml:id="fig-basis-1">
+	<sidebyside width="50%">
+	  <image source="images/basis-1" />
+	</sidebyside>
+	<caption>
+	  Linear combinations of <m>\vvec_1</m> and <m>\vvec_2</m>.
+	</caption>
+      </figure>
+
+      <p>
 	<ol marker="a.">
-	  <li>
-	    <p>
-	      Remember that matrix-vector multiplication constructs
-	      linear combinations of the columns of the matrix.  For
-	      instance, if 
-	      <m>A = \begin{bmatrix}
-	      \avec_1 \amp \avec_2 \end{bmatrix}</m>, express the
-	      product <m>A\twovec2{-3}</m> in terms of <m>\avec_1</m>
-	      and <m>\avec_2</m>.
-	    </p>
-	  </li>
+	<li><p> Indicate the linear combination <m>\vvec_1 -
+	2\vvec_2</m> on the figure.
+	</p></li>
 
-	  <li>
-	    <p>
-	      What is the product <m>A\twovec40</m> in terms of
-	      <m>\avec_1</m> and <m>\avec_2</m>?
-	    </p>
-	  </li>
+	<li><p> Express the vector <m>\twovec{-3}{0}</m> as a linear
+	combination of <m>\vvec_1</m> and <m>\vvec_2</m>. </p></li>
 
-	  <li>
-	    <p>
-	      Next, remember how matrix-matrix multiplication is
-	      defined.  Suppose that we have matrices <m>A</m> and
-	      <m>B</m> and that <m>B = \begin{bmatrix}
-	      \bvec_1 \amp \bvec_2 \end{bmatrix}</m>.  How can we
-	      express the matrix product <m>AB</m> in terms of the
-	      columns of <m>B</m>?
-	    </p>
-	  </li>
+	<li><p> Find the linear combination <m>10\vvec_1 -
+	13\vvec_2</m>.  </p></li>
 
-	  <li>
-	    <p>
-	      Suppose that <m>A</m> is a matrix having eigenvectors
-	      <m>\vvec_1</m> and <m>\vvec_2</m> with associated
-	      eigenvalues <m>\lambda_1 = 4</m> and <m>\lambda_2 =
-	      -1</m>.  Express the product <m>A(2\vvec_1+3\vvec_2)</m>
-	      in terms of <m>\vvec_1</m> and <m>\vvec_2</m>.
-	    </p>
-	  </li>
+	<li><p> Express the vector <m>\twovec{16}{-4}</m> as a linear
+	combination of <m>\vvec_1</m> and <m>\vvec_2</m>. </p></li>
 
-	  <li>
-	    <p>
-	      Suppose that <m>A</m> is the matrix from the previous
-	      part and that <m>P=\begin{bmatrix} \vvec_1 \amp \vvec_2
-	      \end{bmatrix}</m>.  What is the matrix product
-	      <me>
-		AP = A\begin{bmatrix}
-		\vvec_1 \amp \vvec_2
-		\end{bmatrix}?
-	      </me>
-	    </p>
-	  </li>
-	  
-	</ol></p>
-      </statement>
+	<li><p> Explain why every vector in <m>\real^2</m> can be
+	written as a linear combination of <m>\vvec_1</m> and
+	<m>\vvec_2</m> in exactly one way. </p></li>
 
-      <solution>
-	<p><ol marker="a.">
-	  <li>
-	    <p>
-	      <m>A\twovec{2}{-3} = 2\avec_1 - 3\avec_2</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>A\twovec40 = 4\avec_1</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>AB = \begin{bmatrix}
-	      A\bvec_1 \amp A\bvec_2
-	      \end{bmatrix}</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>A(2\vvec_1 + 3\vvec_2) = 8\vvec_1 - 3\vvec_2</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>AP =
-	      \begin{bmatrix}
-	      A\vvec_1 \amp A\vvec_2
-	      \end{bmatrix}
-	      = 
-	      \begin{bmatrix}
-	      4\vvec_1 \amp -\vvec_2
-	      \end{bmatrix}
-	      </m>.
-	    </p>
-	  </li>
-	</ol></p>
-      </solution>
-	    
-    </exploration>
-  </introduction>
-
-  <subsection>
-    <title> Diagonalization of matrices </title>
-
-    <p>
-      When working with an <m>n\times n</m> matrix <m>A</m>, <xref
-      ref="subsec-eigen-use"/> demonstrated the value of having a
-      basis of <m>\real^n</m> consisting of eigenvectors of <m>A</m>.
-      In fact, <xref ref="prop-eigen-basis" /> tells us that if the
-      eigenvalues of <m>A</m> are real and distinct, then there is a
-      such a basis.  As we'll see later, there are other conditions on
-      <m>A</m> that guarantee a basis of eigenvectors.  For now,
-      suffice it to say that we can find a basis of eigenvectors for
-      many matrices.  With this assumption, we
-      will see how the matrix <m>A</m> is equivalent to a diagonal
-      matrix <m>D</m>.
-    </p>
-    
-    <activity>
-      <statement>
-      <p> Suppose that <m>A</m> is a <m>2\times2</m> matrix having
-      eigenvectors <m>\vvec_1</m> and <m>\vvec_2</m> with associated
-      eigenvalues <m>\lambda_1=3</m> and <m>\lambda_2 = -6</m>.
-      Because the eigenvalues are real and distinct, we know by
-      <xref ref="prop-eigen-basis"/> that these eigenvectors form a
-      basis of <m>\real^2</m>. 
-      <ol marker="a.">
-	<li>
-	  <p>
-	    What are the products <m>A\vvec_1</m> and <m>A\vvec_2</m>
-	    in terms of <m>\vvec_1</m> and <m>\vvec_2</m>?
-	  </p>
-	</li>
-
-	<li>
-	  <p>
-	    If we form the matrix <m>P = \begin{bmatrix}
-	    \vvec_1 \amp \vvec_2
-	    \end{bmatrix}
-	    </m>, what is the product <m>AP</m> in
-	    terms of <m>\vvec_1</m> and <m>\vvec_2</m>?
-	  </p>
-	</li>
-
-	<li>
-	  <p>
-	    Use the eigenvalues to form the diagonal matrix <m>D
-	    = \begin{bmatrix}
-	    3 \amp 0 \\
-	    0 \amp -6 
-	    \end{bmatrix}</m> and
-	    determine the product <m>PD</m> in terms of
-	    <m>\vvec_1</m> and <m>\vvec_2</m>.  
-	  </p>
-	</li>
-
-	<li>
-	  <p>
-	    The results from the previous two parts of this activity
-	    demonstrate that <m>AP=PD</m>.  
-	    Using the fact that the eigenvectors <m>\vvec_1</m> and
-	    <m>\vvec_2</m> form a basis of 
-	    <m>\real^2</m>, explain why <m>P</m> is
-	    invertible and that we must have <m>A=PDP^{-1}</m>.
-	  </p>
-	</li>
-
-	<li>
-	  <p>
-	    Suppose that <m>A=\begin{bmatrix}
-	    -3 \amp 6 \\
-	    3 \amp 0 \\
-	    \end{bmatrix}</m>.  Verify that <m>\vvec_1=\twovec11</m>
-	    and <m>\vvec_2=\twovec2{-1}</m> are eigenvectors of
-	    <m>A</m> with eigenvalues <m>\lambda_1 = 3</m> and
-	    <m>\lambda_2=-6</m>.
-	  </p>
-	</li>
-
-	<li>
-	  <p>
-	    Use the Python cell below to define the matrices <m>P</m>
-	    and <m>D</m> and then verify that <m>A=PDP^{-1}</m>.
-	  </p> 
-	<sage language="python">
-	  <input>
-import numpy as np
-# enter the matrices P and D below	    
-P =
-D =	    
-np.linalg.inv(P@D@P)
-	  </input>
-	</sage>
-	</li>
       </ol></p>
       </statement>
 
       <solution>
 	<p><ol marker="a.">
-	  <li><p> We have
-	  <m>A\vvec_1=3\vvec_1</m> and <m>A\vvec_2 = -6\vvec_2</m>.
+	  <li><p> We can see graphically, or we can compute, that
+	  <m>\vvec_1-2\vvec_2 = \twovec{0}{-3}</m>.
 	  </p></li>
 
-	  <li>
-	    <p>
-	      <m>AP = \begin{bmatrix}
-	      A\vvec_1 \amp A\vvec_2
-	      \end{bmatrix} = \begin{bmatrix}
-	      3\vvec_1 \amp -6\vvec_2
-	      \end{bmatrix}</m>.
-	    </p>
-	  </li>
+	  <li><p> Again, we graphically see that <m>\twovec{-3}{0} =
+	  -2\vvec_1+\vvec_2</m>.
+	  </p></li>
 
-	  <li>
-	    <p>
-	      <m>PD = \begin{bmatrix}
-	      \vvec_1 \amp \vvec_2
-	      \end{bmatrix}
-	      \begin{bmatrix}
-	      3 \amp 0 \\
-	      0 \amp -6\\
-	      \end{bmatrix}
-	      = \begin{bmatrix}
-	      3\vvec_1 \amp -6\vvec_2
-	      \end{bmatrix}
-	      </m>.  Comparing the result of this part of the activity
-	      to the previous, we see that <m>AP = PD</m>.
-	    </p>
-	  </li>
+	  <li><p> Since the linear combination extends beyond the
+	  figure, we compute that <m>10\vvec_1-13\vvec_2 =
+	  \twovec{7}{-16}</m>.
+	  </p></li>
 
-	  <li>
-	    <p>
-	      Since the eigenvectors form a basis, the columns of
-	      <m>P</m> are linearly independent and their span is
-	      <m>\real^2</m>.  This guarantees that <m>P</m> is invertible.
-	      Multiplying the equation <m>AP=PD</m> on the right by
-	      <m>P^{-1}</m> gives
-	      <m>APP^{-1} = A = PDP^{-1}</m>. 
-	    </p>
-	  </li>
-	</ol></p>
-	<p>
-	  The rest of the activity can be verified using Python.
-	</p>
+	  <li><p> We need to find the solution to the linear system
+	  <m>c_1\vvec_1 + c_2\vvec_2 = \twovec{16}{-4}</m>, which is
+	  <m>\twovec{c_1}{c_2} = \twovec{12}{-8}</m>.
+	  </p></li>
+
+	  <li><p> The matrix <m>\left[\begin{array}{rr} \vvec_1 \amp
+	  \vvec_2 \end{array}\right]</m> has a pivot position in every
+	  row and every column.
+	  </p></li>
+	</ol> </p>
       </solution>
-    </activity>
+      
+    </exploration>
 
-    <p>
-      More generally, suppose that we have an <m>n\times n</m> matrix
-      <m>A</m> and that there is a basis of <m>\real^n</m> consisting
-      of eigenvectors <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> of
-      <m>A</m> with associated eigenvalues
-      <m>\lambda_1,\lambda_2,\ldots,\lambda_n</m>.  If we use the
-      eigenvectors to form the
-      matrix
-      <me>P = \begin{bmatrix}
-      \vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_n
-      \end{bmatrix}
-      </me>
-      and the eigenvalues to form the diagonal matrix
-      <me>
-	D = \left[\begin{array}{cccc}
-	\lambda_1 \amp 0 \amp \ldots \amp 0 \\
-	0 \amp \lambda_2 \amp \ldots \amp 0 \\
-	\vdots \amp \vdots \amp \ddots \amp 0 \\
-	0 \amp 0 \amp \ldots \amp \lambda_n \\
-	\end{array}\right]
-      </me>
-      and apply the same reasoning demonstrated in the activity, we
-      find that <m>AP = PD</m> and hence <me>A=PDP^{-1}.</me>
+    <p> In the preview activity, we worked with a set of two vectors
+    in <m>\real^2</m> and found that we could express any vector in
+    <m>\real^2</m> in two different ways:  in the usual way where the
+    components of the
+    vector describe horizontal and vertical changes, and in a new
+    way as a linear combination of <m>\vvec_1</m> and <m>\vvec_2</m>.
+    We could also translate between these two 
+    descriptions.  This example illustrates the central idea of this
+    section.  </p> 
+
+  </introduction>
+
+  <subsection>
+    <title> Bases </title>
+
+    <p> In the preview activity, we created a new coordinate system
+    for <m>\real^2</m> using linear combinations of a set of two
+    vectors.  More generally, the following definition will guide us.
     </p>
 
-    <p> We have now seen the following proposition. </p>
-
-    <proposition xml:id="prop-diagonalizable">
-      <statement>
-	<p> If <m>A</m> is an <m>n\times n</m> matrix and there is a
-	basis <m>\{\vvec_1,\vvec_2,\ldots,\vvec_n\}</m> of
-	<m>\real^n</m> consisting of
-	eigenvectors of <m>A</m> having associated eigenvalues
-	<m>\lambda_1, \lambda_2, \ldots, \lambda_n</m>, then we can
-	write <m>A=PDP^{-1}</m>
-	where <m>D</m> is the diagonal matrix
-	whose diagonal entries are the eigenvalues of <m>A</m>
-	<me>
-	  D = \left[\begin{array}{cccc}
-	  \lambda_1 \amp 0 \amp \ldots \amp 0 \\
-	  0 \amp \lambda_2 \amp \ldots \amp 0 \\
-	  \vdots \amp \vdots \amp \ddots \amp 0 \\
-	  0 \amp 0 \amp \ldots \amp \lambda_n \\
-	  \end{array}\right]
-	</me>
-	and the matrix <m>P = \left[\begin{array}{cccc}
-	\vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_n
-	\end{array}\right]
-	</m>.
-	</p>
-      </statement>
-    </proposition>
-
-    <example>
-      <p>
-	We have seen that <m>A = \begin{bmatrix}
-	1 \amp 2 \\
-	2 \amp 1 \\
-	\end{bmatrix}</m> has eigenvectors <m>\vvec_1 = \twovec11</m>
-	and <m>\vvec_2=\twovec{-1}1</m> with associated eigenvalues
-	<m>\lambda_1 = 3</m> and <m>\lambda_2 = -1</m>.
-	Forming the matrices
-	<me>
-	  P = \begin{bmatrix}
-	  \vvec_1 \amp \vvec_2
-	  \end{bmatrix} =
-	  \begin{bmatrix}
-	  1 \amp -1 \\
-	  1 \amp 1 \\
-	  \end{bmatrix},~~~
-	  D = \begin{bmatrix}
-	  3 \amp 0 \\
-	  0 \amp -1 \\
-	  \end{bmatrix},
-	</me>
-	we see that <m>A=PDP^{-1}</m>.
-      </p>
-
-      <p>
-	This is the sense in which we mean that <m>A</m> is equivalent
-	to a diagonal matrix <m>D</m>.  The expression <m>A=PDP^{-1}</m>
-	says that <m>A</m>, expressed in the basis defined by the columns
-	of <m>P</m>, has the same geometric effect as <m>D</m>, expressed
-	in the standard basis <m>\evec_1, \evec_2,\ldots,\evec_n</m>.
-      </p>
-    </example>
-    
     <definition>
       <statement>
-	<idx> diagonalizable matrix</idx>
-	<idx> <h>matrix</h> <h>diagonalizable</h> </idx>
-	<p> We say that the matrix <m>A</m> is
-	<term>diagonalizable</term> if there is a diagonal matrix <m>D</m>
-	and invertible matrix <m>P</m> such that
-	<me>
-	  A = PDP^{-1}.
-	</me>
-	</p>
+	<idx> basis </idx>
+	<p> A set of vectors <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> in
+	<m>\real^m</m> is called a <em>basis</em> for <m>\real^m</m>
+	if the set of vectors spans <m>\real^m</m> and is linearly
+	independent. </p>
       </statement>
     </definition>
 
-    <example>
-      <statement>
-	<p> We will try to find a diagonalization of 
-	<m>A =
-	\left[\begin{array}{rr}
-	-5 \amp 6 \\
-	-3 \amp 4 \\
-	\end{array}\right]
-	</m> whose
-	characteristic equation is
-	<me>
-	  \det(A-\lambda I) = (-5-\lambda)(4-\lambda)+18 =
-	  (-2-\lambda)(1-\lambda) = 0
-	</me>.
-	This shows that the eigenvalues of <m>A</m> are <m>\lambda_1 =
-	-2</m> and <m>\lambda_2 = 1</m>.
-	</p>
-
-	<p> By constructing <m>\nul(A-(-2)I)</m>, we find a basis for
-	<m>E_{-2}</m> consisting of the vector <m>\vvec_1 =
-	\twovec{2}{1}</m>.  Similarly, a basis for <m>E_1</m> consists
-	of the vector <m>\vvec_2 = \twovec{1}{1}</m>.  This shows
-	that we can construct a basis <m>\{\vvec_1,\vvec_2\}</m>
-	of <m>\real^2</m> consisting of eigenvectors of <m>A</m>.
-	</p>
-
-	<p> We now form the matrices
-	<me>
-	  D = \left[\begin{array}{rr}
-	  -2 \amp 0 \\
-	  0 \amp 1 \\
-	  \end{array}\right],\qquad
-	  P = \left[\begin{array}{cc} \vvec_1 \amp \vvec_2
-	  \end{array}\right] = 
-	  \left[\begin{array}{rr}
-	  2 \amp 1 \\
-	  1 \amp 1 \\
-	  \end{array}\right]
-	</me>
-	and verify that
-	<me>
-	  PDP^{-1} =
-	  \left[\begin{array}{rr}
-	  2 \amp 1 \\
-	  1 \amp 1 \\
-	  \end{array}\right]
-	  \left[\begin{array}{rr}
-	  -2 \amp 0 \\
-	  0 \amp 1 \\
-	  \end{array}\right]
-	  \left[\begin{array}{rr}
-	  1 \amp -1 \\
-	  -1 \amp 2 \\
-	  \end{array}\right]
-	  =
-	  \left[\begin{array}{rr}
-	  -5 \amp 6 \\
-	  -3 \amp 4 \\
-	  \end{array}\right] = A
-	</me>.
-	</p>
-
-	<p> There are, in fact, many ways to diagonalize <m>A</m>.
-	For instance, we could change the order of the eigenvalues and
-	eigenvectors and write
-	<me>
-	  D = \left[\begin{array}{rr}
-	  1 \amp 0 \\
-	  0 \amp -2 \\
-	  \end{array}\right],\qquad
-	  P = \left[\begin{array}{cc} \vvec_2 \amp \vvec_1
-	  \end{array}\right] = 
-	  \left[\begin{array}{rr}
-	  1 \amp 2 \\
-	  1 \amp 1 \\
-	  \end{array}\right]
-	</me>.
-	</p>
-
-	<p> If we choose a different basis for the eigenspaces, we
-	will also find a different matrix <m>P</m> that diagonalizes
-	<m>A</m>.  The point is that there are many ways in which
-	<m>A</m> can be written in the form <m>A=PDP^{-1}</m>. </p>
-      </statement>
-    </example>
-
-    <example>
-      <statement>
-	<p> We will try to find a diagonalization of 
-	<m>A =
-	\left[\begin{array}{rr}
-	0 \amp 4 \\
-	-1 \amp 4 \\
-	\end{array}\right]
-	</m>. </p>
-
-	<p> Once again, we find the eigenvalues by solving the
-	characteristic equation:
-	<me>
-	  \det(A-\lambda I) = -\lambda(4-\lambda) + 4 = (2-\lambda)^2
-	  = 0
-	</me>.
-	In this case, there is a single eigenvalue <m>\lambda=2</m>.
-	</p>
-
-	<p> We find a basis for the eigenspace <m>E_2</m> by
-	describing <m>\nul(A-2I)</m>:
-	<me>
-	  A-2I = \left[\begin{array}{rr}
-	  -2 \amp 4 \\
-	  -1 \amp 2 \\
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rr}
-	  1 \amp -2 \\
-	  0 \amp 0 \\
-	  \end{array}\right]
-	</me>.
-	This shows that the eigenspace <m>E_2</m> is one-dimensional
-	with <m>\vvec_1=\twovec{2}{1}</m> forming a basis. </p>
-
-	<p> In this case, there is not a basis of <m>\real^2</m>
-	consisting of eigenvectors of <m>A</m>, which tells us that
-	<m>A</m> is not diagonalizable. </p>
-
-      </statement>
-    </example>
-
-    <p>
-      In fact, if we only know that <m>A = PDP^{-1}</m>,
-      we can say that the columns of <m>P</m>
-      are eigenvectors of <m>A</m> and that the diagonal entries of
-      <m>D</m> are the associated eigenvalues.
-    </p>
-
-    <proposition>
-      <statement>
-	<p>
-	  An <m>n\times n</m> matrix <m>A</m> is diagonalizable if and
-	  only if there is a basis of <m>\real^n</m> consisting of
-	  eigenvectors of <m>A</m>.
-	</p>
-      </statement>
-    </proposition>
-
-    <example>
-      <statement>
-	<p> Suppose we know that <m>A=PDP^{-1}</m> where
-	<me>
-	  D = \left[\begin{array}{rr}
-	  2 \amp 0 \\
-	  0 \amp -2 \\
-	  \end{array}\right],\qquad
-	  P = \left[\begin{array}{cc} \vvec_2 \amp \vvec_1
-	  \end{array}\right] = 
-	  \left[\begin{array}{rr}
-	  1 \amp 1 \\
-	  1 \amp 2 \\
-	  \end{array}\right].
-	</me>
-	The columns of <m>P</m> form
-	eigenvectors of <m>A</m> so that <m>\vvec_1 =
-	\twovec{1}{1}</m> is an eigenvector of <m>A</m> with
-	eigenvalue <m>\lambda_1 = 2</m> and <m>\vvec_2 =
-	\twovec{1}{2}</m> is an eigenvector with eigenvalue
-	<m>\lambda_2=-2</m>. </p>
-
-	<p> We can verify this by computing
-	<me>
-	  A = PDP^{-1} =
-	  \left[\begin{array}{rr}
-	  6 \amp -4 \\
-	  8 \amp -6 \\
-	  \end{array}\right]
-	</me>
-	and checking that <m>A\vvec_1 =
-	\twovec{1}{1}=2\vvec_1</m> and <m>A\vvec_2 = \twovec{1}{2} =
-	-2\vvec_2</m>. </p>
-      </statement>
-    </example>
-
     <activity>
       <statement>
-      <p>
-	<ol marker="a.">
-	  <li><p> Find a diagonalization of <m>A</m>, if one exists,
-	  when
-	  <me>
-	    A = \left[\begin{array}{rr}
-	    3 \amp -2 \\
-	    6 \amp -5 \\
-	    \end{array}\right]
-	  </me>.
-	  </p></li>
+	<p>
+	  We will look at some examples of bases in this activity.
+	  <ol marker="a.">
+	    <li><p> In the preview activity, we worked with the set of
+	    vectors in <m>\real^2</m>:
+	    <me>
+	      \vvec_1 = \twovec{2}{1},
+	      \vvec_2 = \twovec{1}{2}
+	      </me>.
+	      Explain why these vectors form a basis for <m>\real^2</m>.
+	    </p></li>
 
-	  <li><p> Can the diagonal matrix
-	  <me>
-	    A = \left[\begin{array}{rr}
-	    2 \amp 0 \\
-	    0 \amp -5 \\
-	    \end{array}\right]
-	  </me>
-	  be diagonalized?  If so, explain how to find the matrices
-	  <m>P</m> and <m>D</m>.
-	  </p></li>
+	    <li><p> Consider the set of vectors in <m>\real^3</m>
+	    <me>
+	      \vvec_1 = \threevec{1}{1}{1},
+	      \vvec_2 = \threevec{0}{1}{-1},
+	      \vvec_3 = \threevec{1}{0}{-1}
+	    </me>
+	    and determine whether they form a basis for
+	    <m>\real^3</m>.
+		<sage language="python">
+	      <input>
+	      </input>
+	    </sage>
+	    </p></li>
 
-	  <li><p> Find a diagonalization of <m>A</m>, if one exists,
-	  when
-	  <me>
-	    A = \left[\begin{array}{rrr}
-	    -2 \amp 0 \amp 0 \\
-	    1 \amp -3\amp 0 \\
-	    2 \amp 0 \amp -3 \\
-	    \end{array}\right]
-	  </me>.
+	    <li><p> Do the vectors
+	    <me>
+	      \vvec_1 = \threevec{-2}{1}{3},
+	      \vvec_2 = \threevec{3}{0}{-1},
+	      \vvec_3 = \threevec{1}{1}{0},
+	      \vvec_4 = \threevec{0}{3}{-2}
+	    </me>
+	    form a basis for <m>\real^3</m>?  </p></li>
+
+	    <li><p> Explain why the vectors
+	    <m>\evec_1,\evec_2,\evec_3</m> form a basis for
+	    <m>\real^3</m>.  </p></li>
+
+	    <li><p> If a set of vectors
+	    <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> forms a basis for
+	    <m>\real^m</m>, what can you guarantee about the pivot
+	    positions of the matrix
+	    <me>
+	      \left[\begin{array}{rrrr}
+	      \vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_n
+	      \end{array}\right]
+	      </me>?
+	    </p></li>
+
+	    <li><p> If the set of vectors
+	    <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is a basis 
+	    for <m>\real^{10}</m>, how many vectors must be in the set?
+	    </p></li>
+	  </ol>
 	</p>
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
-	  </li>
-
-	  <li><p> Find a diagonalization of <m>A</m>, if one exists,
-	  when
-	  <me>
-	    A = \left[\begin{array}{rrr}
-	    -2 \amp 0 \amp 0 \\
-	    1 \amp -3\amp 0 \\
-	    2 \amp 1 \amp -3 \\
-	    \end{array}\right]
-	  </me>.
-	</p>
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
-	  </li>
-
-	  <li><p> Suppose that <m>A=PDP^{-1}</m> where
-	  <me>
-	    D = \left[\begin{array}{rr}
-	    3 \amp 0 \\
-	    0 \amp -1 \\
-	    \end{array}\right],\qquad
-	    P = \left[\begin{array}{cc} \vvec_2 \amp \vvec_1
-	    \end{array}\right] = 
-	    \left[\begin{array}{rr}
-	    2 \amp 2 \\
-	    1 \amp -1 \\
-	    \end{array}\right]
-	  </me>.
-	  <ol marker="1.">
-	    <li><p> Explain why <m>A</m> is invertible. </p></li>
-	    <li><p> Find a diagonalization of <m>A^{-1}</m>. </p></li>
-	    <li><p> Find a diagonalization of <m>A^3</m>. </p></li>
-	  </ol></p></li>
-	</ol>
-      </p>
       </statement>
 
       <solution>
 	<p><ol marker="a.">
-	  <li><p> We find that <m>A</m> has eigenvectors
-	  <m>\vvec_1=\twovec11</m> with associated eigenvalue
-	  <m>\lambda_1=1</m> and <m>\vvec_2=\twovec{1}{3}</m> with
-	  associated eigenvalue <m>\lambda_2=-3</m>.  We then have
-	  <m>P=\mattwo1113</m> and <m>D=\mattwo100{-3}</m>. </p></li>
+	  <li><p> The matrix <m>\left[\begin{array}{rr} \vvec_1 \amp
+	  \vvec_2 \end{array}\right]</m> is row equivalent to the
+	  identity matrix so it has a pivot position in every row.
+	  The span of the columns is therefore <m>\real^2</m>.  There
+	  is also a pivot position in every column, which means that
+	  the columns are linearly independent.  </p></li>
 
-	  <li><p> Yes.  We know that the eigenvectors are
-	  <m>\vvec_1=\twovec10</m> with associated eigenvalue
-	  <m>\lambda_1=2</m> and <m>\vvec_2=\twovec01</m> with
-	  associated eigenvalue <m>\lambda_2=-5</m>.  Therefore, <m>P
-	  = \left[\begin{array}{rr}\vvec_1 \amp \vvec_2
-	  \end{array}\right] = \mattwo1001=I</m> and
-	  <m>D=\mattwo200{-5}=A</m>.  This shows that the
-	  diagonalization is <m>A=IAI^{-1}</m>; that is, since
-	  <m>A</m> is already diagonal, it is diagonalized by the
-	  identity matrix. </p></li>
-
-	  <li><p> We find eigenvectors <m>\vvec_1=\threevec112</m>,
-	  <m>\vvec_2=\threevec010</m>, and <m>\vvec_3=\threevec001</m> 
-	  with associated eigenvalues <m>\lambda_1=-2</m>,
-	  <m>\lambda_2=-3</m>, and <m>\lambda_3=-3</m>.  Therefore,
-	  <m>A = PDP^{-1}</m> where
+	  <li><p> We note that
 	  <me>
-	    P = \left[\begin{array}{rrr}
-	    1 \amp 0 \amp 0 \\
+	    \left[\begin{array}{rrr}
+	    1 \amp 0 \amp 1 \\
 	    1 \amp 1 \amp 0 \\
-	    2 \amp 0 \amp 1 \\
-	    \end{array}\right], 
-	    D = \left[\begin{array}{rrr}
-	    -2 \amp 0 \amp 0 \\
-	    0 \amp -3 \amp 0 \\
-	    0 \amp 0 \amp -3 \\
+	    1 \amp -1 \amp -1
+	    \end{array}\right]
+	    \sim
+	    \left[\begin{array}{rrr}
+	    1 \amp 0 \amp 0 \\
+	    0 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 1
 	    \end{array}\right]\text{.}
 	  </me>
+	  Since there is a pivot position in every row, the span of
+	  the vectors is <m>\real^3</m>.  Since there is a pivot
+	  position in every column, the vectors are linearly
+	  independent.  Consequently, this set of vectors forms a
+	  basis for <m>\real^3</m>.  </p></li>
+
+	  <li><p> The matrix whose columns are the
+	  vectors <m>\vvec_1</m>, <m>\vvec_2</m>, <m>\vvec_3</m>, and
+	  <m>\vvec_4</m> has dimensions <m>3\times4</m>.
+	  Therefore, there cannot be a pivot position in every column,
+	  which tells us that the columns cannot be linearly
+	  independent.  Therefore, the set of vectors do not form a
+	  basis for <m>\real^3</m>.
 	  </p></li>
 
-	  <li><p> Once again, we see that <m>\lambda=-2</m> is an
-	  eigenvalue with multiplicity one and <m>\lambda=-3</m> is an
-	  eigenvalue with multiplicity two.  However, <m>\dim E_{-3} =
-	  1</m> so we are not able to find a basis for <m>\real^3</m>
-	  consisting of eigenvalues of <m>A</m>.  Therefore, <m>A</m>
-	  is not diagonalizable. </p></li>
+	  <li><p> Putting these vectors into a matrix produces the
+	  identity matrix, which has a pivot position in every row and
+	  every column.  Therefore, the span of the vectors is
+	  <m>\real^3</m>, and they are linearly independent.
+	  </p></li>
 
-	  <li><p> If <m>A=PDP^{-1}</m>,
-	  <ol marker="1..">
-	    <li><p> <m>A</m> is invertible since <m>\det A = \det D =
-	    -3</m>. </p></li>
+	  <li><p> There must be a pivot position in every row and
+	  every column.
+	  </p></li>
 
-	    <li><p> We know that <m>\vvec_1</m> and <m>\vvec_2</m> are
-	    eigenvectors of <m>A</m> with associated eigenvalues
-	    <m>\lambda_1=3</m> and <m>\lambda_2=-1</m>.  If
-	    <m>\vvec</m> is an eigenvector of <m>A</m> with associated
-	    eigenvalue <m>\lambda</m>, then <m>\vvec</m> is an
-	    eigenvector of <m>A^{-1}</m> with associated eigenvalue
-	    <m>\frac1{\lambda}</m>.  Therefore, <m>A^{-1} =
-	    PEP^{-1}</m> where <m>E =
-	    \mattwo{\frac13}00{-1}</m>. </p></li>
-
-	    <li><p> We have <m>A^3=PFP^{-1}</m> where
-	    <m>F=\mattwo{27}00{-1}</m>. </p></li>
-	  </ol>
+	  <li><p> A basis for <m>\real^{10}</m> must have <m>10</m>
+	  vectors.  Because the associated matrix must have a pivot
+	  position in every row and every column, there must be the
+	  same number of columns as there are rows.  Since the vectors
+	  are <m>10</m>-dimensional, there must be 10 vectors.
 	  </p></li>
 	</ol></p>
       </solution>
+	    
     </activity>
+	
+    <p> We can develop a test to determine if a set of vectors
+    <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> forms a
+    basis for <m>\real^m</m> by considering the matrix
+    <me>
+      A = \left[\begin{array}{rrrr}
+      \vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_n
+      \end{array}\right]
+    </me>.
+    To be a basis, this set of vectors must span <m>\real^m</m> and be
+    linearly independent.
+    </p>
+
+    <p> We know that the span of the set of vectors is
+    <m>\real^m</m> if and only if <m>A</m> has a pivot position in every
+    row.  We also know that the set of vectors is linearly
+    independent if and only if <m>A</m> has a pivot position in every
+    column.  This means that a set of vectors forms a basis if and
+    only if <m>A</m> has a pivot in every row and every column.
+    Therefore, <m>A</m> must be row equivalent to the identify matrix
+    <m>I</m>: 
+    <me>
+      A \sim \left[\begin{array}{cccc}
+      1 \amp 0 \amp \cdots \amp 0 \\
+      0 \amp 0 \amp \cdots \amp 0 \\
+      \vdots \amp \vdots \amp \ddots \amp \vdots \\
+      0 \amp 0 \amp \cdots \amp 1
+      \end{array}\right] = I
+    </me>.
+    </p>
+
+    <p> In addition to helping identify bases, this fact tells us
+    something important about the number of vectors in a basis.  Since
+    the matrix <m>A</m> has a pivot position in every row and every
+    column, it must have the same number of rows as columns.
+    Therefore, the number of vectors in a basis for <m>\real^m</m>
+    must be <m>m</m>.  For example, a basis for <m>\real^{23}</m> must
+    have exactly 23 vectors.
+    </p>
+
+    <proposition>
+      <statement>
+	<p> A set of vectors forms a basis for <m>\real^m</m> if and
+	only if the matrix 
+	<me>
+	  A = \left[\begin{array}{rrrr}
+	  \vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_n
+	  \end{array}\right]
+	  \sim I.
+	</me>
+	This means there must be <m>m</m> vectors in a basis for
+	<m>\real^m</m>. </p>
+      </statement>
+    </proposition>
+
+    <example>
+      <statement>
+	<p> Notice that the vectors 
+	<me>
+	  \evec_1 = \threevec{1}{0}{0},
+	  \evec_2 = \threevec{0}{1}{0},
+	  \evec_3 = \threevec{0}{0}{1}
+	</me>
+	form the columns of the
+	<m>3\times3</m> identity matrix, which implies that this set
+	forms a basis for <m>\real^3</m>.
+	More generally, the set of vectors
+	<m>\evec_1,\evec_2,\ldots,\evec_m</m> forms a basis for
+	<m>\real^m</m>, which we call the <term>standard basis</term> 
+	for <m>\real^m</m>.
+	<idx> basis, standard </idx>
+	</p>
+      </statement>
+    </example>
 
   </subsection>
 
   <subsection>
-    <title> Powers of a diagonalizable matrix </title>
+    <title> Coordinate systems </title>
 
-    <p> In several earlier examples, we have been
-    interested in computing powers of a given matrix.  For instance,
-    in <xref ref="activity-eigen-intro" />, we had the matrix
-    <m>
-      A = \left[\begin{array}{rr}
-      0.8 \amp 0.6 \\
-      0.2 \amp 0.4 \\
-      \end{array}\right]
-    </m> and an initial vector <m>\xvec_0=\ctwovec{1000}{0}</m>, and we 
-    wanted to compute
+    <p> A basis for <m>\real^m</m> forms a coordinate system for
+    <m>\real^m</m>, as we will describe.  Rather than continuing to
+    write a list of vectors, we will find it convenient to denote a
+    basis using a single symbol, such as
     <me>
-      \begin{aligned}
-      \xvec_1 \amp {}={} A\xvec_0 \\
-      \xvec_2 \amp {}={} A\xvec_1 = A^2\xvec_0 \\
-      \xvec_3 \amp {}={} A\xvec_2 = A^3\xvec_0\text{.} \\
-      \end{aligned}
+      \bcal = \{\vvec_1,\vvec_2,\ldots,\vvec_m\}
     </me>
-    In particular, we wanted to find <m>\xvec_k=A^k\xvec_0</m>
-    and determine what happens as <m>k</m> becomes very large.  If a
-    matrix <m>A</m> is diagonalizable, writing <m>A=PDP^{-1}</m> can
-    help us understand powers of <m>A</m> more easily. </p>
-
-    <activity>
-      <statement>
-      <p>
-	<ol marker="a.">
-	  <li><p> Let's begin with the diagonal matrix
-	  <me>
-	    D = \left[\begin{array}{rr}
-	    2 \amp 0 \\
-	    0 \amp -1 \\
-	    \end{array}\right]
-	  </me>.  Find the powers <m>D^2</m>, <m>D^3</m>, and
-	  <m>D^4</m>.  What is <m>D^k</m> for a general value of
-	  <m>k</m>? </p></li>
-
-	  <li><p> Suppose that <m>A</m> is a matrix with eigenvector
-	  <m>\vvec</m> and associated eigenvalue <m>\lambda</m>;  that
-	  is, <m>A\vvec = \lambda\vvec</m>.  By considering
-	  <m>A^2\vvec</m>, explain why <m>\vvec</m> is also an
-	  eigenvector of <m>A</m> with eigenvalue
-	  <m>\lambda^2</m>. </p></li>
-
-	  <li><p> Suppose that <m>A= PDP^{-1}</m> where
-	  <me>
-	    D = \left[\begin{array}{rr}
-	    2 \amp 0 \\
-	    0 \amp -1 \\
-	    \end{array}\right]
-	  </me>.  Remembering that the columns of <m>P</m> are
-	  eigenvectors of <m>A</m>,
-	  explain why <m>A^2</m> is diagonalizable and find a
-	  diagonalization in terms of <m>P</m> and <m>D</m>.</p></li>
-
-	  <li><p> Give another explanation of the diagonalizability of
-	  <m>A^2</m> by writing
-	  <me>
-	    A^2 = (PDP^{-1})(PDP^{-1}) = PD(P^{-1}P)DP^{-1}
-	  </me>. </p></li>
-
-	  <li><p> In the same way, find a diagonalization of
-	  <m>A^3</m>, <m>A^4</m>, and <m>A^k</m>. </p></li>
-
-	  <li><p> Suppose that <m>A</m> is a diagonalizable
-	  <m>2\times2</m> matrix with eigenvalues <m>\lambda_1 =
-	  0.5</m> and <m>\lambda_2=0.1</m>.  What happens to
-	  <m>A^k</m> as <m>k</m> becomes very large? </p></li>
-
-	</ol>
-      </p>
-      </statement>
-
-      <solution>
-	<p><ol marker="a.">
-	  <li><p> We have
-	  <me>
-	    D^2=\mattwo4001, D^3=\mattwo800{-1}, \ldots,
-	    D^k=\mattwo{2^k}00{(-1)^k}\text{.}
-	  </me>
-	  </p></li>
-
-	  <li><p> We know that <m>A^2\vvec = \lambda A\vvec =
-	  \lambda^2\vvec</m> so that <m>\vvec</m> is also an
-	  eigenvector of <m>A^2</m> with associated eigenvalue
-	  <m>\lambda^2</m>. </p></li>
-
-	  <li><p> Since eigenvectors of <m>A</m> are also eigenvectors
-	  of <m>A^2</m>, we can use the matrix <m>P</m> to diagonalize
-	  <m>A^2</m>.  The eigenvalues are squared, however, so we
-	  have <m>A^2=PEP^{-1}</m> where
-	  <m>E=D^2=\mattwo4001</m>. </p></li>
-
-	  <li><p> We can also see this by noting that
-	  <me>
-	    \begin{aligned}
-	    A^2 \amp = (PDP^{-1})(PDP^{-1})
-	    = PD(P^{-1}P)DP^{-1} \\
-	    \amp = PDIDP^{-1}
-	    = PD^2P^{-1}\text{.}\\
-	    \end{aligned}
-	  </me>
-	  </p></li>
-
-	  <li><p> <m>A^3=PD^3P^{-1}</m>, <m>A^4=PD^4P^{-1}</m>, and
-	  <m>A^k=PD^kP^{-1}</m>. </p></li>
-
-	  <li><p> We can write <m>A=PDP^{-1}</m> where
-	  <m>D=\mattwo{0.5}00{0.1}</m>.  Therefore,
-	  <m>A^k=PD^kP^{-1}</m> where
-	  <m>D^k=\mattwo{0.5^k}00{0.1^k}</m>.  As <m>k</m> becomes
-	  very large, <m>0.5^k</m> and <m>0.1^k</m> become very close
-	  to zero.  Hence <m>D^k</m> and <m>A^k</m> become very close
-	  to the zero matrix. </p></li>
-	</ol></p>
-      </solution>
-    </activity>
-
-    <p>
-      If <m>A</m> is diagonalizable, the activity demonstrates that
-      any power of <m>A</m> is as well.
     </p>
-
-    <proposition>
-      <statement>
-	<p>
-	  If <m>A=PDP^{-1}</m>, then <m>A^k = PD^kP^{-1}</m>.  When
-	  <m>A</m> is invertible, we also have <m>A^{-1} =
-	  PD^{-1}P^{-1}</m>. 
-	</p>
-      </statement>
-    </proposition>
 
     <example>
-      <p>
-	Let's revisit <xref ref="activity-eigen-intro"/> where we had
-	the matrix 
-	<m>A = \begin{bmatrix}
-	0.8 \amp 0.6 \\
-	0.2 \amp 0.4 \\
-	\end{bmatrix}
-	</m> and the initial vector <m>\xvec_0 = \ctwovec{1000}0</m>.
-	We were interested in understanding the sequence of vectors
-	<m>\xvec_{k+1} = A\xvec_k</m>, which means that <m>\xvec_k =
-	A^k\xvec_0</m>. 
-      </p>
-
-      <p>
-	We can verify that <m>\vvec_1 = \twovec31</m> and <m>\vvec_2 =
-	\twovec{-1}1</m> are eigenvectors of <m>A</m> having
-	associated eigenvalues <m>\lambda_1=1</m> and <m>\lambda_2 =
-	0.2</m>.  This means that <m>A = PDP^{-1}</m> where
-	<me>
-	  P = \begin{bmatrix}
-	  3 \amp -1 \\
-	  1 \amp 1 \\
-	  \end{bmatrix},~~~
-	  D = \begin{bmatrix}
-	  1 \amp 0 \\
-	  0 \amp 0.2 \\
-	  \end{bmatrix}.
-	</me>
-	Therefore, the powers of <m>A</m> have the form <m>A^k =
-	PD^kP^{-1}</m>. 
-      </p>
-
-      <p>
-	Notice that <m>D^k = \begin{bmatrix}
-	1^k \amp 0 \\
-	0 \amp 0.2^k \\
-	\end{bmatrix}
-	= \begin{bmatrix}
-	1 \amp 0 \\
-	0 \amp 0.2^k
-	\end{bmatrix}
-	</m>.  As <m>k</m> increases, <m>0.2^k</m> becomes
-	closer and closer to zero.  This means that for very large
-	powers <m>k</m>, we have
-	<me>
-	  D^k \approx \begin{bmatrix}
-	  1 \amp 0 \\
-	  0 \amp 0 \\
-	  \end{bmatrix}
-	</me>
-	and therefore
-	<me>
-	  A^k = PD^kP^{-1} \approx P\begin{bmatrix}
-	  1 \amp 0 \\
-	  0 \amp 0 \\
-	  \end{bmatrix}P^{-1} =
-	  \begin{bmatrix}
-	  \frac 34 \amp \frac 34 \\
-	  \frac 14 \amp \frac 14
-	  \end{bmatrix}.
-	</me>
-      </p>
-      <p>
-	Beginning with the vector <m>\xvec_0 = \ctwovec{1000}{0}</m>, 
-	we find that <m>\xvec_k = A^k\xvec_0\approx
-	\twovec{750}{250}</m> when <m>k</m> is very large.
-      </p>
-    </example>
-	
-  </subsection>
-
-  <subsection> 
-    <title> Similarity and complex eigenvalues </title>
-
-    <p>
-      We have been interested in diagonalizing a matrix <m>A</m>
-      because doing so relates a matrix <m>A</m> to a simpler
-      diagonal matrix <m>D</m>.  In particular, the effect of
-      multiplying a vector by <m>A=PDP^{-1}</m>, viewed in the basis
-      defined by the columns of <m>P</m>, is the same as the effect of
-      multiplying by <m>D</m> in the standard basis.
-    </p>
-
-    <p>
-      While many matrices are diagonalizable, there are some that are
-      not.  For example, if a matrix has complex eigenvalues, it is
-      not possible to find a basis of <m>\real^n</m> consisting of
-      eigenvectors, which means that the matrix is not
-      diagonalizable.  In this case, however, we can still relate the
-      matrix to a simpler form that explains the geometric effect this
-      matrix has on vectors.
-    </p>
-
-    <definition>
       <statement>
-				<idx>
-					<h>similar matrices</h>
-				</idx>
-				<idx>
-					<h>matrix</h>
-					<h>similar</h>
-				</idx>
-	<p> We say that <m>A</m> is <term>similar</term> to <m>B</m>
-	if there is an invertible matrix <m>P</m>
-	such that <m>A = PBP^{-1}</m>.
+	<p>
+	  In this section's preview activity, we considered the
+	  vectors
+	  <me>
+	    \vvec_1 = \twovec{2}{1},
+	    \vvec_2 = \twovec{1}{2}
+	  </me>,
+	  which form a basis <m>\bcal=\{\vvec_1,\vvec_2\}</m> for
+	  <m>\real^2</m>.  
+	</p>
+
+	<sidebyside widths="45% 45%">
+	  <p> In the standard coordinate system, the point <m>(2,-3)</m>
+	  is found by moving 2 units to the right and 3 units down.  We
+	  would like to define a new coordinate system where we interpret
+	  <m>(2,-3)</m> to mean we move two times along <m>\vvec_1</m> and
+	  3 times along <m>-\vvec_2</m>.  As we see in the figure,
+	  doing so leaves us at the point <m>(1,-4)</m>, expressed in
+	  the usual coordinate system.
+	  </p>
+	  <image source="images/basis-1" />
+	</sidebyside>
+
+	<p> We have seen that
+	<me>
+	  \xvec = \twovec{1}{-4} = 2\vvec_1 - 3\vvec_2 </me>.  The
+	  coordinates of the vector <m>\xvec</m> in the new coordinate
+	  system are the weights that we use to create <m>\xvec</m> as
+	  a linear combination of <m>\vvec_1</m> and <m>\vvec_2</m>.
+	</p>
+
+	<p> Since we now have two descriptions of the vector <m>\xvec</m>,
+	we need some notation to keep track of
+	which coordinate system we are 
+	using.  Because <m>\twovec{1}{-4} = 2\vvec_1 - 3\vvec_2</m>, we
+	will write 
+	<me>
+	  \coords{\twovec{1}{-4}}{\bcal} =
+	  \twovec{2}{-3} 
+	</me>.
+	More generally, <m>\coords{\xvec}{\bcal}</m> will denote the
+	coordinates of <m>\xvec</m> in the basis <m>\bcal</m>;  that
+	is, <m>\coords{\xvec}{\bcal}</m> is the vector
+	<m>\twovec{c_1}{c_2}</m> of weights such that
+	<me>
+	  \xvec = c_1\vvec_1 + c_2 \vvec_2
+	</me>.
+	</p>
+
+	<p> For example, if the coordinates of <m>\xvec</m> in the
+	basis <m>\bcal</m> are
+	<me>
+	  \coords{\xvec}{\bcal} = \twovec{5}{-2}
+	</me>,
+	then
+	<me>
+	  \xvec = 5\vvec_1 - 2\vvec_2 = 5\twovec{2}{1}-2\twovec{1}{2}
+	  = \twovec{8}{3},
+	</me>
+	and we conclude that
+	<me>
+	  \coords{\twovec{8}{3}}{\bcal} = \twovec{5}{-2}
+	</me>.
+	This demonstrates how we can translate coordinates in the
+	basis <m>\bcal</m> into standard coordinates.
+	</p>
+
+	<p> Suppose we know the expression of a vector <m>\xvec</m> in
+	standard coordinates.  How can we find its coordinates in the
+	basis <m>\bcal</m>?  For instance, suppose
+	<m>\xvec=\twovec{-8}{2}</m> and that we would like to find
+	<m>\coords{\xvec}{\bcal}</m>.  We can write
+	<me>
+	  \coords{\twovec{-8}{2}}{\bcal}=\twovec{c_1}{c_2},
+	</me>
+	which means that
+	<me>
+	  \twovec{-8}{2} = c_1\vvec_1 + c_2\vvec_2
+	</me>
+	or
+	<me>
+	  c_1 \twovec{2}{1} + c_2 \twovec{1}{2} = \twovec{-8}{2}.
+	</me>
+	This linear system for the weights defines an augmented matrix
+	<me>
+	  \left[\begin{array}{rr|r}
+	  2 \amp 1 \amp -8 \\
+	  1 \amp 2 \amp 2 \\
+	  \end{array}\right]
+	  \sim
+	  \left[\begin{array}{rr|r}
+	  1 \amp 0 \amp -6 \\
+	  0 \amp 1 \amp 4 \\
+	  \end{array}\right],
+	</me>.
+	which means that
+	<me>
+	  \coords{\twovec{-8}{2}}{\bcal} = \twovec{-6}{4}
+	</me>.
 	</p>
       </statement>
-    </definition>
+    </example>
 
-    <p>
-      Notice that a matrix is diagonalizable if and only if
-      it is similar to a diagonal matrix.
-      In case a matrix <m>A</m> has complex eigenvalues, 
-      we will find a simpler
-      matrix <m>C</m> that is similar to <m>A</m> and note that
-      <m>A=PCP^{-1}</m> has the same effect, when viewed in the basis defined
-      by the columns of <m>P</m>, as <m>C</m>, when viewed in the
-      standard basis.
-    </p>
+    <p> This example illustrates how a basis in <m>\real^2</m>
+    provides a new coordinate system for <m>\real^2</m> and shows how
+    we may translate between this coordinate system and the standard
+    one. </p>
 
-    <p>
-      To begin, suppose that <m>A</m> is a <m>2\times2</m> matrix
-      having a complex eigenvalue 
-      <m>\lambda = a+bi</m>.  It turns out that <m>A</m> is similar to
-      <m>C=\begin{bmatrix}
-      a \amp -b \\
-      b \amp a \\
-      \end{bmatrix}
-      </m>.
+    <p> More generally, suppose that
+    <m>\bcal=\{\vvec_1,\vvec_2,\ldots,\vvec_m\}</m> is a basis for
+    <m>\real^m</m>.  We know that the span of the vectors is
+    <m>\real^m</m>, which implies that any vector <m>\xvec</m> in
+    <m>\real^m</m> can be written as a linear combination of the
+    vectors.  In addition, we know that the vectors are linearly
+    independent, which means that we can write <m>\xvec</m> as a
+    linear combination of the vectors in exactly one way.  Therefore,
+    we have
+    <me>
+      \xvec = c_1\vvec_1 + c_2\vvec_2 + \ldots + c_m\vvec_m
+    </me>
+    where the weights <m>c_1, c_2,\ldots, c_m</m> are unique.  In this
+    case, we write the coordinate description of <m>\xvec</m> in the
+    basis <m>\bcal</m> as
+    <me>
+      \coords{\xvec}{\bcal} = \cfourvec{c_1}{c_2}{\vdots}{c_m}
+    </me>.
     </p>
-    
-    <sidebyside widths="60% 40%">
-      <p> The next activity shows that <m>C</m> has a simple geometric
-      effect on <m>\real^2</m>.  First, however, we will use polar
-      coordinates to rewrite <m>C</m>.  As shown in the figure, 
-      the point <m>(a,b)</m> defines <m>r</m>, the distance from
-      the origin, and <m>\theta</m>, the angle formed with the positive
-      horizontal axis.  We then have
-      <me>
-	\begin{aligned}
-	a \amp {}={} r\cos\theta \\
-	b \amp {}={} r\sin\theta\text{.} \\
-	\end{aligned}
-      </me>
-      Notice that the Pythagorean theorem says that
-      <m>r=\sqrt{a^2+b^2}</m>. 
-      </p>
-      
-      <image source="images/eigen-polar" />
-    </sidebyside>
 
     <activity>
       <statement>
-	<p> We begin by rewriting
-	<m>C</m> in terms of <m>r</m> and
-	  <m>\theta</m> and noting that
-	  <me>
-	    C = 
-	    \left[\begin{array}{rr}
-	    a \amp -b \\
-	    b \amp a \\
-	    \end{array}\right]
-	    = 
-	    \left[\begin{array}{rr}
-	    r\cos\theta \amp -r\sin\theta \\
-	    r\sin\theta \amp r\cos\theta \\
-	    \end{array}\right]
-	    =
-	    \left[\begin{array}{rr}
-	    r \amp 0 \\
-	    0 \amp r \\
-	    \end{array}\right]
-	    \left[\begin{array}{rr}
-	    \cos\theta \amp -\sin\theta \\
-	    \sin\theta \amp \cos\theta \\
-	    \end{array}\right].
-	  </me>
-	  <ol marker="a.">
-	    <li><p> Explain why <m>C</m> has the geometric effect of
-	    rotating vectors by <m>\theta</m> and scaling them by a
-	    factor of <m>r</m>. </p></li>
-	    
-	    <li><p> Let's now consider the matrix
-	    <me>
-	      A = \left[\begin{array}{rr}
-	      -2 \amp 2  \\
-	      -5 \amp 4 \\
-	      \end{array}\right]
-	    </me>
-	    whose eigenvalues are <m>\lambda_1 = 1+i</m> and <m>\lambda_2 =
-	    1-i</m>.  We will choose to focus on one of the eigenvalues
-	    <m>\lambda_1 = a+bi= 1+i. </m> </p>
-	    
-	    <p> Form the matrix <m>C</m> using these values of <m>a</m>
-	    and <m>b</m>.  Then rewrite the point <m>(a,b)</m> in polar
-	    coordinates by identifying the values of <m>r</m> and
-	    <m>\theta</m>.  Explain the geometric effect of multiplying
-	    vectors by <m>C</m>. </p>
-	    </li>
-	    
-	    <li><p> Suppose that
-	    <m>P=\left[\begin{array}{rr}
-	    1 \amp 1 \\
-	    2 \amp 1 \\
-	    \end{array}\right]
-	    </m>.  Verify that <m>A = PCP^{-1}</m>. </p>
-	    
-	    <sage language="python">
-	      <input>
-import numpy as np
-C = 
-P = 
-np.linalg.inv(P*C*P)
-	      </input>
-	    </sage>
-	    </li>
-	    
-	    <li><p> Explain why <m>A^k = PC^kP^{-1}</m>. </p></li>
-	    
-	    <li><p> We formed the matrix <m>C</m> by choosing the
-	    eigenvalue <m>\lambda_1=1+i</m>.  Suppose we had instead
-	    chosen <m>\lambda_2 = 1-i</m>.  Form the matrix <m>C'</m> and
-	    use polar coordinates to describe the geometric effect of
-	    <m>C</m>.  </p></li>
-	    
-	    <li><p> Using the matrix
-	    <m>
-	      P' = \left[\begin{array}{rr}
-	      1 \amp -1 \\
-	      2 \amp -1 \\
-	      \end{array}\right]
-	      </m>, show that <m>A = P'C'P'^{-1}</m>.
-	    </p></li>
-	</ol></p>
+      <p> Let's begin with the basis <m>\bcal =
+      \{\vvec_1,\vvec_2\}</m> of <m>\real^2</m> where
+      <me>
+	\vvec_1 = \twovec{3}{-2},
+	\vvec_2 = \twovec{2}{1}
+      </me>.
+      <ol marker="a.">
+	<li><p> If the coordinates of <m>\xvec</m> in the basis
+	<m>\bcal</m> are  <m>\coords{\xvec}{\bcal} = \twovec{-2}{4}</m>, what
+	is the vector <m>\xvec</m>? </p></li>
+
+	<li><p> If <m>\xvec = \twovec{3}{5}</m>, find the coordinates
+	of <m>\xvec</m> in the basis <m>\bcal</m>;  that is, find
+	<m>\coords{\xvec}{\bcal}</m>. </p></li>
+
+	<li><p> Find a matrix <m>A</m> such that, for any vector
+	<m>\xvec</m>, we have <m>\xvec = A\coords{\xvec}{\bcal}</m>.
+	Explain why this matrix is invertible. </p></li>
+
+	<li><p> Using what you found in the previous part, find a
+	matrix <m>B</m> such that, for any vector <m>\xvec</m>, we
+	have <m>\coords{\xvec}{\bcal} = B\xvec</m>.  What is the
+	relationship between the two matrices <m>A</m> and <m>B</m>?
+	Explain why this relationship holds. </p></li>
+
+	<li><p> Suppose we consider the standard basis
+	<me>\ecal = \{\evec_1,\evec_2\}</me>.
+	What is the relationship between <m>\xvec</m> and
+	<m>\coords{\xvec}{\ecal}</m>? </p></li>
+
+	<li><p> Suppose we also consider the basis
+	<me>
+	  \ccal = \left\{\twovec{1}{2}, \twovec{-2}{1}\right\}
+	</me>.
+	Find a matrix <m>C</m> that converts coordinates in the basis
+	<m>\ccal</m> into coordinates in the basis <m>\bcal</m>;  that
+	is, 
+	<me>
+	  \coords{\xvec}{\bcal} = C \coords{\xvec}{\ccal}
+	</me>.
+	You may wish to think about converting coordinates from the basis
+	<m>\ccal</m> into the standard coordinate system and then into
+	the basis <m>\bcal</m>.
+	</p></li>
+      </ol></p>
       </statement>
-      
+
       <solution>
 	<p><ol marker="a.">
-	  <li><p> The matrix <m>S=\mattwo r00r</m> has the geometric
-	  effect of scaling vectors uniformly by a factor of
-	  <m>r</m> while the matrix
-	  <m>R=\mattwo{\cos\theta}{-\sin\theta}{\sin\theta}{\cos\theta}</m>
-	  rotates vectors by <m>\theta</m>. </p></li>
-
-	  <li><p> We have <m>a=b=1</m> so we form the matrix
-	  <m>C=\mattwo1{-1}11 =
-	  \mattwo{\sqrt{2}}00{\sqrt{2}}
-	  \mattwo{\cos(45^\circ)}{-\sin(45^\circ)}
-	  {\sin(45^\circ)}{\cos(45^\circ)}</m>.  This shows that
-	  <m>C</m> will scale vectors by a factor of <m>\sqrt2</m>
-	  while rotating them by <m>45^\circ</m>. </p></li>
-
-	  <li><p> Python will verify this relationship.
+	  <li><p> We know that
+	  <m>\xvec=-2\vvec_1+4\vvec_2=\twovec{2}{8}</m>.
 	  </p></li>
 
-	  <li><p> As we saw earlier, we have <m>A^2 =
-	  (PCP^{-1})(PCP^{-1}) = PC^2P^{-1}</m> and hence <m>A^k =
-	  PC^kP^{-1}</m>. </p></li>
+	  <li><p> We solve the linear system
+	  <m>c_1\vvec_1+c_2\vvec_2=\twovec{3}{5}</m> to find
+	  <m>\coords{\xvec}{\bcal}=\twovec{-1}{3}</m>.
+	  </p></li>
 
-	  <li><p> We have <m>a=1</m> and <m>b=-1</m> so we form the
-	  matrix 
-	  <m>C'=\mattwo1{1}{-1}1 =
-	  \mattwo{\sqrt{2}}00{\sqrt{2}}
-	  \mattwo{\cos(-45^\circ)}{-\sin(-45^\circ)}
-	  {\sin(-45^\circ)}{\cos(-45^\circ)}</m>.  This shows that
-	  <m>C</m> will scale vectors by a factor of <m>\sqrt2</m>
-	  while rotating them by <m>-45^\circ</m>. </p></li>
+	  <li><p> If <m>\xvec=\twovec{c_1}{c_2}</m>, we have
+	  <me>
+	    \xvec=c_1\vvec_1+c_2\vvec_2 =
+	    \left[\begin{array}{rr}
+	    3 \amp 2 \\
+	    -2 \amp 1 \\
+	    \end{array}\right]\twovec{c_1}{c_2}
+	    = A \coords{\xvec}{\bcal}\text{.}
+	  </me>
+	  This matrix <m>A</m>, whose columns are the vectors
+	  <m>\vvec_1</m> and <m>\vvec_2</m>, has a pivot position in
+	  every row and every column because the vectors form a basis.
+	  It is, therefore, row equivalent to the identity matrix and
+	  hence invertible.
+	  </p></li>
+
+	  <li><p> Since we have <m>\xvec = A\coords{\xvec}{\bcal}</m>,
+	  we also have <m>A^{-1}\xvec = \coords{\xvec}{\bcal}</m>.
+	  </p></li>
+
+	  <li><p> We have
+	  <me>
+	    \xvec=\left[\begin{array}{rr}
+	    1\amp0 \\
+	    0 \amp 1 \\
+	    \end{array}\right]
+	    \coords{\xvec}{\ecal} = I\coords{\xvec}{\ecal} =
+	    \coords{\xvec}{\ecal}\text{.}
+	  </me>
+	  </p></li>
+
+	  <li><p> If we define <m>B</m> to be the matrix whose columns
+	  are <m>\twovec{1}{2}</m> and <m>\twovec{-2}{1}</m>, then
+	  <me>
+	    \coords{\xvec}{\bcal} = A^{-1}\xvec =
+	    A^{-1}B\coords{\xvec}{\ccal}\text{.} 
+	  </me>
+	  Therefore,
+	  <m>C=A^{-1}B = \left[\begin{array}{rr}
+	  -\frac{3}{7} \amp -\frac{4}{7} \\
+	  \frac{8}{7} \amp -\frac{1}{7}
+	  \end{array}\right]\text{.}
+	  </m>
+	  </p></li>
+
 	</ol></p>
       </solution>
-
+	    
     </activity>
 
-    <p>
-      If the <m>2\times2</m> matrix <m>A</m> has a complex
-      eigenvalue <m>\lambda = a + bi</m>, it turns out that <m>A</m> is
-      always similar to the matrix
-      <m>
-	C = \left[\begin{array}{rr}
-	a \amp -b \\
-	b \amp a \\
-	\end{array}\right],
-      </m>
-      whose geometric effect on vectors can be described in terms of a
-      rotation and a scaling. There is, in fact, a method for finding
-      the matrix <m>P</m> so that <m>A=PCP^{-1}</m> that we'll see
-      in <xref ref="exercise-complex-eigenvector"/>.
-      For now, we note that <m>A</m> has the same 
-      geometric effect as <m>C</m>, when viewed in the basis provided by
-      the columns of <m>P</m>.  We will put this fact to use in the next
-      section to understand certain dynamical systems.
+    <p> This activity demonstrates how we can efficiently convert
+    between coordinate systems defined by different bases.  Let's
+    consider a basis <m>\bcal = \{\vvec_1,\vvec_2,\ldots,\vvec_m\}</m>
+    and a vector <m>\xvec</m>.  We know that
+    <me>
+      \begin{aligned}
+      \xvec \amp {}={} c_1\vvec_1 +c_2\vvec_2+\ldots+c_m\vvec_m \\
+      \\
+      \amp {}={}
+      \left[\begin{array}{rrrr}
+      \vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_m
+      \end{array}\right]
+      \cfourvec{c_1}{c_2}{\vdots}{c_m} \\
+      \\
+      \amp {}={}
+      \left[\begin{array}{rrrr}
+      \vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_m
+      \end{array}\right]
+      \coords{\xvec}{\bcal}\text{.}
+      \end{aligned}
+    </me>
+    If we use <m>P_{\bcal}</m> to denote the matrix whose columns are
+    the basis vectors, then we find that
+    <me>
+      \xvec = P_{\bcal}\coords{\xvec}{\bcal}
+    </me>
+    where <m>P_{\bcal} = \left[\begin{array}{rrrr}
+    \vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_m
+    \end{array}\right]</m>.  This means that the matrix
+    <m>P_{\bcal}</m> converts coordinates in the basis <m>\bcal</m>
+    into standard coordinates.</p>
+
+    <p> Since the columns of <m>P_{\bcal}</m> are the basis vectors
+    <m>\vvec_1,\vvec_2,\ldots,\vvec_m</m>, we know that <m>P_{\bcal}
+    \sim I_m</m>, and <m>P_{\bcal}</m> is therefore invertible.
+    Since we have
+    <me>
+      \xvec = P_{\bcal}\coords{\xvec}{\bcal}
+    </me>,
+    we must also have
+    <me>
+      P_{\bcal}^{-1}\xvec = \coords{\xvec}{\bcal}
+    </me>.
     </p>
 
-    <proposition>
+    <proposition xml:id="proposition-coordinate-transform">
       <statement>
 	<p>
-	  If <m>A</m> is a <m>2\times2</m> matrix with a complex
-	  eigenvalue <m>\lambda = a + bi</m>, then <m>A</m> is similar
-	  to <m>C = \begin{bmatrix}
-	  a \amp -b \\
-	  b \amp a \\
-	  \end{bmatrix}</m>;  that is, there is a matrix <m>P</m> such
-	  that <m>A= PCP^{-1}</m>.
+	  If <m>\bcal</m> is a basis and <m>P_{\bcal}</m> the matrix
+	  whose columns are the basis vectors, then
+	  <me>
+	    \begin{aligned}
+	    \xvec \amp = P_{\bcal}\coords{\xvec}{\bcal}, \\ \\
+	    \coords{\xvec}{\bcal} \amp = P_{\bcal}^{-1}\xvec.
+	    \end{aligned}
+	  </me>
 	</p>
       </statement>
     </proposition>
-     
+
+    <p> If we have another basis <m>\ccal</m>, we find, in the same
+    way, that <m>\xvec = P_{\ccal}\coords{\xvec}{\ccal}</m> for the
+    conversion between coordinates in the basis <m>\ccal</m> into
+    standard coordinates.  We then have
+    <me>\coords{\xvec}{\bcal} = P^{-1}_{\bcal} \xvec
+    = P_{\bcal}^{-1}(P_{\ccal} \coords{\xvec}{\ccal})
+    = (P_{\bcal}^{-1}P_{\ccal}) \coords{\xvec}{\ccal}
+    </me>.
+    Therefore, <m>P_{\bcal}^{-1}P_{\ccal}</m> is the matrix that
+    converts <m>\ccal</m>-coordinates into <m>\bcal</m>-coordinates.
+    </p>
+
+  </subsection>
+
+  <subsection>
+    <title> Examples of bases </title>
+
+    <p> We will now look at some examples of bases that illustrate how
+    it can be useful to study a problem using a different coordinate
+    system. 
+    </p>
+
+    <example>
+      <statement>
+	<p> Let's consider the basis of <m>\real^3</m>:
+	<me>
+	  \bcal = \left\{
+	  \threevec{1}{0}{-2},
+	  \threevec{-2}{1}{0},
+	  \threevec{1}{1}{2}
+	  \right\}.
+	</me>
+	It is relatively straightforward to convert a vector's
+	representation in this basis into to the standard basis using
+	the matrix whose columns are the basis vectors:
+	<me>
+	  P_{\bcal} =
+	  \left[\begin{array}{rrr}
+	  1 \amp -2 \amp 1 \\
+	  0 \amp 1 \amp 1 \\
+	  -2 \amp 0 \amp 2 \\
+	  \end{array}\right].
+	</me>
+	For example, suppose that the vector <m>\xvec</m> is described
+	in the coordinate system defined by the basis as
+	<m>\coords{\xvec}{\bcal} = \threevec{2}{-2}{1}</m>.  We then
+	have
+	<me>
+	  \xvec = P_{\bcal}\coords{\xvec}{\bcal} =
+	  \left[\begin{array}{rrr}
+	  1 \amp -2 \amp 1 \\
+	  0 \amp 1 \amp 1 \\
+	  -2 \amp 0 \amp 2 \\
+	  \end{array}\right]
+	  \threevec{2}{-2}{1}
+	  =
+	  \threevec{7}{-1}{-2}
+	</me>.
+	</p>
+
+	<p> Consider now the vector <m>\xvec=\threevec{3}{1}{-2}</m>.
+	If we would like to express <m>\xvec</m> in the coordinate
+	system defined by <m>\bcal</m>, then we compute
+	<me>
+	  \coords{\xvec}{\bcal} = P^{-1}_{\bcal}\xvec
+	  =
+	  \left[\begin{array}{rrr}
+	  \frac14 \amp \frac 12 \amp -\frac38 \\
+	  -\frac14 \amp \frac12 \amp -\frac18 \\
+	  \frac14 \amp \frac12 \amp \frac18 \\
+	  \end{array}\right]
+	  \threevec{3}{1}{-2}
+	  =
+	  \threevec{2}{0}{1}
+	</me>.
+	</p>
+      </statement>
+    </example>
+
+    <example xml:id="example-wavelet-basis">
+      <statement>
+	<p>
+	  Suppose we work for a company that records its quarterly
+	  revenue, in millions of dollars, as:
+	</p>
+	<table>
+	  <title>A company's quarterly revenue</title>
+	  <tabular top="major" halign="center">
+	    <row bottom = "minor">
+	      <cell> Quarter </cell>
+	      <cell> Revenue </cell>
+	    </row>
+	    <row> <cell> 1 </cell> <cell> 10.3 </cell></row>
+	    <row> <cell> 2 </cell> <cell> 13.1 </cell></row>
+	    <row> <cell> 3 </cell> <cell> 7.5 </cell></row>
+	    <row bottom="medium">
+	      <cell> 4 </cell> <cell> 8.2 </cell>
+	    </row>
+	  </tabular>
+	</table>
+
+	<sidebyside widths="45% 45%">
+	  <p> Rather than using a table to record the data, we could
+	  display it in a graph or write it as a vector in
+	  <m>\real^4</m>: 
+	  <me>\xvec=\fourvec{10.3}{13.1}{7.5}{8.2}
+	  </me>.
+	  </p>
+	  <image source="images/basis-revenue" />
+	</sidebyside>
+
+	<p> Let's consider a new basis <m>\bcal</m> for
+	<m>\real^4</m> using vectors
+	<me>
+	  \vvec_1=\fourvec{1}{1}{1}{1},~~~
+	  \vvec_2=\fourvec{1}{1}{-1}{-1},~~~
+	  \vvec_3=\fourvec{1}{-1}{0}{0},~~~
+	  \vvec_4=\fourvec{0}{0}{1}{-1}
+	</me>.
+	We may view these basis elements graphically, as in <xref
+	ref="fig-basis-revenue-elements" />
+	</p>
+
+	<figure xml:id="fig-basis-revenue-elements">
+	  <sidebyside width="75%">
+	    <image source="images/basis-revenue-elements" />
+	  </sidebyside>
+	  <caption> A representation of the basis elements of
+	  <m>\bcal</m>.
+	  </caption>
+	</figure>
+
+	<p>
+	  To convert our revenue vectors into the
+	  coordinates given by <m>\bcal</m>, we form the matrices:
+	  <me>
+	    P_{\bcal} =
+	    \left[\begin{array}{rrrr}
+	    1 \amp 1 \amp 1 \amp 0 \\
+	    1 \amp 1 \amp -1 \amp 0 \\
+	    1 \amp -1 \amp 0 \amp 1 \\
+	    1 \amp -1 \amp 0 \amp -1 \\
+	    \end{array}\right],~~~
+	    P_{\bcal}^{-1} =
+	    \left[\begin{array}{rrrr}
+	    \frac14 \amp \frac14 \amp \frac14 \amp \frac14 \\
+	    \frac14 \amp \frac14 \amp -\frac14 \amp -\frac14 \\
+	    \frac12 \amp -\frac12 \amp 0 \amp 0 \\
+	    0 \amp 0 \amp \frac12 \amp -\frac12 \\
+	    \end{array}\right].
+	  </me>
+	  In particular, if the revenue vector is <m>\xvec =
+	  \fourvec{x_1}{x_2}{x_3}{x_4}</m>, then
+	  <me>
+	    \coords{\xvec}{\bcal} = \cfourvec
+	    {\frac14 x_1 + \frac14 x_2 + \frac14 x_3 + \frac14 x_4}
+	    {\frac14 x_1 + \frac14 x_2 - \frac14 x_3 - \frac14 x_4}
+	    {\frac12 x_1 - \frac12 x_2}
+	    {\frac12 x_3 - \frac12 x_4}.
+	  </me>
+	  Notice that the first component of
+	  <m>\coords{\xvec}{\bcal}</m> is the average of the
+	  components of <m>\xvec</m>.
+	</p>
+
+	<p>
+	  For our particular revenue vector <m>\xvec = 
+	  \fourvec{10.3}{13.1}{7.5}{8.2}</m>, we have
+	  <me>
+	    \coords{\xvec}{\bcal} = P_{\bcal}^{-1} \xvec =
+	    P_{\bcal}^{-1} \fourvec{10.3}{13.1}{7.5}{8.2} =
+	    \fourvec{9.775}{1.925}{-1.400}{-0.350}.
+	  </me>
+	  This means that our revenue vector is
+	  <me>
+	    \xvec = 9.775 \vvec_1 + 1.925 \vvec_2 - 1.400\vvec_3 -
+	    0.350 \vvec_4
+	  </me>.
+	  We will think about what these terms mean by adding
+	  them together one at a time.
+	</p>
+
+	<sbsgroup>
+	  <sidebyside widths="45% 45%">
+	    <p> The first term,
+	    <me>9.775\vvec_1 = \fourvec{9.775}{9.775}{9.775}{9.775},</me>
+	    gives us the average revenue over the year.
+	    </p>
+	    <image source="images/basis-revenue-approx-1" />
+	  </sidebyside>
+
+	  <sidebyside widths="45% 45%">
+	    <p> The average revenue for the first two quarters is
+	    11.7, which is 1.925 million dollars above the yearly
+	    average.  Similarly, the average revenue for the last two
+	    quarters is 1.925 million dollars below the yearly
+	    average.  This is recorded by the second term
+	    <me>1.925\vvec_2 =
+	    \cfourvec{1.925}{1.925}{-1.925}{-1.925}.
+	    </me>
+	    </p>
+	    <image source="images/basis-revenue-approx-2" />
+	  </sidebyside>
+
+
+	  <sidebyside widths="45% 45%">
+	    <p> Finally, the first quarter's revenue is 1.400 million
+	    dollars below the average over the first two quarters and
+	    the second quarter's revenue is 1.400 million dollars
+	    above that average.  This, and the corresponding data for
+	    the last two quarters, is captured by the last two terms:
+	    <me>
+	      -1.400\vvec_3 - 0.350\vvec_4 = \cfourvec
+	      {-1.400}{1.400}{-0.350}{0.350},
+	    </me>
+	    </p>
+	    <image source="images/basis-revenue-approx-3" />
+	  </sidebyside>
+	</sbsgroup>
+
+	<p> If we write <m>\coords{\xvec}{\bcal} =
+	\fourvec{c_1}{c_2}{c_3}{c_4}</m>, we see that the coefficient
+	<m>c_1</m> measures the average revenue over the year,
+	<m>c_2</m> measures the deviation from the annual average in
+	the first and second halves of the year, and <m>c_3</m> 
+	measures how the revenue in the first and second quarter
+	differs from the average in the first half of the year.  In
+	this way, the coefficients provide a view of the revenue over
+	different time scales, from an annual summary to a finer view
+	of quarterly behavior.
+	</p>
+
+	<p> This basis is sometimes called a <em>Haar</em> wavelet
+	basis, and the change of basis is known as a <em>Haar</em>
+	wavelet transform.  In the next section, we will see how this
+	basis provides a useful way to store digital images.
+	</p>
+
+      </statement>
+    </example>
+
+    <activity>
+      <title> Edge detection </title>
+
+      <statement>
+      <p> An important problem in the field of computer vision is to
+      detect edges in a digital photograph, as is shown in <xref
+      ref="fig-edge-detection" />.  Edge detection algorithms are
+      useful when, say, we want a robot to locate an object in its
+      field of view.  Graphic designers also use these algorithms to
+      create artist effects.
+      </p>
+
+      <figure xml:id = "fig-edge-detection">
+	<sidebyside widths="45% 45%">
+	  <image source="images/spring-canyon-cropped.jpg" />
+	  <image source="images/spring-canyon-edges.jpg" />
+	</sidebyside>
+	<caption> A canyon wall in Capitol Reef National Park and the
+	result of an edge detection algorithm.
+	</caption>
+      </figure>
+
+      <p> We will consider a very simple version of an edge detection
+      algorithm to give a sense of how this works.  Rather than
+      considering a two-dimensional photograph, we will think about a
+      one-dimensional row of pixels in a photograph.  The grayscale
+      values of a pixel measure the brightness of a pixel;  a
+      grayscale value of 0 corresponds to black, and a value of 255
+      corresponds to white.
+      </p>
+
+      <p> Suppose, for simplicity, that the grayscale values for a row
+      of six pixels are represented by a vector <m>\xvec</m> in
+      <m>\real^6</m>: 
+      </p>
+
+      <sidebyside align="top">
+	<p>
+	  <me>
+	  \xvec = \left[\begin{array}{r}
+	  25 \\ 34 \\ 30 \\ 45 \\ 190 \\ 200
+	  \end{array}\right]
+	  </me>.
+	</p>
+
+	<image source="images/edges-grayscale" />
+      </sidebyside>
+
+      <p> We can easily see that there is a jump in brightness between
+      pixels 4 and 5, but how can we detect it computationally?  We
+      will introduce a new basis <m>\bcal</m> for <m>\real^6</m> with
+      vectors:
+      <me>
+	\vvec_1=\left[\begin{array}{r} 1 \\ 0 \\ 0 \\ 0 \\ 0
+	\\ 0 \end{array}\right],
+	\vvec_2=\left[\begin{array}{r} 1 \\ 1 \\ 0 \\ 0 \\ 0
+	\\ 0 \end{array}\right],
+	\vvec_3=\left[\begin{array}{r} 1 \\ 1 \\ 1 \\ 0 \\ 0
+	\\ 0 \end{array}\right],
+	\vvec_4=\left[\begin{array}{r} 1 \\ 1 \\ 1 \\ 1 \\ 0
+	\\ 0 \end{array}\right],
+	\vvec_5=\left[\begin{array}{r} 1 \\ 1 \\ 1 \\ 1 \\ 1
+	\\ 0 \end{array}\right],
+	\vvec_6=\left[\begin{array}{r} 1 \\ 1 \\ 1 \\ 1 \\ 1
+	\\ 1 \end{array}\right]
+      </me>.
+
+      <ol marker="a.">
+	<li><p> Construct the matrix <m>P_\bcal</m> that relates the
+	standard coordinate system with the coordinates in the basis
+	<m>\bcal</m>.
+	</p></li>
+
+	<li><p> Determine the matrix 
+	<m>P_\bcal^{-1}</m> that converts the representation of
+	<m>\xvec</m> in standard coordinates into the coordinate
+	system defined by <m>\bcal</m>.
+	<sage language="python">
+	  <input>
+	  </input>
+	</sage>
+	</p></li>
+
+	<li><p> Suppose the
+	vectors are expressed in general terms as
+	<me>
+	  \xvec = \left[\begin{array}{r}
+	  x_1 \\ x_2 \\ x_3 \\ x_4 \\ x_5 \\ x_6 \end{array}\right],~~~
+	  \coords{\xvec}{\bcal} = \left[\begin{array}{r}
+	  c_1 \\ c_2 \\ c_3 \\ c_4 \\ c_5 \\ c_6 \end{array}\right]
+	</me>.
+	Using the relationship <m>\coords{\xvec}{\bcal} =
+	P_{\bcal}^{-1}\xvec</m>, determine an expression for the
+	coefficient <m>c_2</m> in terms of <m>x_1,x_2,\ldots,x_6</m>.
+	What does <m>c_2</m> measure in terms of the grayscale values
+	of the pixels?  What does <m>c_4</m> measure in terms of the
+	grayscale values of the pixels?
+	</p></li>
+
+	<li><p> Now for the specific vector
+	  <me>
+	  \xvec = \left[\begin{array}{r}
+	  25 \\ 34 \\ 30 \\ 45 \\ 190 \\ 200
+	  \end{array}\right]
+	  </me>,
+	  determine the representation of <m>\xvec</m> in the
+	  <m>\bcal</m>-coordinate system.
+	</p></li>
+
+	<li><p>
+	  Explain how the coefficients in <m>\coords{\xvec}{\bcal}</m>
+	  determine the location of the jump in brightness in the
+	  grayscale values represented by the vector <m>\xvec</m>.
+	</p></li>
+      </ol>
+      </p>
+
+      <p> Readers who are familiar with calculus may recognize that
+      this change of basis converts a vector <m>\xvec</m> into
+      <m>\coords{\xvec}{\bcal}</m>, the set of changes in
+      <m>\xvec</m>.  This process is similar to differentiation in
+      calculus.  Similarly, the process of converting
+      <m>\coords{\xvec}{\bcal}</m> into the vector <m>\xvec</m> adds
+      together the changes in a process similar to integration.  As a
+      result, this
+      change of basis represents a linear algebraic
+      version of the Fundamental Theorem of Calculus.
+      </p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> We form the matrix
+	<me>
+	  P_{\bcal} =
+	  \left[\begin{array}{rrrrrr}
+	  1 \amp 1 \amp 1 \amp 1 \amp 1 \amp 1 \\
+	  0 \amp 1 \amp 1 \amp 1 \amp 1 \amp 1 \\
+	  0 \amp 0 \amp 1 \amp 1 \amp 1 \amp 1 \\
+	  0 \amp 0 \amp 0 \amp 1 \amp 1 \amp 1 \\
+	  0 \amp 0 \amp 0 \amp 0 \amp 1 \amp 1 \\
+	  0 \amp 0 \amp 0 \amp 0 \amp 0 \amp 1
+	  \end{array}\right]\text{.}
+	</me>
+	</p></li>
+
+	<li><p>
+	  We find that
+	  <me>
+	    P_{\bcal}^{-1} = 
+	    \left[\begin{array}{rrrrrr}
+	    1 \amp -1 \amp 0 \amp 0 \amp 0 \amp 0 \\
+	    0 \amp 1 \amp -1 \amp 0 \amp 0 \amp 0 \\
+	    0 \amp 0 \amp 1 \amp -1 \amp 0 \amp 0 \\
+	    0 \amp 0 \amp 0 \amp 1 \amp -1 \amp 0 \\
+	    0 \amp 0 \amp 0 \amp 0 \amp 1 \amp -1 \\
+	    0 \amp 0 \amp 0 \amp 0 \amp 0 \amp 1
+	    \end{array}\right]\text{.}
+	  </me>
+	</p></li>
+
+	<li><p> We see that <m>c_2=x_3-x_2</m> so <m>c_2</m> measures
+	the change in brightness between one pixel and its neighbor.
+	Similarly, <m>c_4=x_5-x_4</m>, which measures another change
+	in brightness.
+	</p></li>
+
+	<li><p> We compute that
+	<me>\coords{\xvec}{\bcal}=P_{\bcal}^{-1}\xvec =
+	\left[\begin{array}{c}
+	-9 \\ 4 \\ -15 \\ -145 \\ -10 \\ 200
+	\end{array}\right]\text{.}
+	</me>
+	</p></li>
+
+	<li><p>
+	  Most of the coefficients that measure changes are relatively
+	  small in absolute value.  The coefficient <m>c_4</m>,
+	  however, which measures the change in brightness between the
+	  fourth and fifth pixel, has a large absolute value.  This
+	  tells us that there is a large change in brightness between
+	  the fourth and fifth pixel, which points to an edge in the
+	  image.
+	</p></li>
+      </ol></p>
+    </solution>
+
+  </activity>
+
   </subsection>
 
   <subsection>
     <title> Summary </title>
 
-    <p>
-      Our goal in this section has been to use the eigenvalues and
-      eigenvectors of a matrix <m>A</m> to relate <m>A</m> to a
-      simpler matrix.
+    <p> We defined a basis to be a set of vectors <m>\bcal =
+    \{\vvec_1,\vvec_2,\ldots,\vvec_n\}</m> that 
+    is linearly independent and whose span is <m>\real^m</m>.
     <ul>
-      <li><p> We said that <m>A</m> is diagonalizable if we can write
-      <m>A = PDP^{-1}</m> where <m>D</m> is a diagonal matrix.  The
-      columns of <m>P</m> consist of eigenvectors of <m>A</m> and the
-      diagonal entries of <m>D</m> are the associated eigenvalues.
-      </p></li>
+      <li><p> A set of vectors forms a basis for <m>\real^m</m> if and
+      only if the matrix 
+      <me>
+      A = \left[\begin{array}{rrrr}
+      \vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_n
+      \end{array}\right]
+      \sim I
+      </me>.
+      This means there must be <m>m</m> vectors in a basis for
+      <m>\real^m</m>. </p></li>
 
-      <li><p> An <m>n\times n</m> matrix <m>A</m> is diagonalizable if
-      and only if there is a basis of <m>\real^n</m> consisting of
-      eigenvectors of <m>A</m>. </p></li>
+      <li><p> If <m>\vvec_1,\vvec_2,\ldots,\vvec_m</m> forms a basis
+      for <m>\real^m</m>, then any vector in <m>\real^m</m> can be
+      written as a linear combination of the vectors in exactly one
+      way. </p></li>
 
-      <li><p> We said that <m>A</m> and <m>B</m> are similar if there
-      is an invertible matrix <m>P</m> such that <m>A=PBP^{-1}</m>.
-      In this case, <m>A^k = PB^kP^{-1}</m>. </p></li>
+      <li><p> We used the basis <m>\bcal</m> to define a coordinate
+      system in which
+      <m> \coords{\xvec}{\bcal} = \cfourvec{c_1}{c_2}{\vdots}{c_n}
+      </m>, the coordinates of <m>\xvec</m> in the basis <m>\bcal</m>,
+      are defined by
+      <me>\xvec = c_1\vvec_1+c_2\vvec_2 + \cdots + c_n\vvec_m</me>.
+      </p> </li>
 
-      <li><p> If <m>A</m> is a <m>2\times2</m> matrix with complex
-      eigenvalue <m>\lambda = a+bi</m>, then <m>A</m> is similar to
-      <m>
-	C = \left[\begin{array}{rr}
-	a \amp -b \\
-	b \amp a \\
-	\end{array} \right]
-      </m>.  Writing the point <m>(a,b)</m> in polar coordinates
-      <m>r</m> and <m>\theta</m>, we see that <m>C</m> rotates vectors
-      through an angle <m>\theta</m> and scales them by a factor of
-      <m>r=\sqrt{a^2+b^2}</m>.
+      <li><p> Forming the matrix <m>P_{\bcal}</m> whose columns are
+      the basis vectors, we can convert between coordinate systems:
+      <me>
+	\begin{aligned}
+	x \amp {}={} P_{\bcal}\coords{\xvec}{\bcal}, \\
+	P_{\bcal}^{-1} x \amp {}={} \coords{\xvec}{\bcal}. \\
+	\end{aligned}
+      </me>.
       </p></li>
     </ul>
     </p>
 
   </subsection>
 
-  <xi:include href="exercises/exercises4-3.ptx" />  
-
+  <xi:include href="exercises/exercises3-2.ptx" />
+  
 </section>
+  
 
-
-    

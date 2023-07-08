@@ -1,113 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="sec-determinants"
+<section xml:id="sec-transforms-geom"
 	 xmlns:xi="http://www.w3.org/2001/XInclude">
 
-  <title> Determinants </title>
+  <title>
+    The geometry of matrix transformations
+  </title>
 
   <introduction>
-    <p> As invertibility plays a central role in this chapter, we need
-    a criterion that tells us when a matrix is invertible.  
-    We already know that a square matrix is invertible if and only if
-    it is row equivalent to the identity matrix.  In this section, we
-    will develop a second, numerical criterion that tells us when a
-    square matrix is invertible.
-    </p>
-
-    <p> To begin, let's consider a <m>2\times2</m> matrix <m>A</m>
-    whose columns are vectors <m>\vvec_1</m> and <m>\vvec_2</m>.  We
-    have frequently drawn the vectors and studied the linear
-    combinations they form using a figure such as <xref
-    ref="fig-intro-dets" />.
-    </p>
-
-    <figure xml:id="fig-intro-dets">
-      <sidebyside width="40%">
-	<image source="images/basis-1" />
-      </sidebyside>
-      <caption>
-	Linear combinations of two vectors <m>\vvec_1</m> and <m>\vvec_2</m> 
-	form a collection of congruent parallelograms.
-      </caption>
-    </figure>
-
-    <p> Notice how the linear combinations form a set of congruent
-    parallelograms in the plane.  In this section, we will use the
-    area of these parallelograms to define a numerical
-    quantity called the determinant that tells us whether the matrix
-    <m>A</m> is invertible.  
-    </p>
-
-    <sidebyside widths="60% 40%" valign="middle">
-      <p> To recall, the area of parallelogram
-      is found by multiplying the length of one side by the
-      perpendicular distance to its parallel side.  Using the notation
-      in the figure, the area of the
-      parallelogram is <m>bh</m>.
-      </p>
-      <image source="images/parallelogram-area" />
-    </sidebyside>
+    <p> Matrix transformations, which we explored in the last section,
+    allow us to describe certain functions
+    <m>T:\real^n\to\real^m</m>.  In this section, we will demonstrate
+    how matrix transformations provide a convenient way to describe
+    geometric operations, such as rotations,
+    reflections, and scalings.  We will then explore how matrix
+    transformations are used in computer animation. </p>
 
     <exploration>
       <statement>
-      <p> We will explore the area formula in this preview
-      activity. 
+      <p> We will describe the matrix transformation <m>T</m> that
+      reflects 2-dimensional vectors across the horizontal axis.  For
+      instance, <xref ref="fig-reflect-intro" /> illustrates how a
+      vector <m>\xvec</m> is reflected onto the vector
+      <m>T(\xvec)</m>. </p>
 
-      <ol marker="a.">
-	<li><p> Find the area of the following parallelograms. </p>
+      <figure xml:id="fig-reflect-intro">
+	<sidebyside width="45%">
+	  <image source="images/reflect-intro" />
+	</sidebyside>
+	<caption> A vector <m>\xvec</m> and its reflection
+	<m>T(\xvec)</m> across the horizontal axis. </caption>
+      </figure>
 
-	<sbsgroup>
-	  <sidebyside widths="3% 30% 3% 30% 3% 30%">
-	    <p> 1. </p>
-	    <image source="images/parallelogram-a" /> 
-	    <p> 2. </p>
-	    <image source="images/parallelogram-b" /> 
-	    <p> 3. </p>
-	    <image source="images/parallelogram-c" /> 
-	  </sidebyside>
-	  <sidebyside widths="3% 30% 3% 30% 3% 30%">
-	    <p> 4. </p>
-	    <image source="images/parallelogram-d" /> 
-	    <p> 5. </p>
-	    <image source="images/parallelogram-e" />
-	    <p> 
-	    </p>
-	    <p>
-	    </p>
-	  </sidebyside>
-	</sbsgroup>
-	</li>
+      <p><ol marker="a.">
+	<li><p> If <m>\xvec = \twovec{2}{4}</m>, what is the vector
+	<m>T(\xvec)</m>?  Sketch the vectors
+	<m>\xvec</m> and <m>T(\xvec)</m>. </p></li>
 
-	<li>
-	  <sidebyside widths="50% 40%" valign="middle">
-	    <p> Explain why the area of the parallelogram formed by 
-	      the vectors <m>\vvec</m> and <m>\wvec_1</m> is the same as
-	    that formed by <m>\vvec</m> and <m>\wvec_2</m>. </p>
-	    <image source="images/area-shear" />
-	  </sidebyside>
-	</li>
+	<li><p> More generally, if <m>\xvec=\twovec{x}{y}</m>, what is
+	<m>T(\xvec)</m>?  </p></li>
+
+	<li><p> Find the vectors <m>T\left(\twovec{1}{0}\right)</m>
+	and <m>T\left(\twovec{0}{1}\right)</m>. </p></li>
+
+	<li><p> Use your results to
+	write the matrix <m>A</m> so that <m>T(\xvec) = A\xvec</m>.
+	Then verify that <m>T\left(\twovec{x}{y}\right)</m> agrees
+	with what you found in part b. </p></li>
+
+	<li><p> Describe the transformation that results from
+	composing <m>T</m> with itself;  that is, what is the
+	transformation <m>T\circ T</m>?  Explain how matrix
+	multiplication can be used to justify your response. </p></li>
       </ol></p>
       </statement>
 
       <solution>
 	<p><ol marker="a.">
-	  <li><p> We find the following areas.
-	  <ol marker="1.">
-	    <li><p> A <m>1\times1</m> square has area 1. </p></li>
-	    <li><p> A <m>2\times3</m> rectangle has area 6. </p></li>
-	    <li><p> The square has side length <m>\sqrt{2}</m> giving
-	    an area of 2. </p></li>
-	    <li><p> If we consider the horizontal length as the base,
-	    we see that <m>b=h=2</m> so that the area is 4. </p></li>
-	    <li><p> In the same way, we can consider both the base and
-	    height to be 2 so that the area is 4. </p></li>
-	  </ol>
+	  <li><p>
+	    <m>T(\xvec) = \twovec{2}{-4}</m>.
 	  </p></li>
 
-	  <li><p> If we consider the base to be the length of
-	  <m>\vvec</m>, then the height, which is the perpendicular
-	  distance to its parallel side, is the same in both
-	  parallelograms. </p></li>
+	  <li><p>
+	    <m>T(\xvec) = \twovec{x}{-y}</m>.
+	  </p></li>
+
+	  <li><p>
+	    <m>T\left(\twovec{1}{0}\right) = \twovec{1}{0}</m> and
+	    <m>T\left(\twovec{0}{1}\right) = \twovec{0}{-1}</m>.
+	  </p></li>
+
+	  <li><p>
+	    We have the matrix
+	    <m>A=\left[\begin{array}{rr}
+	    1 \amp 0 \\
+	    0 \amp -1 \\
+	    \end{array}\right]</m>.  It follows that
+	    <m>T\left(\twovec{x}{y}\right) = A\twovec{x}{y} =
+	    \twovec{x}{-y}</m> as expected.
+	  </p></li>
+
+	  <li><p>
+	    If we reflect a vector twice in the horizontal axis, we
+	    obtain the original vector.
+	    The matrix for the transformation <m>T\circ T</m> is
+	    simply <m>AA= A^2 = \left[\begin{array}{rr}1\amp 0 \\ 0
+	    \amp 1 \\
+	    \end{array}\right]</m>.
+	  </p></li>
 	</ol></p>
       </solution>
 	    
@@ -116,1038 +96,589 @@
   </introduction>
 
   <subsection>
-    <title> Determinants of <m>2\times2</m> matrices </title>
-
-    <p> We will begin by defining
-    the determinant of a <m>2\times2</m> matrix <m>A =
-    \left[\begin{array}{rr} \vvec_1 \amp \vvec_2
-    \end{array}\right]</m>.  First, however, we need to define the
-    <term>orientation</term> of an ordered pair of vectors.  As shown in <xref
-    ref="fig-det-orientation" />, an ordered pair of vectors
-    <m>\vvec_1</m> and <m>\vvec_2</m> is called <em>positively</em>
-    oriented if the angle, measured in the counterclockwise direction,
-    from <m>\vvec_1</m> to <m>\vvec_2</m> is less than
-    <m>180^\circ</m>; we say the pair is <em>negatively</em> oriented if
-    it is more than <m>180^\circ</m>.
-	<idx> orientation, of a pair of vectors </idx>
-    </p>
-
-    <figure xml:id="fig-det-orientation">
-      <sidebyside width="60%">
-	<image source="images/det-orientation" />
-      </sidebyside>
-      <caption>
-	The vectors on the left are positively oriented while the ones
-	on the right are negatively oriented.
-      </caption>
-    </figure>
-
-    <definition>
-      <statement>
-	<idx> determinant </idx>
-	<p> Suppose a <m>2\times2</m> matrix <m>A</m> has columns
-	<m>\vvec_1</m> and <m>\vvec_2</m>.  If the pair of vectors is
-	positively oriented, then the <term>determinant</term> of
-	<m>A</m>, denoted <m>\det(A)</m>, is the area of the
-	parallelogram formed by <m>\vvec_1</m> and <m>\vvec_2</m>.
-	If the pair is negatively oriented, then <m>\det(A)</m> is
-	minus the area of the parallelogram. </p>
-      </statement>
-    </definition>
-
-    <example xml:id="example-det-identity">
-      <statement>
-	<p>
-	  Consider the determinant of the identity matrix
-	  <me>I =
-	  \left[\begin{array}{rr} 1\amp 0 \\ 0 \amp 1 \\
-	  \end{array}\right]
-	  =
-	  \left[\begin{array}{rr} \evec_1 \amp \evec_2 \\
-	  \end{array}\right]
-	  </me>.
-	  As seen on the left of <xref ref="fig-det-identity" />,
-	  the vectors <m>\vvec_1 = \evec_1</m> 
-	  and <m>\vvec_2=\evec_2</m> form a positively oriented pair.
-	  Since the parallelogram they form is a <m>1\times1</m> square,
-	  we have <m>\det(I) = 1.</m>
-	</p>
-
-	<figure xml:id="fig-det-identity">
-	  <sidebyside width="75%">
-	    <image source="images/det-identity" />
-	  </sidebyside>
-	  <caption>
-	    The determinant <m>\det(I) = 1</m>, as seen on the left.
-	    On the right, we see that <m>\det(A) = -2</m>
-	    where <m>A</m> is the matrix whose columns are shown.
-	  </caption>
-	</figure>
-
-	<p> Now consider the matrix
-	  <me>A = 
-	  \left[\begin{array}{rr} -2\amp 0 \\ 0 \amp 1 \\
-	  \end{array}\right]
-	  =
-	  \left[\begin{array}{rr} \vvec_1 \amp \vvec_2 \\
-	  \end{array}\right]
-	  </me>.
-	  As seen on the right of <xref ref="fig-det-identity" />, the
-	  vectors <m>\vvec_1</m> and <m>\vvec_2</m> form a negatively
-	  oriented pair.  The parallelogram they define is a
-	  <m>2\times1</m> rectangle so we have <m>\det(A) = -2</m>.
-	  </p>
-      </statement>
-    </example>
-
-    <activity>
-      <statement>
-      <p> In this activity, we will find the determinant of some
-      simple <m>2\times2</m> matrices and discover some important
-      properties of determinants.
-      </p>
-
-      <figure xml:id="js-det">
-	<caption>
-	  The geometric meaning of the determinant of a matrix.
-	</caption>
-
-	<interactive xml:id="interactive-det"
-		     platform="javascript" width="100%"
-		     aspect="100:80"
-		     source="jslibrary/figures.js
-			     jslibrary/det.js"
-		     preview="preview/det-preview.png">
-	  <sbsgroup>
-	    <sidebyside width="60%">
-	      <slate xml:id="det-sliders"
-		     aspect="9:2"
-		     surface="canvas" />
-	    </sidebyside>
-	    <sidebyside width="60%">
-	      <slate xml:id="det-canvas" aspect="1:1" surface="canvas" />
-	    </sidebyside>
-	  </sbsgroup>
-	  <instructions>
-	    <p>
-	      The sliders in the diagram below allow you to choose a
-	      matrix <m>A=\begin{bmatrix}a \amp b \\
-	      c \amp d \\
-	      \end{bmatrix}</m>.  The two vectors representing the columns
-	      of the matrix, along with the parallelograms they define,
-	      are shown below.
-	    </p>
-	  </instructions>
-	  <static>
-	    <sidebyside width="100%">
-	      <p>
-		There is an interactive diagram at
-		<url href="http://gvsu.edu/s/0J9"
-		     visual="gvsu.edu/s/0J9"/>
-		that accompanies this activity.
-	      </p>
-	    </sidebyside>
-	    <sidebyside width="50%">
-	      <image source="preview/det-preview.png"/>
-	    </sidebyside>
-	  </static>
-	</interactive>
-      </figure>
-
-      <p> <ol marker="a.">
-	<li><p>
-	  Use the diagram to find the determinant of the matrix
-	  <m>\left[\begin{array}{rr} -\frac12 \amp 0 \\ 0 \amp 2
-	  \end{array}\right]</m>.
-	  Along with <xref ref="example-det-identity"/>, what
-	  does this lead you to believe is generally true about 
-	  the determinant of a diagonal matrix?
-	</p></li>
-
-	<li><p> Use the diagram to find the determinant of the matrix
-	<m>\left[\begin{array}{rr} 0 \amp 1 \\
-	1 \amp 0 \\
-	\end{array}\right]</m>.  What is the geometric effect of the
-	matrix transformation defined by this matrix?
-	</p></li>
-
-	<li><p> Use the diagram to find the determinant of the matrix
-	<m>\left[\begin{array}{rr} 2 \amp 1 \\
-	0 \amp 1 \\
-	\end{array}\right]</m>.  
-	More generally, what do you notice about the determinant of any matrix
-	of the form
-	<m>\left[\begin{array}{rr} 2 \amp k \\
-	0 \amp 1 \\
-	\end{array}\right]</m>?  What does this say about the
-	determinant of an upper triangular matrix?
-	</p></li>
-
-	<li><p> Use the diagram to find the determinant of any matrix
-	of the form
-	<m>\left[\begin{array}{rr} 2 \amp 0 \\
-	k \amp 1 \\
-	\end{array}\right]</m>.  What does this say about the
-	determinant of a 
-	lower triangular matrix?
-	</p></li>
-
-	<li><p> Use the diagram to find the determinant of the matrix
-	<m>\left[\begin{array}{rr} 1 \amp -1 \\
-	-2 \amp 2 \\
-	\end{array}\right]</m>.   In general,
-	what is the determinant of a matrix whose columns are linearly
-	dependent? 
-	</p></li>
-
-	<li><p> Consider the matrices
-	<me>
-	  A = \left[\begin{array}{rr}
-	  2 \amp 1 \\
-	  2 \amp -1 \\
-	  \end{array}\right],~~~
-	  B = \left[\begin{array}{rr}
-	  1 \amp 0 \\
-	  0 \amp 2 \\
-	  \end{array}\right]
-	  </me>.
-	  Use the diagram to find the determinants of <m>A</m>,
-	  <m>B</m>, and <m>AB</m>.  What does this suggest is
-	  generally true about the 
-	  relationship of <m>\det(AB)</m> to <m>\det(A)</m> and
-	  <m>\det(B)</m>?
-	</p></li>
-      </ol></p>
-      </statement>
-
-      <solution>
-	<p><ol marker="a.">
-	  <li><p> The determinant is <m>-1</m> because the vectors are
-	  negatively oriented and the rectangle has sides of length
-	  <m>\frac12</m> and <m>2</m>.  
-	  The determinant of a diagonal matrix seems to be
-	  the product of the diagonal entries.
-	  </p></li>
-
-	  <li><p> The matrix transformation is a reflection over the
-	  line <m>y=x</m> and we see that the determinant is
-	  <m>-1</m>.
-	  </p></li>
-
-	  <li><p> The determinant will continue to be <m>2</m> for any
-	  value of <m>k</m>.  This illustrates the fact that the
-	  determinant of an upper triangular matrix equals the product
-	  of its diagonal entries.
-	  </p></li>
-
-	  <li><p> The same reasoning tells us that this determinant is
-	  <m>2</m> and, in fact, the determinant of a lower triangular
-	  matrix equals the product of its diagonal entries.
-	  </p></li>
-
-	  <li><p> The determinant of this matrix is <m>0</m> because
-	  the parallelogram formed by the vector has no area.  This
-	  suggests that the determinant of a matrix whose columns are
-	  linearly dependent is <m>0</m>.  </p></li>
-
-	  <li><p> We find that <m>\det(A) = -4</m>, <m>\det(B) = 2</m>,
-	  and <m>\det(AB) = -8</m>.  This suggests that
-	  <m>\det(AB) = \det(A) \det(B)</m>.
-	  </p></li>
-	</ol></p>
-      </solution>
-	  
-    </activity>
-
-    <p> Later in this section, we will learn an algebraic
-    technique for computing determinants.  In the meantime, 
-    we will simply note that we can define determinants for <m>n\times
-    n</m> matrices by measuring the volume of a box defined by the columns
-    of the matrix, even if this box resides in <m>\real^n</m> for
-    some very large <m>n</m>.  
-    </p>
-
-    <sidebyside widths="60% 40%">
-      <p> For example, the columns of a <m>3\times3</m> matrix
-      <m>A</m> will form a parallelpiped, like the one shown here, and
-      there is a means by which we can classify sets of such vectors
-      as either positively or negatively oriented.  Therefore, we can
-      define the determinant <m>\det(A)</m> in terms of the volume of
-      the parallelpiped, but we will not worry about the details here.
-      </p>
-      <image source="images/det-3d" />
-    </sidebyside>
-
-    <p> Though the previous activity deals with determinants of
-    <m>2\times2</m> matrices, it illustrates some important properties of
-    determinants that are true more generally.  
-    <ul>
-      <li><p> If <m>A</m> is a triangular matrix, then <m>\det(A)</m>
-      equals the product of the entries on the diagonal.  For example,
-      <me>
-	\det\left[\begin{array}{rr} 2 \amp 2 \\
-	0 \amp 3 \\ \end{array}\right] = 2\cdot 3 = 6
-	</me>, since the two parallelograms in <xref
-	ref="fig-parallelogram-f" /> have equal area.
-      </p>
-
-      <figure xml:id="fig-parallelogram-f">
-	<sidebyside widths="30% 30%">
-	  <image source="images/parallelogram-f" />
-	  <image source="images/parallelogram-b" />
-	</sidebyside>
-	<caption> The determinant of a triangular matrix equals the
-	product of its diagonal entries.
-	</caption>
-      </figure>
-      </li>
-
-      <li><p> We also saw that
-      <me>
-	\det \left[\begin{array}{rr}
-	0 \amp 1 \\
-	1 \amp 0 \\
-	\end{array}\right] = -1
-      </me>
-      because the columns form a negatively oriented pair.
-      You may remember from <xref ref="subsec-triangular-invertible"/>
-      that a matrix such as this is obtained by interchanging two rows
-      of the identity matrix.  
-      </p></li>
-
-      <li><p> The determinant satisfies a multiplicative property,
-      which says that
-      <me>
-	\det(AB) = \det(A)\det(B).
-      </me>
-      Rather than simply thinking of the
-      determinant as the area of a parallelogram, we may also think
-      of it as a factor by which areas are scaled under the matrix
-      transformation defined by the matrix.  Applying the matrix
-      transformation defined by <m>B</m> will scale area by
-      <m>\det(B)</m>.  If we then compose <m>B</m> with the matrix
-      transformation defined by <m>A</m>, area will scale a second
-      time by the factor <m>\det(A)</m>.  The net effect is that the
-      matrix transformation defined by <m>AB</m> scales area by
-      <m>\det(A)\det(B)</m> so that <m>\det(AB)=\det(A)\det(B)</m>.
-      </p></li>
-    </ul>
-    </p>
-
-    <proposition xml:id="proposition-det-properties">
-      <statement>
-	<p>
-	  The determinant satisfies these properties:
-	  <ul>
-	    <li>
-	      <p>
-		The determinant of a triangular matrix equals the
-		product of its diagonal entries.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		If <m>P</m> is obtained by interchanging two rows of
-		the identity matrix, then <m>\det(P) = -1</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\det(AB) = \det(A)\det(B)</m>.
-	      </p>
-	    </li>
-	  </ul>
-	</p>
-      </statement>
-    </proposition>
-
-  </subsection>
-
-  <subsection>
-    <title> Determinants and invertibility </title>
-
-    <p>
-      Perhaps the most important property of determinants also
-      appeared in the previous activity.  We saw that when the columns
-      of the matrix <m>A</m> are linearly dependent, the
-      parallelogram formed by those vectors folds down onto a line.
-      For instance, if <m>A=\begin{bmatrix} 1 \amp 2 \\ -1 \amp -2 \\
-      \end{bmatrix}</m>, then the resulting parallelogram, as shown
-      in
-      <xref ref="figure-linear-dep-det"/>, has zero area, which means
-      that <m>\det(A)=0</m>. 
-    </p>
-
-    <figure xml:id="figure-linear-dep-det">
-      <caption>
-	When the columns of <m>A</m> are linearly dependent, we find
-	that <m>\det(A) = 0</m>.
-      </caption>
-      <sidebyside width="40%">
-	<image source="images/parallelogram-g"/>
-      </sidebyside>
-    </figure>
-
-    <p>
-      The condition that the columns of <m>A</m> are linearly
-      dependent is precisely the same as the condition that <m>A</m>
-      is not invertible.  This leads us to believe that <m>A</m> is
-      not invertible if and only if its determinant is zero.  
-      The following proposition expresses this thought.
-    </p>
-
-    <proposition xml:id="prop-invertible-det">
-      <statement>
-	<p> The matrix <m>A</m> is invertible if and only if <m>\det(A)
-	\neq 0</m>.
-	</p>
-      </statement>
-    </proposition>
-
-    <p> To understand this proposition more fully, let's remember that the
-    matrix <m>A</m> is invertible if and only if it is row equivalent
-    to the identity matrix <m>I</m>.  We will therefore consider how
-    the determinant changes when we perform row operations on a matrix.
-    Along the way, we will discover an effective means to compute the
-    determinant.
-    </p>
-
-    <p> In <xref ref="subsec-triangular-invertible" />, we saw how to
-    describe the three row operations, scaling, interchange, and 
-    replacement, using matrix multiplication.  If we perform a row
-    operation on the matrix <m>A</m> to obtain the matrix <m>A'</m>,
-    we would like to relate <m>\det(A)</m> and <m>\det(A')</m>.  To do
-    so, 
-    remember that
-    <ul>
-      <li> <p> Scalings are performed by multiplying a matrix <m>A</m>
-      by a diagonal
-      matrix, such as 
-      <me>
-	S = \left[\begin{array}{rrr}
-	1 \amp 0 \amp 0 \\
-	0 \amp 3 \amp 0 \\
-	0 \amp 0 \amp 1 \\
-	\end{array}\right],
-      </me>
-      which has the effect of multiplying the second row of <m>A</m>
-      by <m>3</m> to obtain <m>A'</m>.  Since <m>S</m> is diagonal, we
-      know that its determinant is the product of its diagonal entries
-      so that <m>\det(S) = 3</m>.  
-      This means that <m>A'=SA</m> and therefore
-      <me>\det(A')=\det(S)\det(A) = 3\det(A).</me> In general, if we
-      scale a row of <m>A</m> by 
-      <m>k</m>, we have <m>\det(A') =
-      k\det(A)</m>.  </p></li>
-
-      <li><p> Interchanges are performed by matrices such
-      as
-      <me>
-	P = \left[\begin{array}{rrr}
-	0 \amp 1 \amp 0 \\
-	1 \amp 0 \amp 0 \\
-	0 \amp 0 \amp 1 \\
-	\end{array}\right],
-      </me>
-      which has the effect of interchanging the first and second rows
-      of <m>A</m>.  As we saw in <xref
-      ref="proposition-det-properties"/>, <m>\det(P) = -1</m>.
-      Therefore, when <m>PA=A'</m>, we have <me>\det(A')=\det(P)
-      \det(A) = -\det(A).</me> In other words, <m>\det(A') =
-      -\det(A)</m> when we perform an interchange.  </p></li>
-
-      <li><p> Row replacement operations are performed by matrices
-      such as
-      <me>
-	R = \left[\begin{array}{rrr}
-	1 \amp 0 \amp 0 \\
-	0 \amp 1 \amp 0 \\
-	-2 \amp 0 \amp 1 \\
-	\end{array}\right],
-      </me>
-      which multiplies the first row by <m>-2</m> and adds the result
-      to the third row.  Since this is a lower triangular matrix, we
-      know that the determinant is the product of the diagonal entries,
-      which says that <m>\det(R) = 1</m>.  This means that when
-      <m>RA = A'</m>,
-      we have <m>\det(A')=\det(R)\det(A) = \det(A)</m>.  In
-      other words, a row replacement does not change the determinant.
-      </p></li>
-    </ul>
-    </p>
-
-    <proposition xml:id="proposition-det-row-operations">
-      <title> The effect of row operations on the determinant </title>
-      <statement>
-	<p>
-	  <ul>
-	    <li>
-	      <p>
-		If <m>A'</m> is obtained from <m>A</m> by scaling a
-		row by <m>k</m>, then <m>\det(A') = k\det(A)</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		If <m>A'</m> is obtained from <m>A</m> by
-		interchanging two rows, then <m>\det(A') =
-		-\det(A)</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		If <m>A'</m> is obtained from <m>A</m> by performing a
-		replacement operation, then <m>\det(A') = \det(A)</m>.
-	      </p>
-	    </li>
-	  </ul>
-	</p>
-      </statement>
-    </proposition>
+    <title> The geometry of <m>2\times2</m> matrix transformations
+    </title>
     
-    <activity>
+    <p> We have now seen how a few geometric operations, such as
+    rotations and reflections, can be described using matrix
+    transformations.  The following activity shows, more generally,
+    that matrix transformations can perform a variety of important
+    geometric operations.
+    </p>
+    
+    <activity xml:id="activity-linear-trans-geom">
+      <title>
+	Using matrix transformations to describe geometric operations
+      </title> 
       <statement>
-      <p> We will investigate the connection between the determinant
-      of a matrix and its invertibility using Gaussian elimination.
-      <ol marker="a.">
-	<li><p> Consider the two upper triangular matrices
-	<me>
-	  U_1 =
-	  \left[\begin{array}{rrr}
-	  1 \amp -1 \amp 2 \\
-	  0 \amp 2 \amp 4 \\
-	  0 \amp 0 \amp -2 \\
-	  \end{array}\right],~~~
-	  U_2 =
-	  \left[\begin{array}{rrr}
-	  1 \amp -1 \amp 2 \\
-	  0 \amp 2 \amp 4 \\
-	  0 \amp 0 \amp 0 \\
-	  \end{array}\right].
-	</me>
-	Remembering <xref
-	ref="proposition-triangular-invertibility"/>, 
-	which of the matrices <m>U_1</m> and <m>U_2</m> are
-	invertible?  What are the determinants <m>\det(U_1)</m> and
-	<m>\det(U_2)</m>? 
-	</p></li>
 
-	<li><p> Explain why an upper triangular matrix is invertible
-	if and only if its determinant is not zero.
-	</p></li>
+	<figure xml:id="js-matrix-mult">
+	  <caption>
+	    The matrix transformation <m>T</m> transforms features
+	    shown on the left into features shown on the right.
+	  </caption>
+	  
+	  <interactive xml:id="interactive-matrix-mult"
+		       platform="javascript" width="100%"
+		       aspect="14:9"
+		       source="jslibrary/figures.js
+			       jslibrary/mult.c.js"
+		       preview="preview/mult-preview.png">
+	    <sbsgroup>
+	      <sidebyside width="80%">
+		<slate xml:id="mult-sliders"
+		       aspect="10:2"
+		       surface="canvas" />
+	      </sidebyside>
+	      <sidebyside widths="45% 45%" margins="2% 2%">
+		<slate xml:id="mult-left" aspect="1:1" surface="canvas" />
+		<slate xml:id="mult-right" aspect="1:1" surface="canvas" />
+	      </sidebyside>
+	    </sbsgroup>
+	    <instructions>
+	      <p>
+		The diagram below demonstrates the effect of a matrix
+		transformation <m>T</m> on the plane.  You may modify
+		the matrix <m>A=\begin{bmatrix} a \amp b \\ c \amp c
+		\\ \end{bmatrix}</m> defining <m>T</m>
+		through the sliders at the top.
+	      </p>
+	      <p>
+		Since a matrix transformation takes a vector as input
+		and produces a vector as output, we will show the
+		inputs and outputs on separate sets of axes.  In
+		particular, the axes on the left represent the inputs
+		while the axes on the right illustrate how input
+		features are transformed by <m>T</m>.
+	      </p>
+	    </instructions>
+	    <static>
+	      <sidebyside width="100%">
+		<p>
+		  This activity uses an interactive diagram that is
+		  available at <url href="http://gvsu.edu/s/0Jf"
+		  visual="gvsu.edu/s/0Jf"/>.
+		</p>
+	      </sidebyside>
+	      <sidebyside width="75%">
+		<image source="preview/mult-preview.png"/>
+	      </sidebyside>
+	    </static>
+	  </interactive>
+	</figure>
+	
+	<p>
+	  For the following <m>2\times2</m> matrices <m>A</m>,
+	  use the diagram to study the effect of the
+	  corresponding matrix transformation <m>T(\xvec) =
+	  A\xvec</m>.  For each transformation, describe the geometric
+	  effect the transformation has on the plane.
+	  <ol marker="a.">
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      2 \amp 0 \\
+	      0 \amp 1 \\
+	      \end{array}\right]</m>.
+	    </p></li>
 
-	<li><p> 
-	  Let's now consider the matrix
-	  <me>
-	    A = 
-	    \left[\begin{array}{rrr}
-	    1 \amp -1 \amp 2 \\
-	    -2 \amp 2 \amp -6 \\
-	    3 \amp -1 \amp 10 \\
-	    \end{array}\right]
-	  </me> and begin the Gaussian elimination process
-	  with a row replacement operation
-	  <me>
-	    A = 
-	    \left[\begin{array}{rrr}
-	    1 \amp -1 \amp 2 \\
-	    -2 \amp 2 \amp -6 \\
-	    3 \amp -1 \amp 10 \\
-	    \end{array}\right]
-	    \sim
-	    \left[\begin{array}{rrr}
-	    1 \amp -1 \amp 2 \\
-	    0 \amp 0 \amp -2 \\
-	    3 \amp -1 \amp 10 \\
-	    \end{array}\right]
-	    = A_1
-	    </me>.
-	    What is the relationship between <m>\det(A)</m> and
-	    <m>\det(A_1)</m>?
-	</p></li>
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      2 \amp 0 \\
+	      0 \amp 2 \\
+	      \end{array}\right]</m>.
+	    </p></li>
 
-	<li><p> Next we perform another row replacement operation:
-	<me>
-	  A_1=
-	\left[\begin{array}{rrr}
-	1 \amp -1 \amp 2 \\
-	0 \amp 0 \amp -2 \\
-	3 \amp -1 \amp 10 \\
-	\end{array}\right]
-	\sim
-	\left[\begin{array}{rrr}
-	1 \amp -1 \amp 2 \\
-	0 \amp 0 \amp -2 \\
-	0 \amp 2 \amp 4 \\
-	\end{array}\right]
-	= A_2
-	</me>.
-	What is the relationship between <m>\det(A)</m> and
-	<m>\det(A_2)</m>? 
-	</p></li>
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      0 \amp 1 \\
+	      -1 \amp 0 \\
+	      \end{array}\right]</m>.
+	    </p></li>
 
-	<li><p> Finally, we perform an interchange:
-	<me>
-	  A_2 =
-	  \left[\begin{array}{rrr}
-	1 \amp -1 \amp 2 \\
-	0 \amp 0 \amp -2 \\
-	0 \amp 2 \amp 4 \\
-	\end{array}\right]
-	\sim
-	  \left[\begin{array}{rrr}
-	  1 \amp -1 \amp 2 \\
-	  0 \amp 2 \amp 4 \\
-	  0 \amp 0 \amp -2 \\
-	  \end{array}\right]
-	  = U
-	</me>
-	to arrive at an upper triangular matrix <m>U</m>.  What is the
-	relationship between <m>\det(A)</m> and <m>\det(U)</m>?
-	</p></li>
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      1 \amp 1 \\
+	      0 \amp 1 \\
+	      \end{array}\right]</m>.
+	    </p></li>
 
-	<li><p> Since <m>U</m> is upper
-	triangular, we can compute its determinant, which allows us to
-	find <m>\det(A)</m>.  What is <m>\det(A)</m>?  Is <m>A</m>
-	invertible?
-	</p></li>
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      -1 \amp 0 \\
+	      0 \amp 1 \\
+	      \end{array}\right]</m>.
+	    </p></li>
 
-	<li><p> Now consider the matrix
-	<me>
-	  A = 
-	  \left[\begin{array}{rrr}
-	  1 \amp -1 \amp 3 \\
-	  0 \amp 2 \amp -2 \\
-	  2 \amp 1 \amp 3 \\
-	  \end{array}\right].
-	</me>
-	Perform a sequence of row operations to find an upper
-	triangular matrix <m>U</m> that is row equivalent to
-	<m>A</m>.  Use this to determine <m>\det(A)</m> and whether
-	<m>A</m> invertible?
-	</p></li>
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      1 \amp 0 \\
+	      0 \amp 0 \\
+	      \end{array}\right]</m>.
+	    </p></li>
 
-	<li><p> Suppose we apply a sequence of row operations on a
-	matrix <m>A</m> to obtain <m>A'</m>.  Explain why <m>\det(A)
-	\neq 0</m> if and only if <m>\det(A') \neq 0</m>.
-	</p></li>
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      1 \amp 0 \\
+	      0 \amp 1 \\
+	      \end{array}\right]</m>.
+	    </p></li>
 
-	<li><p> Explain why an <m>n\times n</m> matrix
-	<m>A</m> is invertible if and only if <m>\det(A) \neq 0</m>.
-	</p></li>
+	    <li><p>
+	      <m>A=\left[\begin{array}{rr}
+	      1 \amp -1 \\
+	      -2 \amp 2 \\
+	      \end{array}\right]</m>.
+	    </p></li>
 
-      </ol></p>
+	  </ol>
+	</p>
       </statement>
 
       <solution>
 	<p><ol marker="a.">
-	  <li><p> The matrix <m>U_1</m> is invertible because we see
-	  there is a pivot position in every row and column.  The
-	  matrix <m>U_2</m>, however, is not invertible because there
-	  is not a pivot position in the third row.
+	  <li><p> This transformation stretches by a factor of 2 in
+	  the horizontal direction.
 	  </p></li>
 
-	  <li><p> The determinant of an upper triangular matrix equals
-	  the product of its diagonal entries.  Consequently, if the
-	  determinant of an upper triangular matrix is not zero, then
-	  each of its diagonal entries must be nonzero.  In this case,
-	  there is a pivot position in every row and every column so
-	  that the matrix is invertible.  </p></li>
-
-	  <li><p> Row replacement operations do not change the
-	  determinant so <m>\det(A) = \det(A_1)</m>.
+	  <li><p> This transformation stretches by a factor of 2
+	  uniformly in all directions.
 	  </p></li>
 
-	  <li><p> In the same way, <m>\det(A) =
-	  \det(A_2)</m>. </p></li> 
-
-	  <li><p> Interchanges change the sign of the determinant so
-	  <m>\det(A) = -\det(U)</m>.
+	  <li><p> This is a <m>90^\circ</m> clockwise rotation.
 	  </p></li>
 
-	  <li><p> The determinant <m>\det(U) = -4</m> since it is the
-	  product of the diagonal entries of <m>U</m>.  This means
-	  that <m>\det(A) = 4</m>.  We see that <m>A</m> is invertible
-	  because <m>U</m>, which has a pivot position in every row
-	  and every column, is invertible.
+	  <li><p> This transformation is called a <em>shear</em>;  it
+	  pushes vectors horizontally an amount equal to the vertical
+	  component.
 	  </p></li>
 
-	  <li><p> Beginning with a row replacement operation, we
-	  arrive at
-	  <me>A_1=\left[\begin{array}{rrr}
-	  1 \amp - 1 \amp 3 \\
-	  0 \amp 2 \amp -2 \\
-	  0 \amp -3 \amp 3 \\
-	  \end{array}\right]</me>.  We next scale the second row by
-	  <m>\frac12</m> to obtain
-	  <me>A_2=\left[\begin{array}{rrr}
-	  1 \amp - 1 \amp 3 \\
-	  0 \amp 1 \amp -1 \\
-	  0 \amp -3 \amp 3 \\
-	  \end{array}\right]</me>.  Another row replacement operation
-	  gives
-	  <me>A_3=\left[\begin{array}{rrr}
-	  1 \amp - 1 \amp 3 \\
-	  0 \amp 1 \amp -1 \\
-	  0 \amp 0 \amp 0 \\
-	  \end{array}\right]</me>.  Putting these operations together,
-	  we see that <m>\det(A) = 2\det(U) = 0</m>.  In this case,
-	  <m>A</m> is not invertible because <m>U</m>, which has a row
-	  without a pivot position, is not invertible.
+	  <li><p> This transformation reflects vectors in the vertical
+	  axis.
 	  </p></li>
 
-	  <li><p> Performing one of the three row operations either
-	  leaves the determinant unchanged (row replacement), changes
-	  its sign (interchange), or multiplies it by a nonzero number
-	  (scaling).  Therefore, if we begin with a matrix whose
-	  determinant is not zero, the determinant remains not zero
-	  after any row operation is applied.
+	  <li><p> This transformation is called a <em>projection</em>;
+	  it produces the shadow of the vector on the horizontal
+	  axis.
 	  </p></li>
 
-	  <li><p> If we apply a sequence of row operations to <m>A</m>
-	  to find a
-	  row equivalent matrix <m>U</m> that is upper triangular, we
-	  know that <m>\det(A)\neq0</m> if and only if <m>\det(U) \neq 0</m>.
-	  We also know that <m>A</m> is invertible if and only if
-	  <m>U</m> is invertible.  Putting these facts together, we
-	  conclude that <m>\det(A)\neq 0</m> if and only if <m>A</m> is
-	  invertible. </p></li>
+	  <li><p> This transformation is called the <em>identity</em>;
+	  it causes no change.
+	  </p></li>
 
+	  <li><p> This transformation pushes vectors onto the line
+	  defined by the vector <m>\twovec{1}{-2}</m>.
+	  </p></li>
 	</ol></p>
       </solution>
-	    
+
     </activity>
 
-    <p> As seen in this activity, row operations can be used to
-    compute the determinant of a matrix.  More specifically, 
-    applying the forward substitution phase of Gaussian
-    elimination to the matrix <m>A</m> leads us to an upper triangular
-    matrix <m>U</m> so that <m>A\sim U</m>.
-    </p>
-
     <p>
-      We know that <m>U</m> is
-      invertible when all of its diagonal entries are nonzero.  We also
-      know that <m>\det(U)\neq 0</m> under the same condition.  This
-      tells us <m>U</m> is invertible if and only if <m>\det(U) \neq 0</m>.
+      The previous activity presented some examples showing that
+      matrix transformations can perform interesting geometric
+      operations, such as rotations, scalings, and reflections.
+      Before we go any further, we should explain why it is possible
+      to represent these operations by matrix transformations.  In
+      fact, we ask more generally: what types of functions
+      <m>T:\real^n\to\real^m</m> are represented as matrix
+      transformations?
     </p>
-
     <p>
-      Now if <m>\det(A)\neq 0</m>, we also have <m>\det(U)\neq 0</m>
-      since applying a sequence of row operations to <m>A</m> only
-      multiplies the determinant by a nonzero number.  It then follows
-      that <m>U</m> is invertible so <m>U\sim I</m>.  Therefore, we
-      also know that <m>A\sim I</m> and so <m>A</m> must also be
-      invertible.
-    </p>
-
-    <p>
-      This explains <xref ref="prop-invertible-det"/> and so we know
-      that <m>A</m> is invertible
-      if and only if <m>\det(A)\neq 0</m>.
-    </p>
-
-    <p>
-      Finally, notice that if <m>A</m> is invertible, we have
-      <m>A^{-1}A = I</m>, 
-      which tells us that
+      The 
+      <xref ref="prop-matrix-mult-prop" text="custom">
+	linearity of matrix-vector multiplication
+      </xref>
+      provides the key to answering
+      this question.  Remember that
+      if <m>A</m> is a matrix, <m>\vvec</m> and <m>\wvec</m> vectors,
+      and <m>c</m> a scalar, then
       <me>
-	\det(A^{-1}A) = \det(A^{-1})\det(A) = 1.
-      </me>
-      Therefore, <m>\det(A^{-1}) = 1/\det(A)</m>.
+	\begin{aligned}
+	A(c\vvec) \amp {}={} cA\vvec \\
+	A(\vvec + \wvec) \amp {}={} A\vvec + A\wvec\text{.}
+	\end{aligned}
+      </me>.
+      This means that a matrix transformation <m>T(\xvec) = A\xvec</m>
+      satisfies the corresponding linearity property:
+      <assemblage xml:id="linearity-of-linear-transformations">
+	<title> Linearity of Matrix Transformations </title>
+	<p>
+	  <me>
+	    \begin{aligned}
+	    T(c\vvec) \amp {}={} cT(\vvec) \\
+	    T(\vvec + \wvec) \amp {}={} T(\vvec) + T(\wvec)\text{.}
+	    \end{aligned}
+	  </me>
+	</p>
+      </assemblage>
     </p>
 
-    <proposition>
+    <p>
+      It turns out that, if <m>T:\real^n\to\real^m</m> satisfies these
+      two linearity properties, then we can find a matrix <m>A</m>
+      such that <m>T(\xvec) = A\xvec</m>.  In fact, <xref
+      ref="prop-linear-trans-columns" /> tells us how to form
+      <m>A</m>; we simply write
+      <me>
+	A = \left[\begin{array}{rrrr}
+	T(\evec_1) \amp T(\evec_2) \amp \ldots T(\evec_n)
+	\end{array}\right]
+      </me>.
+      We will now check that <m>T(\xvec) = A\xvec</m> using the
+      linearity of <m>T</m>:
+      <me>
+	\begin{aligned}
+	T(\xvec) = T\left(\fourvec{x_1}{x_2}{\vdots}{x_n}\right)
+	\amp {}={}
+	T(x_1\evec_1 + x_2\evec_2 + \ldots + x_n\evec_n) \\ \\
+	\amp {}={}
+	x_1T(\evec_1) + x_2T(\evec_2) + \ldots + x_nT(\evec_n) \\ \\
+	\amp {}={}
+	x_1A\evec_1 + x_2A\evec_2 + \ldots + x_nA\evec_n \\ \\
+	\amp {}={}
+	A(x_1\evec_1 + x_2\evec_2 + \ldots + x_n\evec_n) \\ \\
+	\amp {}={}
+	A\fourvec{x_1}{x_2}{\vdots}{x_n} \\ \\
+	\amp {}={}
+	A\xvec
+	\end{aligned}
+      </me>.
+    </p>
+
+    <p>
+      The result is the following proposition.
+    </p>
+
+    <proposition xml:id="prop-linear-trans-characterization">
       <statement>
-	<p>
-	  If <m>A</m> is an invertible matrix, then
-	  <m>\det(A^{-1}) = 1/\det(A)</m>.
+	<p> The function <m>T:\real^n\to\real^m</m> is a matrix
+	transformation where <m>T(\xvec) = A\xvec</m> for some
+	<m>m\times n</m> matrix <m>A</m> if and only if
+	<me>
+	  \begin{aligned}
+	  T(c\vvec) \amp {}={} cT(\vvec) \\
+	  T(\vvec + \wvec) \amp {}={} T(\vvec) + T(\wvec)\text{.}
+	  \end{aligned}
+	</me>.
+	In this case, <m>A</m> is the matrix whose columns are
+	<m>T(\evec_j)</m>;  that is,
+	<me>
+	  A=\left[\begin{array}{rrrr}
+	  T(\evec_1) \amp T(\evec_2) \amp \ldots \amp T(\evec_n)
+	  \end{array}\right]
+	</me>.
 	</p>
       </statement>
     </proposition>
-	    
-  </subsection>
 
-  <subsection>
-    <title> Cofactor expansions </title>
-
-    <p> We now have a technique for computing the determinant of a
-    matrix using row operations.  There is another way to compute
-    determinants, using what are called <term>cofactor expansions</term>,
-    that will be important for us in the next chapter. 
-    We will describe this method here.
-    </p>
-
-    <p> To begin, the determinant of a <m>2\times2</m> matrix is
-    <me>
-      \det\left[\begin{array}{rr}
-      a \amp b \\
-      c \amp d \\
-      \end{array}\right]
-      =
-      ad-bc
-    </me>.  With a little bit of work, it can be shown that this
-    number is the same as the signed area of the parallelogram we
-    introduced earlier.
-    </p>
-
-    <p> Using a cofactor expansion to find the determinant of a more
-    general <m>n\times n</m> matrix is a little more work so we will
-    demonstrate it with an example.
+    <p>
+      Said simply, this proposition means says that if have a function
+      <m>T:\real^n\to\real^m</m> and can verify the two linearity
+      properties stated in the proposition, then we know
+      that <m>T</m> is a matrix transformation.  Let's see how this
+      works in practice.
     </p>
 
     <example>
       <statement>
-	<p> We illustrate how to use a cofactor expansion to find the
-	determinant of <m>A</m> where
-	<me>
-	  A = 
-	  \left[\begin{array}{rrr}
-	  1 \amp -1 \amp 2 \\
-	  -2 \amp 2 \amp -6 \\
-	  3 \amp -1 \amp 10 \\
-	  \end{array}\right].
-	</me>
+	<p>
+	  We will consider the function <m>T:\real^2\to\real^2</m>
+	  that rotates a vector <m>\xvec</m> by <m>45^\circ</m> in the
+	  counterclockwise direction to obtain <m>T(\xvec)</m> as seen
+	  in <xref ref="fig-45-rotation"/>.
 	</p>
 
-	<p> To begin, we choose one row or column.  It doesn't matter
-	which we choose because the result will be the same in any
-	case.  Here, we choose the second row
-	<me>
-	  \left[\begin{array}{rrr}
-	  \lgray{1} \amp \lgray{-1} \amp \lgray{2} \\
-	  -2 \amp 2 \amp -6 \\
-	  \lgray{3} \amp \lgray{-1} \amp \lgray{10} \\
-	  \end{array}\right]
-	</me>.
+	<figure xml:id="fig-45-rotation">
+	  <sidebyside width = "75%">
+	    <image source="images/45-rotation" />
+	  </sidebyside>
+	  <caption>
+	    The function <m>T</m> rotates a vector counterclockwise by
+	    <m>45^\circ</m>.
+	  </caption>
+	</figure>
+	
+	<p>
+	  We first need to know that <m>T</m> can be represented by a
+	  matrix transformation, which means,
+	  by <xref
+	  ref="prop-linear-trans-characterization" />, that we
+	  need to verify the linearity properties:
+	  <me>
+	    \begin{aligned}
+	    T(c\vvec) \amp {}={} cT(\vvec) \\
+	    T(\vvec + \wvec) \amp {}={} T(\vvec) + T(\wvec)\text{.}
+	    \end{aligned}
+	  </me>
+	</p>
+	<p>
+	  The next two figures illustrate why these properties hold.
+	  For instance, <xref ref="fig-45-rotation-linear-mult" />
+	  shows the relationship between <m>T(\vvec)</m> and
+	  <m>T(c\vvec)</m> when <m>c</m> is a scalar.  In particular,
+	  scaling a vector and then rotating it is the same as
+	  rotating and then scaling it, which means that <m>T(c\vvec)
+	  = cT(\vvec)</m>.
 	</p>
 
-	<p> The determinant will be found by creating a sum of terms,
-	one for each entry in the row we have chosen.  For each entry
-	in the row, we form its term by
-	multiplying
-	<ul>
-	  <li><p> <m>(-1)^{i+j}</m> where <m>i</m> and <m>j</m> are
-	  the row and column numbers, respectively, of the
-	  entry, </p></li>
-	  <li><p> the entry itself, and </p></li>
-	  <li><p> the determinant of the entries left over when we
-	  have crossed out the row and column containing the
-	  entry. </p> </li>
-	</ul>
+	<figure xml:id="fig-45-rotation-linear-mult">
+	  <sidebyside width="75%">
+	    <image source="images/45-rotation-linear-a" />
+	  </sidebyside>
+	  <caption>
+	    We see that the vector <m>T(c\vvec)</m> is a scalar
+	    multiple to <m>T(\vvec)</m> so that <m>T(c\vvec) =
+	    cT(\vvec)</m>.
+	  </caption>
+	</figure>
+
+	<p>
+	  Similarly, <xref ref="fig-45-rotation-linear-add" /> shows the
+	  relationship between <m>T(\vvec+\wvec)</m>,
+	  <m>T(\vvec)</m>, and <m>T(\wvec)</m>.  Remember that the
+	  sum of two vectors is represented by the diagonal of the
+	  parallelogram defined by the two vectors.  The rotation
+	  <m>T</m> has the effect of rotating the parallelogram
+	  defined by <m>\vvec</m> and <m>\wvec</m> into the
+	  parallelogram defined by <m>T(\vvec)</m> and
+	  <m>T(\wvec)</m>, explaining why
+	  <m>T(\vvec+\wvec) = T(\vvec) + T(\wvec)</m>.
+	</p>
+	
+	<figure xml:id="fig-45-rotation-linear-add">
+	  <sidebyside width="75%">
+	    <image source="images/45-rotation-linear-b" />
+	  </sidebyside>
+	  <caption>
+	    We see that the vector <m>T(\vvec+\wvec)</m> is the
+	    sum of <m>T(\vvec)</m> and <m>T(\wvec)</m> so that 
+	    <m>T(\vvec + \wvec) = T(\vvec) + T(\wvec)</m>.
+	  </caption>
+	</figure>
+
+	<p>
+	  Having verified these two properties, we now know that the
+	  function <m>T</m> that rotates vectors 
+	  by <m>45^\circ</m> is a matrix transformation.  We may
+	  therefore write it as <m>T(\xvec) = A\xvec</m> where
+	  <m>A</m> is the <m>2\times2</m> matrix
+	  <m>A=\left[\begin{array}{rr} T(\evec_1) \amp T(\evec_2)
+	  \end{array}\right]</m>.  The columns of this matrix,
+	  <m>T(\evec_1)</m> and <m>T(\evec_2)</m>, 
+	  are shown on the right of <xref ref="fig-45-rotation-basis" />.
 	</p>
 
-	<p> Since we are computing the determinant of this matrix
-	<me>
-	  \left[\begin{array}{rrr}
-	  \gray{1} \amp \gray{-1} \amp \gray{2} \\
-	  -2 \amp 2 \amp -6 \\
-	  \gray{3} \amp \gray{-1} \amp \gray{10} \\
-	  \end{array}\right]
-	</me>
-	using the second row, the entry in the first column of this
-	row is <m>-2</m>.  Let's see 
-	how to form the term from this entry.
+	<figure xml:id="fig-45-rotation-basis">
+	  <sidebyside width="75%">
+	    <image source="images/45-rotation-basis" />
+	  </sidebyside>
+	  <caption>
+	    The matrix transformation <m>T</m> rotates <m>\evec_1</m>
+	    and <m>\evec_2</m> by <m>45^\circ</m>.
+	  </caption>
+	</figure>
+
+	<p> Notice that <m>T(\evec_1)</m> forms an isosceles right
+	triangle, as shown in <xref ref="fig-45-rotation-e1" />.
+	Since the length of <m>\evec_1</m> is 1, the length of
+	<m>T(\evec_1)</m>, the hypotenuse of the triangle, is also 1,
+	and by Pythagoras' theorem, the lengths of its legs are
+	<m>1/\sqrt{2}</m>.
 	</p>
 
-	<p> The term itself is <m>-2</m>, and the matrix that is left
-	over when we cross out the second row and first column is
-	<me>
-	  \left[\begin{array}{rrr}
-	  \gray{1} \amp {-1} \amp {2} \\
-	  \gray{-2} \amp \gray{2} \amp \gray{-6} \\
-	  \gray{3} \amp {-1} \amp {10} \\
-	  \end{array}\right]
-	</me>
-	whose determinant is
-	<me>
-	  \det\left[\begin{array}{rr}
-	  -1 \amp 2 \\
-	  -1 \amp 10 \\
-	  \end{array}\right] =
-	  -1(10) - 2 (-1) = -8
-	</me>.
-	Since this entry is in the second row and first column, the
-	term we construct is
-	<m> (-1)^{2+1}(-2)(-8) = -16
-	</m>.
+	<figure xml:id="fig-45-rotation-e1">
+	  <sidebyside width="40%">
+	    <image source="images/45-rotation-e1" />
+	  </sidebyside>
+	  <caption>
+	    The vector <m>T(\evec_1)</m> has length 1 and is the
+	    hypotenuse of a right isosceles
+	    triangle.
+	  </caption>
+	</figure>
+
+	<p>
+	  This leads to
+	  <m>T(\evec_1) = \twovec{\frac1{\sqrt{2}}}
+	  {\frac1{\sqrt{2}}}</m>.
+	  In the same way, we find that
+	  <m>T(\evec_2) = \twovec{-\frac1{\sqrt{2}}}
+	  {\frac1{\sqrt{2}}}</m> so that
+	  the matrix <m>A</m> is
+	  <me>
+	    A = \left[\begin{array}{rr}
+	    \frac{1}{\sqrt{2}} \amp 
+	    -\frac{1}{\sqrt{2}} \\
+	    \frac{1}{\sqrt{2}} \amp 
+	    \frac{1}{\sqrt{2}} \\
+	    \end{array}\right]
+	  </me>.
+	  You may wish to check this using the interactive diagram in
+	  the previous activity using the
+	  approximation <m>1/\sqrt{2} \approx 0.7</m>.
 	</p>
-
-	<p> Putting this together, we find the determinant to be
-	<me>
-	  \begin{aligned}
-	  \left[\begin{array}{rrr}
-	  {1} \amp {-1} \amp {2} \\
-	  -2 \amp {2} \amp {-6} \\
-	  {3} \amp {-1} \amp {10} \\
-	  \end{array}\right] 
-	  {}={}
-	  \amp
-	  (-1)^{2+1}(-2)\det\left[\begin{array}{rr}
-	  -1 \amp 2 \\
-	  -1 \amp 10 \\
-	  \end{array}\right] \\
-	  \amp
-	  {}+{}
-	  (-1)^{2+2}(2)\det\left[\begin{array}{rr}
-	  1 \amp 2 \\
-	  3 \amp 10 \\
-	  \end{array}\right] \\
-	  \amp
-	  {}+{}
-	  (-1)^{2+3}(-6)\det\left[\begin{array}{rr}
-	  -1 \amp -1 \\
-	  3 \amp -1 \\
-	  \end{array}\right] \\
-	  \\
-	  {}={}
-	  \amp
-	  (-1)(-2)(-1(10)-2(-1)) \\
-	  \amp + (1)(2)(1(10)-2(3)) \\
-	  \amp + (-1)(-6)((-1)(-1)-(-1)3) \\ \\
-	  {}={}
-	  \amp
-	  -16 + 8 + 12 \\
-	  {}={}
-	  \amp
-	  4 \\
-
-	  \end{aligned}
-	</me>.
-	Notice that this agrees with the determinant that we found for
-	this matrix using row operations in the last activity.
-	</p>	  
-	  
       </statement>
+	
     </example>
+
+    <p>
+      In this example, we found that <m>T</m>, a function describing 
+      a rotation in the plane, was in fact a matrix transformation
+      by checking that
+      <me>
+	\begin{aligned}
+	T(c\vvec) \amp {}={} cT(\vvec) \\
+	T(\vvec + \wvec) \amp {}={} T(\vvec) + T(\wvec)\text{.}
+	\end{aligned}.
+      </me>
+      The same kind of thinking applies more generally to show that
+      rotations, reflections, and scalings are matrix
+      transformations.  Similarly, we could revisit the functions in
+      <xref ref="activity-mt-intro"/> and verify that they are matrix
+      transformations.  
+    </p>
 
     <activity>
       <statement>
-      <p> We will explore cofactor expansions through some
-      examples.
+      <p> In this activity, we seek to describe various matrix
+      transformations by finding the matrix that gives the desired
+      transformation.  All of the transformations that we study here
+      have the form <m>T:\real^2\to\real^2</m>.
       <ol marker="a.">
-	<li><p> Using a cofactor expansion, show that the determinant
-	of the following matrix 
-	<me> \det
-	  \left[\begin{array}{rrr}
-	  2 \amp 0 \amp -1 \\
-	  3 \amp 1 \amp 2 \\
-	  -2 \amp 4 \amp -3 \\
-	  \end{array}\right] = -36
-	</me>.  Remember that you can choose any row or column to
-	create the expansion, but the choice of a particular row or
-	column may simplify 
-	the computation.
+	<li><p> Find the matrix of the transformation that has no
+	effect on vectors;  that is, <m>T(\xvec) = \xvec</m>.
 	</p></li>
 
-	<li><p> Use a cofactor expansion to find the determinant of
-	<me>
-	  \left[\begin{array}{rrrr}
-	  -3 \amp 0 \amp 0 \amp 0 \\
-	  4 \amp 1 \amp 0  \amp 0 \\
-	  -1 \amp 4 \amp -4 \amp 0\\
-	  0 \amp 3 \amp 2 \amp 3 \\
-	  \end{array}\right]
-	</me>.  Explain how the cofactor expansion technique shows
-	that the determinant of a triangular matrix is equal to the
-	product of its diagonal entries.
-	</p></li>
+	<li><p> Find the matrix of the transformation that reflects
+	vectors in <m>\real^2</m> across the line <m>y=x</m>. </p></li>
 
-	<li><p> Use a cofactor expansion to determine whether the
-	following vectors form a basis of <m>\real^3</m>:
+	<li><p> What is the result of composing the reflection you
+	found in the previous part with itself;  that is, what is the
+	effect of reflecting across the line <m>y=x</m> and then
+	reflecting across this line again?  Provide a geometric
+	explanation for your result as well as an algebraic one
+	obtained by multiplying matrices. </p></li>
+
+	<li><p> Find the matrix that rotates vectors
+	counterclockwise in the plane by <m>90^\circ</m>. </p></li>
+
+	<li><p> Compare the result of rotating by <m>90^\circ</m> and
+	then 
+	reflecting in the line <m>y=x</m> to the result of first
+	reflecting in <m>y=x</m> and then rotating
+	<m>90^\circ</m>. </p></li>
+
+	<li><p> Find the matrix that results from composing a
+	<m>90^\circ</m> rotation with itself four times; that is, if
+	<m>T</m> is the matrix transformation that rotates vectors by
+	<m>90^\circ</m>, find the matrix for <m>T\circ T\circ T \circ
+	T</m>.  Explain why 
+	your result makes sense geometrically. </p></li>
+
+	<li><p> Explain why the matrix that rotates vectors
+	counterclockwise by an angle <m>\theta</m> is
 	<me>
-	  \threevec{2}{-1}{-2},
-	  \threevec{1}{-1}{2},
-	  \threevec{1}{0}{-4}
-	</me>.
-	</p></li>
-	
-	<li><p> Sage will compute the determinant of a matrix <c>A</c>
-	with the command <c>numpy.linalg.det()</c>.  Use Sage to find the
-	determinant of the matrix
-	<me>
-	  \left[\begin{array}{rrrr}
-	  2 \amp 1 \amp -2 \amp -3 \\
-	  3 \amp 0 \amp -1  \amp -2 \\
-	  -3 \amp 4 \amp 1 \amp 2\\
-	  1 \amp 3 \amp 3 \amp -1 \\
+	  \left[\begin{array}{rr}
+	  \cos\theta \amp -\sin\theta \\
+	  \sin\theta \amp \cos\theta \\
 	  \end{array}\right]
 	</me>.
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
-	  
 	</p></li>
-
       </ol></p>
       </statement>
 
       <solution>
-	<p><ol marker="a.">
-	  <li><p> We will using a cofactor expansion along the first
-	  row so that
-	  <me>
-	    \begin{array}{rl}
-	    \det\left[\begin{array}{rrr}
-	    2 \amp 0 \amp -1 \\
-	    3 \amp 1 \amp 2 \\
-	    -2 \amp 4 \amp -3 \\
+	<p> We use the fact that the columns of the requested matrices
+	have the form <m>\left[\begin{array}{rr} T(\evec_1) \amp
+	T(\evec_2) \end{array}\right]</m>.
+	<ol marker="a.">
+	  <li><p>
+	    <m>\left[\begin{array}{rr}
+	    1 \amp 0 \\
+	    0 \amp 1 \\
 	    \end{array}\right]
-	    = \amp
-	    (-1)^{1+1}\cdot 2 \det\left[\begin{array}{rr}
-	    1 \amp 2 \\
-	    4 \amp -3 \\
-	    \end{array}\right] \\
-	    \amp 
-	    + (-1)^{1+3}\cdot (-1) \det\left[\begin{array}{rr}
-	    3 \amp 1 \\
-	    -2 \amp 4 \\
-	    \end{array}\right] \\
-	    = \amp
-	    2(-11) - 14 = -36\text{.}
-	    \end{array}
-	  </me>
+	    </m>.
 	  </p></li>
 
-	  <li><p> Expanding along the first row gives
+	  <li><p>
+	    <m>\left[\begin{array}{rr}
+	    0 \amp 1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    </m>.
+	  </p></li>
+
+	  <li><p> The composition of this reflection with itself is
+	  described by 
+	  multiplying the matrix by itself.  This produces the matrix
+	  <m>\left[\begin{array}{rr}
+	  1 \amp 0 \\
+	  0 \amp 1 \\
+	  \end{array}\right]
+	  </m>, which we just saw is the matrix for the identity
+	  transformation.  This means that reflecting a vector in the
+	  line <m>y=x</m> twice produces the original vector.
+	  </p></li>
+
+	  <li><p>
+	    <m>\left[\begin{array}{rr}
+	    0 \amp -1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    </m>.
+	  </p></li>
+
+	  <li><p> If we first rotate and then reflect, we obtain the
+	  matrix transformation defined by
 	  <me>
-	    \begin{array}{rl}
-	    \det
-	    \left[\begin{array}{rrrr}
-	    -3 \amp 0 \amp 0 \amp 0 \\
-	    4 \amp 1 \amp 0  \amp 0 \\
-	    -1 \amp 4 \amp -4 \amp 0\\
-	    0 \amp 3 \amp 2 \amp 3 \\
-	    \end{array}\right] \amp
-	    = 3\det
-	    \left[\begin{array}{rrr}
-	    1 \amp 0  \amp 0 \\
-	    4 \amp -4 \amp 0\\
-	    3 \amp 2 \amp 3 \\
-	    \end{array}\right] \\
-	    \amp
-	    =-3(1)\det
 	    \left[\begin{array}{rr}
-	    -4 \amp 0 \\
-	    2 \amp 3 \\
-	    \end{array}\right] \\
-	    \amp
-	    =-3(1)(-4)(3) = 36\text{.}
-	    \end{array}
-	  </me>
+	    0 \amp 1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    \left[\begin{array}{rr}
+	    0 \amp -1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    =
+	    \left[\begin{array}{rr}
+	    1 \amp 0 \\
+	    0 \amp -1 \\
+	    \end{array}\right]\text{,}
+	  </me> which is the matrix for reflecting in the horizontal
+	  axis. </p>
+
+	  <p> If we first reflect and then rotate, we obtain the
+	  matrix
+	  <me>
+	    \left[\begin{array}{rr}
+	    0 \amp -1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    \left[\begin{array}{rr}
+	    0 \amp 1 \\
+	    1 \amp 0 \\
+	    \end{array}\right]
+	    =
+	    \left[\begin{array}{rr}
+	    -1 \amp 0 \\
+	    0 \amp 1 \\
+	    \end{array}\right]\text{,}
+	  </me> which is the matrix for reflecting in the vertical
+	  axis.
 	  </p></li>
 
-	  <li><p> We form the matrix <m>A</m> whose columns are the
-	  three given vectors.  Expanding along either the second row or third
-	  column to take advantage of the zero in the <m>(2,3)</m>
-	  entry, we see that <m>\det(A) = 0</m>, which means that
-	  <m>A</m> is not invertible.  Therefore, the vectors do not
-	  form a basis for <m>\real^3</m>.
+	  <li><p>
+	    Composing four times corresponds to raising the matrix to
+	    the fourth power, which gives us the identity matrix
+	    <m>I</m>. 
 	  </p></li>
 
-	  <li><p> Sage tells us that <m>\det(A) = 72</m>.
+	  <li><p>
+	    If we consider the effect of rotating the vector
+	    <m>\twovec{1}{0}</m> by an angle <m>\theta</m>, we obtain
+	    the vector <m>\twovec{\cos\theta}{\sin\theta}</m>.
 	  </p></li>
+
 	</ol></p>
       </solution>
 	    
@@ -1156,83 +687,515 @@
   </subsection>
 
   <subsection>
-    <title> Summary </title>
+    <title> Matrix transformations and computer animation </title>
 
-    <p> In this section, we associated a numerical quantity, the
-    determinant, to a square matrix and showed how it tells us whether
-    the matrix is invertible.
+    <p>
+      Linear algebra plays a significant role in computer animation.
+      We will now illustrate how matrix transformations and some of
+      the ideas we have developed in this section are used by computer
+      animators to create the illusion of motion in their characters.
+    </p>
 
-    <ul>
-      <li><p> The determinant of a matrix has a geometric
-      interpretation.  In particular, when
-      <m>n=2</m>, the determinant is the signed area of
-      the parallelogram formed by the two columns of the matrix.
+    <p>
+      <xref ref="fig-blob-man" /> shows a test character used by Pixar
+      animators.  On the left is the original definition of the
+      character; on the right, we see that the character has been
+      moved into a different pose.  To make it appear that the
+      character is moving, animators create a sequence of frames in
+      which the character's pose is modified slightly from one frame
+      to the next often using matrix transformations.
+    </p>
+
+    <figure xml:id="fig-blob-man">
+      <sidebyside widths="45% 45%">
+	<image source="images/char-bind.jpg" />
+	<image source="images/char-mvt.jpg" />
+      </sidebyside>
+      <caption>
+	Computer animators define a character and 
+	create motion by drawing it in a sequence of poses.
+	<copyright /> Disney/Pixar
+      </caption>
+    </figure>
+
+    <!--
+
+    <p>
+      For instance, <xref ref="fig-remy" /> shows the character Remy
+      from Pixar's <em>Ratatouille</em>.  Clearly, a lot goes into
+      transforming the model on the left into the engaging character
+      on the right, such as the addition of fur and eyes.  We will
+      focus only on the motion of the character.
+    </p>
+
+    <figure xml:id="fig-remy">
+      <sidebyside widths="45% 45%">
+	<image source="images/remy-cage.jpg" />
+	<image source="images/remy-1.jpg" />
+      </sidebyside>
+      <caption>
+	Remy from the Pixar movie <em>Ratatouille</em>.  <copyright />
+	Disney/Pixar.
+      </caption>
+      </figure>
+    -->
+    
+    <sidebyside widths="45% 35%">
+      <p> Of course, realistic characters will be drawn in
+      three-dimensions.  To keep things a little more simple, however,
+      we will look at this two-dimensional character 
+      and devise matrix
+      transformations that move them into different poses.
+      </p>
+      <image source="images/animate-char" />
+    </sidebyside>
+
+    <p>
+      Of course, the first thing we may wish to do is simply move them
+      to a different position in the plane, such as that shown in <xref
+      ref="fig-animate-translate" />.  Motions like this are called
+      <em>translations</em>. 
+    </p>
+    
+    <figure xml:id="fig-animate-translate">
+      <sidebyside width="35%">
+	<image source="images/animate-translate" />
+      </sidebyside>
+      <caption>
+	Translating our character to a new position in the plane.
+      </caption>
+    </figure>
+
+    <p>
+      This presents a problem because
+      a matrix transformation <m>T:\real^2\to\real^2</m> has the
+      property that <m>T(\zerovec) = A\zerovec = \zerovec</m>.  This
+      means that a 
+      matrix transformation cannot move the origin of the coordinate
+      plane.  To address this restriction, animators use
+      <em>homogeneous coordinates</em>, which are formed by placing
+      the two-dimensional coordinate plane inside <m>\real^3</m> as the
+      plane <m>z=1</m>, as shown in <xref
+      ref="fig-animate-homogeneous" />.
+    </p>
+
+    <figure xml:id="fig-animate-homogeneous">
+      <sidebyside width="60%">
+	<image source="images/animate-homogeneous" />
+      </sidebyside>
+      <caption>
+	Include the two-dimensional coordinate plane in <m>\real^3</m>
+	as the plane <m>z=1</m> so that we can translate the
+	character.
+      </caption>
+    </figure>
+
+    <p>
+      As a result, rather than describing points in the plane as
+      vectors <m>\twovec{x}{y}</m>, we describe them as
+      three-dimensional 
+      vectors <m>\threevec{x}{y}{1}</m>.  As we see in the next
+      activity, this allows us to translate our character in the plane.
+    </p>
+
+    <activity>
+      <statement>
+      <p> In this activity, we will use homogeneous coordinates and
+      matrix transformations to move our character into a
+      variety of poses.  
+      </p>
+
+      <p><ol marker="a.">
+	<li><p>
+	  Since we regard our character as living in <m>\real^3</m>,
+	  we will consider matrix transformations defined by matrices
+	  <me>
+	    \left[\begin{array}{rrr}
+	    a \amp b \amp c \\
+	    d \amp e \amp f \\
+	    0 \amp 0 \amp 1 \\
+	    \end{array}\right]
+	  </me>.
+	  Verify that such a matrix transformation transforms points
+	  in the plane <m>z=1</m> into points in the same plane;
+	  that is, verify that
+	  <me>
+	    \left[\begin{array}{rrr}
+	    a \amp b \amp c \\
+	    d \amp e \amp f \\
+	    0 \amp 0 \amp 1 \\
+	    \end{array}\right]
+	    \threevec{x}{y}{1} = \threevec{x'}{y'}{1}
+	  </me>.	    
+	  Express the coordinates of the resulting point <m>x'</m> and
+	  <m>y'</m> in terms of the coordinates of the
+	  original point <m>x</m> and <m>y</m>.
+	</p>
+
+
+	<figure xml:id="figure-animation">
+          <caption>
+	    An interactive diagram that allows us to move the
+	    character using homogeneous coordinates.
+	  </caption>
+          <interactive xml:id="interactive-animation"
+		       platform="javascript"
+		       width="100%"
+		       aspect="48:33"
+		       source="jslibrary/animate.js"
+		       preview="preview/animation-preview.png">
+            <sbsgroup>
+              <sidebyside widths="30% 30% 30%">
+                <slate xml:id="a" surface="canvas" aspect="5:1" />
+                <slate xml:id="b" surface="canvas" aspect="5:1" />
+                <slate xml:id="c" surface="canvas" aspect="5:1" />
+              </sidebyside>
+              <sidebyside widths="30% 30% 30%">
+                <slate xml:id="d" surface="canvas" aspect="5:1" />
+                <slate xml:id="e" surface="canvas" aspect="5:1" />
+                <slate xml:id="f" surface="canvas" aspect="5:1" />
+              </sidebyside>
+              <sidebyside widths="45% 45%">
+                <slate xml:id="left"  surface="canvas" aspect="6:6" />
+                <slate xml:id="right" surface="canvas" aspect="6:6" />
+              </sidebyside>
+              <sidebyside widths="15% 15%" margins="33% 33%">
+                <slate surface="html" aspect="2:1">
+                  <button type="button"
+			  id="compose"
+			  xmlns="http://www.w3.org/1999/xhtml">
+		    Compose
+		  </button>
+                </slate>
+                <slate surface="html" aspect="2:1">
+                  <button type="button"
+			  id="reset"
+			  xmlns="http://www.w3.org/1999/xhtml">
+		    Reset
+		  </button>
+                </slate>
+              </sidebyside>
+            </sbsgroup>
+            <instructions>
+              <p>
+		The diagram below allows you to choose
+		parameters <m>a, b, \ldots, f</m> to define the matrix
+		associated to the matrix <m>\begin{bmatrix}
+		a \amp b \amp c \\
+		d \amp e \amp f \\
+		0 \amp 0 \amp 1 \\
+		\end{bmatrix}</m>.
+		The transformation's effect on our character is shown
+		on the right.
+	      </p>
+            </instructions>
+	    <static>
+	      <sidebyside width="100%">
+		<p>
+		  This activity uses an interactive diagram that is
+		  available at
+		  <url href="http://gvsu.edu/s/0Jb"
+		       visual="gvsu.edu/s/0Jb"/>.  Using the six
+		  sliders, you may choose the matrix
+		  <m> \begin{bmatrix}
+		  a \amp b \amp c \\
+		  d \amp e \amp f \\
+		  0 \amp 0 \amp 1 \\
+		  \end{bmatrix}</m>
+		  that will move our character in the plane.
+		</p>
+	      </sidebyside>
+	      <sidebyside width="75%">
+		<image source="preview/animation-preview.png"/>
+	      </sidebyside>
+	    </static>
+          </interactive>
+        </figure>
+
+	</li>
+
+	<li><p> Find the matrix transformation that translates our character
+	to a new position in the plane, as shown in <xref
+	ref="fig-animate-translate-2" />
+	</p>
+
+	<figure xml:id="fig-animate-translate-2">
+	  <sidebyside widths="35% 35%" margins="15%">
+	    <image source="images/animate-char" />
+	    <image source="images/animate-translate" />
+	  </sidebyside>
+	  <caption>
+	    Translating to a new position.
+	  </caption>
+	</figure>
+	</li>
+
+	<li><p>
+	  As originally drawn, our character is waving with one of their hands.
+	  In one of the movie's scenes, we would like them to wave with their
+	  other hand, as shown in <xref ref="fig-animate-reflect" />.
+	  Find the matrix transformation that moves them into this pose.
+	</p>
+
+	<figure xml:id="fig-animate-reflect">
+	  <sidebyside widths="35% 35%" margins="15%">
+	    <image source="images/animate-char" />
+	    <image source="images/animate-reflect" />
+	  </sidebyside>
+	  <caption>
+	    Waving with the other hand.
+	  </caption>
+	</figure>
+	</li>
+
+	<li><p> Later, our character performs a cartwheel by moving through the
+	sequence of poses shown in <xref ref="fig-animate-rotate" />.
+	Find the matrix transformations that create these poses.
+	</p>
+
+	<figure xml:id="fig-animate-rotate">
+	  <sbsgroup>
+	    <sidebyside widths="35% 35%" margins="15%">
+	      <image source="images/animate-rotate-a" />
+	      <image source="images/animate-rotate-b" />
+	    </sidebyside>
+	    <sidebyside widths="35% 35%" margins="15%">
+	      <image source="images/animate-rotate-c" />
+	      <image source="images/animate-rotate-d" />
+	    </sidebyside>
+	  </sbsgroup>
+	  <caption>
+	    Performing a cartwheel.
+	  </caption>
+	</figure>
+	</li>
+
+	<li><p> Next, we would like to find the transformations that
+	zoom in on our character's face, as shown in 
+	<xref ref="fig-animate-closeup" />. To do this, you should
+	think about composing matrix transformations.  This can be
+	accomplished in the diagram by using the
+	<em>Compose</em> button, which makes the current pose,
+	displayed on the right, the new beginning pose, displayed on
+	the left.  What is the matrix transformation that moves the character
+	from the original pose, shown in the upper left, to the final
+	pose, shown in the lower right?
+      </p>
+
+	<figure xml:id="fig-animate-closeup">
+	  <sbsgroup>
+	    <sidebyside widths="35% 35%" margins="15%">
+	      <image source="images/animate-char" />
+	      <image source="images/animate-closeup-a" />
+	    </sidebyside>
+	    <sidebyside widths="35% 35%" margins="15%">
+	      <image source="images/animate-closeup-b" />
+	      <image source="images/animate-closeup-c" />
+	    </sidebyside>
+	  </sbsgroup>
+	  <caption>
+	    Zooming in on our characters' face.
+	  </caption>
+	</figure>
+	</li>
+
+	<li><p> We would also like to create our character's shadow, shown in
+	the sequence of poses in <xref ref="fig-animate-shadow" />.
+	Find the sequence of matrix transformations that achieves
+	this.  In particular, find the matrix transformation that takes
+	our character from their original pose to their shadow in the
+	lower right.  
+      </p>
+      
+	<figure xml:id="fig-animate-shadow">
+	  <sbsgroup>
+	    <sidebyside widths="35% 35%" margins="15%">
+	      <image source="images/animate-char" />
+	      <image source="images/animate-shadow-a" />
+	    </sidebyside>
+	    <sidebyside widths="35% 35%" margins="15%">
+	      <image source="images/animate-shadow-b" />
+	      <image source="images/animate-shadow-c" />
+	    </sidebyside>
+	  </sbsgroup>
+	  <caption>
+	    Casting a shadow.
+	  </caption>
+	</figure>
+	</li>
+
+	<li><p> Write a final scene to the movie and describe how to
+	construct a sequence of matrix transformations that create
+	your scene.
+	</p></li>
+      </ol>
+    </p>
+  </statement>
+
+  <solution>
+    <p><ol marker="a.">
+      <li><p>
+	<me>
+	  \left[\begin{array}{rrr}
+	  a \amp b \amp c \\
+	  d \amp e \amp f \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  \threevec{x}{y}{1} =
+	  \cthreevec{ax+by+c}{dx+ey+f}{1}\text{,}
+	</me>
+	which shows that
+	<me>
+	  \begin{alignedat}{2}
+	  x' \amp {}={} ax+by+c \\
+	  y' \amp {}={} dx+ey+f\text{.} \\
+	  \end{alignedat}
+	</me>
       </p></li>
 
-      <li><p> The determinant satisfies many properties, including the
-      facts that <m>\det(AB) = \det(A) \det(B)</m> and
-      that the determinant of a triangular matrix is equal to the
-      product of its diagonal entries. </p></li>
+      <li><p>
+	Notice that the entries <m>c</m> and <m>f</m> are responsible
+	for the translation.  Therefore, we need the matrix
+	transformation defined by
+	<m>\left[\begin{array}{rrr}
+	1 \amp 0 \amp 2 \\
+	0 \amp 1 \amp 1 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}\right]
+	</m>.
+      </p></li>
 
-      <li><p> These properties helped us compute the determinant of a
-      matrix using row operations.  This also led to the important
-      observation that the determinant of a matrix is nonzero if and
-      only if the matrix is invertible. </p></li>
+      <li><p>
+	We would like to reflect in the vertical axis so we use the
+	matrix 
+	<m>\left[\begin{array}{rrr}
+	-1 \amp 0 \amp 0 \\
+	0 \amp 1 \amp 0 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}\right]
+	</m>.
+      </p></li>
 
-      <li><p> Finally, we learned how to compute the determinant of a
-      matrix using cofactor expansions, which will be
-      a valuable tool
-      for us in the next chapter. </p></li>
-    </ul></p>
+      <li><p>
+	The character is successively rotated by <m>45^\circ</m> using
+	the matrix
+	<m>
+	  \left[\begin{array}{rrr}
+	  \cos(45^\circ) \amp -\sin(45^\circ) \amp 0 \\
+	  \sin(45^\circ) \amp  \sin(45^\circ) \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right] =
+	  \left[\begin{array}{rrr}
+	  \frac{1}{\sqrt{2}} \amp -\frac{1}{\sqrt{2}} \amp 0 \\
+	  \frac{1}{\sqrt{2}} \amp \frac{1}{\sqrt{2}} \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	</m>.
+      </p></li>
 
-    <p> We have seen three ways to compute the
-    determinant: by interpreting the determinant as a signed area or
-    volume; by applying appropriate row operations; and by using a
-    cofactor expansion.  It's worth spending a moment to think about
-    the relative merits of these approaches.
-    </p>
+      <li><p>
+	We first translate the character down two units using the
+	matrix
+	<m>\left[\begin{array}{rrr}
+	1 \amp 0 \amp 0 \\
+	0 \amp 1 \amp -2 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}\right]
+	</m>.
+	Then we zoom in by uniformly stretching by a factor of
+	<m>2</m> using the matrix
+	<m>\left[\begin{array}{rrr}
+	2 \amp 0 \amp 0 \\
+	0 \amp 2 \amp 0 \\
+	0 \amp 0 \amp 1 \\
+	\end{array}\right]
+	</m>.
+	The net effect is the transformation described by the matrix
+	<me>
+	  \left[\begin{array}{rrr}
+	  2 \amp 0 \amp 0 \\
+	  0 \amp 2 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp -2 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  =
+	  \left[\begin{array}{rrr}
+	  2 \amp 0 \amp 0 \\
+	  0 \amp 2 \amp -4 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]\text{.}
+	</me>
+      </p></li>
 
-    <p> The geometric definition of the determinant tells us that the
-    determinant is measuring a natural geometric quantity, an insight
-    that does not easily come through the other two approaches.  The
-    intuition we gain by thinking about the determinant geometrically
-    makes it seem reasonable that the determinant should be zero for
-    matrices that are not invertible: if the columns are linearly
-    dependent, the vectors cannot create a positive volume.
-    </p>
+      <li><p>
+	The shadow is first created using the shear
+	<m>
+	  \left[\begin{array}{rrr}
+	  1 \amp 1 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	</m>.
+	Then the vertical scale is compressed using the matrix
+	<m>
+	  \left[\begin{array}{rrr}
+	  \frac12 \amp 0 \amp 0 \\
+	  0 \amp \frac12 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+	  </m>.
+      </p></li>
+    </ol></p>
+  </solution>
+	
+</activity>
 
-    <p> Approaching the determinant through row operations provides an
-    effective means of computing the determinant.  In fact, this is
-    what most computer programs do behind the scenes when they
-    compute a determinant.  This approach is also a useful theoretical
-    tool for explaining why the determinant tells us whether a matrix
-    is invertible.
-    </p>
-
-    <p> The cofactor expansion method will be useful to us in the next
-    chapter when we look at eigenvalues and eigenvectors.  It is not,
-    however, a practical way to compute a determinant.  To see why,
-    consider the fact that the determinant of a <m>2\times2</m>
-    matrix, written as <m>ad-bc</m>,
-    requires us to compute two terms, <m>ad</m> and <m>bc</m>.  To
-    compute the determinant of a <m>3\times3</m> matrix, we need to
-    compute three <m>2\times2</m> determinants, which involves
-    <m>3\cdot 2 = 6</m> terms.  For a <m>4\times4</m> matrix, we need
-    to compute four <m>3\times3</m> determinants, which produces
-    <m>4\cdot3\cdot2 = 24</m> terms.  Continuing in this way, we see
-    that the cofactor expansion of a <m>10\times10</m> matrix would
-    involve <m>10\cdot9\cdot8\ldots3\cdot2 = 10! = 3628800</m> terms.
-    </p>
-
-    <p> By contrast, we have seen that the number of steps required to
-    perform Gaussian elimination on an <m>n\times n</m> matrix is
-    proportional to <m>n^3</m>.  When <m>n=10</m>, we have <m>n^3 =
-    1000</m>, which points to the fact that finding the determinant
-    using Gaussian elimination is considerably less work.
-    </p>
 
   </subsection>
   
-  <xi:include href="exercises/exercises3-4.ptx" />
+  <subsection>
+    <title>
+      Summary
+    </title>
 
+    <p>This section explored how geometric operations
+    are performed by matrix
+    transformations.  
+
+    <ul>
+      <li><p>
+	A function <m>T:\real^n\to\real^m</m> is a matrix
+	transformation if and only if these properties are satisfied:
+	<me>
+	  \begin{aligned}
+	  T(c\vvec) \amp = cT(\vvec) \\
+	  T(\vvec+\wvec) \amp = T(\vvec)+T(\wvec). \\
+	  \end{aligned}
+	</me>
+      </p></li>
+
+      <li><p>
+	Geometric operations, such as rotations, reflections, and
+	scalings, can be represented as matrix transformations.
+      </p></li>
+
+      <li><p> Composing geometric operations corresponds to
+      matrix multiplication.</p></li>
+
+      <li><p> Computer animators use homogeneous coordinates and
+      matrix transformations to create 
+      the illusion of motion. </p></li>
+
+    </ul>
+    </p>
+
+  </subsection>
+
+  <xi:include href="exercises/exercises2-6.ptx" />
+  
 </section>
+

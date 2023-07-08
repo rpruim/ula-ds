@@ -1,636 +1,660 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<section xml:id="sec-python-introduction"
-	 xmlns:xi="http://www.w3.org/2001/XInclude">
+<section xml:id="sec-linear-combos-of-vectors"
+  xmlns:xi="http://www.w3.org/2001/XInclude">
+  
+    <title> Linear combinations of vectors</title>
 
-  <title>
-    Computational Linear Algebra 
-  </title>
+<introduction>
+    <definition>
+      <idx> linear combination </idx>
+      <idx> weights </idx>
+      <p> The <term> linear combination </term> of the vectors <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m>
+        with scalars <m>c_1,c_2,\ldots,c_n</m> is the vector <me>
+          c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n\text{.}
+        </me> The scalars <m>
+        c_1,c_2,\ldots,c_n</m> are called the <term>weights</term> of the linear combination. </p>
+    </definition>
 
-  <introduction>
-    <p>
-      Linear algebra owes its prominence as a powerful scientific tool
-      to the ever-growing power of computers.  Carl Cowen, a former
-      president of the Mathematical Association of America, has said,
-      <q> No serious application of linear algebra happens without a
-      computer.</q> Indeed, Cowen notes that, in the 1950s, working
-      with a system of 100 equations in 100 variables was difficult.
-      Today, scientists (including data scientists) routinely work on problems
-      that are vastly larger.  This is only possible because of today's
-      computing power.
-    </p>
+    <remark>If you have seen linear models, then this should look familiar to you. A linear model
+      can be expressed as a linear combination of data variables. We typically use <m>\beta_0,
+      \beta_1, \dots, \beta_k</m> to denote the scalars, which are the parameters of the linear
+      model. And we write the data variabels as <m>\xvec_1, \xvec_2, \dots, \xvec_k</m>. So our
+      linear model looks like <me>
+        \E(\yvec) = \beta_0 \onevec + \beta_1 \xvec_1 + \beta_2 \xvec_2 + \cdots + \beta_k \xvec_k
+      \; .
+      </me>
+      And the fitted model as <me>
+        \hat{\yvec} = \hat{\beta}_0 \onevec + \hat{\beta}_1 \xvec_1 + \hat{\beta}_2 \xvec_2 + \cdots
+      + \hat{\beta_k} \xvec_k \; .
+      </me>
+    </remark>
 
-    <p>
-		For learning the principles of linear algebra, small examples
-		in 2 or 3 dimensions are useful because (a) we can visualize  
-		things geometrically, and (b) we can see all the numbers and 
-		computations involved.  But as we build our understanding and intuition 
-		with these small examples, we also want to be learning how to 
-		do linear algebra computationally so that we can work with much 
-		larger examples.
-    </p>
-
-	<p>
-	There are many computational tools that could be used.  One of them, Matlab
-	(and its open source analog, Octave), was specifically designed (and named) with 
-	matrix algebra as its primary use case.  Linear algebra is important for statistics 
-	and machine learning, but so are other things, like data wrangling and visualing data 
-	and models.  For this reason, langauges like R and Python are much more important in 
-	the data science community.  
-	Although linear algebra is used 
-	extensively in both languages, end users of Python are more likely to manipulate data 
-	in vector and matrix format than are users of R, where this is often hidden behind 
-	an additional layer of abstraction.
-	For this reason, we'll focus primarily on Python in this text, with some 
-	references to how things differ in R thrown in along the way. 
-	</p>
-  </introduction>
-    
-
-  <subsection>
-    <title> Reduced row echelon form in Python </title>
-
-    <p>
-      When we encounter a matrix, <xref
-      ref="thm-rref-is-unique" /> tells us that there 
-      is exactly one reduced row echelon matrix that is row equivalent
-      to it.
-    </p>
-    
-    <p>
-      In fact, the uniqueness of this reduced row echelon matrix is
-      what motivates us to define this particular form.  When solving
-      a system of linear equations using Gaussian elimination, there
-      are other row equivalent matrices that reveal the structure of
-      the solution space.  The reduced row echelon matrix is simply a
-      convenience as it is an agreement we make with one another to
-      seek the same matrix.
-    </p>
-
-    <p>
-      An added benefit is that we can ask a computer 
-      to find reduced row echelon matrices for us.  We will
-      learn how to do this now that we have a little familiarity with
-      Python.
-    </p>
-
-
-	<note>
-	  <title>Augmented matrices in numpy</title>
-    <p>
-	Notice that in <c>numpy</c> there is no way of
-    specifying whether a matrix is an augmented matrix or a coefficient matrix,
-	so it will be up to us to interpret our results appropriately.
-    </p>
-	</note>
-
-    <assemblage>
-      <title> Python syntax </title>
-      <p> Some common mistakes when entering a matrix in Python include 
-      <ul>
-	<li> <p>
-          forgetting the square brackets around the list of entries,
-	</p></li>
-	<li> <p>
-	  forgetting an entry from the list or to add an extra one,
-	</p></li>
-	<li> <p>
-	  forgetting to separate the rows, and entries within a row with commas, 
-	  and
-	</p></li>
-	<li> <p>
-	  forgetting the closing parenthesis (because you are so worried about getting the 
-	  correct number of square brackets, perhaps). 
-	</p></li>
-      </ul>
-      If you see an error message, carefully proofread your input and
-      try again.
-      </p>
-    </assemblage>
-
-    
     <activity>
-      <title> Using Python to find row reduced echelon matrices </title>
-
       <statement>
-	<p>
-	  <ol marker="a.">
-	    <li xml:id = "li-example-rref">
-	      <p>
-		Enter the following matrix into Python.
-		<me>
-		  \left[
-		  \begin{array}{rrrr}
-		  -1 \amp -2 \amp 2 \amp -1 \\
-		  2 \amp 4 \amp -1 \amp 5 \\
-		  1 \amp 2 \amp 0 \amp 3
-		  \end{array}
-		  \right]
-		</me>
-		<sage language="python">
-		  <input> 
-		  </input>
-		</sage>
-		
-	      </p>
-	    </li>
-	    
-	    <li>
-	      <p> Give the matrix the name <m>A</m> by entering
-	      <cd>
-A = np.array([ ... ])
-	      </cd>
-		  </p>
-			
-		  <p>
-		  <c>numpy</c> does not have a built-in method for computing the 
-		  reduced row echelon form of a matrix, so we will use another package,
-		  <c>sympy</c>.  
-	      We may then find its reduced row echelon form by
-	      entering 
-	      <cd>
-import sympy 
-A = np.array([ ... ])
-sympy.Matrix(A).rref()
-	      </cd>
-		  Note that we must first convert our <c>numpy</c> array into a 
-		  <c>sympy</c> matrix.
-	      A common mistake is to forget the parentheses after
-	      <c>rref</c>.
-	      </p>
-	      
-	      <p> Use Python to find the reduced row echelon form of the
-	      matrix from <xref ref="li-example-rref" /> of this activity.
-	      <sage language="python">
-		<input>
-		</input>
-	      </sage>
-	      </p>
-	    </li>
+        <p> In this activity, we will look at linear combinations of a pair of vectors, <m>
+            \vvec = \left[\begin{array}{r} 2 \\ 1 \end{array}\right]
+          </m> and <m>
+          \wvec = \left[\begin{array}{r} 1 \\ 2 \end{array}\right]
+          </m>. </p>
 
-		<li>
-			<p>
-				Notice that <c>rref()</c> returns a tuple with two elements.
-				The first element is the reduced row echelon form of our matrix.
-				See if you can figure out what the second element is.
-			</p>
-		</li>
-	    
-	    <li xml:id = "li-rref-solve">
-	      <p> Use Python to describe the
-	      solution space of the system 
-	      of linear equations
-	      <me>
-		\begin{alignedat}{5}
-		-x_1 \amp  \amp  \amp  \amp  \amp  {}+{}  \amp 2x_4 \amp
-		{}={}  \amp 4 \\ 
-		\amp  \amp 3x_2 \amp  {}+{}  \amp x_3 \amp  {}+{}  \amp 2x_4
-		\amp  {}={}  \amp 3 \\ 
-		4x_1 \amp  {}-{}  \amp 3x_2 \amp  \amp  \amp  {}+{}  \amp
-		x_4 \amp  {}={}  \amp 14 \\ 
-		\amp  \amp 2x_2 \amp  {}+{}  \amp 2x_3 \amp  {}+{}  \amp x_4
-		\amp  {}={}  \amp 1 \\ 
-		\end{alignedat}
-	      </me>
-	      <sage language="python">
-		<input>
-		</input>
-	      </sage>
-	      </p>
-	    </li>
-	    <li xml:id = "li-augmentation-principle">
-	      <p> Consider the two matrices:
-	      <me>
-		\begin{array}{rcl}
-		A \amp = \amp \left[
-		\begin{array}{rrrr}
-		1 \amp -2 \amp 1 \amp -3 \\
-		-2 \amp 4 \amp 1 \amp 1 \\
-		-4 \amp 8 \amp -1 \amp 7 \\
-		\end{array}\right] \\
-		B \amp = \amp \left[
-		\begin{array}{rrrrrr}
-		1 \amp -2 \amp 1 \amp -3 \amp 0 \amp 3 \\
-		-2 \amp 4 \amp 1 \amp 1 \amp 1 \amp -1 \\
-		-4 \amp 8 \amp -1 \amp 7 \amp 3 \amp 2 \\
-		\end{array}\right] \\
-		\end{array}
-	      </me>
-	      We say that <m>B</m> is an <term>augmentation</term> of <m>A</m>
-	      because it is obtained from <m>A</m> by adding some more
-	      columns.  
-	      </p>
-	      <p> Using Python, define the matrices and compare their reduced
-	      row echelon forms.  What do you notice about the relationship
-	      between the two reduced row echelon forms?
-	      </p>
-	      <p>
-		<sage language="python">
-		  <input>
-		  </input>
-		</sage>
-	      </p>
-	    </li>
-	    
-	    <li>
-	      <p> Using the system of equations in <xref
-	      ref="li-rref-solve" />, write the
-	      augmented matrix corresponding to the system of equations.
-	      What did you find for the
-	      reduced row echelon form of the augmented matrix?
-	      </p>
-	      
-	      <p> Now write the coefficient matrix of this system of
-	      equations.  What does <xref ref="li-augmentation-principle" />
-	      of this activity tell you about its reduced row echelon form?
-	    </p> </li>
-	  </ol>
-	</p>
+        <figure xml:id="js-linear-combs">
+          <caption> Linear combinations of vectors <m>\vvec</m> and <m>\wvec</m>. </caption>
+
+          <interactive xml:id="interactive-linear-combs"
+            platform="javascript" width="100%"
+            aspect="28:23"
+            source="jslibrary/figures.js
+			     jslibrary/linearcomb.js"
+            preview="preview/linearcomb-preview.png">
+            <static>
+              <sidebyside width="100%">
+                <p> There is an interactive diagram, available at <url
+                    href="http://gvsu.edu/s/0Je"
+                    visual="gvsu.edu/s/0Je" />, that accompanies this activity. </p>
+              </sidebyside>
+              <sidebyside width="45%">
+                <image source="preview/linearcomb-preview.png" />
+              </sidebyside>
+            </static>
+            <sbsgroup>
+              <sidebyside width="60%">
+                <slate xml:id="linearcomb-sliders"
+                  aspect="7:2"
+                  surface="canvas" />
+              </sidebyside>
+              <sidebyside width="60%">
+                <slate xml:id="linearcomb-canvas" aspect="1:1" surface="canvas" />
+              </sidebyside>
+            </sbsgroup>
+            <instructions>
+              <p> The diagram below can be used to construct linear combinations whose weights <m>c</m>
+                and <m>d</m> may be varied using the sliders at the top. The vectors <m>\vvec</m>
+                and <m>\wvec</m> are outlined while the linear combination <me>
+                  c\vvec + d\wvec
+                </me> is shaded red. </p>
+            </instructions>
+          </interactive>
+        </figure>
+
+        <ol marker="a.">
+          <li>
+            <p> The weight <m>d</m> is initially set to 0. Explain what happens as you vary <m>c</m>
+              while keeping <m>d=0</m>. How is this related to scalar multiplication? </p>
+          </li>
+
+          <li>
+            <p> What is the linear combination of <m>\vvec</m> and <m>\wvec</m> when <m>c = 1</m>
+              and <m>d=-2</m>? You may find this result using the diagram, but you should also
+              verify it by computing the linear combination. </p>
+          </li>
+
+          <li>
+            <p> Describe the vectors that arise when the weight <m>d</m> is set to 1 and <m>c</m> is
+              varied. How is this related to our investigations in the preview activity? </p>
+          </li>
+
+          <li>
+            <p> Can the vector <m>\left[\begin{array}{r} 0 \\ 0 \end{array} \right]</m> be expressed
+              as a linear combination of <m>\vvec</m> and <m>\wvec</m>? If so, what are the weights <m>
+              c</m> and <m>d</m>? </p>
+          </li>
+
+          <li>
+            <p> Can the vector <m>\left[\begin{array}{r} 3 \\ 0 \end{array} \right]</m> be expressed
+              as a linear combination of <m>\vvec</m> and <m>\wvec</m>? If so, what are the weights <m>
+              c</m> and <m>d</m>? </p>
+          </li>
+
+          <li>
+            <p> Can the vector <m>\left[\begin{array}{r} 1.3 \\ -1.7 \end{array} \right]</m> be
+              expressed as a linear combination of <m>\vvec</m> and <m>\wvec</m>? What about the
+              vector <m>\left[\begin{array}{r} 15.2 \\ 7.1 \end{array} \right]</m>?
+              For each write down a system of equations that can be used to answer the question. 
+              If you know how to solve such a system, go ahead. But we will be learning a general method 
+              for this soon.
+              </p>
+          </li>
+
+          <li>
+            <p> Are there any two-dimensional vectors that cannot be expressed as linear
+              combinations of <m>\vvec</m> and <m>\wvec</m>? (Hint: Think geometrically.)</p>
+          </li>
+        </ol>
       </statement>
+
       <solution>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		<cd>
-np.array([[-1,-2, 2,-1],
-          [ 2, 4,-1, 5],
-          [ 1, 2, 0, 3]])
-		</cd>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The reduced row echelon form of the matrix is
-		<me>
-		  \begin{bmatrix}
-		  1 \amp 2 \amp 0 \amp 3 \\
-		  0 \amp 0 \amp 1 \amp 1 \\
-		  0 \amp 0 \amp 0 \amp 0
-		  \end{bmatrix}.
-		</me>
-	      </p>
-	    </li>
+        <p>
+          <ol marker="a.">
+            <li>
+              <p> When we vary <m>c</m> with <m>d=0</m>, the linear combination moves along the line
+                defined by <m>\vvec</m>. </p>
+            </li>
 
-	    <li>
-	      <p>
-		Python tells us that the reduced row echelon form of the
-		corresponding augmented matrix is
-		<me>
-		  \begin{bmatrix}
-		  1 \amp 0 \amp 0 \amp 0 \amp -2 \\
-		  0 \amp 1 \amp 0 \amp 0 \amp -1 \\
-		  0 \amp 0 \amp 1 \amp 0 \amp 0 \\
-		  0 \amp 0 \amp 0 \amp 1 \amp 3 \\
-		  \end{bmatrix}
-		</me>
-		so there is a unique solution <m>(x_1,x_2,x_3,x_4) =
-		(-2,-1,0,3)</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The first four columns of the reduced row echelon form
-		of <m>B</m> form the reduced row echelon form of
-		<m>A</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The reduced row echelon form of the coefficient matrix
-		is 
-		<me>
-		  \begin{bmatrix}
-		  1 \amp 0 \amp 0 \amp 0 \\
-		  0 \amp 1 \amp 0 \amp 0 \\
-		  0 \amp 0 \amp 1 \amp 0 \\
-		  0 \amp 0 \amp 0 \amp 1 \\
-		  \end{bmatrix}.
-		</me>
-		This can be computed with 
-		<sage language="python">
-			<input>
-import numpy as np
-import sympy 
-A = np.array([[-1, -2, 2, -1], [2, 4, -1, 5], [1, 2, 0, 3]])
-print(A)
-print(sympy.Matrix(A).rref())
-			</input>
-			<output>
-				(for static output)
-			</output>
-		</sage>
-		
-	      </p>
-	    </li>
-		<li>
-			<p>
-				<c>(0,2)</c> tells us that the leading 1 in the row 0 is in column 0 and that 
-				the leading 1 in row 1 is in column 2.  This uses 0-based indexing.  We might 
-				more naturally say that the leading 1 in the first row is in the first column 
-				and the leading 1 in the second row is in the third column.
-			</p>
-		</li>
-	  </ol>
-	</p>
+            <li>
+              <p> When <m>c=1</m> and <m>d=-2</m>, we find <me>
+                  1\vvec -2 \wvec =
+                  \twovec{0}{-3}\text{.}
+                </me>
+              </p>
+            </li>
+
+            <li>
+              <p> When <m>d=1</m> and <m>c</m> is allowed to vary, the linear combinations lie on
+                the line through <m>\wvec</m> parallel to <m>\vvec</m>. </p>
+            </li>
+
+            <li>
+              <p> If the weights <m>c=0</m> and <m>d=0</m>, then the linear combination is the
+                vector <m>\twovec{0}{0}</m>. </p>
+            </li>
+
+            <li>
+              <p> If the weights <m>c=2</m> and <m>d=-1</m>, then the linear combination is the
+                vector <m>\twovec{3}{0}</m>. You could determine this by a little trial and error,
+                or using a little algebra. <m>c \vvec + d \wvec = \twovec 30</m> is equivalent to 
+                <me>
+                  \begin{alignedat}{3}
+                  2c \amp {}+{} \amp 1d \amp {}={} \amp 3 \\
+                  1c \amp {}+{} \amp 2d \amp {}={} \amp 0 \\
+                  \end{alignedat}
+                </me>
+                We will learn general methods for solving systems of equations like this soon.
+                But in this case, the second equation tells us that <m>c = -2d</m>.  Plugging 
+                that into the first equation gives <m>-4d + d = -3d = 3</m>, so <m>d = -1</m> and 
+                <m>c = 2</m>.
+                </p>
+            </li>
+
+            <li>
+              <p> 
+                Our two systems of equations are 
+                <me>
+                  \begin{alignedat}{3}
+                  2c \amp {}+{} \amp 1d \amp {}={} \amp 1.3 \\
+                  1c \amp {}+{} \amp 2d \amp {}={} \amp -1.7 \\
+                  \end{alignedat}
+                </me>
+                and
+                <me>
+                  \begin{alignedat}{3}
+                  2c \amp {}+{} \amp 1d \amp {}={} \amp 15.2 \\
+                  1c \amp {}+{} \amp 2d \amp {}={} \amp 7.1 \\
+                  \end{alignedat}
+                </me>
+                We don't have a 0 on the right hand side this time, so the algebra 
+                is a little messier.  But both systems have a solution.
+                Stay tuned to learn how to systematically solve such systems.
+              </p>
+            </li>
+
+            <li>
+              <p> Every two-dimensional vector can be written as a linear combination of <m>\vvec</m>
+                and <m>\wvec</m>.  The number <m>c</m> chooses a line parallel to <m>\wvec</m>, and 
+                <m>d</m> chooses a point along that line.  Since we can pick any line parallel to 
+                <m>\wvec</m> and any point along that line, this allows us to get to any point in the plane. 
+                Use the interactive app above to illustrate this. Note that this only works because  
+                <m>\vvec</m> and <m>\wvec</m> are not parllel.
+              </p>
+                <p>
+                We will soon learn an algebraic way to arrive at the same conclusion.
+                </p>
+            </li>
+          </ol>
+        </p>
       </solution>
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		<cd>
-np.array([[-1,-2, 2,-1],
-          [ 2, 4,-1, 5],
-          [ 1, 2, 0, 3]])
-		</cd>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The reduced row echelon form of the matrix is
-		<me>
-		  \begin{bmatrix}
-		  1 \amp 2 \amp 0 \amp 3 \\
-		  0 \amp 0 \amp 1 \amp 1 \\
-		  0 \amp 0 \amp 0 \amp 0
-		  \end{bmatrix}.
-		</me>
-	      </p>
-	    </li>
 
-	    <li>
-	      <p>
-		There is a unique solution <m>(x_1,x_2,x_3,x_4) =
-		(-2,-1,0,3)</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The first four columns of the reduced row echelon form
-		of <m>B</m> form the reduced row echelon form of
-		<m>A</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The reduced row echelon form of the coefficient matrix
-		is 
-		<me>
-		  \begin{bmatrix}
-		  1 \amp 0 \amp 0 \amp 0 \\
-		  0 \amp 1 \amp 0 \amp 0 \\
-		  0 \amp 0 \amp 1 \amp 0 \\
-		  0 \amp 0 \amp 0 \amp 1 \\
-		  \end{bmatrix}.
-		</me>
-	      </p>
-	    </li>
-	  </ol>
-	</p>
+      <answer>
+        <p>
+          <ol marker="a.">
+            <li>
+              <p> The linear combinations lie on the line defined by <m>\vvec</m>. </p>
+            </li>
+
+            <li>
+              <p>
+                <m>\twovec{0}{-3}</m>. </p>
+            </li>
+
+            <li>
+              <p> They lie on the line through <m>\wvec</m> parallel to <m>\vvec</m>. </p>
+            </li>
+
+            <li>
+              <p> Yes, with weights <m>c=d=0</m>. </p>
+            </li>
+
+            <li>
+              <p> Yes, with weights <m>c=2</m> and <m>d=-1</m>. </p>
+            </li>
+
+            <li>
+              <p> This can be done by writing the appropriate linear
+                system for the weights.
+              </p>
+            </li>
+
+            <li>
+              <p> No, any two-dimensional vector can be expressed as a linear combination of <m>
+                \vvec</m> and <m>\wvec</m>. </p>
+            </li>
+          </ol>
+        </p>
       </answer>
     </activity>
 
+    <p> This activity illustrates how linear combinations are constructed geometrically: the linear
+      combination <m>c\vvec +
+        d\wvec</m> is found by walking along <m>\vvec</m> a total of <m>c</m> times followed by
+      walking along <m>\wvec</m> a total of <m>d</m> times. When one of the weights is held constant
+      while the other varies, the vector moves along a line. </p>
 
-    <p> The last part of the previous activity, <xref
-    ref="li-augmentation-principle" />, demonstrates something that
-    will be helpful for us in the future.  In that activity, we
-    started with a matrix <m>A</m>, which we augmented by adding some
-    columns to obtain a matrix <m>B</m>.  We then noticed that the
-    reduced row echelon form of <m>B</m> is itself an augmentation of
-    the reduced row echelon form of <m>A</m>.
+    <example xml:id="example-linear-systems-preview">
+      <statement>
+        <p>
+          Suppose we have vectors <m>\vvec = \twovec3{-1}</m> and 
+          <m>\wvec=\twovec43</m>. Suppose we want to know whether we can describe the vector 
+          <m>\bvec=\twovec{-11}{-18}</m> as a linear combination of <m>\vvec</m> and <m>\wvec</m>. In
+          other words, we would like to know whether there are weights <m>c</m> and <m>d</m> such
+          that <me>
+            c\vvec + d\wvec= \bvec.
+          </me>
+        </p>
+
+        <p> This leads to the equations <me>
+            \begin{aligned}
+            c\twovec3{-1} + d\twovec43
+            \amp =
+            \twovec{-11}{-18} \\ \\
+            \twovec{3c}{-c} + \twovec{4d}{3d}
+            \amp =
+            \twovec{-11}{-18} \\ \\
+            \twovec{3c+4d}{-c+3d}
+            \amp =
+            \twovec{-11}{-18} \\ \\
+            \end{aligned}
+          </me>
+        </p>
+        <p> Equating the components of the vectors on each side of the equation, we arrive at the
+          linear system <me>
+            \begin{alignedat}{3}
+            3a \amp {}+{} \amp 4b \amp {}={} \amp -11 \\
+            -a \amp {}+{} \amp 3b \amp {}={} \amp -18 \
+            \end{alignedat}
+          </me>
+          This means that <m>\bvec</m> is a linear combination of <m>\vvec</m> and <m>\wvec</m> if
+          and only if this <term>linear system</term> of equations has a solution.
+        <idx> linear system of equations</idx>
+          </p>
+            
+
+      </statement>
+    </example>
+
+    <p> <xref ref="example-linear-systems-preview"/> demonstrates a connection between 
+      linear combinations of vectors and linear systems of equations:
+      Asking whether a vector <m>\bvec</m> is a linear combination of vectors <m>
+      \vvec_1,\vvec_2,\ldots,\vvec_n</m> is equivalent to asking whether an associated 
+      <term>linear system</term> has a solution. 
+      In <xref ref="chap2"/> we will study linear systems more carefully, giving a careful  
+      definition and demonstrating how we can determine the solutions to any such system of  
+      equations.
     </p>
 
-    <p>
-      To illustrate, we can consider the reduced row echelon form of
-      the augmented matrix:
-      <me>
-	\left[
-	\begin{array}{ccc|c}
-	-2 \amp 3 \amp 0 \amp 2 \\
-	-1 \amp 4 \amp 1 \amp 3 \\
-	3 \amp 0 \amp 2 \amp 2 \\
-	1 \amp 5 \amp 3 \amp 7 \\
-	\end{array}
-	\right]
-	\sim
-	\left[
-	\begin{array}{ccc|c}
-	1 \amp 0 \amp 0 \amp -4 \\
-	0 \amp 1 \amp 0 \amp -2 \\
-	0 \amp 0 \amp 1 \amp 7 \\
-	0 \amp 0 \amp 0 \amp 0 \\
-	\end{array}
-	\right]
-      </me>
-    </p>
 
-    <p>
-      We can then determine the reduced row echelon form of the
-      coefficient matrix by looking inside the augmented matrix.
-      <me>
-	\left[
-	\begin{array}{ccc}
-	-2 \amp 3 \amp 0 \\
-	-1 \amp 4 \amp 1 \\
-	3 \amp 0 \amp 2 \\
-	1 \amp 5 \amp 3 \\
-	\end{array}
-	\right]
-	\sim
-	\left[
-	\begin{array}{ccc}
-	1 \amp 0 \amp 0 \\
-	0 \amp 1 \amp 0 \\
-	0 \amp 0 \amp 1 \\
-	0 \amp 0 \amp 0 \\
-	\end{array}
-	\right]
-      </me>
-    </p>
+    <activity>
+      <title> Linear combinations and linear systems </title>
+      <statement>
+        <p>
+          <ol marker="a.">
+            <li>
+              <p> Given the vectors <me>
+                  \vvec_1 = \left[\begin{array}{r} 4 \\ 0 \\ 2 \\ 1
+                  \end{array} \right],
+                  \vvec_2 = \left[\begin{array}{r} 1 \\ -3 \\ 3 \\ 1
+                  \end{array} \right],
+                  \vvec_3 = \left[\begin{array}{r} -2 \\ 1 \\ 1 \\ 0
+                  \end{array} \right],
+                  \bvec = \left[\begin{array}{r} 0 \\ 1 \\ 2 \\ -2
+                  \end{array} \right]
+                </me>,
+                can <m>\bvec</m> be expressed as a linear combination of <m>\vvec_1</m>, <m>\vvec_2</m>,
+                and <m>\vvec_3</m>? Rephrase this question by writing a linear system for the
+                weights <m>c_1</m>, <m>c_2</m>, and <m>c_3</m>.  
+                 <!-- and use the Sage cell below to answer
+                this question. <sage>
+                  <input>
+                  </input>
+                </sage> -->
+              </p>
+            </li>
 
-    <p> If we trace through the steps in the Gaussian elimination
-    algorithm carefully, we see that this is a general principle, which
-    we now state.
-    </p>
+            <li>
+              <p> Now let's go in the other direction. Consider the following linear system. <me>
+                  \begin{alignedat}{4}
+                  3x_1 \amp {}+{} \amp 2x_2 \amp {}-{} x_3 \amp {}={} \amp 4 \\
+                  x_1 \amp \amp \amp {}+{} 2x_3 \amp {}={} \amp 0 \\
+                  -x_1 \amp {}-{} \amp x_2 \amp {}+{} 3x_3 \amp {}={} \amp 1
+                  \\
+                  \end{alignedat}
+                </me>
+                Identify vectors <m>\vvec_1</m>, <m>\vvec_2</m>, <m>\vvec_3</m>, and <m>\bvec</m>
+                such that the question "Is this linear system consistent?" is equivalent to the
+                question "Can <m>\bvec</m> be expressed as a linear combination of <m>\vvec_1</m>, <m>
+                \vvec_2</m>, and <m>\vvec_3</m>?" </p>
+            </li>
 
-    <proposition xml:id="principle-augmentation-principle">
-      <title> Augmentation Principle </title>
+            <!-- <li>
+              <p> Consider the vectors <me>
+                  \vvec_1 = \left[\begin{array}{r} 0 \\ -2 \\ 1 \\
+                  \end{array} \right],
+                  \vvec_2 = \left[\begin{array}{r} 1 \\ 1 \\ -1 \\
+                  \end{array} \right],
+                  \vvec_3 = \left[\begin{array}{r} 2 \\ 0 \\ -1 \\
+                  \end{array} \right],
+                  \bvec = \left[\begin{array}{r} -1 \\ 3 \\ -1 \\
+                  \end{array} \right]
+                </me>.
+                Can <m>\bvec</m> be expressed as a linear combination of <m>\vvec_1</m>, <m>\vvec_2</m>,
+                and <m>\vvec_3</m>? If so, can <m>\bvec</m> be written as a linear combination of
+                these vectors in more than one way? <sage>
+                  <input>
+                  </input>
+                </sage>
 
-      <p> If matrix <m>B</m> is an augmentation of matrix <m>A</m>,
-      then the reduced row echelon form of <m>B</m> is an augmentation
-      of the reduced row echelon form of <m>A</m>.
-      </p>
-    </proposition>
+              </p>
+            </li>
 
-  </subsection>
+            <li>
+              <p> Considering the vectors <m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m> from
+                the previous part, can we write every three-dimensional vector <m>\bvec</m> as a
+                linear combination of these vectors? Explain how the pivot positions of the matrix <m>\left[\begin{array}{rrr}
+                \vvec_1 \amp
+                  \vvec_2 \amp \vvec_3 \end{array} \right]</m> help answer this question. </p>
+            </li>
 
-  <subsection xml:id="subsec-compute-effort">
-    <title> Computational effort </title>
-    <p>
-      At the beginning of this section, we indicated that linear
-      algebra has become more prominent as computers have grown
-      more powerful.  Computers, however, still have limits.  Let's
-      consider how much effort is expended when we ask to find the
-      reduced row echelon form of a matrix.  We will measure, very
-      roughly, the effort by the number of times the algorithm
-      requires us to multiply or add two numbers.
-    </p>
+            <li>
+              <p> Now consider the vectors <me>
+                  \vvec_1 = \left[\begin{array}{r} 0 \\ -2 \\ 1 \\
+                  \end{array} \right],
+                  \vvec_2 = \left[\begin{array}{r} 1 \\ 1 \\ -1 \\
+                  \end{array} \right],
+                  \vvec_3 = \left[\begin{array}{r} 1 \\ -1 \\ -2 \\
+                  \end{array} \right],
+                  \bvec = \left[\begin{array}{r} 0 \\ 8 \\ -4 \\
+                  \end{array} \right]
+                </me>.
+                Can <m>\bvec</m> be expressed as a linear combination of <m>\vvec_1</m>, <m>\vvec_2</m>,
+                and <m>\vvec_3</m>? If so, can <m>\bvec</m> be written as a linear combination of
+                these vectors in more than one way? <sage>
+                  <input>
+                  </input>
+                </sage>
+              </p>
+            </li>
 
-    <p>
-      We will assume that our matrix has the same number of rows
-      as columns, which we call <m>n</m>.  We are mainly interested in
-      the case when <m>n</m> is very large, which is when we need to
-      worry about how
-      much effort is required.
-    </p>
+            <li>
+              <p> Considering the vectors <m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m> from
+                the previous part, can we write every three-dimensional vector <m>\bvec</m> as a
+                linear combination of these vectors? Explain how the pivot positions of the matrix <m>\left[\begin{array}{rrr}
+                \vvec_1 \amp
+                  \vvec_2 \amp \vvec_3 \end{array} \right]</m> help answer this question. </p>
+            </li> -->
 
-    <p> Let's first consider the effort required for each of our row 
-    operations. 
-      <ul>
-	<li> <p> Scaling a row multiplies each of the <m>n</m> entries
-	in a row by some number, which requires <m>n</m>
-	operations. </p></li>
-	<li> <p> Interchanging two rows requires no multiplications or
-	additions so we won't worry about the effort required by an
-	interchange.  </p></li>
-	<li> <p> A replacement requires us to multiply
-	each entry in a row by some number, which takes <m>n</m>
-	operations, and then add the resulting entries to another row,
-	which requires another <m>n</m> operations.  The total number
-	of operations is <m>2n</m>.</p></li>
+          </ol>
+        </p>
+      </statement>
+
+      <solution>
+        <p>
+          <ol marker="a.">
+            <li>
+              <p> We find the linear system <me>
+                  \begin{alignedat}{4}
+                  4c_1 \amp {}+{} \amp c_2 \amp {}-{} \amp 2c_3 \amp
+                  {}={} \amp 0 \\
+                  \amp \amp -3c_2 \amp {}+{} \amp c_3 \amp
+                  {}={} \amp 1 \\
+                  2c_1 \amp {}+{} \amp 3c_2 \amp {}+{} \amp c_3 \amp
+                  {}={} \amp 2 \\
+                  c_1 \amp {}+{} \amp c_2 \amp \amp \amp
+                  {}={} \amp -2 \\
+                  \end{alignedat}
+                </me>
+                <!-- with corresponding augmented matrix <me>
+                  \left[\begin{array}{rrr|r}
+                  4 \amp 1 \amp -2 \amp 0 \\
+                  0 \amp -3 \amp 1 \amp 1 \\
+                  2 \amp 3 \amp 1 \amp 2 \\
+                  1 \amp 1 \amp 0 \amp -2
+                  \end{array}\right]
+                  \sim
+                  \left[\begin{array}{rrr|r}
+                  1 \amp 0 \amp 0 \amp 0 \\
+                  0 \amp 1 \amp 0 \amp 0 \\
+                  0 \amp 0 \amp 1 \amp 0 \\
+                  0 \amp 0 \amp 0 \amp 1
+                  \end{array}\right]\text{.}
+                </me>
+                This shows that the linear system is inconsistent so there are no such weights <m>
+                c_1</m>, <m>c_2</m>, and <m>c_3</m>. This means that <m>\bvec</m> is not a linear
+                combination of <m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m>.  -->
+                </p>
+            </li>
+
+            <li>
+              <p> We find vectors <me>
+                  \vvec_1=\threevec{3}{1}{-1},
+                  \vvec_2=\threevec{2}{0}{-1},
+                  \vvec_3=\threevec{-1}{2}{3},
+                  \bvec=\threevec{4}{0}{1}\text{.}
+                </me>
+              </p>
+            </li>
+
+            <li>
+              <p> This is the same as asking if the linear system corresponding to the following
+                augmented matrix is consistent: <me>
+                  \left[\begin{array}{rrr|r}
+                  0 \amp 1 \amp 2 \amp -1 \\
+                  -2 \amp 1 \amp 0 \amp 3 \\
+                  1 \amp -1 \amp -1 \amp -1
+                  \end{array}\right]
+                  <!-- 
+                  \sim
+                  \left[\begin{array}{rrr|r}
+                  1 \amp 0 \amp 1 \amp -2 \\
+                  0 \amp 1 \amp 2 \amp -1 \\
+                  0 \amp 0 \amp 0 \amp 0
+                  \end{array}\right]\text{.} 
+                  -->
+                </me>
+                <!-- From the reduced row echelon form, we see that the system is consistent, which means
+                that <m>\bvec</m> can be expressed as a linear combination of <m>\vvec_1</m>, <m>
+                \vvec_2</m>, and <m>\vvec_3</m>. Moreover, there are infinitely ways in which we can
+                do so.  -->
+                </p>
+            </li>
+
+            <!-- <li>
+              <p> No, it is not possible to write every three-dimensional <m>\bvec</m> as a linear
+                combination of <m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m> because the matrix <m>\left[\begin{array}{rrr}
+                \vvec_1 \amp \vvec_2 \amp
+                  \vvec_3 \end{array}\right]</m> does not have a pivot position in every row. This
+                means that, with some choice of vector <m>\bvec</m>, we will obtain an inconsistent
+                system. </p>
+            </li>
+
+            <li>
+              <p> We find the augmented matrix <me>
+                  \left[\begin{array}{rrr|r}
+                  0 \amp 1 \amp 1 \amp 0 \\
+                  -2 \amp 1 \amp -1 \amp 8 \\
+                  1 \amp -1 \amp -2 \amp -4
+                  \end{array}\right]
+                  \sim
+                  \left[\begin{array}{rrr|r}
+                  1 \amp 0 \amp 0 \amp -4 \\
+                  0 \amp 1 \amp 0 \amp 0 \\
+                  0 \amp 0 \amp 1 \amp 0
+                  \end{array}\right]\text{.}
+                </me>
+                This shows that <m>\bvec</m> can be expressed as a linear combination of <m>\vvec_1</m>
+                , <m>\vvec_2</m>, and <m>\vvec_3</m> in exactly one way. </p>
+            </li>
+
+            <li>
+              <p> Every vector <m>\bvec</m> can be expressed as a linear combination of <m>\vvec_1</m>
+                , <m>\vvec_2</m>, and <m>\vvec_3</m> in exactly one way because <m>\left[\begin{array}{rrr}
+                \vvec_1 \amp \vvec_2 \amp
+                  \vvec_3 \end{array}\right]</m> has a pivot position in every row and every column. </p>
+            </li> -->
+          </ol>
+        </p>
+      </solution>
+
+      <answer>
+        <p>
+          <ol marker="a.">
+            <li>
+              <!-- <p> The vector <m>\bvec</m> cannot be expressed as a linear combination of <m>\vvec_1</m>
+                , <m>\vvec_2</m>, and <m>\vvec_3</m>. </p> -->
+            </li>
+
+            <li>
+              <p> We find vectors <me>
+                  \vvec_1=\threevec{3}{1}{-1},
+                  \vvec_2=\threevec{2}{0}{-1},
+                  \vvec_3=\threevec{-1}{2}{3},
+                  \bvec=\threevec{4}{0}{1}\text{.}
+                </me>
+              </p>
+            </li>
+
+            <!-- <li>
+              <p> Yes, <m>\bvec</m> can be expressed as a linear combination of <m>\vvec_1</m>, <m>
+                \vvec_2</m>, and <m>\vvec_3</m> in infinitely many ways. </p>
+            </li>
+
+            <li>
+              <p>
+                No.
+              </p>
+            </li>
+
+            <li>
+              <p> Yes, <m>\bvec</m> can be expressed as a linear combination of <m>\vvec_1</m>, <m>
+                \vvec_2</m>, and <m>\vvec_3</m> in exactly one way. </p>
+            </li>
+
+            <li>
+              <p> Any vector <m>\bvec</m> can be expressed as a linear combination of <m>\vvec_1</m>
+                , <m>\vvec_2</m>, and <m>\vvec_3</m> in exactly one way. </p>
+            </li> -->
+          </ol>
+        </p>
+      </answer>
+
+    </activity>
+
+    <example>
+      <statement>
+        <p> Consider the vectors <m>\vvec=\twovec{-1}1</m> and <m>\wvec=\twovec{2}{-2}</m>, as shown
+          in <xref
+            ref="fig-lin-comb-ex" />. </p>
+        <figure xml:id="fig-lin-comb-ex">
+          <caption> Vectors <m>\vvec</m> and <m>\wvec</m>. </caption>
+          <sidebyside width="50%">
+            <image source="images/lin-comb-ex" />
+          </sidebyside>
+        </figure>
+        <p> These vectors appear to lie on the same line, a fact that becomes apparent once we
+          notice that <m>\wvec =
+            -2\vvec</m>. Intuitively, we think of the linear combination <me>
+            c\vvec + d\wvec
+          </me> as the result of walking <m>c</m> times in
+          the <m>\vvec</m> direction and <m>d</m> times in the <m>\wvec</m> direction. With these
+          vectors, we are always walking along the same line so it would seem that any linear
+          combination of these vectors should lie on the same line. In addition, a vector that is
+          not on the line, say <m>\bvec
+            = \twovec30</m>, should not be expressible as a linear combination of <m>\vvec</m>
+          and <m>
+            \wvec</m>. </p>
+
+        <!-- <p> We can verify this by checking <me>
+            \left[
+            \begin{array}{rr|r}
+            -1 \amp 2 \amp 3 \\
+            1 \amp -2 \amp 0 \\
+            \end{array}
+            \right]
+            \sim
+            \left[
+            \begin{array}{rr|r}
+            1 \amp -2 \amp 0 \\
+            0 \amp 0 \amp 1 \\
+            \end{array}
+            \right].
+          </me>
+          This shows that the associated linear system is inconsistent, which means that the vector <m>
+          \bvec=\twovec30</m> cannot be written as a linear combination of <m>\vvec</m> and <m>\wvec</m>
+          . </p>
+
+        <p> Notice that the reduced row echelon form of the coefficient matrix <me>
+            \begin{bmatrix}
+            \vvec \amp \wvec \\
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            -1 \amp 2 \\
+            1 \amp -2 \\
+            \end{bmatrix}
+            \sim
+            \begin{bmatrix}
+            1 \amp -2 \\
+            0 \amp 0 \\
+            \end{bmatrix}
+          </me>
+          tells us to expect this. Since there is not a pivot position in the second row of the
+          coefficient matrix <m>\begin{bmatrix}\vvec
+            \amp \wvec \end{bmatrix}</m>, it is possible for a pivot position to appear in the
+          rightmost column of the augmented matrix <me>
+            \left[
+            \begin{array}{rr|r} \vvec \amp \wvec \amp \bvec \end{array}
+            \right]
+          </me>
+          for some choice of <m>\bvec</m>. </p> -->
+      </statement>
+    </example>
+    </introduction>
+
+
+  <subsection>
+    <title>
+      Summary
+    </title>
+
+    <p> This section has introduced linear combinations of vectors 
+    and their connection to linear systems. <ul>
+
+        <li>
+          <p> Given a set of vectors and a set of scalars we call
+            weights, we can create a linear combination using scalar
+            multiplication and vector addition. </p>
+        </li>
+
+        <li>To know whether one vector can be formed as a linear 
+        combination of some other vectors is equivalent to solving 
+        a (linear) system of equations.
+        </li>
+
+        We will learn more about both linear combinations and linear systems 
+        in what follows.
       </ul>
     </p>
 
-    <p>
-      Our goal is to transform a matrix to its reduced row echelon
-      form, which looks something like this:
-      <me>
-	\left[
-	\begin{array}{cccc}
-	1 \amp 0 \amp \ldots \amp 0 \\
-	0 \amp 1 \amp \ldots \amp 0 \\
-	\vdots \amp \vdots \amp \ddots \amp 0 \\
-	0 \amp 0 \amp \ldots \amp 1 \\
-	\end{array}
-	\right]
-	</me>.
-	We roughly perform one replacement operation for every 0 entry
-	in the reduced row echelon matrix.  When <m>n</m> is very
-	large, most of the <m>n^2</m> entries in the reduced row
-	echelon form are 0 so we need roughly <m>n^2</m>
-	replacements.  Since each replacement operation
-	requires <m>2n</m> operations, the number of operations
-	resulting from the needed replacements is roughly <m>n^2(2n) =
-	2n^3</m>.
-    </p>
-    
-    <p> Each row is scaled roughly one time so there are roughly
-    <m>n</m> scaling operations, each of which requires <m>n</m>
-    operations.  The number of operations due to scaling is roughly
-    <m>n^2</m>.
-    </p>
-
-    <p>
-      Therefore, the total number of operations is roughly
-      <me> 2n^3 + n^2</me>.  When <m>n</m> is very large, the
-      <m>n^2</m> term is much smaller than the <m>n^3</m> term.  We
-      therefore state that
-    </p>
-
-    <observation>
-      <statement>
-	<p>
-	The number of operations required to find the reduced row
-	echelon form of an <m>n\times n</m> matrix is roughly
-	proportional to <m>n^3</m>.
-	</p>
-      </statement>
-    </observation>
-
-    <p>
-      This is a very rough measure of the effort required to find the
-      reduced row echelon form;  a more careful accounting shows that
-      the number of arithmetic operations is roughly <m>\frac23
-      n^3</m>.  As we have seen, some matrices 
-      require more effort than others, but the upshot of this
-      observation is that the effort is proportional to <m>n^3</m>.
-      We can think of this in the following way: If the size of the
-      matrix grows by a factor of 10, then the effort required
-      grows by a factor of <m>10^3 = 1000</m>.
-    </p>
-
-    <p>
-      While today's computers are powerful, they cannot handle every
-      problem we might ask of them.  Eventually, we would like to be
-      able to consider matrices that have <m>n=10^{12}</m> (a
-      trillion) rows and columns.  In very broad terms, the effort
-      required to find the reduced row echelon matrix will require
-      roughly <m>(10^{12})^3 = 10^{36}</m> operations.
-    </p>
-
-    <p>
-      To put this into context, imagine we need to solve a linear
-      system with a trillion equations and a trillion variables and
-      that we have a computer that can perform a trillion,
-      <m>10^{12}</m>, operations every second.  Finding the reduced
-      row echelon form would take about <m>10^{16}</m> years.  At this
-      time, the universe is estimated to be approximately
-      <m>10^{10}</m> years old.  If we had started the calculation 
-      <m>10^{10}</m> years ago, then we'd be about one-millionth of
-      the way through.  
-    </p>
-
-    <p> This may seem like an absurd situation, but
-      we'll see in <xref ref="subsec-google" /> how we use the results
-      of such a computation every day.
-      Clearly, we will need some better tools to deal with
-      <em>really</em> big problems like this one.
-    </p>
-	
   </subsection>
 
-  <subsection>
-    <title> Summary </title>
+  <xi:include href="exercises/exercises2-1.ptx" />
 
-    <p> We learned some basic more features of Python with an emphasis on
-    finding the reduced row echelon form of a matrix.
-    <ul>
-      <!-- <li> <p> Python can perform basic arithmetic using standard
-      operators.  Python can also save results from one command to be
-      reused in a later command.
-      </p></li> -->
-
-      <li> <p> Our preference is to use <c>numpy.array()</c> to create matrices.
-      </p>
-	  <p>
-	  We can find the reduced row echelon form using the <c>rref()</c> method
-	  <strong><em>after converting to a <c>sympy.Matrix</c></em></strong>.  The
-	  output is a tuple of length 2.  The first element is the reduced row
-	  echelon form of the matrix and the second is a tuple identifying the
-	  location of the pivots -- the topic of the next section.
-      </p>
-	  </li>
-      
-      <li> <p> We saw an example of the
-      <xref ref="principle-augmentation-principle" text="custom">
-	Augmentation Principle
-      </xref>, which we then stated as a general principle. 
-      </p></li>
-
-      <li> <p> We saw that the computational effort required to find
-      the reduced row echelon form of an <m>n\times n</m> matrix is
-      proportional to <m>n^3</m>.
-      </p></li>
-    </ul>
-    <xref ref="app-python-reference" text="custom"> Appendix A</xref>
-    contains a reference outlining the Python commands that we have
-    encountered. 
-    </p>
-  </subsection>
-
-  <xi:include href="exercises/exercises1-3.ptx" />
-
-  <xi:include href="exercises/exercises2-2.ptx" />
-  
-</section>
+  </section>
