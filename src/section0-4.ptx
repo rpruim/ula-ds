@@ -53,6 +53,11 @@ print(A)
 	</sage>
 	</p>
 
+	<p>
+		The output above expresses <c>A</c> as two <m>4 \times 3</m> matrices, and we can separate out 
+		those two matrices as <c>A[0]</c> and <c>A[1]</c>.  
+	</p>
+
 	<p>We can refer to individual numbers in an ndarray by providing the required number of indices.
 	<sage language="python">
 	<input>
@@ -66,27 +71,31 @@ print(A[0,1,2])
 		<term>slice</term> of values. A slice has the format <c>start:stop:step</c>. If omitted,
 		<c>start</c> is taken to be 0, <c>stop</c> is taken to be the length of the array in 
 		that dimension, and <c>step</c> is taken to be 1.  To get all the values in some dimension,
-		we can use <c>:</c>.  For example, to get the blue channel from an RGB image, we could use 
-		<c>image[:, :, 2]</c> to get all the rows, all the columns, but only the blue channel.
+		we can use <c>:</c>.  
 	<idx> slice, of a matrix or tensor </idx>
 	</p>
 
 	<p>
-		Note that when using a single number as an index, the number of dimensions will decrease.
-		We can change this behavior by supplying an explicit slice or a list of length 1.
-		<sage language="python">
-			<input>
-import numpy as np 
-A = np.arange(10 * 10 * 10)				
-A.shape = (10, 10, 10)
-# this results in a 2-d array
-print(A[:,:,0].shape)
-# these produce 3-d arrays
-print(A[:,:,0:1].shape)
-print(A[:,:,[0].shape)
-			</input>
-		</sage>
+		An interesting question is what the shape of the resulting array should be, and we have some control 
+		over whether dimensions are dropped or not. Consider the following examples.
+	<sage language="python">
+	<input>
+print(A[:,:,1].shape)        # integer -> 2d
+print(A[:,:,(1)].shape)      # tuple of length 1 -> 2d
+print(A[:,:,1:2].shape)      # slice with one value -> 3d
+print(A[:,:,[1]].shape)      # list of length 1 -> 3d
+	</input>
+	<output>
+(2, 4)
+(2, 4)
+(2, 4, 1)
+(2, 4, 1)
+	</output>
+	</sage>
+	The first two methods drop a dimension.  The latter two retain all three axes, even though one of them has only one 
+	legal index (0). It is always important to know the shape of the arrays you are working with.  When in doubt, check.
 	</p>
+
 
 	<example>
 		<statement>
@@ -106,31 +115,31 @@ print(A[:,:,[0].shape)
 			  <c>matplotlib</c>. <c>matplotlib</c> supports a variety of image formats. For RGB 
 			  images, the RGB values can be integers from 0 to 255 or floating point 
 			  values between 0 and 1.
-			  <sage language="python">
-			  <input>
-import numpy as np
-import matplotlib.pyplot as plt 
-A = np.arange(20 * 50 * 3)
-A = A / (20 * 50 * 3)
-A.shape = (20, 50, 3)
-plt.imshow(A) 
-plt.show()
-			  </input>
-			  </sage>
+
 			  <sage language="python">
 			  <input>
 import numpy as np
 from skimage import io
 import matplotlib.pyplot as plt 
-url = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
+url = "https://rpruim.github.io/data/images/happy-dog.jpeg"
 dog = io.imread(url)
 print(dog.shape)
+print(dog.dtype)
 plt.imshow(dog)
 plt.show()
 			  </input>
 			  </sage>
+			</p>
 
-				
+			<p> Notice that <c>dog</c> contains a 3-dimensional array of unsiged 8-bit integers (0 -- 255) and 
+			that the format is channels-last. We can plot individual channels in the same way.
+			<sage language="python">
+				<input>
+plt.imshow(dog[:, :, 0])
+plt.show()
+				</input>
+			</sage>
+			
 			</p>
 		</statement>
 	</example>
@@ -145,6 +154,146 @@ plt.show()
 
 
 	</subsection>
+
+<subsection xml:id="subsec-slices">
+	<title>Slices</title>
+	
+</subsection>
+
+<subsection xml:id="subsec-ndarray-append">
+	<title>Expanding an array</title>
+
+	<p>
+		Sometimes it is useful to build up a matrix or other <m>n</m>-dimensional
+		array bit by bit or to add an additional "layer" (think row or column) to an 
+		existing array. For example, to create an augmented matrix, we will often 
+		append an additional column matrix to an existing matrix, increasing the number 
+		of columns by one. <c>np.append()</c> allows us to do this, provided our arrays 
+		(a) have the same number of dimensions and (b) compatible shapes along the desired 
+		axis.
+	</p>
+	<p>
+		Here's an example where we add a column onto a <m>3 \times 2 </m> matrix.
+
+		<sage language="python">
+			<input>
+import numpy as np 
+A = np.arange(6).reshape((3,2))
+b = np.array([5, 3, 2])
+Aplus = np.append(A, b.reshape(3,1), 1)    # need to make b 2-d first
+print(Aplus)
+			</input>
+			<output>
+[[0 1 5]
+ [2 3 3]
+ [4 5 2]]
+			</output>
+		</sage>
+		Notice that <c>np.append()</c> does not modify its arguments. It returns a new (larger) array.
+	</p>
+
+	<p>
+		Numpy provides several other functions that can be used to create larger arrays by combining smaller arrays.
+		<ul>
+			<li>
+				<p>
+					<c>np.concetentate()</c> takes a sequence of arrays and repeatedly appends. This is especially 
+					useful for combining three or more arrays.
+				</p>
+			</li>
+			<li>
+				<p>
+					<c>np.stack()</c> (and specialized versions <c>np.hstack()</c>, <c>np.vstack()</c>, and
+					<c>np.column_stack()</c>) concatenate along a <em>new</em> axis. This can be used to combine 
+					vectors into an array or arrays into a tensor. The resulting object will have a higher dimension (more axes) 
+					than the inputs.
+				</p>
+			</li>
+			<li>
+				<p>
+					<c>np.block()</c> creates a new array from a nested sequences of blocks. 
+				</p>
+			</li>
+			<li>
+				<p>
+					<c>np.insert()</c> allows insertion into a slice.  
+				</p>
+			</li>
+		</ul>
+	</p>
+
+	<example>
+		<statement>
+					
+			<p>
+					In scenes were some regions are very bright and others very dark, it can be challenging 
+					to create a good exposure over the entire image. Exposure bracketing is a technique that has 
+					been used since the 1850's to help with this situation. This technique involves capturing 
+					multiple images, each with a different exposure. Later one can choose the best of the captured 
+					images or combine them in some way.  In the 1850's, Gustave Le Gray printed seascape photos 
+					from two images, using one exposure for the sky and the other for the water. Modern HDR methods 
+					can combine multiple digital images in much more complex ways.
+			</p>
+
+			<p>
+				In this example we stack multiple images with different exposures and use a very 
+				simple method (averaging) to convert the stack of images into a single HDR (high dynamic range) 
+				image. 
+				<idx><h>high dynamic range (HDR) images</h></idx>
+				This works because each images loses some information in the brightest or darkest regions 
+				due to the limits on the values (typically 0 to 255) that each pixel may have. The averages will remain 
+				in the appropriate range, but do a better job of distinguishing among the very dark and very bright 
+				regions of the image.
+			</p>
+
+			<p>
+				The images were obtained from <url href="https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG" />.
+				We will use low resolutoin images below, but you can repeat this example with higher resolution 
+				images if you like. Notice the use of <c>np.stack()</c> to combine the images into one 4-dimensional 
+				tensor, and the use of <c>np.rint()</c> and <c>astype(int)</c> to make sure the resulting data 
+				is again integer (the nearest integer to the average).
+				<sage language="python">
+					<input>
+import numpy as np
+from skimage import io
+import matplotlib.pyplot as plt 
+url = "https://rpruim.github.io/data/images/StLouisArchMultExpEV1.jpg"
+urls = [url.replace('1', x) for x in ["1","2","3","4"]]
+print(urls)
+
+photos = [io.imread(u) for u in urls]
+photo_stack = np.stack(photos)
+print(p.shape for p in photos)
+print(photo_stack.shape)
+average_photo = np.rint(photo_stack.mean(axis = 0)).astype(int)
+fig, ax = plt.subplots(1, 4)
+print("four different exposures")
+for i in range(4):
+    ax[i].imshow(photos[i])
+plt.show()
+print("the average image")
+
+plt.subplots(1, 1)
+
+plt.imshow(average_photo)
+plt.show()						
+					</input>
+				</sage>
+
+			More sophisticated algorithms can do an even better job of creating the final image  
+			from multiple exposures of the same scene.
+				
+			</p>
+		</statement>
+		<solution>
+			<p>
+				
+			</p>
+		</solution>
+	</example>
+
+	
+</subsection>
 
 	<subsection xml:id="subsec-broadcasting">
 		<title>Broadcasting</title>
