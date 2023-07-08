@@ -1,1368 +1,276 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <exercises>
-<exercise>
-  <statement>
-    <p>
-      Consider the linear system
-      <me>
-	\begin{alignedat}{4}
-	x \amp {}+{} \amp 2y \amp {}-{} \amp z \amp {}={} \amp 1 \\
-	3x \amp {}+{} \amp 2y \amp {}+{} \amp 2z \amp {}={} \amp 7 \\
-	-x \amp \amp \amp {}+{} \amp 4z \amp {}={} \amp -3 \\
-	\end{alignedat}
-      </me>
-      Write this system as an augmented matrix and use Python to
-      find a description of the solution space.
-
-      <sage language="python">
-	<input>
-	</input>
-      </sage>
-    </p>
-  </statement>
-
-  <solution>
-    <p> We can use Python to find the reduced row echelon form of the
-    corresponding augmented matrix:
-    <me>
-      \left[\begin{array}{rrr|r}
-      1 \amp 2 \amp -1 \amp 1 \\
-      3 \amp 2 \amp 2 \amp 7 \\
-      -2 \amp 0 \amp 4 \amp -3 \\
-      \end{array}\right]
-      \sim
-      \left[\begin{array}{rrr|r}
-      1 \amp 0 \amp 0 \amp 3 \\
-      0 \amp 1 \amp 0 \amp -1 \\
-      0 \amp 0 \amp 1 \amp 0
-      \end{array}\right]\text{.}
-    </me>
-    This shows that there is exactly one solution <m>(3,-1,0)</m>.
-    </p>
-  </solution>
-
-  <answer>
-    <p>
-      There is exactly one solution <m>(3,-1,0)</m>.
-    </p>
-  </answer>
-      
-</exercise>
-
   <exercise>
     <statement>
       <p> Consider the vectors
       <me>
-	\vvec_1 = \left[\begin{array}{r} 2 \\ 1 \end{array} \right],
-	\vvec_2 = \left[\begin{array}{r} -1 \\ 1 \end{array} \right],
-	\vvec_3 = \left[\begin{array}{r} -2 \\ 0 \end{array} \right]
+	\vvec = \left[\begin{array}{r} 1 \\ -1 \end{array}\right],
+	\wvec = \left[\begin{array}{r} 3 \\ 1 \end{array}\right]
       </me>
       <ol marker="a.">
-	<li> <p> Find the linear combination with weights <m>c_1 =
-	2</m>, <m>c_2=-3</m>, and <m>c_3=1</m>. </p></li>
-
-	<li> <p> Can you write the vector <m>{\mathbf 0} =
-	\left[\begin{array}{r} 0 \\ 0 \end{array}\right]</m> as a
-	linear combination of <m>\vvec_1</m>, <m>\vvec_2</m>, and
-	<m>\vvec_3</m>? If so, describe all the ways in which you can
-	do so.
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
+	<li xml:id="ex2-1-1-a"> <p> Sketch these vectors below.
+	<sidebyside width="50%">
+	  <image source="images/empty-6" />
+	</sidebyside>
 	</p></li>
 
-	<li> <p> Can you write the vector <m>{\mathbf 0} =
-	\left[\begin{array}{r} 0 \\ 0 \end{array}\right]</m> as a
-	linear combination using just the first two vectors
-	<m>\vvec_1</m> <m>\vvec_2</m>?  If so, describe all the ways
-	in which you can do so. 
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
+	<li xml:id="ex2-1-1-b"><p> Compute the vectors <m>-3\vvec</m>,
+	<m>2\wvec</m>,  
+	<m>\vvec + \wvec</m>, and <m>\vvec - \wvec</m> and add them into
+	the sketch above. 
 	</p></li>
 
-	<li> <p> Can you write <m>\vvec_3</m> as a linear combination
-	of <m>\vvec_1</m> and <m>\vvec_2</m>?  If so, in how many
-	ways?
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
+	<li><p> Sketch below the set of vectors having the form <m>2\vvec +
+	c\wvec</m> where <m>c</m> is any scalar.
+	<sidebyside width="50%">
+	  <image source="images/empty-6" />
+	</sidebyside>
 	</p></li>
-      </ol></p>
+
+	<li><p> Sketch below the line <m>y=3x - 2</m>.  Then identify
+	two vectors <m>\vvec</m> and <m>\wvec</m> so that this line
+	is described by <m>\vvec + c\wvec</m>.  Are there other
+	choices for the vectors <m>\vvec</m> and <m>\wvec</m>?
+	<sidebyside width="50%">
+	  <image source="images/empty-6" />
+	</sidebyside>
+	</p></li>
+      </ol>
+      </p>
+
     </statement>
 
     <solution>
       <p><ol marker="a.">
-	<li><p> The linear combination
-	<me>
-	  2\vvec_1-3\vvec_2+\vvec_3 = \twovec{5}{-1}\text{.}
-	</me>
-	</p></li>
+	<li>
+	  <sidebyside width="50%">
+	    <image source="images/ex2-1-1-a" />
+	  </sidebyside>
+	</li>
+	
+	<li>
+	  <sidebyside width="50%">
+	    <image source="images/ex2-1-1-b" />
+	  </sidebyside>
+	</li>
 
-	<li><p> The appropriate linear system corresponds to the
-	augmented matrix
-	<me>
-	  \left[\begin{array}{rrr|r}
-	  2 \amp -1 \amp -2 \amp 0 \\
-	  1 \amp 1 \amp 0 \amp 0 \\
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rrr|r}
-	  1 \amp 0 \amp -\frac{2}{3} \amp 0 \\
-	  0 \amp 1 \amp \frac{2}{3} \amp 0 \\
-	  \end{array}\right]\text{.}
-	</me>
-	This shows we obtain <m>{\mathbf 0}</m> when the weights are
-	chosen so that
-	<me>
-	  \begin{alignedat}{2}
-	  c_1 \amp {}={} \frac23 c_3 \\
-	  c_2 \amp {}={} -\frac23 c_3\text{.} \\
-	  \end{alignedat}
-	</me>
+	<li><p>
+	  This forms the line passing through <m>2\vvec</m> parallel
+	  to <m>\wvec</m>.
 	</p></li>
 
 	<li><p>
-	  In this case, we want <m>c_3=0</m>, which means that
-	  <m>c_1=c_2=0</m>.
+	  There are many possibilities.  One is
+	  <m>\vvec=\twovec{0}{-2}</m> and <m>\wvec=\twovec{1}{3}</m>.
+	</p></li>
+      </ol></p>
+    </solution>
+	  
+    <answer>
+      <p><ol marker="a.">
+	<li>
+	  <sidebyside width="50%">
+	    <image source="images/ex2-1-1-a" />
+	  </sidebyside>
+	</li>
+	
+	<li>
+	  <sidebyside width="50%">
+	    <image source="images/ex2-1-1-b" />
+	  </sidebyside>
+	</li>
+
+	<li><p>
+	  This forms the line passing through <m>2\vvec</m> parallel
+	  to <m>\wvec</m>.
 	</p></li>
 
 	<li><p>
-	  We see that <m>\vvec_3=-\frac23\vvec_1 + \frac23\vvec_2</m>.
+	  There are many possibilities.  One is
+	  <m>\vvec=\twovec{0}{-2}</m> and <m>\wvec=\twovec{1}{3}</m>.
+	</p></li>
+      </ol></p>
+    </answer>
+	  
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Shown below are two vectors <m>\vvec</m> and <m>\wvec</m>
+      <sidebyside width="50%">
+	<image source="images/ex-linear-comb" />
+      </sidebyside>
+      <ol marker="a.">
+	<li> <p> Express the labeled points as linear combinations of
+	<m>\vvec</m> and <m>\wvec</m>. </p></li>
+
+	<li> <p> Sketch the line described parametrically as <m> -2\vvec +
+	c\wvec</m>. </p></li>
+      </ol>
+      </p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p>
+	  We have
+	  <me>
+	    \begin{array}{lll}
+	    p = -\vvec, \amp q = 3\wvec, \amp r=2\vvec+3\wvec, \\
+	    s = 2\vvec-3\wvec, \amp t=-3\vvec-2\wvec, \amp
+	    u=-2\vvec+0.5\wvec, \\
+	    v = 3.5\vvec+1.5\wvec\text{.}
+	    \end{array}
+	  </me>
+	</p></li>
+
+	<li><p> This is the line passing through <m>-2\vvec</m>
+	parallel to <m>\wvec</m>.
 	</p></li>
 	</ol></p>
     </solution>
-    
+
     <answer>
       <p><ol marker="a.">
-	<li><p> The linear combination
-	<me>
-	  2\vvec_1-3\vvec_2+\vvec_3 = \twovec{5}{-1}\text{.}
-	</me>
+	<li><p>
+	  We have
+	  <me>
+	    \begin{array}{lll}
+	    p = -\vvec, \amp q = 3\wvec, \amp r=2\vvec+3\wvec, \\
+	    s = 2\vvec-3\wvec, \amp t=-3\vvec-2\wvec, \amp
+	    u=-2\vvec+0.5\wvec, \\
+	    v = 3.5\vvec+1.5\wvec\text{.}
+	    \end{array}
+	  </me>
 	</p></li>
 
-	<li><p>
-	  <m>c_1 = \frac23 c_3</m> and 
-	  <m>c_2 = -\frac23 c_3</m>.
-	</p></li>
-
-	<li><p>
-	  <m>c_1=c_2=0</m>.
-	</p></li>
-
-	<li><p>
-	  <m>\vvec_3=-\frac23\vvec_1 + \frac23\vvec_2</m>.
+	<li><p> This is the line passing through <m>-2\vvec</m>
+	parallel to <m>\wvec</m>.
 	</p></li>
 	</ol></p>
     </answer>
     
   </exercise>
-
+  
   <exercise>
     <statement>
-      <p> Consider the vectors
+      <p> Nutritional information about a breakfast cereal is
+      printed on the box.  For instance, one serving of Frosted Flakes
+      has 111 calories, 140 milligrams of sodium, and 1.2 grams of
+      protein.  We may represent this as the case vector
       <me>
-	\vvec_1 = \left[\begin{array}{r} 2 \\ -1 \\ -2
-	\end{array}\right],
-	\vvec_2 = \left[\begin{array}{r} 0 \\ 3 \\ 1
-	\end{array}\right],
-	\vvec_3 = \left[\begin{array}{r} 4 \\ 4 \\ -2
-	\end{array}\right].
-      </me>
+	\left[\begin{array}{r} 111 \\ 140 \\ 1.2 \\ \end{array}\right]
+      </me>.
+      One serving of Cocoa Puffs has 120 calories, 105 milligrams of
+      sodium, and 1.0 grams of protein.
+
       <sage language="python">
 	<input>
 	</input>
       </sage>
+
       <ol marker="a.">
-	<li> <p> Can you express the vector
-	<m>\bvec=\left[\begin{array}{r} 10 \\ 1 \\ -8
-	\end{array}\right]</m> as a linear combination of
-	<m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m>?
-	If so, describe all the ways in which you can do so. </p></li>
+	<li> <p> Write the vector describing the nutritional content of
+	Cocoa Puffs. </p></li>
 
-	<li> <p> Can you express the vector
-	<m>\bvec=\left[\begin{array}{r} 3 \\ 7 \\ 1
-	\end{array}\right]</m> as a linear combination of
-	<m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m>?
-	If so, describe all the ways in which you can do so. </p></li>
+	<li> <p> Suppose you eat <m>c</m> servings of Frosted Flakes
+	and <m>d</m> servings of Cocoa Puffs.  Use the language of
+	vectors and linear combinations to express the quantities of
+	calories, sodium, and protein you have consumed. </p></li>
 
-	<li> <p> Show that <m>\vvec_3</m> can be written as a linear
-	combination of <m>\vvec_1</m> and <m>\vvec_2</m>. </p></li>
+	<li> <p> How many servings of each cereal have you eaten if
+	you have consumed 342 calories, 385 milligrams of sodium, and
+	3.4 grams of protein. </p></li>
 
-	<li> <p> Explain why any linear combination of 
-	<m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m>,
-	<me>
-	  a\vvec_1 + b\vvec_2 + c\vvec_3,
-	</me>
-	can be rewritten as a linear combination of just
-	<m>\vvec_1</m> and <m>\vvec_2</m>. </p></li>
-
+	<li> <p> Suppose your sister consumed 250 calories, 200
+	milligrams of sodium, and 4 grams of protein.  What can you
+	conclude about her breakfast? </p></li>
       </ol></p>
-	
     </statement>
 
     <solution>
       <p><ol marker="a.">
 	<li><p>
-	  We have the system corresponding to the augmented matrix
+	  <m>\threevec{120}{105}{1.0}</m>.
+	</p></li>
+
+	<li><p>
+	  The totals consumed are expressed by the vector
 	  <me>
-	    \left[\begin{array}{rrr|r}
-	    2 \amp 0 \amp 4 \amp 10 \\
-	    -1 \amp 3 \amp 4 \amp 1 \\
-	    -2 \amp 1 \amp -2 \amp -8 \\
+	    c\threevec{111}{140}{1.2} +
+	    d\threevec{120}{105}{1.0}\text{.}
+	  </me>
+	</p></li>
+
+	<li><p>
+	  We ask to write the vector <m>\threevec{342}{385}{3.4}</m>
+	  as a linear combination of the two cereal vectors.  This
+	  leads to the augmented matrix
+	  <me>
+	    \left[\begin{array}{rr|r}
+	    111 \amp 120 \amp 342 \\
+	    140 \amp 105 \amp 385 \\
+	    1.2 \amp 1.0 \amp 3.4 \\
 	    \end{array}\right]
 	    \sim
-	    \left[\begin{array}{rrr|r}
-	    1 \amp 0 \amp 2 \amp 5 \\
-	    0 \amp 1 \amp 2 \amp 2 \\
-	    0 \amp 0 \amp 0 \amp 0 \\
+	    \left[\begin{array}{rr|r}
+	    1 \amp 0 \amp 2 \\
+	    0 \amp 1 \amp 1 \\
+	    0 \amp 0 \amp 0 \\
+	    \end{array}\right]\text{.}
+	  </me>
+	  This means that you had two servings of Frosted Flakes and
+	  one serving of Cocoa Puffs.
+	</p></li>
+
+	<li><p>
+	  Now the augmented matrix is
+	  <me>
+	    \left[\begin{array}{rr|r}
+	    111 \amp 120 \amp 250 \\
+	    140 \amp 105 \amp 200 \\
+	    1.2 \amp 1.0 \amp 4.0 \\
 	    \end{array}\right]
-	  </me>
-	  from which we conclude that <m>\bvec</m> may be expressed as
-	  a linear combination of <m>\vvec_1</m>, <m>\vvec_2</m>, and
-	  <m>\vvec_3</m> provided that the weights are related by
-	  <m>c_1=5-2c_3</m> and <m>c_2=2-2c_3</m>.
-	</p></li>
-
-	<li><p>
-	  Here we have
-	  <me>
-	  \left[\begin{array}{rrr|r}
-	  2 \amp 0 \amp 4 \amp 3 \\
-	  -1 \amp 3 \amp 4 \amp 7 \\
-	  -2 \amp 1 \amp -2 \amp 1
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rrr|r}
-	  1 \amp 0 \amp 2 \amp 0 \\
-	  0 \amp 1 \amp 2 \amp 0 \\
-	  0 \amp 0 \amp 0 \amp 1
-	  \end{array}\right]\text{,}
-	  </me>
-	  which represents an inconsistent system and shows that
-	  <m>\bvec</m> cannot be written as a linear combination of 
-	  <m>\vvec_1</m>, <m>\vvec_2</m>, and
-	  <m>\vvec_3</m>.
-	</p></li>
-
-	<li><p>
-	  The augmented matrix is
-	  <me>
-	  \left[\begin{array}{rr|r}
-	  2 \amp 0 \amp 4 \\
-	  -1 \amp 3 \amp 4 \\
-	  -2 \amp 1 \amp -2 \\
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rr|r}
-	  1 \amp 0 \amp 2 \\
-	  0 \amp 1 \amp 2 \\
-	  0 \amp 0 \amp 0 \\
-	  \end{array}\right]\text{,}
-	  </me>
-	  which shows that <m>\vvec_3=2\vvec_1+2\vvec_2</m>.
-	</p></li>
-
-	<li><p>
-	  <m>a\vvec_1+b\vvec_2+c\vvec_3=a\vvec_1+b\vvec_2 +
-	  c(2\vvec_1+2\vvec_2) = (a+2c)\vvec_1+(b+2c)\vvec_2</m>.
-	</p></li>
-      </ol></p>
-    </solution>
-    
-    <answer>
-      <p><ol marker="a.">
-	<li><p>
-	  The vector <m>\bvec</m> may be expressed as
-	  a linear combination of <m>\vvec_1</m>, <m>\vvec_2</m>, and
-	  <m>\vvec_3</m> provided that the weights are related by
-	  <m>c_1=5-2c_3</m> and <m>c_2=2-2c_3</m>.
-	</p></li>
-
-	<li><p>
-	  The vector
-	  <m>\bvec</m> cannot be written as a linear combination of 
-	  <m>\vvec_1</m>, <m>\vvec_2</m>, and
-	  <m>\vvec_3</m>.
-	</p></li>
-
-	<li><p>
-	  <m>\vvec_3=2\vvec_1+2\vvec_2</m>.
-	</p></li>
-
-	<li><p>
-	  <m>a\vvec_1+b\vvec_2+c\vvec_3=
-	  (a+2c)\vvec_1+(b+2c)\vvec_2</m>.
-	</p></li>
-      </ol></p>
-    </answer>
-    
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Consider the vectors
-      <me>
-	\vvec_1=\left[\begin{array}{r} 3 \\ -1 \\ 1 \end{array}\right],
-	\vvec_2=\left[\begin{array}{r} 1 \\ 1 \\ 2 \end{array}\right].
-      </me>
-      For what value(s) of <m>k</m>, if any, can the vector
-      <m>\left[\begin{array}{r} k \\ -2 \\ 5 \end{array}\right]</m> be
-      written as a linear combination of <m>\vvec_1</m> and
-      <m>\vvec_2</m>?
-      </p>
-    </statement>
-
-    <solution>
-      <p> We form the augmented matrix and find a triangular matrix
-      that is row equivalent:
-      <me>
-	\left[\begin{array}{rr|r}
-	3 \amp 1 \amp k \\
-	-1 \amp 1 \amp -2 \\
-	1 \amp 2 \amp 5 \\
-	\end{array}\right]
-	\sim
-	\left[\begin{array}{rr|r}
-	-1 \amp 1 \amp -2 \\
-	0 \amp 1 \amp 1 \\
-	0 \amp 0 \amp k-10 \\
-	\end{array}\right]\text{.}
-      </me>
-      This represents a consistent system when <m>k=10</m>.
-      </p>
-    </solution>
-
-    <answer>
-      <p>
-	<m>k=10</m>.
-      </p>
-    </answer>
-  </exercise>
-  
-  <exercise>
-    <statement>
-      <p>
-	A theme that will later unfold concerns the use of
-	coordinate systems.  We can identify the point <m>(x,y)</m> with
-	the tip of the vector
-	<m>\left[\begin{array}{r}x\\y\end{array}\right]</m>, drawn
-	emanating from the origin.
-	We can then think of the usual
-	Cartesian coordinate system in terms of linear combinations of
-	the vectors
-	<me>
-	  \evec_1 = \left[\begin{array}{r} 1 \\ 0 \end{array}\right],
-	  \evec_2 = \left[\begin{array}{r} 0 \\ 1 \end{array}\right].
-	</me>
-	For instance, the point <m>(2,-3)</m> is identified with the vector
-	<me>\left[\begin{array}{r} 2 \\ -3 
-	\end{array}\right] = 2\evec_1 - 3\evec_2,
-	</me>
-	as shown on the left in <xref ref="fig-ex-coords-1"/>.
-      </p>
-
-      <figure xml:id="fig-ex-coords-1">
-	<sidebyside widths="45% 45%">
-	  <image source="images/ex-coord-std" />
-	  <image source="images/ex-coord-nonstd" />
-	</sidebyside>
-	<caption>
-	  The usual Cartesian coordinate system, defined by the
-	  vectors <m>\evec_1</m> and <m>\evec_2</m>, is shown on the
-	  left along with the representation of the point
-	  <m>(2,-3)</m>.  The right shows a nonstandard coordinate
-	  system defined
-	  by vectors <m>\vvec_1</m> and <m>\vvec_2</m>.
-	</caption>
-      </figure>
-
-      <p> If instead we have vectors
-	<me>
-	  \vvec_1 = \left[\begin{array}{r} 2 \\ 1 \end{array}\right],
-	  \vvec_2 = \left[\begin{array}{r} 1 \\ 2 \end{array}\right]
-	</me>,
-	we may define a new coordinate system in which a point
-	<m>\{c,d\}</m> will correspond to the vector
-	<me> c\vvec_1 + d\vvec_2
-	</me>.
-	For instance, the point <m>\{2,-3\}</m> is shown on the right
-	side of <xref ref="fig-ex-coords-1" />.
-
-      <ol marker="a.">
-	<li><p> Write the point <m>\{2,-3\}</m> in standard
-	coordinates;  that is, find <m>x</m> and <m>y</m> such that
-	<me>
-	  (x,y) = \{2,-3\}
-	</me>. </p></li>
-
-	<li> <p> Write the point <m>(2,-3)</m> in the new coordinate
-	system;  that is, find <m>c</m> and <m>d</m> such that
-	<me>
-	  \{c,d\} = (2,-3)
-	</me>. </p></li>
-
-	<li> <p> Convert a general point <m>\{c,d\}</m>, expressed in
-	the new coordinate system, into standard
-	Cartesian coordinates <m>(x,y)</m>. </p></li>
-
-	<li> <p> What is the general strategy for converting a point
-	from standard Cartesian coordinates <m>(x,y)</m> to the new
-	coordinates <m>\{c,d\}</m>?  Actually implementing this
-	strategy in general may take a bit of work so just describe
-	the strategy.  We will study this in more detail
-	later. </p></li> 
-      </ol></p>
-	
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p>
-	  We have
-	  <me>
-	    \twovec{x}{y} = 2\vvec_1 -3\vvec_2 =
-	    \twovec{1}{-4}\text{.}
-	  </me>
-	</p></li>
-
-	<li><p>
-	  We have
-	  <m>
-	    \twovec{2}{-3} = c\vvec_1 + d\vvec_2
-	  </m>.  Solving this equation, we find <m>c=7/3</m> and
-	  <m>d=-8/3</m>, which means that
-	  <m>(c,d) = \{7/3, -8/3\}</m>.
-	</p></li>
-
-	<li><p>
-	  As in the first part of this problem, we write
-	  <me>
-	    \begin{alignedat}{2}
-	    x \amp {}={} \amp 2c+d \\
-	    y \amp {}={} \amp c+2d\text{.} \\
-	    \end{alignedat}
-	  </me>
-	</p></li>
-
-	<li><p>
-	  We want to solve 
-	  <m>
-	    \twovec{x}{y} = c\vvec_1 + d\vvec_2
-	  </m> by constructing the augmented matrix and finding its
-	  reduced row echelon form.
-	  <me>
+	    \sim
 	    \left[\begin{array}{rr|r}
-	    2 \amp 1 \amp x \\
-	    1 \amp 2 \amp y \\
-	    \end{array}\right]\text{.}
+	    1 \amp 0 \amp 0 \\
+	    0 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 1 \\
+	    \end{array}\right]\text{,}
 	  </me>
+	  which represents an inconsistent system.  This means that
+	  your sister must have eaten something else.
 	</p></li>
 	</ol></p>
     </solution>
-	
+
     <answer>
       <p><ol marker="a.">
 	<li><p>
-	  <m>(1,-4) = \{2,-3\}</m>.
+	  <m>\threevec{120}{105}{1.0}</m>.
 	</p></li>
 
 	<li><p>
-	  <m>\{7/3, -8/3\} = (2,-3)</m>.
-	</p></li>
-
-	<li><p>
+	  The totals consumed are expressed by the vector
 	  <me>
-	    \begin{alignedat}{2}
-	    x \amp {}={} \amp 2c+d \\
-	    y \amp {}={} \amp c+2d\text{.} \\
-	    \end{alignedat}
+	    c\threevec{111}{140}{1.2} +
+	    d\threevec{120}{105}{1.0}\text{.}
 	  </me>
 	</p></li>
 
 	<li><p>
-	  Solve the linear system corresponding to the augmented matrix
-	  <me>
-	    \left[\begin{array}{rr|r}
-	    2 \amp 1 \amp x \\
-	    1 \amp 2 \amp y \\
-	    \end{array}\right]\text{.}
-	  </me>
+	  You had two servings of Frosted Flakes and
+	  one serving of Cocoa Puffs.
+	</p></li>
+
+	<li><p>
+	  Your sister must have eaten something else.
 	</p></li>
 	</ol></p>
     </answer>
-	
   </exercise>
-
-<exercise>
-  <statement>
-    <p> Shown below are some traffic patterns in the downtown area of
-    a large city.  The figures give the number of cars per hour
-    traveling along each road.  Any car that drives into an
-    intersection must also leave the intersection.  This means that
-    the number of cars entering an intersection in an hour is equal to
-    the number of cars leaving the intersection.
-    <ol marker="a."> 
-      <li> <p>Let's begin with the following traffic pattern.
-	<ol>
-	  <li> <p> How many cars per hour enter the upper left
-	  intersection?  How many cars per hour leave this
-	  intersection?  Use this to form a linear equation in the
-	  variables <m>x</m>, <m>y</m>, <m>z</m>, and
-	  <m>w</m>. 
-	  <sidebyside width="70%">
-	    <image source="images/traffic-b" />
-	  </sidebyside>
-	  </p></li>
-	  
-	  <li> <p> Form three more linear equations from the other
-	  three intersections to form a linear system having four
-	  equations in four variables.  Then use Python to find the
-	  solution space to this system.
-	  <sage language="python">
-	    <input>
-	    </input>
-	  </sage>
-	  </p></li>
-
-	  <li> <p> Is there exactly one solution or infinitely
-	  many solutions?  Explain why you would expect this given
-	  the information provided.
-	  </p> </li>
-
-	</ol>
-      </p></li>
-
-      <li> <p> Another traffic pattern is shown below.
-      <sidebyside width="70%">
-	<image source="images/traffic-a" />
-      </sidebyside>
-      <ol>
-	<li> <p>
-	  Once again, write a linear system for 
-	  the quantities <m>x</m>, <m>y</m>,
-	  <m>z</m>, and <m>w</m> and
-	  solve the system using the Python cell below.
-	  <sage language="python">
-	    <input>
-	    </input>
-	  </sage>
-	  </p></li>
-
-	  <li><p>
-	    What can you say about the solution of this linear
-	    system?  Is there exactly one solution or infinitely
-	    many solutions?  Explain why you would expect this given
-	    the information provided.
-	  </p></li>
-
-	  <li><p> What is the smallest possible amount of traffic
-	  flowing through <m>x</m>?  </p></li>
-      </ol> 
-      </p> </li>
-    </ol> </p>
-  </statement>
-
-  <solution>
-    <p><ol marker="a.">
-      <li>
-	<p>
-	  We will form a linear system by considering
-	  each intersection and equating the number of cars that enter
-	  the intersection to the number of cars that leave.
-	  <ol marker="1.">
-	    <li>
-	      <p>
-		For the intersection in the upper left, the number of
-		cars that enter is <m>x</m> while the number of cars
-		that leave is <m>y + 100</m>.  This gives the equation
-		<m> x = y + 100</m> or <m>x-y = 100</m>.
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		By studying the other three intersections, we form a
-		linear system consisting of four equations in four
-		variables:
-		<me>
-		  \begin{alignedat}{5}
-		  x \amp {}-{} \amp y \amp \amp \amp \amp \amp {}={} \amp 100 \\
-		  \amp \amp y \amp {}-{} \amp z \amp \amp \amp {}={}
-		  \amp -250 \\
-		  \amp \amp \amp \amp \amp \amp w \amp {}={} \amp 160 \\
-		  \amp \amp \amp \amp z \amp {}-{} \amp w \amp {}={}
-		  \amp 390\text{.} \\
-		  \end{alignedat}
-		</me>
-		If we express these equations in terms of an augmented
-		matrix and use Python to find its reduced row echelon
-		form, we find
-		<me>
-		\left[\begin{array}{rrrr|r}
-		1 \amp -1 \amp 0 \amp 0 \amp 100 \\
-		0 \amp 1 \amp -1 \amp 0 \amp -250 \\
-		0 \amp 0 \amp 0 \amp 1 \amp 160 \\
-		0 \amp 0 \amp 1 \amp -1 \amp 390
-		\end{array}\right]
-		\sim
-		\left[\begin{array}{rrrrr}
-		1 \amp 0 \amp 0 \amp 0 \amp 400 \\
-		0 \amp 1 \amp 0 \amp 0 \amp 300 \\
-		0 \amp 0 \amp 1 \amp 0 \amp 550 \\
-		0 \amp 0 \amp 0 \amp 1 \amp 160
-		\end{array}\right]
-		</me>
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		There is exactly one solution:  <m>x=400</m>,
-		<m>y=300</m>, <m>z=550</m>, and <m>w=160</m>.  This is
-		what we expect since the traffic flow <m>w</m> is
-		determined by the upper right intersection.  From
-		here, all the other flows are determined as well.
-	      </p>
-	    </li>
-
-	  </ol>
-	</p>
-      </li>
-
-      <li>
-	<p>
-	  Let's now look at another traffic pattern.
-	  <ol marker="1.">
-	    <li>
-	      <p>
-		In this case, we find the equations:
-		<me>
-		  \begin{alignedat}{5}
-		  x \amp {}+{} \amp y \amp \amp \amp \amp \amp {}={} \amp 650 \\
-		  x \amp \amp \amp {}-{} \amp z \amp \amp \amp {}={}
-		  \amp -150 \\
-		  \amp \amp y \amp \amp \amp {}+{} \amp w \amp {}={} \amp 580 \\
-		  \amp \amp \amp \amp z \amp {}-{} \amp w \amp {}={}
-		  \amp 220\text{.} \\
-		  \end{alignedat}
-		</me>
-		This gives the augmented matrix:
-		<me>
-		\left[\begin{array}{rrrr|r}
-		1 \amp 1 \amp 0 \amp 0 \amp 650 \\
-		1 \amp 0 \amp -1 \amp 0 \amp -150 \\
-		0 \amp 1 \amp 0 \amp 1 \amp 580 \\
-		0 \amp 0 \amp 1 \amp -1 \amp 220
-		\end{array}\right]
-		\sim
-		\left[\begin{array}{rrrrr}
-		1 \amp 0 \amp 0 \amp -1 \amp 70 \\
-		0 \amp 1 \amp 0 \amp 1 \amp 580 \\
-		0 \amp 0 \amp 1 \amp -1 \amp 220 \\
-		0 \amp 0 \amp 0 \amp 0 \amp 0
-		\end{array}\right]\text{.}
-		</me>
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		Here, we may view <m>w</m> as a free variable and
-		write
-		<me>
-		  \begin{alignedat}{3}
-		  x \amp {}={} \amp 70 + w \\
-		  y \amp {}={} \amp 580 - w \\
-		  z \amp {}={} \amp 220 + w\text{.} \\
-		  \end{alignedat}
-		</me>
-		This shows that there are infinitely many solutions.
-		This makes sense since the unknown flows <m>x</m>,
-		<m>y</m>, <m>z</m>, and <m>w</m> form a loop.  For
-		instance, we can add one car to each of <m>x</m>,
-		<m>z</m>, and <m>w</m> provided we remove one from
-		<m>y</m>.  
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		Since we must have <m>y\geq 0</m>, it follows that the
-		free variable <m>w</m> satisfies <m>0\leq w \leq
-		580</m>.  This means that <m>x</m> satisfies <m>70
-		\leq x \leq 650</m>.
-	      </p>
-	    </li>
-
-	  </ol>
-	</p>
-      </li></ol>
-    </p>
-  </solution>
-
-  <answer>
-    <p>
-      <ol marker="a.">
-	<li>
-	  <p>
-	    There is one solution: <m>x=400</m>, <m>y=300</m>,
-	    <m>z=550</m>, and <m>w=160</m>.
-	  </p>
-	</li>
-
-	<li>
-	  <p>
-	    There are infinitely many solutions described by 
-	    <me>
-	      \begin{alignedat}{3}
-	      x \amp {}={} \amp 70 + w \\
-	      y \amp {}={} \amp 580 - w \\
-	      z \amp {}={} \amp 220 + w\text{.} \\
-	      \end{alignedat}
-	    </me>
-	  </p>
-	</li>
-
-      </ol>
-    </p>
-  </answer>
   
-</exercise>
-
-<exercise>
-  <statement>
-    <p>
-      A typical problem in thermodynamics is to find the steady-state
-      temperature distribution inside a thin plate if we know the
-      temperature around the boundary.  Let <m>T_1, T_2, \ldots,
-      T_6</m> be the temperatures at the six nodes inside the
-      plate as shown below.
-      <sidebyside width="50%">
-	<image source="images/heat" />
-      </sidebyside>
-      The temperature at a node is approximately the
-      average of the four nearest nodes: for instance,
-      <me>
-	T_1 = (10 + 15 + T_2 + T_4)/4
-      </me>,
-      which we may rewrite as
-      <me> 4T_1 - T_2 - T_4
-      = 25
-      </me>.
-    </p>
-
-    <p>
-      Set up a linear system to find the temperature
-      at these six points inside the plate.  Then use Python to solve
-      the linear system.  
-	  <!-- If all the entries of the matrix are
-      integers, Python will compute the reduced row echelon form using
-      rational numbers.  To view a decimal approximation of the
-      results, you may use
-      <cd>
-A.rref().numerical_approx(digits=4)
-      </cd> -->
-      <sage language="python">
-	<input>
-	</input>
-      </sage>
-    </p>
-
-    <p>
-      In the real world, the approximation becomes better as we add
-      more and more points into the grid.  This is a situation where
-      we may want to solve a linear system having millions of
-      equations and millions of variables.
-    </p>
-
-  </statement>
-
-  <solution>
-    <p>
-      We set up the equations
-      <me>
-	\begin{alignedat}{7}
-	4T_1 \amp {}-{} \amp T_2 \amp \amp \amp {}-{} \amp
-	T_4 \amp \amp \amp \amp \amp {}={} \amp 25 \\
-	-T_1 \amp {}+{} \amp 4T_2 \amp {}-{} \amp T_3 \amp
-	\amp \amp{}-{} \amp T_5 \amp \amp \amp {}={} \amp 20 \\
-	\amp \amp -T_2 \amp {}+{} \amp 4T_3 \amp \amp \amp \amp \amp 
-	{}-{} \amp T_6
-	\amp {}={} \amp 55 \\
-	-T_1 \amp \amp \amp \amp \amp {}{}+ \amp 4T_4 \amp {}-{} \amp
-	T_5 \amp \amp \amp {}={} \amp 20 \\
-	\amp \amp -T_2 \amp \amp \amp {}-{} \amp T_4 \amp {}+{} \amp
-	4T_5 \amp {}-{} \amp T_6 \amp {}={} \amp 20 \\
-	\amp \amp \amp \amp -T_3 \amp \amp \amp {}-{} \amp T_5 \amp {}+{}
-	\amp 4T_6 \amp {}={} \amp 70\text{.} \\
-	\end{alignedat}
-      </me>
-      Setting up an augmented matrix and using Python to find its
-      reduced row echelon form, we obtain
-      <me>
-	\begin{array}{rrr}
-	T_1 = 14.86, \amp T_2 = 20.50, \amp T_3 = 26.19 \\
-	T_4 = 13.95, \amp T_5 = 20.93, \amp T_6 = 29.28\text{.} \\
-	\end{array}
-      </me>
-    </p>
-  </solution>
-
-  <answer>
-    <p>
-      <me>
-	\begin{array}{rrr}
-	T_1 = 14.86, \amp T_2 = 20.50, \amp T_3 = 26.19 \\
-	T_4 = 13.95, \amp T_5 = 20.93, \amp T_6 = 29.28\text{.} \\
-	\end{array}
-      </me>
-    </p>
-  </answer>
-	
-</exercise>
-
-<exercise>
-  <statement>
-    <p>
-      The fuel inside model rocket motors is a black powder
-      mixture that ideally consists of 60% charcoal, 30% potassium
-      nitrate, and 10% sulfur by weight.
-    </p>
-
-    <p>
-      Suppose you work at a company that makes model rocket
-      motors.  When you come into work one morning, you learn that
-      yesterday's first shift made a perfect batch of fuel.  The
-      second shift, however, misread the recipe and used 50%
-      charcoal, 20% potassium nitrate and 30% sulfur.  Then the
-      two batches were mixed together.  A chemical analysis shows
-      that there are 100.3 pounds of charcoal in the mixture and
-      46.9 pounds of potassium nitrate.
-      <ol marker="a.">
-	<li> <p> Assuming the first shift produced <m>x</m> pounds
-	of fuel and the second <m>y</m> pounds, set up a linear
-	system in terms of <m>x</m> and <m>y</m>.  How many pounds
-	of fuel did the first shift produce and how many did the
-	second shift produce?
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
-	</p></li>
-
-	<li><p> How much sulfur would you expect to find in the
-	mixture? </p></li>
-      </ol>
-    </p>
-  </statement>
-
-  <solution>
-    <p>
-      <ol marker="a.">
-	<li>
-	  <p>
-	    Writing equations for the amount of charcoal and the
-	    amount of potassium nitrate, we have
-	    <me>
-	      \begin{alignedat}{3}
-	      0.6x \amp {}+{} \amp 0.5y \amp {}={} \amp 100.3 \\
-	      0.3x \amp {}+{} \amp 0.2y \amp {}={} \amp 46.9\text{.} \\
-	      \end{alignedat}
-	    </me>
-	    Solving this gives <m>x=113</m> pounds and <m>y=65</m>
-	    pounds.
-	  </p>
-	</li>
-
-	<li>
-	  <p>
-	    The amount of sulfur will be <m>0.1x+0.3y = 30.8</m>
-	    pounds.
-	  </p>
-	</li>
-      </ol>
-    </p>
-  </solution>
-
-  <answer>
-    <p> The first shift produces <m>x=113</m> pounds while the second
-    shift produces <m>y=65</m> pounds.  There are <m>30.8</m>
-    pounds of sulfur.
-    </p>
-  </answer>
-</exercise>
-
-<exercise>
-  <statement>
-    <p>  This exercise is about balancing chemical reactions.
-    <ol marker="a.">
-      <li><p>
-	Chemists denote a molecule of water as
-	<m>\text{H}_2\text{O}</m>, which means it is composed of two
-	atoms of hydrogen (H) and one atom of oxygen (O).
-	The process by which hydrogen burns is described by the
-	chemical reaction
-	<me>
-	  x\thinspace \text{H}_2 + y\thinspace\text{O}_2 \to
-	  z\thinspace \text{H}_2\text{O}
-	</me>
-	This means that <m>x</m> molecules of hydrogen
-	<m>\text{H}_2</m> combine with <m>y</m> molecules of
-	oxygen <m>\text{O}_2</m> to produce <m>z</m> water molecules.
-	The number of hydrogen atoms is the same before and after
-	the reaction;  the same is true of the oxygen atoms.
-      </p>
-
-      <p>
-	<ol marker="1.">
-	  <li> <p> In terms of <m>x</m>, <m>y</m>, and <m>z</m>, how
-	  many hydrogen atoms are there before the  
-	  reaction?  How many hydrogen atoms are there after the
-	  reaction?  Find a linear equation in <m>x</m>,
-	  <m>y</m>, and <m>z</m> by equating these quantities.
-	  </p></li>
-
-	  <li> <p> Find a second linear equation in <m>x</m>,
-	  <m>y</m>, and <m>z</m> by equating the number of
-	  oxygen atoms before and after the reaction.
-	  </p></li>
-
-	  <li> <p> Find the solutions of this linear system.
-	  Why are there infinitely many solutions?
-	  <sage language="python">
-	    <input>
-	    </input>
-	  </sage>
-	  </p></li>
-	  
-
-	  <li> <p> In this chemical setting, <m>x</m>, <m>y</m>,
-	  and <m>z</m> should be positive integers.  Find
-	  the solution where <m>x</m>, <m>y</m>, and <m>z</m>
-	  are the smallest possible positive integers.
-	  </p></li>
-	</ol>
-      </p>
-
-      </li>
-
-      <li> <p>
-	Now consider the reaction where potassium permanganate
-	and manganese 
-	sulfate combine with water to produce manganese dioxide, potassium
-	sulfate, and sulfuric acid:
-	<me>
-	  x_1\thinspace \text{K}\text{Mn}\text{O}_4 + 
-	  x_2\thinspace \text{Mn}\text{S}\text{O}_4 + 
-	  x_3\thinspace \text{H}_2\text{O} \to
-	  x_4\thinspace \text{Mn}\text{O}_2 + 
-	  x_5\thinspace \text{K}_2\text{S}\text{O}_4 + 
-	  x_6\thinspace \text{H}_2\text{S}\text{O}_4.
-	</me>
-	As in the previous exercise, find the appropriate values
-	for <m>x_1, x_2, \ldots, x_6</m> to balance the chemical
-	reaction.
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
-      </p> </li>
-    </ol>
-    </p>
-  </statement>
-
-  <solution>
-    <p>
-      <ol marker="a.">
-	<li>
-	  <p> We will equate the number of hydrogen and oxygen atoms
-	  before and after the reaction.
-	  <ol marker="1.">
-	    <li>
-	      <p>
-		Before the reaction, there are two hydrogen atoms for
-		every hydrogen molecule.  Since there are <m>x</m>
-		hydrogen molecules, we have <m>2x</m> hydrogen atoms
-		before the reaction.
-	      </p>
-
-	      <p> After the reaction, there are two hydrogen atoms for
-	      every water molecule.  Since there are <m>z</m> hydrogen
-	      molecules, we have <m>2z</m> hydrogen atoms after the
-	      reaction.  This gives the equation <m>2x=2z</m>.
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		Similarly, there are <m>2y</m> oxygen atoms before the
-		reaction and <m>z</m> oxygen atoms after.  This gives
-		the equation <m>2y = z</m>.
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		We have the linear system
-		<me>
-		  \begin{alignedat}{4}
-		  2x \amp \amp \amp {}-{} \amp 2z \amp {}={} \amp 0 \\
-		  \amp \amp 2y \amp {}-{} \amp z \amp {}={} \amp 0\text{.}
-		  \\
-		  \end{alignedat}
-		</me>
-		When we create the augmented matrix and find its
-		reduced row echelon form, we see that <m>z</m> is a
-		free variable so that
-		<me>
-		  \begin{alignedat}{2}
-		  x \amp {}={} \amp z \\
-		  y \amp {}={} \amp \frac12 z\text{.} \\
-		  \end{alignedat}
-		</me>
-		We need all the quantities to be integers, and the
-		smallest value of <m>z</m> that makes <m>y</m> an
-		integer is <m>z=2</m>.  Therefore, we have <m>x=2</m>,
-		<m>y=1</m>, and <m>z=2</m>.  The reaction is then
-		<me>
-		  2\thinspace \text{H}_2 + \thinspace\text{O}_2 \to
-		  2\thinspace \text{H}_2\text{O}\text{.}
-		</me>
-	      </p>
-	    </li>
-	  </ol>
-	  </p>
-	</li>
-
-	<li>
-	  <p>
-	    Proceeding as in the previous part, we have
-	    <me>
-	      \begin{alignedat}{8}
-	      \text{K:} \amp \thinspace \amp
-	      x_1 \amp \amp \amp \amp \amp \amp \amp {}-{} \amp 2x_5
-	      \amp \amp \amp {}={} \amp 0 \\
-	      \text{Mn:} \amp \thinspace \amp
-	      x_1 \amp {}+{} \amp x_2 \amp \amp \amp {}-{} \amp x_4
-	      \amp \amp \amp \amp \amp {}={} \amp 0 \\
-	      \text{O:} \amp \thinspace \amp
-	      4x_1 \amp {}+{} \amp 4x_2 \amp {}+{} \amp x_3 \amp {}-{}
-	      \amp 2x_4 \amp {}-{} \amp 4x_5 \amp {}-{} \amp 4x_6
-	      \amp {}={} \amp 0 \\
-	      \text{S:} \amp \thinspace \amp
-	      \amp \amp x_2 \amp \amp \amp \amp \amp {}-{} \amp x_5
-	      \amp {}-{} \amp x_6 \amp {}={} \amp 0 \\
-	      \text{H:} \amp \thinspace \amp
-	      \amp \amp \amp \amp 2x_3 \amp \amp \amp \amp \amp {}-{}
-	      \amp 2x_6 \amp {}= \amp 0\text{.} \\
-	      \end{alignedat}
-	    </me>
-	    Solving this linear system, we find
-	    <me>
-	      \begin{alignedat}{2}
-	      x_1 \amp {}={} \amp x_6 \\
-	      x_2 \amp {}={} \amp \frac32 x_6 \\
-	      x_3 \amp {}={} \amp x_6 \\
-	      x_4 \amp {}={} \amp \frac52 x_6 \\
-	      x_5 \amp {}={} \amp \frac12 x_6\text{.} \\
-	      \end{alignedat}
-	    </me>
-	    Once again, we choose <m>x_6</m> to be the smallest
-	    positive integer that causes all of the variables to be
-	    integers. This means that <m>x_6 = 2</m> so that we have
-	    <me>
-	      \begin{array}{rrr}
-	      x_1 = 2, \amp x_2 = 3, \amp x_3 = 2, \\
-	      x_4 = 5, \amp x_5 = 1, \amp x_6 = 2\text{.} \\
-	      \end{array}
-	    </me>
-	    This gives the reaction:
-	    <me>
-	      2\thinspace \text{K}\text{Mn}\text{O}_4 + 
-	      3\thinspace \text{Mn}\text{S}\text{O}_4 + 
-	      2\thinspace \text{H}_2\text{O} \to
-	      5\thinspace \text{Mn}\text{O}_2 + 
-	      \thinspace \text{K}_2\text{S}\text{O}_4 + 
-	      2\thinspace \text{H}_2\text{S}\text{O}_4.
-	    </me>
-	    
-	  </p>
-	</li>
-      </ol>
-    </p>
-  </solution>
-
-  <answer>
-    <p>
-      <ol marker="a.">
-	<li>
-	  <p> We have the reaction
-	  <me>
-	    2\thinspace \text{H}_2 + \thinspace\text{O}_2 \to
-	    2\thinspace \text{H}_2\text{O}\text{.}
-	  </me>
-	  </p>
-	</li>
-
-	<li>
-	  <p> We have the reaction
-	  <me>
-	    2\thinspace \text{K}\text{Mn}\text{O}_4 + 
-	    3\thinspace \text{Mn}\text{S}\text{O}_4 + 
-	    2\thinspace \text{H}_2\text{O} \to
-	    5\thinspace \text{Mn}\text{O}_2 + 
-	    \thinspace \text{K}_2\text{S}\text{O}_4 + 
-	    2\thinspace \text{H}_2\text{S}\text{O}_4.
-	  </me>
-	  </p>
-	</li>
-      </ol>
-    </p>
-  </answer>
-		  
-</exercise>
-
-<exercise>
-  <statement>
-    <p> We began this section by stating that increasing
-    computational power has helped linear algebra assume a 
-    prominent role as a scientific tool.  Later, we looked at one
-    computational limitation:  once a matrix gets to be too big,
-    it is not reasonable to apply Gaussian elimination
-    to find its reduced row echelon form. </p>
-
-    <p> In this exercise, we will see another limitation:
-    computer arithmetic with real numbers is only an
-    approximation because computers represent real numbers
-    with only a finite number of bits.  For instance, the number
-    pi
-    <me>
-      \pi =
-      3.141592653589793238462643383279502884197169399\ldots
-    </me>
-    would be approximated inside a computer by, say,
-    <me>
-      \pi\approx 3.141592653589793
-    </me>
-    Most of the time, this is not a problem.  However,
-    when we perform millions or even billions of arithmetic
-    operations, the error in these approximations starts to
-    accumulate and can lead to results that are wildly
-    inaccurate.  Here are two examples demonstrating this.
-
-    <ol marker="a.">
-      <li> <p>
-	Let's first see an example showing that computer
-	arithmetic really is an approximation.  Consider
-	the linear system
-	<me>
-	  \begin{alignedat}{4}
-	  x \amp {}+{} \amp \frac12y \amp {}+{} \amp \frac13z \amp
-	  {}={} \amp 1 \\
-	  \frac12x \amp {}+{} \amp \frac13y \amp {}+{} \amp \frac14z \amp
-	  {}={} \amp 0 \\
-	  \frac13x \amp {}+{} \amp \frac14y \amp {}+{} \amp \frac15z \amp
-	  {}={} \amp 0 \\
-	  \end{alignedat}
-	</me>
-	Let's solve this three ways, taking advantage of some features 
-	of <c>sympy</c>. As the name suggests, <c>sympy</c> is capable 
-	of doing symbolic mathematics as well as numerical mathematics.
-	In particular, <c>sympy</c> can work with rational numbers (fractions) 
-	and do exact arithmetic with them.  
-	<idx><h><c>sympy.Rational()</c></h></idx>
-	<idx><h><c>Rational()</c></h><see><c>sympy.Rational()</c></see></idx>
-	Consider these three ways to represent 
-	<m>\frac13</m>:
-	<sage language="python">
-		<input>
-print(1/3, s.Rational(1/3), s.Rational(1,3))
-		</input>
-	</sage>
-	The first is our usual floating point approximation.  The second 
-	attempts to approximate that approximation with a rational number. 
-	(Sometimes this works better; try <c>s.Rational(1/2)</c>, for example.)
-	The third represents <m>\frac13</m> <em>exactly</em> by storing the 
-	numerator and denominator.
-	</p>
-
-	<p>
-		Create the augmented matrix for this linear system in the three 
-		corresponding ways. Call them <c>A</c>, <c>B</c>, and <c>C</c>.
-		With each, have <c>sympy</c> compute the reduce row echelon form 
-		and use it to find the solutoin the original linear system.
-	<sage language="python">
-		<input>
-A = s.Matrix([[1,1/2,1/3,1] , [1/2, 1/3, 1/4, 0], [1/3, 1/4, 1/5, 0]])
-B = s.Matrix()
-C = s.Matrix()
-		</input>
-	</sage>
-		</p>
-
-	<p> Most computers do arithmetic using either 32 or 64 bits. 
-	<idx><h><c>sympy.evalf()</c></h></idx>
-	<idx><h><c>evalf()</c></h><see><c>sympy.evalf()</c></see></idx>
-		We can
-		exagerate the effect by rounding the matrix more heavily. Solve the
-		linear system again using 
-		<sage language="python">
-		<input>
-# evalf() is sympy's version of round()
-A3 = A.evalf(3) 
-		</input>
-		</sage>
-		What does Python give for the solution now? Compare this to the exact
-		solution that you found previously. </p>
-	</li>
-
-      <li> <p>
-	Some types of linear systems are particularly sensitive to
-	errors resulting from computers' approximate arithmetic.
-	For instance, suppose we are interested in the linear system
-	<me>
-	  \begin{alignedat}{3}
-	  x \amp {}+{} \amp y \amp {}={} \amp 2 \\
-	  x \amp {}+{} 1.001\amp y \amp {}={} \amp 2 \\
-	  \end{alignedat}
-	</me>
-	Find the solution to this linear system.
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
-      </p>
-
-      <p>
-	Suppose now that the computer has accumulated some error
-	in one of the entries of this system so that it incorrectly
-	stores the system as
-	<me>
-	  \begin{alignedat}{3}
-	  x \amp {}+{} \amp y \amp {}={} \amp 2 \\
-	  x \amp {}+{} 1.001\amp y \amp {}={} \amp 2.001 \\
-	  \end{alignedat}
-	</me>
-	Find the solution to this linear system.
-	<sage language="python">
-	  <input>
-	  </input>
-	</sage>
-      </p>
-
-      <p> Notice how a small error in one of the entries in the
-      linear system leads to a solution that has a dramatically
-      large error.  Fortunately, this is an issue that has been
-      well studied, and there are techniques that mitigate
-      this type of behavior.  (See <xref ref="sec-gaussian-revisited" />.)
-      </p>
-      </li>
-    </ol>
-    </p>
-  </statement>
-
-  <solution>
-    <p>
-      <ol marker="a.">
-	<li>
-	  <p>
-	    The exact solution is
-	    <me>
-	      x=9, y=-36, z=30\text{.}
-	    </me>
-	    However, if we first round to 3 digits, we find the
-	    approximate solution
-	    <me>
-		  x = 9.04, y = -36.2, z = 30.2
-	    </me>
-		<sage language="python">
-			<input>
-import numpy as np
-import sympy as s
-
-A = s.Matrix([[1,1/2,1/3,1] , [1/2, 1/3, 1/4, 0], [1/3, 1/4, 1/5, 0]])
-B = s.Matrix(3, 4, lambda i,j: s.Rational(A[i,j]))
-C = s.Matrix([
-    [s.Rational(1,1), s.Rational(1,2), s.Rational(1,3), s.Rational(1,1)],
-    [s.Rational(1,2), s.Rational(1,3), s.Rational(1,4), s.Rational(0,1)],
-    [s.Rational(1,3), s.Rational(1,4), s.Rational(1,5), s.Rational(0,1)]
-])
-
-print("Using A:")
-print(A.rref())
-print("\nB:")
-print(B)
-print("Using B:")
-print(B.rref()[0])
-print(B.rref()[0].evalf(10))
-print("\nUsing C:")
-print(C.rref())
-
-print("\nUsing A, rounded to 3 digits:")
-print(A.evalf(3).rref())	
-			</input>
-		</sage>
-	  </p>
-	</li>
-
-	<li>
-	  <p>
-	    This solution to the first system is <m>x=2</m> and
-	    <m>y=0</m>.  However, with just a small change in the
-	    system, we find the solution <m>x=1</m> and <m>y=1</m>.
-
-		<sage langauge="python">
-			<input>
-import numpy as np
-import sympy as s
-
-A = np.array([[1,1,2],[1, 1.001, 2]])
-print(s.Matrix(A).rref())
-
-B = np.array([[1,1,2],[1, 1.001, 2.001]])
-print(s.Matrix(B).rref())
-			</input>
-		</sage>
-		
-	  </p>
-	</li>
-      </ol>
-    </p>
-  </solution>
-
-  <answer>
-    <p>
-      <ol marker="a.">
-	<li>
-	  <p>
-	    The exact solution is
-	    <me>
-	      x=9, y=-36, z=30
-	    </me>
-	    while the 3-digit approximate solution is
-	    <me>
-		  x = 9.04, y = -36.2, z = 30.2
-	    </me>
-		
-	  </p>
-	</li>
-
-	<li>
-	  <p>
-	    This solution to the first system is <m>x=2</m> and
-	    <m>y=0</m>.  However, with just a small change in the
-	    system, we find the solution <m>x=1</m> and <m>y=1</m>.
-	  </p>
-	</li>
-      </ol>
-    </p>
-  </answer>
-</exercise>
 
 </exercises>
-    
+  

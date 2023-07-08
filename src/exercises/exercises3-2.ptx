@@ -4,932 +4,891 @@
 
   <exercise>
     <statement>
-      <p> Shown in <xref ref="fig-ex-basis" /> are two vectors
-      <m>\vvec_1</m> and <m>\vvec_2</m> in the plane <m>\real^2</m>.
-      </p>
+      <p> Consider the set of vectors
+      <me>
+	\vvec_1 = \threevec{1}{2}{1},
+	\vvec_2 = \threevec{0}{1}{3},
+	\vvec_3 = \threevec{2}{3}{-1},
+	\vvec_4 = \threevec{-2}{4}{-1}
+      </me>.
+      <ol marker="a.">
+	<li> <p> Explain why this set of vectors is linearly
+	dependent. 
+	</p></li>
 
-      <figure xml:id="fig-ex-basis">
-	<sidebyside width="45%">
-	  <image source="images/ex-basis" />
-	</sidebyside>
-	<caption>
-	  Vectors <m>\vvec_1</m> and <m>\vvec_2</m> in
-	  <m>\real^2</m>.
-	</caption>
-      </figure>
+	<li> <p> Write one of the vectors as a linear combination of
+	the others.
+	<sage language="python">
+	  <input>
+	  </input>
+	</sage>
+	</p></li>
 
-      <p><ol marker="a.">
-	<li><p> Explain why <m>\bcal=\{\vvec_1,\vvec_2\}</m> is a
-	basis for <m>\real^2</m>. </p></li>
+	<li> <p> Find weights <m>c_1</m>, <m>c_2</m>, <m>c_3</m>, and
+	<m>c_4</m>, not all of which are zero, such that
+	<me>c_1\vvec_1 + c_2 \vvec_2 + c_3 \vvec_3
+	+ c_4 \vvec_4 = \zerovec
+	</me>. </p></li>
 
-	<li><p> Using <xref ref="fig-ex-basis" />, indicate the
-	vectors <m>\xvec</m> such that
-	<ol marker="1.">
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{2}{-1}</m>
-	  </p></li>
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{-1}{-2}</m>
-	  </p></li>
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{0}{3}</m>
-	  </p></li>
-	</ol></p></li>
+	<li> <p> Find a nonzero solution to the homogenous equation
+	<m>A\xvec = \zerovec</m> where <m>A=\left[\begin{array}{rrrr}
+	\vvec_1\amp\vvec_2\amp\vvec_3\amp\vvec_4
+	\end{array}\right]</m>. </p></li>
 
-	<li><p> Using <xref ref="fig-ex-basis" />, find the
-	representation <m>\coords{\xvec}{\bcal}</m> if
-	<ol marker="1.">
-	  <li><p> <m>\xvec = \twovec{-2}{-1}</m>.  </p></li>
-	  <li><p> <m>\xvec = \twovec{2}{4}</m>.  </p></li>
-	  <li><p> <m>\xvec = \twovec{2}{-5}</m>.  </p></li>
-	</ol></p></li>
-
-	<li><p> Find <m>\coords{\xvec}{\bcal}</m> if
-	<m>\xvec=\twovec{60}{90}</m>. </p></li>
       </ol></p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
 	<li><p>
-	  The vectors are linearly independent and span <m>\real^2</m>.
-	  We can see this by forming the matrix
+	  We view the vectors as the columns of a matrix so that
 	  <me>
-	    \left[\begin{array}{rr}
-	    \vvec_1 \amp \vvec_2
-	    \end{array}\right]
-	    =
-	    \left[\begin{array}{rr}
-	    -2 \amp 2 \\
-	    2 \amp 1 \\
+	    \left[\begin{array}{rrrr}
+	    1 \amp 0 \amp 2 \amp -2 \\
+	    2 \amp 1 \amp 3 \amp 4 \\
+	    1 \amp 3 \amp -1 \amp -1
 	    \end{array}\right]
 	    \sim
-	    \left[\begin{array}{rr}
-	    1 \amp 0 \\
-	    0 \amp 1 \\
+	    \left[\begin{array}{rrrr}
+	    1 \amp 0 \amp 2 \amp 0 \\
+	    0 \amp 1 \amp -1 \amp 0 \\
+	    0 \amp 0 \amp 0 \amp 1
 	    \end{array}\right]\text{.}
 	  </me>
+	  Since there is a column without a pivot position, the
+	  vectors must be linearly dependent.  We also expect this because
+	  four vectors in <m>\real^3</m> must always be linearly
+	  dependent.
 	</p></li>
 
-	<li><p> The grid on the figure indicates that
-	<ol marker="1.">
-	  <li><p> <m>\xvec = \twovec{-6}{3}</m>. </p></li>
-	  <li><p> <m>\xvec = \twovec{-2}{-4}</m>. </p></li>
-	  <li><p> <m>\xvec = \twovec63</m>. </p></li>
-	</ol>
-	</p></li>
-
-	<li><p> The grid on the figure indicates that
-	<ol marker="1.">
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{0}{-1}</m>. </p></li> 
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{1}{2}</m>. </p></li> 
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{-2}{-1}</m>. </p></li>
-	</ol>
-	</p></li>
-
-	<li><p> 
-	  We form the matrix
-	  <me>P_{\bcal}=\left[\begin{array}{rr}
-	  \vvec_1 \amp \vvec_2 \end{array}\right]
-	  = \left[\begin{array}{rr}
-	  -2 \amp 2 \\
-	  2 \amp 1 \\
-	  \end{array}\right]
+	<li><p>
+	  If we view the first three columns as an augmented matrix,
+	  we have
+	  <me>
+	    \left[\begin{array}{rr|r}
+	    1 \amp 0 \amp 2 \\
+	    2 \amp 1 \amp 3 \\
+	    1 \amp 3 \amp -1 \\
+	    \end{array}\right]
+	    \sim
+	    \left[\begin{array}{rr|r}
+	    1 \amp 0 \amp 2 \\
+	    0 \amp 1 \amp -1 \\
+	    0 \amp 0 \amp 0 \\
+	    \end{array}\right]\text{.}
 	  </me>
-	  so that <m>\xvec=P_{\bcal}\coords{\xvec}{\bcal}</m>.  We
-	  then need to solve the equation
-	  <m>P_{\bcal}\coords{\xvec}{\bcal} = \twovec{60}{90}</m>,
-	  which gives <m>\coords{\xvec}{\bcal} = \twovec{20}{50}</m>.
+	  We see that <m>\vvec_3 = 2\vvec_1-\vvec_2</m>.
+	</p></li>
+
+	<li><p>
+	  From the solution to the previous part, we have
+	  <m>-2\vvec_1+\vvec_2+\vvec_3 = \zerovec</m>, which says that
+	  <m>c_1=-2</m>, <m>c_2=1</m>, <m>c_3=1</m>, and <m>c_4=0</m>
+	  is an appropriate choice of weights.
+	</p></li>
+
+	<li><p>
+	  From the solution to the previous part, we see that
+	  <m>\xvec = \fourvec{-2}{1}{1}{0}</m> is a solution of the
+	  homogeneous equation.
 	</p></li>
       </ol></p>
     </solution>
-	  
+
     <answer>
       <p><ol marker="a.">
 	<li><p>
-	  The vectors are linearly independent and span
-	  <m>\real^2</m>.
+	  Four vectors in <m>\real^3</m> must always be linearly
+	  dependent.
 	</p></li>
 
-	<li><p> The grid on the figure indicates that
-	<ol marker="1.">
-	  <li><p> <m>\xvec = \twovec{-6}{3}</m>. </p></li>
-	  <li><p> <m>\xvec = \twovec{-2}{-4}</m>. </p></li>
-	  <li><p> <m>\xvec = \twovec63</m>. </p></li>
-	</ol>
+	<li><p>
+	  <m>\vvec_3 = 2\vvec_1-\vvec_2</m>.
 	</p></li>
 
-	<li><p> The grid on the figure indicates that
-	<ol marker="1.">
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{0}{-1}</m>. </p></li> 
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{1}{2}</m>. </p></li> 
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{-2}{-1}</m>. </p></li>
-	</ol>
+	<li><p>
+	  <m>c_1=-2</m>, <m>c_2=1</m>, <m>c_3=1</m>, and <m>c_4=0</m>
 	</p></li>
 
-	<li><p> 
-	  <m>\coords{\xvec}{\bcal} = \twovec{20}{50}</m>.
+	<li><p>
+	  <m>\xvec = \fourvec{-2}{1}{1}{0}</m>
 	</p></li>
       </ol></p>
     </answer>
-	  
   </exercise>
 
   <exercise>
     <statement>
-      <p> Consider vectors
-      <me>\begin{aligned}
-      \vvec_1=\twovec{1}{2}, \amp \vvec_2=\twovec{1}{-3} \\
-      \wvec_1=\twovec{2}{3}, \amp \wvec_2=\twovec{-1}{-2} \text{.} \\
-      \end{aligned}
-      </me>
-      and let <m>\bcal = \{\vvec_1,\vvec_2\}</m> and <m>\ccal =
-      \{\wvec_1,\wvec_2\}</m>.
+      <p> Consider the vectors
+      <me>
+	\vvec_1 = \threevec{2}{-1}{0},
+	\vvec_2 = \threevec{1}{2}{1},
+	\vvec_3 = \threevec{2}{-2}{3}
+      </me>.
       <ol marker="a.">
-	<li><p> Explain why <m>\bcal</m> and <m>\ccal</m> are both
-	bases of <m>\real^2</m>. </p></li>
-
-	<li><p> If <m>\xvec = \twovec{5}{-3}</m>, find
-	<m>\coords{\xvec}{\bcal}</m> and
-	<m>\coords{\xvec}{\ccal}</m>. </p> </li>
-
-	<li><p> If <m>\coords{\xvec}{\bcal}=\twovec{2}{-4}</m>, find
-	<m> \xvec</m> and <m>\coords{\xvec}{\ccal}</m>. </p></li>
-      
-	<li><p> If <m>\coords{\xvec}{\ccal}=\twovec{-3}{2}</m>, find
-	<m> \xvec</m> and <m>\coords{\xvec}{\bcal}</m>. </p></li>
-
-	<li><p> Find a matrix <m>Q</m> such that
-	<m>\coords{\xvec}{\bcal} = Q\coords{\xvec}{\ccal}</m>.
+	<li> <p> Are these vectors linearly independent or linearly
+	dependent?
+	<sage language="python">
+	  <input>
+	  </input>
+	</sage>
 	</p></li>
+
+	<li> <p> Describe the
+	<m>\laspan{\vvec_1,\vvec_2,\vvec_3}</m>. </p></li>
+
+	<li> <p> Suppose that <m>\bvec</m> is a vector in
+	<m>\real^3</m>.  Explain why we can guarantee that
+	<m>\bvec</m> may be written as a linear combination of
+	<m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m>.
+	</p></li>
+
+	<li> <p> Suppose that <m>\bvec</m> is a vector in
+	<m>\real^3</m>.  In how many ways can 
+	<m>\bvec</m> be written as a linear combination of
+	<m>\vvec_1</m>, <m>\vvec_2</m>, and <m>\vvec_3</m>?
+	</p></li>
+      </ol></p>
+	
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p>
+	  Viewing the vectors as the columns of a matrix, we have
+	  <me>
+	    \left[\begin{array}{rrr}
+	    2 \amp 1 \amp 2 \\
+	    -1 \amp 2 \amp -2 \\
+	    0 \amp 1 \amp 3
+	    \end{array}\right]
+	    \sim
+	    \left[\begin{array}{rrr}
+	    1 \amp 0 \amp 0 \\
+	    0 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 1
+	    \end{array}\right]\text{.}
+	  </me>
+	  Since there is a pivot position in every column, the vectors
+	  are linearly independent.
+	</p></li>
+
+	<li><p>
+	  Since the matrix has a pivot position in every row, we see
+	  that <m>\laspan{\vvec_1,\vvec_2,\vvec_3} = \real^3</m>.
+	</p></li>
+
+	<li><p>
+	  Because <m>\laspan{\vvec_1,\vvec_2,\vvec_3} = \real^3</m>,
+	  every vector in <m>\real^3</m> can be written as a linear
+	  combination of <m>\vvec_1</m>, <m>\vvec_2</m>, and
+	  <m>\vvec_3</m>.
+	</p></li>
+
+	<li><p>
+	  In exactly one way.  Because the matrix has a pivot position
+	  in every column, there cannot be a free variable.
+	</p></li>
+
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p>
+	  Linearly independent.
+	</p></li>
+
+	<li><p>
+	  <m>\laspan{\vvec_1,\vvec_2,\vvec_3} = \real^3</m>.
+	</p></li>
+
+	<li><p>
+	  Because <m>\laspan{\vvec_1,\vvec_2,\vvec_3} = \real^3</m>,
+	  every vector in <m>\real^3</m> can be written as a linear
+	  combination of <m>\vvec_1</m>, <m>\vvec_2</m>, and
+	  <m>\vvec_3</m>.
+	</p></li>
+
+	<li><p>
+	  In exactly one way.  
+	</p></li>
+
+      </ol></p>
+    </answer>
+
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Respond to the following questions and provide a
+      justification for your responses.
+      <ol marker="a.">
+	<li> <p> If the vectors <m>\vvec_1</m> and <m>\vvec_2</m> form
+	a linearly dependent set, must one vector be a scalar multiple
+	of the other?
+	</p></li>
+
+	<li><p>
+	  Suppose that <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is a
+	  linearly independent set of vectors.  What can you say about
+	  the linear independence or dependence of a subset of these
+	  vectors?
+	</p></li>
+
+	<li><p> Suppose <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is a
+	linearly independent set of vectors that form the columns of a
+	matrix <m>A</m>.  If the equation <m>A\xvec = \bvec</m> is
+	inconsistent, what can you say about the linear independence
+	or dependence of the set of vectors 
+	<m>\vvec_1,\vvec_2,\ldots,\vvec_n,\bvec</m>?
+	</p></li>
+      </ol></p>
+
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p>
+	  Yes.  If <m>c_1\vvec_1 + c_2\vvec_2 = \zerovec</m> and one of the
+	  weights is not zero, we can rearrange this expression to
+	  solve for one of the vectors as a scalar multiple of the
+	  other.  For instance, if <m>2\vvec_1-3\vvec_2=\zerovec</m>,
+	  then <m>\vvec_1 = \frac32\vvec_2</m>.
+	</p></li>
+
+	<li><p>
+	  Any subset of the vectors forms a linearly independent set.
+	  Because the original set is linearly independent, none of
+	  the vectors can be written as a linear combination of the
+	  others.  This is still true when we look at a smaller set of
+	  the vectors.
+	</p></li>
+
+	<li><p>
+	  The set of vectors
+	  <m>\vvec_1,\vvec_2,\ldots,\vvec_n,\bvec</m> will also be
+	  linearly independent.  Since <m>A\xvec=\bvec</m> is
+	  inconsistent, we know that <m>\bvec</m> cannot be written as
+	  a linear combination of the other vectors.  We also know
+	  that each of the vectors <m>\vvec_j</m> cannot be written as
+	  a linear combination of the others because
+	  <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is a linearly
+	  independent set.
+	</p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p>
+	  Yes
+	</p></li>
+
+	<li><p>
+	  Any subset is linearly independent.
+	</p></li>
+
+	<li><p> They form a linearly independent set.
+	</p></li>
+
+	</ol></p>
+    </answer>
+	
+  </exercise>
+  
+  <exercise>
+    <statement>
+      <p> Determine whether the following statements are true or false and
+      provide a justification for your response.
+      <ol marker="a.">
+	<li><p> If <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> are linearly
+	dependent, then one vector is a scalar multiple of one of the
+	others. </p></li>
+
+	<li><p> If <m>\vvec_1, \vvec_2, \ldots, \vvec_{10}</m> are
+	vectors in <m>\real^5</m>, then the set of vectors is linearly
+	dependent. </p></li>
+
+	<li><p> If <m>\vvec_1, \vvec_2, \ldots, \vvec_{5}</m> are
+	vectors in <m>\real^{10}</m>, then the set of vectors is linearly
+	independent. </p></li>
+
+	<li><p> Suppose we have a set of vectors
+	<m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> and that <m>\vvec_2</m>
+	is a scalar multiple of <m>\vvec_1</m>.  Then the set is
+	linearly dependent. </p></li>
+
+	<li><p> Suppose that <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> are
+	linearly independent and form the columns of a matrix
+	<m>A</m>.  If <m>A\xvec = \bvec</m> is consistent, then there
+	is exactly one solution. </p></li>
       </ol></p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
-	<li><p> In both cases, we see that
-	<me>
-	  P_{\bcal}=\left[\begin{array}{rr}
-	  \vvec_1\amp\vvec_2
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rr}
-	  1\amp0\\
-	  0\amp1\\
-	  \end{array}\right],~~~
-	  P_{\ccal}=\left[\begin{array}{rr}
-	  \wvec_1\amp\wvec_2
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rr}
-	  1\amp0\\
-	  0\amp1\\
-	  \end{array}\right]
-	</me>
-	so that both sets of vectors are linearly independent and span
-	<m>\real^2</m>.
-	</p></li>
-
-	<li><p> We solve <m>P_{\bcal}\coords{\xvec}{\bcal} = \xvec</m>
-	and <m>P_{\ccal}\coords{\xvec}{\ccal} = \xvec</m> to find
-	<m>\coords{\xvec}{\bcal}=\twovec{12/5}{13/5}</m> and
-	<m>\coords{\xvec}{\ccal}=\twovec{13}{21}</m>.
-	</p></li>
-
-	<li><p> We have <m>\xvec=P_{\bcal}\coords{\xvec}{\bcal} =
-	\twovec{-2}{16}</m>.  We then solve
-	<m>P_{\ccal}\coords{\xvec}{\ccal} = \twovec{-2}{16}</m> to
-	find <m>\coords{\xvec}{\ccal}=\twovec{-20}{-38}</m>.
-	</p></li>
-
-	<li><p> In the same way, we find <m>\xvec=\twovec{-8}{-13}</m>
-	and <m>\coords{\xvec}{\ccal}=\twovec{-37/5}{-3/5}</m>.
-	</p></li>
-
-	<li><p> We have <m>\coords{\xvec}{\bcal} =
-	P_{\bcal}^{-1}\xvec = 
-	P_{\bcal}^{-1}P_{\ccal}\coords{\xvec}{\ccal}</m>,
-	which shows that <m>Q = 
-	P_{\bcal}^{-1}P_{\ccal}=
-	\left[\begin{array}{rr}
-	\frac95 \amp -1 \\
-	\frac15 \amp 0 \\
-	\end{array}\right]
-	</m>.
-	</p></li>
-      </ol></p>
-    </solution>
-	  
-    <answer>
-      <p><ol marker="a.">
-	<li><p> The sets of the vectors are both
-	linearly independent and span <m>\real^2</m>.
-	</p></li>
-
-	<li><p> 
-	<m>\coords{\xvec}{\bcal}=\twovec{12/5}{13/5}</m> and
-	<m>\coords{\xvec}{\ccal}=\twovec{13}{21}</m>.
-	</p></li>
-
-	<li><p> <m>\xvec=
-	\twovec{-2}{16}</m> and
-	<m>\coords{\xvec}{\ccal}=\twovec{-20}{-38}</m>.
-	</p></li>
-
-	<li><p> <m>\xvec=\twovec{-8}{-13}</m>
-	and <m>\coords{\xvec}{\ccal}=\twovec{-37/5}{-3/5}</m>.
+	<li><p>
+	  False.  We only know that one vector can be written as a
+	  linear combination of the others.
 	</p></li>
 
 	<li><p>
-	  <m>Q = 
-	  \left[\begin{array}{rr}
-	  \frac95 \amp -1 \\
-	  \frac15 \amp 0 \\
-	  \end{array}\right]
+	  True.  If we put the vectors into a matrix, there are more
+	  columns than rows.  Therefore, there must be a column
+	  without a pivot position so the vectors form a linearly
+	  dependent set.
+	</p></li>
+
+	<li><p>
+	  False.  They could form a linearly independent set, but we
+	  cannot guarantee it.  We would have to look at the location
+	  of the pivot positions in the associated <m>10\times5</m>
+	  matrix. 
+	</p></li>
+
+	<li><p>
+	  True.  In this case, <m>\vvec_2</m> can be written as a
+	  linear combination of the other vectors so the set is
+	  linearly dependent.
+	</p></li>
+
+	<li><p>
+	  True.  Since the vectors are linearly independent, <m>A</m>
+	  has a pivot position in every column.  Therefore, there is
+	  not a free variable in the description of the
+	  solution space to the equation <m>A\xvec=\bvec</m>.
+	  Therefore, the solution is unique.
+	</p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> False </p></li>
+	<li><p> True </p></li>
+	<li><p> False </p></li>
+	<li><p> True </p></li>
+	<li><p> True </p></li>
+      </ol></p>
+    </answer>
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Suppose we have a set of vectors
+      <m>\vvec_1,\vvec_2,\vvec_3,\vvec_4</m> in <m>\real^5</m> that
+      satisfy the relationship:
+      <me>
+	2\vvec_1 - \vvec_2 + 3\vvec_3 + \vvec_4 = \zerovec
+      </me>
+      and suppose that <m>A</m> is the matrix
+      <m>A=\left[\begin{array}{rrrr}
+      \vvec_1\amp\vvec_2\amp\vvec_3\amp\vvec_4
+      \end{array}\right]
+      </m>.
+      <ol marker="a.">
+	<li><p> Find a nonzero solution to the equation <m>A\xvec =
+	\zerovec</m>. </p></li>
+
+	<li><p> Explain why the matrix <m>A</m> has a column without a
+	pivot position. </p></li>
+
+	<li><p> Write one of the vectors as a linear combination of
+	the others. </p></li>
+
+	<li><p> Explain why the set of vectors is linearly
+	dependent. </p></li>
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p>
+	  The vector <m>\xvec=\fourvec{2}{-1}{3}{1}</m> is a solution.
+	</p></li>
+
+	<li><p>
+	  There is a nonzero solution to the homogeneous equation
+	  <m>A\xvec=\zerovec</m>.  Since there is also the zero
+	  solution <m>\xvec=\zerovec</m>, there must be infinitely
+	  many solutions.  This can only happen when there is a column
+	  of <m>A</m> that does not have a pivot position.
+	</p></li>
+
+	<li><p>
+	  <m>\vvec_4 = -2\vvec_1 + \vvec_2 - 3\vvec_3</m>.
+	</p></li>
+
+	<li><p>
+	  Because one of the vectors can be written as a linear
+	  combination of the others, the set of vectors is linearly
+	  dependent.
+	</p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p>
+	  <m>\xvec=\fourvec{2}{-1}{3}{1}</m>
+	</p></li>
+
+	<li><p>
+	  There are infinitely many solutions to the homogeneous
+	  equation <m>A\xvec=\zerovec</m>.
+	</p></li>
+
+	<li><p>
+	  <m>\vvec_4 = -2\vvec_1 + \vvec_2 - 3\vvec_3</m>.
+	</p></li>
+
+	<li><p>
+	  One vector can be written as a linear combination of the
+	  others.
+	</p></li>
+
+      </ol></p>
+    </answer>
+	
+  </exercise>
+      
+  <exercise>
+    <statement>
+      <p>  Suppose that
+      <m>\vvec_1,\vvec_2,\ldots,\vvec_n</m> is a set of vectors in
+      <m>\real^{27}</m> that form the columns of a matrix <m>A</m>.
+      <ol marker="a.">
+	<li><p> Suppose that the vectors span <m>\real^{27}</m>.  What
+	can you say about the number of vectors <m>n</m> in this set?
+	</p></li>
+
+	<li><p> Suppose instead that the vectors are linearly
+	independent.  What can you say about the number of vectors
+	<m>n</m> in this set? </p></li>
+
+	<li><p> Suppose that the vectors are both linearly independent
+	and span <m>\real^{27}</m>.  What can you say about the number
+	of vectors in the set? </p></li>
+
+	<li><p> Assume that the vectors are both linearly independent
+	and span <m>\real^{27}</m>.  Given a vector <m>\bvec</m> in
+	<m>\real^{27}</m>, what 
+	can you say about the solution space to the equation
+	<m>A\xvec = \bvec</m>? </p></li>
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p>
+	  In this case, the matrix <m>A</m> must have a pivot position
+	  in evey row.  There must be at least 27 vectors for this to
+	  be possible.
+	</p></li>
+
+	<li><p>
+	  In this case, the matrix <m>A</m> must have a pivot position
+	  in every column.  There must be at most 27 vectors for
+	  this to be possible.
+	</p></li>
+
+	<li><p>
+	  There must be exactly 27 vectors.
+	</p></li>
+
+	<li><p>
+	  There is exactly one solution to the equation
+	  <m>A\xvec=\bvec</m> because the matrix <m>A</m> has a pivot
+	  position in every row and every column.
+	</p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p>
+	  There must be at least 27 vectors.
+	</p></li>
+
+	<li><p>
+	  There must be at most 27 vectors.
+	</p></li>
+
+	<li><p>
+	  There are exactly 27 vectors.
+	</p></li>
+
+	<li><p>
+	  There is exactly one solution.
+	</p></li>
+	</ol></p>
+    </answer>
+	
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Given below are some descriptions of sets of vectors that
+      form the columns of a matrix <m>A</m>.  For each description,
+      give a possible reduced row echelon form for <m>A</m> or
+      indicate why there is no set of vectors satisfying the
+      description by stating why the required reduced row echelon
+      matrix cannot exist.
+      <ol marker="a.">
+	<li><p>
+	  A set of 4 linearly independent vectors in <m>\real^5</m>.
+	</p></li>
+
+	<li><p>
+	  A set of 4 linearly independent vectors in <m>\real^4</m>.
+	</p></li>
+
+	<li><p>
+	  A set of 3 vectors whose span is <m>\real^4</m>.
+	</p></li>
+
+	<li><p>
+	  A set of 5 linearly independent vectors in <m>\real^3</m>.
+	</p></li>
+
+	<li><p>
+	  A set of 5 vectors whose span is <m>\real^4</m>.
+	</p></li>
+      </ol></p>
+	  
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p>  There must be a pivot position in every column:
+	  <m>
+	    \left[\begin{array}{rrrr}
+	    1 \amp 0 \amp 0 \amp 0 \\
+	    0 \amp 1 \amp 0 \amp 0 \\
+	    0 \amp 0 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 0 \amp 1 \\
+	    0 \amp 0 \amp 0 \amp 0 \\
+	    \end{array}\right]
+	  </m>.
+	</p></li>
+	    
+	<li><p> There must be a pivot position in every row.
+	  <m>
+	    \left[\begin{array}{rrrr}
+	    1 \amp 0 \amp 0 \amp 0 \\
+	    0 \amp 1 \amp 0 \amp 0 \\
+	    0 \amp 0 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 0 \amp 1 \\
+	    \end{array}\right]
+	  </m>.
+	</p></li>
+	    
+	<li><p>
+	  This is not possible.  The matrix <m>A</m> has dimensions
+	  <m>4\times 3</m> so there cannot be a pivot position in
+	  every row.
+	</p></li>
+	    
+	<li><p>
+	  This is not possible.  The matrix <m>A</m> has dimensions
+	  <m>3\times5</m> so there cannot be a pivot position in every
+	  column. 
+	</p></li>
+	    
+	<li><p> There must be a pivot position in every row.
+	  <m>
+	    \left[\begin{array}{rrrrr}
+	    1 \amp 0 \amp 0 \amp 0 \amp -1 \\
+	    0 \amp 1 \amp 0 \amp 0 \amp 0 \\
+	    0 \amp 0 \amp 1 \amp 0 \amp -2 \\
+	    0 \amp 0 \amp 0 \amp 1 \amp 4 \\
+	    \end{array}\right]
+	  </m>.
+	</p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p>
+	  <m>
+	    \left[\begin{array}{rrrr}
+	    1 \amp 0 \amp 0 \amp 0 \\
+	    0 \amp 1 \amp 0 \amp 0 \\
+	    0 \amp 0 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 0 \amp 1 \\
+	    0 \amp 0 \amp 0 \amp 0 \\
+	    \end{array}\right]
+	  </m>.
+	</p></li>
+	    
+	<li><p>
+	  <m>
+	    \left[\begin{array}{rrrr}
+	    1 \amp 0 \amp 0 \amp 0 \\
+	    0 \amp 1 \amp 0 \amp 0 \\
+	    0 \amp 0 \amp 1 \amp 0 \\
+	    0 \amp 0 \amp 0 \amp 1 \\
+	    \end{array}\right]
+	  </m>.
+	</p></li>
+	    
+	<li><p>
+	  This is not possible. 
+	</p></li>
+	    
+	<li><p>
+	  This is not possible. 
+	</p></li>
+	    
+	<li><p>
+	  <m>
+	    \left[\begin{array}{rrrrr}
+	    1 \amp 0 \amp 0 \amp 0 \amp -1 \\
+	    0 \amp 1 \amp 0 \amp 0 \amp 0 \\
+	    0 \amp 0 \amp 1 \amp 0 \amp -2 \\
+	    0 \amp 0 \amp 0 \amp 1 \amp 4 \\
+	    \end{array}\right]
 	  </m>.
 	</p></li>
       </ol></p>
     </answer>
-	  
-  </exercise>
-      
-  <exercise>
-    <statement>
-      <p> Consider the following vectors in <m>\real^4</m>:
-      <me>
-	\vvec_1 = \fourvec{1}{1}{1}{1},
-	\vvec_2 = \fourvec{0}{1}{1}{1},
-	\vvec_3 = \fourvec{0}{0}{1}{1},
-	\vvec_4 = \fourvec{0}{0}{0}{1}
-      </me>.
-      <ol marker="a.">
-	<li><p> Explain why
-	<m>\bcal=\{\vvec_1,\vvec_2,\vvec_3,\vvec_4\}</m> forms a basis
-	for <m>\real^4</m>. </p></li>
 
-	<li><p> Explain how to convert <m>\coords{\xvec}{\bcal}</m>,
-	the representation of a vector <m>\xvec</m> in the coordinates
-	defined by <m>\bcal</m>, into <m>\xvec</m>, its representation
-	in the standard coordinate system. </p></li>
-
-	<li><p> Explain how to convert the vector <m>\xvec</m> into
-	<m>\coords{\xvec}{\bcal}</m>, 
-	its representation in the coordinate system defined by
-	<m>\bcal</m>. </p></li>
-
-	<li><p> If <m>\xvec=\fourvec{23}{12}{10}{19}</m>, find
-	<m>\coords{\xvec}{\bcal}</m>. </p></li>
-
-	<li><p> If <m>\coords{\xvec}{\bcal}=\fourvec{3}{1}{-3}{-4}</m>, find
-	<m>\xvec</m>. </p></li>
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> Form the matrix
-	<me>
-	  P_{\bcal} =
-	  \left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  1 \amp 1 \amp 0 \amp 0 \\
-	  1 \amp 1 \amp 1 \amp 0 \\
-	  1 \amp 1 \amp 1 \amp 1
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  0 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp 0 \amp 1 \amp 0 \\
-	  0 \amp 0 \amp 0 \amp 1
-	  \end{array}\right]\text{,}
-	</me>
-	which shows that the vectors are linearly independent and span
-	<m>\real^4</m>.
-	</p></li>
-
-	<li><p> We have <m>\xvec = P_{\bcal}\coords{\xvec}{\bcal}</m>.
-	</p></li>
-
-	<li><p> We have <m>\coords{\xvec}{\bcal} =
-	P_{\bcal}^{-1}\xvec</m> where
-	<me>
-	  P_{\bcal}^{-1} = 
-	  \left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  -1 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp -1 \amp 1 \amp 0 \\
-	  0 \amp 0 \amp -1 \amp 1
-	  \end{array}\right]\text{.}
-	</me>
-	</p></li>
-
-	<li><p>
-	  We find
-	  <m>\coords{\xvec}{\bcal}=\fourvec{23}{-11}{-2}{9}</m>.
-	</p></li>
-
-	<li><p>
-	  We find
-	  <m>\xvec=\fourvec{3}{4}{1}{-3}</m>.
-	</p></li>
-      </ol></p>
-    </solution>
-	
-    <answer>
-      <p><ol marker="a.">
-	<li><p>
-	  The vectors are linearly independent and span
-	  <m>\real^4</m>.
-	</p></li>
-
-	<li><p> We have <m>\xvec = P_{\bcal}\coords{\xvec}{\bcal}</m>.
-	</p></li>
-
-	<li><p> We have <m>\coords{\xvec}{\bcal} =
-	P_{\bcal}^{-1}\xvec</m>.
-	</p></li>
-
-	<li><p>
-	  <m>\coords{\xvec}{\bcal}=\fourvec{23}{-11}{-2}{9}</m>.
-	</p></li>
-
-	<li><p>
-	  <m>\xvec=\fourvec{3}{4}{1}{-3}</m>.
-	</p></li>
-      </ol></p>
-    </answer>
-	
+    
   </exercise>
 
   <exercise>
     <statement>
-      <p> Consider the following vectors in <m>\real^3</m>:
-      <me>
-	\vvec_1=\threevec{1}{3}{2},
-	\vvec_2=\threevec{0}{1}{4},
-	\vvec_3=\threevec{-2}{-5}{0},
-	\vvec_4=\threevec{-2}{-1}{-1},
-	\vvec_5=\threevec{1}{-2}{-1}
-      </me>.
+      <p> When we explored matrix multiplication in <xref
+      ref="sec-matrices" />, we saw that some properties
+      that are true for real numbers are not true for matrices.  This
+      exercise will investigate that in some more depth.
+
       <ol marker="a.">
-	<li><p> Do these vectors form a basis for <m>\real^3</m>?
-	Explain your thinking.
-	<sage>
-	  <input>
-	  </input>
-	</sage>
-	</p></li>
-
-	<li><p> Find a subset of these vectors that forms a basis of
-	<m>\real^3</m>.  </p></li>
-
-	<li><p> Suppose you have a set of vectors <m>\vvec_1,
-	\vvec_2,\ldots,\vvec_6</m> in <m>\real^4</m> such
-	<me>
-	  \left[\begin{array}{rrrr}
-	  \vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_6
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rrrrrr}
-	  1 \amp 0 \amp -2 \amp 0 \amp 1 \amp 0 \\
-	  0 \amp 1 \amp 3 \amp 0 \amp -4 \amp 0 \\
-	  0 \amp 0 \amp 0 \amp 1 \amp 2 \amp 0 \\
-	  0 \amp 0 \amp 0 \amp 0 \amp 0 \amp 1 \\
-	  \end{array}\right]
-	</me>.
-	Find a subset of the vectors that forms a basis for
-	<m>\real^4</m>. </p></li>
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> Looking at the reduced row echelon form, we find
-	<me>
-	  \left[\begin{array}{rrrrr}
-	  \vvec_1 \amp 
-	  \vvec_2 \amp 
-	  \vvec_3 \amp 
-	  \vvec_4 \amp 
-	  \vvec_5 \\
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rrrrr}
-	  1 \amp 0 \amp - 2 \amp 0 \amp -1 \\
-	  0 \amp 1 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp 0 \amp 0 \amp 1 \amp -1 \\
-	  \end{array}\right]\text{.}
-	</me>
-	This shows that the vectors are not linearly independent since
-	there is not a pivot position in every column.  Therefore, the
-	set of vectors does not form a basis for <m>\real^3</m>.  Of
-	course, we also know this because a set of vectors for
-	<m>\real^3</m> must contain exactly three vectors.
-	</p></li>
-
-	<li><p> From the reduced row echelon form, we see that the set
-	of vectors spans <m>\real^3</m> because there is a pivot
-	position in every row.  We also see that
-	<m>\vvec_3 = -2\vvec_1+\vvec_2</m> and <m>\vvec_5 =
-	-\vvec_1-\vvec_4</m>.  This means that <m>\vvec_1</m>,
-	<m>\vvec_2</m>, and <m>\vvec_4</m> will span <m>\real^3</m>
-	and therefore form a basis.
-	</p></li>
-
-	<li><p> In the same way, we see that <m>\vvec_1</m>,
-	<m>\vvec_2</m>, <m>\vvec_4</m>, and <m>\vvec_6</m> for a basis
-	for <m>\real^4</m>.
-	</p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> No, because a basis for <m>\real^3</m> must contain
-	exactly three vectors.
-	</p></li>
-
 	<li><p>
-	  <m>\vvec_1</m>,
-	  <m>\vvec_2</m>, and <m>\vvec_4</m>.
+	  Suppose that <m>A</m> and <m>B</m> are two matrices and that
+	  <m>AB = 0</m>.  If <m>B \neq 0</m>, what can you say about the
+	linear independence of the columns of <m>A</m>? </p></li>
+
+	<li><p> Suppose that we have matrices <m>A</m>, <m>B</m> and
+	<m>C</m> such that <m>AB = AC</m>.  We have seen that we
+	cannot generally conclude that <m>B=C</m>.  If we assume
+	additionally that 
+	<m>A</m> is a matrix whose columns are linearly independent,
+	explain why <m>B = C</m>.  You may wish to begin by rewriting
+	the equation <m>AB = AC</m> as <m>AB-AC = A(B-C) = 0</m>.
 	</p></li>
-
-	<li><p> <m>\vvec_1</m>,
-	<m>\vvec_2</m>, <m>\vvec_4</m>, and <m>\vvec_6</m>.
-	</p></li>
-      </ol></p>
-    </answer>
-
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> This exercise involves a simple Fourier transform, which
-      will play an important role in the next section.
-      </p>
-
-      <p>
-	Suppose that we have the vectors
-      <me>
-	\vvec_1=\threevec{1}{1}{1},
-	\vvec_2=\threevec{\cos\left(\frac\pi6\right)}
-	{\cos\left(\frac{3\pi}6\right)}
-	{\cos\left(\frac{5\pi}6\right)}
-	\vvec_3=\threevec{\cos\left(\frac{2\pi}6\right)}
-	{\cos\left(\frac{6\pi}6\right)}
-	{\cos\left(\frac{10\pi}6\right)}
-      </me>.
-      <ol marker="a.">
-	<li><p> Explain why <m>\bcal=\{\vvec_1,\vvec_2,\vvec_3\}</m>
-	is a basis for <m>\real^3</m>.  Notice that you may enter
-	<m>\cos\left(\frac\pi6\right)</m> into Sage as
-	<c>cos(pi/6)</c>. 
-	<sage>
-	  <input>
-	  </input>
-	</sage>
-	</p></li>
-
-	<li><p> If <m>\xvec=\threevec{15}{15}{15}</m>, find
-	<m>\coords{\xvec}{\bcal}</m>. </p></li>
-
-	<li><p> Find the matrices <m>P_{\bcal}</m> and
-	<m>P_{\bcal}^{-1}</m>.  If
-	<m>\xvec=\threevec{x_1}{x_2}{x_3}</m> and
-	<m>\coords{\xvec}{\bcal} = \threevec{c_1}{c_2}{c_3}</m>,
-	explain why <m>c_1</m> is the average of <m>x_1</m>,
-	<m>x_2</m>, and <m>x_3</m>. </p></li>
       </ol>
       </p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
-	<li><p> By forming the matrix
-	<m>P_{\bcal}=\left[\begin{array}{rrr}
-	\vvec_1 \amp \vvec_2 \amp \vvec_3 \end{array}\right]</m> and
-	finding its reduced row echelon form, we see that the vectors
-	are linearly independent and span <m>\real^3</m>.  They
-	therefore form a basis of <m>\real^3</m>.
+	<li><p>
+	  Since <m>B\neq0</m>, there is a column of <m>B</m>, which
+	  we'll call <m>\xvec</m>, that is
+	  not zero.  Since <m>AB = 0</m>, we know that <m>A\xvec =
+	  \zerovec</m>, which means that <m>\xvec</m> is a nonzero
+	  solution to the homogenous equation <m>A\xvec =
+	  \zerovec</m>.  Therefore, the columns of <m>A</m> are
+	  linearly dependent.
+	</p>
+	</li>
+
+	<li><p>
+	  Since the columns of <m>A</m> are linearly independent,
+	  the only solution to the homogeneous equation
+	  <m>A\xvec=\zerovec</m> is <m>\xvec=\zerovec</m>.  Since
+	  that <m>A(B-C) = 0</m>, every column <m>\xvec</m> of
+	  <m>B-C</m> satisfies <m>A\xvec = \zerovec</m>.  Therefore,
+	  every column of <m>B-C</m> is the zero vector, which implies
+	  that <m>B=C</m>.
 	</p></li>
 
-	<li><p> We solve <m>P_{\bcal}\coords{\xvec}{\bcal} = \xvec</m>
-	to find <m>\coords{\xvec}{\bcal} = \threevec{15}{0}{0}</m>.
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> They are linearly dependent.
+	</p></li>
+
+	<li><p>
+	  The columns of <m>B</m> and <m>C</m> are all equal.
+	</p></li>
+      </ol></p>
+    </answer>
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Suppose that <m>k</m> is an unknown parameter and consider
+      the set of vectors
+      <me>
+	\vvec_1 = \threevec{2}{0}{1}, 
+	\vvec_2 = \threevec{4}{-2}{-1}, 
+	\vvec_3 = \threevec{0}{2}{k}
+      </me>.
+      <ol marker="a.">
+	<li><p> For what values of <m>k</m> is the set of vectors
+	linearly dependent? </p></li>
+
+	<li><p> For what values of <m>k</m> does the set of vectors
+	span <m>\real^3</m>? </p></li>
+      </ol></p>
+
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> We construct the matrix
+	<me>
+	  \left[\begin{array}{rrr}
+	  2 \amp 4 \amp 0 \\
+	  0 \amp -2 \amp 2 \\
+	  1 \amp -1 \amp k \\
+	  \end{array}\right]
+	  \sim
+	  \left[\begin{array}{rrr}
+	  1 \amp 2 \amp 0 \\
+	  0 \amp 1 \amp -1 \\
+	  0 \amp 0 \amp k-3 \\
+	  \end{array}\right]\text{.}
+	</me>
+	If the vectors are linearly dependent, we cannot have a
+	pivot position in the third column.  This means that
+	<m>k=3</m>.
+	</p></li>
+
+	<li><p>
+	  If the vectors span <m>\real^3</m>, there must be a pivot in
+	  the third row, which means that <m>k\neq 3</m>.
+	</p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> <m>k=3</m>. </p></li>
+	<li><p> <m>k\neq3</m>. </p></li>
+      </ol></p>
+    </answer>
+      
+  </exercise>
+  
+  <exercise>
+    <statement>
+      <p> Given a set of linearly dependent vectors, we can eliminate
+      some of the vectors to create a smaller, linearly independent set
+      of vectors.
+	<ol marker="a.">
+	  <li><p> Suppose that <m>\wvec</m> is a linear combination of
+	  the vectors <m>\vvec_1</m> and <m>\vvec_2</m>.
+	  Explain why
+	  <m>\laspan{\vvec_1,\vvec_2, \wvec} =
+	  \laspan{\vvec_1,\vvec_2}</m>.
+	  </p></li>
+
+	  <li><p> Consider the vectors
+	  <me>
+	    \vvec_1 = \threevec{2}{-1}{0},
+	    \vvec_2 = \threevec{1}{2}{1},
+	    \vvec_3 = \threevec{-2}{6}{2},
+	    \vvec_4 = \threevec{7}{-1}{1}
+	  </me>.
+	  Write one of the vectors as a linear combination of the
+	  others.  Find a set of three vectors whose span is the same
+	  as <m>\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4}</m>.
+	  </p></li>
+
+	  <li><p> Are the three vectors you are left with linearly
+	  independent?  If not, express one of the vectors as a linear
+	  combination of the others and find a set of two vectors
+	  whose span is the same as
+	  <m>\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4}</m>.
+	  </p></li>
+
+	  <li><p> Give a geometric description of
+	  <m>\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4}</m> in
+	  <m>\real^3</m> as we did in <xref ref="sec-span" />.
+	  </p></li>
+	</ol>
+      </p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p>
+	  If <m>\wvec</m> is a linear combination of <m>\vvec_1</m>
+	  and <m>\vvec_2</m>, then we can write
+	  <m>\wvec=a\vvec_1+b\vvec_2</m>.  Then any linear combination
+	  of <m>\vvec_1,\vvec_2,\wvec</m> can be rewritten as
+	  <me>
+	    c_1\vvec_1+c_2\vvec_2+c_3\wvec=(c_1+c_3a)\vvec_1 +
+	    (c_2+c_3b)\vvec_2\text{.}
+	  </me>
 	</p></li>
 
 	<li><p>
 	  We have
 	  <me>
-	    P_{\bcal}=
-	    \left[\begin{array}{rrr}
-	    1 \amp \frac{\sqrt{3}}{2} \amp \frac{1}{2} \\
-	    1 \amp 0 \amp -1 \\
-	    1 \amp -\frac{\sqrt{3}}{2} \amp \frac{1}{2}
-	    \end{array}\right],~~~
-	    P_{\bcal}^{-1}=
-	    \left[\begin{array}{rrr}
-	    \frac{1}{3} \amp \frac{1}{3} \amp \frac{1}{3} \\
-	    \frac{\sqrt{3}}{3} \amp 0 \amp -\frac{\sqrt{3}}{3} \\
-	    \frac{1}{3} \amp -\frac{2}{3} \amp \frac{1}{3}
-	    \end{array}\right]\text{.}
+	  \left[\begin{array}{rrrr}
+	  2 \amp 1 \amp -2 \amp 7 \\
+	  -1 \amp 2 \amp 6 \amp -1 \\
+	  0 \amp 1 \amp 2 \amp 1
+	  \end{array}\right]
+	  \sim
+	  \left[\begin{array}{rrrr}
+	  1 \amp 0 \amp -2 \amp 3 \\
+	  0 \amp 1 \amp 2 \amp 1 \\
+	  0 \amp 0 \amp 0 \amp 0
+	  \end{array}\right]\text{.}
 	  </me>
-	  Since we have
-	  <m>\coords{\xvec}{\bcal}=C_{\bcal}^{-1}\xvec</m>, we have
-	  <m>c_1=\frac13 x_1 + \frac13 x_2 + \frac13 x_3 =
-	  \frac13(x_1+x_2+x_3)
-	  </m>.
-	</p></li>
-      </ol></p>
-    </solution>
-	
-    <answer>
-      <p><ol marker="a.">
-	<li><p>
-	  The vectors
-	  are linearly independent and span <m>\real^3</m>.  
-	</p></li>
-
-	<li><p> <m>\coords{\xvec}{\bcal} = \threevec{15}{0}{0}</m>.
+	  This shows that <m>\vvec_3 = -2\vvec_1+2\vvec_2</m> and so
+	  <m>\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4} =
+	  \laspan{\vvec_1,\vvec_2,\vvec_4}</m>.
 	</p></li>
 
 	<li><p>
-	  Since we have
-	  <m>\coords{\xvec}{\bcal}=C_{\bcal}^{-1}\xvec</m>, we have
-	  <m>c_1=\frac13 x_1 + \frac13 x_2 + \frac13 x_3 =
-	  \frac13(x_1+x_2+x_3)
-	  </m>.
-	</p></li>
-      </ol></p>
-    </answer>
-	
-  </exercise>
-	
-  <exercise>
-    <statement>
-      <p>
-      Determine whether the following statements are true or false and
-      provide a justification for your response.
-      <ol marker="a.">
-	<li><p> If the columns of a matrix <m>A</m> form a basis for
-	<m>\real^m</m>, then <m>A</m> is invertible. </p></li>
-
-	<li><p> There must be 125 vectors in a basis for
-	<m>\real^{125}</m>. </p></li>
-
-	<li><p> If <m>\bcal=\{\vvec_1,\vvec_2,\ldots,\vvec_n\}</m> is
-	a basis of <m>\real^m</m>, then 
-	every vector in <m>\real^m</m> can be expressed as a linear
-	combination of basis vectors. </p></li>
-
-	<li><p> The coordinates <m>\coords{\xvec}{\bcal}</m> are the
-	weights that form <m>\xvec</m> as a linear combination of
-	basis vectors. </p></li>
-
-	<li><p> If the basis vectors form the columns of the matrix
-	<m>P_{\bcal}</m>, then <m>\coords{\xvec}{\bcal} =
-	P_{\bcal}\xvec</m>. </p></li>
-      </ol>
-      </p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p>
-	  True.  If the columns of <m>A</m> form a basis, then
-	  <m>A</m> has a pivot position in every row and every
-	  column.  Therefore, the reduced row echelon form of <m>A</m>
-	  is the identity matrix, which implies that <m>A</m> is
-	  invertible.
+	  The remaining three vectors are linearly dependent
+	  because <m>\vvec_4 = 3\vvec_1+\vvec_2</m>.  We therefore
+	  have 
+	  <m>\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4} =
+	  \laspan{\vvec_1,\vvec_2}</m>.
 	</p></li>
 
 	<li><p>
-	  True.  The number of vectors in a basis of <m>\real^m</m>
-	  must be <m>m</m>.
-	</p></li>
-
-	<li><p>
-	  True.  If <m>\bcal</m> is a basis, then the vectors in
-	  <m>\bcal</m> span <m>\real^m</m>, which means that every
-	  vector in <m>\real^m</m> can be written as a linear
-	  combination of the vectors in <m>\bcal</m>.
-	</p></li>
-
-	<li><p>
-	  True.  This is the definition of
-	  <m>\coords{\xvec}{\bcal}</m>.
-	</p></li>
-
-	<li><p>
-	  False.  The relationship is
-	  <m>\xvec=P_{\bcal}\coords{\xvec}{\bcal}</m>.
-	</p></li>
-
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> True </p></li>
-	<li><p> True </p></li>
-	<li><p> True </p></li>
-	<li><p> True </p></li>
-	<li><p> False </p></li>
-      </ol></p>
-    </answer>
-	  
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p>  Provide a justification for your response to each of the
-      following questions.
-      <ol marker="a.">
-	<li><p> Suppose you have <m>m</m> linearly independent
-	vectors in <m>\real^m</m>.  Can you guarantee that they form a
-	basis of <m>\real^m</m>? </p></li>
-
-	<li><p> If <m>A</m> is an invertible <m>m\times m</m> matrix,
-	do the columns necessarily form a basis of <m>\real^m</m>?
-	</p></li>
-
-	<li><p> Suppose we have an invertible <m>m\times m</m> matrix
-	<m>A</m>, and we perform a sequence of row operations on
-	<m>A</m> to form a matrix <m>B</m>.  Can you guarantee that
-	the columns of <m>B</m> form a basis for <m>\real^m</m>?
-	</p></li>
-
-	<li><p> Suppose you have a set of 10 vectors in
-	<m>\real^{10}</m> and that every vector in <m>\real^{10}</m>
-	can be written as a linear combination of these vectors.
-	Can you guarantee that this set of vectors
-	is a basis for <m>\real^{10}</m>?
-	</p></li>
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p>
-	  Yes.  A matrix formed from <m>m</m> linearly independent
-	  vectors in <m>\real^m</m> will have a pivot position in
-	  every column.  Since the matrix has the same number of rows
-	  and columns, there must also be a pivot position in every
-	  row.  This means that the vectors span <m>\real^m</m> and
-	  therefore form a basis.
-	</p></li>
-
-	<li><p>
-	  Yes.  An invertible matrix is row
-	  equivalent to the identity 
-	  matrix, which means that the columns are linearly
-	  independent and span <m>\real^m</m>.  This implies that the
-	  columns form a basis of <m>\real^m</m>.
-	</p></li>
-
-	<li><p>
-	  Yes.  The matrix <m>A</m> is row equivalent to the identity
-	  matrix 
-	  so <m>B</m> must be as well.  This means that the columns of
-	  <m>B</m> form a basis for <m>\real^m</m>.
-	</p></li>
-
-	<li><p> Yes.  The span of the set of vectors is
-	<m>\real^{10}</m>, which says that the associated matrix is
-	square and has a pivot position in every row. Therefore, it
-	must have a pivot position in every column, which means that
-	the set of vectors forms a basis for <m>\real^{10}</m>.
+	  The vectors <m>\vvec_1</m> and <m>\vvec_2</m> are linearly
+	  independent so their span is a plane in <m>\real^3</m>.
 	</p></li>
       </ol></p>
     </solution>
 
     <answer>
       <p><ol marker="a.">
-	<li><p> Yes </p></li>
-	<li><p> Yes </p></li>
-	<li><p> Yes </p></li>
-	<li><p> Yes </p></li>
-      </ol></p>
-    </answer>
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Crystallographers find it convenient to use coordinate
-      systems that are adapted to the specific geometry of a crystal.
-      As a two-dimensional example, consider a layer of
-      graphite in which carbon atoms are arranged in regular hexagons
-      to form the crystalline structure shown in <xref
-      ref="fig-ex-graphite" />.
-      </p>
-
-      <figure xml:id="fig-ex-graphite">
-	<sidebyside width="50%">
-	  <image source="images/ex-graphite" />
-	</sidebyside>
-	<caption>
-	  A layer of carbon atoms in a graphite crystal.
-	</caption>
-      </figure>
-
-      <p> The origin of the coordinate system is at the carbon atom
-      labeled by <q>0</q>.  It is convenient to choose the basis
-      <m>\bcal</m> defined by the vectors <m>\vvec_1</m> and
-      <m>\vvec_2</m> and the coordinate system it defines.
-      </p>
-
-      <p><ol marker="a.">
-	<li><p> Locate the points <m>\xvec</m> for which
-	<ol marker="i.">
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{1}{0}</m>, </p></li>
-	  <li><p> <m>\coords{\xvec}{\bcal} = \twovec{0}{1}</m>, </p></li>
-	  <li><p> <m>\coords{\xvec}{\bcal} =
-	  \twovec{2}{1}</m>. </p></li>
-	</ol>
+	<li><p> Any linear combination of <m>\vvec_1</m>,
+	<m>\vvec_2</m>, and <m>\wvec</m> can be rewritten as a linear
+	combination of <m>\vvec_1</m> and <m>\vvec_2</m>.
 	</p></li>
 
-	<li><p> Find the coordinates <m>\coords{\xvec}{\bcal}</m> for
-	all the carbon atoms in the hexagon whose lower left vertex is
-	labeled <q>0</q>. </p></li>
-
-	<li><p> What are the coordinates <m>\coords{\xvec}{\bcal}</m>
-	of the center of that hexagon, which is labeled <q>C</q>? </p></li>
-
-	<li><p> How do the coordinates of the atoms in the hexagon
-	whose lower left corner is labeled <q>1</q> compare to the
-	coordinates in the hexagon whose lower left corner is labeled
-	"0"? </p></li>
-
-	<li><p> Does the point <m>\xvec</m> whose coordinates are
-	<m>\coords{\xvec}{\bcal} = \twovec{16}{4}</m> correspond to a
-	carbon atom or the center of a hexagon? </p></li>
-	</ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li>
-	  <p>
-	    The points are indicated in <xref
-	    ref="fig-ex-graphite-sol"/>.
-	  </p>
-	  <figure xml:id="fig-ex-graphite-sol">
-	    <caption>
-	      The points requested in part a of this exercise.
-	    </caption>
-	    <sidebyside width="50%">
-	      <image source="images/ex-graphite-sol" />
-	    </sidebyside>
-	  </figure>
-	</li>
-	  
-	<li><p> Moving counterclockwise around the hexagon, the
-	coordinates are
-	<me>\coords{\xvec}{\bcal} = 
-	\twovec{0}{0}, \twovec{1}{0}, \twovec{2}{1}, \twovec{2}{2},
-	\twovec{1}{2}, \twovec{0}{1}\text{.}
-	</me>
-	</p></li>
-
-	<li><p> <m>\coords{\xvec}{\bcal} = \twovec{1}{1}</m>.
-	</p></li>
-
-	<li><p> We obtain the coordinates for the hexagon with the
-	vertex labeled <q>1</q> by adding the coordinate expression of
-	the point <q>1</q>, which is
-	<m>\coords{\xvec}{\bcal}=\twovec{4}{2}</m> to those of the
-	original hexagon.
-	</p></li>
-
-	<li><p> It is the center of a hexagon.  Adding or subtracting
-	<m>\twovec{3}{0}</m> to the coordinates translates one hexagon to
-	another.  This means that <m>\coords{\xvec}{\bcal} =
-	\twovec{16}{4}</m> can be translated to <m>\coords{\xvec}{\bcal} =
-	\twovec{1}{4}</m>, which is the center of a hexagon.
-	</p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
 	<li><p>
-	  The points are indicated in the figure.
-	  <sidebyside width="50%">
-	    <image source="images/ex-graphite-sol" />
-	  </sidebyside>
+	  <m>\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4} =
+	  \laspan{\vvec_1,\vvec_2,\vvec_4}</m>.
 	</p></li>
 
-	<li><p> <m>\coords{\xvec}{\bcal} = 
-	\twovec{0}{0}, \twovec{1}{0}, \twovec{2}{1}, \twovec{2}{2},
-	\twovec{1}{2}, \twovec{0}{1}
-	</m>.
+	<li><p>
+	  <m>\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4} =
+	  \laspan{\vvec_1,\vvec_2}</m>.
 	</p></li>
 
-	<li><p> <m>\coords{\xvec}{\bcal} = \twovec{1}{1}</m>.
-	</p></li>
-
-	<li><p> The coordinates differ by 
-	<m>\twovec{4}{2}</m>
-	</p></li>
-
-	<li><p> It is the center of a hexagon. 
+	<li><p>
+	  It is a plane in <m>\real^3</m>.
 	</p></li>
       </ol></p>
     </answer>
-	
+
   </exercise>
 
-  <exercise>
-    <statement>
-      <p> Suppose that <m>A=\left[\begin{array}{rr} 2 \amp 1 \\ 1\amp
-      2 \\ \end{array}\right]</m> and
-      <me>
-	\vvec_1=\twovec{1}{1},~~~
-	\vvec_2=\twovec{1}{-1}
-      </me>.
-      <ol marker="a.">
-	<li><p> Explain why <m>\bcal=\{\vvec_1,\vvec_2\}</m> is a
-	basis for <m>\real^2</m>. </p></li>
-
-	<li><p> Find <m>A\vvec_1</m> and <m>A\vvec_2</m>. </p></li>
-
-	<li><p> Use what you found in the previous part of this
-	problem to find <m>\coords{A\vvec_1}{\bcal}</m> and
-	<m>\coords{A\vvec_2}{\bcal}</m>.  </p> </li>
-
-	<li><p> If <m>\coords{\xvec}{\bcal} = \twovec{1}{-5}</m>, find
-	<m>\coords{A\xvec}{\bcal} </m>. </p></li>
-
-	<li><p> Find a matrix <m>D</m> such that 
-	<m>\coords{A\xvec}{\bcal} =
-	D\coords{\xvec}{\bcal}</m>. </p></li>
-      </ol>
-
-	You should find that the matrix <m>D</m> is a very simple
-	matrix, which means that this basis <m>\bcal</m> is well
-	suited to study the effect of multiplication by <m>A</m>.
-	This observation is the central idea of the next chapter.
-      </p>
-    </statement>
-      
-  <solution>
-    <p><ol marker="a.">
-      <li><p> The vectors are linearly independent and span
-      <m>\real^2</m>.
-      </p></li>
-
-      <li><p> We compute that <m>A\vvec_1 = 3\vvec_1</m> and
-      <m>A\vvec_2=\vvec_2</m>.
-      </p></li>
-
-      <li><p> <m>\coords{A\vvec_1}{\bcal} = \twovec{3}{0}</m> and 
-      <m>\coords{A\vvec_2}{\bcal} = \twovec{0}{1}</m>.
-      </p></li>
-
-      <li><p> We know that <m>\xvec = \vvec_1-5\vvec_2</m>, which
-      means that <m>A\xvec = 3\vvec_1-5\vvec_2</m>.  Therefore,
-      <m>\coords{A\xvec}{\bcal}=\twovec{3}{-5}</m>.
-      </p></li>
-
-      <li><p> If <m>\coords{\xvec}{\bcal} = \twovec{c_1}{c_2}</m>,
-      then <m>\xvec=c_1\vvec_1+c_2\vvec_2</m> and
-      <m>A\xvec=3c_1\vvec_1+c_2\vvec_2</m>.  Therefore,
-      <m>D\twovec{c_1}{c_2} = \twovec{3c_1}{c_2}</m>, which says that
-      <m>D=
-      \left[\begin{array}{rr}
-      3 \amp 0 \\
-      0 \amp 1 \\
-      \end{array}\right]
-      </m>.
-      </p></li>
-    </ol></p>
-  </solution>
-      
-  <answer>
-    <p><ol marker="a.">
-      <li><p> The vectors are linearly independent and span
-      <m>\real^2</m>.
-      </p></li>
-
-      <li><p> <m>A\vvec_1 = 3\vvec_1</m> and
-      <m>A\vvec_2=\vvec_2</m>.
-      </p></li>
-
-      <li><p> <m>\coords{A\vvec_1}{\bcal} = \twovec{3}{0}</m> and 
-      <m>\coords{A\vvec_2}{\bcal} = \twovec{0}{1}</m>.
-      </p></li>
-
-      <li><p> 
-      <m>\coords{A\xvec}{\bcal}=\twovec{3}{-5}</m>.
-      </p></li>
-
-      <li><p> 
-      <m>D=
-      \left[\begin{array}{rr}
-      3 \amp 0 \\
-      0 \amp 1 \\
-      \end{array}\right]
-      </m>.
-      </p></li>
-    </ol></p>
-  </answer>
-  </exercise>
-      
 </exercises>
+  

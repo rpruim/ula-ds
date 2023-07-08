@@ -116,7 +116,7 @@
 	    \end{array}
 	    \right];
       \qquad 
-      b = 
+      \bvec = 
       \left[
 	    \begin{array}{r}
 	     -1 \\
@@ -267,7 +267,23 @@
       </me>
     </p>
 
-    <exploration>
+	<p>
+		In other words, 
+		<ul>
+			<li>
+				<p>
+		scalar multiplication with a matrix multiplies every element of the matrix by the scalar, and
+				</p>
+			</li>
+			<li>
+				<p>
+		two matrices of the same shape can be added componentwise.
+				</p>
+				</li>
+		</ul>
+	</p>
+
+    <exploration xml:id="expl-simple-matrix-operations">
       <title> Matrix operations </title>
       <statement><p>
       <ol marker="a.">
@@ -304,7 +320,8 @@
 
 	<li> <p> Suppose that <m>A</m> and <m>B</m> are two matrices.
 	What do we need to know about their shapes before we can
-	form the sum <m>A+B</m>? </p></li>
+	form the sum <m>A+B</m>? In this situation, is it always the case  
+	that $A+B = B+A$?</p></li>
 
 	<li> 
 	<p> The matrix <m>I_n</m>, which we call the 
@@ -372,6 +389,8 @@
 
 	  <li><p>
 	    The shape of <m>A</m> must be <m>n\times n</m>.
+		In this case <m>A+B</m> and <m>B+A</m> will be the same because for any numbers <m>a</m> and <m>b</m>,
+		<m> a+b = b+a</m>, so we get the same result for each element of the sum matrices.
 	  </p></li>
 
 	  <li><p>
@@ -406,7 +425,7 @@
 	  </p></li>
 
 	  <li><p>
-	    The shapes must be the same.
+	    The shapes must be the same and both sums will also be the same.
 	  </p></li>
 
 	  <li><p>
@@ -779,11 +798,384 @@
     <p>
       You are encouraged to evaluate the product <xref
       ref="li-example-product" /> of the previous activity
-      using this shortcut and compare the result to what you found
+      using this new method and compare the result to what you found
       while completing that activity.
     </p>
 
-	<section xml:id="sec-matrices-in-python">
+	</subsection>
+
+	<subsection>
+    <title> Matrix-vector multiplication and linear systems </title>
+
+    <p>
+		The connections among matrix-vector multiplication, linear combinations  
+		of vectors, and linear systems of equations are so important that they are 
+		worth repeating.
+      So far, we have begun
+      with a matrix <m>A</m> and a vector <m>\xvec</m> and formed
+      their product <m>A\xvec = \bvec</m>.  We would now like to turn
+      this around:  Suppose we know <m>A</m> and <m>\bvec</m> but don't know
+	  <m>\xvec</m>, can find a vector <m>\xvec</m> such
+      that <m>A\xvec = \bvec</m>?  This questions will naturally lead back to
+      linear systems.
+    </p>
+
+    <p>
+      To see the connection between the matrix equation <m>A\xvec =
+      \bvec</m> and linear systems, let's write the matrix <m>A</m> in
+      terms of its columns <m>\vvec_i</m> and <m>\xvec</m> in terms of
+      its components.
+      <me>
+	A = \left[
+	\begin{array}{rrrr}
+	\vvec_1 \amp \vvec_2 \amp \ldots \vvec_n
+	\end{array}
+	\right],
+	\xvec = \left[
+	\begin{array}{c}
+	c_1 \\ c_2 \\ \vdots \\ c_n \\
+	\end{array}
+	\right]
+      </me>.
+    </p>
+
+    <p>
+      We know that the matrix product <m>A\xvec</m> forms a linear
+      combination of the columns of <m>A</m>.  Therefore, the equation
+      <m>A\xvec = \bvec</m> is merely a compact way of writing the
+      equation for the weights <m>c_i</m>:
+      <me>
+	c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n = \bvec
+      </me>.
+      We have seen this equation before:  Remember that
+      <xref ref="prop-system-comb" /> says that the solutions of this
+      equation are the same as the solutions to the linear system
+      whose augmented matrix is
+      <me>
+	\left[\begin{array}{rrrr|r}
+	\vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_n \amp \bvec
+	\end{array}\right]
+      </me>.
+    </p>
+
+    <p>
+      This gives us three different ways of looking at the situation.
+    </p>
+
+    <proposition xml:id="prop-matrix-eq-solution">
+      <statement>
+	<p> If <m>A=\left[\begin{array}{rrrr}
+	\vvec_1\amp\vvec_2\amp\ldots\vvec_n
+	\end{array}\right]</m> and <m>\xvec=\left[
+	\begin{array}{c}
+	x_1 \\ x_2 \\ \vdots \\ x_n \\
+	\end{array}\right]
+	</m>, then the following statements are equivalent.
+	<ul>
+	  <li> <p> <m>A\xvec = \bvec </m>. </p></li> 
+
+	  <li> <p> The vector <m>\bvec</m> is a linear combination of
+	  the columns of <m>A</m> with weights <m>x_j</m>:
+	    <me>
+	      x_1\vvec_1 + x_2\vvec_2 + \ldots + x_n\vvec_n = \bvec
+	  </me>. </p></li>
+
+	  <li> <p> The components of <m>\xvec</m> form a solution to
+	  the linear system corresponding to the augmented matrix
+	    <me>
+	    \left[\begin{array}{rrrr|r}
+	    \vvec_1 \amp \vvec_2 \amp \cdots \amp \vvec_n \amp \bvec
+	    \end{array}\right]\text{.}
+	    </me>
+	  </p></li>
+	</ul>
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      When the matrix <m>A = \left[\begin{array}{rrrr}
+      \vvec_1\amp\vvec_2\amp\cdots\amp\vvec_n\end{array}\right]</m>,
+      we will frequently write
+      <me>
+	\left[\begin{array}{rrrr|r}
+	\vvec_1\amp\vvec_2\amp\cdots\amp\vvec_n\amp\bvec\end{array}\right]
+	= \left[ \begin{array}{r|r} A \amp \bvec \end{array}\right]
+      </me>
+      and say that the matrix <m>A</m> is augmented by the
+      vector <m>\bvec</m>.
+    </p>
+
+    <p>
+      The equation <m>A\xvec = \bvec</m> gives a notationally compact
+      way to write a linear system.  Moreover, this notation will
+      allow us to focus on important features of the system that
+      determine its solution space.
+    </p>
+
+    <!-- <example>
+      <statement>
+	<p> We will describe the solution space of the equation
+	<me>
+	  \left[\begin{array}{rrr}
+	  2 \amp 0 \amp 2 \\
+	  4 \amp -1 \amp 6 \\
+	  1 \amp 3 \amp -5 \\
+	  \end{array}\right]
+	  \xvec
+	  =
+	  \left[\begin{array}{r}
+	  0 \\ -5 \\ 15
+	  \end{array}\right].
+	</me>
+	</p>
+
+	<p>
+	  By <xref ref="prop-matrix-eq-solution" />, this equation may
+	  be equivalently expressed as 
+	  <me>
+	    x_1\left[\begin{array}{r}2\\4\\1\end{array}\right] +
+	    x_2\left[\begin{array}{r}0\\-1\\3\end{array}\right]+
+	    x_3\left[\begin{array}{r}2\\6\\-5\end{array}\right]=
+	    \left[\begin{array}{r}0\\-5\\15\end{array}\right]
+	  </me>,
+	  which is the linear system corresponding to the augmented matrix
+	  <me>
+	    \left[\begin{array}{rrr|r}
+	    2 \amp 0 \amp 2 \amp 0 \\
+	    4 \amp -1 \amp 6 \amp -5 \\
+	    1 \amp 3 \amp -5 \amp 15 \\
+	    \end{array} \right]
+	  </me>.
+	  The reduced row echelon form of the augmented
+	  matrix is
+	  <me>
+	    \left[\begin{array}{rrr|r}
+	    2 \amp 0 \amp 2 \amp 0 \\
+	    4 \amp -1 \amp 6 \amp -5 \\
+	    1 \amp 3 \amp -5 \amp 15 \\
+	    \end{array} \right]
+	    \sim
+	    \left[\begin{array}{rrr|r}
+	    1 \amp 0 \amp 1 \amp 0 \\
+	    0 \amp 1 \amp -2 \amp 5 \\
+	    0 \amp 0 \amp 0 \amp 0 \\
+	    \end{array} \right],
+	  </me>
+	  which corresponds to the linear system
+	  <me>
+	    \begin{alignedat}{4}
+	    x_1 \amp \amp \amp {}+{} \amp x_3 \amp {}={} \amp 0 \\
+	    \amp \amp x_2 \amp {}-{} \amp 2x_3 \amp {}={} \amp 5. \\
+	    \end{alignedat}
+	  </me>
+	  The variable <m>x_3</m> is free so we may write the solution
+	  space parametrically as
+	  <me>
+	    \begin{aligned}
+	    x_1 \amp {}={} -x_3 \\
+	    x_2 \amp {}={} 5+2x_3. \\
+	    \end{aligned}
+	  </me>
+	</p>
+
+	<p>
+	  Since we originally asked to describe the solutions to
+	  the equation <m>A\xvec = \bvec</m>, we will express the
+	  solution in terms of the vector <m>\xvec</m>:
+	  <me>
+	    \xvec
+	    =\left[
+	    \begin{array}{r}
+	    x_1 \\ x_2 \\ x_3
+	    \end{array}
+	    \right]
+	    =
+	    \left[
+	    \begin{array}{r}
+	    -x_3 \\ 5 + 2x_3 \\ x_3
+	    \end{array}
+	    \right]
+	    =\left[\begin{array}{r}0\\5\\0\end{array}\right]
+	    +x_3\left[\begin{array}{r}-1\\2\\1\end{array}\right]
+	  </me>
+	  As before, we call this a parametric description of the
+	  solution space.
+	</p>
+	<p>
+	  This shows that the solutions <m>\xvec</m> may be written in
+	  the form <m>\vvec + x_3\wvec</m>, for appropriate vectors
+	  <m>\vvec</m> and <m>\wvec</m>.  Geometrically, the solution
+	  space is a line in <m>\real^3</m> through <m>\vvec</m>
+	  moving parallel to <m>\wvec</m>.
+	</p>
+	  
+	</statement>
+    </example>
+
+    <activity>
+      <title> The equation <m>A\xvec = \bvec</m> </title>
+      <statement><p>
+      <ol marker="a.">
+	<li> <p> Consider the linear system
+	<me>
+	  \begin{alignedat}{4}
+	  2x \amp {}+{} \amp y \amp {}-{} \amp 3z \amp {}={} \amp 4 \\
+	  -x \amp {}+{} \amp 2y \amp {}+{} \amp z \amp {}={} \amp 3 \\
+	  3x \amp {}-{} \amp y \amp \amp \amp {}={} \amp -4. \\
+	  \end{alignedat}
+	</me>
+	Identify the matrix <m>A</m> and vector <m>\bvec</m> to
+	express this system in the form <m>A\xvec = \bvec</m>.
+	</p></li>
+
+	<li> <p> If <m>A</m> and <m>\bvec</m> are as below, write the
+	linear system corresponding to the equation
+	<m>A\xvec=\bvec</m> and describe its solution space, using a
+	parametric description if appropriate:
+	<me>
+	  A = \left[\begin{array}{rrr}
+	  3 \amp -1 \amp 0 \\
+	  -2 \amp 0 \amp 6
+	  \end{array}
+	  \right],~~~
+	  \bvec = \left[\begin{array}{r}
+	  -6 \\ 2
+	  \end{array}
+	  \right].
+	</me>
+	<sage>
+	  <input>
+	  </input>
+	</sage>
+	</p></li>
+
+	<li><p>
+	  Describe the solution space of the equation
+	  <me>
+	    \left[
+	    \begin{array}{rrrr}
+	    1 \amp 2 \amp 0 \amp -1 \\
+	    2 \amp 4 \amp -3 \amp -2 \\
+	    -1 \amp -2 \amp 6 \amp 1 \\
+	    \end{array}
+	    \right]
+	    \xvec
+	    = 
+	    \left[\begin{array}{r}
+	    -1 \\ 1 \\ 5
+	    \end{array}
+	    \right]
+	  </me>.
+	  <sage>
+	    <input>
+	    </input>
+	  </sage>
+	</p></li>
+
+	<li><p> Suppose <m>A</m> is an <m>m\times n</m> matrix.  What
+	can you guarantee about the solution space of the equation <m>A\xvec
+	= \zerovec</m>?  </p></li>
+      </ol>
+      </p></statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p>
+	    <m>A = \left[\begin{array}{rrr}
+	    2 \amp 1 \amp -3 \\
+	    -1 \amp 2 \amp 1 \\
+	    3 \amp -1 \amp 0 \\
+	    \end{array}\right]
+	    </m>
+	    and <m>\bvec=\threevec{4}{3}{-4}</m>.
+	  </p></li>
+
+	  <li><p>
+	    Form the augmented matrix
+	    <me>
+	      \left[\begin{array}{rrrr}
+	      3 \amp -1 \amp 0 \amp -6 \\
+	      -2 \amp 0 \amp 6 \amp 2
+	      \end{array}\right]
+	      \sim
+	      \left[\begin{array}{rrrr}
+	      1 \amp 0 \amp -3 \amp -1 \\
+	      0 \amp 1 \amp -9 \amp 3
+	      \end{array}\right]
+	    </me>
+	    so that
+	    <me>
+	      \xvec = \threevec{x_1}{x_2}{x_3} =
+	      \threevec{-1+3x_3}{3+9x_3}{x_3} =
+	      \threevec{-1}{3}{0}+x_3\threevec{3}{9}{1}\text{.}
+	    </me>
+	  </p></li>
+
+	  <li><p>
+	    We have the augmented matrix
+	    <me>
+	      \left[\begin{array}{rrrrr}
+	      1 \amp 2 \amp 0 \amp -1 \amp -1 \\
+	      2 \amp 4 \amp -3 \amp -2 \amp 1 \\
+	      -1 \amp -2 \amp 6 \amp 1 \amp 5
+	      \end{array}\right]
+	      \sim
+	      \left[\begin{array}{rrrrr}
+	      1 \amp 2 \amp 0 \amp -1 \amp 0 \\
+	      0 \amp 0 \amp 1 \amp 0 \amp 0 \\
+	      0 \amp 0 \amp 0 \amp 0 \amp 1
+	      \end{array}\right]\text{.}
+	    </me>
+	    Since this system is inconsistent, there are no solutions
+	    to the matrix equation.
+	  </p></li>
+
+	  <li><p>
+	    We know that there is at least one solution, namely,
+	    <m>\xvec=\zerovec</m>.
+	  </p></li>
+
+	</ol></p>
+      </solution>
+
+      <answer>
+	<p><ol marker="a.">
+	  <li><p>
+	    <m>A = \left[\begin{array}{rrr}
+	    2 \amp 1 \amp -3 \\
+	    -1 \amp 2 \amp 1 \\
+	    3 \amp -1 \amp 0 \\
+	    \end{array}\right]
+	    </m>
+	    and <m>\bvec=\threevec{4}{3}{-4}</m>.
+	  </p></li>
+
+	  <li><p>
+	    <m>
+	      \xvec = \threevec{x_1}{x_2}{x_3} =
+	      \threevec{-1}{3}{0}+x_3\threevec{3}{9}{1}\text{.}
+	    </m>
+	  </p></li>
+
+	  <li><p>
+	    There are no solutions.
+	  </p></li>
+
+	  <li><p>
+	    There is at least one solution, namely,
+	    <m>\xvec=\zerovec</m>.
+	  </p></li>
+
+	</ol></p>
+      </answer>
+
+    </activity> 
+	-->
+  </subsection>
+
+
+	<subsection xml:id="sec-matrices-in-python">
 		<title>Matrices in Python</title>
 
 <!-- 
@@ -889,7 +1281,6 @@
 	  see.</p>
 
 	</note>
-	</section>
 
     <activity>
       <statement>
@@ -1072,14 +1463,16 @@ A = np.arry([[ 1, 2, -1, 0],
              [-3, 0,  4, 3 ])
 	</cd>
 	</p></li>
-	<li> <p> Print your original matrix to check that you have
-	entered it correctly.  You may want to also print a dividing
-	line to separate matrices.
+	<li> <p>For small matrices, you can print your original matrix to check that you have
+	entered it correctly.  For larger matrices, you should at least confirm that that shape 
+	matches your expectation.
+	You may want to also print labels or to include a dividing line to separate different 
+	parts of your output.
 	<cd>
 A = np.array([ 1, 2, 2, 2])
 print (A)
 print ("---------")
-sp.Matrix(A).rref()
+print("shape of A =", A.shape)
 	</cd>
       </p>
 	</li>
@@ -1530,7 +1923,7 @@ A*B
 	  -2 \amp 1 \amp 2 \\
 	  1 \amp 4 \amp 5 \\
 	  2 \amp 5 \amp 3 \\
-	  \end{array}\right], \qquad
+	  \end{array}\right], \quad
 	\left[\begin{array}{rrr}
 	  0 \amp 2 \amp 0 \\
 	  2 \amp 4 \amp 0 \\
@@ -1584,6 +1977,7 @@ A*B
 		interchangeably.
 	</p>	
   </subsection>
+
   <subsection>
     <title>
       Summary
@@ -1618,8 +2012,7 @@ A*B
 
   </subsection>
 
-
-  <xi:include href="exercises/exercises0-3.ptx" /> 
+  <xi:include href="exercises/exercises1-4.ptx" /> 
   
 </section>
 

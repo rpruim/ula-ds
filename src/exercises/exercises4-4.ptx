@@ -4,770 +4,436 @@
 
   <exercise>
     <statement>
-      <p> For each of the <m>2\times2</m> matrices below, find
-      the eigenvalues and, when appropriate, the eigenvectors to
-      classify the dynamical system
-      <m>\xvec_{k+1}=A\xvec_k</m>.  Use this information to sketch the
-      phase portraits.
+      <p> Consider the vector
+      <m>\xvec=\left[\begin{array}{r}
+      103 \\ 94 \\ 91 \\ 92 \\ 103 \\ 105 \\ 105 \\ 108
+      \end{array}\right]
+      </m>.
       <ol marker="a.">
-	<li><p>
-	  <m>A = \left[\begin{array}{rr}
-	  3\amp 1 \\
-	  1 \amp 3 \\
-	  \end{array}\right]</m>.
+	<li><p> In the Sage cell below is a copy of the change of
+	basis matrices that define the Fourier transform.  Find the
+	Fourier coefficients of <m>\xvec</m>.
+	<sage>
+	  <input>
+mat = [[cos((2*i+1)*j*pi/16) for j in range(8)] for i in range(8)]
+P = matrix(mat).numerical_approx()
+Pinv = P.inverse()	
+print (Pinv.numerical_approx(digits=3))	    
+	  </input>
+	</sage>
 	</p></li>
 
-	<li><p>
-	  <m>A = \left[\begin{array}{rr}
-	  3\amp -2 \\
-	  4 \amp -1 \\
-	  \end{array}\right]</m>.
+	<li><p> We will now form the vector <m>\yvec</m>, which is an
+	approximation of <m>\xvec</m> by rounding all the
+	Fourier coefficients of <m>\xvec</m> to the nearest integer to
+	obtain <m>\coords{\yvec}{\ccal}</m>.  Now find
+	the vector <m>\yvec</m> and compare this approximation to
+	<m>\xvec</m>.  What is the error in this approximation?
 	</p></li>
 
-	<li><p>
-	  <m>A = \left[\begin{array}{rr}
-	  1.9 \amp 1.4 \\
-	  -0.7 \amp -0.2 \\
-	  \end{array}\right]</m>.
-	</p></li>
-
-	<li><p>
-	  <m>A = \left[\begin{array}{rr}
-	  1.1 \amp -0.2 \\
-	  0.4 \amp 0.5 \\
-	  \end{array}\right]</m>.
-	</p></li>
-
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> There are two real eigenvalues <m>\lambda_1=4</m> and
-	<m>\lambda_2=2</m> with associated eigenvectors
-	<m>\vvec_1=\twovec11</m> and <m>\vvec=\twovec{-1}{1}</m>.  
-	This dynamical system is a repellor so trajectories are
-	pushed away from the origin.
-	<sidebyside width="90%">
-	  <image source="images/ex-dynam-sol-a" />
-	</sidebyside>
-	</p></li>
-
-	<li><p> This is a spiral repellor because there are complex
-	eigenvalues <m>1\pm 2i</m> whose length is greater
-	than one.  Trajectories will spiral away from the
-	origin.
-	<sidebyside width="90%">
-	  <image source="images/eigen-phase-spiralr" />
-	</sidebyside>
-	</p></li>
-
-	<li><p> This is a saddle because there are two real
-	eigenvalues <m>\lambda_1=1.2</m> and <m>\lambda_2=0.5</m> with
-	associated eigenvectors <m>\vvec_1=\twovec{-2}1</m> and
-	<m>\vvec_2=\twovec{-1}1</m>. 
-	Most trajectories will move away from the origin along the
-	line defined
-	by the eigenvector <m>\vvec_1</m>.
-	<sidebyside width="90%">
-	  <image source="images/ex-dynam-sol-c" />
-	</sidebyside>
-	</p></li>
-
-	<li><p> This is an attractor because there are two real
-	eigenvalues <m>0.9</m> and <m>0.7</m> with associated
-	eigenvectors <m>\vvec_1=\twovec11</m> and
-	<m>\vvec_2=\twovec12</m>. 
-	Trajectories will be pulled in toward the origin.
-	<sidebyside width="90%">
-	  <image source="images/ex-dynam-sol-d" />
-	</sidebyside>
-	</p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> Repellor </p></li>
-	<li><p> Spiral repellor </p></li>
-	<li><p> Saddle </p></li>
-	<li><p> Attractor </p></li>
-      </ol></p>
-    </answer>
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> We will consider matrices that have the form
-      <m>A=PDP^{-1}</m> where
-      <me>
-	D = \mattwo p00{\frac12},
-	P = \mattwo 2{-2}11
-      </me>
-      where <m>p</m> is a parameter that we will vary.
-      Sketch phase portraits for <m>D</m> and <m>A</m> below when
-      <ol marker="a.">
-	<li><p> <m>p=\frac12</m>. 
-	  <sidebyside width="90%">
-	    <image source="images/ex-phase-parameter" />
-	  </sidebyside>
-	</p></li>
-
-	<li><p> <m>p=1</m>. 
-	  <sidebyside width="90%">
-	    <image source="images/ex-phase-parameter" />
-	  </sidebyside>
-	</p></li>
-
-	<li><p> <m>p=2</m>. 
-	  <sidebyside width="90%">
-	    <image source="images/ex-phase-parameter" />
-	  </sidebyside>
-	</p></li>
-
-	<li><p> For the different values of <m>p</m>, determine which
-	types of dynamical system results.  For what range of <m>p</m>
-	values do we have an attractor?  For what range of <m>p</m>
-	values do we have a saddle?  For what value does the
-	transition between the two types occur?
-
-	</p></li>
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p> The phase portraits are as shown.
-	<ol marker="a.">
-	<li><p> When <m>p=\frac12</m>.
-	  <sidebyside width="90%">
-	    <image source="images/ex-phase-param-a" />
-	  </sidebyside>
-	</p></li>
-	
-	<li><p> When <m>p=1</m>.
-	  <sidebyside width="90%">
-	    <image source="images/ex-phase-param-b" />
-	  </sidebyside>
-	</p></li>
-	
-	<li><p> When <m>p=2</m>.
-	  <sidebyside width="90%">
-	    <image source="images/ex-phase-param-c" />
-	  </sidebyside>
-	</p></li>
-
-	<li><p> If <m>p\lt1</m>, we have an attractor.  If
-	<m>p\gt1</m>, we have a saddle.  The transition between the
-	two types occurs at <m>p=1</m>.
-	</p></li>
-      </ol></p>
-    </solution>
-	
-    <answer>
-      <p> The phase portraits are as shown.
-	<ol marker="a.">
-	<li><p> When <m>p=\frac12</m>.
-	  <sidebyside width="90%">
-	    <image source="images/ex-phase-param-a" />
-	  </sidebyside>
-	</p></li>
-	
-	<li><p> When <m>p=1</m>.
-	  <sidebyside width="90%">
-	    <image source="images/ex-phase-param-b" />
-	  </sidebyside>
-	</p></li>
-	
-	<li><p> When <m>p=2</m>.
-	  <sidebyside width="90%">
-	    <image source="images/ex-phase-param-c" />
-	  </sidebyside>
-	</p></li>
-
-	<li><p> If <m>p\lt1</m>, we have an attractor.  If
-	<m>p\gt1</m>, we have a saddle.  The transition between the
-	two types occurs at <m>p=1</m>.
-	</p></li>
-      </ol></p>
-    </answer>
-	
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Suppose that the populations of two species interact
-      according to the relationships
-      <me>
-	\begin{aligned}
-	R_{k+1} \amp {}={} \frac12 R_k + \frac12S_k \\
-	S_{k+1} \amp {}={} -pR_k + 2S_k \\
-	\end{aligned}
-      </me>
-      where <m>p</m> is a parameter.  As we saw in the text, this
-      dynamical system represents a typical predator-prey
-      relationship, and the parameter <m>p</m> represents the rate at
-      which species <m>R</m> preys on <m>S</m>.  We will denote the
-      matrix <m>A=\mattwo{\frac12}{\frac12}{-p}2</m>. 
-      <ol marker="a.">
-	<li><p> If <m>p = 0</m>, determine the eigenvectors and
-	eigenvalues of the system and classify it as one of the six
-	types.  Sketch the phase portraits for the diagonal matrix
-	<m>D</m> to which <m>A</m> is similar as well as the phase
-	portrait for <m>A</m>.
-	<sidebyside width="90%">
-	  <image source="images/ex-predator-prey-empty" />
-	</sidebyside>
-	</p></li>
-
-	<li><p> If <m>p=1</m>, determine the eigenvectors and
-	eigenvalues of the system.  Sketch the phase portraits for the
-	diagonal matrix <m>D</m> to which <m>A</m> is similar as well
-	as the phase portrait for <m>A</m>.
-	<sidebyside width="90%">
-	  <image source="images/ex-predator-prey-empty" />
-	</sidebyside>
-	</p></li>
-
-	<li><p> For what values of <m>p</m> is the origin a saddle?
-	What can you say about the populations when this happens?
-	</p></li>
-
-	<li><p> Describe the evolution of the dynamical system as
-	<m>p</m> begins at <m>0</m> and increases to <m>p=1</m>.
-	</p></li>
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> If <m>p = 0</m>, the eigenvectors are
-	<m>\vvec_1=\twovec10</m> with associated eigenvalue
-	<m>\lambda_1=\frac12</m> and <m>\vvec_2=\twovec13</m> with
-	eigenvalue <m>\lambda_2=2</m>.  The phase portraits are as
-	<sidebyside width="90%">
-	  <image source="images/ex-predator-sol-a" />
-	</sidebyside>
-	</p></li>
-
-	<li><p> With <m>p=1</m>, we have eigenvectors
-	<m>\vvec_1=\twovec11</m> with eigenvalue <m>\lambda_1=1</m>
-	and <m>\vvec_2=\twovec12</m> with eigenvalue
-	<m>\lambda_2=1.5</m>.  The phase portraits appear as
-	<sidebyside width="90%">
-	  <image source="images/ex-predator-sol-b" />
-	</sidebyside>
-	</p></li>
-
-	<li><p> We find the characteristic polynomial of
-	<m>A</m> to be
-	<me>
-	  \det(A-\lambda I) = \lambda^2-\frac52\lambda+\frac12
-	  p\text{,} 
-	</me>
-	which has roots
-	<me>\lambda=\frac 54 \pm \frac12\sqrt{\frac94-2p}\text{.}
-	</me>
-	So long as <m>\frac94 - 2p\geq 0</m>, one root will be real
-	and larger than <m>1</m>.  We have a saddle when
-	<me>
-	  \begin{aligned}
-	  \frac 54 - \frac12\sqrt{\frac94-2p} \amp \lt 1 \\
-	  \sqrt{\frac94-2p} \amp \gt \frac12  \\
-	  p \amp \lt 1\text{.} \\
-	  \end{aligned}
-	</me>
-	This shows that we have a saddle whenever <m>p\lt1</m>.
-	</p></li>
-
-	<li><p> When <m>p=0</m>, we have a saddle.  Notice that
-	<m>R</m> will go extinct if the initial population of <m>R</m>
-	is zero.  As we increase <m>p</m>, we still have a saddle,
-	but <m>R</m> will now go extinct when the initial <m>S</m>
-	population is positive.  Eventually, when <m>p=1</m>, we see
-	that <m>R</m> will go extinct as long as <m>R_0\gt S_0</m>.</p>
-
-	<p> As we increase the predation rate, the population of
-	<m>S</m> is lowered by <m>R</m>.  However, <m>S</m> is
-	necessary to <m>R</m>'s survival.  When the predation rate
-	grows too large, there needs to be a sufficiently large
-	initial <m>S</m> population to support both species.</p>
-	</li>      
-
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> <m>\lambda_1=\frac12</m> and <m>\lambda_2=2</m>
-	<sidebyside width="90%">
-	  <image source="images/ex-predator-sol-a" />
-	</sidebyside>
-	</p></li>
-	
-	<li><p> <m>\lambda_1=1</m> and <m>\lambda_2=1.5</m>
-	<sidebyside width="90%">
-	  <image source="images/ex-predator-sol-b" />
-	</sidebyside>
-	</p></li>
-
-	<li><p> <m>p\lt 1</m> </p></li>
-
-	<li><p> As <m>p</m> grows, there needs to be a sufficient
-	<m>S</m> population to 
-	ensure the survival of both species. </p></li>
-      </ol></p>
-    </answer>
-	
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Consider the matrices
-      <me>
-	A = \left[\begin{array}{cc}
-	3 \amp 2 \\
-	-5 \amp -3 \\
-	\end{array}\right], \qquad
-	B = \left[\begin{array}{cc}
-	5 \amp 7 \\
-	-3 \amp -4 \\
-	\end{array}\right]\text{.}
-      </me>
-      <ol marker="a.">
-	<li><p> Find the eigenvalues of <m>A</m>.  To which of the six 
-	types does the system <m>\xvec_{k+1}=A\xvec_{k}</m> belong?
-	</p> </li>
-
-	<li><p> Using the eigenvalues of <m>A</m>, we can
-	write <m>A=PEP^{-1}</m> for some matrices <m>E</m> and
-	<m>P</m>.  What is the matrix <m>E</m> and what geometric
-	effect does multiplication by <m>E</m> have on vectors in the
-	plane?  </p></li> 
-
-	<li><p> If we remember that <m>A^k = PE^kP^{-1}</m>, determine
-	the smallest positive value of <m>k</m> for which <m>A^k=I</m>?
-	</p></li>
-
-	<li><p> Find the eigenvalues of <m>B</m>. </p></li>
-
-	<li><p> Then find a matrix <m>E</m> such that <m>B =
-	PEP^{-1}</m> for some matrix <m>P</m>.  What geometric effect
-	does multiplication by <m>E</m> have on vectors in the plane?
-	</p></li>
-
-	<li><p> Determine the smallest positive value of <m>k</m> for which
-	<m>B^k=I</m>.  </p></li>
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> The eigenvalues are <m>\lambda=\pm i</m> so this
-	dynamical system is a center. </p></li>
-
-	<li><p> The matrix is <m>E=\left[\begin{array}{rr}
-	0 \amp -1 \\
-	1 \amp 0 \\
-	\end{array}\right]</m>, which is a <m>90^\circ</m> rotation.
-	</p></li>
-
-	<li><p> If we rotate by <m>90^\circ</m> four times, we obtain
-	the identity.  Therefore, <m>A^4=I</m>. </p></li>
-
-	<li><p> Here, we find the eigenvalues <m>\lambda=\frac12\pm
-	\frac{\sqrt{3}}2 i</m>. </p></li>
-
-	<li><p> The matrix is
-	<m>E=\left[\begin{array}{rr}
-	\frac 12 \amp -\frac{\sqrt{3}}2 \\
-	\frac{\sqrt{3}}2 \amp \frac 12\end{array}\right]</m>, which is
-	a <m>60^\circ</m> 
-	rotation.  </p></li>
-
-	<li><p> If we rotate by <m>60^\circ</m> six times, we obtain
-	the identity.  Therefore, <m>B^6=I</m>. </p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> This
-	dynamical system is a center. </p></li>
-
-	<li><p> <m>E=\left[\begin{array}{rr}
-	0 \amp -1 \\
-	1 \amp 0 \\
-	\end{array}\right]</m>.
-	</p></li>
-
-	<li><p> <m>A^4=I</m>. </p></li>
-
-	<li><p> <m>\lambda=\frac12\pm
-	\frac{\sqrt{3}}2 i</m>. </p></li>
-
-	<li><p> 
-	<m>E=\left[\begin{array}{rr}
-	\frac 12 \amp -\frac{\sqrt{3}}2 \\
-	\frac{\sqrt{3}}2 \amp \frac 12 \\
-	\end{array}\right]</m>
-	</p></li>
-
-	<li><p> <m>B^6=I</m>. </p></li>
-      </ol></p>
-    </answer>
-    
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Suppose we have the female population of a species is
-      divided into juveniles, yearlings, and adults and that each year
-      <ul>
-	<li><p> 90% of the juveniles live to be yearlings. </p></li>
-
-	<li><p> 80% of the yearlings live to be adults. </p></li>
-
-	<li><p> 60% of the adults survive to the next year. </p></li>
-
-	<li><p> 50% of the adults give birth to a juvenile. </p></li>
-      </ul>
-      </p>
-
-      <p>
-	<ol marker="a.">
-	  <li><p> Set up a system of the form
-	  <m>\xvec_{k+1}=A\xvec_k</m> that describes this
-	  situation. </p></li>
-
-	  <li><p> Find the eigenvalues of the matrix <m>A</m>.
-	  <sage>
-	    <input>
-	    </input>
-	  </sage>
-	  </p></li>
-
-	  <li><p> What prediction can you make about these populations
-	  after a very long time? </p></li>
-
-	  <li><p> If the birth rate goes up to 80%, what prediction
-	  can you make about these populations after a very long time?
-	  For every 100 adults, how many juveniles, and yearlings are
-	  there? </p></li>
-	</ol>
-      </p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> If we write <m>\xvec_k=\threevec{J_k}{Y_k}{A_k}</m>,
-	we have
-	<me>
-	  \xvec_{k+1} = \left[\begin{array}{rrr}
-	  0 \amp 0 \amp 0.5 \\
-	  0.9 \amp 0 \amp 0 \\
-	  0.6 \amp 0.8 \amp 0 \\
-	  \end{array}\right]
-	  \xvec_k\text{.}
-	</me>
-	</p></li>
-
-	<li><p> We find the eigenvalues <m>\lambda_1 = 0.85</m> and
-	<m>\lambda_{2,3} = -0.43\pm 0.49i</m>. </p></li>
-
-	<li><p> All three eigenvalues have a length less than one.
-	Therefore, the populations will eventually become
-	extinct. </p></li>
-
-	<li><p> With a birth rate of <m>80</m>%, the first
-	eigenvalue goes up to <m>\lambda_1=1.02</m>, which means that,
-	eventually, all the populations grow by <m>2</m>%.
-	An eigenvector is approximately <m>\vvec_1 =
-	\threevec{78}{69}{100}</m> so there are about <m>78</m>
-	juveniles and <m>69</m> yearlings for every <m>100</m> adults.
-	</p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> If we write <m>\xvec_k=\threevec{J_k}{Y_k}{A_k}</m>,
-	we have
-	<me>
-	  \xvec_{k+1} = \left[\begin{array}{rrr}
-	  0 \amp 0 \amp 0.5 \\
-	  0.9 \amp 0 \amp 0 \\
-	  0.6 \amp 0.8 \amp 0 \\
-	  \end{array}\right]
-	  \xvec_k\text{.}
-	</me>
-	</p></li>
-
-	<li><p> <m>\lambda_1 = 0.85</m> and
-	<m>\lambda_{2,3} = -0.43\pm 0.49i</m>. </p></li>
-
-	<li><p> The populations will eventually become
-	extinct. </p></li>
-
-	<li><p> All the populations grow by <m>2</m>%, and
-	there are about <m>78</m>
-	juveniles and <m>69</m> yearlings for every <m>100</m> adults.
-	</p></li>
-      </ol></p>
-    </answer>
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Determine whether the following statements are true or false
-      and provide a justification for your response.  In each case, we
-      are considering a dynamical system of the form <m>\xvec_{k+1} =
-      A\xvec_k</m>. 
-      <ol marker="a.">
-	<li><p> If the <m>2\times2</m> matrix <m>A</m> has a complex
-	eigenvalue, we cannot make a prediction about the behavior of
-	the trajectories. </p></li>
-
-	<li><p> If <m>A</m> has eigenvalues whose absolute value is
-	smaller than 1, then all the trajectories are pulled in toward
-	the origin. </p></li>
-
-	<li><p> If the origin is a repellor, then it is an attractor
-	for the system <m>\xvec_{k+1} = A^{-1}\xvec_k</m>. </p></li>
-
-	<li><p> If a <m>4\times4</m> matrix has complex eigenvalues
-	<m>\lambda_1</m>, <m>\lambda_2</m>, <m>\lambda_3</m>, and
-	<m>\lambda_4</m>, all of which satisfy <m>|\lambda_j| \gt
-	1</m>, then all the trajectories are pushed away from the
-	origin. </p></li> 
-	
-	<li><p> If the origin is a saddle, then all the trajectories
-	are pushed away from the origin. </p></li>
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> False.  We know that the dynamical system is either a
-	spiral repellor, center, or spiral attractor. </p></li>
-
-	<li><p> True.  In this case, we have either an attractor or
-	spiral attractor. </p></li>
-
-	<li><p> True.  If <m>A</m> is an attractor, then all the
-	eigenvalues <m>|\lambda_j| \gt 1</m>.  The eigenvalues for
-	<m>A^{-1}</m> are <m>\frac1{\lambda_j}</m>, which satisfy
-	<m>\left|\frac1{\lambda_j}\right| \lt 1</m>.
-	</p></li>
-
-	<li><p> True.  We can decompose <m>\real^4</m> into two
-	two-dimensional subspaces on which <m>A</m> acts as a spiral
-	repellor. </p></li>
-
-	<li><p> False.  There are trajectories along the line defined by
-	the eigenvector associated to the smaller eigenvalue that are
-	pulled in toward the origin. </p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> False </p></li>
-	<li><p> True </p></li>
-	<li><p> True </p></li>
-	<li><p> True </p></li>
-	<li><p> False </p></li>
-      </ol></p>
-    </answer>
-	
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> The Fibonacci numbers form the sequence of numbers that begins
-      <m>0, 1, 1, 2, 3, 5, 8, 13, \ldots</m>.  If we let <m>F_n</m>
-      denote the <m>n^{th}</m> Fibonacci number, then
-      <me>
-	F_0 =0, 
-	F_1 =1,
-	F_2 =1,
-	F_3 =2, 
-	F_4 =3,\ldots
-      </me>.
-      In general, a Fibonacci number is the sum of the previous two
-      Fibonacci numbers;  that is, <m>F_{n+2} = F_{n}+F_{n+1}</m> so
-      that we have
-      <me>
-	\begin{aligned}
-	F_{n+2} \amp {}={} F_{n} + F_{n+1} \\
-	F_{n+1} \amp {}={} F_{n+1}\text{.} \\
-	\end{aligned}
-      </me>
-      </p>
-
-      <p> 
-      <ol marker="a.">
-	<li><p> If we write <m>\xvec_n = \twovec{F_{n+1}}{F_n}</m>,
-	find the matrix <m>A</m> such that <m>\xvec_{n+1} =
-	A\xvec_n</m>. </p></li>
-
-	<li><p> Show that <m>A</m> has eigenvalues
-	<me>
-	  \begin{aligned}
-	  \lambda_1 \amp {}={} \frac{1+\sqrt{5}}{2}\approx 1.61803\ldots \\
-	  \lambda_2 \amp {}={} \frac{1-\sqrt{5}}{2}\approx
-	  -0.61803\ldots \\
-	  \end{aligned}
-	</me>
-	with associated eigenvectors
-	<m>\vvec_1=\twovec{\lambda_1}{1}</m> and
-	<m>\vvec_2=\twovec{\lambda_2}{1}</m>. 
-	</p></li>
-
-	<li><p> Classify this dynamical system as one of the six types
-	that we have seen in this section.  What happens to
-	<m>\xvec_n</m> as <m>n</m> becomes very large? </p></li>
-
-	<li><p> Write the initial vector <m>\xvec_0 =
-	\twovec{1}{0}</m> as a linear combination of
-	eigenvectors <m>\vvec_1</m> and <m>\vvec_2</m>. </p></li>
-
-	<li><p> Write the vector <m>\xvec_n</m> as a linear
-	combinations of <m>\vvec_1</m> and <m>\vvec_2</m>. </p></li>
-
-	<li><p> Explain why the <m>n^{th}</m> Fibonacci number
-	<me>F_{n} = \frac{1}{\sqrt{5}}\left[
-	\left(\frac{1+\sqrt{5}}{2}\right)^n -
-	\left(\frac{1-\sqrt{5}}{2}\right)^n\right]\text{.}
-	</me>
-	</p></li>
-
-	<li><p> Use this relationship to compute <m>F_{20}</m>. </p></li>
-
-	<li><p> Explain why <m>F_{n+1}/F_{n}\approx \lambda_1</m> when
-	<m>n</m> is very large.</p></li>
-
+	<li><p> Repeat the last part of this problem, but set the
+	rounded Fourier coefficients to zero if they have an absolute
+	value less than five.  Use it to create a second approximation
+	of <m>\xvec</m>.  What is the error in this
+	approximation?</p></li>
+
+	<li><p> Compare the number of nonzero Fourier coefficients
+	that you have in the two approximations and compare the
+	accuracy of the approximations.  Using a few sentences,
+	discuss the comparisons that you find.  </p></li>
       </ol>
       </p>
-
-      <p>
-      The number <m>\lambda_1=\frac{1+\sqrt{5}}{2} = \phi</m> is
-      called the <em>golden ratio</em> and is one of mathematics'
-      special numbers.
-      </p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
-	<li><p> We have
-	<me>\xvec_{n+1}=\twovec{F_{n+2}}{F_{n+1}} =
-	\twovec{F_{n+1}+F_n}{F_{n+1}}
-	= \left[\begin{array}{rr}
-	1 \amp 1 \\
-	1 \amp 0 \\
-	\end{array}\right]
-	\xvec_n\text{.}
-	</me>
-	</p></li>
-
-	<li><p> The characteristic equation is
-	<me>
-	  \det(A-\lambda I) = (1-\lambda)(-\lambda)-1 =
-	  \lambda^2-\lambda-1 = 0\text{.}
-	</me>
-	Applying the quadratic formula, we see that the two
-	eigenvalues are <m>\lambda_1=\frac{1+\sqrt5}{2}</m> and
-	<m>\lambda_2=\frac{1-\sqrt{5}}2</m>. </p>
-
-	<p> We find the eigenvectors by row reducing the matrices
-	<m>A-\lambda_jI</m>. </p>
-	</li>
-
-	<li><p> Because <m>|\lambda_1| \gt 1</m> and <m>|\lambda_2|
-	\lt 1</m>, this is a saddle. </p></li>
-
-	<li><p> We find <m>\xvec_0=\twovec10 = \frac1{\sqrt{5}}\vvec_1
-	-\frac1{\sqrt{5}}\vvec_2</m>.
-	</p></li>
-
-	<li><p> We have
-	<me>
-	  \begin{aligned}
-	  \xvec_n \amp =\frac1{\sqrt5}\lambda_1^n\vvec_1 -
-	  \frac1{\sqrt5}\lambda_2^n\vvec_2 \\
-	  \twovec{F_{n+1}}{F_n} \amp =
-	  \frac1{\sqrt5}\left(\frac{1+\sqrt5}{2}\right)^n
-	  \twovec{\lambda_1}{1} - 
-	  \frac1{\sqrt5}\left(\frac{1-\sqrt5}{2}\right)^n
-	  \twovec{\lambda_2}{1}\text{.} \\
-	  \end{aligned}
-	</me>
-	</p></li>
-
 	<li><p>
-	From the second component, we see that
-	<me>F_{n} = \frac{1}{\sqrt{5}}\left[
-	\left(\frac{1+\sqrt{5}}{2}\right)^n -
-	\left(\frac{1-\sqrt{5}}{2}\right)^n\right]\text{.}
+	  <m> C_{\bcal}^{-1}\xvec=\fourvec{F_0}{F_1}{\vdots}{F_7} =
+	  \left[\begin{array}{c}
+	  100\\ -5.99 \\ 3.98 \\ 4.46 \\ 1.94 \\ -0.97 \\ 0.84 \\
+	  1.07 \\
+	  \end{array}\right]
+	  </m>.
+	</p></li>
+
+	<li><p> We round the Fourier coefficients to the vector
+	<m> 
+	  \left[\begin{array}{c}
+	  100 \\ -6 \\ 4 \\ 4 \\ 2 \\ -1 \\ 1 \\ 1
+	  \end{array}\right]
+	</m> and find the approximation <m>\yvec</m>, which compares
+	to the original vector <m>\xvec</m>.  
+	<me>
+	  \yvec=\left[\begin{array}{c}
+	  103 \\ 94 \\ 91 \\ 92 \\ 103 \\ 105 \\ 105 \\ 108
+	  \end{array}\right],~~~
+	  \xvec=\left[\begin{array}{c}
+	  103 \\ 94 \\ 91 \\ 92 \\ 103 \\ 105 \\ 105 \\ 108
+	  \end{array}\right]\text{.}
 	</me>
+	In this case, the approximation <m>\yvec</m> is the same as
+	the original vector <m>\xvec</m>.
 	</p></li>
 
-	<li><p> Using this relationship, we compute that <m>F_{20} =
-	6765</m>. </p></li>
-
-	<li><p> For large values of <m>n</m>, we have
-	<m>\xvec_n\approx\frac1{\sqrt5}\lambda_1^n\twovec{\lambda_1}{1}</m>,
-	which says that
-	<m>F_{n+1} \approx \frac1{\sqrt5}\lambda_1^{n+1}</m> and 
-	<m>F_{n} \approx \frac1{\sqrt5}\lambda_1^{n}</m>.  This gives
-	the ratio <m>F_{n+1}/F_n\approx \lambda_1</m>.
+	<li><p> Now we found the Fourier coefficients to
+	<m> 
+	  \left[\begin{array}{c}
+	  100 \\ -6 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0 \\ 0
+	  \end{array}\right]
+	</m> and find the approximation <m>\yvec</m>, which compares
+	to the original vector <m>\xvec</m>.  
+	<me>
+	  \yvec=\left[\begin{array}{c}
+	  94 \\ 95 \\ 97 \\ 99 \\ 101 \\ 103 \\ 105 \\ 106
+	  \end{array}\right],~~~
+	  \xvec=\left[\begin{array}{c}
+	  103 \\ 94 \\ 91 \\ 92 \\ 103 \\ 105 \\ 105 \\ 108
+	  \end{array}\right]\text{.}
+	</me>
+	Now we see that the approximating vector <m>\yvec</m> differs
+	from the original vector <m>\xvec</m>, though not significantly. 
 	</p></li>
-	
+
+	<li><p> In the first approximation, the reconstructed vector
+	<m>\yvec</m> agrees with the original vector <m>\xvec</m>.  In
+	the second approximation, there are only two nonzero Fourier
+	coefficients, and we see that the approximating vector differs
+	from the original vector.  In the second case, however, we are
+	using only one quarter of the Fourier coefficients.  Though
+	the entries in the vector <m>\yvec</m> differ from those in the
+	original vector <m>\xvec</m>, the difference is probably not
+	visually noticeable since the possible values range from 0 to
+	255.
+	</p></li>
       </ol></p>
     </solution>
-
+	  
     <answer>
       <p><ol marker="a.">
-	<li><p> <m>A
-	= \left[\begin{array}{rr}
-	1 \amp 1 \\
-	1 \amp 0 \\
-	\end{array}\right]
+	<li><p>
+	  <m> 
+	  \left[\begin{array}{c}
+	  100\\ -5.99 \\ 3.98 \\ 4.46 \\ 1.94 \\ -0.97 \\ 0.84 \\
+	  1.07 \\
+	  \end{array}\right]
+	  </m>.
+	</p></li>
+
+	<li><p> <m>
+	  \yvec=\left[\begin{array}{c}
+	  103 \\ 94 \\ 91 \\ 92 \\ 103 \\ 105 \\ 105 \\ 108
+	  \end{array}\right]
 	</m>
 	</p></li>
 
-	<li><p> Find the roots of the characteristic polynomial.
+	<li><p>
+	  <m>
+	  \yvec=\left[\begin{array}{c}
+	  94 \\ 95 \\ 97 \\ 99 \\ 101 \\ 103 \\ 105 \\ 106
+	  \end{array}\right]
+	  </m>
 	</p></li>
 
-	<li><p> <m>A</m> defines a saddle. </p></li>
+	<li><p> In the first approximation, the reconstructed vector
+	<m>\yvec</m> agrees with the original vector <m>\xvec</m>.  In
+	the second approximation, there are only two nonzero Fourier
+	coefficients, and we see that the approximating vector differs
+	from the original vector.  In the second case, however, we are
+	using only one quarter of the Fourier coefficients.  Though
+	the entries in the vector <m>\yvec</m> differ from those in the
+	original vector <m>\xvec</m>, the difference is probably not
+	visually noticeable since the possible values range from 0 to
+	255.
+	</p></li>
+      </ol></p>
+    </answer>
 
-	<li><p> <m>\xvec_0 = \frac1{\sqrt{5}}\vvec_1
-	-\frac1{\sqrt{5}}\vvec_2</m>.
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> There are several steps to the JPEG compression algorithm.
+      The following questions examine the motivation behind some of
+      them. 
+      <ol marker="a.">
+	<li><p> What is the overall goal of the JPEG compression
+	algorithm? 
+	</p></li>
+	
+	<li><p> Why do we convert colors from the the <m>RGB</m> color
+	model to the <m>YC_bC_r</m> model? </p></li>
+
+	<li><p> Why do we decompose the image into a collection of
+	<m>8\times8</m> arrays of pixels? </p></li>
+
+	<li><p> What role does the Discrete Fourier Transform play in
+	the JPEG compression algorithm? </p></li>
+
+	<li><p> Why is the information conveyed by the rapid-variation
+	Fourier coefficients, generally speaking, less important than
+	the slow-variation coefficients?
+	</p></li>
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> The goal is to represent the image in a format that
+	requires less storage but still allows us to reconstruct the
+	image with most of the visual information preserved.
 	</p></li>
 
-	<li><p> We have
+	<li><p> In the <m>YC_bC_r</m> color model, the most significant
+	visual information is stored in the <m>Y</m> channel.
+	Therefore, we should store most of this information.  The
+	information in the <m>C_b</m> and <m>C_r</m> channels is not
+	as visually significant so we can store a smaller amount of
+	that data without noticing the effect.
+	</p></li>
+
+	<li><p> As seen in an image, these blocks are relatively
+	small, which means that the approximations we reconstruct are
+	probably not noticeably different from the original.  Also,
+	the blocks are small enough so that the image does not
+	typically change a lot over the block.  At the same time, the
+	blocks are large enough to allow us to save storage by
+	throwing away some of the Fourier coefficients.
+	</p></li>
+
+	<li><p> The Discrete Fourier Transform represents the data in
+	a block as its average and variations from the average.
+	Since the blocks are relatively small, there will typically be
+	small variations away from the average.  Therefore, we can
+	often ignore those variations without visually
+	detecting the approximation.  </p></li>
+
+	<li><p> Our eyes do not detect individual pixels so we do not
+	detect differences from one pixel to the next.  This means that
+	we do not typically notice rapid variations.
+	</p></li>
+      </ol></p>
+    </solution>
+	
+    <answer>
+      <p><ol marker="a.">
+	<li><p> The goal is to represent the image in a format that
+	requires less storage but still allows us to reconstruct the
+	image with most of the visual information preserved.
+	</p></li>
+
+	<li><p> In the <m>YC_bC_r</m> color model, the most significant
+	visual information is stored in the <m>Y</m> channel.
+	Therefore, we should store most of this information.  The
+	information in the <m>C_b</m> and <m>C_r</m> channels is not
+	as visually significant so we can store a smaller amount of
+	that data without noticing the effect.
+	</p></li>
+
+	<li><p> As seen in an image, these blocks are relatively
+	small, which means that the approximations we reconstruct are
+	probably not noticeably different from the original.  Also,
+	the blocks are small enough so that the image does not
+	typically change a lot over the block.  At the same time, the
+	blocks are large enough to allow us to save storage by
+	throwing away some of the Fourier coefficients.
+	</p></li>
+
+	<li><p> The Discrete Fourier Transform represents the data in
+	a block as its average and variations from the average.
+	Since the blocks are relatively small, there will typically be
+	small variations away from the average.  Therefore, we can
+	often ignore those variations without visually
+	detecting the approximation.  </p></li>
+
+	<li><p> Our eyes do not detect individual pixels so we do not
+	detect differences from one pixel to the next.  This means that
+	we do not typically notice rapid variations.
+	</p></li>
+      </ol></p>
+    </answer>
+	
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> The Fourier transform that we used in this section is often
+      called the Discrete Fourier Cosine Transform because it is
+      defined using a basis <m>\ccal</m> consisting of cosine
+      functions.  There is also a Fourier Sine Transform defined using
+      a basis <m>\scal</m> consisting of sine functions.  For
+      instance, in <m>\real^4</m>, the basis vectors of <m>\scal</m> are
+    <me>
+      \begin{aligned}
+      \vvec_1 = \left[\begin{array}{c}
+      \sin\left(\frac{1\cdot1\pi}{8}\right) \\
+      \sin\left(\frac{3\cdot1\pi}{8}\right) \\
+      \sin\left(\frac{5\cdot1\pi}{8}\right) \\
+      \sin\left(\frac{7\cdot1\pi}{8}\right) \\
+      \end{array}\right], \amp
+      \vvec_2 = \left[\begin{array}{c}
+      \sin\left(\frac{1\cdot2\pi}{8}\right) \\
+      \sin\left(\frac{3\cdot2\pi}{8}\right) \\
+      \sin\left(\frac{5\cdot2\pi}{8}\right) \\
+      \sin\left(\frac{7\cdot2\pi}{8}\right) \\
+      \end{array}\right], \\
+      \\
+      \vvec_3 = \left[\begin{array}{c}
+      \sin\left(\frac{1\cdot3\pi}{8}\right) \\
+      \sin\left(\frac{3\cdot3\pi}{8}\right) \\
+      \sin\left(\frac{5\cdot3\pi}{8}\right) \\
+      \sin\left(\frac{7\cdot3\pi}{8}\right) \\
+      \end{array}\right], \amp
+      \vvec_4 = \left[\begin{array}{c}
+      \sin\left(\frac{1\cdot4\pi}{8}\right) \\
+      \sin\left(\frac{3\cdot4\pi}{8}\right) \\
+      \sin\left(\frac{5\cdot4\pi}{8}\right) \\
+      \sin\left(\frac{7\cdot4\pi}{8}\right) \\
+      \end{array}\right]\text{.} \\
+      \end{aligned}
+    </me>
+    We can think of these vectors graphically, as shown in <xref
+    ref="fig-fourier-sine-basis" />.
+      </p>
+
+      <figure xml:id="fig-fourier-sine-basis">
+	<sidebyside width="90%">
+	  <image source="images/fourier-sine-basis" />
+	</sidebyside>
+	<caption>
+	  The vectors <m>\vvec_1,\vvec_2,\vvec_3,\vvec_4</m>
+	  that form the basis <m>\scal</m>.
+	</caption>
+      </figure>
+
+      <p><ol marker="a.">
+	<li><p> The Sage cell below defines the matrix <c>S</c> whose
+	columns are the vectors in the basis <m>\scal</m> as well as
+	the matrix <c>C</c> whose columns form the basis <m>\ccal</m>
+	used in the Fourier Cosine Transform.
+      </p>
+
+      <sage>
+	<input>
+sinmat = [[sin((2*i+1)*j*pi/8) for j in range(1,5)] for i in range(4)]
+cosmat = [[cos((2*i+1)*j*pi/8) for j in range(4)] for i in range(4)]
+S = matrix(sinmat).numerical_approx()    
+C = matrix(cosmat).numerical_approx()    
+	</input>
+      </sage>
+
+      <p> In the <m>8\times8</m> block of luminance values we
+      considered in this section, the first column begins with the
+      four entries
+      176, 181, 165, and 139, as seen in <xref
+      ref="fig-jpeg-block-luminance" />.  These form the vector
+      <m>\xvec=\fourvec{176}{181}{165}{139}</m>.  Find both
+      <m>\coords{\xvec}{\scal}</m> and <m>\coords{\xvec}{\ccal}</m>.
+	</p></li>
+
+	<li><p> Write a sentence or two comparing the values for the
+	Fourier Sine coefficients <m>\coords{\xvec}{\scal}</m>
+	and the Fourier Cosine coefficients
+	<m>\coords{\xvec}{\ccal}</m>.
+	</p></li>
+
+	<li><p> Suppose now that <m>\xvec=\fourvec{100}{100}{100}{100}</m>.
+	Find the Fourier Sine coefficients
+	<m>\coords{\xvec}{\scal}</m> and the Fourier Cosine
+	coefficients <m>\coords{\xvec}{\ccal}</m>.  </p></li>
+
+	<li><p> Write a few sentences explaining why we use the
+	Fourier Cosine Transform in the JPEG compression algorithm
+	rather than the Fourier Sine Transform.
+      </p></li>
+
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> We find that
+	<me>
+	  \coords{\xvec}{\scal} =
+	  \left[\begin{array}{c}
+	  220 \\ 18.7 \\ 79.3 \\ 5.3 \\
+	  \end{array}\right],
+	  \coords{\xvec}{\ccal} =
+	  \left[\begin{array}{c}
+	  165 \\ 20.1 \\ -11.0 \\ -0.3 \\
+	  \end{array}\right]\text{.}
+	</me>
+	</p></li>
+
+	<li><p> The higher Fourier Cosine coefficients are smaller
+	than their counterparts in the Fourier Sine transform.  This
+	means that we can ignore these coefficients in the Fourier
+	Cosine transform without losing too much information.
+	</p></li>
+
+	<li><p> We find that
+	<me>
+	  \coords{\xvec}{\scal} =
+	  \left[\begin{array}{c}
+	  131 \\ 0 \\ 54.1 \\ 0 \\
+	  \end{array}\right],
+	  \coords{\xvec}{\ccal} =
+	  \left[\begin{array}{c}
+	  100 \\ 0 \\ 0 \\ 0
+	  \end{array}\right]\text{.}
+	</me>
+	</p></li>
+
+	<li><p> Generally speaking, we can safely ignore more of the
+	coefficients in the Fourier Cosine transform.  Most of the
+	important information is channeled into the first coefficient,
+	which records the average of the components of the vector
+	<m>\xvec</m>.  </p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> 
 	<m>
-	  \xvec_n =
-	  \frac1{\sqrt5}\left(\frac{1+\sqrt5}{2}\right)^n
-	  \twovec{\lambda_1}{1} - 
-	  \frac1{\sqrt5}\left(\frac{1-\sqrt5}{2}\right)^n
-	  \twovec{\lambda_2}{1}
+	  \coords{\xvec}{\scal} =
+	  \left[\begin{array}{c}
+	  220 \\ 18.7 \\ 79.3 \\ 5.3 \\
+	  \end{array}\right]
+	  </m> and
+	  <m>
+	  \coords{\xvec}{\ccal} =
+	  \left[\begin{array}{c}
+	  165 \\ 20.1 \\ -11.0 \\ -0.3 \\
+	  \end{array}\right]
+	  </m>.
+	</p></li>
+
+	<li><p> The higher Fourier Cosine coefficients are smaller
+	than their counterparts in the Fourier Sine transform.  This
+	means that we can ignore these coefficients in the Fourier
+	Cosine transform without losing too much information.
+	</p></li>
+
+	<li><p> 
+	<m>
+	  \coords{\xvec}{\scal} =
+	  \left[\begin{array}{c}
+	  131 \\ 0 \\ 54.1 \\ 0 \\
+	  \end{array}\right]
+	  </m> and
+	  <m>
+	  \coords{\xvec}{\ccal} =
+	  \left[\begin{array}{c}
+	  100 \\ 0 \\ 0 \\ 0
+	  \end{array}\right]
 	</m>.
 	</p></li>
 
-	<li><p>
-	From the second component, we see that
-	<me>F_{n} = \frac{1}{\sqrt{5}}\left[
-	\left(\frac{1+\sqrt{5}}{2}\right)^n -
-	\left(\frac{1-\sqrt{5}}{2}\right)^n\right]\text{.}
-	</me>
-	</p></li>
-
-	<li><p> <m>F_{20} = 6765</m> </p></li>
-
-	<li><p> For large values of <m>n</m>, we have
-	<m>\xvec_n\approx\frac1{\sqrt5}\lambda_1^n\twovec{\lambda_1}{1}</m>.
-	</p></li>
-	
+	<li><p> Generally speaking, we can safely ignore more of the
+	coefficients in the Fourier Cosine transform.  Most of the
+	important information is channeled into the first coefficient,
+	which records the average of the components of the vector
+	<m>\xvec</m>.  </p></li>
       </ol></p>
     </answer>
 
@@ -775,287 +441,363 @@
 
   <exercise>
     <statement>
-      <p> This exercise is a continuation of the previous one.</p>
-
-      <p> The Lucas numbers <m>L_n</m> are defined by the same
-      relationship as the Fibonacci numbers:
-      <m>L_{n+2}=L_{n+1}+L_n</m>.  However, we begin with <m>L_0=2</m>
-      and <m>L_1=1</m>, 
-      which leads to the sequence <m>2,1,3,4,7,11,\ldots</m>.
-      <ol marker="a.">
-	<li><p> As before, form the vector
-	<m>\xvec_n=\twovec{L_{n+1}}{L_n}</m> so that
-	<m>\xvec_{n+1}=A\xvec_n</m>.  Express <m>\xvec_0</m> as a
-	linear combination of <m>\vvec_1</m> and <m>\vvec_2</m>,
-	eigenvectors of <m>A</m>. </p></li>
-
-	<li><p> Explain why
-	<me>
-	  L_n = 
-	  \left(\frac{1+\sqrt{5}}{2}\right)^n +
-	  \left(\frac{1-\sqrt{5}}{2}\right)^n\text{.}
-	</me>
-	</p></li>
-
-	<li><p> Explain why <m>L_n</m> is the closest integer to
-	<m>\phi^n</m> when <m>n</m> is large, where <m>\phi =
-	\lambda_1</m> is the golden ratio. </p></li>
-
-	<li><p> Use this observation to find <m>L_{20}</m>. </p></li>
-      </ol>
-      </p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> Constructing the augmented matrix and row reducing
-	shows that <m>\xvec_0 = \vvec_1+\vvec_2</m>. </p></li>
-
-	<li><p> Then we have <m>\xvec_n = A^n\xvec_0 =
-	\lambda_1^n\vvec_1 + \lambda_2^n\vvec_2</m>.  Since <m>L_n</m>
-	is the second component of <m>\xvec_n</m>, we have <m>L_n =
-	\lambda_1^n + \lambda_2^n</m>. </p></li>
-
-	<li><p> Because <m>|\lambda_2| \lt 1</m>, larger powers
-	<m>\lambda_2^n</m> are very close to zero.  Therefore,
-	<m>L_n\approx \lambda_1^n =
-	\left(\frac{1+\sqrt5}{2}\right)^n</m>. </p></li>
-
-	<li><p> We compute that <m>\lambda_1^{20}= 15126.9999</m> so
-	that <m>L_{20} = 15127</m>.</p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> <m>\xvec_0 = \vvec_1+\vvec_2</m>. </p></li>
-
-	<li><p> <m>\xvec_n = A^n\xvec_0 =
-	\lambda_1^n\vvec_1 + \lambda_2^n\vvec_2</m>
-	</p></li>
-
-	<li><p> Because <m>|\lambda_2| \lt 1</m>, larger powers
-	<m>\lambda_2^n</m> are very close to zero.  </p></li>
-
-	<li><p> <m>L_{20} = 15127</m>.</p></li>
-      </ol></p>
-    </answer>
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Gil Strang defines the <em>Gibonacci numbers</em> <m>G_n</m> as
-      follows.  We begin with <m>G_0 = 0</m> and <m>G_1=1</m>.  A
-      subsequent Gibonacci number is the average of the two previous;
-      that is, <m>G_{n+2} = \frac12(G_{n}+G_{n+1})</m>.  We then
-      have
+      <p> In <xref ref="example-wavelet-basis" />, we looked at a
+      basis for <m>\real^4</m> that we called the Haar wavelet basis.
+      The basis vectors are
       <me>
-	\begin{aligned}
-	G_{n+2} \amp {}={} \frac12 G_{n} + \frac 12 G_{n+1} \\
-	G_{n+1} \amp {}={} G_{n+1}\text{.} \\
-	\end{aligned}
-      </me>
-      <ol marker="a.">
-	<li><p> If <m>\xvec_n=\twovec{G_{n+1}}{G_n}</m>, find the
-	matrix <m>A</m> such that <m>\xvec_{n+1} =
-	A\xvec_n</m>. </p></li>
-
-	<li><p> Find the eigenvalues and associated eigenvectors of
-	<m>A</m>.  </p></li>
-
-	<li><p> Explain why this dynamical system does not neatly fit
-	into one of the six types that we saw in this
-	section. </p></li>
-
-	<li><p> Write <m>\xvec_{0}</m> as a linear combination of
-	eigenvectors of <m>A</m>.  </p></li>
-
-	<li><p> Write <m>\xvec_n</m> as a linear combination of
-	eigenvectors of <m>A</m>.  </p></li>
-
-	<li><p> What happens to <m>G_n</m> as <m>n</m> becomes very
-	large? </p></li>
-      </ol>
+	\vvec_1=\fourvec{1}{1}{1}{1},
+	\vvec_2=\fourvec{1}{1}{-1}{-1},
+	\vvec_3=\fourvec{1}{-1}{0}{0},
+	\vvec_4=\fourvec{0}{0}{1}{-1}
+      </me>,
+      which may be understood graphically as in <xref
+      ref="fig-haar-wavelet-basis" />. We will denote this basis by
+      <m>\wcal</m>. 
       </p>
+
+      <figure xml:id="fig-haar-wavelet-basis">
+	<sidebyside width="75%">
+	  <image source="images/basis-revenue-elements" />
+	</sidebyside>
+	<caption> The Haar wavelet basis represented graphically.
+	</caption>
+      </figure>
+
+      <p> The change of coordinates from a vector <m>\xvec</m> in
+      <m>\real^4</m> to <m>\coords{\xvec}{\wcal}</m> is called the
+      Haar <em>wavelet transform</em> and we write
+      <me>
+	\coords{\xvec}{\wcal} = \fourvec{H_1}{H_2}{H_3}{H_4}
+      </me>.  The coefficients <m>H_1,H_2,H_3,H_4</m> are called
+      wavelet coefficients.
+      </p>
+
+      <p> Let's work with the <m>4\times4</m> block of luminance
+      values in the upper left corner of our larger <m>8\times8</m>
+      block:
+      <me>
+	\left[\begin{array}{rrrr}
+	176 \amp 170 \amp 170 \amp 169 \\
+	181 \amp 179 \amp 175 \amp 167 \\
+	165 \amp 170 \amp 169 \amp 161 \\
+	139 \amp 150 \amp 164 \amp 166
+	\end{array}\right]
+      </me>.
+      </p>
+	
+      <p> <ol marker="a.">
+	<li><p> The following Sage cell defines the matrix <c>W</c>
+	whose columns are the basis vectors in <m>\wcal</m>.  If
+	<m>\xvec</m> is the first column of luminance values in the
+	<m>4\times4</m> block above, find the wavelet coefficients
+	<m>\coords{\xvec}{\wcal}</m>.
+
+	<sage>
+	  <input>
+W = matrix(4,4,[1,1,1,0,1,1,-1,0,1,-1,0,1,1,-1,0,-1])	    
+	  </input>
+	</sage>
+	</p></li>
+
+	<li><p> Notice that <m>H_1</m> gives the average value of the
+	components of <m>\xvec</m> and <m>H_2</m> describes how the
+	averages of the first two and last two components differ from
+	the overall average.  The coefficients <m>H_3</m> and
+	<m>H_4</m> describe small-scale variations between the first
+	two components and last two components, respectively.
+	</p>
+
+	<p> If we set the last wavelet coefficients <m>H_3=0</m>
+	and <m>H_4=0</m>, we obtain the wavelet coefficients
+	<m>\coords{\yvec}{\wcal}</m> for a vector <m>\yvec</m> that
+	approximates <m>\xvec</m>.  Find the vector <m>\yvec</m> and
+	compare it to the original vector <m>\xvec</m>. </p></li>
+
+	<li><p> What impact does the fact that <m>H_3=0</m> and
+	<m>H_4=0</m> have on the form of the vector
+	<m>\yvec</m>?  Explain how setting these coefficients to zero
+	ignores the behavior of <m>\xvec</m> on a small scale.
+	</p></li>
+
+	<li><p> In the JPEG compression algorithm, we looked at the
+	Fourier coefficients of all the columns of luminance values
+	and then performed a Fourier transform on the rows.  The
+	Sage cell below will perform the same operation using the
+	wavelet transform;  that is, it will first find the wavelet
+	coefficients of each of the columns and then perform the
+	wavelet transform on the rows.  You only need to evaluate the
+	cell to find the wavelet coefficients obtained in this way.
+	<sage>
+	  <input>
+luminance = matrix(4,4,[176, 170, 170, 169, 181, 179, 175, 167, 165,
+170, 169, 161, 139, 150,  164, 166])
+Winv = W.inverse()
+wavelet_transform = (Winv*(Winv*luminance).transpose()).transpose()
+print (wavelet_transform.numerical_approx(digits=3))
+	  </input>
+	</sage>
+	</p></li>
+
+	<li><p> Now set all the wavelet coefficients equal to zero
+	except those in the upper left <m>2\times2</m> block and use
+	them to define the matrix <c>coeffs</c> in the Sage cell
+	below.  This has the effect of ignoring all of the small-scale
+	differences.  Evaluating this cell will recover the
+	approximate luminance values.
+	<sage>
+	  <input>
+# define the matrix of coefficients below
+coeffs = 
+# this code will undo the wavelet transform
+approx_luminance = W*((W*(coeffs.transpose())).transpose())
+print (approx_luminance.numerical_approx(digits=3))
+	  </input>
+	</sage>
+	</p> </li>
+
+	<li><p> Explain how the wavelet transform and this approximation
+	can be used to create a lower resolution version of the
+	image. </p></li>
+      </ol></p>
+
+      <p> This kind of wavelet transform is the basis of the JPEG 2000
+      compression algorithm, which is an alternative to the usual JPEG
+      algorithm.  </p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
-	<li><p> If <m>A=\mattwo{\frac12}{\frac12}10</m>, then we have
-	<m>\xvec_{n+1} = A\xvec_n</m>. </p></li>
-
-	<li><p> The eigenvalues are <m>\lambda_1=1</m> and
-	<m>\lambda_2=-\frac12</m> with associated eigenvectors
-	<m>\vvec_1=\twovec11</m> and <m>\vvec_2=\twovec{1}{-2}</m>.
+	<li><p> We find that <m>\coords{\xvec}{\wcal} =
+	\left[\begin{array}{c}
+	165 \\ 13.2 \\ -2.5 \\ 13.0 \\
+	\end{array}\right]
+	</m>.
 	</p></li>
 
-	<li><p> We have one eigenvalue <m>|\lambda_1| = 1</m>, which
-	means this system does not fall into any of our
-	cases. </p></li>
+	<li><p> We have the approximation <m>\coords{\yvec}{\wcal} =
+	\left[\begin{array}{c} 165 \\ 13.2 \\ 0 \\ 0
+	\end{array}\right]
+	</m> and <m>\yvec=\left[\begin{array}{c}
+	178.2 \\ 178.2 \\ 151.8 \\ 151.8 \\
+	\end{array}\right]
+	</m>.
+	</p></li>
 
-	<li><p> After constructing an augmented matrix and row
-	reducing, we find <m>\xvec_0 = \frac23\vvec_1 +
-	\frac13\vvec_2</m>. </p></li>
+	<li><p> The first two components are equal as are the last two
+	components.  Since we see no difference in these components,
+	we have lost the information that differentiates the
+	components on a small scale.
+	</p></li>
 
-	<li><p> We have
-	<m>\xvec_n=\frac23\vvec_1+
-	\frac13\left(-\frac12\right)^n\vvec_n</m>. </p></li>
+	<li><p> We find the wavelet coefficients
+	<me>
+	  \left[\begin{array}{rrrr}
+	  167 \amp -0.7 \amp -1.0 \amp 1.9 \\
+	  6.4 \amp 3.8 \amp 3.0 \amp 0.4 \\
+	  -2.1 \amp -1.4 \amp 1.0 \amp -1.8 \\
+	  5.8 \amp 5.8 \amp 1.5 \amp 2.5 \\
+	  \end{array}\right]\text{.}
+	</me>
+	</p></li>
 
-	<li><p> As <m>n</m> becomes large, the coefficient
-	<m>\left(-\frac12\right)^n</m> becomes very small.  Therefore,
-	<m>\xvec_n\approx \frac23\vvec_1 =
-	\twovec{\frac23}{\frac23}</m>. This shows that <m>G_n</m>
-	stabilizes at <m>\frac23</m>. </p></li>
+	<li><p> We find the approximate luminance values to be
+	<me>
+	  \left[\begin{array}{rrrr}
+	  177 \amp 177 \amp 170 \amp 170 \\
+	  177 \amp 177 \amp 170 \amp 170 \\
+	  156 \amp 156 \amp 165 \amp 165 \\
+	  156 \amp 156 \amp 165 \amp 165 \\
+	  \end{array}\right]\text{.}
+	</me>
+	</p></li>
+
+	<li><p> The luminance values are constant on <m>2\times2</m>
+	blocks.  It is as if the image is represented with pixels that
+	are twice as wide and twice as tall.
+	</p></li>
       </ol></p>
     </solution>
-
+	  
     <answer>
       <p><ol marker="a.">
-	<li><p><m>A=\mattwo{\frac12}{\frac12}10</m></p></li>
-
-	<li><p> The eigenvalues are <m>\lambda_1=1</m> and
-	<m>\lambda_2=-\frac12</m> with associated eigenvectors
-	<m>\vvec_1=\twovec11</m> and <m>\vvec_2=\twovec{1}{-2}</m>.
+	<li><p> <m>\coords{\xvec}{\wcal} =
+	\left[\begin{array}{c}
+	165 \\ 13.2 \\ -2.5 \\ 13.0 \\
+	\end{array}\right]
+	</m>.
 	</p></li>
 
-	<li><p> We have one eigenvalue <m>|\lambda_1| = 1</m>, which
-	means this system does not fall into any of our
-	cases. </p></li>
-
-	<li><p> <m>\xvec_0 = \frac23\vvec_1 +
-	\frac13\vvec_2</m> </p></li>
-
 	<li><p> 
-	<m>\xvec_n=\frac23\vvec_1+
-	\frac13\left(-\frac12\right)^n\vvec_n</m> </p></li>
+	  <m>\yvec=\left[\begin{array}{c}
+	  178.2 \\ 178.2 \\ 151.8 \\ 151.8 \\
+	  \end{array}\right]
+	  </m>.
+	</p></li>
 
-	<li><p> <m>G_n</m>
-	stabilizes at <m>\frac23</m>. </p></li>
+	<li><p> The first two components are equal as are the last two
+	components.  
+	</p></li>
+
+	<li><p> We find the wavelet coefficients
+	<me>
+	  \left[\begin{array}{rrrr}
+	  167 \amp -0.7 \amp -1.0 \amp 1.9 \\
+	  6.4 \amp 3.8 \amp 3.0 \amp 0.4 \\
+	  -2.1 \amp -1.4 \amp 1.0 \amp -1.8 \\
+	  5.8 \amp 5.8 \amp 1.5 \amp 2.5 \\
+	  \end{array}\right]\text{.}
+	</me>
+	</p></li>
+
+	<li><p> We find the approximate luminance values to be
+	<me>
+	  \left[\begin{array}{rrrr}
+	  177 \amp 177 \amp 170 \amp 170 \\
+	  177 \amp 177 \amp 170 \amp 170 \\
+	  156 \amp 156 \amp 165 \amp 165 \\
+	  156 \amp 156 \amp 165 \amp 165 \\
+	  \end{array}\right]\text{.}
+	</me>
+	</p></li>
+
+	<li><p> The luminance values are constant on <m>2\times2</m>
+	blocks.  It is as if the image is represented with pixels that
+	are twice as wide and twice as tall.
+	</p></li>
+      </ol></p>
+    </answer>
+  </exercise>
+  
+  <exercise>
+    <statement>
+      <p> In this section, we looked at the <m>RGB</m> and
+      <m>YC_bC_r</m> color models.  In this exercise, we will look at
+      the <m>HSV</m> color model where <m>H</m> is the hue, <m>S</m>
+      is the saturation, and <m>V</m> is the value of the color.  All
+      three quantities vary between 0 and 255.
+      </p>
+
+      <figure xml:id="js-hsv">
+	<caption>
+	  The <m>HSV</m> color model.
+	</caption>
+	
+	<interactive xml:id="interactive-hsv"
+		     platform="javascript" width="100%"
+		     aspect="17:2"
+		     source="jslibrary/figures.js
+			     jslibrary/hsv.js"
+		     preview="preview/hsv-preview.png">
+	  <sbsgroup>
+	    <sidebyside width="58%">
+	      <slate xml:id="hsv"
+		     aspect="5:1"
+		     surface="canvas" />
+	    </sidebyside>
+	  </sbsgroup>
+	  <instructions>
+	    <p>
+	      The diagram below enables you to vary the three
+	      parameters <m>H</m>, <m>S</m>, and <m>V</m> in the
+	      <m>HSV</m> color model.
+	    </p>
+	  </instructions>
+	  <static>
+	    <sidebyside width="100%">
+	      <p>
+		There is an interactive diagram,
+		available at the bottom of the page <url
+		href="http://gvsu.edu/s/0Jc"
+		visual="gvsu.edu/s/0Jc"/>, that
+		accompanies this exercise.
+	      </p>
+	    </sidebyside>
+	    <sidebyside width="40%">
+	      <image source="preview/hsv-preview.png"/>
+	    </sidebyside>
+	  </static>		
+	</interactive>
+      </figure>
+      
+      <p><ol marker="a.">
+	<li><p>
+	  If you leave <m>S</m> and <m>V</m> at some fixed values,
+	  what happens when you change the value of <m>H</m>?
+	</p></li>
+
+	<li><p> Increase the value <m>V</m> to 255, which is on the
+	far right.  Describe what happens when you
+	vary the saturation <m>S</m> using a fixed hue <m>H</m> and
+	value <m>V</m>. </p></li>
+
+	<li><p> Describe what happens when <m>H</m> and <m>S</m> are
+	fixed and <m>V</m> varies.
+	</p></li>
+
+	<li><p> How can you create white in this color model?
+	</p></li>
+
+	<li><p> How can you create black in this color model?
+	</p></li>
+
+	<li><p> Find an approximate range of hues that
+	correspond to blue. </p></li>
+
+	<li><p> Find an approximate range of hues that
+	correspond to green. </p></li>
+      </ol></p>
+
+      <p> The <m>YC_bC_r</m> color model concentrates the most
+      important visual information in the luminance coordinate, which
+      roughly measures the brightness of the color.  The other two
+      coordinates describe the hue of the color.  By contrast, the
+      <m>HSV</m> color model concentrates all the information about
+      the hue in the <m>H</m> coordinate.
+      </p>
+
+      <p> This is useful in computer vision applications.  For
+      instance, if we want a robot to detect a blue ball in its field
+      of vision, we can specify a range of hue values to search for.
+      If the lighting changes in the room, the saturation and value
+      may change, but the hue will not.  This increases the likelihood
+      that the robot will still detect the blue ball across a wide
+      range of lighting conditions.
+      </p>
+
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> The color changes but not the brightness. </p></li>
+	<li><p> The color appears more <q>washed out</q> with a low
+	saturation and appears more vibrant with a high
+	saturation. </p></li>
+	<li><p> The brightness changes. </p></li>
+	<li><p> Set the saturation <m>S=0</m> and the value
+	<m>V=255</m>. </p></li>
+
+	<li><p> Set <m>S=V=0</m>. </p></li>
+	<li><p> <m>128\leq H \leq 192</m>. </p></li>
+	<li><p> <m>64\leq H \leq 128</m>. </p></li>
+      </ol></p>
+    </solution>
+	
+    <answer>
+      <p><ol marker="a.">
+	<li><p> The color changes but not the brightness. </p></li>
+	<li><p> The color appears more <q>washed out</q> with a low
+	saturation and appears more vibrant with a high
+	saturation. </p></li>
+	<li><p> The brightness changes. </p></li>
+	<li><p> Set the saturation <m>S=0</m> and the value
+	<m>V=255</m>. </p></li>
+
+	<li><p> Set <m>S=V=0</m>. </p></li>
+	<li><p> <m>128\leq H \leq 192</m>. </p></li>
+	<li><p> <m>64\leq H \leq 128</m>. </p></li>
       </ol></p>
     </answer>
 	
   </exercise>
-
-  <exercise>
-    <statement>
-      <p> Consider a small rodent that lives for three years.  Once
-      again, we can separate a population of females into juveniles,
-      yearlings, and adults.  Suppose that, each year,
-      <ul>
-	<li><p> Half of the juveniles live to be yearlings. </p></li>
-
-	<li><p> One quarter of the yearlings live to be
-	adults. </p></li>
-
-	<li><p> Adult females produce eight female
-	offspring. </p></li>
-
-	<li><p> None of the adults survive to the next year. </p></li>
-      </ul>
-      </p>
-
-      <p>
-	<ol marker="a.">
-	  <li><p> Writing the populations of juveniles, yearlings, and
-	  adults in year <m>k</m> using the vector
-	  <m>\xvec_k=\threevec{J_k}{Y_k}{A_k}</m>, find the matrix
-	  <m>A</m> such that <m>\xvec_{k+1} = A\xvec_k</m>.</p></li>
-
-	  <li><p> Show that <m>A^3=I</m>. </p></li>
-
-	  <li><p> What are the eigenvalues of <m>A^3</m>?  What does
-	  this say about the eigenvalues of <m>A</m>?  </p></li>
-
-	  <li><p> Verify your observation by finding the eigenvalues
-	  of <m>A</m>. 
-	  <sage>
-	    <input>
-	    </input>
-	  </sage>
-	  </p></li>
-
-	  <li><p> What can you say about the trajectories of this
-	  dynamical system? </p></li>
-
-	  <li><p> What does this mean about the population of rodents?
-	  </p></li> 
-
-	  <li><p> Find a population vector <m>\xvec_0</m> that is
-	  unchanged from year to year. </p></li>
-
-	</ol>
-      </p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> We have <m>\xvec_{k+1} = A\xvec_k</m> where <m>A =
-	\left[\begin{array}{rrr}
-	0 \amp 0 \amp 8 \\
-	\frac 12 \amp 0 \amp 0 \\
-	0 \amp \frac 14 \amp 0 \\
-	\end{array}\right]</m>.
-	</p></li>
-
-	<li><p> We can use Sage to compute that
-	<m>A^3=I</m>. </p></li>
-
-	<li><p> The only eigenvalues of <m>I</m> are <m>1</m> so any
-	eigenvalue <m>\lambda</m> of <m>A</m> must satisfy
-	<m>\lambda^3=1</m>.  </p></li>
-
-	<li><p> Sage tells us that the eigenvalues are
-	<m>\lambda_1=1</m> and <m>\lambda_{2,3} =
-	-\frac12\pm\frac{\sqrt3}{2}i</m>.
-	</p></li>
-
-	<li><p> The eigenvector <m>\vvec_1=\threevec841</m> satisfies
-	<m>A\vvec_1 = \vvec_1</m> so it is unchanged.  The complex
-	eigenvalues cause a <m>120^\circ</m> rotation about the axis
-	defined by <m>\vvec_1</m>.  Therefore, the trajectories lie on
-	circles about this line. </p></li>
-
-	<li><p> After every three years, the populations return to
-	their initial values. </p></li>
-
-	<li><p> If <m>\xvec_0=\vvec_1 = \threevec841</m>, we know that
-	<m>A\xvec_0 = \xvec_0</m> so this population vector is
-	unchanged. </p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> <m>A=
-	\left[\begin{array}{rrr}
-	0 \amp 0 \amp 8 \\
-	\frac 12 \amp 0 \amp 0 \\
-	0 \amp \frac 14 \amp 0 \\
-	\end{array}\right]</m>.
-	</p></li>
-
-	<li><p> We can use Sage to compute that
-	<m>A^3=I</m>. </p></li>
-
-	<li><p> Any
-	eigenvalue <m>\lambda</m> of <m>A</m> must satisfy
-	<m>\lambda^3=1</m>.  </p></li>
-
-	<li><p> 
-	<m>\lambda_1=1</m> and <m>\lambda_{2,3} =
-	-\frac12\pm\frac{\sqrt3}{2}i</m>
-	</p></li>
-
-	<li><p>
-	  The trajectories lie on
-	circles about the line defined by <m>\threevec841</m>. </p></li>
-
-	<li><p> After every three years, the populations return to
-	their initial values. </p></li>
-
-	<li><p> <m>\xvec_0=\vvec_1 = \threevec841</m></p></li>
-      </ol></p>
-    </answer>
-  </exercise>
-
+  
 </exercises>

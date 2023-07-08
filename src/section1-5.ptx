@@ -36,7 +36,7 @@
 	</introduction>
 
 <subsection xml:id="subsec-numpy-tensors">
-	<title>Tensors in np</title>
+	<title>Tensors in Numpy</title>
 	
 	<p>
 		Let's create a small 3-dimensional tensor.  Notice that we can assign the shape 
@@ -135,12 +135,32 @@ plt.show()
 			that the format is channels-last. We can plot individual channels in the same way.
 			<sage language="python">
 				<input>
-plt.imshow(dog[:, :, 0])
+plt.figure()
+plt.imshow(dog[:, :, 0])    # Red channel
 plt.show()
 				</input>
 			</sage>
-			
 			</p>
+			<p>
+				We've added a color bar to this image to show how matplotlib is mapping the values 0 to 255 to colors.
+				Remember, this is the <em>red</em> channel. So a colormap that runs from dark blue to bright yellow  
+				probably isn't the best choice.  We can use a scale of reds by setting <c>cmap="Reds"</c> 
+				like this
+			<sage language="python">
+				<input>
+plt.figure()
+plt.imshow(dog[:, :, 0], cmap = "Reds")    # Red channel
+plt.show()
+				</input>
+			</sage>
+			If you use <c>cmap  = "Reds_r"</c> (give it a try), the order of the colors will be reversed and provide 
+			a better visual representation (for human eyes -- it's the same data no matter what color scheme we  
+			use for display).
+				</p>
+				<p>
+					You can find out more about the many colormaps that are available in matplotlib at 
+					<url href="https://matplotlib.org/stable/tutorials/colors/index.html" />.
+				</p>
 		</statement>
 	</example>
 	<p>
@@ -154,11 +174,6 @@ plt.show()
 
 
 	</subsection>
-
-<subsection xml:id="subsec-slices">
-	<title>Slices</title>
-	
-</subsection>
 
 <subsection xml:id="subsec-ndarray-append">
 	<title>Expanding an array</title>

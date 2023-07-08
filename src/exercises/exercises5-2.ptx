@@ -1,443 +1,699 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <exercises>
-  <p> This Sage cell has the commands <c>power</c>,
-  <c>inverse_power</c>, and <c>find_closest_eigenvalue</c> that we
-  have developed in this section.  After evaluating this cell, these
-  commands will be available in any other cell on this page.
-  <sage>
-    <input>
-def power(A, x, N):
-    for i in range(N):
-        x = A*x
-        m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
-        x = 1/float(m)*x
-        print (m, x)
-def find_closest_eigenvalue(A, s, x, N):
-    B = A-s*identity_matrix(A.nrows())
-    for i in range(N):
-        x = B \ x
-        m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
-        x = 1/float(m)*x
-        print (1/float(m)+s, x)
-def inverse_power(A, x, N):
-    find_closest_eigenvalue(A, 0, x, N)
-    </input>
-  </sage>
-  </p>
-
   <exercise>
     <statement>
-      <p> Suppose that <m>A</m> is a matrix having eigenvalues
-      <m>-3</m>, <m>-0.2</m>, <m>1</m>, and <m>4</m>.
+      <p> For each of the following matrices, find its characteristic
+      polynomial, its eigenvalues, and the multiplicity of each
+      eigenvalue. 
       <ol marker="a.">
-	<li><p> What are the eigenvalues of <m>A^{-1}</m>? </p></li>
+	<li><p>
+	  <m>A=\left[\begin{array}{rr}
+	  4 \amp -1 \\
+	  4 \amp 0 \\
+	  \end{array}\right]
+	  </m>.
+	</p></li>
 
-	<li><p> What are the eigenvalues of <m>A+7I</m>?</p></li>
+	<li><p>
+	  <m>A=\left[\begin{array}{rrr}
+	  3 \amp -1 \amp 3 \\
+	  0 \amp 4 \amp 0 \\
+	  0 \amp 0 \amp -6
+	  \end{array}\right]
+	  </m>.
+	</p></li>
+
+	<li><p>
+	  <m>
+	    A = \left[\begin{array}{rr}
+	    -2 \amp 0 \\
+	    0 \amp -2 \\
+	    \end{array}\right]
+	  </m>.
+	</p></li>
+
+	<li><p>
+	  <m>A=\left[\begin{array}{rr}
+	  -1 \amp 2 \\
+	  2 \amp 2 \\
+	  \end{array}\right]
+	  </m>.
+	</p></li>
       </ol></p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
-	<li><p> The eigenvalues of <m>A^{-1}</m> are the reciprocals
-	of the eigenvalues of <m>A</m>.  They are, therefore,
-	<m>-\frac13</m>, <m>-5</m>, <m>1</m>, and
-	<m>\frac14</m>. </p></li>
+	<li><p> The characteristic polynomial is <m>\det(A-\lambda I)
+	= (2-\lambda)^2</m>.  There is a single eigenvalue
+	<m>\lambda=2</m> having multiplicity <m>2</m>.
+	</p></li>
+
+	<li><p> The characteristic polynomial is <m>\det(A-\lambda I)
+	= (3-\lambda)(4-\lambda)(-6-\lambda)</m>.  There are three
+	eigenvalues <m>\lambda=3, 4, -6</m>, each of multiplicity
+	<m>1</m>.
+	</p></li>
+
+	<li><p> The characteristic polynomial is <m>\det(A-\lambda I)
+	= (-2-\lambda)^2</m>, showing that there is one eigenvalue
+	<m>\lambda=-2</m> having multiplicity <m>2</m>.
+	</p></li>
+
+	<li><p> The characteristic polynomial is <m>\det(A-\lambda I)
+	= (3-\lambda)(-2-\lambda)</m>.  There are two eigenvalues
+	<m>\lambda=3</m> and <m>\lambda=-2</m>, each having
+	multiplicity <m>1</m>.
+	</p></li>
+      </ol></p>
+    </solution>
+	  
+    <answer>
+      <p><ol marker="a.">
+	<li><p> <m>(2-\lambda)^2</m>.  There is a single eigenvalue
+	<m>\lambda=2</m> having multiplicity <m>2</m>.
+	</p></li>
+
+	<li><p> <m>(3-\lambda)(4-\lambda)(-6-\lambda)</m>.  There are three
+	eigenvalues <m>\lambda=3, 4, -6</m>, each of multiplicity
+	<m>1</m>.
+	</p></li>
+
+	<li><p> <m>(-2-\lambda)^2</m>.  There is one eigenvalue
+	<m>\lambda=-2</m> having multiplicity <m>2</m>.
+	</p></li>
+
+	<li><p> <m>(3-\lambda)(-2-\lambda)</m>.  There are two eigenvalues
+	<m>\lambda=3</m> and <m>\lambda=-2</m>, each having
+	multiplicity <m>1</m>.
+	</p></li>
+      </ol></p>
+    </answer>
+	  
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Given an <m>n\times n</m> matrix <m>A</m>, an important
+      question, <xref ref="question-eigen-basis" />, asks whether we can
+      find a basis of <m>\real^n</m> consisting of eigenvectors of
+      <m>A</m>.  For each of the matrices in the previous exercise,
+      find a basis of <m>\real^n</m> consisting of eigenvectors or
+      state why such a basis does not exist.
+      </p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> There is a single eigenvalue <m>\lambda=2</m> and
+	<m>\dim E_2=1</m> so it is not possible to find a basis for
+	<m>\real^2</m> consisting of eigenvectors of <m>A</m>.
+	</p></li>
+
+	<li><p> The three eigenvalues each have multiplicity one so we
+	know that their eigenspaces are one-dimensional.  We find a
+	basis vector for <m>E_3</m> is <m>\threevec100</m>, for
+	<m>E_4</m> is <m>\threevec{-1}10</m>, and for <m>E_{-6}</m> is
+	<m>\threevec10{-3}</m>.  A basis for <m>\real^3</m> consisting
+	of eigenvectors of <m>A</m> is therefore
+	<me>
+	  \left\{
+	  \threevec100, \threevec{-1}{1}0, \threevec10{-3}
+	  \right\}\text{.}
+	</me>
+	</p></li>
+
+	<li><p> Since <m>A-(-2)I</m> is the zero matrix, every vector
+	is an eigenvector of <m>A</m>.  This means that
+	<m>\left\{\twovec10, \twovec01\right\}</m> is a basis of
+	<m>\real^2</m> consisting of 
+	eigenvectors.
+	</p></li>
+
+	<li><p> The multiplicity of each eigenvalue is one so there
+	will be a basis of <m>\real^2</m> consisting of eigenvectors.
+	In particular, a basis vector for <m>E_3</m> is <m>\twovec12</m> and
+	a basis vector for <m>E_{-2}</m> is <m>\twovec{-2}1</m>.  This
+	means that <m>\left\{\twovec12,\twovec{-2}1\right\}</m> is a
+	basis for <m>\real^2</m> consisting of eigenvectors of
+	<m>A</m>.
+	</p></li>
+      </ol> </p>
+    </solution>
+      
+    <answer>
+      <p><ol marker="a.">
+	<li><p> It is not possible.
+	</p></li>
+
+	<li><p> <m>
+	  \left\{
+	  \threevec100, \threevec{-1}{1}0, \threevec10{-3}
+	  \right\}
+	</m>.
+	</p></li>
+
+	<li><p> <m>\left\{\twovec10,
+	\twovec01\right\}</m>
+	</p></li>
+
+	<li><p> <m>\left\{\twovec12,\twovec{-2}1\right\}</m>
+	</p></li>
+      </ol> </p>
+    </answer>
+
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Determine whether the following statements are true or false
+      and provide a justification for your response.
+      <ol marker="a.">
+	<li><p> The eigenvalues of a matrix <m>A</m> are the entries
+	on the diagonal of <m>A</m>.  </p></li>
+
+	<li><p> If <m>\lambda</m> is an eigenvalue of multiplicity
+	<m>1</m>, then <m>E_\lambda</m> is one-dimensional. </p></li>
+
+	<li><p> If a matrix <m>A</m> is invertible, then
+	<m>\lambda=0</m> cannot be an eigenvalue. </p></li>
+
+	<li><p> If <m>A</m> is a <m>13\times 13</m> matrix, the
+	characteristic polynomial has degree less than
+	<m>13</m>. </p></li>
+
+	<li><p> The eigenspace <m>E_\lambda</m> of <m>A</m> is the
+	same as the null space <m>\nul(A-\lambda I)</m>. </p></li>
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> False.  This is true for a diagonal matrix, but it is
+	not generally true as we see by considering the matrix
+	<m>\mattwo{1}{2}{2}{1}</m> whose eigenvalues are <m>\lambda =
+	3</m> and <m>\lambda=-1</m>.
+	</p></li>
+
+	<li><p> True.  If <m>m</m> is the multiplicity, we have
+	<m>1\leq\dim E_\lambda \leq m=1</m> so we must have <m>\dim
+	E_\lambda = 1</m>.
+	</p></li>
+
+	<li><p> True.  If <m>\lambda=0</m> is an eigenvalue, then an
+	associated eigenvector <m>\vvec</m> is a nonzero solution to
+	the homogeneous equation <m>A\xvec=\zerovec</m>.  This would
+	say that <m>A</m> is not invertible.
+	</p></li>
+
+	<li><p> False.  The degree of the characteristic polynomial
+	equals the number of rows and columns of the square matrix.
+	</p></li>
+
+	<li><p> True.  An eigenvector <m>\vvec</m> associated to the
+	eigenvalue <m>\lambda</m> satisfies <m>(A-\lambda
+	I)\vvec=\zerovec</m>.  This is the same equation that
+	characterizes the null space <m>\nul(A-\lambda I)</m>.
+	</p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> False </p></li>
+	<li><p> True </p></li>
+	<li><p> True </p></li>
+	<li><p> False </p></li>
+	<li><p> True </p></li>
+      </ol></p>
+    </answer>
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Provide a justification for your response to the following
+      questions.
+      <ol marker="a.">
+	<li><p> Suppose that <m>A</m> is a <m>3\times 3</m> matrix
+	having eigenvalues <m>\lambda = -3,3,-5</m>.  What are the
+	eigenvalues of <m>2A</m>? </p></li>
+
+	<li><p> Suppose that <m>D</m> is a diagonal <m>3\times 3</m>
+	matrix.  Why can you guarantee that there is a basis of
+	<m>\real^3</m> consisting of eigenvectors of <m>D</m>?
+	</p></li>
+
+	<li><p> If <m>A</m> is a <m>3\times 3</m> matrix whose
+	eigenvalues are <m>\lambda = -1,3,5</m>, can you guarantee
+	that there is a basis of <m>\real^3</m> consisting of
+	eigenvectors of <m>A</m>? </p></li>
+
+	<li><p> Suppose that the characteristic polynomial of a matrix
+	<m>A</m> is
+	<me>
+	  \det(A-\lambda I) = -\lambda^3 + 4\lambda
+	</me>.  What are the eigenvalues of <m>A</m>?  Is <m>A</m>
+	invertible?  Is there a basis of <m>\real^n</m> consisting of
+	eigenvectors of <m>A</m>?
+	</p></li>
+
+	<li><p> If the characteristic polynomial of <m>A</m> is
+	<me>
+	  \det(A-\lambda I) = (4 -\lambda)(-2-\lambda)(1-\lambda)
+	</me>,
+	what is the characteristic polynomial of <m>A^2</m>?
+	what is the characteristic polynomial of <m>A^{-1}</m>?
+	</p></li> 
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p>  If <m>A\vvec=\lambda\vvec</m>, then <m>2A\vvec =
+	2\lambda\vvec</m>.  This says that the eigenvalues of
+	<m>2A</m> are <m>\lambda=-6,6,-10</m>.
+	</p></li>
+
+	<li><p> The standard basis vectors <m>\evec_j</m> are
+	eigenvectors associated to the diagonal entries.
+	</p></li>
+
+	<li><p> Yes.  Since there are three distinct eigenvalues, the
+	multiplicity of each eigenvalue must be one.  Therefore, the
+	dimension of each eigenspace is one.  If we choose a basis
+	vector for each of the eigenspaces, we will obtain a basis for
+	<m>\real^3</m>.
+	</p></li>
+
+	<li><p> The eigenvalues are determined by <m>\det(A-\lambda I)
+	= -\lambda^3+4\lambda = -\lambda(2-\lambda)(-2-\lambda)</m>,
+	which shows that the eigenvalues are <m>\lambda=0,2,-2</m>.
+	This shows that <m>A</m> is not invertible since
+	<m>\lambda=0</m> is an eigenvalue.  There is, however, a basis
+	for <m>\real^3</m> consisting of eigenvectors of <m>A</m>
+	since the three eigenvalues are distinct.
+	</p></li>
 
 	<li><p> If <m>\lambda</m> is an eigenvalue of <m>A</m>, then
-	<m>\lambda+7</m> is an eigenvalue of <m>A+7I</m>.  Therefore,
-	the eigenvalues of <m>A+7I</m> are <m>-4</m>, <m>6.8</m>,
-	<m>8</m>, and <m>12</m>. </p></li>
+	<m>\lambda^2</m> is an eigenvalue of <m>A^2</m>.  Therefore,
+	the characteristic polynomial of <m>A^2</m> is
+	<m>\det(A^2-\lambda I) =
+	(16-\lambda)(4-\lambda)(1-\lambda)</m>.
+	</p></li>
       </ol></p>
     </solution>
 
     <answer>
       <p><ol marker="a.">
-	<li><p> <m>-\frac13</m>, <m>-5</m>, <m>1</m>, and
-	<m>\frac14</m>. </p></li>
+	<li><p>  <m>\lambda=-6,6,-10</m>.
+	</p></li>
 
-	<li><p> <m>-4</m>, <m>6.8</m>,
-	<m>8</m>, and <m>12</m>. </p></li>
+	<li><p> The standard basis vectors <m>\evec_j</m> are
+	eigenvectors associated to the diagonal entries.
+	</p></li>
+
+	<li><p> Yes.  
+	</p></li>
+
+	<li><p> <m>\lambda=0,2,-2</m>.  The matrix <m>A</m> is not
+	invertible, but there is a basis for <m>\real^3</m> consisting
+	of eigenvectors of <m>A</m>.
+	</p></li>
+
+	<li><p> <m>\det(A^2-\lambda I) =
+	(16-\lambda)(4-\lambda)(1-\lambda)</m>.
+	</p></li>
       </ol></p>
     </answer>
   </exercise>
 
   <exercise>
     <statement>
-      <p> Use the commands <c>power</c>, <c>inverse_power</c>, and
-      <c>find_closest_eigenvalue</c> to approximate the eigenvalues
-      and associated eigenvectors of the
-      following matrices.
+      <p> For each of the following matrices, use Sage to determine
+      its eigenvalues, their multiplicities, and a basis for
+      each eigenspace.  For which matrices is it possible to construct
+      a basis for <m>\real^3</m> consisting of eigenvectors?
       <sage>
 	<input>
 	</input>
       </sage>
       <ol marker="a.">
-	<li><p> <m>A= \left[\begin{array}{rr}
-	-2 \amp -2 \\
-	-8 \amp -2 \\
-	\end{array}\right]
-	</m>. </p></li>
+	<li><p>
+	<!-- -1, 2, 3 -->
+	<m>
+	  A = \left[\begin{array}{rrr}
+	  -4 \amp 12 \amp -6 \\
+	  4 \amp -5 \amp 4 \\
+	  11 \amp -20 \amp 13 \\
+	  \end{array}\right]
+	</m> 
+	</p></li>
 
-	<li><p> <m>A= \left[\begin{array}{rr}
-	0.6 \amp 0.7 \\
-	0.5 \amp 0.2 \\
-	\end{array}\right]
-	</m>. </p></li>
+	<li><p>
+	<!-- -1, -1, 1 -->
+	<m>
+	  A = \left[\begin{array}{rrr}
+	  1 \amp -3 \amp 1 \\
+	  -4 \amp 8 \amp -5 \\
+	  -8 \amp 17 \amp -10 \\
+	  \end{array}\right]
+	</m>
+	</p></li>
 
-	<li><p> <m>A= \left[\begin{array}{rrrr}
-	1.9  \amp -16.0 \amp  -13.0 \amp 27.0 \\
-	-2.4 \amp  20.3 \amp  4.6 \amp -17.7 \\
-	-0.51 \amp -11.7 \amp -1.4 \amp  13.1  \\
-	 -2.1 \amp  15.3 \amp  6.9 \amp -20.5 \\
-	\end{array}\right]
-	</m>. </p></li>
+	<li><p>
+	<m> <!-- -1, -1, 1 -->
+	  A = \left[\begin{array}{rrr}
+	  3 \amp -8 \amp 4 \\
+	  -2 \amp 3 \amp -2 \\
+	  -6 \amp 12 \amp -7 \\
+	  \end{array}\right]
+	</m>
+	</p></li>
       </ol></p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
-	<li><p> The power method tells us that the dominant eigenvalue
-	is <m>\lambda_1=-6</m> with associated eigenvector
-	<m>\vvec_1=\twovec{0.5}{1}</m>.  The inverse power method
-	tells us that the eigenvalue having the smallest absolute
-	value is <m>\lambda_2=2</m> with associated eigenvector
-	<m>\vvec_2=\twovec{-0.5}1</m>. </p></li>
+	<li><p> Sage tells us there are three distinct eigenvalues
+	<m>\lambda=3,2,-1</m>, 
+	each having multiplicity one.  A basis of eigenvectors is
+	<me>
+	  \left\{\threevec012, \threevec10{-1},
+	  \threevec{-2}{1}{3}\right\}\text{.}
+	</me>
+	</p></li>
 
-	<li><p> The power method tells us that the dominant eigenvalue
-	is <m>\lambda_1=1.024</m> with associated eigenvector
-	<m>\vvec_1=\twovec1{0.606}</m>.  The inverse power method
-	tells us that the eigenvalue having the smallest absolute
-	value is <m>\lambda_2=-0.224</m> with associated eigenvector
-	<m>\vvec_2=\twovec{-0.849}1</m>. </p></li>
+	<li><p> It is not possible to find a basis of eigenvectors
+	because the eigenvalue <m>\lambda=-1</m> has multiplicity two
+	but its eigenspace is one-dimensional. </p></li>
 
-	<li><p> The power method tells us that the dominant eigenvalue
-	is <m>\lambda_1=-14.014</m>. 
-	The inverse power method
-	tells us that the eigenvalue having the smallest absolute
-	value is <m>\lambda_2=-1.530</m>.  If we now look for the
-	closest eigenvalue to <m>-9</m>, we see that it is
-	<m>\lambda_1=-14.014</m>, which we have already found.  Let's
-	try again, this time looking to find the closest eigenvalue to
-	<m>10</m>.  Here, we find <m>\lambda_3=11.226</m>.  If we next
-	try to find the eigenvalue closest to <m>4</m>, we find it to
-	be <m>\lambda_4=4.618</m>.  </p>
-
-	<p> The four eigenvalues are then <m>-14.014</m>,
-	<m>-1.530</m>, <m>11.226</m>, and 
-	<m>4.618</m>. </p></li>
+	<li><p> It is possible to find a basis for <m>\real^3</m>
+	consisting of eignevectors because one eigenvalue
+	<m>\lambda=1</m> has
+	multiplicity one while the other <m>\lambda=-1</m> has
+	multiplicity two and a two-dimensional eigenspace.  A basis is
+	<me>
+	  \left\{\threevec{-2}32, \threevec10{-1},
+	  \threevec012\right\}\text{.}
+	</me>
+	</p></li>
       </ol></p>
     </solution>
-
+	  
     <answer>
       <p><ol marker="a.">
-	<li><p> <m>\lambda = -6</m> and <m>2</m>. </p></li>
+	<li><p> A basis of eigenvectors is
+	<me>
+	  \left\{\threevec012, \threevec10{-1},
+	  \threevec{-2}{1}{3}\right\}\text{.}
+	</me>
+	</p></li>
 
-	<li><p> <m>\lambda=1.024</m> and <m>-0.224</m>. </p></li>
-
-	<li><p> <m>\lambda = -14.014</m>,
-	<m>-1.530</m>, <m>11.226</m>, and 
-	<m>4.618</m>. </p></li>
-      </ol></p>
-    </answer>
+	<li><p> It is not possible to find a basis of eigenvectors.
+	</p></li>
 	
+	<li><p> A basis of eigenvectors is 
+	<me>
+	  \left\{\threevec{-2}32, \threevec10{-1},
+	  \threevec012\right\}\text{.}
+	</me>
+	</p></li>
+      </ol></p>
+    </answer>
+	  
   </exercise>
 
   <exercise>
     <statement>
-      <p> Use the techniques we have seen in this section to find the
-      eigenvalues of the matrix
-      <me>
-	A= \left[\begin{array}{rrrrr}
-	-14.6 \amp 9.0 \amp -14.1 \amp 5.8 \amp  13.0 \\
-	 27.8 \amp -4.2 \amp  16.0 \amp 0.9 \amp -21.3 \\
-	 -5.5 \amp 3.4 \amp  3.4 \amp  3.3 \amp  1.1 \\
-	 -25.4 \amp 11.3 \amp -15.4 \amp 4.7 \amp  20.3 \\
-	 -33.7 \amp 14.8 \amp -22.5 \amp 9.7 \amp  26.6 \\
-	 \end{array}\right]
-      </me>.
-      <sage>
-	<input>
-A = matrix(5,5, [-14.6,  9.0, -14.1, 5.8,  13.0,
-                  27.8, -4.2,  16.0, 0.9, -21.3,
-                  -5.5,  3.4,   3.4, 3.3,   1.1,
-                 -25.4, 11.3, -15.4, 4.7,  20.3,
-                 -33.7, 14.8, -22.5, 9.7,  26.6])
-	</input>
-      </sage>
-      </p>
-    </statement>
+      <p> There is a relationship between the determinant of a matrix
+      and the product of its eigenvalues.
+	<ol marker="a.">
+	<li><p> We have seen that the eigenvalues of the matrix
+	<m>
+	  A = \left[\begin{array}{rr}
+	  1 \amp 2 \\
+	  2 \amp 1 \\
+	  \end{array}\right]
+	</m>
+	are <m>\lambda = 3,-1</m>.  What is <m>\det A</m>?  What is
+	the product of the eigenvalues of <m>A</m>?   </p></li>
 
-    <solution>
-      <p> The power method shows us that <m>\lambda_1=9.449</m> is the
-      dominant eigenvalue.  The inverse power method tells us that
-      <m>-2.134</m> is the eigenvalue having the smallest absolute
-      value.  We then probe in between these values to find eigenvalues
-      <m>-4.399</m>, <m>7.100</m>, and <m>5.974</m>. </p>
-    </solution>
-
-    <answer>
-      <p> <m>\lambda=9.449</m>,
-      <m>-2.134</m>,
-      <m>-4.399</m>, <m>7.100</m>, and <m>5.974</m>. </p>
-    </answer>
-    
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Consider the matrix
-      <m>A = \left[\begin{array}{rr}
-      0 \amp -1 \\
-      -4 \amp 0 \\
-      \end{array}\right]
-      </m>.
-      <sage>
-	<input>
-	</input>
-      </sage>
-      <ol marker="a.">
-	<li><p> Describe what happens if we apply the power method and
-	the inverse power method using the initial vector <m>\xvec_0 =
-	\twovec{1}{0}</m>. </p></li>
-
-	<li><p> Find the eigenvalues of this matrix
-	and explain this observed behavior. </p></li>
-
-	<li><p> How can we apply the techniques of this section to
-	find the eigenvalues of <m>A</m>? </p></li>
-      </ol></p>
-
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> We see that neither the power method nor the inverse
-	power method converge. </p></li>
-
-	<li><p> The eigenvalues are <m>\lambda=2</m> and <m>-2</m>.
-	This means that there is not a unique dominant eigenvalue and
-	there is not a unique eigenvalue with the smallest absolute
-	value.  The methods try to find first one of them and then the
-	other. </p></li>
-
-	<li><p> To break the symmetry, we can look for an eigenvalue
-	closest to, say, <m>5</m>.  When we do this, we find the
-	eigenvalue <m>\lambda_1=2</m>.  Then look for another eigenvalue
-	closest to <m>-5</m> to find <m>\lambda_2=-2</m>. </p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> The methods do not converge. </p></li>
-
-	<li><p> There is not a unique dominant eigenvalue. </p></li>
-
-	<li><p> Try finding an eigenvalue closest to, say,
-	<m>5</m>. </p></li>
-      </ol></p>
-    </answer>
-  </exercise>
-
-  <exercise xml:id="exercise-power-method">
-    <statement>
-      <p> We have seen that the matrix
-      <m>A = \left[\begin{array}{rr}
-      1 \amp 2 \\
-      2 \amp 1 \\
-      \end{array}\right]
-      </m> has eigenvalues <m>\lambda_1 = 3</m> and
-      <m>\lambda_2=-1</m> and associated eigenvectors <m>\vvec_1 =
-      \twovec{1}{1}</m> and <m>\vvec_2=\twovec{-1}{1}</m>.
-      <ol marker="a.">
-	<li><p> Describe what happens when we apply the inverse power
-	method 
-	using the initial vector <m>\xvec_0 = \twovec{1}{0}</m>.</p></li>
-
-	<li><p> Explain why this is happening and provide a contrast
-	with how the power method usually works. </p></li>
-
-	<li><p> How can we modify the power method to give the
-	dominant eigenvalue in this case? </p></li>
-      </ol></p>
-    </statement>
-
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> We see that the vectors <m>\overline{\xvec}_k</m> do
-	not converge but instead flip
-	between approximations to <m>\vvec_2</m> and <m>-\vvec_2</m>.
-	Also, the multipliers <m>m_k</m> are converging to <m>1</m>
-	rather than <m>-1</m>.  </p></li>
-
-	<li><p> When applying the power method, the multipliers
-	<m>m_k</m> are usually formed from the same component of the
-	vectors <m>\overline{\xvec}_k</m> in every
-	iteration.  Here, we see that the multipliers are obtained
-	from the first component, then the second component, then the
-	first, and so on.
+	<li><p> Consider the triangular matrix
+	<m>
+	  A = \left[\begin{array}{rrr}
+	  2 \amp 0 \amp 0 \\
+	  -1 \amp -3 \amp 0 \\
+	  3 \amp 1 \amp -2 \\
+	  \end{array}\right]
+	</m>.  What are the eigenvalues of <m>A</m>?  What is <m>\det
+	A</m>?  What is the product of the eigenvalues of <m>A</m>?
 	</p></li>
 
-	<li><p> Choose one of the components, say, the first one and
-	consider the ratio between that component of
-	<m>A\overline{\xvec}_k</m> and <m>\overline{\xvec}_k</m>
-	in place of the multiplier <m>m_k</m>.  The problem is that
-	you must make sure that this component is not approaching zero.
+	<li><p> Based on these examples, what do you think is the
+	relationship between the determinant of a matrix and the
+	product of its eigenvalues? </p></li>
+
+	<li><p> Suppose the characteristic polynomial is written as
+	<me>
+	  \det(A-\lambda I) = (\lambda_1-\lambda)(\lambda_2-\lambda)
+	  \ldots (\lambda_n-\lambda)
+	</me>.
+	By substituting <m>\lambda = 0</m> into this equation, explain
+	why the determinant of a matrix equals the product of its
+	eigenvalues. </p></li>
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> We have <m>\det A = -3</m>, and the product of the
+	eigenvalues is <m>-3</m>.
+	</p></li>
+
+	<li><p> We have <m>\det A = 12</m>, and the product of the
+	eigenvalues is <m>12</m>
+	</p></li>
+
+	<li><p> We suspect that <m>\det A</m> equals the product of
+	the eigenvalues.
+	</p></li>
+
+	<li><p> Setting <m>\lambda=0</m>, we have
+	<me>
+	  \begin{aligned}
+	  \det(A-0I) \amp {}={} 
+	  (\lambda_1-0)(\lambda_2-0)\ldots(\lambda_m-0) \\
+	  \det A \amp {}={}\lambda_1\lambda_2\ldots\lambda_n\text{.}
+	  \end{aligned}
+	</me>
+	Notice that we mean the product of the eigenvalues, including
+	their multiplicities.
 	</p></li>
       </ol></p>
     </solution>
 
     <answer>
       <p><ol marker="a.">
-	<li><p> We see that the vectors <m>\overline{\xvec}_k</m> do
-	not converge and the multipliers <m>m_k</m> converge to the
-	wrong value. </p></li>
-
-	<li><p> The multipliers are obtained
-	from the first component, then the second component, then the
-	first, and so on.
-	</p></li>
-
-	<li><p> Choose one of the components, say, the first one and
-	consider the ratio between that component of
-	<m>A\overline{\xvec}_k</m> and <m>\overline{\xvec}_k</m>
-	in place of the multiplier <m>m_k</m>.  
-	</p></li>
+	<li><p> Both equal <m>-3</m>. </p></li>
+	<li><p> Both equal <m>12</m>. </p></li>
+	<li><p> <m>\det A</m> equals the product of the
+	eigenvalues. </p></li>
+	<li><p> We see that <m>\det A =
+	\lambda_1\lambda_2\ldots\lambda_n</m>. </p></li>
       </ol></p>
     </answer>
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Suppose that <m>A</m> is a <m>2\times2</m> matrix with
-      eigenvalues <m>4</m> and <m>-3</m> and that <m>B</m> is a
-      <m>2\times2</m> matrix with eigenvalues <m>4</m> and <m>1</m>.
-      If we apply the power method to find the dominant eigenvalue of
-      these matrices to the same degree of accuracy, which matrix will
-      require more steps in the algorithm?  Explain your response.
-      </p>
-    </statement>
-
-    <solution>
-      <p> For both matrices, <m>\lambda_1=4</m> is the dominant
-      eigenvalue and <m>\lambda_2</m> is the eigenvalue closest to
-      <m>0</m>. We will construct the initial vector as a linear
-      combination of eigenvectors:  <m>\xvec_0 =
-      c_1\vvec_1+ c_2\vvec_2</m>.   Then <m>A^k\xvec_0 =
-      c_14^k\vvec_1+c_2\lambda_2^k\vvec_2</m>.  For the matrix
-      <m>B</m>, <m>\lambda_2=1</m> is relatively small compared to
-      <m>\lambda_1=4</m> so we expect the contribution from
-      <m>\vvec_2</m> to become smaller more quickly.  Therefore, we
-      will need more steps in the power method to find the dominant
-      eigenvalue of <m>A</m>.</p>
-    </solution>
-
-    <answer>
-      <p> We will need more steps when finding the dominant eigenvalue
-      of <m>A</m>. </p>
-    </answer>
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Suppose that we apply the power method to the matrix
-      <m>A</m> with an initial vector <m>\xvec_0</m> and find the
-      eigenvalue <m>\lambda=3</m> and eigenvector <m>\vvec</m>.
-      Suppose that we then apply the power method again with a
-      different initial 
-      vector and find the same eigenvalue <m>\lambda=3</m> but a
-      different eigenvector <m>\wvec</m>.  What can we conclude about
-      the matrix <m>A</m> in this case?</p>
-    </statement>
-
-    <solution>
-      <p> The dominant eigenvector is <m>\lambda=3</m> but it has a
-      multiplicity greater than one and the associated eigenspace has
-      <m>\dim E_3 \gt 1</m>. </p>
-    </solution>
-
-    <answer>
-      <p> <m>\lambda=3</m> is the dominant eigenvalue with a
-      multiplicity greater than one. </p>
-    </answer>
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> The power method we have developed only works if the matrix
-      has real eigenvalues.  
-      Suppose that <m>A</m> is a <m>2\times2</m> matrix that has a
-      complex eigenvalue <m>\lambda = 2+3i</m>.  What would happen if
-      we apply the power method to <m>A</m>?
-	</p>
-    </statement>
-
-    <solution>
-      <p> The power method relies on the fact that the vectors
-      <m>\overline{\xvec}_k</m> attempt to line up in the direction of
-      a vector in the dominant eigenspace.  If the eigenvalues are
-      complex, however, the vectors <m>\overline{\xvec}_k</m> will be
-      rotated with each iteration so they will not
-      converge. </p>
-    </solution>
-
-    <answer>
-      <p> The vectors <m>\overline{\xvec}_k</m> will not converge. </p>
-    </answer>
+      
   </exercise>
 
   <exercise>
     <statement>
       <p> Consider the matrix
       <m>A=\left[\begin{array}{rr}
-      1 \amp 1 \\
-      0 \amp 1 \\
+      0.5 \amp 0.6 \\
+      -0.3 \amp 1.4 \\
       \end{array}\right]
       </m>.
       <ol marker="a.">
-	<li><p> Find the eigenvalues and associated eigenvectors of
-	<m>A</m>. </p></li>
+	<li><p> Find the eigenvalues of <m>A</m> and a basis for their
+	associated eigenspaces. </p></li>
 
-	<li><p> Make a prediction about what happens if we apply the
-	power method and the inverse power method to find eigenvalues
-	of <m>A</m>. </p></li>
+	<li><p> Suppose that <m>\xvec_0=\twovec{11}{6}</m>.  Express
+	<m>\xvec_0</m> as a linear combination of eigenvectors of
+	<m>A</m>.  </p></li>
 
-	<li><p> Verify your prediction using Sage.
-	<sage>
-	  <input>
-	  </input>
-	</sage>
-	</p></li>
+	<li><p> Define the vectors
+	<me>
+	  \begin{aligned}
+	  \xvec_1 \amp {}={} A\xvec_0 \\
+	  \xvec_2 \amp {}={} A\xvec_1 = A^2\xvec_0 \\
+	  \xvec_3 \amp {}={} A\xvec_2 = A^3\xvec_0 \\
+	  \vdots \amp {}={} \vdots
+	  \end{aligned}
+	</me>.
+	Write <m>\xvec_1</m>, <m>\xvec_2</m>, and <m>\xvec_3</m> as a
+	linear combination of eigenvectors of <m>A</m>. </p></li>
+
+	<li><p> What happens to <m>\xvec_k</m> as <m>k</m> grows larger
+	and larger? </p></li>
       </ol></p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
-	<li><p> There is a single eigenvalue <m>\lambda=1</m> having
-	multiplicity two with its associated eigenspace <m>E_1</m>
-	being one-dimensional with basis vector <m>\twovec10</m>.
+	<li><p> We find the eigenvalues <m>\lambda_1=1.1</m> with
+	associated eigenvector <m>\vvec_1=\twovec11</m> and
+	<m>\lambda_2=0.8</m> with associated eigenvector
+	<m>\vvec_2=\twovec21</m>. 
 	</p></li>
 
-	<li><p> Applying either the power or inverse power method will
-	find the eigenvalue <m>\lambda=1</m> and a scalar multiple of
-	<m>\vvec</m>. </p></li>
+	<li><p> After constructing an augmented matrix, we find that
+	<m>
+	  \xvec_0=\vvec_1+5\vvec_2
+	</m>.
+	</p></li>
+
+	<li><p> Since <m>A(c_1\vvec_1+c_2\vvec_2) = 1.1c_1\vvec_1 +
+	0.8c_2\vvec_2</m>, we have
+	<me>
+	  \begin{aligned}
+	  \xvec_1 \amp {}={} 1.1\vvec_1+0.8\cdot5\vvec_2 \\
+	  \xvec_2 \amp {}={} 1.1^2\vvec_1+0.8^2\cdot5\vvec_2 \\
+	  \xvec_3 \amp {}={} 1.1^3\vvec_1+0.8^3\cdot5\vvec_2 \\
+	  \end{aligned}
+	</me>.	  
+	</p></li>
+
+	<li><p> We have <m>\xvec_k =
+	1.1^k\vvec_1+0.8^k\cdot5\vvec_2</m>.  As <m>k</m> grows
+	larger, <m>0.8^k</m> becomes less significant.  Eventually,
+	<m>\xvec_k \approx 1.1^k\vvec_1= \twovec{1.1^k}{1.1^k}</m>.
+	</p></li>
       </ol></p>
     </solution>
 
     <answer>
       <p><ol marker="a.">
-	<li><p> There is a single eigenvalue <m>\lambda=1</m> having
-	multiplicity two with its associated eigenspace <m>E_1</m>
-	being one-dimensional with basis vector <m>\vvec=\twovec10</m>.
+	<li><p> <m>\lambda_1=1.1</m> with
+	associated eigenvector <m>\vvec_1=\twovec11</m> and
+	<m>\lambda_2=0.8</m> with associated eigenvector
+	<m>\vvec_2=\twovec21</m>. 
 	</p></li>
 
-	<li><p> Applying either the power or inverse power method will
-	find the eigenvalue <m>\lambda=1</m> and a scalar multiple of
-	<m>\vvec</m>. </p></li>
+	<li><p> <m>\xvec_0=\vvec_1+5\vvec_2</m>.
+	</p></li>
+
+	<li><p> We have
+	<me>
+	  \begin{aligned}
+	  \xvec_1 \amp {}={} 1.1\vvec_1+0.8\cdot5\vvec_2 \\
+	  \xvec_2 \amp {}={} 1.1^2\vvec_1+0.8^2\cdot5\vvec_2 \\
+	  \xvec_3 \amp {}={} 1.1^3\vvec_1+0.8^3\cdot5\vvec_2 \\
+	  \end{aligned}
+	</me>.	  
+	</p></li>
+
+	<li><p> 
+	<m>\xvec_k \approx \twovec{1.1^k}{1.1^k}</m>.
+	</p></li>
       </ol></p>
     </answer>
+
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Consider the matrix
+      <m>A=\left[\begin{array}{rr}
+      0.4 \amp 0.3 \\
+      0.6 \amp 0.7 \\
+      \end{array}\right]
+      </m>
+      <ol marker="a.">
+	<li><p> Find the eigenvalues of <m>A</m> and a basis for their
+	associated eigenspaces. </p></li>
+
+	<li><p> Suppose that <m>\xvec_0=\twovec{0}{1}</m>.  Express
+	<m>\xvec_0</m> as a linear combination of eigenvectors of
+	<m>A</m>.  </p></li>
+
+	<li><p> Define the vectors
+	<me>
+	  \begin{aligned}
+	  \xvec_1 \amp {}={} A\xvec_0 \\
+	  \xvec_2 \amp {}={} A\xvec_1 = A^2\xvec_0 \\
+	  \xvec_3 \amp {}={} A\xvec_2 = A^3\xvec_0 \\
+	  \vdots \amp {}={} \vdots
+	  \end{aligned}
+	</me>.
+	Write <m>\xvec_1</m>, <m>\xvec_2</m>, and <m>\xvec_3</m> as a
+	linear combination of eigenvectors of <m>A</m>. </p></li>
+
+	<li><p> What happens to <m>\xvec_k</m> as <m>k</m> grows larger
+	and larger? </p></li>
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> We have eigenvalues <m>\lambda_1=1</m> with associated
+	eigenvector <m>\vvec_1=\twovec12</m> and <m>\lambda_2=0.1</m> with
+	associated eigenvector <m>\vvec_2=\twovec{-1}{1}</m>.
+	</p></li>
+
+	<li><p> After constructing an augmented matrix, we find
+	<m>\xvec_0=\frac13\vvec_1+\frac13\vvec_2</m>.
+	</p></li>
+
+	<li><p> Since <m>A(c_1\vvec_1+c_2\vvec_2) = c_1\vvec_1 +
+	0.1c_2\vvec_2</m>, we have
+	<me>
+	  \begin{aligned}
+	  \xvec_1 \amp {}={} \frac13\vvec_1+0.1\frac13\vvec_2 \\
+	  \xvec_2 \amp {}={} \frac13\vvec_1+0.1^2\frac13\vvec_2 \\
+	  \xvec_3 \amp {}={} \frac13\vvec_1+0.1^3\frac13\vvec_2. \\
+	  \end{aligned}
+	</me>	  
+	</p></li>
+
+	<li><p> We have <m>\xvec_k =
+	\frac13\vvec_1+0.1^k\frac13\vvec_2</m>.  As <m>k</m> grows
+	larger, <m>0.1^k</m> becomes less significant.  Eventually,
+	<m>\xvec_k \approx \frac13\vvec_1=
+	\twovec{\frac13}{\frac23}</m>. 
+	</p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> <m>\lambda_1=1</m> with associated
+	eigenvector <m>\vvec_1=\twovec12</m> and <m>\lambda_2=0.1</m> with
+	associated eigenvector <m>\vvec_2=\twovec{-1}{1}</m>.
+	</p></li>
+
+	<li><p> 
+	<m>\xvec_0=\frac13\vvec_1+\frac13\vvec_2</m>.
+	</p></li>
+
+	<li><p> We have
+	<me>
+	  \begin{aligned}
+	  \xvec_1 \amp {}={} \frac13\vvec_1+0.1\frac13\vvec_2 \\
+	  \xvec_2 \amp {}={} \frac13\vvec_1+0.1^2\frac13\vvec_2 \\
+	  \xvec_3 \amp {}={} \frac13\vvec_1+0.1^3\frac13\vvec_2 \\
+	  \end{aligned}
+	</me>.	  
+	</p></li>
+
+	<li><p> 
+	<m>\xvec_k \approx 
+	\twovec{\frac13}{\frac23}</m>. 
+	</p></li>
+      </ol></p>
+    </answer>
+
+    
   </exercise>
 
 </exercises>

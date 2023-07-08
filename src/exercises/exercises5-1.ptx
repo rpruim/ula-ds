@@ -4,838 +4,837 @@
 
   <exercise>
     <statement>
-      <p> In this section, we saw that errors made in
-      computer arithmetic can produce approximate solutions that
-      are far from the exact solutions.  Here is another example in
-      which this can happen.  Consider the matrix
+      <p> Consider the matrix and vectors
       <me>
-	A = \left[\begin{array}{cc}
-	1 \amp 1 \\
-	1 \amp 1.0001 \\
-	\end{array}\right]\text{.}
-      </me>
-      <ol marker="a.">
-	<li><p> Find the exact solution to the equation
-	<m>A\xvec = \twovec{2}{2}</m>.</p></li>
-
-	<li><p> Suppose that this linear system arises in the
-	midst of a larger computation except that, due to some error
-	in the computation of the right hand side of the equation, our
-	computer thinks we want to solve
-	<m>A\xvec = \ctwovec{2}{2.0001}</m>.  Find the solution to
-	this equation and compare it to the solution of the equation
-	in the previous part of this exericse. </p></li>
-      </ol> </p>
-
-      <p> Notice how a small change in the right hand side of the
-      equation leads to a large change in the solution.  In this case,
-      we say that the matrix <m>A</m> is <em>ill-conditioned</em>
-      because the solutions are extremely sensitive to small changes
-      in the right hand side of the equation.  Though we will not do
-      so here, it is possible to create a measure of the matrix that
-      tells us when a matrix is ill-conditioned.  Regrettably, there
-      is not much we can do to remedy this problem. </p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> We find the solution <m>\xvec=\twovec20</m>. </p></li>
-	<li><p> Here we find the solution <m>\xvec=\twovec11</m>. </p></li> 
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> <m>\xvec=\twovec20</m>. </p></li>
-	<li><p> <m>\xvec=\twovec11</m>. </p></li> 
-      </ol></p>
-    </answer>
-</exercise>
-
-  <exercise>
-    <statement>
-      <p> In this section, we found the <m>LU</m> factorization of the
-      matrix
-      <me>
-	A = \left[\begin{array}{rrr}
-	1 \amp 2 \amp 1 \\
-	-2 \amp -3 \amp -2 \\
-	3 \amp 7 \amp 4 \\
-	\end{array}\right]
-      </me>
-      in one of the activities, without using partial pivoting.  Apply
-      a sequence of row operations, now using partial pivoting, to
-      find an upper triangular matrix <m>U</m> that is row equivalent
-      to <m>A</m>.
-      <sage>
-	<input>
-	</input>
-      </sage>
-      </p>
-    </statement>
-
-    <solution>
-      <p> Using partial pivoting, we find
-      <me>
-	\begin{array}{rcl}
-	A =
-	\left[\begin{array}{rrr}
-	1 \amp 2 \amp 1 \\
-	-2 \amp -3 \amp -2 \\
-	3 \amp 7 \amp 4 \\
-	\end{array}\right]
-	\amp \sim \amp
-	\left[\begin{array}{rrr}
-	3 \amp 7 \amp 4 \\
-	-2 \amp -3 \amp -2 \\
-	1 \amp 2 \amp 1 \\
-	\end{array}\right] \\
-	\amp \sim \amp
-	\left[\begin{array}{rrr}
-	3 \amp 7 \amp 4 \\
-	0 \amp \frac53 \amp \frac23 \\
-	0 \amp -\frac13 \amp -\frac13 \\
-	\end{array}\right] \\
-	\amp \sim \amp
-	\left[\begin{array}{rrr}
-	3 \amp 7 \amp 4 \\
-	0 \amp \frac53 \amp \frac23 \\
-	0 \amp 0 \amp -\frac15 \\
-	\end{array}\right]\text{.} \\
-	\end{array}
-      </me>
-      This agrees with the result that Sage returns using the
-      <c>LU</c> command. </p>  
-    </solution>
-
-    <answer>
-      <p> <m>U=	\left[\begin{array}{rrr}
-	3 \amp 7 \amp 4 \\
-	0 \amp \frac53 \amp \frac23 \\
-	0 \amp 0 \amp -\frac15 \\
-	\end{array}\right]
-      </m></p>
-    </answer>
-	
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> In the following exercises, use the given <m>LU</m>
-      factorizations to solve the equations <m>A\xvec = \bvec</m>.
-      <ol marker= "a.">
-	<li><p> Solve the equation
-	<me>
-	  A\xvec =
-	  \left[\begin{array}{rr}
-	  1 \amp 0 \\
-	  -2 \amp 1 \\
-	  \end{array}\right]
-	  \left[\begin{array}{rr}
-	  3 \amp 1 \\
-	  0 \amp -2 \\
-	  \end{array}\right]\xvec
-	  =
-	  \twovec{-3}{0}\text{.}
-	</me>
-	</p></li>
-
-	<li><p> Solve the equation
-	<me>
-	  A\xvec =
-	  \left[\begin{array}{rrr}
-	  1 \amp 0 \amp 0 \\
-	  -2 \amp 1 \amp 0 \\
-	  -1 \amp 2 \amp 1 \\
-	  \end{array}\right]
-	  \left[\begin{array}{rrr}
-	  2 \amp 1 \amp 0 \\
-	  0 \amp -1 \amp 3 \\
-	  0 \amp 0 \amp 1 \\
-	  \end{array}\right]\xvec
-	  =
-	  \threevec{5}{-5}{7}\text{.}
-	</me>
-	</p></li>
-      </ol></p>
-
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> We solve <m>L\cvec=\twovec{-3}{0}</m> to find
-	<m>\cvec=\twovec{-3}{-6}</m> and <m>U\xvec=\cvec</m> to find
-	<m>\xvec=\twovec{-2}3</m>. </p></li>
-
-	<li><p> We solve <m>L\cvec=\threevec5{-5}7</m> to find
-	<m>\cvec=\threevec552</m> and <m>U\xvec=\cvec</m> to find
-	<m>\xvec=\threevec212</m>. </p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> <m>\xvec=\twovec{-2}3</m> </p></li>
-
-	<li><p> <m>\xvec=\threevec212</m> </p></li>
-      </ol></p>
-    </answer>
-
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Use Sage to solve the following equation by finding an
-      <m>LU</m> factorization:
-      <me>
-	\left[\begin{array}{rrr}
-	3 \amp 4 \amp -1 \\
-	2 \amp 4 \amp 1 \\
-	-3 \amp 1 \amp 4 \\
-	\end{array}\right]
-	\xvec = \threevec{-3}{-3}{-4}
+	A = \left[\begin{array}{rr}
+	8 \amp -10 \\
+	5 \amp -7 \\
+	\end{array}\right],\qquad
+	\vvec_1=\twovec{2}{1},~~~
+	\vvec_2=\twovec{1}{1}
       </me>.
-      <sage>
-	<input>
-	</input>
-      </sage>
-      </p>
-    </statement>
-
-    <solution>
-      <p>
-	We obtain the decomposition
-	<me>
-	  P=
-	  \left[\begin{array}{rrr}
-	  1 \amp 0 \amp 0 \\
-	  0 \amp 0 \amp 1 \\
-	  0 \amp 1 \amp 0
-	  \end{array}\right],
-	  L=
-	  \left[\begin{array}{rrr}
-	  1 \amp 0 \amp 0 \\
-	  -1 \amp 1 \amp 0 \\
-	  \frac{2}{3} \amp \frac{4}{15} \amp 1
-	  \end{array}\right],
-	  U = 
-	  \left[\begin{array}{rrr}
-	  3 \amp 4 \amp -1 \\
-	  0 \amp 5 \amp 3 \\
-	  0 \amp 0 \amp \frac{13}{15}
-	  \end{array}\right]\text{.}
-	</me>
-	To solve the equation
-	<m>A\xvec=\bvec=\threevec{-3}{-3}{-4}</m>, we first find
-	<m>P\bvec= \threevec{-3}{-4}{-3}</m>, then solve
-	<m>L\cvec=P\bvec</m> to find
-	<m>\cvec=\threevec{-3}{-7}{\frac{13}{15}}</m>, and finally
-	solve <m>U\xvec=\cvec</m> to find
-	<m>\xvec=\threevec2{-2}1</m>. 
-      </p>
-    </solution>
-
-    <answer>
-      <p> <m>\xvec=\threevec2{-2}1</m>
-      </p>
-    </answer>
-
-  </exercise>
-
-  <exercise xml:id="exercise-eigenvector-approx">
-    <statement>
-      <p> Here is another problem with approximate computer arithmetic
-      that we will encounter in the next section.  Consider the matrix
-      <me>
-	A = \left[\begin{array}{rrr}
-	0.2 \amp 0.2 \amp 0.4 \\
-	0.2 \amp 0.3 \amp 0.1 \\
-	0.6 \amp 0.5 \amp 0.5 \\
-	\end{array}\right]\text{.}
-      </me>
       <ol marker="a.">
-	<li><p> Notice that this is a positive stochastic matrix.
-	What do we know about the eigenvalues of this matrix?
-	</p></li> 
-
-	<li><p> Use Sage to define the matrix <m>A</m> using decimals
-	such as <c>0.2</c> and the
-	<m>3\times3</m> identity matrix <m>I</m>.  Ask Sage to compute
-	<m>B = A-I</m> and find the reduced row echelon form of
-	<m>B</m>.
+	<li><p> Show that <m>\vvec_1</m> and
+	<m>\vvec_2</m> are eigenvectors of <m>A</m> and find their
+	associated eigenvalues. </p>
 	<sage>
 	  <input>
 	  </input>
 	</sage>
-	</p></li>
-
-	<li><p> Why is the computation that Sage performed incorrect?
-	</p></li>
-
-	<li><p> Explain why using a computer to find the eigenvectors
-	of a matrix <m>A</m> by finding a basis for <m>\nul(A-\lambda
-	I)</m> is problematic. </p></li>
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> Since <m>A</m> is a positive stochastic matrix, we
-	know that <m>\lambda=1</m> is an eigenvalue.  Therefore,
-	<m>A-I</m> should not be invertible. </p></li>
-
-	<li><p> Sage tells us that the reduced row echelon form of
-	<m>A-I</m> is <m>\left[\begin{array}{rrr} 1 \amp 0 \amp 0 \\
-	0 \amp 1 \amp 0 \\
-	0 \amp 0 \amp 1 \\
-	\end{array}\right]</m>.  </p></li>
-
-	<li><p> The computation tells us that <m>A-I</m> is
-	invertible.  We know that this can't be the case, however, since
-	<m>\lambda=1</m> is an eigenvalue. </p></li>
-
-	<li><p> Let's trace through the work that goes into finding
-	the reduced row echelon form of <m>A-I</m>:
-	<me>
-	  A-I=
-	  \left[\begin{array}{rrr}
-	  -0.8 \amp 0.2 \amp 0.4 \\
-	  0.2 \amp -0.7 \amp 0.1 \\
-	  0.6 \amp 0.5 \amp -0.5 \\
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rrr}
-	  -0.8 \amp 0.2 \amp 0.4 \\
-	  0.0 \amp -0.65 \amp 0.2 \\
-	  0.0 \amp 0.65 \amp -0.2 \\
-	  \end{array}\right]\text{.}
-	</me>
-	The next step is to multiply the second row by
-	<m>0.65/0.65</m> and add it to the third row.  The last entry
-	in the third row would be <m>-0.2 + 0.2(0.65)/0.65</m>, which
-	we identify as being <m>0</m>.  The problem is that the
-	computer only approximates this result so it finds something
-	close to <m>0</m> but not quite equal to <m>0</m>.  It
-	therefore, thinks this is a pivot position and scales the row
-	to have <m>1</m> in that position. </p></li>
-      </ol></p>
-    </solution>
-
-    <answer>
-      <p><ol marker="a.">
-	<li><p> <m>\lambda=1</m> is an eigenvalue.  </p></li>
-
-	<li><p> <m>\left[\begin{array}{rrr} 1 \amp 0 \amp 0 \\
-	0 \amp 1 \amp 0 \\
-	0 \amp 0 \amp 1 \\
-	\end{array}\right]</m>.  </p></li>
-
-	<li><p> The computation tells us that <m>A-I</m> is
-	invertible, which is not true.  </p></li>
-
-	<li><p> The approximate arithmetic creates a nonexistent third
-	pivot position. </p></li>
-      </ol></p>
-    </answer>
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> In practice, one rarely finds the inverse of a matrix
-      <m>A</m>.  It requires considerable effort to compute, and we
-      can solve any equation of the form <m>A\xvec = \bvec</m> using
-      an <m>LU</m> factorization, which means that the inverse isn't
-      necessary.  In any case, the best way to compute an inverse is
-      using an <m>LU</m> factorization, as this exericse demonstrates.
-
-      <ol marker="a.">
-	<li><p> Suppose that <m>PA = LU</m>.  Explain why <m>A^{-1} =
-	U^{-1}L^{-1}P</m>.</p>
-
-	<p> Since <m>L</m> and <m>U</m> are triangular, finding
-	their inverses is relatively efficient.  That makes this an
-	effective means of finding <m>A^{-1}</m>. </p>
 	</li>
 
-	<li><p> Consider the matrix
-	<me>
-	  A = \left[\begin{array}{rrr}
-	  3 \amp 4 \amp -1 \\
-	  2 \amp 4 \amp 1 \\
-	  -3 \amp 1 \amp 4 \\
-	  \end{array}\right]
-	</me>.
-	Find the <m>LU</m> factorization of <m>A</m> and use it to
-	find <m>A^{-1}</m>.
-	<sage>
-	  <input>
-	  </input>
-	</sage>
-	</p></li>
+	<li><p> Express the vector <m>\xvec = \twovec{-4}{-1}</m> as a
+	linear combination of <m>\vvec_1</m> and
+	<m>\vvec_2</m>. </p></li>
+
+	<li><p> Use this expression to compute <m>A\xvec</m>,
+	<m>A^2\xvec</m>, and <m>A^{-1}\xvec</m> as a linear
+	combination of eigenvectors. </p></li>
       </ol></p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
-	<li><p> Notice that a row interchange is undone by the same
-	row interchange.  Therefore, the permutation matrix <m>P</m>
-	is its own inverse so 
-	that <m>P^{-1} = P</m>. 
-	If <m>PA=LU</m>, it then follows that <m>A=PLU</m> so that
-	<m>A^{-1} = U^{-1}L^{-1} P</m>.
-	</p></li>
+	<li><p> We find that <m>A\vvec_1 = 3\vvec_1</m> and
+	<m>A\vvec_2=-2\vvec_2</m> so the associated eigenvalues are
+	<m>\lambda_1 = 3</m> and <m>\lambda_2=-2</m>. </p></li>
 
-	<li><p> We find that
+	<li><p> Setting up an augmented matrix and row reducing shows
+	us that <m>\xvec=\twovec{-4}{-1} = -3\vvec_1 +
+	2\vvec_2</m>. </p></li>
+
+	<li><p> We then have
 	<me>
-	  \begin{array}{c}
-	  U^{-1} =
-	  \left[\begin{array}{rrr}
-	  \frac{1}{3} \amp -\frac{4}{15} \amp \frac{17}{13} \\
-	  0 \amp \frac{1}{5} \amp -\frac{9}{13} \\
-	  0 \amp 0 \amp \frac{15}{13}
-	  \end{array}\right],
-	  L^{-1} =
-	  \left[\begin{array}{rrr}
-	  1 \amp 0 \amp 0 \\
-	  1 \amp 1 \amp 0 \\
-	  -\frac{14}{15} \amp -\frac{4}{15} \amp 1
-	  \end{array}\right], \\
-	  P = 
-	  \left[\begin{array}{rrr}
-	  1 \amp 0 \amp 0 \\
-	  0 \amp 0 \amp 1 \\
-	  0 \amp 1 \amp 0
-	  \end{array}\right]\text{,}
-	  \end{array}
-	</me>
-	which gives
-	<me>
-	  A^{-1} = U^{-1}L^{-1}P =
-	  \left[\begin{array}{rrr}
-	  -\frac{15}{13} \amp \frac{17}{13} \amp -\frac{8}{13} \\
-	  \frac{11}{13} \amp -\frac{9}{13} \amp \frac{5}{13} \\
-	  -\frac{14}{13} \amp \frac{15}{13} \amp -\frac{4}{13}
-	  \end{array}\right]\text{.}
+	  \begin{alignedat}{3}
+	  A\xvec\amp{}={}\amp -9\vvec_1 \amp{}-{}\amp 4\vvec_2\\
+	  A^2\xvec\amp{}={}\amp -27\vvec_1\amp{}+{}\amp8\vvec_2 \\
+	  A^{-1}\xvec\amp{}={}\amp -\vvec_1 \amp{}-{}\amp \vvec_2\text{.} \\
+	  \end{alignedat}
 	</me>
 	</p></li>
       </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> We find that <m>A\vvec_1 = 3\vvec_1</m> and
+	<m>A\vvec_2=-2\vvec_2</m> so the associated eigenvalues are
+	<m>\lambda_1 = 3</m> and <m>\lambda_2=-2</m>. </p></li>
+
+	<li><p> <m>\xvec=\twovec{-4}{-1} = -3\vvec_1 +
+	2\vvec_2</m>. </p></li>
+
+	<li><p> We find
+	<me>
+	  \begin{alignedat}{3}
+	  A\xvec\amp{}={}\amp -9\vvec_1 \amp{}-{}\amp 4\vvec_2\\
+	  A^2\xvec\amp{}={}\amp -27\vvec_1\amp{}+{}\amp8\vvec_2 \\
+	  A^{-1}\xvec\amp{}={}\amp -\vvec_1 \amp{}-{}\amp \vvec_2\text{.} \\
+	  \end{alignedat}
+	</me>
+	</p></li>
+      </ol></p>
+    </answer>
+  </exercise>
+	
+  <exercise>
+    <statement>
+      <p> Consider the matrix and vectors
+      <me>
+	A = \left[\begin{array}{rrr}
+	-5 \amp -2 \amp 2 \\
+	24 \amp 14 \amp -10 \\
+	21 \amp 14 \amp -10 \\
+	\end{array}\right],\qquad
+	\vvec_1=\threevec{1}{-2}{-1},
+	\vvec_2=\threevec{2}{-3}{0},
+	\vvec_3=\threevec{0}{-1}{-1}
+      </me>
+      <ol marker="a.">
+	<li><p> Show that the vectors <m>\vvec_1</m>, <m>\vvec_2</m>, and
+	<m>\vvec_3</m> are eigenvectors of <m>A</m> and find their
+	associated eigenvalues.
+      </p>
+      <sage>
+	<input>
+	</input>
+      </sage>
+	</li>
+
+	<li><p> Express the vector <m>\xvec = \threevec{0}{-3}{-4}</m>
+	as a linear combination of the eigenvectors. </p></li>
+
+	<li><p> Use this expression to compute <m>A\xvec</m>,
+	<m>A^2\xvec</m>, and <m>A^{-1}\xvec</m> as a linear
+	combination of eigenvectors. </p></li>
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> We see that <m>A\vvec_1=-3\vvec_1</m>, <m>A\vvec_2 =
+	-2\vvec_2</m>, and <m>A\vvec_3=4\vvec_3</m>.  The associated
+	eigenvalues are <m>\lambda_1 = -3</m>, <m>\lambda_2=-2</m>,
+	and <m>\lambda_3=4</m>. </p></li>
+
+	<li><p> After forming an augmented matrix, we find
+	<m>\xvec=2\vvec_1 -\vvec_2+2\vvec_3</m>. </p></li>
+
+	<li><p> We then have
+	<me>
+	  \begin{alignedat}{4}
+	  A\xvec\amp{}={}\amp -6\vvec_1 \amp{}+{}\amp
+	  2\vvec_2\amp{}+{} \amp 8\vvec_3\\
+	  A^2\xvec\amp{}={}\amp 18\vvec_1\amp{}-{}\amp
+	  4\vvec_2\amp{}+{}\amp 32\vvec_3\\
+	  A^{-1}\xvec\amp{}={}\amp -\frac23\vvec_1\amp
+	  {}+{}\amp\frac12\vvec_2\amp{}+{}\amp\frac12\vvec_3\text{.} \\ 
+	  \end{alignedat}
+	</me>
+	</p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> We see that <m>A\vvec_1=-3\vvec_1</m>, <m>A\vvec_2 =
+	-2\vvec_2</m>, and <m>A\vvec_3=4\vvec_3</m>.  The associated
+	eigenvalues are <m>\lambda_1 = -3</m>, <m>\lambda_2=-2</m>,
+	and <m>\lambda_3=4</m>. </p></li>
+
+	<li><p> 
+	<m>\xvec=2\vvec_1 -\vvec_2+2\vvec_3</m>. </p></li>
+
+	<li><p> We find
+	<me>
+	  \begin{alignedat}{4}
+	  A\xvec\amp{}={}\amp -6\vvec_1 \amp{}+{}\amp
+	  2\vvec_2\amp{}+{} \amp 8\vvec_3\\
+	  A^2\xvec\amp{}={}\amp 18\vvec_1\amp{}-{}\amp
+	  4\vvec_2\amp{}+{}\amp 32\vvec_3\\
+	  A^{-1}\xvec\amp{}={}\amp -\frac23\vvec_1\amp
+	  {}+{}\amp\frac12\vvec_2\amp{}+{}\amp\frac12\vvec_3\text{.} \\ 
+	  \end{alignedat}
+	</me>
+	</p></li>
+      </ol></p>
+    </answer>
+
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Suppose that <m>A</m> is an <m>n\times n</m> matrix.
+      <ol marker="a.">
+	<li><p> Explain why <m>\lambda = 0</m> is an eigenvalue of
+	<m>A</m> if and only if there is a nonzero solution to the
+	homogeneous equation <m>A\xvec = 0</m>. </p></li>
+
+	<li><p> Explain why <m>A</m> is not invertible
+	if and only if <m>\lambda=0</m> is an eigenvalue.</p></li>
+
+	<li><p> If <m>\vvec</m> is an 
+	eigenvector of <m>A</m> having associated eigenvalue
+	<m>\lambda</m>, explain why <m>\vvec</m> is also an
+	eigenvector of <m>A^2</m> with associated eigenvalue
+	<m>\lambda^2</m>.  </p></li>
+
+	<li><p> If <m>A</m> is invertible and <m>\vvec</m> is
+	eigenvector of <m>A</m> having associated eigenvalue
+	<m>\lambda</m>, explain why <m>\vvec</m> is also an
+	eigenvector of <m>A^{-1}</m> with associated eigenvalue
+	<m>\lambda^{-1}</m>. </p></li>
+
+	<li><p> The matrix
+	<m>
+	  A=\
+	  \left[\begin{array}{rr}
+	  1 \amp 2 \\
+	  2 \amp 1 \\
+	  \end{array}\right]
+	</m>
+	has eigenvectors <m>\vvec_1=\twovec{1}{1}</m> and
+	<m>\vvec_2=\twovec{-1}{1}</m> and associated eigenvalues <m>\lambda_1
+	= 3</m> and <m>\lambda=-1</m>.  What are some eigenvectors and
+	associated eigenvalues for <m>A^5</m>? </p></li>
+      </ol>
+      </p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> If <m>\lambda=0</m> is an eigenvalue, then there is a
+	nonzero vector <m>\vvec</m> such that <m>A\vvec=\lambda\vvec =
+	\zerovec</m>.  This means that an associated eigenvector is a
+	nonzero solution to the homogeneous equation
+	<m>A\xvec=\zerovec</m>.  </p></li>
+
+	<li><p> If <m>\lambda =0</m> is an eigenvalue of <m>A</m>,
+	then there is a nonzero solution to the homogeneous
+	equation <m>A\xvec=\zerovec</m>, which happens exactly when
+	<m>A</m> is not 
+	invertible. </p></li>
+
+	<li><p> If <m>\vvec</m> is an eigenvector of <m>A</m> with
+	associated eigenvalue <m>\lambda</m>, then
+	<m>A\vvec=\lambda\vvec</m>.  Therefore, <m>A^2\vvec =
+	A(A\vvec) = \lambda A\vvec = \lambda^2\vvec</m>, which means
+	that <m>\vvec</m> is an eigenvector with associated eigenvalue
+	<m>\lambda^2</m>. </p></li>
+
+	<li><p> If <m>A\vvec=\lambda\vvec</m>, we can multiply both
+	sides by <m>A^{-1}</m> and <m>\frac1\lambda</m> to obtain
+	<m>\frac1\lambda\vvec=A^{-1}\vvec</m>.  This shows that
+	<m>\vvec</m> is an eigenvector of <m>A^{-1}</m> with
+	associated eigenvalue <m>\frac1\lambda</m>.
+	</p></li>
+
+	<li><p> The vectors <m>\vvec_1</m> and <m>\vvec_2</m> are
+	eigenvectors of <m>A^5</m> with associated eigenvalues
+	<m>\lambda_1^5 = 3^5=243</m> and <m>\lambda_2^5 = (-1)^5 =
+	-1</m>. </p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> If <m>\lambda=0</m> is an eigenvalue, then there is a
+	nonzero vector <m>\vvec</m> such that <m>A\vvec=\lambda\vvec =
+	\zerovec</m>.  </p></li>
+
+	<li><p> If <m>\lambda =0</m> is an eigenvalue of <m>A</m>,
+	then there is a nonzero solution to the homogeneous
+	equation <m>A\xvec=\zerovec</m>.</p></li>
+
+	<li><p> If <m>A\vvec=\lambda\vvec</m>, we can multiply both
+	sides by <m>A^{-1}</m> and <m>\frac1\lambda</m> to obtain
+	<m>\frac1\lambda\vvec=A^{-1}\vvec</m>.  
+	</p></li>
+
+	<li><p> Notice that <m>A^2\vvec =
+	A(A\vvec) = \lambda A\vvec = \lambda^2\vvec</m>, which means
+	that <m>\vvec</m> is an eigenvector with associated eigenvalue
+	<m>\lambda^2</m>. </p></li>
+
+	<li><p> The vectors <m>\vvec_1</m> and <m>\vvec_2</m> are
+	eigenvectors of <m>A^5</m> with associated eigenvalues
+	<m>\lambda_1^5 = 3^5=243</m> and <m>\lambda_2^5 = (-1)^5 =
+	-1</m>. </p></li>
+      </ol></p>
+    </answer>
+    
+	
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p>
+	Suppose that <m>A</m> is a matrix with eigenvectors
+	<m>\vvec_1</m> and <m>\vvec_2</m> and eigenvalues <m>\lambda_1 =
+	-1</m> and <m>\lambda_2=2</m> as shown in <xref
+	ref="figure-eigen-exercise"/>.  
+      </p>
+      <figure xml:id="figure-eigen-exercise">
+	<caption>
+	  The vectors <m>\vvec_1</m> and <m>\vvec_2</m> are
+	  eigenvectors of <m>A</m>.
+	</caption>
+	<sidebyside widths="45%">
+	  <image source="images/ex-eigen-powers" />
+	</sidebyside>
+      </figure>
+      <p>
+	Sketch the vectors <m>A\xvec</m>, <m>A^2\xvec</m>, and
+	<m>A^{-1}\xvec</m>.
+      </p>
+    </statement>
+
+    <solution>
+      <p> <sidebyside width="50%">
+	<image source="images/ex-eigen-powers-sol" />
+      </sidebyside>
+      </p>
+    </solution>
+    <answer>
+      <p> <sidebyside width="50%">
+	<image source="images/ex-eigen-powers-sol" />
+      </sidebyside>
+      </p>
+    </answer>
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> For the following matrices, find the eigenvectors and
+      associated eigenvalues by thinking geometrically about the
+      corresponding matrix transformation.
+      <ol marker="a.">
+	<li><p>
+	  <m>
+	    \left[\begin{array}{rr}
+	    3 \amp 0 \\
+	    0 \amp 3 \\
+	    \end{array}\right]
+	</m>.</p></li>
+
+	<li><p>
+	  <m>
+	    \left[\begin{array}{rr}
+	    -2 \amp 0 \\
+	    0 \amp 4 \\
+	    \end{array}\right]
+	</m>.</p></li>
+	    
+	<li><p> What are the eigenvectors and associated eigenvalues
+	of the identity matrix? </p></li>
+
+	<li><p> What are the eigenvectors and associated eigenvalues
+	of a diagonal matrix with distinct diagonal entries? </p></li>
+
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> The corresponding matrix transformation stretches
+	every two-dimensional vector by a factor of <m>3</m>.
+	Therefore, every two-dimensional vector is an eigenvector
+	with associated eigenvalue <m>\lambda=3</m>. </p></li>
+
+	<li><p> The corresponding matrix transformation stretches
+	vectors horizontally by a factor of <m>2</m> and reflects them
+	while stretching by a factor of <m>4</m> vertically.  We have
+	eigenvectors <m>\vvec_1=\twovec{1}{0}</m> with associated
+	eigenvalue <m>\lambda_1=-2</m> and
+	<m>\vvec_2=\twovec{0}{1}</m> with
+	<m>\lambda_2=4</m>. </p></li>
+
+	<li><p> For any vector <m>\vvec</m>, we have
+	<m>I\vvec=\vvec</m>.  Therefore, every vector is an
+	eigenvector of the identity matrix with associated eigenvalue
+	<m>\lambda=1</m>. </p></li>
+
+	<li><p> The standard basis vectors <m>\evec_j</m> are
+	eigenvectors and the associated eigenvalues are the
+	corresponding diagonal entries. </p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> 
+	  Every two-dimensional vector is an eigenvector
+	  with associated eigenvalue <m>\lambda=3</m>.
+	</p></li>
+
+	<li><p> We have
+	eigenvectors <m>\vvec_1=\twovec{1}{0}</m> with associated
+	eigenvalue <m>\lambda_1=-2</m> and
+	<m>\vvec_2=\twovec{0}{1}</m> with
+	<m>\lambda_2=4</m>. </p></li>
+
+	<li><p> Every vector is an
+	eigenvector of the identity matrix with associated eigenvalue
+	<m>\lambda=1</m>. </p></li>
+
+	<li><p> The standard basis vectors <m>\evec_j</m> are
+	eigenvectors and the associated eigenvalues are the
+	corresponding diagonal entries. </p></li>
+      </ol></p>
+    </answer>
+
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Suppose that <m>A</m> is a <m>2\times2</m> matrix having
+      eigenvectors
+      <me>
+	\vvec_1=\twovec{2}{1}, \qquad
+	\vvec_2=\twovec{-1}{2}
+      </me>
+      and associated eigenvalues <m>\lambda_1=2</m> and
+      <m>\lambda_2=-3</m>.
+      <ol marker="a.">
+	<li>
+	  <p>
+	    If <m>\xvec=\twovec{5}{0}</m>, find the
+	    vector <m>A^4\xvec</m>.
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    Find the vectors <m>A\twovec10</m> and <m>A\twovec01</m>.
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    What is the matrix <m>A</m>?
+	  </p>
+	</li>
+      </ol>
+      </p>
+	  
+    </statement>
+
+    <solution>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      We have <m>\xvec = 2\vvec_1-\vvec_2</m>.  Therefore,
+	      <m>A^4\xvec = 2\lambda_1^4\vvec_1-\lambda_2^4\vvec_2 =
+	      32\vvec_1-81\vvec_2=\twovec{145}{-130}</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      We have
+	      <me>
+		\twovec10 = \frac25 \vvec_1 - \frac15 \vvec2,~~~
+		\twovec01 = \frac15 \vvec_1 + \frac25 \vvec2,
+	      </me>
+	      and so
+	      <me>
+		A\twovec10 = \frac45 \vvec_1 + \frac35 \vvec2 = \twovec12,~~~
+		A\twovec01 = \frac25 \vvec_1 - \frac65 \vvec2 = \twovec2{-2}.
+	      </me>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      From the results of the previous part, we have
+	      <m>A = \begin{bmatrix}
+	      1 \amp 2 \\
+	      2 \amp -2 \\
+	      \end{bmatrix}
+	      </m>.
+	    </p>
+	  </li>
+	</ol>
+      </p>
     </solution>
 
     <answer>
       <p>
-	<m>
-	  A^{-1} = U^{-1}L^{-1}P =
-	  \left[\begin{array}{rrr}
-	  -\frac{15}{13} \amp \frac{17}{13} \amp -\frac{8}{13} \\
-	  \frac{11}{13} \amp -\frac{9}{13} \amp \frac{5}{13} \\
-	  -\frac{14}{13} \amp \frac{15}{13} \amp -\frac{4}{13}
-	  \end{array}\right]
-	  </m>.
+	<ol marker="a.">
+	  <li>
+	    <p> <m>\twovec{145}{-130}</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p> <m>A\twovec10 = \twovec12</m> and 
+	    <m>A\twovec01 = \twovec2{-2}</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>A = \begin{bmatrix}
+	      1 \amp 2 \\
+	      2 \amp -2 \\
+	      \end{bmatrix}
+	      </m>.
+	    </p>
+	  </li>
+	</ol>
       </p>
     </answer>
-	  
+    
   </exercise>
-
+	
   <exercise>
     <statement>
-      <p> Consider the matrix
-      <me>
-	A = \left[\begin{array}{rrrr}
-	a \amp a \amp a \amp a \\
-	a \amp b \amp b \amp b \\
-	a \amp b \amp c \amp c \\
-	a \amp b \amp c \amp d \\
-	\end{array}\right]\text{.}
-      </me>
-      <ol marker="a.">
-	<li><p> Find the <m>LU</m> factorization of
-	<m>A</m>. </p></li>
+      <p> Determine whether the following statements are true or false
+      and provide a justification for your response.
+      <ol marker="a."> 
+	<li><p> The eigenvalues of a diagonal matrix are equal to the
+	entries on the diagonal. </p></li>
 
-	<li><p> What conditions on <m>a</m>, <m>b</m>, <m>c</m>, and
-	<m>d</m> guarantee that <m>A</m> is invertible?
-	</p></li>
+	<li><p> If <m>A\vvec=\lambda\vvec</m>, then
+	<m>A^2\vvec=\lambda\vvec</m> as well. </p></li>
+
+	<li><p> Every vector is an eigenvector of the identity
+	matrix. </p></li>
+
+	<li><p> If <m>\lambda=0</m> is an eigenvalue of <m>A</m>, then
+	<m>A</m> is invertible. </p></li>
+
+	<li><p> For every <m>n\times n</m> matrix <m>A</m>, it is
+	possible to find a basis of <m>\real^n</m> consisting of
+	eigenvectors of <m>A</m>. </p></li>
       </ol></p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
-	<li><p> We begin with <m>E_1A=A_1</m> where
-	<me>
-	  E_1=\left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  -1 \amp 1 \amp 0 \amp 0 \\
-	  -1 \amp 0 \amp 1 \amp 0 \\
-	  -1 \amp 0 \amp 0 \amp 1 \\
-	  \end{array}\right],
-	  A_1=
-	  \left[\begin{array}{rrrr}
-	  a \amp a \amp a \amp a \\
-	  0 \amp b-a \amp b-a \amp b-a \\
-	  0 \amp b-a \amp c-a \amp c-a \\
-	  0 \amp b-a \amp c-a \amp d-a \\
-	  \end{array}\right]\text{.}
-	</me>
-	Next we have <m>E_2A_1=A_2</m> where
-	<me>
-	  E_2=\left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  0 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp -1 \amp 1 \amp 0 \\
-	  0 \amp -1 \amp 0 \amp 1 \\
-	  \end{array}\right],
-	  A_2=
-	  \left[\begin{array}{rrrr}
-	  a \amp a \amp a \amp a \\
-	  0 \amp b-a \amp b-a \amp b-a \\
-	  0 \amp 0 \amp c-b \amp c-b \\
-	  0 \amp 0 \amp c-b \amp d-b \\
-	  \end{array}\right]\text{.}
-	</me>
-	Finally, we have <m>E_3A_2=U</m>, an upper triangular matrix
-	where
-	<me>
-	  E_3=\left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  0 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp 0 \amp 1 \amp 0 \\
-	  0 \amp 0 \amp -1 \amp 1 \\
-	  \end{array}\right],
-	  U =
-	  \left[\begin{array}{rrrr}
-	  a \amp a \amp a \amp a \\
-	  0 \amp b-a \amp b-a \amp b-a \\
-	  0 \amp 0 \amp c-b \amp c-b \\
-	  0 \amp 0 \amp 0 \amp d-c \\
-	  \end{array}\right]\text{.}
-	</me>
-	This gives
-	<me>
-	  L = \left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  1 \amp 1 \amp 0 \amp 0 \\
-	  1 \amp 1 \amp 1 \amp 0 \\
-	  1 \amp 1 \amp 1 \amp 1 \\
-	  \end{array}\right],
-	  U =
-	  \left[\begin{array}{rrrr}
-	  a \amp a \amp a \amp a \\
-	  0 \amp b-a \amp b-a \amp b-a \\
-	  0 \amp 0 \amp c-b \amp c-b \\
-	  0 \amp 0 \amp 0 \amp d-c \\
-	  \end{array}\right]\text{.}
-	</me>
-	</p></li>
-	
-	<li><p> Notice that <m>A</m> is invertible if and only if
-	<m>U</m> is invertible and <m>U</m> is invertible if and only
-	all the diagonal terms are not equal.  This means that
-	<m>A</m> is invertible provided that <m>a\neq0</m>, <m>b\neq
-	a</m>, <m>c\neq b</m>, and <m>d\neq c</m>.
-	</p></li>
+	<li><p> True.  The associated eigenvectors are the standard
+	basis vectors <m>\evec_j</m>. </p></li>
+
+	<li><p> False.  <m>A^2\vvec=\lambda^2\vvec</m>. </p></li>
+
+	<li><p> True, because <m>I\vvec = \vvec</m>. </p></li>
+
+	<li><p> False.  If <m>\lambda=0</m> is an eigenvalue of
+	<m>A</m>, then there is a nonzero solution to the
+	homogeneous equation so <m>A</m> is not invertible. </p></li>
+
+	<li><p> False.  We saw the example <m>\left[\begin{array}{rr}
+	0 \amp -1 \\
+	1 \amp 0 \\
+	\end{array}\right]</m>, which represents a <m>90^\circ</m>
+	rotation and has no eigenvectors. </p></li>
       </ol></p>
     </solution>
 
     <answer>
       <p><ol marker="a.">
-	<li><p> We find
-	<me>
-	  L = \left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  1 \amp 1 \amp 0 \amp 0 \\
-	  1 \amp 1 \amp 1 \amp 0 \\
-	  1 \amp 1 \amp 1 \amp 1 \\
-	  \end{array}\right],
-	  U =
-	  \left[\begin{array}{rrrr}
-	  a \amp a \amp a \amp a \\
-	  0 \amp b-a \amp b-a \amp b-a \\
-	  0 \amp 0 \amp c-b \amp c-b \\
-	  0 \amp 0 \amp 0 \amp d-c \\
-	  \end{array}\right]\text{.}
-	</me>
-	</p></li>
-
-	<li><p> <m>a\neq0</m>, <m>b\neq
-	a</m>, <m>c\neq b</m>, and <m>d\neq c</m>.</p></li>
+	<li><p> True </p></li>
+	<li><p> False </p></li>
+	<li><p> True </p></li>
+	<li><p> False </p></li>
+	<li><p> False </p></li>
       </ol></p>
     </answer>
-
+	
   </exercise>
 
   <exercise>
     <statement>
-      <p> In the <m>LU</m> factorization of a matrix, the diagonal
-      entries of <m>L</m> are all <m>1</m> while the diagonal entries
-      of <m>U</m> are not necessarily <m>1</m>.  This exercise will
-      explore that observation by considering the matrix
+      <p>
+	Suppose that <m>A</m> is an <m>n\times n</m> matrix.
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      Assuming that <m>\vvec</m> is an eigenvector of
+	      <m>A</m> whose associated eigenvector is nonzero,
+	      explain why <m>\vvec</m> is in <m>\col(A)</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Assuming that <m>\vvec</m> is an eigenvector of
+	      <m>A</m> whose associated eigenvector is zero,
+	      explain why <m>\vvec</m> is in <m>\nul(A)</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Consider the two special matrices below and find their
+	      eigenvectors and associated eigenvalues.
+	      <me>
+		A = \left[\begin{array}{rrr}
+		1 \amp 1 \amp 1 \\
+		1 \amp 1 \amp 1 \\
+		1 \amp 1 \amp 1 \\
+		\end{array}\right],~~~
+		B = 
+		\left[\begin{array}{rrr}
+		1 \amp 1 \amp 1 \\
+		2 \amp 2 \amp 2 \\
+		3 \amp 3 \amp 3 \\
+		\end{array}\right].
+	      </me>
+	  </p></li>
+      </ol></p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li>
+	  <p>
+	    In this case, we have <m>A\vvec = \lambda\vvec</m> or
+	    <m>A\left(\frac1\lambda\vvec\right) = \vvec</m>, which
+	    says that 
+	    the equation <m>A\xvec = \vvec</m> is consistent.
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    With this assumption, <m>A\vvec = 0\vvec = \zerovec</m>,
+	    which means that <m>\vvec</m> is a solution to the
+	    homogeneous equation <m>A\xvec = \zerovec</m>.
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    The column space of <m>A</m>
+	    is spanned by <m>\vvec_1=\threevec{1}{1}{1}</m> and we notice
+	    that <m>A\vvec_1 = 3\vvec_1</m>.  Therefore, <m>\vvec_1</m> is
+	    an eigenvector with associated eigenvalue <m>\lambda_1=3</m>.
+	  </p>
+
+	  <p> We also know that that the rank of this matrix is 1 so
+	  <m>\nul(A)</m> is two-dimensional.  A basis for the null space
+	  is <m>\vvec_2=\threevec{-1}{1}{0}</m> and
+	  <m>\vvec_3=\threevec{-1}{0}{1}</m> so these vectors are
+	  eigenvectors with associated eigenvalue <m>\lambda_2=\lambda_3 =
+	  0</m>. 
+
+	  In the same way, <m>\vvec_1=\threevec{1}{2}{3}</m> is an
+	  eigenvector of <m>B</m> with associated eigenvalue
+	  <m>\lambda_1=6</m> and <m>\vvec_2=\threevec{-1}{1}{0}</m>
+	  and <m>\vvec_3=\threevec{-1}{0}{1}</m> are eigenvectors with
+	  associated eigenvalue
+	  <m>\lambda_2=\lambda_3=0</m>. </p></li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p>
+	  Because <m>A\vvec = \lambda\vvec</m>.
+	</p></li>
+
+	<li><p>
+	  Because <m>A\vvec = 0\vvec = \zerovec</m>.
+	</p></li>
+
+	<li><p>
+	  For the matrix <m>A</m>,
+	  <m>\vvec_1=\threevec{1}{1}{1}</m> with associated eigenvalue
+	  <m>\lambda_1=3</m>, and
+	  <m>\vvec_2=\threevec{-1}{1}{0}</m> and
+	  <m>\vvec_3=\threevec{-1}{0}{1}</m>  with
+	  associated eigenvalue <m>\lambda_2=\lambda_3 =
+	  0</m>.
+	</p>
+	<p> For <m>B</m>,
+	<m>\vvec_1=\threevec{1}{2}{3}</m> 
+	with associated eigenvalue <m>\lambda_1=6</m> and
+	<m>\vvec_2=\threevec{-1}{1}{0}</m> and
+	<m>\vvec_3=\threevec{-1}{0}{1}</m> with
+	associated eigenvalue <m>\lambda_2=\lambda_3=0</m>. </p></li>
+      </ol></p>
+    </answer>
+    
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> For each of the following matrix transformations, describe
+      the eigenvalues and eigenvectors of the corresponding matrix
+      <m>A</m>.
+      <ol marker="a.">
+	<li><p> A reflection in <m>\real^2</m> in the line
+	<m>y=x</m>. </p></li>
+
+	<li><p> A <m>180^\circ</m> rotation in <m>\real^2</m>. </p></li>
+
+	<li><p> A <m>180^\circ</m> rotation in <m>\real^3</m> about
+	the <m>y</m>-axis. </p></li>
+
+	<li><p> A <m>90^\circ</m> rotation in <m>\real^3</m> about the
+	<m>x</m>-axis. </p></li>
+      </ol> </p>
+    </statement>
+
+    <solution>
+      <p><ol marker="a.">
+	<li><p> A vector lying along the line of reflection is
+	unchanged so <m>A\twovec{1}{1} = \twovec{1}{1}</m>, which
+	shows that <m>\twovec{1}{1}</m> is an eigenvector with
+	associated eigenvalue <m>\lambda = 1</m>.  At the same time,
+	<m>A\twovec{1}{-1} = -\twovec{1}{-1}</m> so
+	<m>\twovec{1}{-1}</m> is an eigenvector with associated
+	eigenvalue <m>\lambda=-1</m>. </p></li>
+
+	<li><p> Every vector <m>\vvec</m> satisfies
+	<m>A\vvec=-\vvec</m> so every two-dimensional vector is an
+	eigenvector with associated eigenvalue
+	<m>\lambda=-1</m>. </p></li>
+
+	<li><p> Vectors along the <m>y</m>-axis are unchanged so
+	<m>\threevec{0}{1}{0}</m> is an eigenvector with associated
+	eigenvalue <m>\lambda=1</m>.  Vectors in the <m>xz</m>-plane
+	are multiplied by <m>-1</m> so <m>\threevec{1}{0}{0}</m> and
+	<m>\threevec{0}{0}{1}</m> are eigenvectors with associated
+	eigenvalue <m>\lambda=-1</m>. </p></li>
+
+	<li><p> The vector <m>\threevec{1}{0}{0}</m> is an eigenvector
+	with associated eigenvalue <m>\lambda=1</m>.  There are no
+	other eigenvectors that are not scalar multiples of this
+	one. </p> </li>
+      </ol></p>
+    </solution>
+
+    <answer>
+      <p><ol marker="a.">
+	<li><p> <m>\twovec{1}{1}</m> with
+	associated eigenvalue <m>\lambda = 1</m> and
+	<m>\twovec{1}{-1}</m> 
+	with associated
+	eigenvalue <m>\lambda=-1</m>. </p></li>
+
+	<li><p> Every two-dimensional vector is an
+	eigenvector with associated eigenvalue
+	<m>\lambda=-1</m>. </p></li>
+
+	<li><p> 
+	<m>\threevec{0}{1}{0}</m> with associated
+	eigenvalue <m>\lambda=1</m>.
+	<m>\threevec{1}{0}{0}</m> and
+	<m>\threevec{0}{0}{1}</m> with associated
+	eigenvalue <m>\lambda=-1</m>. </p></li>
+
+	<li><p> <m>\threevec{1}{0}{0}</m> 
+	with associated eigenvalue <m>\lambda=1</m>.
+	</p> </li>
+      </ol></p>
+    </answer>
+    
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p> Suppose we have two species, <m>P</m> and <m>Q</m>, where
+      species <m>P</m> preys on <m>Q</m>.  Their populations, in
+      millions, in year <m>k</m> are denoted by <m>P_k</m> and
+      <m>Q_k</m> and satisfy
       <me>
-	A = \left[\begin{array}{rrr}
-	3 \amp 1 \amp 1 \\
-	-6 \amp -4 \amp -1 \\
-	0 \amp -4 \amp 1 \\
+	\begin{aligned}
+	P_{k+1} \amp {}={} 0.8P_k + 0.2Q_k \\
+	Q_{k+1} \amp {}={} -0.3P_k + 1.5Q_k \\
+	\end{aligned}
+      </me>.
+      We will keep track of the populations in year <m>k</m> using the
+      vector <m>\xvec_k=\twovec{P_k}{Q_k}</m> so that
+      <me>
+	\xvec_{k+1} = A\xvec_k =
+	\left[\begin{array}{rr}
+	0.8 \amp 0.2 \\
+	-0.3 \amp 1.5 \\
 	\end{array}\right]
+	\xvec_k
       </me>.
       <ol marker="a.">
-	<li><p> Perform Gaussian elimination without partial pivoting
-	to find <m>U</m>, an upper triangular matrix that is row
-	equivalent to <m>A</m>. </p></li>
+	<li><p> Show that <m>\vvec_1=\twovec{1}{3}</m> and
+	<m>\vvec_2=\twovec{2}{1}</m> are eigenvectors of <m>A</m> and
+	find their associated eigenvalues. </p></li>
 
-	<li><p> The diagonal entries of <m>U</m> are called
-	<em>pivots</em>.  Explain why <m>\det A</m> equals the
-	product of the pivots. </p></li>
+	<li><p> Suppose that the initial populations are described by
+	the vector
+	<m>\xvec_0 = \twovec{38}{44}</m>.  Express <m>\xvec_0</m> as a
+	linear combination of <m>\vvec_1</m> and
+	<m>\vvec_2</m>. </p></li>
 
-	<li><p> What is <m>\det A</m> for our matrix
-	<m>A</m>?</p></li> 
+	<li><p> Find the populations after one year, two years, and
+	three years by writing the vectors <m>\xvec_1</m>,
+	<m>\xvec_2</m>, and <m>\xvec_3</m> as linear combinations of
+	<m>\vvec_1</m> and <m>\vvec_2</m>. </p></li>
 
-	<li><p> More generally, if we have <m>PA=LU</m>, explain why
-	<m>\det A</m> equals plus or minus the product of the
-	pivots. </p></li>
+	<li><p> What is the general form for <m>\xvec_k</m>?</p></li>
+
+	<li><p> After a very long time, what is the ratio of
+	<m>P_k</m> to <m>Q_k</m>? </p></li>
       </ol></p>
     </statement>
 
     <solution>
       <p><ol marker="a.">
+	<li><p> We can compute <m>A\vvec_1 = 1.4\vvec_1</m> and
+	<m>A\vvec_2=0.9\vvec_2</m>.  This means that <m>\vvec_1</m> is
+	an eigenvector with associated eigenvalue <m>\lambda_1=1.4</m>
+	and <m>\vvec_2</m> is an eigenvector with associated
+	eigenvalue <m>\lambda_2=0.9</m>. </p></li>
+
+	<li><p> Setting up an augmented matrix and row reducing shows
+	that <m>\xvec_0=10\vvec_1+14\vvec_2</m>. </p></li>
+
 	<li><p> We have
 	<me>
-	  A =
-	  \left[\begin{array}{rrr}
-	  3 \amp 1 \amp 1 \\
-	  -6 \amp -4 \amp -1 \\
-	  0 \amp -4 \amp 1 \\
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rrr}
-	  3 \amp 1 \amp 1 \\
-	  0 \amp -2 \amp -1 \\
-	  0 \amp -4 \amp 1 \\
-	  \end{array}\right]
-	  \sim
-	  \left[\begin{array}{rrr}
-	  3 \amp 1 \amp 1 \\
-	  0 \amp -2 \amp -1 \\
-	  0 \amp 0 \amp -1 \\
-	  \end{array}\right]=U\text{.}
-	</me>
-	This leads to <m>A=LU</m> where
-	<me>
-	  L =
-	  \left[\begin{array}{rrr}
-	  1 \amp 0 \amp 0 \\
-	  -2 \amp 1 \amp 0 \\
-	  0 \amp 2 \amp 1 \\
-	  \end{array}\right],
-	  U = \left[\begin{array}{rrr}
-	  3 \amp 1 \amp 1 \\
-	  0 \amp -2 \amp -1 \\
-	  0 \amp 0 \amp -1 \\
-	  \end{array}\right]\text{.}
+	  \begin{alignedat}{4}
+	  \xvec_1\amp{}={}\amp A\xvec_0 \amp {}={} 10(1.4)\vvec_1 \amp
+	  {}+{} \amp 14(0.9)\vvec_2 \\
+	  \xvec_2\amp{}={}\amp A\xvec_1 \amp {}={} 10(1.4)^2\vvec_1 \amp
+	  {}+{} \amp 14(0.9)^2\vvec_2 \\
+	  \xvec_3\amp{}={}\amp A\xvec_2 \amp {}={} 10(1.4)^3\vvec_1 \amp
+	  {}+{} \amp 14(0.9)^3\vvec_2\text{.} \\
+	  \end{alignedat}
 	</me>
 	</p></li>
 
-	<li><p> Because the diagonal entries of <m>L</m> are <m>1</m>,
-	we have <m>\det L = 1</m>.  Therefore, <m>\det A = \det L \det
-	U = \det U</m>, which equals the product of the
-	pivots. </p></li>
+	<li><p> In general, <m>\xvec_k = 10(1.4)^k\vvec_1 +
+	14(0.9)^k\vvec_2</m>. </p></li>
 
-	<li><p> <m>\det A = \det U = 6</m> </p></li>
-
-	<li><p> More generally, if we have <m>PA=LU</m>, we can
-	rewrite as <m>A=PLU</m> so that <m>\det A = \det P \det L \det
-	U = \pm\det U</m>, which is plus or minus the product of the
-	pivots. </p></li>
-      </ol></p>
-    </solution>
-	  
-    <answer>
-      <p><ol marker="a.">
-	<li><p> <m>A= LU = 
-	  \left[\begin{array}{rrr}
-	  1 \amp 0 \amp 0 \\
-	  -2 \amp 1 \amp 0 \\
-	  0 \amp 2 \amp 1 \\
-	  \end{array}\right]
-	  \left[\begin{array}{rrr}
-	  3 \amp 1 \amp 1 \\
-	  0 \amp -2 \amp -1 \\
-	  0 \amp 0 \amp -1 \\
-	  \end{array}\right]</m>.
-	</p></li>
-
-	<li><p> <m>\det A = \det L \det U = \det U</m>. </p></li>
-
-	<li><p> <m>\det A = 6</m> </p></li>
-
-	<li><p> <m>\det A = \det P \det L \det U = \pm \det
-	U</m>. </p></li>
-      </ol></p>
-    </answer>
-	
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Please provide a justification to your responses to these
-      questions.
-      <ol marker="a.">
-	<li><p> In this section, our hypothetical computer could only
-	store numbers using 3 decimal places.  Most computers can
-	store numbers using 15 or more decimal places.  Why do we
-	still need to be concerned about the accuracy of our
-	computations when solving systems of linear
-	equations? </p></li>
-
-	<li><p> Finding the <m>LU</m> factorization of a matrix
-	<m>A</m> is roughly the same amount of work as finding its
-	reduced row echelon form.  Why is the <m>LU</m> factorization
-	useful then?
-	</p></li>
-
-	<li><p> How can we detect whether a matrix is invertible from
-	its <m>LU</m> factorization? </p></li>
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> Since a typical computer has 15 or more decimal places
-	of accuracy, the error in each individual calculation is
-	relatively small.  However, if we are working with a large
-	matrix, we are performing many calculations and the errors
-	from each of them may accumulate to become
-	significant. </p></li>
-
-	<li><p> If we need to solve <m>A\xvec=\bvec</m> for a couple
-	of different vectors <m>\bvec</m>, we do not have to perform
-	Gaussian elimination again.  Some other quantities, like the
-	inverse and determinant of <m>A</m>, are more easily computed
-	using an <m>LU</m> factorization. </p></li>
-
-	<li><p> The matrix <m>A</m> is invertible if and only if
-	<m>U</m> is, and we can easily see if <m>U</m> is invertible
-	by noting if every row has a pivot. </p></li>
+	<li><p> After a long time, <m>k</m> becomes large so that
+	<m>0.9^k</m> becomes very close to zero.  This means that
+	<m>\xvec_k\approx 10(1.4)^k\vvec_1</m>.  So
+	<m>P_k\approx10(1.4)^k</m> and <m>Q_k\approx30(1.4)^k</m>.
+	This means the ratio of <m>P_k</m> to <m>Q_k</m> is
+	1:3.</p></li> 
       </ol></p>
     </solution>
 
     <answer>
       <p><ol marker="a.">
-	<li><p> When working with a large matrix, the errors from
-	individual calculations may accumulate. </p></li>
+	<li><p> <m>\vvec_1</m> 
+	with associated eigenvalue <m>\lambda_1=1.4</m>
+	and <m>\vvec_2</m> with associated
+	eigenvalue <m>\lambda_2=0.9</m>. </p></li>
 
-	<li><p> We can solve <m>A\xvec=\bvec</m> for a couple of
-	different <m>\bvec</m> without performing Gaussian elimination
-	again. </p></li>
+	<li><p> <m>\xvec_0=10\vvec_1+14\vvec_2</m>. </p></li>
 
-	<li><p> <m>A</m> is invertible if and only if <m>U</m>
-	is.</p></li>
-      </ol></p>
-    </answer>
-	
-  </exercise>
-
-  <exercise>
-    <statement>
-      <p> Consider the matrix
-      <me>
-	A = \left[\begin{array}{rrrr}
-	-1 \amp 1 \amp 0 \amp 0 \\
-	1 \amp -2 \amp 1 \amp 0 \\
-	0 \amp 1 \amp -2 \amp 1 \\
-	0 \amp 0 \amp -1 \amp 1 \\
-	\end{array}\right]\text{.}
-      </me>
-      <ol marker="a.">
-	<li><p> Find the <m>LU</m> factorization of <m>A</m>.
-	</p></li>
-
-	<li><p> Use the factorization to find a basis for
-	<m>\nul(A)</m>. </p></li>
-
-	<li><p> We have seen that <m>\nul(A) = \nul(U)</m>.  Is it
-	true that <m>\col(A) = \col(L)</m>? </p></li>
-
-      </ol></p>
-    </statement>
-
-    <solution>
-      <p><ol marker="a.">
-	<li><p> We see that
+	<li><p> We have
 	<me>
-	  \begin{array}{c}
-	  P=\left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  0 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp 0 \amp 1 \amp 0 \\
-	  0 \amp 0 \amp 0 \amp 1 \\
-	  \end{array}\right],
-	  L=\left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  -1 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp -1 \amp 1 \amp 0 \\
-	  0 \amp 0 \amp 1 \amp 1 \\
-	  \end{array}\right], \\
-	  U=\left[\begin{array}{rrrr}
-	  -1 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp -1 \amp 1 \amp 0 \\
-	  0 \amp 0 \amp -1 \amp 1 \\
-	  0 \amp 0 \amp 0 \amp 0 \\
-	  \end{array}\right]\text{.}
-	  \end{array}
+	  \begin{alignedat}{4}
+	  \xvec_1\amp{}={}\amp A\xvec_0 \amp {}={} 10(1.4)\vvec_1 \amp
+	  {}+{} \amp 14(0.9)\vvec_2 \\
+	  \xvec_2\amp{}={}\amp A\xvec_1 \amp {}={} 10(1.4)^2\vvec_1 \amp
+	  {}+{} \amp 14(0.9)^2\vvec_2 \\
+	  \xvec_3\amp{}={}\amp A\xvec_2 \amp {}={} 10(1.4)^3\vvec_1 \amp
+	  {}+{} \amp 14(0.9)^3\vvec_2\text{.} \\
+	  \end{alignedat}
 	</me>
 	</p></li>
 
-	<li><p> Because <m>\nul(A) = \nul(U)</m>, we see that
-	<m>\dim~\nul(A)=1</m> with a basis vector
-	<m>\fourvec1111</m>. </p></li>
+	<li><p> In general, <m>\xvec_k = 10(1.4)^k\vvec_1 +
+	14(0.9)^k\vvec_2</m>. </p></li>
 
-	<li><p> It is not true that <m>\col(A) = \col(L)</m>.  Since
-	there is a nonzero vector <m>\xvec</m> such that
-	<m>A\xvec=\zerovec</m>, we know that <m>A</m> is not
-	invertible and hence its column space <m>\col(A)</m> is not
-	<m>\real^4</m>.  However, <m>L</m> is invertible so we have
-	<m>\col(L)=\real^4</m>. </p></li>
+	<li><p> The ratio of <m>P_k</m> to <m>Q_k</m> is
+	1:3.</p></li> 
       </ol></p>
-    </solution>
-	  
-    <answer>
-      <p><ol marker="a.">
-	<li><p> We see that
-	<me>
-	  \begin{array}{c}
-	  P=\left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  0 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp 0 \amp 1 \amp 0 \\
-	  0 \amp 0 \amp 0 \amp 1 \\
-	  \end{array}\right],
-	  L=\left[\begin{array}{rrrr}
-	  1 \amp 0 \amp 0 \amp 0 \\
-	  -1 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp -1 \amp 1 \amp 0 \\
-	  0 \amp 0 \amp 1 \amp 1 \\
-	  \end{array}\right], \\
-	  U=\left[\begin{array}{rrrr}
-	  -1 \amp 1 \amp 0 \amp 0 \\
-	  0 \amp -1 \amp 1 \amp 0 \\
-	  0 \amp 0 \amp -1 \amp 1 \\
-	  0 \amp 0 \amp 0 \amp 0 \\
-	  \end{array}\right]\text{.}
-	  \end{array}
-	</me>
-	</p></li>
 
-	<li><p> <m>\fourvec1111</m>. </p></li>
-
-	<li><p> No </p></li>
-      </ol></p>
     </answer>
-	  
   </exercise>
-
-	
-	 
-  
-
-  
-
 
 </exercises>
