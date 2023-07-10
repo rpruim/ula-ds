@@ -9,16 +9,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
+</script>
 </head>
 <body class="ignore-math">
-<h4 class="heading"><span class="type">Paragraph</span></h4>
-<div class="para logical">
-<div class="para">This section has explored how appropriate changes in bases help us reconstruct an image using only a fraction of its data. This is known as image compression.</div>
-<ul class="disc">
-<li><div class="para">There are several ways of representing colors, all of which use vectors in <span class="process-math">\(\real^3\text{.}\)</span>  We explored the <span class="process-math">\(RGB\)</span> color model, which is appropriate in digital applications, and the <span class="process-math">\(YC_bC_r\)</span> model, in which the most important visual information is conveyed by the <span class="process-math">\(Y\)</span> component, known as luminance.</div></li>
-<li><div class="para">We also explored a change of basis called the Discrete Fourier Transform.  In the coordinate system that results, the first coefficient measures the average of the components of a vector.  Other coefficients measure variations in the components away from the average.</div></li>
-<li><div class="para">We put both of these ideas to use in demonstrating the JPEG compression algorithm.  An image is broken into <span class="process-math">\(8\times8\)</span> blocks, and the colors into luminance, blue chrominance, and red chrominance.  Applying the Discrete Fourier Transform allows us to reconstruct a good approximation of the image using only a fraction of the original data.</div></li>
-</ul>
+<h5 class="heading"><span class="type">Paragraph</span></h5>
+<div class="para">The Python cell below will construct the vector <span class="process-math">\(P_{\bcal}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">P</code>, and its inverse <span class="process-math">\(P_{\bcal}^{-1}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">Pinv</code>.  Evaluate this Python cell and notice that it prints the matrix <span class="process-math">\(P_{\bcal}^{-1}\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-dct-def"><script type="text/x-sage">import numpy as np
+mat = [[math.cos((2*i+1)*j*pi/16) for j in range(8)] for i in range(8)]
+P = np.array(mat)
+print(P.dtype)
+print(P.round(3))
+print("------------")
+Pinv = np.linalg.inv(P)
+print (Pinv.round(3))
+</script></pre> Now look at the form of <span class="process-math">\(P_{\bcal}^{-1}\)</span> and explain why <span class="process-math">\(F_0\)</span> is the average of the luminance values in the vector <span class="process-math">\(\xvec\text{.}\)</span>
 </div>
 <span class="incontext"><a href="sec-jpeg.html#p-3068" class="internal">in-context</a></span>
 </body>

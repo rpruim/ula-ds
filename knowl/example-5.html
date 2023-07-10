@@ -28,21 +28,22 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.1</span><span class="period">.</span>
 </h4>
 <div class="para">An RGB image that is 400 pixels wide and 300 pixels tall might correspond to a tensor with shape <code class="code-inline tex2jax_ignore">(400, 300, 3)</code>. Or perhaps <code class="code-inline tex2jax_ignore">(3, 300, 400)</code>, or ... The computer doesn’t really care, but we need to know which slot is being used for what in order to work with this image correctly.  The usual arrangement is row, column, channel. This is called the <dfn class="terminology">channels-last convention</dfn>. But somtimes a channels-first convention is used instead. </div> <div class="para">We can plot images (or other matrices that we would like to view as an image) using a number of different tools.  Here we demonstrate how to do so using <code class="code-inline tex2jax_ignore">matplotlib</code>. <code class="code-inline tex2jax_ignore">matplotlib</code> supports a variety of image formats. For RGB images, the RGB values can be integers from 0 to 255 or floating point values between 0 and 1. <pre class="ptx-sagecell sagecell-python" id="sage-24"><script type="text/x-sage">import numpy as np
-import matplotlib.pyplot as plt 
-A = np.arange(20 * 50 * 3)
-A = A / (20 * 50 * 3)
-A.shape = (20, 50, 3)
-plt.imshow(A) 
-plt.show()
-</script></pre> <pre class="ptx-sagecell sagecell-python" id="sage-25"><script type="text/x-sage">import numpy as np
 from skimage import io
 import matplotlib.pyplot as plt 
-url = "https://img.freepik.com/free-photo/isolated-happy-smiling-dog-white-background-portrait-4_1562-693.jpg"
+url = "https://rpruim.github.io/data/images/happy-dog.jpeg"
 dog = io.imread(url)
 print(dog.shape)
+print(dog.dtype)
 plt.imshow(dog)
 plt.show()
 </script></pre>
-</div></article><span class="incontext"><a href="sec-tensors.html#example-5" class="internal">in-context</a></span>
+</div> <div class="para">Notice that <code class="code-inline tex2jax_ignore">dog</code> contains a 3-dimensional array of unsiged 8-bit integers (0 -- 255) and that the format is channels-last. We can plot individual channels in the same way. <pre class="ptx-sagecell sagecell-python" id="sage-25"><script type="text/x-sage">plt.figure()
+plt.imshow(dog[:, :, 0])    # Red channel
+plt.show()
+</script></pre>
+</div> <div class="para">We’ve added a color bar to this image to show how matplotlib is mapping the values 0 to 255 to colors. Remember, this is the <em class="emphasis">red</em> channel. So a colormap that runs from dark blue to bright yellow probably isn’t the best choice.  We can use a scale of reds by setting <code class="code-inline tex2jax_ignore">cmap="Reds"</code> like this <pre class="ptx-sagecell sagecell-python" id="sage-26"><script type="text/x-sage">plt.figure()
+plt.imshow(dog[:, :, 0], cmap = "Reds")    # Red channel
+plt.show()
+</script></pre> If you use <code class="code-inline tex2jax_ignore">cmap  = "Reds_r"</code> (give it a try), the order of the colors will be reversed and provide a better visual representation (for human eyes -- it’s the same data no matter what color scheme we use for display).</div> <div class="para">You can find out more about the many colormaps that are available in matplotlib at <a class="external" href="https://matplotlib.org/stable/tutorials/colors/index.html" target="_blank"><code class="code-inline tex2jax_ignore">https://matplotlib.org/stable/tutorials/colors/index.html</code></a>.</div></article><span class="incontext"><a href="sec-tensors.html#example-5" class="internal">in-context</a></span>
 </body>
 </html>

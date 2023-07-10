@@ -19,27 +19,23 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 </head>
 <body class="ignore-math">
 <article class="exercise exercise-like"><h4 class="heading">
-<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">4<span class="period">.</span></span>
+<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">5<span class="period">.</span></span>
 </h4>
 <div class="para logical">
-<div class="para">Evaluating the following cell loads in a dataset recording some features of 1057 houses.  Notice how the lot size varies over a relatively small range compared to the other features. For this reason, in addition to demeaning the data, we’ll scale each feature by dividing by its standard deviation so that the range of values is similar for each feature.  The matrix <span class="process-math">\(A\)</span> holds the result. <pre class="ptx-sagecell sagecell-sage" id="sage-290"><script type="text/x-sage">import pandas as pd
-df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/housing.csv', index_col=0)
-df = df.fillna(df.mean())
-std = (df-df.mean())/df.std()
-A = matrix(std.values).T
-df.T
+<div class="para">Let’s revisit the voting records of justices on the second Rehnquist court.  Evaluating the following cell will load the voting records of the justices in the 188 cases decided by a 5-4 vote and store them in the matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-298"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
+A = matrix(RDF, fivefour.values)
+v = vector(188*[1])
+fivefour
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li><div class="para">Find the singular values of <span class="process-math">\(A\)</span> and use them to determine the variance in the direction of the principal components. <pre class="ptx-sagecell sagecell-sage" id="sage-291"><script type="text/x-sage">
+<li><div class="para">The cell above also defined the 188-dimensional vector <span class="process-math">\(\vvec\)</span> whose entries are all 1.  What does the product <span class="process-math">\(A\vvec\)</span> represent?  Use the following cell to evaluate this product. <pre class="ptx-sagecell sagecell-sage" id="sage-299"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li><div class="para">For what fraction of the variance do the first two principal components account?</div></li>
-<li><div class="para">Find a singular value decomposition of <span class="process-math">\(A\)</span> and construct the <span class="process-math">\(2\times1057\)</span> matrix <span class="process-math">\(B\)</span> whose entries are the coordinates of the demeaned data points projected on to the two-dimensional subspace spanned by the first two principal components.  You can plot the projected data points using <code class="code-inline tex2jax_ignore">list_plot(B.columns())</code>. <pre class="ptx-sagecell sagecell-sage" id="sage-292"><script type="text/x-sage">
-</script></pre>
-</div></li>
-<li><div class="para">Study the entries in the first two principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  Would a more expensive house lie on the left, right, top, or bottom of the plot you constructed?</div></li>
-<li><div class="para">In what ways does a house that lies on the far left of the plot you constructed differ from an average house? In what ways does a house that lies near the top of the plot you constructed differ from an average house?</div></li>
+<li><div class="para">How does the product <span class="process-math">\(A\vvec\)</span> tell us which justice voted in the majority most frequently?  What does this say about the presence of a swing vote on the court?</div></li>
+<li><div class="para">How does this product tell us whether we should characterize this court as leaning conservative or progressive?</div></li>
+<li><div class="para">How does this product tell us about the presence of a second swing vote on the court?</div></li>
+<li><div class="para">Study the left singular vector <span class="process-math">\(\uvec_3\)</span> and describe how it reinforces the fact that there was a second swing vote.  Who was this second swing vote?</div></li>
 </ol>
 </div></article><span class="incontext"><a href="sec-svd-uses.html#exercise-296" class="internal">in-context</a></span>
 </body>
