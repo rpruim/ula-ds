@@ -286,7 +286,7 @@
 	      <li><p> What is the dimension of the vectors
 	      <m>\xvec</m> that are inputs for <m>T</m>?  </p></li>
 
-	      <li><p> What is the dimension of the vectors
+	      <li><p> What is the dimension of the vectors 
 	      <m>T(\xvec)=A\xvec</m> that are outputs? </p></li>
 
 	      <li><p> If we describe this transformation as
@@ -404,11 +404,16 @@
       particular, if <m>A</m> is an <m>m\times n</m> matrix,
       <m>\xvec</m> needs to be an <m>n</m>-dimensional vector, and
       the resulting product <m>A\xvec</m> will be an
-      <m>m</m>-dimensional vector.  For the associated matrix
-      transformation, we
+      <m>m</m>-dimensional vector.  
+	  For the associated matrix transformation, we
       therefore write <m>T:\real^n\to\real^m</m> meaning <m>T</m>
       takes vectors in <m>\real^n</m> as inputs and produces vectors
-      in <m>\real^m</m> as outputs.  For instance, if
+      in <m>\real^m</m> as outputs.  
+	  We will say that <m>\real^n</m> is the <term>domain</term> of the 
+	  matrix transformation and <m>\real^m</m> is the <term>codomain</term>.
+	  <idx><h>domain</h></idx>
+	  <idx><h>codomain</h></idx>
+	  For instance, if
       <me>
 	A=\left[\begin{array}{rrrr}
 	4 \amp 0 \amp -3 \amp 2 \\
@@ -418,8 +423,22 @@
 	then <m>T:\real^4\to\real^2</m>.
     </p>
 
+	<p>
+		While every vector in the domain of a matrix transformation can be  provided 
+		as in input, it may or may not be the case that every vector in the codomain 
+		is a possible output of the transformation.  We will call the set of vectors 
+		<m>b</m> that are posible outputs -- that is, for which there is a vector <m>\xvec </m>
+		in the domain with <m>A \xvec = \bvec</m> -- the <term>range</term> of the 
+		matrix transformation.
+		<idx><h>range</h><h>of a transformation</h></idx>.  If the range is equal to all 
+		of the codomain, then we say that the matrix transformation is <m>onto</m>.
+		<idx><h>onto</h><h>transformation</h></idx>
+		This is the same as saying that <m> A \xvec = \bvec</m> has a solution <m>\xvec</m>
+		for any <m>\bvec</m> in the codomain.
+	</p>
+
     <p>
-      Second, we can often reconstruct the matrix <m>A</m> if we
+      Third, we can often reconstruct the matrix <m>A</m> if we
       only know some output values from its associated linear
       transformation <m>T</m> by remembering that matrix-vector
       multiplication constructs linear combinations.
@@ -442,6 +461,13 @@
     <p>
       More generally, we will write the columns of the <m>n\times
       n</m> identity matrix as
+	  <idx><h>identity matrix</h> <h>columns (<m>\evec_j</m>)</h></idx>
+	  <notation>
+		<usage><m>\evec_j</m></usage>
+		<description>Colunn <m>j</m> of an identity matrix. This column vector has a 1 in row <m>j</m>
+		and 0s everywhere else.</description>
+	  </notation>
+
       <me>
 	\evec_1 = \left[\begin{array}{c}
 	1 \\ 0 \\ \vdots \\ 0 \end{array}\right],~~~
@@ -464,6 +490,8 @@
     </p>
 
     <proposition xml:id="prop-linear-trans-columns">
+		<idx><h>matrix transforamtion</h></idx>
+		<idx><h>transforamtion</h> <h>matrix</h></idx>
       <statement>
 	<p> If <m>T:\real^n\to\real^m</m> is a matrix
 	transformation given by <m>T(\xvec) = A\xvec</m>,
@@ -762,8 +790,16 @@
 
     <p>
       This process is called function <term>composition</term> and 
-      likely appeared in an earlier algebra course.  For
-      instance, if <m>g(x) = 2x + 1</m> and <m>h(x) = x^2</m>, the
+      likely appeared in an earlier algebra course.  
+	  <idx><h>function composition</h></idx>
+	  <idx><h>composition</h><h>of functions</h></idx>
+	  <notation>
+		<usage><m>h \circ g</m></usage>
+		<description>The coposition of functions <m>g</m> and <m>h</m>.
+			<m> (h \circ g)(x) = h(g(x))</m>.
+		</description>
+	  </notation>
+	  For instance, if <m>g(x) = 2x + 1</m> and <m>h(x) = x^2</m>, the
       composition of these functions obtained by first performing
       <m>g</m> and then performing <m>h</m> is denoted by
       <me>
@@ -1230,11 +1266,12 @@
     case, <m>\xvec</m> describes the distribution of trucks between
     the two locations at a particular time.  Then there is a matrix
     transformation  <m>T(\xvec) = A\xvec</m> that describes the
-    state at some later time.  We call <m>\xvec</m> the
-    <term>state</term> vector and <m>T</m> the <term>transition</term>
-    function, as it describes the transition of the state vector
-    from one time to the next.  <idx> state vector </idx> <idx>
-    transition function </idx>
+    state at some later time.  
+	We call <m>\xvec</m> the <term>state</term> vector and 
+	<m>T</m> the <term>transition</term> function, 
+	as it describes the transition of the state vector from one time to the next.  
+	<idx><h>state vector</h></idx> 
+	<idx><h>transition function</h></idx>
     </p>
 
     <p> Beginning with an initial state <m>\xvec_0</m>,
@@ -1250,7 +1287,9 @@
     </p>
     
     <p>
-      <idx> discrete dynamical system </idx> We call this situation
+      <idx><h> dynamical system</h> <h>discrete</h></idx> 
+      <idx><h> discrete dynamical system</h> </idx> 
+	  We call this situation
       where the state of a system evolves from one time to the
       next according to the rule <m>\xvec_{k+1}=A\xvec_k</m> a
       <term>discrete dynamical system</term>.  In <xref ref="chap4" />,
