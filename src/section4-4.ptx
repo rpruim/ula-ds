@@ -22,8 +22,8 @@
 	<image source="images/jpeg-orig-block" />
       </sidebyside>
       <caption>
-	An image stored as a <m>1440\times1468</m> array of pixels
-	along with a close-up of a smaller <m>8\times8</m> array.
+	An image stored as a <m>1440\by1468</m> array of pixels
+	along with a close-up of a smaller <m>8\by8</m> array.
       </caption>
     </figure>
     
@@ -33,7 +33,7 @@
     integer between 0 and 255.  As we will see shortly, each pixel
     requires three bytes to record that pixel's color.  This means the
     amount of data required to display this image is
-    <m>3\times1440\times1468 = 6,341,760</m> bytes or about 6.3
+    <m>3\by1440\by1468 = 6,341,760</m> bytes or about 6.3
     megabytes.
     </p>
 
@@ -566,9 +566,9 @@
 
     <p> The key to representing the image using a smaller amount of
     data is to detect redundancies in the data.  To begin, we
-    first break the image, which is composed of <m>1440\times 1468</m>
-    pixels, into small <m>8\times8</m> blocks of pixels.  For example,
-    we will consider the <m>8\times8</m> block of pixels outlined in
+    first break the image, which is composed of <m>1440\by 1468</m>
+    pixels, into small <m>8\by8</m> blocks of pixels.  For example,
+    we will consider the <m>8\by8</m> block of pixels outlined in
     green in the original image, shown on the left of <xref
     ref="fig-jpeg-block" />.  The image on the right zooms in on the
     block.  
@@ -580,7 +580,7 @@
 	<image source="images/jpeg-block-zoom.jpg" />
       </sidebyside>
       <caption>
-	An <m>8\times8</m> block of pixels outlined in green in the
+	An <m>8\by8</m> block of pixels outlined in green in the
 	original image on the left.  We see the same block on a smaller
 	scale on the right.
       </caption>
@@ -601,7 +601,7 @@
 	but they will be the exception.</p>
 	<image source="images/jpeg-orig-block" />
       </sidebyside>
-      <caption> The <m>8\times8</m> block under consideration.
+      <caption> The <m>8\by8</m> block under consideration.
       </caption>
     </figure>
 
@@ -983,11 +983,11 @@ print((x - xapprox).round(3))
       </p>
 
       <p> So far, we have concentrated on only one column in our
-      <m>8\times8</m> block of luminance values.  Let's now consider
+      <m>8\by8</m> block of luminance values.  Let's now consider
       all of the columns.
       The following Python cell defines a matrix called
-      <c>luminance</c>, which is the <m>8\times8</m> matrix of
-      luminance values.  Find the <m>8\times8</m> matrix <m>F</m>
+      <c>luminance</c>, which is the <m>8\by8</m> matrix of
+      luminance values.  Find the <m>8\by8</m> matrix <m>F</m>
       whose columns are the Fourier coefficients of the columns of
       luminance values.
       <sage language="python">
@@ -1137,7 +1137,7 @@ print (y_fourier.round(digits=3))
 </activity>
 
     <p> Up to this point, we have been working with the luminance
-    values in one <m>8\times8</m> block of our image.  We formed the
+    values in one <m>8\by8</m> block of our image.  We formed the
     Fourier coefficients for each of the columns of this block.  Once
     we notice that the Fourier coefficients across a row are
     relatively constant, it seems reasonable to find the Fourier coefficients
@@ -1160,7 +1160,7 @@ print (y_fourier.round(digits=3))
     </p>
 
     <p> If we were to look inside a JPEG image file, we would see lots
-    of matrices like this.  For each <m>8\times 8</m> block, there
+    of matrices like this.  For each <m>8\by 8</m> block, there
     would be three matrices of Fourier coefficients of the rows of
     Fourier coefficients, one matrix for each of the luminance, blue
     chrominance, and red chrominance values.  However, we store these
@@ -1291,7 +1291,7 @@ image.
     ref="fig-jpeg-image-low" /> is the original image compared to a
     version stored with a
     very low quality setting.  If you look carefully, you can
-    individual <m>8\times8</m> blocks.
+    individual <m>8\by8</m> blocks.
     </p>
 
     <figure xml:id="fig-jpeg-image-low">
@@ -1346,7 +1346,7 @@ image.
 
       <li><p> We put both of these ideas to use in demonstrating the
       JPEG compression algorithm.  An image is broken into
-      <m>8\times8</m> blocks, and the colors into luminance, blue
+      <m>8\by8</m> blocks, and the colors into luminance, blue
       chrominance, and red chrominance.  Applying the Discrete Fourier
       Transform allows us to reconstruct a good
       approximation of the image using only a fraction of the original

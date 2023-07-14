@@ -14,7 +14,7 @@
     square matrix is invertible.
     </p>
 
-    <p> To begin, let's consider a <m>2\times2</m> matrix <m>A</m>
+    <p> To begin, let's consider a <m>2\by2</m> matrix <m>A</m>
     whose columns are vectors <m>\vvec_1</m> and <m>\vvec_2</m>.  We
     have frequently drawn the vectors and studied the linear
     combinations they form using a figure such as <xref
@@ -93,8 +93,8 @@
 	<p><ol marker="a.">
 	  <li><p> We find the following areas.
 	  <ol marker="1.">
-	    <li><p> A <m>1\times1</m> square has area 1. </p></li>
-	    <li><p> A <m>2\times3</m> rectangle has area 6. </p></li>
+	    <li><p> A <m>1\by1</m> square has area 1. </p></li>
+	    <li><p> A <m>2\by3</m> rectangle has area 6. </p></li>
 	    <li><p> The square has side length <m>\sqrt{2}</m> giving
 	    an area of 2. </p></li>
 	    <li><p> If we consider the horizontal length as the base,
@@ -116,10 +116,10 @@
   </introduction>
 
   <subsection>
-    <title> Determinants of <m>2\times2</m> matrices </title>
+    <title> Determinants of <m>2\by2</m> matrices </title>
 
     <p> We will begin by defining
-    the determinant of a <m>2\times2</m> matrix <m>A =
+    the determinant of a <m>2\by2</m> matrix <m>A =
     \left[\begin{array}{rr} \vvec_1 \amp \vvec_2
     \end{array}\right]</m>.  First, however, we need to define the
     <term>orientation</term> of an ordered pair of vectors.  As shown in <xref
@@ -145,7 +145,7 @@
     <definition>
       <statement>
 	<idx> determinant </idx>
-	<p> Suppose a <m>2\times2</m> matrix <m>A</m> has columns
+	<p> Suppose a <m>2\by2</m> matrix <m>A</m> has columns
 	<m>\vvec_1</m> and <m>\vvec_2</m>.  If the pair of vectors is
 	positively oriented, then the <term>determinant</term> of
 	<m>A</m>, denoted <m>\det(A)</m>, is the area of the
@@ -169,7 +169,7 @@
 	  As seen on the left of <xref ref="fig-det-identity" />,
 	  the vectors <m>\vvec_1 = \evec_1</m> 
 	  and <m>\vvec_2=\evec_2</m> form a positively oriented pair.
-	  Since the parallelogram they form is a <m>1\times1</m> square,
+	  Since the parallelogram they form is a <m>1\by1</m> square,
 	  we have <m>\det(I) = 1.</m>
 	</p>
 
@@ -195,7 +195,7 @@
 	  As seen on the right of <xref ref="fig-det-identity" />, the
 	  vectors <m>\vvec_1</m> and <m>\vvec_2</m> form a negatively
 	  oriented pair.  The parallelogram they define is a
-	  <m>2\times1</m> rectangle so we have <m>\det(A) = -2</m>.
+	  <m>2\by1</m> rectangle so we have <m>\det(A) = -2</m>.
 	  </p>
       </statement>
     </example>
@@ -203,7 +203,7 @@
     <activity>
       <statement>
       <p> In this activity, we will find the determinant of some
-      simple <m>2\times2</m> matrices and discover some important
+      simple <m>2\by2</m> matrices and discover some important
       properties of determinants.
       </p>
 
@@ -361,14 +361,14 @@
 
     <p> Later in this section, we will learn an algebraic
     technique for computing determinants.  In the meantime, 
-    we will simply note that we can define determinants for <m>n\times
+    we will simply note that we can define determinants for <m>n\by
     n</m> matrices by measuring the volume of a box defined by the columns
     of the matrix, even if this box resides in <m>\real^n</m> for
     some very large <m>n</m>.  
     </p>
 
     <sidebyside widths="60% 40%">
-      <p> For example, the columns of a <m>3\times3</m> matrix
+      <p> For example, the columns of a <m>3\by3</m> matrix
       <m>A</m> will form a parallelpiped, like the one shown here, and
       there is a means by which we can classify sets of such vectors
       as either positively or negatively oriented.  Therefore, we can
@@ -379,7 +379,7 @@
     </sidebyside>
 
     <p> Though the previous activity deals with determinants of
-    <m>2\times2</m> matrices, it illustrates some important properties of
+    <m>2\by2</m> matrices, it illustrates some important properties of
     determinants that are true more generally.  
     <ul>
       <li><p> If <m>A</m> is a triangular matrix, then <m>\det(A)</m>
@@ -605,7 +605,7 @@
       </statement>
     </proposition>
     
-    <activity>
+    <activity xml:id="act-determinant-gaussian-elimination">
       <statement>
       <p> We will investigate the connection between the determinant
       of a matrix and its invertibility using Gaussian elimination.
@@ -732,7 +732,7 @@
 	\neq 0</m> if and only if <m>\det(A') \neq 0</m>.
 	</p></li>
 
-	<li><p> Explain why an <m>n\times n</m> matrix
+	<li><p> Explain why an <m>n\by n</m> matrix
 	<m>A</m> is invertible if and only if <m>\det(A) \neq 0</m>.
 	</p></li>
 
@@ -869,6 +869,8 @@
   </subsection>
 
   <subsection>
+	<idx><h>cofactor expansion</h></idx>
+	<idx><h>determinant</h><h>via cofactor expansion</h></idx>
     <title> Cofactor expansions </title>
 
     <p> We now have a technique for computing the determinant of a
@@ -878,21 +880,52 @@
     We will describe this method here.
     </p>
 
-    <p> To begin, the determinant of a <m>2\times2</m> matrix is
-    <me>
-      \det\left[\begin{array}{rr}
+    <p> To begin, let's show how to compute the determinant of a <m>2\by2</m> matrix.</p>
+
+		<assemblage xml:id="assemblage-det-2-by-2">
+			<idx><h>determinant</h><h> of a <m>2 \by 2</m> matrix</h></idx>
+			<title>Determinant of a <m>2 \by 2 </m> matrix</title>
+			<p>
+				Let <m> 
+      A = \left[\begin{array}{rr}
       a \amp b \\
       c \amp d \\
       \end{array}\right]
-      =
+				</m>.
+				We can create an equivalent triangular matrix using <m> -\frac{c}{a} R_1 + R_2 \to R_2</m>.
+				This gives us  
+				<me>
+      \det A = \det \left[\begin{array}{rr}
+      a \amp b \\
+      c \amp d \\
+      \end{array}\right] 
+	  = 
+      \det \left[\begin{array}{rr}
+      a \amp b \\
+      0 \amp -\frac{c}{a} b + d \\
+      \end{array}\right] 
+	  = 
+	  a (-\frac{c}{a} b + d) 
+	  = 
       ad-bc
-    </me>.  With a little bit of work, it can be shown that this
-    number is the same as the signed area of the parallelogram we
-    introduced earlier.
-    </p>
+				</me>.
+			</p>
+		</assemblage>
 
-    <p> Using a cofactor expansion to find the determinant of a more
-    general <m>n\times n</m> matrix is a little more work so we will
+		<p>
+			Note that the derivation of a formula for the determinant of a <m> 2 \by 2 </m> matrix relied on two  
+			facts: (a) replacement doesn't change the determinant, and (b) the determinant of a triangular matrix   
+			is the product of the diagonal elements.
+			This same general approach could be used on any square matrix: keep applying row operations until we  
+			obtain a triangular matrix.  If we use scaling or or interchange, we need to keep track of how our determinant 
+			changes.  But we can obtain a triangular matrix without using scaling, so  this just amounts to 
+			keeping track of a possible sign change when we use interchange.
+		</p>
+
+    <p> Now that we have a formula for the determinant of a <m> 2 \by 2 </m> matrix in hand, we  
+		can develop the method of cofactor expansion.
+		Using a cofactor expansion to find the determinant of a more
+    general <m>n\by n</m> matrix is a little more work so we will
     demonstrate it with an example.
     </p>
 
@@ -1015,7 +1048,7 @@
 	  \end{aligned}
 	</me>.
 	Notice that this agrees with the determinant that we found for
-	this matrix using row operations in the last activity.
+	this matrix using row operations in the <xref ref="act-determinant-gaussian-elimination" />.
 	</p>	  
 	  
       </statement>
@@ -1048,7 +1081,8 @@
 	  -1 \amp 4 \amp -4 \amp 0\\
 	  0 \amp 3 \amp 2 \amp 3 \\
 	  \end{array}\right]
-	</me>.  Explain how the cofactor expansion technique shows
+	</me>.  (Which row should you choose to make your work especially easy?) 
+	Explain how the cofactor expansion technique shows
 	that the determinant of a triangular matrix is equal to the
 	product of its diagonal entries.
 	</p></li>
@@ -1062,9 +1096,13 @@
 	</me>.
 	</p></li>
 	
-	<li><p> Sage will compute the determinant of a matrix <c>A</c>
-	with the command <c>numpy.linalg.det()</c>.  Use Sage to find the
-	determinant of the matrix
+	<li><p> Numpy or scipy will compute the determinant of a matrix <c>A</c>
+	with the command <c>numpy.linalg.det()</c> or <c>scipy.linal.det</c>.  
+	Use Python to find the determinant of the matrix
+	<idx><h><c>numpy.linalg.det()</c></h> <see><c>linalg.det()</c></see></idx>
+	<idx><h><c>scipy.linalg.det()</c></h> <see><c>linalg.det()</c></see></idx>
+	<idx><h><c>linalg.det()</c></h></idx>
+	<idx><h>determinant</h> <h>in Python</h></idx>
 	<me>
 	  \left[\begin{array}{rrrr}
 	  2 \amp 1 \amp -2 \amp -3 \\
@@ -1075,6 +1113,8 @@
 	</me>.
 	<sage language="python">
 	  <input>
+import numpy as np 
+from scipy import linalg
 	  </input>
 	</sage>
 	  
@@ -1146,7 +1186,7 @@
 	  form a basis for <m>\real^3</m>.
 	  </p></li>
 
-	  <li><p> Sage tells us that <m>\det(A) = 72</m>.
+	  <li><p> Python tells us that <m>\det(A) = 72</m>.
 	  </p></li>
 	</ol></p>
       </solution>
@@ -1170,9 +1210,20 @@
       </p></li>
 
       <li><p> The determinant satisfies many properties, including the
-      facts that <m>\det(AB) = \det(A) \det(B)</m> and
-      that the determinant of a triangular matrix is equal to the
-      product of its diagonal entries. </p></li>
+      facts that 
+	  <ul>
+		<li>
+			<p>
+	  </ul><m>\det(AB) = \det(A) \det(B)</m>, and
+			</p>
+		</li>
+		<li>
+			<p>
+      		the determinant of a triangular matrix is equal to the
+      		product of its diagonal entries. 
+			</p>
+		</li>
+	</p></li>
 
       <li><p> These properties helped us compute the determinant of a
       matrix using row operations.  This also led to the important
@@ -1180,7 +1231,7 @@
       only if the matrix is invertible. </p></li>
 
       <li><p> Finally, we learned how to compute the determinant of a
-      matrix using cofactor expansions, which will be
+      matrix using <term>cofactor expansions</term>, which will be
       a valuable tool
       for us in the next chapter. </p></li>
     </ul></p>
@@ -1212,20 +1263,20 @@
     <p> The cofactor expansion method will be useful to us in the next
     chapter when we look at eigenvalues and eigenvectors.  It is not,
     however, a practical way to compute a determinant.  To see why,
-    consider the fact that the determinant of a <m>2\times2</m>
+    consider the fact that the determinant of a <m>2\by2</m>
     matrix, written as <m>ad-bc</m>,
     requires us to compute two terms, <m>ad</m> and <m>bc</m>.  To
-    compute the determinant of a <m>3\times3</m> matrix, we need to
-    compute three <m>2\times2</m> determinants, which involves
-    <m>3\cdot 2 = 6</m> terms.  For a <m>4\times4</m> matrix, we need
-    to compute four <m>3\times3</m> determinants, which produces
+    compute the determinant of a <m>3\by3</m> matrix, we need to
+    compute three <m>2\by2</m> determinants, which involves
+    <m>3\cdot 2 = 6</m> terms.  For a <m>4\by4</m> matrix, we need
+    to compute four <m>3\by3</m> determinants, which produces
     <m>4\cdot3\cdot2 = 24</m> terms.  Continuing in this way, we see
-    that the cofactor expansion of a <m>10\times10</m> matrix would
+    that the cofactor expansion of a <m>10\by10</m> matrix would
     involve <m>10\cdot9\cdot8\ldots3\cdot2 = 10! = 3628800</m> terms.
     </p>
 
     <p> By contrast, we have seen that the number of steps required to
-    perform Gaussian elimination on an <m>n\times n</m> matrix is
+    perform Gaussian elimination on an <m>n\by n</m> matrix is
     proportional to <m>n^3</m>.  When <m>n=10</m>, we have <m>n^3 =
     1000</m>, which points to the fact that finding the determinant
     using Gaussian elimination is considerably less work.
