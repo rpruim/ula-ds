@@ -9,24 +9,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
+</script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para logical"><ol class="lower-alpha">
-<li><div class="para">The fraction of the total variance represented by the first two principal components is <span class="process-math">\(97.8\%\text{.}\)</span>
-</div></li>
-<li><div class="para">If <span class="process-math">\(\xvec =
-c_1\uvec_1+c_2\uvec_2+c_3\uvec_3+c_4\uvec_4\text{,}\)</span> then <span class="process-math">\(\fourvec{c_1}{c_2}{c_3}{c_4}\)</span> is the corresponding column of <span class="process-math">\(U^TA\text{.}\)</span>
-</div></li>
-<li><div class="para">We just need the first two components of the corresponding column of <span class="process-math">\(\Gamma\text{.}\)</span>
-</div></li>
-<li><div class="para">
-<span class="process-math">\(\twovec{c_1}{c_2}\)</span> is the corresponding column of <span class="process-math">\(U_2^TA\text{.}\)</span>
-</div></li>
-<li><div class="para">We can construct <span class="process-math">\(\Gamma_2=\Sigma_2 V_2^T\)</span> or just pull out the first two rows of <span class="process-math">\(\Gamma=\Sigma
-V^T\text{.}\)</span>
-</div></li>
-</ol></div>
+<div class="para">Now we’ve seen that the columns of <span class="process-math">\(\Gamma_2 =
+\Sigma_2 V_2^T\)</span> form the coordinates of the demeaned data points projected on to the two-dimensional subspace spanned by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span> In the cell below, find a singular value decomposition of <span class="process-math">\(A\)</span> and use it to form the matrix <code class="code-inline tex2jax_ignore">Gamma2</code>.  When you evaluate this cell, you will see a plot of the projected demeaned data plots, similar to the one we created in <a href="sec-pca.html" class="internal" title="Section 7.3: Principal Component Analysis">Section 7.3</a>. <pre class="ptx-sagecell sagecell-python" id="sage-272"><script type="text/x-sage"># Form the SVD of A and use it to form Gamma2
+
+		    
+Gamma2 = 
+
+# The following will plot the projected demeaned data points
+data = Gamma2.columns()
+(list_plot(data[:50], color='blue', aspect_ratio=1) +
+ list_plot(data[50:100], color='orange') +
+ list_plot(data[100:], color='green'))
+</script></pre>
+</div>
 <span class="incontext"><a href="sec-svd-uses.html#p-8376" class="internal">in-context</a></span>
 </body>
 </html>
