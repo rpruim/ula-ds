@@ -22,7 +22,9 @@
 		
 	<p>
 	In this section, we will describe why this is the case and then
-    explore some alternatives.  The intent of this section is to
+    explore some alternatives.  
+	<idx><h>matrix factorization</h></idx>
+	The intent of this section is to
     demonstrate how linear algebraic computations are handled in
     practice and to introduce the important idea of 
 	<term>matrix factorization</term>, writing a matrix as the 
@@ -522,6 +524,7 @@ print(0.1 + 0.2)
   </subsection>
 
   <subsection>
+	<idx><h><m>LU</m>factorization</h></idx>
     <title> <m>LU</m> factorizations </title>
 
     <p> In <xref ref="subsec-compute-effort" />, we saw that the number
@@ -868,27 +871,91 @@ print(0.1 + 0.2)
     interchange will disrupt the structure of the <m>LU</m>
     factorization we seek.  Without giving the details, we simply note
     that 
-    linear algebra software packages provide a matrix <m>P</m> that
+    linear algebra software packages compute a matrix <m>P</m> that
     describes how the rows are permuted in the Gaussian elimination
-    process.  In particular, we will write <m>PA = LU</m>, where
-    <m>P</m> is a permutation matrix, <m>L</m> is lower triangular,
-    and <m>U</m> is upper triangular.
-    </p>
-
-    <p> Therefore, to solve the equation <m>A\xvec = \bvec</m>, we
-    first multiply both sides by <m>P</m> to obtain
+    process.  
+</p>
+<p> Once we have <m>PA = LU</m>, where
+    <m>P</m> is a (row) permutation matrix, <m>L</m> is lower triangular,
+    and <m>U</m> is upper triangular, we can use this to solve 
+		the equation <m>A\xvec = \bvec</m> using backsubstitution twice.
+		Notice that
     <me>
       PA\xvec = LU\xvec = P\bvec
     </me>.
-    That is, we multiply <m>\bvec</m> by <m>P</m> and then find
-    <m>\xvec</m> using the factorization:  <m>L\cvec = P\bvec</m> and
-    <m>U\xvec = \cvec</m>.
+	We can determine <m>U\xvec</m> by solving 
+	<m>L\cvec = P\bvec</m> to find <m>\cvec</m>, 
+	and then we find <m>\xvec</m> by solving <m>U\xvec = \cvec</m>.
     </p>
+	
+	<proposition xml:id="prop-LU">
+		<title><m>PLU</m> factorization: <m>LU</m> factorization with partial pivoting</title>
+		<statement>
+			<p>
+				For any <m>m \by n</m> matrix <m>A</m> there are matrices <m>P</m>,
+				<m>L</m>, and <m>U</m> such that 
+				<ul>
+					<li>
+						<p>
+							<m>P</m> is an <m>m \by m</m> (row) permutation matrix.
+						</p>
+					</li>
+					<li>
+						<p>
+							<m>L</m> is an <m>m \by m</m> lower triangular matrix.
+						</p>
+					</li>
+					<li>
+						<p>
+							<m>U</m> is an <m>n \by n</m> uppter triangular matrix.
+						</p>
+					</li>
+					<li>
+						<p>
+							<m> PA = LU </m>.
+						</p>
+					</li>
+				</ul>
+			Matrices <m>P</m>, <m>L</m>, and <m>U</m> can by found by keeping track of the elementary 
+			matrices corresponding to Gaussian elimination with row permutations to put numbers with the 
+			largest absolute value into the pivot positions.
+			</p>
+
+			<p>
+				We can solve <m>A \xvec = \bvec</m> using this factorization as follows:
+				<ul>
+					<li>
+						<p>
+							Rewrite as <m>PA\xvec = LU \xvec = P\bvec</m>.
+						</p>
+					</li>
+					<li>
+						<p>
+							Solve  <m>L \cvec = P \bvec</m> for <m>\cvec</m> using backsubstitution.
+						</p>
+					</li>
+					<li>
+						<p>
+							Solve <m>U \xvec = \cvec</m> for <m>\xvec</m> backsubstitution.
+						</p>
+					</li>
+					<li>
+						<p>
+							This implies that <m>P\bvec = L\cvec = LU \xvec = PA \xvec </m>, so  
+							<m> A\xvec = \bvec</m> since <m>P</m> is invertible.
+						</p>
+					</li>
+				</ul>
+				
+			</p>
+		</statement>
+	</proposition>
+
 
     <activity>
       <statement>
-      <p> The <c>scipy.linalg</c> packae can compute <m>LU</m> factorizations;  once we have a
-      matrix <c>A</c>, we write <c>P, L, U = scipy.linalg.LU(A)</c> to obtain the
+      <p> The <c>scipy.linalg</c> package can compute <m>LU</m> factorizations;  
+      we write <c>P, L, U = scipy.linalg.LU(A)</c> to obtain the
       matrices <m>P</m>, <m>L</m>, and <m>U</m> such that 
 	  <m>PA = LU</m>.
 	  Here is an example.
@@ -1028,9 +1095,8 @@ print(U)
 
 	  <li><p> Because <m>P</m>,
 	  <m>L</m>, and <m>U</m> are invertible, it follows that
-	  <m>\det A = (\det 
-	  L \det U)/\det P\neq 0</m>, which means that <m>A</m> is
-	  invertible. </p></li>
+	  <me>\det A = (\det L \det U)/\det P\neq 0</me>, 
+	  which means that <m>A</m> is invertible. </p></li>
 
 	  <li><p> Python tells us that
 	  <me>
@@ -1052,9 +1118,9 @@ print(U)
 	    0 \amp 0 \amp 0
 	    \end{array}\right]\text{.}
 	  </me>
-	  Because <m>U</m> is not invertible, we see that <m>\det B =
-	  (\det L\det U)/\det P = 0</m> so <m>B</m> is not
-	  invertible. </p></li>
+	  Because <m>U</m> is not invertible, we see that 
+	  <me>\det B = (\det L\det U)/\det P = 0</me> 
+	  so <m>B</m> is not invertible. </p></li>
 
 	  <li><p> We have
 	  <me>
