@@ -1,0 +1,258 @@
+<!DOCTYPE html> <!-- -*- html -*- -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <title>A vector by coordinates</title>
+  <!-- <link rel="shortcut icon" href="img/gatech.gif"/> -->
+
+  
+      <link rel="stylesheet" href="css/demo.css?vers=2759ff">
+
+  <style>
+  </style>
+
+</head>
+<body>
+    
+    <script src="js/demo.js?vers=77646a"></script>
+
+    <script type="text/javascript">
+        "use strict";
+        DomReady.ready(function() {
+
+        var lineColor, vecColor, vec2Color, sumColor;
+
+vecColor = new Color("red");
+vec2Color = new Color("blue");
+sumColor = new Color("orange");
+lineColor = new Color("green");
+
+new Demo({
+  mathbox: {
+    mathbox: {
+      warmup: 10,
+      splash: false,
+      inspect: false
+    }
+  },
+  camera: {
+    position: [0, 0, 1.5]
+  }
+}, function() {
+  var a, b, c, gui, origin, eps, update, vector, vector2, view;
+  window.mathbox = this.mathbox;
+  view = this.view({
+    axes: "x",
+    grid: false,
+  });
+  // this.caption('<p><span id="vector-here"></span></p>\n<p>[click and drag the arrow head and tail]</p>');
+  origin = [0, 0, 0];
+  eps = 0.1;
+  vector = [2, 4, 0];
+  vector2 = [8, 6, 0];
+  this.labeledVectors(view, {
+    vectors: [vector, vector2, vector2],
+    origins: [origin, vector, origin],
+    colors: [vecColor, vec2Color, sumColor],
+    labels: ['a', 'b', 'a + b']
+  });
+  view.array({
+    channels: 3,
+    width: 3,
+    expr: function(emit, i) {
+      switch (i) {
+        case 0:
+          return emit.apply(null, origin);
+        case 1:
+          return emit(vector[0], origin[1], origin[2]);
+        case 2:
+          return emit.apply(null, vector);
+      }
+    }
+  }).line({
+    classes: ["linear-combo"],
+    color: vecColor.arr(), // new Color("red"), // lineColor.arr(),
+    opacity: 0.75,
+    width: 4,
+    zIndex: 1
+  }).array({
+    channels: 3,
+    width: 3,
+    expr: function(emit, i) {
+      switch (i) {
+        case 0:
+          return emit(vector[0], vector[1], vector[2])
+        case 1:
+          return emit(vector2[0], vector[1], vector[2]);
+        case 2:
+          return emit.apply(null, vector2);
+      }
+    }
+  }).line({
+    classes: ["linear-combo"],
+    color: vec2Color.arr(), 
+    opacity: 0.75,
+    width: 4,
+    zIndex: 1
+  }).array({
+    channels: 3,
+    width: 2,
+    expr: function(emit, i) {
+      switch (i) {
+        case 0:
+          return emit(vector[0], origin[1] + eps, origin[2] + eps)
+        case 1:
+          return emit(vector2[0], origin[1] + eps, origin[2] + eps)
+      }
+    }
+  }).line({
+    classes: ["linear-combo"],
+    color: vec2Color.arr(), 
+    opacity: 0.75,
+    width: 4,
+    zIndex: 1
+  }).array({
+    channels: 3,
+    width: 3,
+    expr: function(emit, i) {
+      switch (i) {
+        case 0:
+          return emit(origin[0],  origin[1] - eps, origin[2])
+        case 1:
+          return emit(vector2[0], origin[1] - eps, origin[2]);
+        case 2:
+          return emit.apply(null, vector2);
+      }
+    }
+  }).line({
+    classes: ["linear-combo"],
+    color: sumColor.arr(), 
+    opacity: 0.75,
+    width: 4,
+    zIndex: 1
+  }).array({
+    channels: 3,
+    width: 3,
+    items: 2,
+    expr: function(emit, i, j) {
+      emit(...vector.map((e,k) => (i+1) / 4.0 * e ));
+      emit(...vector.map((e,k) => (i+1) / 4.0 * e * (k == 0)));
+    }
+  }).vector({
+    // classes: ["linear-combo"],
+    color: vecColor.arr(), 
+    opacity: 0.75,
+    width: 2,
+    zIndex: 1
+  }).array({
+    channels: 3,
+    width: 3,
+    items: 2,
+    expr: function(emit, i, j) {
+      emit(...vector2.map((e,k) => (i+1) / 4.0 * e ));
+      emit(...vector2.map((e,k) => (i+1) / 4.0 * e * (k == 0)));
+    }
+  }).vector({
+    // classes: ["linear-combo"],
+    color: sumColor.arr(), 
+    opacity: 0.75,
+    width: 2,
+    zIndex: 1
+  }).array({
+    channels: 3,
+    width: 3,
+    items: 2,
+    expr: function(emit, i, j) {
+      emit(vector[0] + (i + 1)/4.0 * (vector2[0] - vector[0]), vector[1], vector[2]);
+      emit(
+        vector[0] + (i+1) / 4.0 * (vector2[0] - vector[0]), 
+        vector[1] + (i+1) / 4.0 * (vector2[1] - vector[1]),
+        vector[2] + (i+1) / 4.0 * (vector2[2] - vector[2]) 
+      );
+    }
+  }).vector({
+    // classes: ["linear-combo"],
+    color: vec2Color.arr(), 
+    opacity: 0.75,
+    width: 2,
+    zIndex: 1
+  });
+  // }).text({
+  //   live: true,
+  //   width: 3,
+  //   expr: function(emit, i) {
+  //     return emit((vector[i] - origin[i]).toFixed(2));
+  //   }
+  // }).text({
+  //   live: true,
+  //   width: 3,
+  //   expr: function(emit, i) {
+  //     return emit((vector2[i] - vector[i]).toFixed(2));
+  //   }
+  // }).label({
+  //   outline: 0,
+  //   background: "black",
+  //   color: lineColor.arr(),
+  //   offset: [25, 0],
+  //   size: 15,
+  //   zIndex: 3
+  // });
+  // params = {
+  //   a: vector2[0],
+  //   b: vector2[1],
+  //   c: vector2[2]
+  // };
+  // gui = new dat.GUI();
+  // a = gui.add(params, 'a', -10, 10).step(0.1).listen();
+  // b = gui.add(params, 'b', -10, 10).step(0.1).listen();
+  // c = gui.add(params, 'c', -10, 10).step(0.1).listen();
+  // update = (function(_this) {
+  //   return function() {
+  //     vector2[0] = params.a + origin[0];
+  //     vector2[1] = params.b + origin[1];
+  //     vector2[2] = params.c + origin[2];
+  //     return katex.render(
+  //       ("\\color{" + (vecColor.str()) + "}a = ") +
+  //       _this.texVector(vector, { color: vecColor }) +
+  //       ("\\color{" + (vec2Color.str()) + "}b = ") +
+  //       _this.texVector([vector2[0] -vector[0], vector2[1] - vector[1], vector[2] - vector[2]], { color: vec2Color }) +
+  //       ("\\color{" + (sumColor.str()) + "}  c = ") +
+  //       _this.texVector(vector2, { color: sumColor }),
+  //       document.getElementById("vector-here"));
+  //   };
+  // })(this);
+  // a.onChange(update);
+  // b.onChange(update);
+  // c.onChange(update);
+  // update();
+  return this.draggable(view, {
+    points: [vector, vector2],
+    size: 30,
+    hiliteColor: [0, 1, 1, .75],
+    onDrag: function(vec) {
+      if (this.dragging === 0) {
+        vector[0] = vec.x; //  + params.a;
+        vector[1] = vec.y; //  + params.b;
+        vector[2] = 0; // vec.z; // + params.c;
+        return vector;
+      } else {
+        // vec.clampScalar(-10, 10);
+        // params.a = vec.x - vector2[0];
+        // params.b = vec.y - vector2[1];
+        // params.c = vec.z - vector2[2];
+        vector2[0] = vec.x; //  + params.a;
+        vector2[1] = vec.y; //  + params.b;
+        vector2[2] = vec.z; // + params.c;
+        return vector2;
+      }
+    }
+  });
+});
+
+
+        });
+    </script>
+</body>
+</html>
+
