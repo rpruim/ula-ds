@@ -101,13 +101,13 @@
 		And since <m>\frac{\xvec}{\len{\xvec}}</m> is a unit vector, this gives us another way to think about 
 		<m>\proj{\yvec}{\xvec}</m>, namely,
 		<me>
-		  proj{\yvec}{\xvec} 
+		  \proj{\yvec}{\xvec} 
 		  = \proj{\yvec}{\frac{\xvec}{\len{\xvec}}}
 		  = \frac{\yvec \cdot \frac{\xvec}{\len{\xvec}}}{ \len{\frac{\xvec}{\len{\xvec}}}^2} \frac{\xvec}{\len{\xvec}}
 		  = \left(\yvec \cdot \frac{\xvec}{\len{\xvec}}\right) \frac{\xvec}{\len{\xvec}}
 		</me>.
 		In other words, we obtain the length of the projection by taking the dot product of <m>\yvec</m> with a 
-		unit vector in the same direction as <m>\uvec</m>.
+		<em>unit</em> vector in the same direction as <m>\xvec</m>.
 	</p>
 
 	<p>
@@ -145,8 +145,8 @@
 							</p>
 						</li>
 						<li>
+							<title>Linear Combinations</title>
 								<p>
-									<title>Linear Combinations</title>
 									<ul>
 										<li>
 											<p>
@@ -177,6 +177,7 @@
 					</ol>
 				</p>
 			</statement>
+
 			<proof>
 				<p>
 					The first two statements follow directly from the definition. 
@@ -214,7 +215,7 @@
 							the perspective. Projections are illustrated with thinner, lighter lines of  
 							the same color as the vectors being projected.
 						</caption>
-						<interactive iframe="build-demos/projection-dot.html" height="600px" />
+					<interactive iframe="build-demos/projection-dot.html" height="600px" />
 						<!-- <mathbox source="build-demos/vector.html" height="400px"/> -->
 					</figure>
 
@@ -294,7 +295,49 @@
     more general because it allows one or both of the vectors to
     be the zero vector <m>\zerovec</m>.
     </p>
-		
+
+	<p>Before turning to the important question of how one computes dot products, let's  
+		collect once more the important properties we have established so far.
+	</p>
+
+		<assemblage xml:id="assemblage-dot-product">
+			<title> Properties of the dot product </title>
+
+			<p> Let
+			<m>\xvec</m>,
+			<m>\yvec</m>, and
+			<m> \wvec </m> be vectors in
+			<m>\real^n</m>,
+			let
+			<m>\theta</m> be the angle between
+			<m>\xvec</m> and
+			<m>\yvec</m>,
+			and let
+			<m> a </m> and
+			<m>b</m> be scalars. Then
+
+			<ol>
+				<li>
+					<p> <m>\xvec\cdot\xvec = \len{\xvec}\len{\xvec}\cos\theta</m>. </p>
+				</li>
+				<li>
+					<p> <m>\xvec\cdot\xvec = \len{\xvec}^2 </m>. </p>
+				</li>
+				<li>
+					<p> <m>\proj{yvec}{\xvec} = \frac{\yvec \cdot \xvec}{\len{\vec x}^2} \xvec </m>. </p>
+				</li>
+				<li>
+					<p> <m> \xvec\cdot\yvec = \yvec\cdot\xvec </m>. </p>
+				</li>
+				<li>
+					<p> <m> (a\xvec)\cdot\yvec = a(\xvec\cdot\yvec)</m>. </p>
+				</li>
+				<li>
+					<p> <m>(a\xvec+b\yvec)\cdot\wvec = a\xvec\cdot\wvec + b\yvec\cdot\wvec</m>.</p>
+				</li>
+			</ol>
+			</p>
+		</assemblage>
 	</subsection>
 	
 	<subsection xml:id="subsec-computing-dot-products">
@@ -488,7 +531,7 @@
 	  by <m>90^\circ</m> and find the dot product
 	  <m>\vvec\cdot\wvec</m>.  </p></li>
 
-	  <!-- <li><p> Suppose that <m>\vvec</m> and <m>\wvec</m> are two
+						<!-- <li><p> Suppose that <m>\vvec</m> and <m>\wvec</m> are two
 	  perpendicular vectors.  What do you think their dot product
 	  <m>\vvec\cdot\wvec</m> is?
 	  </p></li> -->
@@ -530,7 +573,7 @@
 		<m>\vvec\cdot\wvec=0</m>.
 	      </p>
 	    </li>
-	    <!-- <li>
+						<!-- <li>
 	      <p>
 		The dot product should be zero.
 	      </p>
@@ -541,27 +584,6 @@
 	      
 	</activity>>
 
-
-    <!-- <assemblage>
-      <title> Properties of dot products </title>
-      <p> As with ordinary multiplication, the dot product enjoys some
-      familiar algebraic properties, such as commutativity and
-      distributivity.  More specifically, it doesn't matter in which order
-      we compute the dot product of two vectors:
-      <me>
-	\vvec\cdot\wvec = \wvec\cdot\vvec
-      </me>.
-      If <m>s</m> is a scalar, we have
-      <me>
-	(s\vvec)\cdot\wvec = s(\vvec\cdot\wvec)
-      </me>.
-      We may also distribute the dot product across linear combinations:
-      <me>
-	(c_1\vvec_1+c_2\vvec_2)\cdot\wvec = c_1\vvec_1\cdot\wvec +
-	c_2\vvec_2\cdot\wvec
-      </me>.
-      </p>
-    </assemblage> -->
 
 
 
@@ -600,21 +622,7 @@
     <p> To summarize:
     </p> -->
 
-    <assemblage>
-      <title> Geometric properties of the dot product </title>
 
-      <p> The dot product gives us the following geometric
-      information:
-      <me>
-	\begin{aligned}
-	\vvec\cdot\vvec\amp = \len{\vvec}^2 \\
-	\vvec\cdot\wvec\amp = \len{\vvec}\len{\wvec}\cos\theta \\
-	\end{aligned}
-      </me>
-      where <m>\theta</m> is the angle between <m>\vvec</m> and
-      <m>\wvec</m>.
-      </p>
-    </assemblage>
 
     <activity>
       <statement>
