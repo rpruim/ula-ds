@@ -17,8 +17,13 @@
 	<li><p> Show that <m>\vvec_1</m> and
 	<m>\vvec_2</m> are eigenvectors of <m>A</m> and find their
 	associated eigenvalues. </p>
-	<sage>
+	<sage language="python">
 	  <input>
+import numpy as np 
+A = np.array([[-5, -2, 2], [24, 14, -10], [21, 14, -10]])
+v1 = np.array([1, -2 , 1])
+v2 = np.array([2, -3 , 0])
+v3 = np.array([0, -1 , -1])
 	  </input>
 	</sage>
 	</li>
@@ -95,8 +100,12 @@
 	<m>\vvec_3</m> are eigenvectors of <m>A</m> and find their
 	associated eigenvalues.
       </p>
-      <sage>
+      <sage language="python">
 	<input>
+import numpy as np 
+A = np.array([[8, -10], [5, -7]])
+v1 = np.array([2, 1])
+v3 = np.array([1, 1])
 	</input>
       </sage>
 	</li>
@@ -647,6 +656,81 @@
       </ol></p>
     </answer>
     
+  </exercise>
+
+  <exercise>
+	<statement>
+		<p>
+			<ol>
+				<li>
+					<p>
+						Explain why how the definition of eigenvalue and eigenvector implies that 
+						a matrix must be square to have eigenvalues and eigenvectors.
+					</p>
+				</li>
+				<li>
+					<p>
+						How could we modify the definition of eigenvalue and eigenvector so that it would 
+						work for non-square matrices?
+					</p>
+				</li>
+			</ol>
+			
+			
+		</p>
+	</statement>
+	<solution>
+		<p>
+			<ol>
+				<li>
+					<p>
+						If <m>A \xvec = \lambda \xvec</m> and <m>\xvec \in \real^n</m>, then  
+						<m>A</m> is associated with a linear transformation <m>T: \real^n \to \real^n</m>
+						since both <m>\xvec</m> and <m>\lambda \xvec</m> are <m>n</m>-dimensional.
+					</p>
+				</li>
+				<li>
+					<p>
+						If <m>A</m> is <m>m \by n</m>, then <m>A</m> is associated with a linear transformation 
+						<m>T: \real^n \to \real^m</m>, so we can't use the same vector on both sides of  
+						<m>A \xvec = \lambda \xvec</m> since the dimensions don't work out.  But would could look
+						for a <m>\lambda</m> and a <em>pair</em> of vectors <m>\vvec</m> and <m>\uvec</m> such that 
+						<m>A \vvec = \lambda \uvec</m>. In isolation is this is meaningless, since we can take  
+						<m>\lambda = 1</m> and <m>\uvec = A \vvec</m>.  It becomes more interesting, however, if we  
+						look for two <em>orthogonal bases</em> (bases where the angles between any pair of  
+						basis vectors is 90 degrees), an orthogonal basis 
+						<m>\{ \vvec_1, \vvec_2, \dots, \vvec_r \}</m> of <m>\row(A) = \col(A^\transpose)</m> 
+						and an orthogonal basis
+						<m>\{ \uvec_1, \uvec_2, \dots, \uvec_r \}</m> of <m>\col(A)</m>.
+					</p>
+					<p>
+						It turns out that every matrix has such a set of bases.  This will be our topic of discussion 
+						in <xref ref="sec-svd-intro" /> and <xref ref="sec-svd-uses" />.
+					</p>
+				</li>
+			</ol>
+			
+		</p>
+	</solution>
+	<answer>
+		<p>
+		<li>
+			<p>
+				If <m>A</m> is not square, then <m>A \xvec</m> and <m>\lambda \xvec</m> have different 
+				dimensions, so they can't be the same.
+			</p>
+		</li>
+		<li>
+			<p>
+				The big idea here is that by part a we can't put <m>\xvec</m> on both sides of <m>A \xvec = \lambda \uvec</m>.
+				But we could use different vectors on the left and right sides.  This only become interesting if we add 
+				some constraints on the vectors, like requiring them to form bases of the row and column space of <m>A</m>.
+				In fact, we can require even more: we can require that the bases be othogonal (each pair of vectors forms a 
+				right angle.). We will return to this idea in <xref ref="chap7" />.
+			</p>
+		</li>
+		</p>
+	</answer>
   </exercise>
 
   <exercise>

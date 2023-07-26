@@ -243,7 +243,7 @@ import numpy as np
 # enter the matrices P and D below	    
 P =
 D =	    
-np.linalg.inv(P@D@P)
+P @ D @ np.linalg.inv(P)
 	  </input>
 	</sage>
 	</li>
@@ -934,6 +934,49 @@ np.linalg.inv(P@D@P)
 	we find that <m>\xvec_k = A^k\xvec_0\approx
 	\twovec{750}{250}</m> when <m>k</m> is very large.
       </p>
+	  <sage>
+		<input>
+import numpy as np 	
+from numpy import linalg
+
+A = np.array([[0.8,0.6],[0.2,0.4]])
+eigvals, eigvecs = linalg.eig(A)
+print(eigvals); print()
+P = np.stack(eigvecs)
+D = np.diag(eigvals)
+print("P:")
+print (P); print()
+print("D:")
+print(D); print()
+print("A (double check):")
+print (P @ D @ linalg.inv(P)); print()
+print("A^5")			
+		</input>
+		<output>
+[1.  0.2]
+
+P:
+[[ 0.9486833  -0.70710678]
+ [ 0.31622777  0.70710678]]
+
+D:
+[[1.  0. ]
+ [0.  0.2]]
+
+A (double check):
+[[0.8 0.6]
+ [0.2 0.4]]
+
+A^5
+[[0.75008 0.74976]
+ [0.24992 0.25024]]
+
+A^20
+[[0.75 0.75]
+ [0.25 0.25]]
+		</output>
+	  </sage>
+	  
     </example>
 	
   </subsection>
@@ -1079,7 +1122,7 @@ np.linalg.inv(P@D@P)
 import numpy as np
 C = 
 P = 
-np.linalg.inv(P*C*P)
+P @ C @ np.linalg.inv(P)
 	      </input>
 	    </sage>
 	    </li>
@@ -1183,15 +1226,18 @@ np.linalg.inv(P*C*P)
       eigenvectors of a matrix <m>A</m> to relate <m>A</m> to a
       simpler matrix.
     <ul>
-      <li><p> We said that <m>A</m> is diagonalizable if we can write
-      <m>A = PDP^{-1}</m> where <m>D</m> is a diagonal matrix.  The
-      columns of <m>P</m> consist of eigenvectors of <m>A</m> and the
-      diagonal entries of <m>D</m> are the associated eigenvalues.
-      </p></li>
+      <li><p> We said that <m>A</m> is <term>diagonalizable</term> if we can write
+      <m>A = PDP^{-1}</m> where <m>D</m> is a diagonal matrix.  
+	  </p>
+	</li>
+
 
       <li><p> An <m>n\by n</m> matrix <m>A</m> is diagonalizable if
       and only if there is a basis of <m>\real^n</m> consisting of
-      eigenvectors of <m>A</m>. </p></li>
+      eigenvectors of <m>A</m>.  In that case, we can find a diagonalization 
+	  by letting the columns of <m>P</m> consist of eigenvectors of <m>A</m> and the
+        diagonal entries of <m>D</m> be the associated eigenvalues.
+	</p></li>
 
       <li><p> We said that <m>A</m> and <m>B</m> are similar if there
       is an invertible matrix <m>P</m> such that <m>A=PBP^{-1}</m>.

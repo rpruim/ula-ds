@@ -83,6 +83,7 @@
   </introduction>
 
   <subsection>
+	<idx><h>characteristic polynomial</h></idx>
     <title> The characteristic polynomial </title>
 
     <p> We will first see that the eigenvalues of a square matrix
@@ -344,6 +345,19 @@
       4,-2,3</m>. 
       </p>
     </example>
+
+	<xref ref="example-triangular-eigenvalues"/> is important enough to present as the following 
+		proposition.
+
+		<proposition xml:id="prop-triangular-eigenvalues">
+			<idx><h>eigenvalue</h><h>of a triangular matrix</h></idx>
+			<statement>
+				<p>
+					If <m>A</m> is a square triangular matrix, then the eigenvaltues of <m>A</m> are 
+					the diagonal entries of <m>A</m>.
+				</p>
+			</statement>
+		</proposition>
 
   </subsection>
 
@@ -741,7 +755,7 @@
     </example>
 
     <p> The multiplicities of the eigenvalues are important because
-    they influence the dimension of the eigenspaces.  We know that the
+    they reflect the dimension of the eigenspaces.  We know that the
     dimension of an eigenspace must be at least one; the following
     proposition also tells us the dimension of an eigenspace can be no
     larger than the multiplicity of its associated eigenvalue. </p>
@@ -1055,10 +1069,10 @@
   </subsection>
 
   <subsection>
-    <title> Using Sage to find eigenvalues and
+    <title> Using Python to find eigenvalues and
     eigenvectors </title>
 
-    <p> We can use Sage to find the characteristic polynomial,
+    <p> We can use Python to find the characteristic polynomial,
     eigenvalues, and eigenvectors of a matrix.  As we will see,
     however, some care is required when dealing with matrices whose
     entries include decimals.  
@@ -1066,48 +1080,64 @@
 
     <activity>
       <statement>
-      <p> We will use Sage to find the eigenvalues and eigenvectors of
+      <p> We will use Python to find the eigenvalues and eigenvectors of
       a matrix.  Let's begin with the matrix
       <m>A = \left[\begin{array}{rr}
-      1 \amp 2 \\
-      2 \amp 1 \\
+      -3 \amp 1 \\
+      0 \amp -3 \\
       \end{array}\right]
       </m>.
       <ol marker="a.">
 	<li><p>
-	  We can find the characteristic polynomial of a
-	  matrix <m>A</m> by writing 
-	  <c>A.charpoly('lambda')</c>.  Notice that we have to give Sage a
+	  We can find the characteristic polynomial of a <c>sympy.Matrix</c>
+	  <c>A</c> by writing 
+	  <c>A.charpoly('lambda')</c>.  
+	  <idx><h><c>sympy.Matrix.charpoly()</c></h></idx>
+	  <idx><h><c>charpoly()</c></h><see><c>sympy.Matrix.charpoly()</c></see></idx>
+		<idx><h>characteristic polynomial</h><seealso><c>sympy.Matrix.charpoly()</c></seealso></idx>
+	  Notice that we have to give Python a
 	  variable in which to write the polynomial;  here, we use
 	  <c>lambda</c> though <c>x</c> works just as well. </p>
 
 	  <sage language="python">
 	    <input>
-A = matrix(2,2,[1,2,2,1])
-A.charpoly('lambda')
+import numpy as np
+import sympy
+A = np.array([[-3,1],[0,-3]])
+M = sympy.Matrix(A)
+p = M.charpoly('lambda')
+print(p)
 	    </input>
 	  </sage>
 
 	  <p> The factored form of the characteristic polynomial may
 	  be more useful since it will tell us the eigenvalues and
 	  their multiplicities.  The factored characteristic polynomial is
-	  found with <c>A.fcp('lambda')</c>. </p>
+	  found with <c>sympy.factor()</c>. </p>
 	  
 	  <sage language="python">
 	    <input>
-A = matrix(2,2,[-3,1,0,-3])
-A.fcp('lambda')
+import numpy as np 
+import sympy
+A = np.array([[-3, 1], [0, -3]])
+M = sympy.Matrix(A)
+p = M.charpoly('x')
+print(sympy.factor(p)); print()
+print(sympy.factor(p.as_expr()))
 	    </input>
 	  </sage>
 	</li>
 
 	<li><p> If we only want the eigenvalues, we can use
-	<c>A.eigenvalues()</c>.  </p>
+	<c>numpy.linalg.eigvals()</c> or <c>scipy.linalg.eigvals()</c>.  </p>
+	<idx><h><c>np.linalg.eigvals()</c></h></idx>
+	<idx><h><c>scipy.linalg.eigvals()</c></h></idx>
 
 	  <sage language="python">
 	    <input>
-A = matrix(2,2,[-3,1,0,-3])
-A.eigenvalues()
+import numpy as np
+A = np.array([[-3, 1], [0, -3]])
+print(np.linalg.eigvals(A)) 
 	    </input>
 	  </sage>
 
@@ -1116,33 +1146,46 @@ A.eigenvalues()
 	  eigenvalues. </p>
 	</li>
 
-	<li><p> Finally, we can find eigenvectors by
-	<c>A.eigenvectors_right()</c>.  
-	<idx><h>right egenvector</h></idx>
-	<idx><h>egenvector</h><h>right</h></idx>
-	(We are looking for
-	<term>right eigenvectors</term> since the vector <m>\vvec</m>
-	appears to the right of <m>A</m> in the definition
-	<m>A\vvec=\lambda \vvec</m>.) </p>
+	<li><p> Finally, we can find both eigenvalues and (right) eigenvectors using
+	<c>numpy.linalg.eig(A)</c> or <c>scipy.linalg.eig(A)</c>.  
+	<idx><h>eigenvector</h></idx>
+	<idx><h>eigenvector</h><h>left</h></idx>
+	<idx><h>eigenvector</h><h>right</h></idx>
+	<idx><h>eigenvector</h><seealso><c>np.linalg.eig()</c></seealso></idx>
+	<idx><h><c>np.linalg.eig()</c></h><seealso><c>scipy.linalg.eig()</c></seealso></idx>
+	<idx><h><c>scipy.linalg.eigvals()</c></h></idx>
+	</p>
+	
+	<note>
+		<title>Left and right eigenvectors</title>
+	<p>
+	Technically, we are finding <term>right eigenvectors</term> since the vector <m>\vvec</m>
+	appears to the right of <m>A</m> in the definition <m>A\vvec=\lambda \vvec</m>. That's most 
+	often what we want.  But we can also get 
+	<term>left eigenvectors</term> with <c>scipy.linalg.eig(A, left = True)</c>. 
+	Feel free to try it in the code chunk below.
+	Numpy does not provide this option.
+    </p>
+	</note>
 	  
 	  <sage language="python">
 	    <input>
-A = matrix(2,2,[-3,1,0,-3])
-A.eigenvectors_right()
+import numpy as np
+import scipy
+A = np.array([[-3, 1], [0, -3]])
+evals, evecs = scipy.linalg.eig(A) 
+print(evals); print()
+print(evecs.round(10))
 	    </input>
 	  </sage>
 
-	  <p> At first glance, the result of this command can be a
-	  little confusing to interpret.  What we see is a list with
-	  one entry for each eigenvalue.  For each eigenvalue, there
-	  is a triple consisting of (i) the eigenvalue <m>\lambda</m>,
-	  (ii) a basis for <m>E_\lambda</m>, and (iii) the
-	  multiplicity of <m>\lambda</m>. </p> </li>
+	  <p> The first item in the tuple returned gives the eigenvalues, the second the eigenvalues.
+	</p> </li>
 
 	  <li><p> When working with decimal entries, which are called
 	  <term>floating point numbers</term> in computer science, we must
 	  remember that computers perform only approximate arithmetic.
-	  This is a problem when we wish to find the eigenvectors of such a
+	  This can be a problem when we wish to find the eigenvectors of a
 	  matrix.  To illustrate, consider the matrix
 	  <m>A=\left[\begin{array}{rr}
 	  0.4 \amp 0.3 \\
@@ -1150,40 +1193,65 @@ A.eigenvectors_right()
 	  \end{array}\right]
 	  </m>.
 	  <ol marker="1.">
-	    <li><p> Without using Sage, find the eigenvalues of this
+	    <li><p> Without using Python, find the eigenvalues of this
 	    matrix.
 	    </p></li>
 
 	    <li><p> What do you find for the reduced row echelon form
 	    of <m>A-I</m>? </p></li>
 
-	    <li><p> Let's now use Sage to determine the reduced row
+	    <li><p> Let's now use Python to determine the reduced row
 	    echelon form of <m>A-I</m>: </p>
 	      
 	    <sage language="python">
 	      <input>
-A = matrix(2,2,[0.4,0.3,0.6,0.7])
-(A-identity_matrix(2)).rref()
+import numpy as np 
+import sympy 
+A = sympy.Matrix([[0.4,0.3],[0.6,0.7]])
+print((A - sympy.eye(2)).rref())   # use sympy.eye() to get a sympy.Matrix
 	      </input>
 	    </sage>
 
-	    <p> What result does Sage report for the reduced row echelon
-	    form?  Why is this result not correct? </p>
+	    <p> What result does Python report for the reduced row echelon
+	    form?  Why is this result not correct? (Hint: compute row and column sums.)</p>
 	    </li>
 	    
-	    <li><p> Because the arithmetic Sage performs with floating
-	    point entries is only approximate, we are not able to find
-	    the eigenspace <m>E_1</m>.  In this next chapter, we will
-	    learn how to address this issue.  In the meantime,
-	    we can get around this problem by writing the entries in
-	    the matrix as rational numbers: </p>
-
+	    <li>
+		    <idx><h>reduced row echelon form</h><h>not numerically stable</h></idx>
+			<p> Despite the error in finding the reduce row echelon form, 
+			numpy and scipy <em>can</em> compute these eigenvalues and eigenvectors for us.
 	    <sage language="python">
 	      <input>
-A = matrix(2,2,[4/10,3/10,6/10,7/10])
-A.eigenvectors_right()
+import numpy as np  
+A = np.array([[0.4, 0.3],[0.6,0.7]])
+print(np.linalg.eig(A))
 	      </input>
 	    </sage>
+			As you might expect, this implies that the method being used does not 
+			rely on using RREF along the way.
+			RREF is not numerically stable, this is why it is not included in 
+			numpy and scipy.
+		</p>
+	</li>
+		<li>
+			<p>
+			If we provide sympy with rational values instead of floating point,
+			then it can compute the RREF of our matrix exactly and the error 
+			from above goes away.
+	    <sage language="python">
+	      <input>
+import numpy as np  
+import sympy 
+from sympy import Rational as r
+A = sympy.Matrix([[r(4,10),r(3,10)],[r(6,10),r(7,10)]])
+print(A)
+print(A.eigenvals())
+	      </input>
+	    </sage>
+			In <xref ref="chap6"/> we will see other methods for computing eigevectors  
+			that do not rely on RREF.
+
+	     </p>
 	    </li>
 	  </ol></p>
 	  </li>
@@ -1192,16 +1260,18 @@ A.eigenvectors_right()
       
       <solution>
 	<p><ol marker="a.">
-	  <li><p> The <c>fcp</c> command will return the factored
-	  characteristic polynomial <c>lambda^2 - 2*lambda - 3</c>.
+	  <li><p> The characteristic polynomial is <m>\lambda^2 + 6\lambda + 9</m>.
 	  </p></li>
 
-	  <li><p> The <c>eigenvalues</c> command returns a list of
-	  eigenvalues <c>[-3, -3]</c>.
+	  <li><p> <c>linalg.eig(A)</c> returns <c>[-3, -3]</c>. This means we have one eigenvalue (<m>\lambda = -3</m>) 
+		with multiplicity 2.
 	  </p></li>
 
-	  <li><p> The <c>eigenvectors_right</c> command returns
-	  <c>[(-3, [(1, 0)], 2)]</c>.
+	  <li><p> The eigenvectors are 
+		<m>\twovec{1}{0}</m> and 
+		<m>\twovec{-1}{0}</m>. Notice that 
+		<m>\twovec{-1}{0} = -1 \twovec{1}{0}</m>, so we really only have one independent eigevector here 
+		and the eigenspace is 1-dimensional (the x-axis).
 	  </p></li>
 
 	  <li><p> If we begin with the matrix <m>A</m>, we find
@@ -1215,9 +1285,26 @@ A.eigenvectors_right()
 	    is not invertible, as expected.
 	    </p></li>
 
-	    <li><p> Sage returns <m>\mattwo{1}{0}{0}{1}</m>, which is
+	    <li><p> Python returns <m>\mattwo{1}{0}{0}{1}</m>, which is
 	    not correct because <m>A-I</m> cannot be invertible if
-	    <m>\lambda=1</m> is an eigenvalue of <m>A</m>.
+	    <m>\lambda=1</m> is an eigenvalue of <m>A</m>. The issue is round-off errors that 
+		make things that should be exactly zero slightly different from 0.
+		
+<sage>
+	<input>
+import numpy as np 	
+from numpy import linalg
+		
+A = np.array([[0.8,0.6],[0.2,0.4]])
+B = A - np.eye(2)
+print(B); print()
+print(B.sum(axis = 0))	 # column sums shoudl be zero, but...
+	</input>
+	<output>
+		(for static output)
+	</output>
+</sage>
+
 	    </p></li>
 
 	    <li><p> Here we find the correct eigenvalues,
@@ -1266,7 +1353,7 @@ A.eigenvectors_right()
       <m>1</m>, then we can form a basis of <m>\real^n</m> consisting
       of eigenvectors of <m>A</m>. </p></li>
 
-      <li><p> We can use Sage to find the eigenvalues and eigenvalues
+      <li><p> We can use Python to find the eigenvalues and eigenvalues
       of matrices.  However, we need to be careful working with
       floating point numbers since floating point arithmetic is only
       an approximation. </p></li>

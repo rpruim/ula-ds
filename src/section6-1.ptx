@@ -5,35 +5,394 @@
   <title> The dot product  </title>
 
   <introduction>
-    <p> In this section, we introduce a simple algebraic operation,
-    known as the <em>dot product</em>, that helps us measure the
-    length of vectors and the angle formed by a pair of vectors.  For
-    two-dimensional vectors <m>\vvec</m> and <m>\wvec</m>, their dot
-    product <m>\vvec\cdot\wvec</m> is the scalar defined to be
+		<p> In this section, we introduce a new operation on vectors, known as the <term>dot product</term>.
+	Geometrically, the dot product is related to the lengths of vectors and the angles between pairs
+	of vectors. Importantly, the dot product is also easily computed from the list-of-numbers
+	representation of vectors. It also has many nice algebraic properties. So this is another
+	situation where each of our three presepectives of vectors provides valuable insight. </p>
+	</introduction>
+
+	<subsection xml:id="sec-projections-and-dot-products">
+		<title>Projections and dot products</title>
+	
+	<p>	
+		We will motivate the defintion of the dot product by investigating the <term>projection</term>
+		of a vector <m>\yvec</m> in the direction of a vector <m>\xvec</m>, which we will denote as 
+		<m>\proj{\yvec}{\xvec}</m>. 
+		<notation>
+			<usage> <m>\proj{\yvec}{\xvec}</m> </usage>
+		  <description>the projection of <m>\yvec</m> in the direction of <m>\xvec</m></description>
+		</notation>
+
+		The projection vector <m>\proj{\yvec}{\xvec}</m> is the scalar multiple of <m>\xvec</m>,
+		<me>\proj{\yvec}{\xvec} = k \xvec</me> 
+		for the scalar <m>k</m> such that <m>k \xvec</m> and 
+		<m>(\yvec - k \xvec)</m> form a 90 degree angle. (See <xref ref="fig-def-projection" />.)
+		<idx>projection</idx>
+		By the definition of cosine, this means that 
+		<me>
+			\frac{k \len{\xvec}}{\len{\yvec}} = \cos \theta
+		</me>
+		where <m>\len{\xvec}</m> denotes the (Euclidean) length of the vector <m>\xvec</m> and 
+		<m>\theta</m> is the angle between the two vectors.
+		Solving for <m>k</m>, we find that 
+		<md>
+			<mrow>
+			k \amp = \frac{\len{y} \cos \theta}{\len{x}}
+			</mrow>
+			<mrow>
+			  \proj{\yvec}{\xvec} \amp = \frac{\len{y} \cos \theta}{\len{x}} \xvec
+			</mrow>
+		</md>.
+	</p>
+
+	<p>
+		This leads to our geometric definition of the dot product.
+	</p>
+
+		<definition xml:id="def-geometric-dot-product">
+		<idx>dot product</idx>
+			<statement>
+				<p>
+					For any two non-zero vectors <m>\xvec</m> and <m>\yvec</m> in <m>\real^n</m> with an angle <m>\theta</m> 
+					between them, we define their  
+					<term>dot product</term>, denoted <m>\xvec \cdot \yvec</m>, as 
+					<me>
+						\xvec \cdot \yvec = \len{\xvec} \len{\yvec} \cos \theta
+					</me>.
+					If either <m>\xvec</m> or <m>\yvec</m> is the zero vector, then <m>\xvec \cdot \yvec = 0</m>.
+				</p>
+			</statement>
+		</definition>
+
+	<note>
+		Note that the dot product of two vectors is a <em>scalar</em>. For this reason, the dot product is sometimes  
+		called the <term>scalar product</term>. 
+	</note>
+
+	<p>
+	We can easily re-express the projection in terms of the dot product.	
+
+	<proposition xml:id="prop-projection-in-terms-of-dot-product">
+		<idx>projection</idx>
+		<statement>
+			<p>
+					For any two vectors <m>\xvec</m> and <m>\yvec</m> in <m>\real^n</m>,
+				<me>\proj{\yvec}{\xvec} = \frac{\xvec \cdot \yvec}{\len{\xvec}^2} \xvec </me>.
+			</p>
+		</statement>
+	</proposition>
+	</p>
+
+	<p>
+		A number of properties of the dot product follow from the definition.
+
+		<proposition xml:id="prop-properties-of-dot-product">
+			<statement>
+				<p>
+					For any vectors <m>\xvec, \yvec, \zvec \in \real^n</m> and scalar <m>k \in \real</m>, 
+					the following properties hold.
+					<ol>
+						<li>
+							<title>Commutativity</title>
+							<p>
+								<m>\xvec \cdot \yvec = \yvec \cdot \zvec</m>
+							</p>
+						</li>
+						<li>
+							<title>Scalar multiples</title>
+							<p>
+								<m>k (\xvec \cdot \yvec) = (k \xvec) \cdot \yvec = \xvec \cdot (k \yvec)</m>
+							</p>
+						</li>
+						<li>
+							<title>Length</title>
+							<p>
+								<m>\xvec \cdot \xvec = \len{\xvec}^2</m>
+							</p>
+						</li>
+						<li>
+							<title>Distributivity</title>
+							<p>
+							   <m>\xvec \cdot(\yvec + \zvec) = (\xvec \cdot \yvec) + (\xvec \cdot \zvec)</m>
+							</p>
+						</li>
+					</ol>
+				</p>
+			</statement>
+			<proof>
+				<p>
+					The first two statements follow directly from the definition. 
+					The third follows by observing that <m>\cos \theta = \cos 0 = 1</m> for two vectors  
+					that point in the same direction.
+				</p>
+				<p>
+					The fourth property deserves some explanation. 
+					First, we observe that a similar property holds for projections, namely,
+					<me>
+						\proj{(\yvec + \zvec)}{\xvec}) =
+						\proj{\yvec}{\xvec} + \proj{\zvec}{\xvec}
+					</me>.
+				</p>
+
+				<p>
+					<em>Add interactive graph here</em>
+
+					<example hide-type="true">
+						<title>Interactive: A vector in <m>\real^3</m>, by coordinates</title>
+						<figure>
+						  <caption>A vector in <m>\real^3</m>, and its coordinates.  Drag the arrow head and tail.</caption>
+						  <mathbox source="build-demos/vector.html" height="400px"/>
+						</figure>
+					  </example>
+
+				</p>
+
+				<p>
+					From this it follows that 
+					<md>
+						<mrow> 
+						\frac{(\yvec + \zvec)\cdot \xvec}{\len{\xvec}^2} \xvec
+							\amp =
+						\frac{\yvec \cdot \xvec}{\len{\xvec}^2} \xvec +
+						\frac{\zvec \cdot \xvec}{\len{\xvec}^2} \xvec 
+						</mrow>
+						<mrow> 
+						\left( (\yvec + \zvec) \cdot \xvec \right) \frac{\xvec}{\len{\xvec}^2}
+							\amp  = 
+						\left( \yvec \cdot \xvec  +  \zvec \cdot \xvec \right) \frac{\xvec}{\len{\xvec}^2}
+						</mrow>
+						<mrow> 
+						(\yvec + \zvec) \cdot \xvec  
+							\amp  =  \yvec \cdot \xvec + \zvec \cdot \xvec 
+						</mrow>
+					</md>
+				</p>
+			</proof>
+		</proposition>
+	</p>
+
+	<p>
+		These properties of the dot product allow us to algebraically rearrange or simplify many 
+		expressions involving dot products.
+	</p>
+
+    <example>
+      <statement>
+	<p> Suppose that <m>\vvec_1\cdot\wvec = 4</m> and
+	<m>\vvec_2\cdot\wvec = -7</m>.  Then
+	<me>
+	  \begin{aligned}
+	  (2\vvec_1)\cdot\wvec \amp {}={} 2(\vvec_1\cdot\wvec) =
+	  2(4) = 8 \\
+	  (-3\vvec_1+ 2\vvec_2)\cdot\wvec \amp {}={}
+	  -3(\vvec_1\cdot\wvec) + 2(\vvec_2\cdot\wvec) = -3(4)+2(-7) =
+	  -26
+	  \end{aligned}
+	</me>.
+	</p>
+      </statement>
+    </example>
+
+    <p> As we move forward, it will be important for us to recognize
+    when vectors are perpendicular to one another.  For instance, when
+    vectors <m>\vvec</m> and <m>\wvec</m> are perpendicular, the angle
+    between them <m>\theta=90^\circ</m> and we have
     <me>
-      \vvec\cdot\wvec = \twovec{v_1}{v_2}\cdot\twovec{w_1}{w_2} =
-      v_1w_1 + v_2w_2\text{.}
-    </me>
-    For instance,
-    <me>
-      \twovec{2}{-3}\cdot\twovec{4}{1} = 2\cdot 4 + (-3)\cdot 1 = 5.
-    </me>
+      \vvec\cdot\wvec=\len{\vvec}\len{\wvec}\cos\theta =
+      \len{\vvec}\len{\wvec}\cos90^\circ = 0
+    </me>.
+    Therefore, the dot product between perpendicular vectors must be
+    zero. 
+    This leads to the following definition.
     </p>
 
-    <exploration>
+    <definition>
+      <statement>
+	<idx><h>orthogonal vectors</h></idx>
+	<notation>
+		<usage><m>\vvec \perp \wvec</m></usage>
+	  <description>the vectors <m>\vvec</m> and <m>\wvec</m> are orthogonal</description>
+	</notation>
+	We say that vectors <m>\vvec</m> and <m>\wvec</m> are
+	orthogonal if <m>\vvec\cdot\wvec=0</m>.
+	We can denote this with <m>\vvec \perp \wvec</m>.
+      </statement>
+    </definition>
+
+    <p> In practical terms, two perpendicular vectors are
+    orthogonal.  However, the concept of orthogonality is somewhat
+    more general because it allows one or both of the vectors to
+    be the zero vector <m>\zerovec</m>.
+    </p>
+		
+	</subsection>
+	
+	<subsection xml:id="subsec-computing-dot-products">
+		<title>Computing dot products</title>
+	
+		<p>
+		The geometric definition of the dot product motivates many of its applications, but 
+		it can be difficult to compute the dot product from this definition because 
+		<m>\cos \theta</m> may be difficult to obtain, espcially in high dimensions. 
+		Fortunately, there is a computational shortcut that follows directly from 
+		<xref ref="prop-properties-of-dot-product" />.
+		</p>
+
+
+		<p>Let <me>
+				\vvec =
+				\left[
+				\begin{array}{c}
+				v_1 \\ v_2 \\ \vdots \\ v_n \\
+				\end{array}
+				\right]
+				\text{ and }
+				\wvec = \left[
+				\begin{array}{c}
+				w_1 \\ w_2 \\ \vdots \\ w_n \\
+				\end{array}
+				\right]
+			</me>
+			be two vectors in <m>\real^n</m>. Then we can write 
+			<md>
+				<mrow>
+				\vvec \amp = v_1 \evec_1 + v_2 \evec_2 + \cdots + v_n \evec_n
+				</mrow>
+				<mrow>
+				\wvec \amp = w_1 \evec_1 + w_2 \evec_2 + \cdots + w_n \evec_n
+				</mrow>.
+			</md>
+			From this it follows that  
+			<md>
+				<mrow> \vvec \cdot \wvec \amp =
+				(v_1 \evec_1 + v_2 \evec_2 + \cdots + v_n \evec_n) \cdot
+				(w_1 \evec_1 + w_2 \evec_2 + \cdots + w_n \evec_n) 
+				</mrow>
+				<mrow> 
+					\amp 
+					\sum_{i=1}^{n} \sum_{j=1}^{n} v_i w_j \evec_i \cdot \evec_j
+				</mrow>
+				<mrow> 
+					\amp 
+					\sum_{i = 1}^{n} v_i w_i 1
+				</mrow>
+				<mrow> 
+					\amp 
+					\sum_{i=1}^{n} v_i w_i 
+				</mrow>
+			</md>
+			because
+			<me>
+				\evec_i \cdot \evec_j = \begin{cases} 0 \amp i \neq j \\ 1 \amp i = j \\ \end{cases} \;\;
+			</me>,
+			so the only terms in the sum that are not 0 are the ones where <m>i</m> and <m>j</m> match.
+		</p>
+		<p>
+			In other words, the dot product can be computed as the <em>sum of products</em> of corresponding entries  
+			in the two vectors. It will be useful, whenever you see a sum of products to ask how it might be  
+			interpreted as a dot product.
+		</p>
+
+		<proposition xml:id="prop-computing-dot-product">
+			<statement>
+				<p>Let <m>\vvec</m> and <m>\wvec</m> be two vectors in <m>\real^n</m>. Then <me>
+					\vvec\cdot\wvec =
+						\left[
+						\begin{array}{c}
+						v_1 \\ v_2 \\ \vdots \\ v_n \\
+						\end{array}
+						\right]
+						\cdot
+						\left[
+						\begin{array}{c}
+						w_1 \\ w_2 \\ \vdots \\ w_n \\
+						\end{array}
+						\right]
+						= v_1w_1 + v_2w_2 + \cdots + v_n w_n
+					</me>.
+				</p>
+			</statement>
+		</proposition>
+
+		<example>
+			<statement>
+				<p> For two-dimensional vectors <m>\xvec</m> and <m>\yvec</m>, their dot product <m>
+					\xvec\cdot\yvec</m> is <me>
+						\xvec\cdot\yvec = \twovec{x_1}{x_2}\cdot\twovec{y_1}{y_2} =
+						x_1y_1 + x_2y_2
+					</me>.
+					For instance, <me>
+						\twovec{2}{-3}\cdot\twovec{4}{1} = 2\cdot 4 + (-3)\cdot 1 = 5
+					</me>.
+				</p>
+			</statement>
+
+		</example>
+		<example>
+			<statement>
+				<p> We compute the dot product between two four-dimensional vectors as <me>
+						\left[
+						\begin{array}{c}
+						2 \\ 0 \\ -3 \\ 1 \\
+						\end{array}
+						\right]
+						\cdot
+						\left[
+						\begin{array}{c}
+						-1 \\ 3 \\ 1 \\ 2 \\
+						\end{array}
+						\right]
+						= 2(-1) + 0(3) + (-3)(1) + 1(2) = -3
+					</me>.
+				</p>
+			</statement>
+		</example>
+
+
+	<example>
+			<statement>
+				<p>
+				From the
+				<xref ref="prop-properties-of-dot-product" />
+				we know that
+				<m>\len{\vvec}^2 = \vvec \cdot \vvec</m>. We can also compute the
+				length of a vector using the Pythagorean Theorem. When using our
+				computationa shortcut, we see that these are the same calculation.
+				</p>
+				<p> For example, consider the vector <m>\vvec = \twovec32</m> as shown in <xref
+						ref="fig-dot-length" />. </p>
+
+				<figure xml:id="fig-dot-length">
+					<sidebyside width="50%">
+						<image source="images/dot-length" />
+					</sidebyside>
+					<caption> The vector <m>\vvec=\twovec32</m>. </caption>
+				</figure>
+
+				<p> We may find the length of this vector using the Pythagorean theorem since the
+				vector forms the hypotenuse of a right triangle having a horizontal leg of length 3 and a
+				vertical leg of length 2, so <m>\len{\vvec}^2 = 3^2 + 2^2 = 13</m>. Now notice that the dot
+				product of <m>\vvec</m> with itself performs the identical arithmetic: 
+				<me>\vvec\cdot\vvec = 3(3) + 2(2) = 13 = \len{\vvec}^2</me>. 
+				</p>
+			</statement>
+		</example>
+    <activity>
+		
       <statement>
       <p>
 	<ol marker="a.">
 	  <li><p> Compute the dot product
-	  <me>\twovec{3}{4}\cdot\twovec{2}{-2}\text{.}
-	  </me>
+	  <me>\twovec{3}{4}\cdot\twovec{2}{-2}
+	  </me>.
 	  </p></li>
 
 	  <li><p> Sketch the vector <m>\vvec=\twovec{3}{4}</m> below.  Then
 	  use the Pythagorean theorem to find the length of <m>\vvec</m>.
 	  <figure>
 	    <sidebyside width="50%">
-	      <image source="images/empty-6"/>
+										<image source="images/empty-6" />
 	    </sidebyside>
 	    <caption>
 	      Sketch the vector <m>\vvec</m> and find its length.
@@ -60,10 +419,10 @@
 	  by <m>90^\circ</m> and find the dot product
 	  <m>\vvec\cdot\wvec</m>.  </p></li>
 
-	  <li><p> Suppose that <m>\vvec</m> and <m>\wvec</m> are two
+	  <!-- <li><p> Suppose that <m>\vvec</m> and <m>\wvec</m> are two
 	  perpendicular vectors.  What do you think their dot product
 	  <m>\vvec\cdot\wvec</m> is?
-	  </p></li>
+	  </p></li> -->
 	</ol>
       </p>
       </statement>
@@ -102,141 +461,41 @@
 		<m>\vvec\cdot\wvec=0</m>.
 	      </p>
 	    </li>
-	    <li>
+	    <!-- <li>
 	      <p>
 		The dot product should be zero.
 	      </p>
-	    </li>
+	    </li> -->
 	  </ol>
 	</p>
       </solution>
 	      
-    </exploration>
+	</activity>>
 
-  </introduction>
 
-  <subsection>
-    <title> The geometry of the dot product </title>
-
-    <p> <idx> dot product </idx>
-      The dot product is defined, more generally, for any two
-      <m>m</m>-dimensional vectors:
-      <me>
-	\vvec\cdot\wvec =
-	\left[
-	\begin{array}{c}
-	v_1 \\ v_2 \\ \vdots \\ v_m \\
-	\end{array}
-	\right]
-	\cdot 
-	\left[
-	\begin{array}{c}
-	w_1 \\ w_2 \\ \vdots \\ w_m \\
-	\end{array}
-	\right]
-	= v_1w_1 + v_2w_2 + \ldots + v_mw_m\text{.}
-      </me>
-      The important thing to remember is that the dot product will
-      produce a scalar.  In other words, the two vectors are combined in
-      such a way as to create a number, and, as we'll see, this number
-      conveys useful geometric information.
-    </p>
-
-    <example>
-      <statement>
-	<p> We compute the dot product between two
-	four-dimensional vectors as
-	<me>
-	  \left[
-	  \begin{array}{c}
-	  2 \\ 0 \\ -3 \\ 1 \\
-	  \end{array}
-	  \right]
-	  \cdot 
-	  \left[
-	  \begin{array}{c}
-	  -1 \\ 3 \\ 1 \\ 2 \\
-	  \end{array}
-	  \right]
-	  = 2(-1) + 0(3) + (-3)(1) + 1(2) = -3\text{.}
-	</me>
-	</p>
-      </statement>
-    </example>
-    
-    <assemblage>
+    <!-- <assemblage>
       <title> Properties of dot products </title>
       <p> As with ordinary multiplication, the dot product enjoys some
       familiar algebraic properties, such as commutativity and
       distributivity.  More specifically, it doesn't matter in which order
       we compute the dot product of two vectors:
       <me>
-	\vvec\cdot\wvec = \wvec\cdot\vvec\text{.}
-      </me>
+	\vvec\cdot\wvec = \wvec\cdot\vvec
+      </me>.
       If <m>s</m> is a scalar, we have
       <me>
-	(s\vvec)\cdot\wvec = s(\vvec\cdot\wvec)\text{.}
-      </me>
+	(s\vvec)\cdot\wvec = s(\vvec\cdot\wvec)
+      </me>.
       We may also distribute the dot product across linear combinations:
       <me>
 	(c_1\vvec_1+c_2\vvec_2)\cdot\wvec = c_1\vvec_1\cdot\wvec +
-	c_2\vvec_2\cdot\wvec\text{.}
-      </me>
+	c_2\vvec_2\cdot\wvec
+      </me>.
       </p>
-    </assemblage>
+    </assemblage> -->
 
-    <example>
-      <statement>
-	<p> Suppose that <m>\vvec_1\cdot\wvec = 4</m> and
-	<m>\vvec_2\cdot\wvec = -7</m>.  Then
-	<me>
-	  \begin{aligned}
-	  (2\vvec_1)\cdot\wvec \amp {}={} 2(\vvec_1\cdot\wvec) =
-	  2(4) = 8 \\
-	  (-3\vvec_1+ 2\vvec_2)\cdot\wvec \amp {}={}
-	  -3(\vvec_1\cdot\wvec) + 2(\vvec_2\cdot\wvec) = -3(4)+2(-7) =
-	  -26\text{.}
-	  \end{aligned}
-	</me>
-	</p>
-      </statement>
-    </example>
 
-    <p> The most important property of the dot product, and
-    the real reason for our interest in it, is that it gives us
-    geometric information about vectors and their relationship to one
-    another.  Let's first think about the length of a vector by
-    looking at the vector <m>\vvec = \twovec32</m> as shown in <xref
-    ref="fig-dot-length" />
-    </p>
 
-    <figure xml:id="fig-dot-length">
-      <sidebyside width="50%">
-	<image source="images/dot-length" />
-      </sidebyside>
-      <caption> The vector <m>\vvec=\twovec32</m>.
-      </caption>
-    </figure>
-
-    <p>
-      We may find the length of this vector using the Pythagorean
-      theorem since the vector forms the hypotenuse of a right triangle
-      having a horizontal leg of length 3 and a vertical leg of length
-      2.  The length of <m>\vvec</m>, which we denote as
-      <m>\len{\vvec}</m>, is therefore <m>\len{\vvec} = \sqrt{3^2 +
-      2^2} = \sqrt{13}</m>.  Now notice that the dot product of
-      <m>\vvec</m> with itself is
-      <me>\vvec\cdot\vvec = 3(3) + 2(2) = 13 = \len{\vvec}^2</me>.
-      This is true in general;  that is, we have
-      <me>
-	\vvec\cdot\vvec = \len{\vvec}^2\text{.}
-      </me>
-    </p>
-
-    <p> More than that, the dot product of two vectors records
-    information about the angle between them.  Consider <xref
-    ref="fig-dot-angle" />.
-    </p>
 
     <figure xml:id="fig-dot-angle">
       <sidebyside width="50%">
@@ -248,7 +507,7 @@
       </caption>
     </figure>
 
-    <p> To see this, we will apply the Law of Cosines, which says that
+		<!-- <p> To see this, we will apply the Law of Cosines, which says that
     <me>
       \begin{aligned}
       \len{\wvec-\vvec}^2 \amp = \len{\vvec}^2 + \len{\wvec}^2 -
@@ -270,7 +529,7 @@
     </p>
 
     <p> To summarize:
-    </p>
+    </p> -->
 
     <assemblage>
       <title> Geometric properties of the dot product </title>
@@ -329,22 +588,26 @@
 	    <m>\twovec6k</m> perpendicular to <m>\wvec</m>?
 	    </p></li>
 	    
-	    <li><p> Sage can be used to find lengths of vectors and their
+	    <li><p> Python can be used to find lengths of vectors and their
 	    dot products.  For instance, if <c>v</c> and <c>w</c> are
 	    vectors, then <c>v.norm()</c> gives the length of <c>v</c> and
-	    <c>v * w</c> gives <m>\vvec\cdot\wvec</m>.</p>
+	    <c>v @ w</c> gives <m>\vvec\cdot\wvec</m>.</p>
 	    
 	    <p> Suppose that
 	    <me>
 	      \vvec=\fourvec203{-2}, \hspace{24pt}
-	      \wvec=\fourvec1{-3}41\text{.}
-	    </me>
-	    Use the Sage cell below to find <m>\len{\vvec}</m>,
+	      \wvec=\fourvec1{-3}41
+	    </me>.
+	    Use the Python cell below to find <m>\len{\vvec}</m>,
 	    <m>\len{\wvec}</m>, <m>\vvec\cdot\wvec</m>, and the angle
 	    between <m>\vvec</m> and <m>\wvec</m>.  You may use
-	    <c>arccos</c> to find the angle's measure expressed in
+	    <c>math.acos()</c> to find the angle's measure expressed in
 	    radians.  
-	    <sage>
+	    <sage language="python">
+			<input> 
+import math  
+import numpy as np
+			</input>
 	    </sage>
 	    </p></li>
 	</ol></p>
@@ -474,37 +737,12 @@
       </answer>
     </activity>
 
-    <p> As we move forward, it will be important for us to recognize
-    when vectors are perpendicular to one another.  For instance, when
-    vectors <m>\vvec</m> and <m>\wvec</m> are perpendicular, the angle
-    between them <m>\theta=90^\circ</m> and we have
-    <me>
-      \vvec\cdot\wvec=\len{\vvec}\len{\wvec}\cos\theta =
-      \len{\vvec}\len{\wvec}\cos90^\circ = 0\text{.}
-    </me>
-    Therefore, the dot product between perpendicular vectors must be
-    zero. 
-    This leads to the following definition.
-    </p>
-
-    <definition>
-      <statement>
-	<idx> orthogonal </idx>
-	We say that vectors <m>\vvec</m> and <m>\wvec</m> are
-	orthogonal if <m>\vvec\cdot\wvec=0</m>.
-      </statement>
-    </definition>
-
-    <p> In practical terms, two perpendicular vectors are
-    orthogonal.  However, the concept of orthogonality is somewhat
-    more general because it allows one or both of the vectors to
-    be the zero vector <m>\zerovec</m>.
-    </p>
 
     <p>
-      We've now seen that the dot product gives us geometric
-      information about vectors.  It also provides a way to compare
-      vectors.  For example, consider the vectors <m>\uvec</m>,
+      As we have seen, we can use the dot product to compute the angle 
+	  between two vectors. This angle (or the cosine of the angle) is often taken as a 
+	  measure of "similarity" between two vectors. 
+	  For example, consider the vectors <m>\uvec</m>,
       <m>\vvec</m>, and <m>\wvec</m>, shown in <xref
       ref="fig-similar-vectors" />.  The vectors <m>\vvec</m> and
       <m>\wvec</m> seem somewhat similar as the directions they define
@@ -512,6 +750,8 @@
       dissimilar to both <m>\vvec</m> and <m>\wvec</m>.  We will
       measure the similarity of vectors by finding the angle between
       them; the smaller the angle, the more similar the vectors.
+	  This is especially useful in contexts where the direction of a vector conveys 
+	  more important information than its magnitude.
     </p>
 
     <figure xml:id="fig-similar-vectors">
@@ -525,40 +765,58 @@
 
     <activity>
       <statement>
-	<p> This activity explores two further uses of the dot product
-	beginning with the similarity of vectors.
+	<p> This activity explores two uses of the dot product
+	as a way to compute the "similarity" of vectors.
 	<ol marker="a.">
 	  <li>
 	    <p>
 	      Our first task is to assess the similarity between various
 	      Wikipedia articles by forming vectors from each of five
-	      articles.  In particular, one may download the text from a
+	      articles.  
+		  <idx><h>document vector</h></idx>
+		  In particular, one may download the text from a
 	      Wikipedia article, remove common words, such as <q>the</q>
 	      and <q>and</q>, count the number of times the
 	      remaining words appear in the article, and represent
-	      these counts in a vector.
+	      these counts in a vector, called the <term>document vector</term> 
+		  for each article.
 	    </p>
 
 	    <p>
 	      For example, evaluate the following cell that loads 
-	      some special commands along with the vectors constructed
-	      from the Wikipedia articles on Veteran's Day, Memorial
-	      Day, Labor Day, the Golden Globe Awards, and the Super
-	      Bowl.  For each of the five articles, you will see a list
-	      of the number of times 10 words appear in these articles.
+		  a matrix constructed from the Wikipedia articles on Veteran's Day, 
+		  Memorial Day, Labor Day, the Golden Globe Awards, and the Super
+	      Bowl.  Each row of the matrix represents one of 604 words and each 
+		  column represents one of the articles as a document vector.  
 	      For instance, the word <q>act</q> appears 3 times in the
 	      Veteran's Day article and 0 times in the Labor Day
 	      article.
-
-	      <sage>
+	      <sage language="python">
 		<input>
-sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/dot_similarity.py", globals())
-events.head(int(10))
+import pandas as pd
+import numpy as np
+
+events = pd.read_csv("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/events.csv", index_col=0)
+print(events.shape) 
+print(head(events, 5))
 		</input>
+		<output> 
+shape:  (604, 5)
+           Veterans Day  Memorial Day  Labor Day  Golden Globe Awards  \
+according             0             4          3                    0   
+across                0             3          1                    0   
+act                   3             2          0                    0   
+acting                1             0          0                    9   
+active                0             1          0                    2   
+
+           Super Bowl  
+according           3  
+across              0  
+act                 2  
+acting              0  
+active              3  
+		</output>
 	      </sage>
-	      For each of the five articles, we obtain 604-dimensional
-	      vectors, which are named <c>veterans</c>, <c>memorial</c>,
-	      <c>labor</c>, <c>golden</c>, and <c>super</c>.
 	    </p>
 
 	    <p>
@@ -582,14 +840,15 @@ events.head(int(10))
 		</li>
 
 		<li>
-		  <p> Use the Sage cell below to find the angle between
-		  the vector <c>veterans</c> and the other four
-		  vectors.  To express the angle in degrees, use the
-		  <c>degrees(x)</c> command, which gives the number of
-		  degrees in <c>x</c> radians.
+		  <p> Use the Python cell below to find the angle between
+		  the document vector for the Veteran's Day article and the other four
+		  articles.  To express the angle in degrees, multiply radians by 
+		  <c>180.0 / math.pi</c>.
 
-		  <sage>
+		  <sage language="python">
 		    <input>
+import numpy as np
+import math 
 		    </input>
 		  </sage>
 		  </p>
@@ -614,23 +873,31 @@ events.head(int(10))
 	      <m>\svec=\fourvec{78.3}{81.2}{82.1}{79.0}</m> might
 	      represent the value of a company's stock on four
 	      consecutive days.  When interpreted in this way, we call the
-	      vector a <em>time series.</em> Evaluate the Sage cell
-	      below to see a representation of two time series
-	      <m>\svec_1</m>, in blue, and <m>\svec_2</m>, in orange,
-	      which we imagine represent the value of two stocks over a
-	      period of time.  (This cell relies on some data loaded by the
-	      first cell in this activity.)
-
-	      <sage>
+	      vector a <term>time series.</term> 
+		  <idx><h>time series</h></idx>
+		  Evaluate the Python cell
+	      below to see a representation of time series
+	      for four different stocks over 10 days. 
+	      <sage language="python">
 		<input>
-series_plot(s1, 'blue') + series_plot(s2, 'orange')		
+import numpy as np
+import pandas as pd
+import seaborn.objects as so
+stocks = pd.read_csv("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/time-series.csv", header=None)
+stocks1 = stocks  
+stocks1['day'] = stocks1.index
+# convert to "long" format for plotting with seaborn.objects
+stocks1_long = pd.melt(stocks1, id_vars="day", var_name = "stock", value_name="price")
+print(stocks1)
+# print(stocks1_long)
+so.Plot(stocks1_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
 		</input>
 	      </sage>
 
-	      Even though one stock has a higher value than the other,
-	      the two appear to be related since they seem to rise and
-	      fall at roughly similar ways.  We often say that they are
-	      <em>correlated</em>, and we would like to measure the degree
+	      Notices that although one stock has a higher value, stocks 0 and 3 appear to 
+		  be related since they seem to rise and
+	      fall at roughly similar ways.  We often say that such series are 
+	      <term>correlated</term>, and we would like to measure the degree
 	      to which they are correlated.
 
 	      <ol marker="1.">
@@ -638,18 +905,15 @@ series_plot(s1, 'blue') + series_plot(s2, 'orange')
 		  <p>
 		    In order to compare the ways in
 		    which they rise and fall, we will first
-		    <em>demean</em> the time series;  that is, for each
+			<idx>demean</idx>
+		    <term>demean</term> each time series;  that is, for each
 		    time series, we will subtract its average value to
-		    obtain a new time series.  There is a command
-		    <c>demean(s)</c> that returns the demeaned time
-		    series of <c>s</c>.  Use the Sage cell below to
-		    demean the series <m>\svec_1</m> and <m>\svec_2</m> and
-		    plot. 
-		    <sage>
+		    obtain a new time series.  
+		    <sage language="python">
 		      <input>
-ds1 = demean(s1)
-ds2 = demean(s2)
-series_plot(ds1, 'blue') + series_plot(ds2, 'orange')		
+stocks0 = stocks - stocks.mean(axis = 0)
+stocks0_long = pd.melt(stocks0, id_vars="day", var_name = "stock", value_name="price")
+so.Plot(stocks_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
 		      </input>
 		    </sage>
 		  </p>
@@ -658,24 +922,28 @@ series_plot(ds1, 'blue') + series_plot(ds2, 'orange')
 		<li>
 		  <p>
 		    If the demeaned series are <m>\tilde{\svec}_1</m> and
-		    <m>\tilde{\svec}_2</m>, then the correlation between
+		    <m>\tilde{\svec}_2</m>, then the <term>correlation</term> between
 		    <m>\svec_1</m> and <m>\svec_2</m> is defined to be
+			<idx>correlation</idx>
 		    <me>
 		      \corr(\svec_1, \svec_2) =
 		      \frac{\tilde{\svec}_1\cdot\tilde{\svec}_2}
-		      {\len{\tilde{\svec}_1}\len{\tilde{\svec}_2}}.
+		      {\len{\tilde{\svec}_1}\len{\tilde{\svec}_2}} =
+		      \frac{\len{\tilde{\svec}_1}\len{\tilde{\svec}_2} \cos \theta}
+		      {\len{\tilde{\svec}_1}\len{\tilde{\svec}_2}} = \cos \theta
 		    </me>
-		    Given the geometric interpretation of the dot
-		    product, the correlation equals the cosine of the
-		    angle between the demeaned time series, and
-		    therefore <m>\corr(\svec_1,\svec_2)</m> is
-		    between -1 and 1.
+			where <m>\theta</m> is the angle between 
+			<m>\tilde{\svec_1}</m> and 
+			<m>\tilde{\svec_2}</m>.
+		    That is, the correlation equals the cosine of the
+		    angle between the demeaned time series. Among other things, 
+		    this implies that <m>\corr(\svec_1,\svec_2)</m> is always 
+			between -1 and 1.
 		  </p>
 
 		  <p>
-		    Find the correlation between <m>\svec_1</m> and
-		    <m>\svec_2</m>.
-		    <sage>
+		    Find the correlation between each pair of stocks. 
+		    <sage langauge="python">
 		      <input>
 
 		      </input>
@@ -726,31 +994,60 @@ series_plot(ds1, 'blue') + series_plot(ds2, 'orange')
 		</li>
 
 		<li>
-		  <p>
-		    Use the Sage cell below to plot the time series
-		    <m>\svec_1</m> and <m>\svec_3</m> and find their
-		    correlation. 
-		    <sage>
-		      <input>
-series_plot(s1, 'blue') + series_plot(s3, 'orange')		
-		      </input>
-		    </sage>
-		  </p>
+			<p> Which pair of stocks had the largest correlation?  How is this reflected in 
+				the plot?
+			</p>
 		</li>
-
 		<li>
-		  <p>
-		    Use the Sage cell below to plot the time series
-		    <m>\svec_1</m> and <m>\svec_4</m> and find their
-		    correlation. 
-		    <sage>
-		      <input>
-series_plot(s1, 'blue') + series_plot(s4, 'orange')		
-		      </input>
-		    </sage>
-		  </p>
+			<p> Which pair of stocks had the smallest (most negative) correlation?  
+				How is this reflected in the plot?
+			</p>
 		</li>
+		<li>
+			<p> Which pair of stocks had a correlation closest to 0? 
+				How is this reflected in the plot?
+			</p>
+		</li>
+		<li>
+			<p>
+				The correlation is important enough that numpy can do all the work of computing correlations for each 
+				pair of rows (default) or columns (what we want here) in a matrix.  The result is a matrix containing 
+				all the pairwise correlations.
+				<idx><h><c>np.corrcoef()</c></h></idx>
+				<sage language="python">
+					<input>
+print("correlations"); print() 
+print(np.corrcoef(stocks, rowvar = False))
+					</input>
+					<output>
+correlations
 
+[[ 1.         -0.87380249 -0.09502163  0.97826418]
+ [-0.87380249  1.          0.09375034 -0.91146418]
+ [-0.09502163  0.09375034  1.         -0.08984275]
+ [ 0.97826418 -0.91146418 -0.08984275  1.        ]]
+					</output>
+				</sage>
+			</p>
+			<ul>
+				<li>
+					<p>
+						Explain why the shape of the correlation matrix is what it is.
+						What shape would it have been if we had not used <c>rowvar = False</c>?
+					</p>
+				</li>
+				<li>
+					<p>
+						Explain why this matrix is symmetric.
+					</p>
+				</li>
+				<li>
+					<p>
+						Explain why the diagonal values are what they are.
+					</p>
+				</li>
+			</ul>
+		</li>
 	      </ol>
 	    </p>
 	  </li>
@@ -811,8 +1108,7 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
 		</li>
 		<li>
 		  <p>
-		    The correlation is <m>0.98</m>, which is quite close
-		    to 1.
+		    See below for all of the correlations.
 		  </p>
 		</li>
 		<li>
@@ -829,13 +1125,32 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
 		</li>
 		<li>
 		  <p>
-		    The correlation is <m>-0.87</m>.
+		    The largest correlation is <m>0.97</m> for stocks 0 and 3, which are most similar.
 		  </p>
 		</li>
 		<li>
 		  <p>
-		    The correlation is <m>-0.10</m>.
+		    The smallest correlation is <m>-0.91</m> for stocks 1 and 3, which are least similar.
+			When one goes up, the other tends to go down.
 		  </p>
+		</li>
+		<li>
+		  <p>
+		    The closest correlation to 0 is <m>-0.090</m> for stocks 3 and 4. These stocks seem 
+			unrelated.  When one goes up, the other sometimes goes up, sometimes down.  
+		  </p>
+		</li>
+		<li>
+			<p>
+				Correlation matrices are square and have a row and column for each of the vectors we computed 
+				correlations with.  Since we have 4 column vectors here, we get a <m>4 \by 4</m> matrix.
+				It would be <m>10 \by 10</m> if we did row-wise correlations.
+				These matrices are always symmetric because the definition of correlation is symmetric.
+				The diagonal entries are 1 because 
+				<me>\corr(\xvec, \xvec) = 
+					\frac{\xvec \cdot \xvec}{\vlen{\xvec}\vlen{\xvec}} =
+					\frac{\xvec \cdot \xvec}{\len{\xvec}^2} = 1</me>.
+			</p>
 		</li>
 	      </ol>
 	    </p>
@@ -888,27 +1203,22 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
 		</li>
 		<li>
 		  <p>
-		    <m>0.98</m>
 		  </p>
 		</li>
 		<li>
 		  <p>
-		    <m>1</m>
 		  </p>
 		</li>
 		<li>
 		  <p>
-		    <m>-1</m>
 		  </p>
 		</li>
 		<li>
 		  <p>
-		    <m>-0.87</m>
 		  </p>
 		</li>
 		<li>
 		  <p>
-		    <m>-0.10</m>
 		  </p>
 		</li>
 	      </ol>
@@ -924,6 +1234,7 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
 
   <subsection>
     <title> <m>k</m>-means clustering </title>
+	<idx><h>clustering</h></idx>
 
     <p>
       A typical problem in data science is to find some underlying
@@ -962,8 +1273,9 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
       If there are many attributes for each patient, the data may be
       high-dimensional and not easily visualized.  We would therefore
       like to develop an algorithm that separates the data points into
-      clusters without human intervention.  We call the result a
-      <em>clustering</em>.
+      clusters without human intervention.  
+	  <idx><h>clustering</h></idx>
+	  We call the result a <term>clustering</term>.
     </p>
 
     <p>
@@ -979,13 +1291,14 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
     <activity>
       <statement>
 	<p>
-	  To begin, we identify the <em>centroid</em>, or the
+		<idx><h>centroid</h></idx>
+	  To begin, we identify the <term>centroid</term>, or the
 	  average, of a set of vectors
-	  <m>\vvec_1, \vvec_2, \ldots,\vvec_n</m> 
+	  <m>\vvec_1, \vvec_2, \cdots,\vvec_n</m> 
 	  as
 	  <me>
-	    \frac1n\left(\vvec_1+\vvec_2+\ldots+\vvec_n\right).
-	  </me>
+	    \frac1n\left(\vvec_1+\vvec_2+\cdots+\vvec_n\right)
+	  </me>.
 
 	  <ol marker="a.">
 	    <li>
@@ -1273,9 +1586,9 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
       <me>
 	\begin{array}{rcl}
 	C_1 \amp {}={} \amp \{\vvec_1\} \\
-	C_2 \amp {}={} \amp \{\vvec_2, \vvec_3,\vvec_4\}.
+	C_2 \amp {}={} \amp \{\vvec_2, \vvec_3,\vvec_4\}
 	\end{array}
-      </me>
+      </me>.
     </p>
 
     <p>
@@ -1285,9 +1598,9 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
       <me>
 	\begin{array}{rcl}
 	C_1 \amp {}={} \amp \{\vvec_1, \vvec_2, \vvec_3\} \\
-	C_2 \amp {}={} \amp \{\vvec_4\}.
+	C_2 \amp {}={} \amp \{\vvec_4\}
 	\end{array}
-      </me>
+      </me>.
     </p>
 
     <p>
@@ -1295,7 +1608,7 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
       better of the two?  It seems like a better clustering will be
       one for which the points in a cluster are, on average, closer to
       the centroid of their cluster.  If we have a clustering, we
-      therefore define a function, called the <em>objective</em>,
+      therefore define a function, called the <term>objective</term>,
       which measures the average of the square of the distance from
       each point to the centroid of the cluster to which that point
       belongs.  A clustering with a smaller objective will have
@@ -1308,9 +1621,9 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
       <me>
 	\begin{array}{rcl}
 	C_1 \amp {}={} \amp \{\vvec_1, \vvec_2, \vvec_3\} \\
-	C_2 \amp {}={} \amp \{\vvec_4\}.
+	C_2 \amp {}={} \amp \{\vvec_4\}
 	\end{array}
-      </me>
+      </me>.
       with centroids <m>c_1=\ctwovec{0}{4/3}</m> and
       <m>c_2=\vvec_4=\twovec32</m>, we find the objective to
       be
@@ -1321,8 +1634,8 @@ series_plot(s1, 'blue') + series_plot(s4, 'orange')
 	\len{\vvec_3-c_1}^2 + 
 	\len{\vvec_4-c_2}^2
 	\right)
-	= \frac 53.
-      </me>
+	= \frac 53
+      </me>.
     </p>
 
     <activity>
@@ -1434,7 +1747,7 @@ plotclusters(clusters, centroids)
 	      </figure>
 
 	      <p>
-		This plot is called an <em>elbow plot</em> due to its
+		This plot is called an <term>elbow plot</term> due to its
 		shape.  Notice how the objective decreases
 		sharply when <m>k</m> is small and then flattens out.
 		This leads to a location, called the elbow, where the
@@ -1475,8 +1788,8 @@ plotclusters(clusters, centroids)
 		+ \len{(\vvec_2 - c_2)}^2
 		+ \len{(\vvec_3 - c_2)}^2
 		+ \len{(\vvec_4 - c_2)}^2\right)
-		= \frac56\text{.}
-		</me>
+		= \frac56
+		</me>.
 	      </p>
 	    </li>
 
