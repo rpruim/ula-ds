@@ -380,13 +380,15 @@
 	<p> Multiplying the second row by 3 and adding it to the third
 	row is performed by
 	<me>
-	  L = \begin{bmatrix}
+	  R = \begin{bmatrix}
 	  1 \amp 0 \amp 0 \\
 	  0 \amp 1 \amp 0 \\
 	  0 \amp 3 \amp 1 \\
 	  \end{bmatrix}.
-	</me>  We often use <m>L</m> to describe these matrices because
-	they are lower triangular.
+	</me>  These matrices are always have 1's along the diagonal and exactly one additional 
+	non-zero entry.  Notice that these matrices are always triangular. During the forward 
+	phase of Gaussian elimination, they will be lower diagonal, so we will sometimes use <m>L</m> to 
+	emphasize this.
 	</p></li>
 	<li><title> Scaling </title>
 	<p> Multiplying the third row by 2 is performed by
@@ -397,6 +399,7 @@
 	  0 \amp 0 \amp 2 \\
 	  \end{bmatrix}.
 	</me>
+	Scaling matrices are diagonal with at most one entry that is not a 1.
 	</p></li>
 
 	<li><title> Interchange </title>
@@ -408,6 +411,9 @@
 	  0 \amp 0 \amp 1 \\
 	  \end{bmatrix}.
 	</me>
+	We use <m>P</m> rather than <m>I</m> because we reserve <m>I</m> for the identity matrix.
+	P stands for permutation since an interchange permutes (changes the order of) the rows.
+	These matrices are formed by swapping two rows of the identity matrix.
 	</p></li>
       </dl>
     </p>
@@ -490,7 +496,12 @@
 	  This says that if we want to undo the operation of multiplying
 	  the first row by <m>3</m> and adding to the second row, we should
 	  multiply the first row by <m>-3</m> and add it to the second row.
-	  That is the effect of <m>L_1^{-1}</m>.
+	  We can see this by simple algebra.
+	  <me>
+		\hat{R}_2 = 3 R_1 + R_2 \Rightarrow R_2 = -3 R_1 + \hat{R}_2
+	  </me>	
+	  That is the effect of <m>L_1^{-1}</m>, which is obtained by negating  
+	  the off diagonal entry of <m>L_1</m>.
 	</p>
 	
 	<p> Notice that we now have <m>L_3L_2L_1A = U</m>, which gives
@@ -503,15 +514,39 @@
 	  \end{aligned}
 	</me>
 	where <m>L</m> is the lower triangular matrix
-	<me> L = (L_3L_2L_1)^{-1}=\begin{bmatrix}
+	<me> L = (L_3L_2L_1)^{-1}=
+		L_1^{-1} L_2^{-1} L_3^{-1} =
+	  \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  -3 \amp 1 \amp 0 \\
+	  0 \amp 0 \amp 1 \\
+	  \end{array}\right]
+
+	  \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  2 \amp 0 \amp 1 \\
+	  \end{array}\right]
+
+	  \left[\begin{array}{rrr}
+	  1 \amp 0 \amp 0 \\
+	  0 \amp 1 \amp 0 \\
+	  0 \amp -2 \amp 1 \\
+	  \end{array}\right]
+
+	  =
+
+	\begin{bmatrix}
 	1 \amp 0 \amp 0 \\
 	-3 \amp 1 \amp 0 \\
 	2 \amp -2 \amp 1 \\
 	\end{bmatrix}.
 	</me>
+	<idx><h><m>LU</m> factorization</h></idx>
+	<idx><h>factorization</h><h><m>LU</m></h></idx>
 	This way of writing <m>A=LU</m> as the product of a lower and
-	an upper triangular matrix is known as an <m>LU</m>
-	factorization of <m>A</m>, and its usefulness will be explored
+	an upper triangular matrix is known as an 
+	<term><m>LU</m> factorization</term> of <m>A</m>, and its usefulness will be explored
 	in <xref ref="sec-gaussian-revisited" />.
 	</p>
 
@@ -525,13 +560,53 @@
 		<title> Summary </title>
 		<p> In this section, we learned that the elementary row operations of replacement, scaling,
 	and interchange can be performed via multiplication by <term>elementary matrices</term>. 
+	Elementary matrices can be formed as slight modifications of identity matrices.
 			<ul>
 				<li>
-					<p> The elementary matrices for replacement are <term>lower triangular</term>. </p>
+					<p> <term>Replacement</term>: 
+						The elementary matrices for replacement differ from an identity matrix in exactly 
+						one entry.  These matrices are <term>triangular</term> with one off-diagonal 
+						entry that is non-zero.
+						(For the replacements needed during the forward phase of Gaussian elimination, these  
+						will all be <term>lower triangular</term>.)</p>
 				</li>
 				<li>
-					<p> The elementary matrices for scaling are <term>diagonal</term>. </p>
+					<p> <term>Scaling</term>: The elementary matrices for scaling also differ from an identity matrix in exactly 
+						one entry.  These matrices are <term>diagonal</term> with one diagonal entry 
+						replaced by the scaling factor. 
+					</p>
 				</li>
+				<li>
+					<p>
+					<term>Interchange</term>: The elementary matrices for interchange are formed by swapping two  
+					rows of an identity matrix. (This changes two 0s to 1s and two 1s to 0s.)	
+					</p>
+				</li>
+			</ul>
+		</p>
+		<p> The inverse of any elementary matrix also has a simple form that is easily determined. 
+			<idx> <h>elementary matrices</h> <h>inverses of</h> </idx>
+			<ul>
+				<li>
+					<p>
+						<term>Replacement</term>: Flip the sign on the off-diagonal entry.
+					</p>
+				</li>
+				<li>
+					<p> <term>Scaling</term> by <m>s</m>: Scale by <m>\frac{1}{s}</m> to undo the scaling. </p>
+				</li>
+				<li>
+					<p>
+						<term>Interchange</term>: 
+						Interchange matrices are their own inverses.
+						 <!-- (because if we swap the same rows again, we are back to where we started). -->
+					</p>
+				</li>
+			</ul>
+		</p>
+		<p>
+			Along they way we saw that triangular matrices also have a nice property, namely
+			<ul>
 				<li>
 					<p>
 						Square triangular matrices are invertible if and only if all the
