@@ -25,11 +25,33 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para">Cases decided by a 5-4 vote are often the most impactful as they represent a sharp divide among the justices and, often, society at large.  For that reason, we will now focus on the 5-4 decisions. Evaluating the next cell forms the <span class="process-math">\(9\times188\)</span> matrix <span class="process-math">\(B\)</span> consisting of 5-4 decisions. <pre class="ptx-sagecell sagecell-python" id="sage-290"><script type="text/x-sage">B = matrix(RDF, fivefour.values)
-display_matrix(B.matrix_from_columns(range(50)))
-</script></pre> Form the singular value decomposition of <span class="process-math">\(B=U\Sigma
-V^T\)</span> along with the matrix <span class="process-math">\(\Gamma\)</span> of coefficients so that <span class="process-math">\(B=U\Gamma\)</span> and display the first left singular vector <span class="process-math">\(\uvec_1\text{.}\)</span>  Study how the <span class="process-math">\(7^{th}\)</span> case, indexed by <code class="code-inline tex2jax_ignore">6</code>, is constructed as a linear combination of left singular vectors. <pre class="ptx-sagecell sagecell-python" id="sage-291"><script type="text/x-sage">
-</script></pre> What does this singular vector tell us about the make up of the court and whether it leans towards the conservatives or progressives?</div>
+<div class="para logical">
+<div class="para">If we interpret 0 as black and 1 as white, this matrix represents an image as shown below. <pre class="ptx-sagecell sagecell-python" id="sage-274"><script type="text/x-sage">display_matrix(A)
+</script></pre> We will explore how the singular value decomposition helps us to compress this image.</div>
+<ol class="decimal">
+<li><div class="para">By inspecting the image represented by <span class="process-math">\(A\text{,}\)</span> identify a basis for <span class="process-math">\(\col(A)\)</span> and determine <span class="process-math">\(\rank(A)\text{.}\)</span>
+</div></li>
+<li><div class="para">The following cell plots the singular values of <span class="process-math">\(A\text{.}\)</span>  Explain how this plot verifies that the rank is what you found in the previous part. <pre class="ptx-sagecell sagecell-python" id="sage-275"><script type="text/x-sage">plot_sv(A)
+</script></pre>
+</div></li>
+<li><div class="para">There is a command <code class="code-inline tex2jax_ignore">approximate(A, k)</code> that creates the approximation <span class="process-math">\(A_k\text{.}\)</span>  Use the cell below to define <span class="process-math">\(k\)</span> and look at the images represented by the first few approximations.  What is the smallest value of <span class="process-math">\(k\)</span> for which <span class="process-math">\(A=A_k\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-276"><script type="text/x-sage">k = 
+display_matrix(approximate(A, k))
+</script></pre>
+</div></li>
+<li><div class="para logical">
+<div class="para">Now we can see how the singular value decomposition allows us to compress images. Since this is a <span class="process-math">\(25\by15\)</span> matrix, we need <span class="process-math">\(25\cdot15=375\)</span> numbers to represent the image.  However, we can also reconstruct the image using a small number of singular values and vectors:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+A = A_k = \sigma_1\uvec_1\vvec_1^T +
+\sigma_2\uvec_2\vvec_2^T + \ldots +
+\sigma_k\uvec_k\vvec_k^T.
+\end{equation*}
+</div>
+<div class="para">What are the dimensions of the singular vectors <span class="process-math">\(\uvec_i\)</span> and <span class="process-math">\(\vvec_i\text{?}\)</span>  Between the singular vectors and singular values, how many numbers do we need to reconstruct <span class="process-math">\(A_k\)</span> for the smallest <span class="process-math">\(k\)</span> for which <span class="process-math">\(A=A_k\text{?}\)</span>  This is the compressed size of the image.</div>
+</div></li>
+<li><div class="para">The <em class="emphasis">compression ratio</em> is the ratio of the uncompressed size to the compressed size.  What compression ratio does this represent?</div></li>
+</ol>
+</div>
 <span class="incontext"><a href="sec-svd-uses.html#p-8380" class="internal">in-context</a></span>
 </body>
 </html>

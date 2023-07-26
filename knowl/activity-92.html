@@ -9,34 +9,48 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
+</script>
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.2.2</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.1.6</span><span class="period">.</span>
 </h4>
-<div class="para logical">
-<div class="para">Let’s look at some more examples of quadratic forms.</div>
-<ol class="lower-alpha">
-<li><div class="para">Consider the symmetric matrix <span class="process-math">\(D = \begin{bmatrix}
-3 \amp 0 \\
-0 \amp -1 \\
-\end{bmatrix}
-\text{.}\)</span>  Write the quadratic form <span class="process-math">\(q_D(\xvec)\)</span> defined by <span class="process-math">\(D\)</span> in terms of the components of <span class="process-math">\(\xvec=\twovec{x_1}{x_2}\text{.}\)</span>  What is the value of <span class="process-math">\(q_D\left(\twovec2{-4}\right)\text{?}\)</span>
+<div class="para logical"><ol class="lower-alpha">
+<li>
+<div class="para">Evaluating the following Sage cell loads a dataset consisting of 100 demeaned data points and provides a plot of them.  It also provides the demeaned data matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-224"><script type="text/x-sage">import pandas as pd
+df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/variance-data.csv', header=None)
+data = [vector(row) for row in df.values]
+A = matrix(data).T
+list_plot(data, size=20, color='blue', aspect_ratio=1)
+</script></pre>
+</div>
+<div class="para">What is the shape of the covariance matrix <span class="process-math">\(C\text{?}\)</span>  Find <span class="process-math">\(C\)</span> and verify your response. <pre class="ptx-sagecell sagecell-python" id="sage-225"><script type="text/x-sage">
+</script></pre>
+</div>
+</li>
+<li><div class="para">By visually inspecting the data, determine which is larger, <span class="process-math">\(V_x\)</span> or <span class="process-math">\(V_y\text{.}\)</span>  Then compute both of these quantities to verify your response.</div></li>
+<li><div class="para">What is the total variance <span class="process-math">\(V\text{?}\)</span>
 </div></li>
-<li><div class="para">Given the symmetric matrix <span class="process-math">\(A=\begin{bmatrix}
-2 \amp 5 \\
-5 \amp -3
-\end{bmatrix}
-\text{,}\)</span> write the quadratic form <span class="process-math">\(q_A(\xvec)\)</span> defined by <span class="process-math">\(A\)</span> and evaluate <span class="process-math">\(q_A\left(\twovec{2}{-1}\right)\text{.}\)</span>
+<li><div class="para">In approximately what direction is the variance greatest?  Choose a reasonable vector <span class="process-math">\(\uvec\)</span> that points in approximately that direction and find <span class="process-math">\(V_{\uvec}\text{.}\)</span>
 </div></li>
-<li><div class="para">Suppose that <span class="process-math">\(q\left(\twovec{x_1}{x_2}\right) = 3x_1^2
-- 4x_1x_2 + 4x_2^2\text{.}\)</span>  Find a symmetric matrix <span class="process-math">\(A\)</span> such that <span class="process-math">\(q\)</span> is the quadratic form defined by <span class="process-math">\(A\text{.}\)</span>
+<li><div class="para">In approximately what direction is the variance smallest?  Choose a reasonable vector <span class="process-math">\(\wvec\)</span> that points in approximately that direction and find <span class="process-math">\(V_{\wvec}\text{.}\)</span>
 </div></li>
-<li><div class="para">Suppose that <span class="process-math">\(q\)</span> is a quadratic form and that <span class="process-math">\(q(\xvec) = 3\text{.}\)</span>  What is <span class="process-math">\(q(2\xvec)\text{?}\)</span> <span class="process-math">\(q(-\xvec)\text{?}\)</span> <span class="process-math">\(q(10\xvec)\text{?}\)</span>
-</div></li>
-<li><div class="para">Suppose that <span class="process-math">\(A\)</span> is a symmetric matrix and <span class="process-math">\(q_A(\xvec)\)</span> is the quadratic form defined by <span class="process-math">\(A\text{.}\)</span>  Suppose that <span class="process-math">\(\xvec\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with associated eigenvalue -4 and with length 7.  What is <span class="process-math">\(q_A(\xvec)\text{?}\)</span>
-</div></li>
-</ol>
-</div></article><span class="incontext"><a href="sec-quadratic-forms.html#activity-92" class="internal">in-context</a></span>
+<li><div class="para">How are the directions <span class="process-math">\(\uvec\)</span> and <span class="process-math">\(\wvec\)</span> in the last two parts of this problem related to one another?  Why does this relationship hold?</div></li>
+</ol></div>
+<div class="solutions">
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-290-hidden.html" title="Answer 7.1.6.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-368-hidden.html" title="Solution 7.1.6.1"><span class="type">Solution</span><span class="period">.</span></a>
+</div></article><span class="incontext"><a href="sec-symmetric-matrices.html#activity-92" class="internal">in-context</a></span>
 </body>
 </html>

@@ -1,0 +1,756 @@
+<!DOCTYPE html> <!-- -*- html -*- -->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <title>Dynamics of Similar Matrices</title>
+  <link rel="shortcut icon" href="img/gatech.gif"/>
+
+  
+      <link rel="stylesheet" href="css/demo.css?vers=2759ff">
+  
+
+  <style>
+      
+
+html, body {
+    margin:           0;
+    height:           100%;
+    background-color: white;
+    overflow-x:       hidden;
+}
+.mathbox-wrapper {
+    width:       50%;
+    padding-top: 50%;
+    position:    absolute;
+    left:        0;
+    top:         50%;
+    transform:   translate(0, -50%);
+}
+.mathbox-wrapper + .mathbox-wrapper {
+    left:        50%;
+}
+.mathbox-wrapper > div {
+    position: absolute;
+    top:      0;
+    left:     0;
+    width:    100%;
+    height:   100%;
+}
+.mathbox-label {
+    position:  absolute;
+    left:      50%;
+    top:       10px;
+    color:     black;
+    opacity:   1.0;
+    background-color: rgba(220, 220, 220, .5);
+    border:    solid 1px rgba(50, 50, 50, .5);
+    padding:   5px;
+    transform: translate(-50%, 0);
+}
+.overlay-text {
+    z-index: 1;
+}
+
+.espace-1 {
+    color: var(--palette-green);
+}
+.espace-2 {
+    color: var(--palette-violet);
+}
+.espace-3 {
+    color: var(--palette-brown);
+}
+.overlay-text {
+    z-index: 1;
+}
+#gui-container {
+  position: absolute;
+  right:    10px;
+  top:      0px;
+  z-index:  2;
+}
+#captions3 {
+  position:    absolute;
+  left:        50%;
+  top:         initial;
+  transform:   translate(-50%, 0);
+  bottom:      10px;
+  z-index:     2;
+}
+#mult-here1.hidden,
+#mult-here2.hidden {
+    display: none;
+}
+
+  </style>
+
+</head>
+<body>
+    
+<div id="gui-container"></div>
+<div id="captions3" class="overlay-text">
+<p>
+    <span id="C-here"></span><br>
+    <span id="sim-here"></span><br>
+</p>
+</div>
+
+
+<div class="mathbox-wrapper">
+    <div id="mathbox1">
+        
+<div id="captions1" class="overlay-text"></div>
+
+    </div>
+</div>
+<div class="mathbox-wrapper">
+    <div id="mathbox2">
+        
+<div id="captions2" class="overlay-text"></div>
+
+    </div>
+</div>
+
+
+
+    
+    
+        <script src="js/demo.js?vers=77646a"></script>
+    
+    <script src="js/dynamics.js?vers=a4ed0b"></script>
+
+
+    <script type="text/javascript">
+        "use strict";
+        DomReady.ready(function() {
+
+        var C, Cinv, almostZero, axisColors, basis1, basis2, controller, demo1, demo2, duration, dynView1, dynView2, dynamicsDemo, eigenStr, eigenStrs, eigenz, gui, i, len, matNames, matrix, matrixInfo, mv3v2, normalize, params, ref, ref1, row, size, testMatrices, type, typeOpts, v1, v1p, v2, v2p, v3, v3p, vecNames, vectorIn, w1, w1p, w2, w2p, w3, w3p;
+
+testMatrices = {
+  Shear: [[2 / 3, 1 / 3], [-1 / 3, 4 / 3]],
+  ScaleOutShear: [[5 / 3, 1 / 3], [-1 / 3, 7 / 3]],
+  ScaleInShear: [[1 / 3, 1 / 6], [-1 / 6, 2 / 3]],
+  Circle: [[1 / 3, -1 / 3], [5 / 6, 2 / 3]],
+  SpiralIn: [[1 / 3, -1 / 3], [5 / 6, 2 / 3]],
+  SpiralOut: [[2 / 3, -2 / 3], [5 / 3, 4 / 3]],
+  AttractLine: [[5 / 6, 1 / 6], [1 / 3, 2 / 3]],
+  RepelLine: [[4 / 3, -1 / 3], [-2 / 3, 5 / 3]],
+  Attract: [[7 / 18, -1 / 18], [-1 / 9, 4 / 9]],
+  Repel: [[8 / 3, 1 / 3], [2 / 3, 7 / 3]],
+  Hyperbolas: [[8 / 9, -5 / 9], [-10 / 9, 13 / 9]]
+};
+
+ref = testMatrices.Circle;
+for (i = 0, len = ref.length; i < len; i++) {
+  row = ref[i];
+  row[0] *= Math.sqrt(2);
+  row[1] *= Math.sqrt(2);
+}
+
+almostZero = function(x) {
+  return Math.abs(x) < 1e-5;
+};
+
+normalize = function(b) {
+  var n;
+  n = Math.sqrt(b[0] * b[0] + b[1] * b[1]);
+  return [b[0] / n, b[1] / n];
+};
+
+mv3v2 = function(v1, v2, b) {
+  return [v1[0] * b[0] + v2[0] * b[1], v1[1] * b[0] + v2[1] * b[1], v1[2] * b[0] + v2[2] * b[1]];
+};
+
+matrixInfo = function(matrix) {
+  var Imλ, Reλ, a, axisColors, b, basis1, basis2, c, d, determinant, discriminant, eigenStrs, negate1, negate2, opts, ref1, ref2, ref3, ref4, str, swap, trace, type, v, δ, λ, λ1, λ1p, λ2, λ2p;
+  (ref1 = matrix[0], a = ref1[0], b = ref1[1]), (ref2 = matrix[1], c = ref2[0], d = ref2[1]);
+  trace = a + d;
+  determinant = a * d - b * c;
+  discriminant = trace * trace - 4 * determinant;
+  basis1 = [];
+  basis2 = [];
+  type = null;
+  opts = {};
+  axisColors = [new Color("green").arr(1), new Color("violet").arr(1), new Color("brown").arr(1)];
+  eigenStrs = [];
+  if (almostZero(determinant)) {
+    throw "Can't handle non-invertible matrix";
+  }
+  if (almostZero(discriminant)) {
+    λ = trace / 2;
+    if (λ < 0) {
+      throw "Can't handle negative real eigenvalues";
+    }
+    if (almostZero(b) && almostZero(c)) {
+      basis1 = [1, 0];
+      basis2 = [0, 1];
+      axisColors[1] = axisColors[0];
+      eigenStrs.push("The whole plane is the <span class=\"espace-1\">" + ((λ.toFixed(2)) + "-eigenspace.</span>"));
+      type = λ > 1 ? dynamics.Repel : dynamics.Attract;
+      opts = {
+        λ1: λ,
+        λ2: λ
+      };
+    } else {
+      if (almostZero(b)) {
+        basis1 = normalize([λ - d, c]);
+      } else {
+        basis1 = normalize([b, λ - a]);
+      }
+      basis2 = [basis1[1], -basis1[0]];
+      axisColors[1] = [0.5, 0.5, 0.5, 0.3];
+      eigenStrs.push("This is the <span class=\"espace-1\">" + ((λ.toFixed(2)) + "-eigenspace.</span>"));
+      v = [(a - λ) * basis2[0] + b * basis2[1], c * basis2[0] + (d - λ) * basis2[1]];
+      if (almostZero(basis1[0])) {
+        opts.translate = v[1] / (λ * basis1[1]);
+      } else {
+        opts.translate = v[0] / (λ * basis1[0]);
+      }
+      if (almostZero(λ - 1)) {
+        type = dynamics.Shear;
+      } else {
+        if (λ > 1) {
+          type = dynamics.ScaleOutShear;
+        } else {
+          type = dynamics.ScaleInShear;
+        }
+        opts.scale = λ;
+      }
+    }
+  } else if (discriminant < 0) {
+    Reλ = trace / 2;
+    Imλ = Math.sqrt(-discriminant) / 2;
+    basis1 = [b / Imλ, (Reλ - a) / Imλ];
+    basis2 = [0, 1];
+    axisColors[0] = [0.5, 0.5, 0.5, 0.3];
+    axisColors[1] = [0.5, 0.5, 0.5, 0.3];
+    str = 'This matrix has complex eigenvalues ';
+    str += katex.renderToString("\\lambda = " + (Reλ.toFixed(2)) + "\\pm " + (Imλ.toFixed(2)) + "i.");
+    eigenStrs.push(str);
+    opts = {
+      θ: Math.atan2(-Imλ, Reλ),
+      scale: Math.sqrt(determinant),
+      dist: 'cont'
+    };
+    if (almostZero(opts.scale - 1)) {
+      type = dynamics.Circle;
+    } else {
+      if (opts.scale > 1) {
+        type = dynamics.SpiralOut;
+      } else {
+        type = dynamics.SpiralIn;
+      }
+    }
+  } else if (discriminant > 0) {
+    δ = Math.sqrt(discriminant);
+    λ1 = (trace - δ) / 2;
+    λ2 = (trace + δ) / 2;
+    negate1 = false;
+    negate2 = false;
+    if (λ1 < 0) {
+      λ1 *= -1;
+      negate1 = true;
+    }
+    if (λ2 < 0) {
+      λ2 *= -1;
+      negate2 = true;
+    }
+    if (λ1 >= λ2) {
+      ref3 = [λ1, λ2], λ2 = ref3[0], λ1 = ref3[1];
+      ref4 = [negate1, negate2], negate2 = ref4[0], negate1 = ref4[1];
+    }
+    opts = {
+      λ1: λ1,
+      λ2: λ2,
+      negate1: negate1,
+      negate2: negate2
+    };
+    if (almostZero(b)) {
+      if (almostZero(c)) {
+        if (almostZero(a - λ1)) {
+          basis1 = [1, 0];
+          basis2 = [0, 1];
+        } else {
+          basis2 = [1, 0];
+          basis1 = [0, 1];
+        }
+      } else {
+        basis1 = normalize([λ1 - d, c]);
+        basis2 = normalize([λ2 - d, c]);
+      }
+    } else {
+      basis1 = normalize([b, λ1 - a]);
+      basis2 = normalize([b, λ2 - a]);
+    }
+    swap = function() {
+      var ref5, ref6, ref7;
+      ref5 = [opts.negate1, opts.negate2], opts.negate2 = ref5[0], opts.negate1 = ref5[1];
+      ref6 = [opts.λ1, opts.λ2], opts.λ2 = ref6[0], opts.λ1 = ref6[1];
+      return ref7 = [basis1, basis2], basis2 = ref7[0], basis1 = ref7[1], ref7;
+    };
+    if (almostZero(λ1 - 1)) {
+      type = dynamics.RepelLine;
+    } else if (almostZero(λ2 - 1)) {
+      type = dynamics.AttractLine;
+      swap();
+    } else if (λ1 < 1 && λ2 < 1) {
+      type = dynamics.Attract;
+      swap();
+    } else if (λ1 < 1 && λ2 > 1) {
+      type = dynamics.Hyperbolas;
+    } else if (λ1 > 1 && λ2 > 1) {
+      type = dynamics.Repel;
+    }
+    λ1p = opts.λ1 * (opts.negate1 ? -1 : 1);
+    λ2p = opts.λ2 * (opts.negate2 ? -1 : 1);
+    eigenStrs.push("This is the <span class=\"espace-1\">" + ((λ1p.toFixed(2)) + "-eigenspace.</span>"));
+    eigenStrs.push("This is the <span class=\"espace-2\">" + ((λ2p.toFixed(2)) + "-eigenspace.</span>"));
+  }
+  return {
+    basis1: basis1,
+    basis2: basis2,
+    type: type,
+    typeOpts: opts,
+    axisColors: axisColors,
+    eigenStrs: eigenStrs
+  };
+};
+
+dynamicsDemo = function(controller, opts) {
+  var captionElt, demo, dragHook, dynView, eigenStr, eigenz, element, matName, params, ref1, ref10, ref11, ref2, ref3, ref4, ref5, ref6, ref7, ref8, ref9, size, suffix, vecColor, vecName, vectorIn, vectorOut;
+  dynView = opts.dynView;
+  params = opts.params;
+  eigenStr = opts.eigenStr;
+  matName = (ref1 = opts.matName) != null ? ref1 : 'A';
+  vecName = (ref2 = opts.vecName) != null ? ref2 : 'x';
+  size = (ref3 = opts.size) != null ? ref3 : 2;
+  eigenz = (ref4 = opts.eigenz) != null ? ref4 : 1;
+  suffix = (ref5 = opts.suffix) != null ? ref5 : '';
+  element = (ref6 = opts.element) != null ? ref6 : document.getElementById("mathbox");
+  captionElt = (ref7 = opts.captionElt) != null ? ref7 : document.getElementById("caption");
+  vecColor = (ref8 = opts.vecColor) != null ? ref8 : new Color("red");
+  dragHook = (ref9 = opts.dragHook) != null ? ref9 : function() {};
+  vectorIn = (ref10 = (ref11 = opts.vectorIn) != null ? ref11.slice() : void 0) != null ? ref10 : [.5, 0, 0];
+  vectorOut = [0, 0, 0];
+  return demo = window.demo = new (size === 3 ? Demo : Demo2D)({
+    mathbox: {
+      element: element,
+      size: {
+        aspect: 1
+      }
+    },
+    vertical: 1.05
+  }, function() {
+    var clipCube, computeOut, computePath, diff, displayMat, drag, labeled, matElt, multElt, path, pathElt, snap, snapped, str, subspace, te, updateCaption, view, viewT;
+    view = this.view({
+      viewRange: [[-1, 1], [-1, 1], [-1, 1]],
+      axes: false,
+      grid: false
+    });
+    clipCube = this.clipCube(view, {
+      draw: size === 3,
+      hilite: false
+    });
+    dynView.updateView(this.mathbox, clipCube.clipped);
+    this.dynView = dynView;
+    this.controller = controller;
+    te = dynView.matrixOrigCoords.elements;
+    if (size === 2) {
+      displayMat = [[te[0], te[1]], [te[4], te[5]]];
+    } else if (size === 3) {
+      displayMat = [[te[0], te[1], te[2]], [te[4], te[5], te[6]], [te[8], te[9], te[10]]];
+    }
+    str = ("<p><span id=\"mat-here" + suffix + "\"></span>") + ("<span id=\"mult-here" + suffix + "\"></span></p>");
+    str += eigenStr;
+    captionElt.innerHTML = str;
+    matElt = document.getElementById("mat-here" + suffix);
+    multElt = document.getElementById("mult-here" + suffix);
+    str = (matName + " = ") + this.texMatrix(displayMat);
+    katex.render(str, matElt);
+    updateCaption = (function(_this) {
+      return function() {
+        var vin, vout, x;
+        vin = vectorIn.slice(0, size);
+        vout = vectorOut.slice(0, size);
+        str = '\\qquad ' + matName + _this.texVector((function() {
+          var j, len1, results;
+          results = [];
+          for (j = 0, len1 = vin.length; j < len1; j++) {
+            x = vin[j];
+            results.push(x * 10);
+          }
+          return results;
+        })(), {
+          color: vecColor
+        }) + " = " + _this.texVector((function() {
+          var j, len1, results;
+          results = [];
+          for (j = 0, len1 = vout.length; j < len1; j++) {
+            x = vout[j];
+            results.push(x * 10);
+          }
+          return results;
+        })(), {
+          color: vecColor.darken(.1)
+        });
+        return katex.render(str, multElt);
+      };
+    })(this);
+    viewT = dynView.view;
+    labeled = this.labeledVectors(view, {
+      vectors: [vectorIn, vectorOut],
+      colors: [vecColor, vecColor.darken(.1)],
+      labels: [vecName, matName + vecName],
+      live: true,
+      zeroPoints: false,
+      zeroThreshold: 0.3,
+      vectorOpts: {
+        zIndex: 4
+      },
+      labelOpts: {
+        zIndex: 5
+      },
+      zeroOpts: {
+        zIndex: 5
+      }
+    });
+    if (size === 2) {
+      snap = function() {};
+    } else if (size === 3) {
+      subspace = this.subspace({
+        vectors: [dynView.v1, dynView.v2]
+      });
+      snapped = new THREE.Vector3();
+      diff = new THREE.Vector3();
+      snap = function(vec) {
+        subspace.project(vec, snapped);
+        diff.copy(vec).sub(snapped);
+        if (diff.lengthSq() <= 0.01) {
+          return vec.copy(snapped);
+        }
+      };
+    }
+    drag = this.draggable(view, {
+      points: [vectorIn],
+      onDrag: snap,
+      postDrag: function() {
+        computeOut();
+        computePath();
+        return dragHook(vectorIn);
+      }
+    });
+    computeOut = function() {
+      if (!params["Test vector"]) {
+        return;
+      }
+      vectorOut[0] = vectorIn[0], vectorOut[1] = vectorIn[1], vectorOut[2] = vectorIn[2];
+      dynView.matrixOrigCoords.applyToVector3Array(vectorOut);
+      return updateCaption();
+    };
+    this.setVec = function(vec) {
+      vectorIn[0] = vec[0], vectorIn[1] = vec[1], vectorIn[2] = vec[2];
+      computeOut();
+      return computePath();
+    };
+    this.toggleVector = (function(_this) {
+      return function(val) {
+        drag.enabled = params["Test vector"] || params["Show path"];
+        if (val) {
+          labeled.show();
+          computeOut();
+          return multElt.classList.remove("hidden");
+        } else {
+          labeled.hide();
+          return multElt.classList.add("hidden");
+        }
+      };
+    })(this);
+    this.toggleVector(params["Test vector"]);
+    path = (function() {
+      var j, results;
+      results = [];
+      for (j = 0; j <= 100; j++) {
+        results.push([0, 0, 0]);
+      }
+      return results;
+    })();
+    computePath = (function(_this) {
+      return function() {
+        var vec;
+        if (!params["Show path"]) {
+          return;
+        }
+        vec = vectorIn.slice();
+        dynView.coordMatInv.applyToVector3Array(vec);
+        return controller.current.makePath(vec, path);
+      };
+    })(this);
+    viewT.array({
+      channels: 3,
+      width: path.length,
+      live: true,
+      data: path
+    });
+    pathElt = viewT.line({
+      color: new Color("orange").arr(),
+      width: 5,
+      opacity: 1,
+      zBias: 0,
+      zIndex: 4
+    });
+    this.togglePath = (function(_this) {
+      return function(val) {
+        if (val) {
+          computePath();
+        }
+        pathElt.set('visible', val);
+        return drag.enabled = params["Test vector"] || params["Show path"];
+      };
+    })(this);
+    return this.togglePath(params["Show path"]);
+  });
+};
+
+matrix = urlParams.get('mat', 'matrix', [[1 / 2, 1 / 2], [-1 / 2, 1 / 2]]);
+
+matNames = urlParams.get('matnames', 'str[]', ['A', 'D', 'C']);
+
+vecNames = urlParams.get('vecnames', 'str[]', ['x', 'y']);
+
+size = urlParams.eigenz != null ? 3 : 2;
+
+eigenz = urlParams.get('eigenz', 'float', 1);
+
+w1 = urlParams.get('w1', 'float[]', [1, 0, 0]);
+
+w2 = urlParams.get('w2', 'float[]', [0, 1, 0]);
+
+w3 = urlParams.get('w3', 'float[]', [0, 0, 1]);
+
+v1 = urlParams.get('v1', 'float[]', [1, 0, 0]);
+
+v2 = urlParams.get('v2', 'float[]', [0, 1, 0]);
+
+v3 = urlParams.get('v3', 'float[]', [0, 0, 1]);
+
+if (v1[2] == null) {
+  v1[2] = 0;
+}
+
+if (v2[2] == null) {
+  v2[2] = 0;
+}
+
+if (v3[2] == null) {
+  v3[2] = 0;
+}
+
+if (w1[2] == null) {
+  w1[2] = 0;
+}
+
+if (w2[2] == null) {
+  w2[2] = 0;
+}
+
+if (w3[2] == null) {
+  w3[2] = 0;
+}
+
+if (urlParams.testmat != null) {
+  matrix = testMatrices[urlParams.testmat];
+}
+
+duration = urlParams.get('duration', 'float', 2.5);
+
+vectorIn = urlParams.get('y', 'float[]', [5, 0, 1]);
+
+if (vectorIn[2] == null) {
+  vectorIn[2] = 0;
+}
+
+vectorIn[0] /= 10;
+
+vectorIn[1] /= 10;
+
+vectorIn[2] /= 10;
+
+ref1 = matrixInfo(matrix), basis1 = ref1.basis1, basis2 = ref1.basis2, type = ref1.type, typeOpts = ref1.typeOpts, axisColors = ref1.axisColors, eigenStrs = ref1.eigenStrs;
+
+if (size === 3) {
+  eigenStrs.push("This is the <span class=\"espace-3\">" + ((eigenz.toFixed(2)) + "-eigenspace.</span>"));
+  typeOpts.scaleZ = eigenz;
+}
+
+eigenStr = eigenStrs.join("<br>");
+
+w1p = mv3v2(w1, w2, basis1);
+
+w2p = mv3v2(w1, w2, basis2);
+
+w3p = w3;
+
+controller = new dynamics.Controller({
+  continuous: false,
+  flow: urlParams.get('flow', 'bool', false),
+  duration: duration,
+  is3D: size === 3
+});
+
+dynView1 = new dynamics.DynamicsView({
+  is3D: size === 3,
+  axisOpts: {
+    width: size === 3 ? 5 : 3,
+    opacity: 1.0
+  },
+  axisColors: axisColors,
+  refColor: new Color("blue").arr(),
+  timer: true
+});
+
+dynView1.setCoords(w1p, w2p, w3p);
+
+controller.addView(dynView1);
+
+dynView2 = new dynamics.DynamicsView({
+  is3D: size === 3,
+  axisOpts: {
+    width: size === 3 ? 5 : 3,
+    opacity: 1.0
+  },
+  axisColors: axisColors,
+  refColor: new Color("blue").arr(),
+  timer: false
+});
+
+v1p = mv3v2(v1, v2, basis1);
+
+v2p = mv3v2(v1, v2, basis2);
+
+v3p = v3;
+
+dynView2.setCoords(v1p, v2p, v3p);
+
+controller.addView(dynView2);
+
+controller.loadDynamics(type, typeOpts);
+
+C = (function() {
+  var m1, m2;
+  m1 = new THREE.Matrix4().set(w1[0], w2[0], w3[0], 0, w1[1], w2[1], w3[1], 0, w1[2], w2[2], w3[2], 0, 0, 0, 0, 1);
+  m1 = new THREE.Matrix4().getInverse(m1);
+  m2 = new THREE.Matrix4().set(v1[0], v2[0], v3[0], 0, v1[1], v2[1], v3[1], 0, v1[2], v2[2], v3[2], 0, 0, 0, 0, 1);
+  return m1.multiply(m2);
+})();
+
+Cinv = new THREE.Matrix4().getInverse(C);
+
+params = {
+  Multiply: null,
+  "Un-multiply": null,
+  "Test vector": urlParams.get('vec', 'bool', true),
+  "Show path": urlParams.get('path', 'bool', true)
+};
+
+window.demo1 = demo1 = dynamicsDemo(controller, {
+  dynView: dynView1,
+  element: document.getElementById('mathbox1'),
+  captionElt: document.getElementById('captions1'),
+  suffix: '1',
+  matName: matNames[1],
+  vecName: vecNames[1],
+  size: size,
+  eigenz: eigenz,
+  eigenStr: eigenStr,
+  params: params,
+  vectorIn: vectorIn,
+  dragHook: function(v) {
+    v = v.slice();
+    C.applyToVector3Array(v);
+    return demo2.setVec(v);
+  }
+});
+
+C.applyToVector3Array(vectorIn);
+
+window.demo2 = demo2 = dynamicsDemo(controller, {
+  dynView: dynView2,
+  element: document.getElementById('mathbox2'),
+  captionElt: document.getElementById('captions2'),
+  suffix: '2',
+  matName: matNames[0],
+  vecName: vecNames[0],
+  size: size,
+  eigenz: eigenz,
+  eigenStr: eigenStr,
+  params: params,
+  vectorIn: vectorIn,
+  dragHook: function(v) {
+    v = v.slice();
+    Cinv.applyToVector3Array(v);
+    return demo1.setVec(v);
+  }
+});
+
+(function() {
+  var A, D, check, displayMat, elt, mC, te, vc, x, y;
+  te = C.elements;
+  if (size === 2) {
+    displayMat = [[te[0], te[1]], [te[4], te[5]]];
+  } else if (size === 3) {
+    displayMat = [[te[0], te[1], te[2]], [te[4], te[5], te[6]], [te[8], te[9], te[10]]];
+  }
+  check = new THREE.Matrix4().multiply(C).multiply(dynView1.matrixOrigCoords).multiply(Cinv);
+  console.log("CDC^-1 = ", check);
+  console.log("A = ", dynView2.matrixOrigCoords);
+  elt = document.getElementById("C-here");
+  A = matNames[0];
+  D = matNames[1];
+  mC = matNames[2];
+  x = vecNames[0];
+  y = vecNames[1];
+  katex.render((mC + " = ") + demo1.texMatrix(displayMat), elt);
+  elt = document.getElementById("sim-here");
+  vc = new Color("red").str();
+  return katex.render((A + " = " + mC + D + mC + "^{-1} \\quad ") + ("\\color{" + vc + "}{" + x + "} = " + mC + "\\color{" + vc + "}{" + y + "}"), elt);
+})();
+
+if (size === 3) {
+  groupControls(demo1, demo2);
+}
+
+gui = new dat.GUI({
+  autoPlace: false
+});
+
+params["Multiply"] = function() {
+  return controller.step();
+};
+
+gui.add(params, "Multiply");
+
+params["Un-multiply"] = function() {
+  return controller.unStep();
+};
+
+gui.add(params, "Un-multiply");
+
+gui.add(params, "Test vector").onFinishChange(function(val) {
+  demo1.toggleVector(val);
+  return demo2.toggleVector(val);
+});
+
+gui.add(params, "Show path").onFinishChange(function(val) {
+  demo1.togglePath(val);
+  return demo2.togglePath(val);
+});
+
+document.getElementById('gui-container').appendChild(gui.domElement);
+
+
+        });
+    </script>
+</body>
+</html>
+

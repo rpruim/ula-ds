@@ -9,38 +9,11 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
-                       linked: true,
-                       languages: ['sage'],
-                       evalButtonText: 'Evaluate (Sage)'});
-</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
-                       linked: true,
-                       languages: ['python'],
-                       evalButtonText: 'Evaluate (Python)'});
-</script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para">The Python cell below has a function <code class="code-inline tex2jax_ignore">find_closest_eigenvalue(A, s, x, N)</code> that implements <span class="process-math">\(N\)</span> steps of the inverse power method using the matrix <span class="process-math">\(A-sI\)</span> and an initial vector <span class="process-math">\(x\text{.}\)</span>  This function prints approximations to the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\)</span> and its associated eigenvector.  By trying different values of <span class="process-math">\(s\)</span> in the shaded regions of the number line shown in <a href="" class="xref" data-knowl="./knowl/fig-numerical-power-line.html" title="Figure 5.6.3">Figure 5.6.3</a>, find the other two eigenvalues of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-161"><script type="text/x-sage">from scipy import linalg 
-def find_closest_eigenvalue(A, s, x, N):
-    B = A - s @ linalg.eye(A.shape[0])
-	result = []
-    for i in range(N):
-        x = B.solve(x)
-        m = max([comp for comp in x], key=abs)
-        x = 1/m * x
-		result.append((1/m + s, x))
-	return result
-
-### define the matrix A and vector x0
-A =
-x0 =
-print(find_closest_eigenvalue(A, 2, x0, 20))
-</script></pre>
+<div class="para">Find the vector <span class="process-math">\(\xvec_2 = A\overline{\xvec}_1\text{.}\)</span> Identify the component <span class="process-math">\(m_2\)</span> of <span class="process-math">\(\xvec_2\)</span> having the largest absolute value.  Then form <span class="process-math">\(\overline{\xvec}_2 =
+\frac1{m_2}\overline{\xvec}_1\)</span> to obtain a vector in which the component with the largest absolute value is <span class="process-math">\(1\text{.}\)</span>
 </div>
 <span class="incontext"><a href="sec-power-method.html#p-5394" class="internal">in-context</a></span>
 </body>

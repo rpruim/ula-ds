@@ -25,9 +25,23 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para">Most computers do arithmetic using either 32 or 64 bits.  We can exagerate the effect by rounding the matrix more heavily. Solve the linear system again using <pre class="ptx-sagecell sagecell-python" id="sage-47"><script type="text/x-sage"># evalf() is sympy's version of round()
-A3 = A.evalf(3)
-</script></pre> What does Python give for the solution now? Compare this to the exact solution that you found previously.</div>
+<div class="para logical">
+<div class="para">Let’s first see an example showing that computer arithmetic really is an approximation.  Consider the linear system</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{4}
+x \amp {}+{} \amp \frac12y \amp {}+{} \amp \frac13z \amp
+{}={} \amp 1 \\
+\frac12x \amp {}+{} \amp \frac13y \amp {}+{} \amp \frac14z \amp
+{}={} \amp 0 \\
+\frac13x \amp {}+{} \amp \frac14y \amp {}+{} \amp \frac15z \amp
+{}={} \amp 0 \\
+\end{alignedat}
+\end{equation*}
+</div>
+<div class="para">Let’s solve this three ways, taking advantage of some features of <code class="code-inline tex2jax_ignore">sympy</code>. As the name suggests, <code class="code-inline tex2jax_ignore">sympy</code> is capable of doing symbolic mathematics as well as numerical mathematics. In particular, <code class="code-inline tex2jax_ignore">sympy</code> can work with rational numbers (fractions) and do exact arithmetic with them.  Consider these three ways to represent <span class="process-math">\(\frac13\text{:}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-46"><script type="text/x-sage">print(1/3, s.Rational(1/3), s.Rational(1,3))
+</script></pre> The first is our usual floating point approximation.  The second attempts to approximate that approximation with a rational number. (Sometimes this works better; try <code class="code-inline tex2jax_ignore">s.Rational(1/2)</code>, for example.) The third represents <span class="process-math">\(\frac13\)</span> <em class="emphasis">exactly</em> by storing the numerator and denominator.</div>
+</div>
 <span class="incontext"><a href="sec-python-introduction.html#p-939" class="internal">in-context</a></span>
 </body>
 </html>

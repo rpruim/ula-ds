@@ -109,15 +109,15 @@ eBookConfig.allow_pairs = false;
 eBookConfig.enableScratchAC = false;
 eBookConfig.build_info = "";
 eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.0.2';
+eBookConfig.runestone_version = '7.0.7';
 eBookConfig.jobehost = '';
 eBookConfig.proxyuri_runs = '';
 eBookConfig.proxyuri_files = '';
 eBookConfig.enable_chatcodes =  false;
 </script>
 <!--*** Runestone Services ***-->
-<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.2/prefix-runtime.743dc745e5a9b334.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.2/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.2/prefix-runestone.1ad58ff49fa65c0e.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.2/prefix-347.f9add1ca35d5ad93.css">
-<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.2/prefix-runestone.931faef5361cf6e9.css">
+<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.7/prefix-runtime.fd9ce61c3c71cb22.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.7/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.7/prefix-runestone.89acb6c6122954e4.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.7/prefix-347.f9add1ca35d5ad93.css">
+<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.7/prefix-runestone.8d2f742bc74f4a41.css">
 </head>
 <body class="pretext book ignore-math">
 <a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
@@ -303,6 +303,9 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\xhat}{\widehat{\xvec}}
 \newcommand{\yhat}{\widehat{\yvec}}
 \newcommand{\Sighat}{\widehat{\Sigma}}
+\newcommand{\by}{\times}
+\newcommand{proj}[2]{\operatorname{proj}(#1 \to #2)}
+\newcommand{projsub}[2]{\operatorname{proj}_{#2}(#1)}
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -402,18 +405,19 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-item"><a href="sec-python-introduction.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Computational Linear Algebra</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-python-introduction.html#subsection-26" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Reduced row echelon form in Python</span></a></div></li>
-<li><div class="toc-item"><a href="sec-python-introduction.html#subsec-compute-effort" class="internal"><span class="codenumber">2.3.2</span> <span class="title">Computational effort</span></a></div></li>
-<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-28" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Summary</span></a></div></li>
-<li><div class="toc-item"><a href="sec-python-introduction.html#exercises-5" class="internal"><span class="codenumber">2.3.4</span> <span class="title">Exercises</span></a></div></li>
-<li><div class="toc-item"><a href="sec-python-introduction.html#exercises-6" class="internal"><span class="codenumber">2.3.5</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsec-linalg-solve" class="internal"><span class="codenumber">2.3.2</span> <span class="title">np.linalg.solve()</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsec-compute-effort" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Computational effort</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-29" class="internal"><span class="codenumber">2.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#exercises-5" class="internal"><span class="codenumber">2.3.5</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#exercises-6" class="internal"><span class="codenumber">2.3.6</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-pivots.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Pivots and their relationship to solution spaces</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pivots.html#subsection-29" class="internal"><span class="codenumber">2.4.1</span> <span class="title">The existence of solutions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pivots.html#subsection-30" class="internal"><span class="codenumber">2.4.2</span> <span class="title">The uniqueness of solutions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pivots.html#subsection-31" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-30" class="internal"><span class="codenumber">2.4.1</span> <span class="title">The existence of solutions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-31" class="internal"><span class="codenumber">2.4.2</span> <span class="title">The uniqueness of solutions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-32" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pivots.html#exercises-7" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -425,38 +429,38 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-span.html" class="internal"><span class="codenumber">3.1</span> <span class="title">The span of a set of vectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-span.html#subsection-32" class="internal"><span class="codenumber">3.1.1</span> <span class="title">The span of a set of vectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-span.html#subsection-33" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Pivot positions and span</span></a></div></li>
-<li><div class="toc-item"><a href="sec-span.html#subsection-34" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-33" class="internal"><span class="codenumber">3.1.1</span> <span class="title">The span of a set of vectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-34" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Pivot positions and span</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-35" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-span.html#exercises-8" class="internal"><span class="codenumber">3.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-linear-dep.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Linear independence</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-35" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Linear dependence</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-36" class="internal"><span class="codenumber">3.2.2</span> <span class="title">How to recognize linear dependence</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-37" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Homogeneous equations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-38" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-36" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Linear dependence</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-37" class="internal"><span class="codenumber">3.2.2</span> <span class="title">How to recognize linear dependence</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-38" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Homogeneous equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-39" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-dep.html#exercises-9" class="internal"><span class="codenumber">3.2.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-linear-trans.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Matrix transformations</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-39" class="internal"><span class="codenumber">3.3.1</span> <span class="title">Matrix transformations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-40" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Composing matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-40" class="internal"><span class="codenumber">3.3.1</span> <span class="title">Matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-41" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Composing matrix transformations</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-trans.html#subsec-dynamical-systems" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Discrete Dynamical Systems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-42" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-43" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-trans.html#exercises-10" class="internal"><span class="codenumber">3.3.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-transforms-geom.html" class="internal"><span class="codenumber">3.4</span> <span class="title">The geometry of matrix transformations</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-43" class="internal"><span class="codenumber">3.4.1</span> <span class="title">The geometry of <span class="process-math">\(2\times2\)</span> matrix transformations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-44" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Matrix transformations and computer animation</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-45" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-44" class="internal"><span class="codenumber">3.4.1</span> <span class="title">The geometry of <span class="process-math">\(2\by2\)</span> matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-45" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Matrix transformations and computer animation</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-46" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-transforms-geom.html#exercises-11" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -468,9 +472,9 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-matrix-inverse.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Invertibility</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-46" class="internal"><span class="codenumber">4.1.1</span> <span class="title">Invertible matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-47" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Solving equations with an inverse</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-48" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-47" class="internal"><span class="codenumber">4.1.1</span> <span class="title">Invertible matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-48" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Solving equations with an inverse</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-49" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-matrix-inverse.html#exercises-12" class="internal"><span class="codenumber">4.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -479,46 +483,46 @@ eBookConfig.enable_chatcodes =  false;
 <ul class="structural">
 <li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsec-triangular-matrices" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Triangular matrices</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsec-elementary-matrices" class="internal"><span class="codenumber">4.2.2</span> <span class="title">Elementary matrices</span></a></div></li>
-<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsection-51" class="internal"><span class="codenumber">4.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsection-52" class="internal"><span class="codenumber">4.2.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-triangular-invertible.html#exercises-13" class="internal"><span class="codenumber">4.2.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-bases.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Bases and coordinate systems</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-bases.html#subsection-52" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Bases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-bases.html#subsection-53" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Coordinate systems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-bases.html#subsection-54" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Examples of bases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-bases.html#subsection-55" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-53" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Bases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-54" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Coordinate systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-55" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Examples of bases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-56" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-bases.html#exercises-14" class="internal"><span class="codenumber">4.3.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-jpeg.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Image compression</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-jpeg.html#subsection-56" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Color models</span></a></div></li>
-<li><div class="toc-item"><a href="sec-jpeg.html#subsection-57" class="internal"><span class="codenumber">4.4.2</span> <span class="title">The JPEG compression algorithm</span></a></div></li>
-<li><div class="toc-item"><a href="sec-jpeg.html#subsection-58" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-57" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Color models</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-58" class="internal"><span class="codenumber">4.4.2</span> <span class="title">The JPEG compression algorithm</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-59" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-jpeg.html#exercises-15" class="internal"><span class="codenumber">4.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-determinants.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Determinants</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-59" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Determinants of <span class="process-math">\(2\times2\)</span> matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-60" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Determinants and invertibility</span></a></div></li>
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-61" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Cofactor expansions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-62" class="internal"><span class="codenumber">4.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-60" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Determinants of <span class="process-math">\(2\by2\)</span> matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-61" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Determinants and invertibility</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-62" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Cofactor expansions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-63" class="internal"><span class="codenumber">4.5.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-determinants.html#exercises-16" class="internal"><span class="codenumber">4.5.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-subspaces.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Subspaces</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-63" class="internal"><span class="codenumber">4.6.1</span> <span class="title">Subspaces</span></a></div></li>
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-64" class="internal"><span class="codenumber">4.6.2</span> <span class="title">The column space of <span class="process-math">\(A\)</span></span></a></div></li>
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-65" class="internal"><span class="codenumber">4.6.3</span> <span class="title">The null space of <span class="process-math">\(A\)</span></span></a></div></li>
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-66" class="internal"><span class="codenumber">4.6.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-64" class="internal"><span class="codenumber">4.6.1</span> <span class="title">Subspaces</span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-65" class="internal"><span class="codenumber">4.6.2</span> <span class="title">The column space of <span class="process-math">\(A\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-66" class="internal"><span class="codenumber">4.6.3</span> <span class="title">The null space of <span class="process-math">\(A\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-67" class="internal"><span class="codenumber">4.6.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-subspaces.html#exercises-17" class="internal"><span class="codenumber">4.6.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -526,8 +530,8 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-item"><a href="sec-gaussian-revisited.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Partial pivoting and LU factorizations</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsec-partial-pivot" class="internal"><span class="codenumber">4.7.1</span> <span class="title">Partial pivoting</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-68" class="internal"><span class="codenumber">4.7.2</span> <span class="title"><span class="process-math">\(LU\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-69" class="internal"><span class="codenumber">4.7.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-69" class="internal"><span class="codenumber">4.7.2</span> <span class="title"><span class="process-math">\(LU\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-70" class="internal"><span class="codenumber">4.7.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-gaussian-revisited.html#exercises-18" class="internal"><span class="codenumber">4.7.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -539,59 +543,59 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-eigen-intro.html" class="internal"><span class="codenumber">5.1</span> <span class="title">An introduction to eigenvalues and eigenvectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-70" class="internal"><span class="codenumber">5.1.1</span> <span class="title">A few examples</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-71" class="internal"><span class="codenumber">5.1.1</span> <span class="title">A few examples</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-intro.html#subsec-eigen-use" class="internal"><span class="codenumber">5.1.2</span> <span class="title">The usefulness of eigenvalues and eigenvectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-72" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-73" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-intro.html#exercises-19" class="internal"><span class="codenumber">5.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-eigen-find.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Finding eigenvalues and eigenvectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-73" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The characteristic polynomial</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-74" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Finding eigenvectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-75" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The characteristic polynomial and the dimension of eigenspaces</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-76" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Using Sage to find eigenvalues and eigenvectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-77" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-74" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The characteristic polynomial</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-75" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Finding eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-76" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The characteristic polynomial and the dimension of eigenspaces</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-77" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Using Python to find eigenvalues and eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-78" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-find.html#exercises-20" class="internal"><span class="codenumber">5.2.6</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-eigen-diag.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Diagonalization, similarity, and powers of a matrix</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-78" class="internal"><span class="codenumber">5.3.1</span> <span class="title">Diagonalization of matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-79" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Powers of a diagonalizable matrix</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-80" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Similarity and complex eigenvalues</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-81" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-79" class="internal"><span class="codenumber">5.3.1</span> <span class="title">Diagonalization of matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-80" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Powers of a diagonalizable matrix</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-81" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Similarity and complex eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-82" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-diag.html#exercises-21" class="internal"><span class="codenumber">5.3.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-dynamical.html" class="internal"><span class="codenumber">5.4</span> <span class="title">Dynamical systems</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-82" class="internal"><span class="codenumber">5.4.1</span> <span class="title">A first example</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-83" class="internal"><span class="codenumber">5.4.2</span> <span class="title">Classifying dynamical systems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-84" class="internal"><span class="codenumber">5.4.3</span> <span class="title">A <span class="process-math">\(3\times3\)</span> system</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-85" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-83" class="internal"><span class="codenumber">5.4.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-84" class="internal"><span class="codenumber">5.4.2</span> <span class="title">Classifying dynamical systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-85" class="internal"><span class="codenumber">5.4.3</span> <span class="title">A <span class="process-math">\(3\by3\)</span> system</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-86" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-dynamical.html#exercises-22" class="internal"><span class="codenumber">5.4.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-stochastic.html" class="internal"><span class="codenumber">5.5</span> <span class="title">Markov chains and Google’s PageRank algorithm</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-stochastic.html#subsection-86" class="internal"><span class="codenumber">5.5.1</span> <span class="title">A first example</span></a></div></li>
-<li><div class="toc-item"><a href="sec-stochastic.html#subsection-87" class="internal"><span class="codenumber">5.5.2</span> <span class="title">Markov chains</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-87" class="internal"><span class="codenumber">5.5.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-88" class="internal"><span class="codenumber">5.5.2</span> <span class="title">Markov chains</span></a></div></li>
 <li><div class="toc-item"><a href="sec-stochastic.html#subsec-google" class="internal"><span class="codenumber">5.5.3</span> <span class="title">Google’s PageRank algorithm</span></a></div></li>
-<li><div class="toc-item"><a href="sec-stochastic.html#subsection-89" class="internal"><span class="codenumber">5.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-90" class="internal"><span class="codenumber">5.5.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-stochastic.html#exercises-23" class="internal"><span class="codenumber">5.5.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li class="active">
 <div class="toc-item"><a href="sec-power-method.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Finding eigenvectors numerically</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-power-method.html#subsection-90" class="internal"><span class="codenumber">5.6.1</span> <span class="title">The power method</span></a></div></li>
-<li><div class="toc-item"><a href="sec-power-method.html#subsection-91" class="internal"><span class="codenumber">5.6.2</span> <span class="title">Finding other eigenvalues</span></a></div></li>
-<li><div class="toc-item"><a href="sec-power-method.html#subsection-92" class="internal"><span class="codenumber">5.6.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-91" class="internal"><span class="codenumber">5.6.1</span> <span class="title">The power method</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-92" class="internal"><span class="codenumber">5.6.2</span> <span class="title">Finding other eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-93" class="internal"><span class="codenumber">5.6.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-power-method.html#exercises-24" class="internal"><span class="codenumber">5.6.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -603,48 +607,49 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-dot-product.html" class="internal"><span class="codenumber">6.1</span> <span class="title">The dot product</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-dot-product.html#subsection-93" class="internal"><span class="codenumber">6.1.1</span> <span class="title">The geometry of the dot product</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dot-product.html#subsection-94" class="internal"><span class="codenumber">6.1.2</span> <span class="title"><span class="process-math">\(k\)</span>-means clustering</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dot-product.html#subsection-95" class="internal"><span class="codenumber">6.1.3</span> <span class="title">Summary</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dot-product.html#exercises-25" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#sec-projections-and-dot-products" class="internal"><span class="codenumber">6.1.1</span> <span class="title">Projections and dot products</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsec-computing-dot-products" class="internal"><span class="codenumber">6.1.2</span> <span class="title">Computing dot products</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-96" class="internal"><span class="codenumber">6.1.3</span> <span class="title"><span class="process-math">\(k\)</span>-means clustering</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-97" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#exercises-25" class="internal"><span class="codenumber">6.1.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-transpose.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Orthogonal complements and the matrix transpose</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-96" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Orthogonal complements</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-97" class="internal"><span class="codenumber">6.2.2</span> <span class="title">The matrix transpose</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-98" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Properties of the matrix transpose</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-99" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-98" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Orthogonal complements</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-99" class="internal"><span class="codenumber">6.2.2</span> <span class="title">The matrix transpose</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-100" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Properties of the matrix transpose</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-101" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-transpose.html#exercises-26" class="internal"><span class="codenumber">6.2.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-orthogonal-bases.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Orthogonal bases and projections</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-100" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Orthogonal sets</span></a></div></li>
-<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-101" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Orthogonal projections</span></a></div></li>
-<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-102" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-102" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Orthogonal sets</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-103" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Orthogonal projections</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-104" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-orthogonal-bases.html#exercises-27" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-gram-schmidt.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Finding orthogonal bases</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-103" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Gram-Schmidt orthogonalization</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-104" class="internal"><span class="codenumber">6.4.2</span> <span class="title"><span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-105" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-105" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Gram-Schmidt orthogonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-106" class="internal"><span class="codenumber">6.4.2</span> <span class="title"><span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-107" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-gram-schmidt.html#exercises-28" class="internal"><span class="codenumber">6.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Orthogonal least squares</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-106" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-107" class="internal"><span class="codenumber">6.5.2</span> <span class="title">Solving least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-108" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-109" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Polynomial Regression</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-110" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-108" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-109" class="internal"><span class="codenumber">6.5.2</span> <span class="title">Solving least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-110" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-111" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Polynomial Regression</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-least-squares.html#exercises-29" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -656,49 +661,49 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-111" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-112" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-113" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-113" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-114" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-115" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-symmetric-matrices.html#exercises-30" class="internal"><span class="codenumber">7.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Quadratic forms</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-114" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-115" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-116" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-116" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-117" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-118" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-quadratic-forms.html#exercises-31" class="internal"><span class="codenumber">7.2.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Principal Component Analysis</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pca.html#subsection-117" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-118" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-119" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-119" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-120" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-121" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#exercises-32" class="internal"><span class="codenumber">7.3.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-120" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-121" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-122" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-123" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-122" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-123" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-124" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-125" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-intro.html#exercises-33" class="internal"><span class="codenumber">7.4.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Using Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-124" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-125" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-126" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-127" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-128" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-129" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-126" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-127" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-128" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-129" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-130" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-131" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-uses.html#exercises-34" class="internal"><span class="codenumber">7.5.7</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -711,8 +716,8 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="subsection-130.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
-<li><div class="toc-item"><a href="subsection-131.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-132.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-133.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span></a></div></li>
 </ul>
 </li>
@@ -724,45 +729,60 @@ eBookConfig.enable_chatcodes =  false;
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-power-method"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">5.6</span> <span class="title">Finding eigenvectors numerically</span>
 </h2>
-<section class="introduction" id="introduction-30"><div class="para" id="p-5326">We have typically found eigenvalues of a square matrix <span class="process-math">\(A\)</span> as the roots of the characteristic polynomial <span class="process-math">\(\det(A-\lambda I) = 0\)</span> and the associated eigenvectors as the null space <span class="process-math">\(\nul(A-\lambda I)\text{.}\)</span>  Unfortunately, this approach is not practical when we are working with large matrices. First, finding the charactertic polynomial of a large matrix requires considerable computation, as does finding the roots of that polynomial.  Second, finding the null space of a singular matrix is plagued by numerical problems, as we will see in the preview activity.</div> <div class="para" id="p-5327">For this reason, we will explore a technique called the <dfn class="terminology">power method</dfn> that finds numerical approximations to the eigenvalues and eigenvectors of a square matrix.</div> <article class="exploration project-like" id="exploration-20"><h3 class="heading">
+<section class="introduction" id="introduction-30"><div class="para" id="p-5367">We have typically found eigenvalues of a square matrix <span class="process-math">\(A\)</span> as the roots of the characteristic polynomial <span class="process-math">\(\det(A-\lambda I) = 0\)</span> and the associated eigenvectors as the null space <span class="process-math">\(\nul(A-\lambda I)\text{.}\)</span>  Unfortunately, this approach is not practical when we are working with large matrices. First, finding the charactertic polynomial of a large matrix requires considerable computation, as does finding the roots of that polynomial.  Second, finding the null space of a singular matrix is plagued by numerical problems, as we will see in the preview activity.</div> <div class="para" id="p-5368">For this reason, we will explore a technique called the <dfn class="terminology">power method</dfn> that finds numerical approximations to the eigenvalues and eigenvectors of a square matrix.</div> <article class="exploration project-like" id="exploration-20"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">5.6.1</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-5328">
+<div class="para logical" id="p-5369">
 <div class="para">Let’s recall some earlier observations about eigenvalues and eigenvectors.</div>
 <ol class="lower-alpha">
-<li id="li-3617"><div class="para" id="p-5329">How are the eigenvalues and associated eigenvectors of <span class="process-math">\(A\)</span> related to those of <span class="process-math">\(A^{-1}\text{?}\)</span>
+<li id="li-3647"><div class="para" id="p-5370">How are the eigenvalues and associated eigenvectors of <span class="process-math">\(A\)</span> related to those of <span class="process-math">\(A^{-1}\text{?}\)</span>
 </div></li>
-<li id="li-3618"><div class="para" id="p-5330">How are the eigenvalues and associated eigenvectors of <span class="process-math">\(A\)</span> related to those of <span class="process-math">\(A-3I\text{?}\)</span>
+<li id="li-3648"><div class="para" id="p-5371">How are the eigenvalues and associated eigenvectors of <span class="process-math">\(A\)</span> related to those of <span class="process-math">\(A-3I\text{?}\)</span>
 </div></li>
-<li id="li-3619"><div class="para" id="p-5331">If <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\text{,}\)</span> what can we say about the pivot positions of <span class="process-math">\(A-\lambda
+<li id="li-3649"><div class="para" id="p-5372">If <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\text{,}\)</span> what can we say about the pivot positions of <span class="process-math">\(A-\lambda
 I\text{?}\)</span>
 </div></li>
-<li id="li-3620"><div class="para" id="p-5332">Suppose that <span class="process-math">\(A = \left[\begin{array}{rr}
+<li id="li-3650"><div class="para" id="p-5373">Suppose that <span class="process-math">\(A = \left[\begin{array}{rr}
 0.8 \amp 0.4 \\
 0.2 \amp 0.6 \\
 \end{array}\right]
-\text{.}\)</span>  Explain how we know that <span class="process-math">\(1\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> and then explain why the following Sage computation is incorrect. <pre class="ptx-sagecell sagecell-python" id="sage-157"><script type="text/x-sage">import numpy as np
+\text{.}\)</span>  Explain how we know that <span class="process-math">\(1\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> and then explain why the following computation is incorrect. <pre class="ptx-sagecell sagecell-python" id="sage-159"><script type="text/x-sage">import numpy as np
 import sympy as s   
 A = s.Matrix([[0.8, 0.4], [0.2, 0.6]])
 I = s.eye(2) 
 print((A-I).rref())
 </script></pre>
 </div></li>
-<li id="li-3621"><div class="para" id="p-5333">Suppose that <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{,}\)</span> and we define a sequence <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{;}\)</span>  in other words, <span class="process-math">\(\xvec_{k} = A^k\xvec_0\text{.}\)</span>  What happens to <span class="process-math">\(\xvec_k\)</span> as <span class="process-math">\(k\)</span> grows increasingly large?</div></li>
-<li id="li-3622"><div class="para" id="p-5334">Explain how the eigenvalues of <span class="process-math">\(A\)</span> are responsible for the behavior noted in the previous question.</div></li>
+<li id="li-3651"><div class="para" id="p-5374">Suppose that <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{,}\)</span> and we define a sequence <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{;}\)</span>  in other words, <span class="process-math">\(\xvec_{k} = A^k\xvec_0\text{.}\)</span>  What happens to <span class="process-math">\(\xvec_k\)</span> as <span class="process-math">\(k\)</span> grows increasingly large?</div></li>
+<li id="li-3652"><div class="para" id="p-5375">Explain how the eigenvalues of <span class="process-math">\(A\)</span> are responsible for the behavior noted in the previous question.</div></li>
 </ol>
-</div></article></section><section class="subsection" id="subsection-90"><h3 class="heading hide-type">
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-274" id="solution-274"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-274"><div class="solution solution-like"><div class="para logical" id="p-5376"><ol class="lower-alpha">
+<li id="li-3653"><div class="para" id="p-5377">If <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\text{,}\)</span> then <span class="process-math">\(A\vvec=\lambda\vvec\)</span> for an associated eigenvector <span class="process-math">\(\vvec\text{.}\)</span>  Multiplying by <span class="process-math">\(A^{-1}\)</span> and <span class="process-math">\(\lambda^{-1}\text{,}\)</span> we obtain <span class="process-math">\(\lambda^{-1}\vvec =
+A^{-1}\vvec\text{,}\)</span> which shows that <span class="process-math">\(\lambda^{-1}\)</span> is an eigenvalue of <span class="process-math">\(A^{-1}\text{.}\)</span>
+</div></li>
+<li id="li-3654"><div class="para" id="p-5378">In the same way, if <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\text{,}\)</span> then <span class="process-math">\(A\vvec=\lambda\vvec\)</span> for an associated eigenvector <span class="process-math">\(\vvec\text{.}\)</span>  This means that <span class="process-math">\((A-3I)\vvec = (\lambda-3)\vvec\)</span> so that <span class="process-math">\(\lambda-3\)</span> is an eigenvalue of <span class="process-math">\(A-3I\text{.}\)</span>
+</div></li>
+<li id="li-3655"><div class="para" id="p-5379">If <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\text{,}\)</span> then <span class="process-math">\(A-\lambda I\)</span> is not invertible and so has a row without a pivot position.</div></li>
+<li id="li-3656"><div class="para" id="p-5380">Since <span class="process-math">\(A\)</span> is a positive stochastic matrix, we know that <span class="process-math">\(\lambda=1\)</span> is an eigenvalue and hence that <span class="process-math">\(A-I\)</span> is not invertible.  Sympy, however, tells us that <span class="process-math">\(A-I\sim I\text{,}\)</span> which cannot be true since <span class="process-math">\(A-I\)</span> is not invertible.</div></li>
+<li id="li-3657"><div class="para" id="p-5381">The vectors <span class="process-math">\(\xvec_k\)</span> form a Markov chain, which must converge to the steady-state vector <span class="process-math">\(\qvec=\twovec{\frac23}{\frac13}\text{.}\)</span>
+</div></li>
+<li id="li-3658"><div class="para" id="p-5382">We have eigenvalues <span class="process-math">\(\lambda_1=1\)</span> and <span class="process-math">\(\lambda_2=0.4\text{.}\)</span>  If we begin with <span class="process-math">\(\xvec_0=c_1\vvec_1+c_2\vvec_2\)</span> and successively multiply by <span class="process-math">\(A\text{,}\)</span> we have <span class="process-math">\(\xvec_k=c_1\vvec_1 + c_2(0.4)^k\vvec_2\text{.}\)</span>  When <span class="process-math">\(k\)</span> becomes large, the coefficient of <span class="process-math">\(\vvec_2\)</span> becomes insignificantly small so we are left with an eigenvector in <span class="process-math">\(E_1\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article></section><section class="subsection" id="subsection-91"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">5.6.1</span> <span class="title">The power method</span>
 </h3>
-<div class="para" id="p-5342">Our goal is to find a technique that produces numerical approximations to the eigenvalues and associated eigenvectors of a matrix <span class="process-math">\(A\text{.}\)</span>  We begin by searching for the eigenvalue having the largest absolute value, which is called the <dfn class="terminology">dominant eignevalue</dfn>.  The next two examples demonstrate this technique.</div>
+<div class="para" id="p-5383">Our goal is to find a technique that produces numerical approximations to the eigenvalues and associated eigenvectors of a matrix <span class="process-math">\(A\text{.}\)</span>  We begin by searching for the eigenvalue having the largest absolute value, which is called the <dfn class="terminology">dominant eignevalue</dfn>.  The next two examples demonstrate this technique.</div>
 <article class="example example-like" id="example-53"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">5.6.1</span><span class="period">.</span>
-</h4> <div class="para" id="p-5343">Let’s begin with the positive stochastic matrix <span class="process-math">\(A=\left[\begin{array}{rr}
+</h4> <div class="para" id="p-5384">Let’s begin with the positive stochastic matrix <span class="process-math">\(A=\left[\begin{array}{rr}
 0.7 \amp 0.6 \\
 0.3 \amp 0.4 \\
 \end{array}\right]
 \text{.}\)</span> We spent quite a bit of time studying this type of matrix in <a href="sec-stochastic.html" class="internal" title="Section 5.5: Markov chains and Google’s PageRank algorithm">Section 5.5</a>; in particular, we saw that any Markov chain will converge to the unique steady state vector.  Let’s rephrase this statement in terms of the eigenvectors of <span class="process-math">\(A\text{.}\)</span>
-</div> <div class="para logical" id="p-5344">
+</div> <div class="para logical" id="p-5385">
 <div class="para">This matrix has eigenvalues <span class="process-math">\(\lambda_1 = 1\)</span> and <span class="process-math">\(\lambda_2 =0.1\)</span> so the dominant eigenvalue is <span class="process-math">\(\lambda_1 = 1\text{.}\)</span> The associated eigenvectors are <span class="process-math">\(\vvec_1 =
 \twovec{2}{1}\)</span> and <span class="process-math">\(\vvec_2 = \twovec{-1}{1}\text{.}\)</span> Suppose we begin with the vector</div>
 <div class="displaymath process-math">
@@ -791,7 +811,7 @@ print((A-I).rref())
 </div></article><article class="example example-like" id="example-54"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">5.6.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-5345">
+<div class="para logical" id="p-5386">
 <div class="para">Let’s now look at the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
 2 \amp 1 \\ 1 \amp 2 \\ \end{array}\right] \text{,}\)</span> which has eigenvalues <span class="process-math">\(\lambda_1=3\)</span> and <span class="process-math">\(\lambda_2 = 1\text{.}\)</span>  The dominant eigenvalue is <span class="process-math">\(\lambda_1=3\text{,}\)</span> and the associated eigenvectors are <span class="process-math">\(\vvec_1 = \twovec{1}{1}\)</span> and <span class="process-math">\(\vvec_{2} =
 \twovec{-1}{1}\text{.}\)</span>  Once again, begin with the vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}=\frac12 \vvec_1 - \frac12 \vvec_2\)</span> so that</div>
@@ -811,38 +831,38 @@ print((A-I).rref())
 \end{equation*}
 </div>
 </div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel top" style="width:60%;"><div class="para" id="p-5346">As the figure shows, the vectors <span class="process-math">\(\xvec_k\)</span> are stretched by a factor of <span class="process-math">\(3\)</span> in the <span class="process-math">\(\vvec_1\)</span> direction and not at all in the <span class="process-math">\(\vvec_2\)</span> direction. Consequently, the vectors <span class="process-math">\(\xvec_k\)</span> become increasingly long, but their direction becomes closer to the direction of the eigenvector <span class="process-math">\(\vvec_1=\twovec{1}{1}\)</span> associated to the dominant eigenvalue.</div></div>
+<div class="sbspanel top" style="width:60%;"><div class="para" id="p-5387">As the figure shows, the vectors <span class="process-math">\(\xvec_k\)</span> are stretched by a factor of <span class="process-math">\(3\)</span> in the <span class="process-math">\(\vvec_1\)</span> direction and not at all in the <span class="process-math">\(\vvec_2\)</span> direction. Consequently, the vectors <span class="process-math">\(\xvec_k\)</span> become increasingly long, but their direction becomes closer to the direction of the eigenvector <span class="process-math">\(\vvec_1=\twovec{1}{1}\)</span> associated to the dominant eigenvalue.</div></div>
 <div class="sbspanel top" style="width:40%;"><img src="external/images/numerical-power.svg" role="img" class="contained"></div>
-</div></div> <div class="para" id="p-5347">To find an eigenvector associated to the dominant eigenvalue, we will prevent the length of the vectors <span class="process-math">\(\xvec_k\)</span> from growing arbitrarily large by multiplying by an appropriate scaling constant.  Here is one way to do this. Given the vector <span class="process-math">\(\xvec_k\text{,}\)</span> we identify its component having the largest absolute value and call it <span class="process-math">\(m_k\text{.}\)</span>  We then define <span class="process-math">\(\overline{\xvec}_k = \frac{1}{m_k} \xvec_k\text{,}\)</span> which means that the component of <span class="process-math">\(\overline{\xvec}_k\)</span> having the largest absolute value is <span class="process-math">\(1\text{.}\)</span>
-</div> <div class="para" id="p-5348">For example, beginning with <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{,}\)</span> we find <span class="process-math">\(\xvec_1 = A\xvec_{0} =
+</div></div> <div class="para" id="p-5388">To find an eigenvector associated to the dominant eigenvalue, we will prevent the length of the vectors <span class="process-math">\(\xvec_k\)</span> from growing arbitrarily large by multiplying by an appropriate scaling constant.  Here is one way to do this. Given the vector <span class="process-math">\(\xvec_k\text{,}\)</span> we identify its component having the largest absolute value and call it <span class="process-math">\(m_k\text{.}\)</span>  We then define <span class="process-math">\(\overline{\xvec}_k = \frac{1}{m_k} \xvec_k\text{,}\)</span> which means that the component of <span class="process-math">\(\overline{\xvec}_k\)</span> having the largest absolute value is <span class="process-math">\(1\text{.}\)</span>
+</div> <div class="para" id="p-5389">For example, beginning with <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{,}\)</span> we find <span class="process-math">\(\xvec_1 = A\xvec_{0} =
 \twovec{2}{1}\text{.}\)</span>  The component of <span class="process-math">\(\xvec_1\)</span> having the largest absolute value is <span class="process-math">\(m_1=2\)</span> so we multiply by <span class="process-math">\(\frac{1}{m_1} = \frac12\)</span> to obtain <span class="process-math">\(\overline{\xvec}_1 =
 \twovec{1}{\frac12}\text{.}\)</span>  Then <span class="process-math">\(\xvec_2 = A\overline{\xvec}_1 =
 \twovec{\frac52}{2}\text{.}\)</span>  Now the component having the largest absolute value is <span class="process-math">\(m_2=\frac52\)</span> so we multiply by <span class="process-math">\(\frac25\)</span> to obtain <span class="process-math">\(\overline{\xvec}_2 = \twovec{1}{\frac45}\text{.}\)</span>
 </div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel top" style="width:60%;"><div class="para" id="p-5349">The resulting sequence of vectors <span class="process-math">\(\overline{\xvec}_k\)</span> is shown in the figure.  Notice how the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> now approach the eigenvector <span class="process-math">\(\vvec_1\text{,}\)</span> which gives us a way to find the eigenvector <span class="process-math">\(\vvec=\twovec{1}{1}\text{.}\)</span> This is the <dfn class="terminology">power method</dfn> for finding an eigenvector associated to the dominant eigenvalue of a matrix. </div></div>
+<div class="sbspanel top" style="width:60%;"><div class="para" id="p-5390">The resulting sequence of vectors <span class="process-math">\(\overline{\xvec}_k\)</span> is shown in the figure.  Notice how the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> now approach the eigenvector <span class="process-math">\(\vvec_1\text{,}\)</span> which gives us a way to find the eigenvector <span class="process-math">\(\vvec=\twovec{1}{1}\text{.}\)</span> This is the <dfn class="terminology">power method</dfn> for finding an eigenvector associated to the dominant eigenvalue of a matrix. </div></div>
 <div class="sbspanel top" style="width:40%;"><img src="external/images/numerical-power-norm.svg" role="img" class="contained"></div>
 </div></div></article><article class="activity project-like" id="activity-64"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.6.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-5350">
+<div class="para logical" id="p-5391">
 <div class="para">Let’s begin by considering the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
 0.5 \amp 0.2 \\
 0.4 \amp 0.7 \\
-\end{array}\right]\)</span> and the initial vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-158"><script type="text/x-sage">
+\end{array}\right]\)</span> and the initial vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-160"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-3629"><div class="para" id="p-5351">Compute the vector <span class="process-math">\(\xvec_1 =
+<li id="li-3659"><div class="para" id="p-5392">Compute the vector <span class="process-math">\(\xvec_1 =
 A\xvec_0\text{.}\)</span>
 </div></li>
-<li id="li-3630"><div class="para" id="p-5352">Find <span class="process-math">\(m_1\text{,}\)</span> the component of <span class="process-math">\(\xvec_1\)</span> that has the largest absolute value.  Then form <span class="process-math">\(\overline{\xvec}_1 =
+<li id="li-3660"><div class="para" id="p-5393">Find <span class="process-math">\(m_1\text{,}\)</span> the component of <span class="process-math">\(\xvec_1\)</span> that has the largest absolute value.  Then form <span class="process-math">\(\overline{\xvec}_1 =
 \frac 1{m_1} \xvec_1\text{.}\)</span>  Notice that the component having the largest absolute value of <span class="process-math">\(\overline{\xvec}_1\)</span> is <span class="process-math">\(1\text{.}\)</span>
 </div></li>
-<li id="li-3631"><div class="para" id="p-5353">Find the vector <span class="process-math">\(\xvec_2 = A\overline{\xvec}_1\text{.}\)</span> Identify the component <span class="process-math">\(m_2\)</span> of <span class="process-math">\(\xvec_2\)</span> having the largest absolute value.  Then form <span class="process-math">\(\overline{\xvec}_2 =
+<li id="li-3661"><div class="para" id="p-5394">Find the vector <span class="process-math">\(\xvec_2 = A\overline{\xvec}_1\text{.}\)</span> Identify the component <span class="process-math">\(m_2\)</span> of <span class="process-math">\(\xvec_2\)</span> having the largest absolute value.  Then form <span class="process-math">\(\overline{\xvec}_2 =
 \frac1{m_2}\overline{\xvec}_1\)</span> to obtain a vector in which the component with the largest absolute value is <span class="process-math">\(1\text{.}\)</span>
 </div></li>
-<li id="li-3632">
-<div class="para" id="p-5354">The Sage cell below defines a function that implements the power method.  Define the matrix <span class="process-math">\(A\)</span> and initial vector <span class="process-math">\(\xvec_0\)</span> below.  The command <code class="code-inline tex2jax_ignore">power(A, x0,	N)</code> will print out the multiplier <span class="process-math">\(m\)</span> and the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> for <span class="process-math">\(N\)</span> steps of the power method. <pre class="ptx-sagecell sagecell-python" id="sage-159"><script type="text/x-sage">import sympy as s
+<li id="li-3662">
+<div class="para" id="p-5395">The Python cell below defines a function that implements the power method.  Define the matrix <span class="process-math">\(A\)</span> and initial vector <span class="process-math">\(\xvec_0\)</span> below.  The command <code class="code-inline tex2jax_ignore">power(A, x0,	N)</code> will print out the multiplier <span class="process-math">\(m\)</span> and the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> for <span class="process-math">\(N\)</span> steps of the power method. <pre class="ptx-sagecell sagecell-python" id="sage-161"><script type="text/x-sage">import sympy as s
 def power(A, x, N):
     for i in range(N):
         x = A@x
@@ -856,48 +876,66 @@ x0 =
 power(A, x0, 20)
 </script></pre>
 </div>
-<div class="para" id="p-5355">How does this computation identify an eigenvector of the matrix <span class="process-math">\(A\text{?}\)</span>
+<div class="para" id="p-5396">How does this computation identify an eigenvector of the matrix <span class="process-math">\(A\text{?}\)</span>
 </div>
 </li>
-<li id="li-3633"><div class="para" id="p-5356">What is the corresponding eigenvalue of this eigenvector?</div></li>
-<li id="li-3634"><div class="para" id="p-5357">How do the values of the multipliers <span class="process-math">\(m_k\)</span> tell us the eigenvalue associated to the eigenvector we have found?</div></li>
-<li id="li-3635"><div class="para" id="p-5358">Consider now the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
+<li id="li-3663"><div class="para" id="p-5397">What is the corresponding eigenvalue of this eigenvector?</div></li>
+<li id="li-3664"><div class="para" id="p-5398">How do the values of the multipliers <span class="process-math">\(m_k\)</span> tell us the eigenvalue associated to the eigenvector we have found?</div></li>
+<li id="li-3665"><div class="para" id="p-5399">Consider now the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
 -5.1 \amp 5.7 \\
 -3.8 \amp 4.4 \\
 \end{array}\right]
 \text{.}\)</span> Use the power method to find the dominant eigenvalue of <span class="process-math">\(A\)</span> and an associated eigenvector.</div></li>
 </ol>
-</div></article><div class="para" id="p-5367">Notice that the power method gives us not only an eigenvector <span class="process-math">\(\vvec\)</span> but also its associated eigenvalue.  As in the activity, consider the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-275" id="solution-275"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-275"><div class="solution solution-like"><div class="para logical" id="p-5400"><ol class="lower-alpha">
+<li id="li-3666"><div class="para" id="p-5401">We find <span class="process-math">\(\xvec_1=A\xvec_0 =
+\twovec{0.5}{0.4}\text{.}\)</span>
+</div></li>
+<li id="li-3667"><div class="para" id="p-5402">The first component has the largest absolute value so <span class="process-math">\(m_1=0.5\text{.}\)</span>  Therefore, <span class="process-math">\(\overline{\xvec}_1=\frac1{0.5}\xvec_0 =
+\twovec1{0.8}\text{.}\)</span>
+</div></li>
+<li id="li-3668"><div class="para" id="p-5403">In the same way, we obtain <span class="process-math">\(\xvec_2=A\overline{\xvec}_1 = \twovec{0.66}{0.96}\text{.}\)</span> We see that <span class="process-math">\(m_2=0.96\)</span> so we have <span class="process-math">\(\overline{\xvec}_2= \twovec{0.688}{1}\text{.}\)</span>
+</div></li>
+<li id="li-3669"><div class="para" id="p-5404">We see that the vectors <span class="process-math">\(\xvec_k\)</span> are getting closer and closer to <span class="process-math">\(\twovec{0.5}1\text{,}\)</span> which we therefore identify as an eigenvector associated to the dominant eigenvalue.</div></li>
+<li id="li-3670"><div class="para" id="p-5405">We see that <span class="process-math">\(A\twovec{0.5}{1} =
+\twovec{0.45}{0.9}=0.9 \twovec{0.5}1\text{.}\)</span>  Therefore, the dominant eigenvalue is <span class="process-math">\(\lambda_1=0.9\text{.}\)</span>
+</div></li>
+<li id="li-3671"><div class="para" id="p-5406">More generally, we see that the multiplier <span class="process-math">\(m_k\)</span> will converge to the dominant eigenvalue.</div></li>
+<li id="li-3672"><div class="para" id="p-5407">The power method constructs a sequence of vectors <span class="process-math">\(\overline{\xvec}_k\)</span> converging to an eigenvector <span class="process-math">\(\vvec_1=\twovec{1}{\frac23}\text{.}\)</span>  The multipliers <span class="process-math">\(m_k\)</span> converge to <span class="process-math">\(\lambda_1=1.3\text{,}\)</span> the dominant eigenvalue.</div></li>
+</ol></div></div></div>
+</div></article><div class="para" id="p-5408">Notice that the power method gives us not only an eigenvector <span class="process-math">\(\vvec\)</span> but also its associated eigenvalue.  As in the activity, consider the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
 -5.1 \amp 5.7 \\
 -3.8 \amp 4.4 \\
 \end{array}\right]
 \text{,}\)</span> which has eigenvector <span class="process-math">\(\vvec=\twovec{3}{2}\text{.}\)</span>  The first component has the largest absolute value so we multiply by <span class="process-math">\(\frac13\)</span> to obtain <span class="process-math">\(\overline{\vvec}=\twovec{1}{\frac23}\text{.}\)</span>  When we multiply by <span class="process-math">\(A\text{,}\)</span> we have <span class="process-math">\(A\overline{\vvec} = \twovec{-1.30}{-0.86}\text{.}\)</span> Notice that the first component still has the largest absolute value so that the multiplier <span class="process-math">\(m=-1.3\)</span> is the eigenvalue <span class="process-math">\(\lambda\)</span> corresponding to the eigenvector.  This demonstrates the fact that the multipliers <span class="process-math">\(m_k\)</span> approach the eigenvalue <span class="process-math">\(\lambda\)</span> having the largest absolute value.</div>
-<div class="para" id="p-5368">Notice that the power method requires us to choose an initial vector <span class="process-math">\(\xvec_0\text{.}\)</span>  For most choices, this method will find the eigenvalue having the largest absolute value.  However, an unfortunate choice of <span class="process-math">\(\xvec_0\)</span> may not.  For instance, if we had chosen <span class="process-math">\(\xvec_0 = \vvec_2\)</span> in our example above, the vectors in the sequence <span class="process-math">\(\xvec_k =
+<div class="para" id="p-5409">Notice that the power method requires us to choose an initial vector <span class="process-math">\(\xvec_0\text{.}\)</span>  For most choices, this method will find the eigenvalue having the largest absolute value.  However, an unfortunate choice of <span class="process-math">\(\xvec_0\)</span> may not.  For instance, if we had chosen <span class="process-math">\(\xvec_0 = \vvec_2\)</span> in our example above, the vectors in the sequence <span class="process-math">\(\xvec_k =
 A^k\xvec_0=\lambda_2^k\vvec_2\)</span> will not detect the eigenvector <span class="process-math">\(\vvec_1\text{.}\)</span>  However, it usually happens that our initial guess <span class="process-math">\(\xvec_0\)</span> has some contribution from <span class="process-math">\(\vvec_1\)</span> that enables us to find it.</div>
-<div class="para" id="p-5369">The power method, as presented here, will fail for certain unlucky matrices.  This is examined in <a href="" class="xref" data-knowl="./knowl/exercise-power-method.html" title="Exercise 5.6.4.5">Exercise 5.6.4.5</a> along with a means to improve the power method to work for all matrices.</div></section><section class="subsection" id="subsection-91"><h3 class="heading hide-type">
+<div class="para" id="p-5410">The power method, as presented here, will fail for certain unlucky matrices.  This is examined in <a href="" class="xref" data-knowl="./knowl/exercise-power-method.html" title="Exercise 5.6.4.5">Exercise 5.6.4.5</a> along with a means to improve the power method to work for all matrices.</div></section><section class="subsection" id="subsection-92"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">5.6.2</span> <span class="title">Finding other eigenvalues</span>
 </h3>
-<div class="para" id="p-5370">The power method gives a technique for finding the dominant eigenvalue of a matrix.  We can modify the method to find the other eigenvalues as well.</div>
+<div class="para" id="p-5411">The power method gives a technique for finding the dominant eigenvalue of a matrix.  We can modify the method to find the other eigenvalues as well.</div>
 <article class="activity project-like" id="activity-65"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.6.3</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-5371">
+<div class="para logical" id="p-5412">
 <div class="para">The key to finding the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value is to note that the eigenvectors of <span class="process-math">\(A\)</span> are the same as those of <span class="process-math">\(A^{-1}\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3643"><div class="para" id="p-5372">If <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with associated eigenvector <span class="process-math">\(\lambda\text{,}\)</span> explain why <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A^{-1}\)</span> with associated eigenvalue <span class="process-math">\(\lambda^{-1}\text{.}\)</span>
+<li id="li-3673"><div class="para" id="p-5413">If <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with associated eigenvector <span class="process-math">\(\lambda\text{,}\)</span> explain why <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A^{-1}\)</span> with associated eigenvalue <span class="process-math">\(\lambda^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3644"><div class="para" id="p-5373">Explain why the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value is the reciprocal of the dominant eigenvalue of <span class="process-math">\(A^{-1}\text{.}\)</span>
+<li id="li-3674"><div class="para" id="p-5414">Explain why the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value is the reciprocal of the dominant eigenvalue of <span class="process-math">\(A^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3645"><div class="para" id="p-5374">Explain how to use the power method applied to <span class="process-math">\(A^{-1}\)</span> to find the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value.</div></li>
-<li id="li-3646"><div class="para" id="p-5375">If we apply the power method to <span class="process-math">\(A^{-1}\text{,}\)</span> we begin with an intial vector <span class="process-math">\(\xvec_0\)</span> and generate the sequence <span class="process-math">\(\xvec_{k+1} = A^{-1}\xvec_k\text{.}\)</span>  It is not computationally efficient to compute <span class="process-math">\(A^{-1}\text{,}\)</span> however, so instead we solve the equation <span class="process-math">\(A\xvec_{k+1} =
+<li id="li-3675"><div class="para" id="p-5415">Explain how to use the power method applied to <span class="process-math">\(A^{-1}\)</span> to find the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value.</div></li>
+<li id="li-3676"><div class="para" id="p-5416">If we apply the power method to <span class="process-math">\(A^{-1}\text{,}\)</span> we begin with an intial vector <span class="process-math">\(\xvec_0\)</span> and generate the sequence <span class="process-math">\(\xvec_{k+1} = A^{-1}\xvec_k\text{.}\)</span>  It is not computationally efficient to compute <span class="process-math">\(A^{-1}\text{,}\)</span> however, so instead we solve the equation <span class="process-math">\(A\xvec_{k+1} =
 \xvec_k\text{.}\)</span>  Explain why an <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\)</span> is useful for implementing the power method applied to <span class="process-math">\(A^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3647"><div class="para" id="p-5376">The following Sage cell defines a command called <code class="code-inline tex2jax_ignore">inverse_power</code> that applies the power method to <span class="process-math">\(A^{-1}\text{.}\)</span>  That is, <code class="code-inline tex2jax_ignore">inverse_power(A, x0, N)</code> prints the vectors <span class="process-math">\(\xvec_k\text{,}\)</span> where <span class="process-math">\(\xvec_{k+1} =
+<li id="li-3677"><div class="para" id="p-5417">The following Python cell defines a command called <code class="code-inline tex2jax_ignore">inverse_power</code> that applies the power method to <span class="process-math">\(A^{-1}\text{.}\)</span>  That is, <code class="code-inline tex2jax_ignore">inverse_power(A, x0, N)</code> prints the vectors <span class="process-math">\(\xvec_k\text{,}\)</span> where <span class="process-math">\(\xvec_{k+1} =
 A^{-1}\xvec_k\text{,}\)</span> and multipliers <span class="process-math">\(\frac{1}{m_k}\text{,}\)</span> which approximate the eigenvalue of <span class="process-math">\(A\text{.}\)</span>  Use it to find the eigenvalue of <span class="process-math">\(A=\left[\begin{array}{rr}
 -5.1 \amp 5.7 \\
 -3.8 \amp 4.4 \\
-\end{array}\right]\)</span> having the smallest absolute value.  <pre class="ptx-sagecell sagecell-python" id="sage-160"><script type="text/x-sage">import numpy as np
+\end{array}\right]\)</span> having the smallest absolute value.  <pre class="ptx-sagecell sagecell-python" id="sage-162"><script type="text/x-sage">import numpy as np
 from scipy import linalg
 def inverse_power(A, x, N):
 	result = []
@@ -912,32 +950,48 @@ x0 =
 print(inverse_power(A, x0, 20))
 </script></pre>
 </div></li>
-<li id="li-3648"><div class="para" id="p-5377">The inverse power method only works if <span class="process-math">\(A\)</span> is invertible.  If <span class="process-math">\(A\)</span> is not invertible, what is its eigenvalue having the smallest absolute value?</div></li>
-<li id="li-3649"><div class="para" id="p-5378">Use the power method and the inverse power method to find the eigenvalues and associated eigenvectors of the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
+<li id="li-3678"><div class="para" id="p-5418">The inverse power method only works if <span class="process-math">\(A\)</span> is invertible.  If <span class="process-math">\(A\)</span> is not invertible, what is its eigenvalue having the smallest absolute value?</div></li>
+<li id="li-3679"><div class="para" id="p-5419">Use the power method and the inverse power method to find the eigenvalues and associated eigenvectors of the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
 -0.23 \amp -2.33 \\
 -1.16 \amp 1.08 \\
 \end{array}\right]
 \text{.}\)</span>
 </div></li>
 </ol>
-</div></article><div class="para" id="p-5387">With the power method and the inverse power method, we can now find the eigenvalues of a matrix <span class="process-math">\(A\)</span> having the largest and smallest absolute values.  With one more modification, we can find all the eigenvalues of <span class="process-math">\(A\text{.}\)</span>
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-276" id="solution-276"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-276"><div class="solution solution-like"><div class="para logical" id="p-5420"><ol class="lower-alpha">
+<li id="li-3680"><div class="para" id="p-5421">If <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\text{,}\)</span> then <span class="process-math">\(A\vvec=\lambda\vvec\)</span> for an associated eigenvector <span class="process-math">\(\vvec\text{.}\)</span>  Multiplying by <span class="process-math">\(A^{-1}\)</span> and <span class="process-math">\(\lambda^{-1}\text{,}\)</span> we obtain <span class="process-math">\(\lambda^{-1}\vvec =
+A^{-1}\vvec\text{,}\)</span> which shows that <span class="process-math">\(\lambda^{-1}\)</span> is an eigenvalue of <span class="process-math">\(A^{-1}\text{.}\)</span>
+</div></li>
+<li id="li-3681"><div class="para" id="p-5422">If <span class="process-math">\(|\lambda_2| \lt |\lambda_1|\text{,}\)</span> then <span class="process-math">\(|\lambda_2^{-1}| \gt |\lambda_1^{-1}|\text{.}\)</span>  Therefore, the reciprocal of the smallest eigenvalue of <span class="process-math">\(A\)</span> is the dominant eigenvalue of <span class="process-math">\(A^{-1}\text{.}\)</span>
+</div></li>
+<li id="li-3682"><div class="para" id="p-5423">If we apply the power method to the matrix <span class="process-math">\(A^{-1}\text{,}\)</span> we will find the dominant eigenvalue <span class="process-math">\(\lambda\)</span> and an associated eigenvector <span class="process-math">\(\vvec\)</span> of <span class="process-math">\(A^{-1}\text{.}\)</span>  We know, however, that <span class="process-math">\(\lambda^{-1}\)</span> will be the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value and <span class="process-math">\(\vvec\)</span> will be an associated eigenvector.</div></li>
+<li id="li-3683"><div class="para" id="p-5424">We would like to solve equations of the form <span class="process-math">\(A\xvec = \bvec\)</span> for many different vectors <span class="process-math">\(\bvec\text{.}\)</span>  Using an <span class="process-math">\(LU\)</span> factorization allows us to recycle for subsequent equations the effort we expend performing Gaussian elimination to solve the first equation.</div></li>
+<li id="li-3684"><div class="para" id="p-5425">We obtain the eigenvector <span class="process-math">\(\vvec_2=\twovec11\)</span> and associated eigenvalue <span class="process-math">\(\lambda_2=0.6\text{.}\)</span>
+</div></li>
+<li id="li-3685"><div class="para" id="p-5426">If <span class="process-math">\(A\)</span> is not invertible, then <span class="process-math">\(\lambda=0\)</span> is the eigenvalue having the smallest absolute value.</div></li>
+<li id="li-3686"><div class="para" id="p-5427">We find the dominant eigenvalue to be <span class="process-math">\(\lambda_1=2.195\)</span> with associated eigenvector <span class="process-math">\(\vvec_1=\twovec{-0.961}1\text{.}\)</span>  The smallest eigenvalue is <span class="process-math">\(\lambda_2=-1.345\)</span> with associated eigenvector <span class="process-math">\(\vvec_2=\twovec1{0.478}\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><div class="para" id="p-5428">With the power method and the inverse power method, we can now find the eigenvalues of a matrix <span class="process-math">\(A\)</span> having the largest and smallest absolute values.  With one more modification, we can find all the eigenvalues of <span class="process-math">\(A\text{.}\)</span>
 </div>
 <article class="activity project-like" id="activity-66"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.6.4</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-5388">
+<div class="para logical" id="p-5429">
 <div class="para">Remember that the absolute value of a number tells us how far that number is from <span class="process-math">\(0\)</span> on the real number line.  We may therefore think of the inverse power method as telling us the eigenvalue closest to <span class="process-math">\(0\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3657"><div class="para" id="p-5389">If <span class="process-math">\(\vvec\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> with associated eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> explain why <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A - sI\)</span> where <span class="process-math">\(s\)</span> is some scalar.</div></li>
-<li id="li-3658"><div class="para" id="p-5390">What is the eigenvalue of <span class="process-math">\(A-sI\)</span> associated to the eigenvector <span class="process-math">\(\vvec\text{?}\)</span>
+<li id="li-3687"><div class="para" id="p-5430">If <span class="process-math">\(\vvec\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> with associated eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> explain why <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A - sI\)</span> where <span class="process-math">\(s\)</span> is some scalar.</div></li>
+<li id="li-3688"><div class="para" id="p-5431">What is the eigenvalue of <span class="process-math">\(A-sI\)</span> associated to the eigenvector <span class="process-math">\(\vvec\text{?}\)</span>
 </div></li>
-<li id="li-3659"><div class="para" id="p-5391">Explain why the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\)</span> is the eigenvalue of <span class="process-math">\(A-sI\)</span> closest to <span class="process-math">\(0\text{.}\)</span>
+<li id="li-3689"><div class="para" id="p-5432">Explain why the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\)</span> is the eigenvalue of <span class="process-math">\(A-sI\)</span> closest to <span class="process-math">\(0\text{.}\)</span>
 </div></li>
-<li id="li-3660"><div class="para" id="p-5392">Explain why applying the inverse power method to <span class="process-math">\(A-sI\)</span> gives the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\text{.}\)</span>
+<li id="li-3690"><div class="para" id="p-5433">Explain why applying the inverse power method to <span class="process-math">\(A-sI\)</span> gives the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\text{.}\)</span>
 </div></li>
-<li id="li-3661">
-<div class="para" id="p-5393">Consider the matrix <span class="process-math">\(A = \left[\begin{array}{rrrr}
+<li id="li-3691">
+<div class="para" id="p-5434">Consider the matrix <span class="process-math">\(A = \left[\begin{array}{rrrr}
 3.6 \amp 1.6 \amp 4.0 \amp 7.6 \\
 1.6 \amp 2.2 \amp 4.4 \amp 4.1 \\
 3.9 \amp 4.3 \amp 9.0 \amp 0.6 \\
@@ -945,7 +999,7 @@ print(inverse_power(A, x0, 20))
 \end{array}\right]
 \text{.}\)</span> If we use the power method and inverse power method, we find two eigenvalues, <span class="process-math">\(\lambda_1=16.35\)</span> and <span class="process-math">\(\lambda_2=0.75\text{.}\)</span>  Viewing these eigenvalues on a number line, we know that the other eigenvalues lie in the range between <span class="process-math">\(-\lambda_1\)</span> and <span class="process-math">\(\lambda_1\text{,}\)</span> as shaded in <a href="" class="xref" data-knowl="./knowl/fig-numerical-power-line.html" title="Figure 5.6.3">Figure 5.6.3</a>.</div>
 <figure class="figure figure-like" id="fig-numerical-power-line"><div class="sidebyside"><div class="sbsrow" style="margin-left:12.5%;margin-right:12.5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/numerical-power-line.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.6.3<span class="period">.</span></span><span class="space"> </span>The range of eigenvalues of <span class="process-math">\(A\text{.}\)</span></figcaption></figure><div class="para" id="p-5394">The Python cell below has a function <code class="code-inline tex2jax_ignore">find_closest_eigenvalue(A, s, x, N)</code> that implements <span class="process-math">\(N\)</span> steps of the inverse power method using the matrix <span class="process-math">\(A-sI\)</span> and an initial vector <span class="process-math">\(x\text{.}\)</span>  This function prints approximations to the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\)</span> and its associated eigenvector.  By trying different values of <span class="process-math">\(s\)</span> in the shaded regions of the number line shown in <a href="" class="xref" data-knowl="./knowl/fig-numerical-power-line.html" title="Figure 5.6.3">Figure 5.6.3</a>, find the other two eigenvalues of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-161"><script type="text/x-sage">from scipy import linalg 
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.6.3<span class="period">.</span></span><span class="space"> </span>The range of eigenvalues of <span class="process-math">\(A\text{.}\)</span></figcaption></figure><div class="para" id="p-5435">The Python cell below has a function <code class="code-inline tex2jax_ignore">find_closest_eigenvalue(A, s, x, N)</code> that implements <span class="process-math">\(N\)</span> steps of the inverse power method using the matrix <span class="process-math">\(A-sI\)</span> and an initial vector <span class="process-math">\(x\text{.}\)</span>  This function prints approximations to the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\)</span> and its associated eigenvector.  By trying different values of <span class="process-math">\(s\)</span> in the shaded regions of the number line shown in <a href="" class="xref" data-knowl="./knowl/fig-numerical-power-line.html" title="Figure 5.6.3">Figure 5.6.3</a>, find the other two eigenvalues of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-163"><script type="text/x-sage">from scipy import linalg 
 def find_closest_eigenvalue(A, s, x, N):
     B = A - s @ linalg.eye(A.shape[0])
 	result = []
@@ -963,26 +1017,42 @@ print(find_closest_eigenvalue(A, 2, x0, 20))
 </script></pre>
 </div>
 </li>
-<li id="li-3662"><div class="para" id="p-5395">Write a list of the four eigenvalues of <span class="process-math">\(A\)</span> in increasing order.</div></li>
+<li id="li-3692"><div class="para" id="p-5436">Write a list of the four eigenvalues of <span class="process-math">\(A\)</span> in increasing order.</div></li>
 </ol>
-</div></article><div class="para" id="p-5403">There are some restrictions on the matrices to which this technique applies as we have assumed that the eigenvalues of <span class="process-math">\(A\)</span> are real and distinct.  If <span class="process-math">\(A\)</span> has repeated or complex eigenvalues, this technique will need to be modified, as explored in some of the exercises.</div></section><section class="subsection" id="subsection-92"><h3 class="heading hide-type">
+</div>
+<div class="solutions">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-277" id="solution-277"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-277"><div class="solution solution-like"><div class="para logical" id="p-5437"><ol class="lower-alpha">
+<li id="li-3693"><div class="para" id="p-5438">If <span class="process-math">\(A\vvec=\lambda\vvec\text{,}\)</span> then <span class="process-math">\((A-sI)\vvec =
+(\lambda-s)\vvec\text{,}\)</span> which shows that <span class="process-math">\(\vvec\)</span> is also an eigenvector of <span class="process-math">\(A-sI\text{.}\)</span>
+</div></li>
+<li id="li-3694"><div class="para" id="p-5439">From the previous part, we see that the associated eigenvalue is <span class="process-math">\(\lambda-s\text{.}\)</span>
+</div></li>
+<li id="li-3695"><div class="para" id="p-5440">If <span class="process-math">\(\lambda\)</span> is the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\text{,}\)</span> then <span class="process-math">\(\lambda-s\)</span> is an eigenvalue of <span class="process-math">\(A-sI\)</span> that must be the closest to <span class="process-math">\(0\text{.}\)</span>
+</div></li>
+<li id="li-3696"><div class="para" id="p-5441">The inverse power method applied to <span class="process-math">\(A-sI\)</span> tells us the eigenvalue of <span class="process-math">\(A-sI\)</span> having the smallest absolute value and an associated eigenvector <span class="process-math">\(\vvec\text{.}\)</span> Therefore, <span class="process-math">\(\lambda+s\)</span> is the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\)</span> and <span class="process-math">\(\vvec\)</span> is an associated eigenvector.</div></li>
+<li id="li-3697"><div class="para" id="p-5442">We begin by trying to find the closest eigenvalue to, say, <span class="process-math">\(-10\text{.}\)</span>  The power method tells us that this eigenvalue is <span class="process-math">\(\lambda_3=-4.823\text{.}\)</span> If we then try to find the eigenvalue closest to <span class="process-math">\(10\text{,}\)</span> we find the fourth eigenvalue <span class="process-math">\(\lambda_4=7.526\text{.}\)</span>  It may require some experimentation to find all of the eigenvalues.</div></li>
+<li id="li-3698"><div class="para" id="p-5443">The eigenvalues are <span class="process-math">\(-4.823, 0.746, 7.526,
+16.351\text{.}\)</span>
+</div></li>
+</ol></div></div></div>
+</div></article><div class="para" id="p-5444">There are some restrictions on the matrices to which this technique applies as we have assumed that the eigenvalues of <span class="process-math">\(A\)</span> are real and distinct.  If <span class="process-math">\(A\)</span> has repeated or complex eigenvalues, this technique will need to be modified, as explored in some of the exercises.</div></section><section class="subsection" id="subsection-93"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">5.6.3</span> <span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-5404">
+<div class="para logical" id="p-5445">
 <div class="para">We have explored the power method as a tool for numerically approximating the eigenvalues and eigenvectors of a matrix.</div>
 <ul class="disc">
-<li id="li-3669"><div class="para" id="p-5405">After choosing an initial vector <span class="process-math">\(\xvec_0\text{,}\)</span> we define the sequence <span class="process-math">\(\xvec_{k+1}=A\xvec_k\text{.}\)</span>  As <span class="process-math">\(k\)</span> grows larger, the direction of the vectors <span class="process-math">\(\xvec_k\)</span> closely approximates the direction of the eigenspace corresponding to the eigenvalue <span class="process-math">\(\lambda_1\)</span> having the largest absolute value.</div></li>
-<li id="li-3670"><div class="para" id="p-5406">We normalize the vectors <span class="process-math">\(\xvec_k\)</span> by multiplying by <span class="process-math">\(\frac{1}{m_k}\text{,}\)</span> where <span class="process-math">\(m_k\)</span> is the component having the largest absolute value.  In this way, the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> approach an eigenvector associated to <span class="process-math">\(\lambda_1\text{,}\)</span> and the multipliers <span class="process-math">\(m_k\)</span> approach the eigenvalue <span class="process-math">\(\lambda_1\text{.}\)</span>
+<li id="li-3699"><div class="para" id="p-5446">After choosing an initial vector <span class="process-math">\(\xvec_0\text{,}\)</span> we define the sequence <span class="process-math">\(\xvec_{k+1}=A\xvec_k\text{.}\)</span>  As <span class="process-math">\(k\)</span> grows larger, the direction of the vectors <span class="process-math">\(\xvec_k\)</span> closely approximates the direction of the eigenspace corresponding to the eigenvalue <span class="process-math">\(\lambda_1\)</span> having the largest absolute value.</div></li>
+<li id="li-3700"><div class="para" id="p-5447">We normalize the vectors <span class="process-math">\(\xvec_k\)</span> by multiplying by <span class="process-math">\(\frac{1}{m_k}\text{,}\)</span> where <span class="process-math">\(m_k\)</span> is the component having the largest absolute value.  In this way, the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> approach an eigenvector associated to <span class="process-math">\(\lambda_1\text{,}\)</span> and the multipliers <span class="process-math">\(m_k\)</span> approach the eigenvalue <span class="process-math">\(\lambda_1\text{.}\)</span>
 </div></li>
-<li id="li-3671"><div class="para" id="p-5407">To find the eigenvalue having the smallest absolute value, we apply the power method using the matrix <span class="process-math">\(A^{-1}\text{.}\)</span>
+<li id="li-3701"><div class="para" id="p-5448">To find the eigenvalue having the smallest absolute value, we apply the power method using the matrix <span class="process-math">\(A^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3672"><div class="para" id="p-5408">To find the eigenvalue closest to some number <span class="process-math">\(s\text{,}\)</span> we apply the power method using the matrix <span class="process-math">\((A-sI)^{-1}\text{.}\)</span>
+<li id="li-3702"><div class="para" id="p-5449">To find the eigenvalue closest to some number <span class="process-math">\(s\text{,}\)</span> we apply the power method using the matrix <span class="process-math">\((A-sI)^{-1}\text{.}\)</span>
 </div></li>
 </ul>
 </div></section><section class="exercises" id="exercises-24"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber">5.6.4</span> <span class="title">Exercises</span>
 </h3>
-<div class="para" id="p-5409">This Sage cell has the commands <code class="code-inline tex2jax_ignore">power</code>, <code class="code-inline tex2jax_ignore">inverse_power</code>, and <code class="code-inline tex2jax_ignore">find_closest_eigenvalue</code> that we have developed in this section.  After evaluating this cell, these commands will be available in any other cell on this page. <pre class="ptx-sagecell sagecell-sage" id="sage-162"><script type="text/x-sage">def power(A, x, N):
+<div class="para" id="p-5450">This Sage cell has the commands <code class="code-inline tex2jax_ignore">power</code>, <code class="code-inline tex2jax_ignore">inverse_power</code>, and <code class="code-inline tex2jax_ignore">find_closest_eigenvalue</code> that we have developed in this section.  After evaluating this cell, these commands will be available in any other cell on this page. <pre class="ptx-sagecell sagecell-sage" id="sage-164"><script type="text/x-sage">def power(A, x, N):
     for i in range(N):
         x = A*x
         m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
@@ -999,33 +1069,33 @@ def inverse_power(A, x, N):
     find_closest_eigenvalue(A, 0, x, N)
 </script></pre>
 </div>
-<article class="exercise exercise-like" id="exercise-195"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-5410">
+<article class="exercise exercise-like" id="exercise-197"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para logical" id="p-5451">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> is a matrix having eigenvalues <span class="process-math">\(-3\text{,}\)</span> <span class="process-math">\(-0.2\text{,}\)</span> <span class="process-math">\(1\text{,}\)</span> and <span class="process-math">\(4\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3673"><div class="para" id="p-5411">What are the eigenvalues of <span class="process-math">\(A^{-1}\text{?}\)</span>
+<li id="li-3703"><div class="para" id="p-5452">What are the eigenvalues of <span class="process-math">\(A^{-1}\text{?}\)</span>
 </div></li>
-<li id="li-3674"><div class="para" id="p-5412">What are the eigenvalues of <span class="process-math">\(A+7I\text{?}\)</span>
+<li id="li-3704"><div class="para" id="p-5453">What are the eigenvalues of <span class="process-math">\(A+7I\text{?}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-196"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para logical" id="p-5419">
-<div class="para">Use the commands <code class="code-inline tex2jax_ignore">power</code>, <code class="code-inline tex2jax_ignore">inverse_power</code>, and <code class="code-inline tex2jax_ignore">find_closest_eigenvalue</code> to approximate the eigenvalues and associated eigenvectors of the following matrices. <pre class="ptx-sagecell sagecell-sage" id="sage-163"><script type="text/x-sage">
+</div></article><article class="exercise exercise-like" id="exercise-198"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para logical" id="p-5460">
+<div class="para">Use the commands <code class="code-inline tex2jax_ignore">power</code>, <code class="code-inline tex2jax_ignore">inverse_power</code>, and <code class="code-inline tex2jax_ignore">find_closest_eigenvalue</code> to approximate the eigenvalues and associated eigenvectors of the following matrices. <pre class="ptx-sagecell sagecell-sage" id="sage-165"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-3679"><div class="para" id="p-5420"><span class="process-math">\(A= \left[\begin{array}{rr}
+<li id="li-3709"><div class="para" id="p-5461"><span class="process-math">\(A= \left[\begin{array}{rr}
 -2 \amp -2 \\
 -8 \amp -2 \\
 \end{array}\right]
 \text{.}\)</span></div></li>
-<li id="li-3680"><div class="para" id="p-5421"><span class="process-math">\(A= \left[\begin{array}{rr}
+<li id="li-3710"><div class="para" id="p-5462"><span class="process-math">\(A= \left[\begin{array}{rr}
 0.6 \amp 0.7 \\
 0.5 \amp 0.2 \\
 \end{array}\right]
 \text{.}\)</span></div></li>
-<li id="li-3681"><div class="para" id="p-5422"><span class="process-math">\(A= \left[\begin{array}{rrrr}
+<li id="li-3711"><div class="para" id="p-5463"><span class="process-math">\(A= \left[\begin{array}{rrrr}
 1.9  \amp -16.0 \amp  -13.0 \amp 27.0 \\
 -2.4 \amp  20.3 \amp  4.6 \amp -17.7 \\
 -0.51 \amp -11.7 \amp -1.4 \amp  13.1  \\
@@ -1033,8 +1103,8 @@ def inverse_power(A, x, N):
 \end{array}\right]
 \text{.}\)</span></div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-197"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-5432">
+</div></article><article class="exercise exercise-like" id="exercise-199"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<div class="para logical" id="p-5473">
 <div class="para">Use the techniques we have seen in this section to find the eigenvalues of the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1047,31 +1117,31 @@ A= \left[\begin{array}{rrrrr}
 \end{array}\right]\text{.}
 \end{equation*}
 </div>
-<div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-164"><script type="text/x-sage">A = matrix(5,5, [-14.6,  9.0, -14.1, 5.8,  13.0,
+<div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-166"><script type="text/x-sage">A = matrix(5,5, [-14.6,  9.0, -14.1, 5.8,  13.0,
                   27.8, -4.2,  16.0, 0.9, -21.3,
                   -5.5,  3.4,   3.4, 3.3,   1.1,
                  -25.4, 11.3, -15.4, 4.7,  20.3,
                  -33.7, 14.8, -22.5, 9.7,  26.6])
 </script></pre></div>
-</div></article><article class="exercise exercise-like" id="exercise-198"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-5435">
+</div></article><article class="exercise exercise-like" id="exercise-200"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<div class="para logical" id="p-5476">
 <div class="para">Consider the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
 0 \amp -1 \\
 -4 \amp 0 \\
 \end{array}\right]
-\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-165"><script type="text/x-sage">
+\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-167"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-3688"><div class="para" id="p-5436">Describe what happens if we apply the power method and the inverse power method using the initial vector <span class="process-math">\(\xvec_0 =
+<li id="li-3718"><div class="para" id="p-5477">Describe what happens if we apply the power method and the inverse power method using the initial vector <span class="process-math">\(\xvec_0 =
 \twovec{1}{0}\text{.}\)</span>
 </div></li>
-<li id="li-3689"><div class="para" id="p-5437">Find the eigenvalues of this matrix and explain this observed behavior.</div></li>
-<li id="li-3690"><div class="para" id="p-5438">How can we apply the techniques of this section to find the eigenvalues of <span class="process-math">\(A\text{?}\)</span>
+<li id="li-3719"><div class="para" id="p-5478">Find the eigenvalues of this matrix and explain this observed behavior.</div></li>
+<li id="li-3720"><div class="para" id="p-5479">How can we apply the techniques of this section to find the eigenvalues of <span class="process-math">\(A\text{?}\)</span>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-power-method"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para logical" id="p-5447">
+<div class="para logical" id="p-5488">
 <div class="para">We have seen that the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
 1 \amp 2 \\
 2 \amp 1 \\
@@ -1079,17 +1149,17 @@ A= \left[\begin{array}{rrrrr}
 \twovec{1}{1}\)</span> and <span class="process-math">\(\vvec_2=\twovec{-1}{1}\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3697"><div class="para" id="p-5448">Describe what happens when we apply the inverse power method using the initial vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{.}\)</span>
+<li id="li-3727"><div class="para" id="p-5489">Describe what happens when we apply the inverse power method using the initial vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{.}\)</span>
 </div></li>
-<li id="li-3698"><div class="para" id="p-5449">Explain why this is happening and provide a contrast with how the power method usually works.</div></li>
-<li id="li-3699"><div class="para" id="p-5450">How can we modify the power method to give the dominant eigenvalue in this case?</div></li>
+<li id="li-3728"><div class="para" id="p-5490">Explain why this is happening and provide a contrast with how the power method usually works.</div></li>
+<li id="li-3729"><div class="para" id="p-5491">How can we modify the power method to give the dominant eigenvalue in this case?</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-200"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
-<div class="para" id="p-5459">Suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\times2\)</span> matrix with eigenvalues <span class="process-math">\(4\)</span> and <span class="process-math">\(-3\)</span> and that <span class="process-math">\(B\)</span> is a <span class="process-math">\(2\times2\)</span> matrix with eigenvalues <span class="process-math">\(4\)</span> and <span class="process-math">\(1\text{.}\)</span> If we apply the power method to find the dominant eigenvalue of these matrices to the same degree of accuracy, which matrix will require more steps in the algorithm?  Explain your response.</div></article><article class="exercise exercise-like" id="exercise-201"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
-<div class="para" id="p-5462">Suppose that we apply the power method to the matrix <span class="process-math">\(A\)</span> with an initial vector <span class="process-math">\(\xvec_0\)</span> and find the eigenvalue <span class="process-math">\(\lambda=3\)</span> and eigenvector <span class="process-math">\(\vvec\text{.}\)</span> Suppose that we then apply the power method again with a different initial vector and find the same eigenvalue <span class="process-math">\(\lambda=3\)</span> but a different eigenvector <span class="process-math">\(\wvec\text{.}\)</span>  What can we conclude about the matrix <span class="process-math">\(A\)</span> in this case?</div></article><article class="exercise exercise-like" id="exercise-202"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
-<div class="para" id="p-5465">The power method we have developed only works if the matrix has real eigenvalues. Suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\times2\)</span> matrix that has a complex eigenvalue <span class="process-math">\(\lambda = 2+3i\text{.}\)</span>  What would happen if we apply the power method to <span class="process-math">\(A\text{?}\)</span>
-</div></article><article class="exercise exercise-like" id="exercise-203"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
-<div class="para logical" id="p-5468">
+</div></article><article class="exercise exercise-like" id="exercise-202"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<div class="para" id="p-5500">Suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix with eigenvalues <span class="process-math">\(4\)</span> and <span class="process-math">\(-3\)</span> and that <span class="process-math">\(B\)</span> is a <span class="process-math">\(2\by2\)</span> matrix with eigenvalues <span class="process-math">\(4\)</span> and <span class="process-math">\(1\text{.}\)</span> If we apply the power method to find the dominant eigenvalue of these matrices to the same degree of accuracy, which matrix will require more steps in the algorithm?  Explain your response.</div></article><article class="exercise exercise-like" id="exercise-203"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<div class="para" id="p-5503">Suppose that we apply the power method to the matrix <span class="process-math">\(A\)</span> with an initial vector <span class="process-math">\(\xvec_0\)</span> and find the eigenvalue <span class="process-math">\(\lambda=3\)</span> and eigenvector <span class="process-math">\(\vvec\text{.}\)</span> Suppose that we then apply the power method again with a different initial vector and find the same eigenvalue <span class="process-math">\(\lambda=3\)</span> but a different eigenvector <span class="process-math">\(\wvec\text{.}\)</span>  What can we conclude about the matrix <span class="process-math">\(A\)</span> in this case?</div></article><article class="exercise exercise-like" id="exercise-204"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<div class="para" id="p-5506">The power method we have developed only works if the matrix has real eigenvalues. Suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix that has a complex eigenvalue <span class="process-math">\(\lambda = 2+3i\text{.}\)</span>  What would happen if we apply the power method to <span class="process-math">\(A\text{?}\)</span>
+</div></article><article class="exercise exercise-like" id="exercise-205"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<div class="para logical" id="p-5509">
 <div class="para">Consider the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
 1 \amp 1 \\
 0 \amp 1 \\
@@ -1097,11 +1167,11 @@ A= \left[\begin{array}{rrrrr}
 \text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3706"><div class="para" id="p-5469">Find the eigenvalues and associated eigenvectors of <span class="process-math">\(A\text{.}\)</span>
+<li id="li-3736"><div class="para" id="p-5510">Find the eigenvalues and associated eigenvectors of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-3707"><div class="para" id="p-5470">Make a prediction about what happens if we apply the power method and the inverse power method to find eigenvalues of <span class="process-math">\(A\text{.}\)</span>
+<li id="li-3737"><div class="para" id="p-5511">Make a prediction about what happens if we apply the power method and the inverse power method to find eigenvalues of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-3708"><div class="para" id="p-5471">Verify your prediction using Sage. <pre class="ptx-sagecell sagecell-sage" id="sage-166"><script type="text/x-sage">
+<li id="li-3738"><div class="para" id="p-5512">Verify your prediction using Sage. <pre class="ptx-sagecell sagecell-sage" id="sage-168"><script type="text/x-sage">
 </script></pre>
 </div></li>
 </ol>

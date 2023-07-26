@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Shearing game</title>
+  <script src="../mathbox/mathbox-bundle.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.css">
+  <!-- <link type="text/css" rel="stylesheet" href="bootstrap.min.css"/> -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.5.1/katex.min.js"></script>
+  <script src="matrices.js"></script>
+  <script src="matrix_game.js"></script>
+  <link rel="stylesheet" href="../mathbox/mathbox.css">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+</head>
+<body>
+    <!-- <header id="header"> -->
+    <!-- </header> -->
+
+
+    <script>
+     var mathbox = mathBox({
+	 plugins: ['core', 'controls', 'cursor', 'mathbox'],
+	 controls: {
+             // Orbit controls, i.e. Euler angles, with gimbal lock
+             klass: THREE.OrbitControls,
+
+             // Trackball controls, i.e. Free quaternion rotation
+             //klass: THREE.TrackballControls,
+	 },
+     });
+     if (mathbox.fallback) throw "WebGL not supported"
+
+     /* Makes the background white */
+     var three = mathbox.three;
+     three.renderer.setClearColor(new THREE.Color(0xFFFFFF), 1.0);
+
+
+     // Place camera
+     var camera =
+	 mathbox
+	     .camera({
+		 proxy: false,
+		 position: [0, 0, 3],
+	     });
+
+     // 2D cartesian
+     var view =
+	 mathbox
+	     .cartesian({
+		 range: [[0, 1], [0, 1]],
+		 scale: [1, 1],
+	     });
+
+
+     // Calibrate focus distance for units
+     mathbox.set('focus', 3);
+
+
+     var game = new MatrixGame(
+	 matrices = [Matrix.shear(-1, 'H'),
+		     Matrix.shear(1, 'H'),
+		     Matrix.shear(1, 'V'),
+		     Matrix.shear(-1, 'V')],
+	 start_matrix = new Matrix([[2, 1], [1, 1]]),
+	 win_condition = function (matrix) {return matrix.is_identity();},
+	 objective = 'Transform the parallelogram to the square with vertices ' +
+		     '(0,0), (1,0), (0,1), (1,1).',
+	 title = 'Shearing game'
+     )
+
+     document.onkeydown = game.keydown_action.bind(game);
+     document.onkeyup = game.keyup_action.bind(game);
+
+
+    //  var header = document.getElementById('header');
+    //  console.log(game.game_description_html());
+    //  header.innerHTML = game.game_description_html()
+
+     // Creating data grid.
+     var n = 20;
+     view.area({
+	 id: "grid",
+	 axes: [1, 2],
+	 width: n,
+	 height: n,
+	 channels: 2,
+	 expr: function (emit, x, y, i, j, time) {
+	     var vec = game.current_matrix.multiply_vec(x,y);
+	     emit(vec[0], vec[1]);
+	 },
+     });
+
+     view.surface({
+	 /* shaded: true,*/
+	 points: '<',
+	 fill: false,
+	 lineX: true,
+	 lineY: true,
+	 /* width: 2,*/
+	 color: "purple",
+     });
+
+     // TODO: draw origin.
+
+     canvas = document.getElementsByTagName('canvas');
+     console.log(canvas);
+     canvas.style.position ='fixed';
+    </script>
+
+</body>
+</html>

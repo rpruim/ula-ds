@@ -9,12 +9,26 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
 </head>
 <body class="ignore-math">
 <article class="li"><h5 class="heading">
-<span class="type">Item</span><span class="space"> </span><span class="codenumber">5.2.6.2.c</span><span class="period">.</span>
+<span class="type">Item</span><span class="space"> </span><span class="codenumber">d.3</span><span class="period">.</span>
 </h5>
-<div class="para"><span class="process-math">\(\displaystyle \left\{\twovec10,
-\twovec01\right\}\)</span></div></article><span class="incontext"><a href="sec-eigen-find.html#li-2888" class="internal">in-context</a></span>
+<div class="para">Python returns <span class="process-math">\(\mattwo{1}{0}{0}{1}\text{,}\)</span> which is not correct because <span class="process-math">\(A-I\)</span> cannot be invertible if <span class="process-math">\(\lambda=1\)</span> is an eigenvalue of <span class="process-math">\(A\text{.}\)</span> The issue is round-off errors that make things that should be exactly zero slightly different from 0. <pre class="ptx-sagecell sagecell-sage" id="sage-135"><script type="text/x-sage">import numpy as np 	
+from numpy import linalg
+		
+A = np.array([[0.8,0.6],[0.2,0.4]])
+B = A - np.eye(2)
+print(B); print()
+print(B.sum(axis = 0))	 # column sums shoudl be zero, but...
+</script></pre>
+</div></article><span class="incontext"><a href="sec-eigen-find.html#li-2888" class="internal">in-context</a></span>
 </body>
 </html>

@@ -24,24 +24,11 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
 </script>
 </head>
 <body class="ignore-math">
-<article class="li"><h3 class="heading"><span class="title">Matrix factorizations</span></h3>
-<div class="para logical"><ol class="lower-alpha">
-<li><div class="para">The <span class="process-math">\(LU\)</span> factorization of a matrix <pre class="ptx-sagecell sagecell-python" id="sage-324"><script type="text/x-sage">A = np.array(np.arange(9)).reshape(3,3)
-P, L, U = linal.lu(A)
-</script></pre> gives matrices so that <span class="process-math">\(A = PLU\text{,}\)</span> where <span class="process-math">\(P\)</span> is a permutation matrix, <span class="process-math">\(L\)</span> is lower diagonal, and <span class="process-math">\(U\)</span> is upper diagonal.</div></li>
-<li><div class="para">A singular value decomposition is obtained with <pre class="ptx-sagecell sagecell-python" id="sage-325"><script type="text/x-sage">A = np.array(np.arange(12)).reshape(3,4)
-U, s, V = linalg.svd(A)
-print([x.shape for x in [U, s, V]])
-</script></pre> Note that <code class="code-inline tex2jax_ignore">s</code> is not a matric but a 1-d array of singular values. If the matrix is needed, we can construct it with <pre class="ptx-sagecell sagecell-python" id="sage-326"><script type="text/x-sage">Sigma = linalg.diagsvd(s, 3, 4)  # must specify the shape 
-print(s.round(3)) 
-print(Sigma.round(3))
+<article class="li"><h3 class="heading"><span class="title">Special matrices</span></h3>
+<div class="para">The <span class="process-math">\(4\by 4\)</span> identity matrix can be created with the curiously named function <code class="code-inline tex2jax_ignore">np.eye()</code> (or <code class="code-inline tex2jax_ignore">sympy.eye()</code>).  This has nothing to do with eyes, but is a play on the pronunciation of <span class="process-math">\(\boldsymbol I\text{.}\)</span> Notice that <code class="code-inline tex2jax_ignore">sympy</code> creates a matrix with integer entries, but <code class="code-inline tex2jax_ignore">np</code> produces a matrix with floating point entries. <pre class="ptx-sagecell sagecell-python" id="sage-313"><script type="text/x-sage">print(np.eye(3))
+print(sympy.eye(3))
+</script></pre> A diagonal matrix can be created from a list of its diagonal entries.  For instance, <pre class="ptx-sagecell sagecell-python" id="sage-314"><script type="text/x-sage">print(np.diag([3, -4, 2]))
 </script></pre>
-</div></li>
-<li><div class="para">The <span class="process-math">\(QR\)</span> factorization of <code class="code-inline tex2jax_ignore">A</code> is <code class="code-inline tex2jax_ignore">linalg.qr(A)</code> provided that <code class="code-inline tex2jax_ignore">A</code>. <pre class="ptx-sagecell sagecell-python" id="sage-327"><script type="text/x-sage">Q, R = linalg.qr(A)
-print(Q.round(2))
-print(R.round(2))
-</script></pre>
-</div></li>
-</ol></div></article><span class="incontext"><a href="subsec-frequently-used-python.html#li-5982" class="internal">in-context</a></span>
+</div></article><span class="incontext"><a href="subsec-frequently-used-python.html#li-5982" class="internal">in-context</a></span>
 </body>
 </html>

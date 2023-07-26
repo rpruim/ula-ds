@@ -9,16 +9,34 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
+</script>
 </head>
 <body class="ignore-math">
 <article class="li"><h5 class="heading">
-<span class="type">Item</span><span class="space"> </span><span class="codenumber">5.2.6.1.b</span><span class="period">.</span>
+<span class="type">Item</span><span class="space"> </span><span class="codenumber">c</span><span class="period">.</span>
 </h5>
-<div class="para"><span class="process-math">\(A=\left[\begin{array}{rrr}
-3 \amp -1 \amp 3 \\
-0 \amp 4 \amp 0 \\
-0 \amp 0 \amp -6
-\end{array}\right]
-\text{.}\)</span></div></article><span class="incontext"><a href="sec-eigen-find.html#li-2875" class="internal">in-context</a></span>
+<div class="para">Finally, we can find both eigenvalues and (right) eigenvectors using <code class="code-inline tex2jax_ignore">numpy.linalg.eig(A)</code> or <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A)</code>. </div>
+<article class="note remark-like"><h5 class="heading">
+<span class="type">Note</span><span class="space"> </span><span class="codenumber">5.2.16</span><span class="period">.</span><span class="space"> </span><span class="title">Left and right eigenvectors.</span>
+</h5> <div class="para">Technically, we are finding <dfn class="terminology">right eigenvectors</dfn> since the vector <span class="process-math">\(\vvec\)</span> appears to the right of <span class="process-math">\(A\)</span> in the definition <span class="process-math">\(A\vvec=\lambda \vvec\text{.}\)</span> That’s most often what we want.  But we can also get <dfn class="terminology">left eigenvectors</dfn> with <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A, left = True)</code>. Feel free to try it in the code chunk below. Numpy does not provide this option.</div></article><pre class="ptx-sagecell sagecell-python" id="sage-131"><script type="text/x-sage">import numpy as np
+import scipy
+A = np.array([[-3, 1], [0, -3]])
+evals, evecs = scipy.linalg.eig(A) 
+print(evals); print()
+print(evecs.round(10))
+</script></pre>
+<div class="para">The first item in the tuple returned gives the eigenvalues, the second the eigenvalues.</div></article><span class="incontext"><a href="sec-eigen-find.html#li-2875" class="internal">in-context</a></span>
 </body>
 </html>

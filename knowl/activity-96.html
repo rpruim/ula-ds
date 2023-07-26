@@ -9,36 +9,45 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script>
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.3.2</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.2.5</span><span class="period">.</span>
 </h4>
 <div class="para logical">
-<div class="para">Suppose that we work with a dataset having 100 five-dimensional data points.  The demeaned data matrix <span class="process-math">\(A\)</span> is therefore <span class="process-math">\(5\times100\)</span> and leads to the covariance matrix <span class="process-math">\(C=\frac1{100}~AA^T\text{,}\)</span> which is a <span class="process-math">\(5\times5\)</span> matrix.  Because <span class="process-math">\(C\)</span> is symmetric, the Spectral Theorem tells us it is orthogonally diagonalizable so suppose that <span class="process-math">\(C = QDQ^T\)</span> where</div>
+<div class="para">Let’s explore how our understanding of quadratic forms helps us determine the behavior of a function <span class="process-math">\(f\)</span> near a critical point.</div>
+<ol class="lower-alpha">
+<li><div class="para">Consider the function <span class="process-math">\(f(x,y) = 2x^3 - 6xy +
+3y^2\text{.}\)</span>  Find the partial derivatives <span class="process-math">\(f_{x}\)</span> and <span class="process-math">\(f_y\)</span> and use these expressions to determine the critical points of <span class="process-math">\(f\text{.}\)</span>
+</div></li>
+<li><div class="para">Evaluate the second partial derivatives <span class="process-math">\(f_{xx}\text{,}\)</span> <span class="process-math">\(f_{xy}\text{,}\)</span> and <span class="process-math">\(f_{yy}\text{.}\)</span>
+</div></li>
+<li><div class="para">Let’s first consider the critical point <span class="process-math">\((1,1)\text{.}\)</span> Use the quadratic approximation as written above to find an expression approximating <span class="process-math">\(f\)</span> near the critical point.</div></li>
+<li><div class="para logical">
+<div class="para">Using the vector <span class="process-math">\(\wvec = \twovec{x-1}{y-1}\text{,}\)</span> rewrite your approximation as</div>
 <div class="displaymath process-math">
 \begin{equation*}
-Q = \begin{bmatrix}
-\uvec_1 \amp \uvec_2 \amp \uvec_3 \amp \uvec_4 \amp \uvec_5
-\end{bmatrix},\hspace{24pt}
-D = \begin{bmatrix}
-13 \amp 0 \amp 0 \amp 0 \amp 0 \\
-0 \amp 10 \amp 0 \amp 0 \amp 0 \\
-0 \amp 0 \amp 2 \amp 0 \amp 0 \\
-0 \amp 0 \amp 0 \amp 0 \amp 0 \\
-0 \amp 0 \amp 0 \amp 0 \amp 0
-\end{bmatrix}.
+f(x,y) \approx f(1,1) + q_A(\wvec)
 \end{equation*}
 </div>
-<ol class="lower-alpha">
-<li><div class="para">What is <span class="process-math">\(V_{\uvec_2}\text{,}\)</span> the variance in the <span class="process-math">\(\uvec_2\)</span> direction?</div></li>
-<li><div class="para">Find the variance of the data projected onto the line defined by <span class="process-math">\(\uvec_4\text{.}\)</span>  What does this say about the data?</div></li>
-<li><div class="para">What is the total variance of the data?</div></li>
-<li><div class="para">Consider the 2-dimensional subspace spanned by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  If we project the data onto this subspace, what fraction of the total variance is represented by the variance of the projected data?</div></li>
-<li><div class="para">How does this question change if we project onto the 3-dimensional subspace spanned by <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\text{?}\)</span>
+<div class="para">for some matrix <span class="process-math">\(A\text{.}\)</span>  What is the matrix <span class="process-math">\(A\)</span> in this case?</div>
 </div></li>
-<li><div class="para">What does this tell us about the data?</div></li>
+<li><div class="para">Find the eigenvalues of <span class="process-math">\(A\text{.}\)</span>  What can you conclude about the definiteness of <span class="process-math">\(A\text{?}\)</span>
+</div></li>
+<li><div class="para">Recall that <span class="process-math">\((x_0,y_0)\)</span> is a local minimum for <span class="process-math">\(f\)</span> if <span class="process-math">\(f(x,y) \gt f(x_0,y_0)\)</span> for nearby points <span class="process-math">\((x,y)\text{.}\)</span> Explain why our understanding of the eigenvalues of <span class="process-math">\(A\)</span> shows that <span class="process-math">\((1,1)\)</span> is a local minimum for <span class="process-math">\(f\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-231"><script type="text/x-sage">plot3d(2*x^3 - 6*x*y + 3*y^2, (x, -2,2), (y,-2,2))
+</script></pre>
+</div></li>
 </ol>
-</div></article><span class="incontext"><a href="sec-pca.html#activity-96" class="internal">in-context</a></span>
+</div>
+<div class="solutions">
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-304-hidden.html" title="Answer 7.2.5.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-383-hidden.html" title="Solution 7.2.5.1"><span class="type">Solution</span><span class="period">.</span></a>
+</div></article><span class="incontext"><a href="sec-quadratic-forms.html#activity-96" class="internal">in-context</a></span>
 </body>
 </html>

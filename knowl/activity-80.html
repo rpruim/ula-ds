@@ -19,72 +19,55 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.4.4</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.4.3</span><span class="period">.</span>
 </h4>
-<div class="para logical">
-<div class="para">Suppose that <span class="process-math">\(A\)</span> is the <span class="process-math">\(4\times3\)</span> matrix whose columns are</div>
-<div class="displaymath process-math" data-contains-math-knowls="./knowl/activity-gram-schmidt.html">
-\begin{equation*}
-\vvec_1 = \fourvec1111,\hspace{24pt}
-\vvec_2 = \fourvec1322,\hspace{24pt}
-\vvec_3 = \fourvec1{-3}{-3}{-3}\text{.}
-\end{equation*}
-</div>
-<div class="para">These vectors form a basis for <span class="process-math">\(W\text{,}\)</span> the subspace of <span class="process-math">\(\real^4\)</span> that we encountered in <a href="" class="xref" data-knowl="./knowl/activity-gram-schmidt.html" title="Activity 6.4.2">Activity 6.4.2</a>.  Since these vectors are the columns of <span class="process-math">\(A\text{,}\)</span> we have <span class="process-math">\(\col(A) = W\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-188"><script type="text/x-sage">
+<div class="para">Sage can automate these computations for us.  Before we begin, however, it will be helpful to understand how we can combine things using a <code class="code-inline tex2jax_ignore">list</code> in Python.  For instance, if the vectors <code class="code-inline tex2jax_ignore">v1</code>, <code class="code-inline tex2jax_ignore">v2</code>, and <code class="code-inline tex2jax_ignore">v3</code> form a basis for a subspace, we can bundle them together using square brackets: <code class="code-inline tex2jax_ignore">[v1, v2, v3]</code>.  Furthermore, we could assign this to a variable, such as <code class="code-inline tex2jax_ignore">basis = [v1, v2, v3]</code>.</div> <div class="para logical">
+<div class="para">Evaluating the following cell will load in some special commands. <pre class="ptx-sagecell sagecell-sage" id="sage-186"><script type="text/x-sage">sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py", globals())
 </script></pre>
 </div>
-<ol class="lower-alpha">
-<li><div class="para logical">
-<div class="para">When we implemented Gram-Schmidt, we first found an orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> using</div>
+<ul class="disc">
+<li><div class="para">There is a command to apply the projection formula: <code class="code-inline tex2jax_ignore">projection(b, basis)</code> returns the orthogonal projection of <code class="code-inline tex2jax_ignore">b</code> onto the subspace spanned by <code class="code-inline tex2jax_ignore">basis</code>, which is a list of vectors.</div></li>
+<li><div class="para">The command <code class="code-inline tex2jax_ignore">unit(w)</code> returns a unit vector parallel to <code class="code-inline tex2jax_ignore">w</code>.</div></li>
+<li><div class="para">Given a collection of vectors, say, <code class="code-inline tex2jax_ignore">v1</code> and <code class="code-inline tex2jax_ignore">v2</code>, we can form the matrix whose columns are <code class="code-inline tex2jax_ignore">v1</code> and <code class="code-inline tex2jax_ignore">v2</code> using <code class="code-inline tex2jax_ignore">matrix([v1, v2]).T</code>.  When given a <code class="code-inline tex2jax_ignore">list</code> of vectors, Sage constructs a matrix whose <em class="emphasis">rows</em> are the given vectors.  For this reason, we need to apply the transpose.</div></li>
+</ul>
+</div> <div class="para logical">
+<div class="para">Let’s now consider <span class="process-math">\(W\text{,}\)</span> the subspace of <span class="process-math">\(\real^5\)</span> having basis</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\begin{aligned}
-\wvec_1 \amp = \vvec_1 \\
-\wvec_2 \amp = \vvec_2 -
-\frac{\vvec_2\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 \\
-\wvec_3 \amp = \vvec_3 -
-\frac{\vvec_3\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 -
-\frac{\vvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2\text{.}
-\\
-\end{aligned}
+\vvec_1 = \fivevec{14}{-6}{8}2{-6},\hspace{24pt}
+\vvec_2 = \fivevec{5}{-3}{4}3{-7},\hspace{24pt}
+\vvec_3 = \fivevec{2}30{-2}1.
 \end{equation*}
 </div>
-<div class="para">Use these expressions to write <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_1\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> as linear combinations of <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\text{.}\)</span>
+<ol class="lower-alpha">
+<li>
+<div class="para">Apply the Gram-Schmidt algorithm to find an orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> for <span class="process-math">\(W\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-187"><script type="text/x-sage">
+</script></pre>
+</li>
+<li><div class="para">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec = 
+\fivevec{-5}{11}0{-1}5\)</span> onto <span class="process-math">\(W\text{.}\)</span>
+</div></li>
+<li><div class="para logical">
+<div class="para">Explain why we know that <span class="process-math">\(\bhat\)</span> is a linear combination of the original vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> and then find weights so that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\bhat = c_1\vvec_1 + c_2\vvec_2 + c_3\vvec_3.
+\end{equation*}
 </div>
 </div></li>
 <li>
-<div class="para">We next normalized the orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> to obtain an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\text{.}\)</span>
-</div>
-<div class="para">Write the vectors <span class="process-math">\(\wvec_i\)</span> as scalar multiples of <span class="process-math">\(\uvec_i\text{.}\)</span> Then use these expressions to write <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_1\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> as linear combinations of <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\text{.}\)</span>
-</div>
+<div class="para">Find an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> for <span class="process-math">\(\uvec_3\)</span> for <span class="process-math">\(W\)</span> and form the matrix <span class="process-math">\(Q\)</span> whose columns are these vectors.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-188"><script type="text/x-sage">
+</script></pre>
 </li>
-<li><div class="para">Suppose that <span class="process-math">\(Q =
-\left[
-\begin{array}{ccc}
-\uvec_1 \amp \uvec_2 \amp \uvec_3
-\end{array}
-\right]\text{.}\)</span>  Use the result of the previous part to find a vector <span class="process-math">\(\rvec_1\)</span> so that <span class="process-math">\(Q\rvec_1 = \vvec_1\text{.}\)</span>
-</div></li>
-<li><div class="para">Then find vectors <span class="process-math">\(\rvec_2\)</span> and <span class="process-math">\(\rvec_3\)</span> such that <span class="process-math">\(Q\rvec_2 = \vvec_2\)</span> and <span class="process-math">\(Q\rvec_3 =
-\vvec_3\text{.}\)</span>
-</div></li>
-<li><div class="para">Construct the matrix <span class="process-math">\(R =
-\left[
-\begin{array}{ccc}
-\rvec_1 \amp \rvec_2 \amp \rvec_3
-\end{array}
-\right]\text{.}\)</span>  Remembering that <span class="process-math">\(A =
-\left[
-\begin{array}{ccc}
-\vvec_1 \amp \vvec_2 \amp \vvec_3
-\end{array}
-\right]\text{,}\)</span> explain why <span class="process-math">\(A = QR\text{.}\)</span>
-</div></li>
-<li><div class="para">What is special about the shape of <span class="process-math">\(R\text{?}\)</span>
-</div></li>
-<li><div class="para">Suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(10\times 6\)</span> matrix whose columns are linearly independent.  This means that the columns of <span class="process-math">\(A\)</span> form a basis for <span class="process-math">\(W=\col(A)\text{,}\)</span> a 6-dimensional subspace of <span class="process-math">\(\real^{10}\text{.}\)</span>  Suppose that we apply Gram-Schmidt orthogonalization to create an orthonormal basis whose vectors form the columns of <span class="process-math">\(Q\)</span> and that we write <span class="process-math">\(A=QR\text{.}\)</span>  What are the shape of <span class="process-math">\(Q\)</span> and what the shape of <span class="process-math">\(R\text{?}\)</span>
-</div></li>
+<li><div class="para">Find the product <span class="process-math">\(Q^TQ\)</span> and explain the result.</div></li>
+<li><div class="para">Find the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(W\)</span> and verify that <span class="process-math">\(P\bvec\)</span> gives <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection that you found earlier.</div></li>
 </ol>
+</div>
+<div class="solutions">
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-259-hidden.html" title="Answer 6.4.3.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-334-hidden.html" title="Solution 6.4.3.1"><span class="type">Solution</span><span class="period">.</span></a>
 </div></article><span class="incontext"><a href="sec-gram-schmidt.html#activity-80" class="internal">in-context</a></span>
 </body>
 </html>

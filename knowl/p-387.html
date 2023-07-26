@@ -9,22 +9,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
+</script>
 </head>
 <body class="ignore-math">
 <h4 class="heading"><span class="type">Paragraph</span></h4>
-<div class="para logical">
-<div class="para">Numpy provides several other functions that can be used to create larger arrays by combining smaller arrays.</div>
-<ul class="disc">
-<li><div class="para">
-<code class="code-inline tex2jax_ignore">np.concetentate()</code> takes a sequence of arrays and repeatedly appends. This is especially useful for combining three or more arrays.</div></li>
-<li><div class="para">
-<code class="code-inline tex2jax_ignore">np.stack()</code> (and specialized versions <code class="code-inline tex2jax_ignore">np.hstack()</code>, <code class="code-inline tex2jax_ignore">np.vstack()</code>, and <code class="code-inline tex2jax_ignore">np.column_stack()</code>) concatenate along a <em class="emphasis">new</em> axis. This can be used to combine vectors into an array or arrays into a tensor. The resulting object will have a higher dimension (more axes) than the inputs.</div></li>
-<li><div class="para">
-<code class="code-inline tex2jax_ignore">np.block()</code> creates a new array from a nested sequences of blocks.</div></li>
-<li><div class="para">
-<code class="code-inline tex2jax_ignore">np.insert()</code> allows insertion into a slice.</div></li>
-</ul>
-</div>
+<div class="para">Here’s an example where we add a column onto a <span class="process-math">\(3 \by 2 \)</span> matrix. <pre class="ptx-sagecell sagecell-python" id="sage-27"><script type="text/x-sage">import numpy as np 
+A = np.arange(6).reshape((3,2))
+b = np.array([5, 3, 2])
+Aplus = np.append(A, b.reshape(3,1), 1)    # need to make b 2-d first
+print(Aplus)
+</script></pre> Notice that <code class="code-inline tex2jax_ignore">np.append()</code> does not modify its arguments. It returns a new (larger) array.</div>
 <span class="incontext"><a href="sec-tensors.html#p-387" class="internal">in-context</a></span>
 </body>
 </html>
