@@ -24,8 +24,17 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
 </script>
 </head>
 <body class="ignore-math">
-<h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para">You may find it convenient to remember that if <code class="code-inline tex2jax_ignore">B</code> is a matrix defined in Python, then <code class="code-inline tex2jax_ignore">B[:, slice]</code> and <code class="code-inline tex2jax_ignore">B[slice, :]</code> can be used to extract columns or rows from <code class="code-inline tex2jax_ignore">B</code> where <code class="code-inline tex2jax_ignore">slice</code> enumerates the desired columns or rows.  For instance, <code class="code-inline tex2jax_ignore">B[0:2, :])</code> provides a matrix formed from the first three rows of <code class="code-inline tex2jax_ignore">B</code>. <pre class="ptx-sagecell sagecell-python" id="sage-264"><script type="text/x-sage">
+<h4 class="heading"><span class="type">Paragraph</span></h4>
+<div class="para">Before exploring this connection further, we will introduce Sage as a tool for automating the construction of singular value decompositions.  One new feature is that we need to declare our matrix to consist of floating point entries.  We do this by including <code class="code-inline tex2jax_ignore">RDF</code> inside the matrix definition, as illustrated in the following cell. <pre class="ptx-sagecell sagecell-python" id="sage-262"><script type="text/x-sage">import numpy as np
+A = np.array(
+	[[1.0, 0, -1],
+     [1, 1, 1]])
+U, Sigma, V = np.linalg.svd(A)
+print(U)
+print('---------')
+print(Sigma)
+print('---------')
+print(V)
 </script></pre>
 </div>
 <span class="incontext"><a href="sec-svd-uses.html#p-8300" class="internal">in-context</a></span>

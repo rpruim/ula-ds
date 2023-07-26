@@ -9,23 +9,37 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
+</script>
 </head>
 <body class="ignore-math">
 <article class="li"><h5 class="heading">
-<span class="type">Item</span><span class="space"> </span><span class="codenumber">a</span><span class="period">.</span>
+<span class="type">Item</span><span class="space"> </span><span class="codenumber">c</span><span class="period">.</span>
 </h5>
-<div class="para logical"><ol class="decimal">
-<li><div class="para">
-<span class="process-math">\(\rank(A) = 3\)</span> because there are three distinct columns represented by the first, third, and sixth columns.</div></li>
-<li><div class="para">There are three nonzero singular values so <span class="process-math">\(\rank(A) =3\)</span> as we suspected.</div></li>
-<li><div class="para">The smallest value is <span class="process-math">\(k=3\)</span> since <span class="process-math">\(\rank(A)
-= 3\text{.}\)</span>
+<div class="para logical">
+<div class="para">A second, related application of the singular value decomposition to image processing is called <em class="emphasis">denoising</em>.  For example, consider the image represented by the matrix <span class="process-math">\(A\)</span> below. <pre class="ptx-sagecell sagecell-python" id="sage-280"><script type="text/x-sage">A = matrix(RDF, noise.values)		    
+display_matrix(A)
+</script></pre> This image is similar to the image of the letter "O" we first studied in this activity, but there are splotchy regions in the background that result, perhaps, from scanning the image.  We think of the splotchy regions as noise, and our goal is to improve the quality of the image by reducing the noise.</div>
+<ol class="decimal">
+<li><div class="para">Plot the singular values below.  How are the singular values of this matrix similar to those represented by the clean image that we considered earlier and how are they different? <pre class="ptx-sagecell sagecell-python" id="sage-281"><script type="text/x-sage">plot_sv(A)
+</script></pre>
 </div></li>
-<li><div class="para">The left singular vectors are <span class="process-math">\(25\)</span>-dimensional and the right singular vectors are <span class="process-math">\(15\)</span>-dimensional.  If we keep three singular values, left singular vectors, and right singular vectors, we have <span class="process-math">\(3(1+25+15) =
-123\text{.}\)</span>
+<li><div class="para">There is a natural point where the singular values dramatically decrease so it makes sense to think of the noise as being formed by the small singular values.  To denoise the image, we will therefore replace <span class="process-math">\(A\)</span> by its approximation <span class="process-math">\(A_k\text{,}\)</span> where <span class="process-math">\(k\)</span> is the point at which the singular values drop off. This has the effect of setting the small singular values to zero and hence eliminating the noise.  Choose an appropriate value of <span class="process-math">\(k\)</span> below and notice that the new image appears to be somewhat cleaned up as a result of removing the noise. <pre class="ptx-sagecell sagecell-python" id="sage-282"><script type="text/x-sage">k = 
+display_matrix(approximate(A, k))
+</script></pre>
 </div></li>
-<li><div class="para">The compression ratio is <span class="process-math">\(375/123=3.0\)</span> so the data is compressed by a factor of <span class="process-math">\(3\text{.}\)</span>
-</div></li>
-</ol></div></article><span class="incontext"><a href="sec-svd-uses.html#li-5795" class="internal">in-context</a></span>
+</ol>
+</div></article><span class="incontext"><a href="sec-svd-uses.html#li-5795" class="internal">in-context</a></span>
 </body>
 </html>
