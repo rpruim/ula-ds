@@ -498,23 +498,23 @@
       <m>\col(A)</m>.  In other words, <m>\bhat-\bvec</m> is in the
       orthogonal complement <m>\col(A)^\perp</m>, which <xref
       ref="prop-col-orthog" /> tells us is the same as
-      <m>\nul(A^T)</m>.  Since <m>\bhat-\bvec</m> is in
-      <m>\nul(A^T)</m>, it follows that
+      <m>\nul(A^{\transpose})</m>.  Since <m>\bhat-\bvec</m> is in
+      <m>\nul(A^{\transpose})</m>, it follows that
       <me>
-	A^T(\widehat\bvec-\bvec) = \zerovec\text{.}
+	A^{\transpose}(\widehat\bvec-\bvec) = \zerovec\text{.}
       </me>
       Because the least squares approximate
       solution is the vector <m>\xhat</m> such that <m>A\xhat =
       \bhat</m>, we can rearrange this equation to see that
       <md>
 	<mrow>
-	  A^T(A\xhat - \bvec) \amp = \zerovec
+	  A^{\transpose}(A\xhat - \bvec) \amp = \zerovec
 	</mrow>
 	<mrow>
-	  A^TA\xhat - A^T\bvec \amp = \zerovec
+	  A^{\transpose}A\xhat - A^{\transpose}\bvec \amp = \zerovec
 	</mrow>
 	<mrow>
-	  A^TA\xhat \amp = A^T\bvec\text{.}
+	  A^{\transpose}A\xhat \amp = A^{\transpose}\bvec\text{.}
 	</mrow>
       </md>
       <idx> normal equation </idx>
@@ -529,7 +529,7 @@
 	<m>\xhat</m> to the equation <m>A\xvec=\bvec</m> given by the
 	normal equation
 	<me>
-	  A^TA\xhat = A^T\bvec\text{.}
+	  A^{\transpose}A\xhat = A^{\transpose}\bvec\text{.}
 	</me>
 	</p>
       </statement>
@@ -550,10 +550,10 @@
 	with matrix <m>A</m> and vector <m>\bvec</m>.  
 	Since this equation is inconsistent, we will find the least squares
 	approximate solution <m>\xhat</m> by solving the normal
-	equation <m>A^TA\xhat = A^T\bvec</m>, which has the form
+	equation <m>A^{\transpose}A\xhat = A^{\transpose}\bvec</m>, which has the form
 	<me>
-	  A^TA\xhat = \begin{bmatrix} 9 \amp -1 \\ -1 \amp 10 \\
-	  \end{bmatrix} = \twovec{23}{37} = A^T\bvec 
+	  A^{\transpose}A\xhat = \begin{bmatrix} 9 \amp -1 \\ -1 \amp 10 \\
+	  \end{bmatrix} = \twovec{23}{37} = A^{\transpose}\bvec 
 	</me>
 	and the solution <m>\xhat=\twovec34</m>.
       </p>
@@ -636,9 +636,9 @@ list_plot(data, color='blue', size=40, xmin=12, xmax=22, ymin=60, ymax=100)
 
 	    <li>
 	      <p>
-		Write the normal equations <m>A^TA\xhat =
-		A^T\bvec</m>; that is, find the matrix <m>A^TA</m> and the
-		vector <m>A^T\bvec</m>.
+		Write the normal equations <m>A^{\transpose}A\xhat =
+		A^{\transpose}\bvec</m>; that is, find the matrix <m>A^{\transpose}A</m> and the
+		vector <m>A^{\transpose}\bvec</m>.
 	      </p>
 	    </li>
 
@@ -701,10 +701,10 @@ plot_model(xhat, data, domain=(12, 22))
 	    </li>
 	    <li>
 	      <p>
-		<m>A^TA=\begin{bmatrix}
+		<m>A^{\transpose}A=\begin{bmatrix}
 		15.0 \amp 248.5 \\
 		248.5 \amp 4157.9 \\
-		\end{bmatrix}</m> and <m>A^T\bvec =
+		\end{bmatrix}</m> and <m>A^{\transpose}\bvec =
 		\twovec{1190.2}{19857.7}</m>
 	      </p>
 	    </li>
@@ -743,10 +743,10 @@ plot_model(xhat, data, domain=(12, 22))
 	    </li>
 	    <li>
 	      <p>
-		<m>A^TA=\begin{bmatrix}
+		<m>A^{\transpose}A=\begin{bmatrix}
 		15.0 \amp 248.5 \\
 		248.5 \amp 4157.9 \\
-		\end{bmatrix}</m> and <m>A^T\bvec =
+		\end{bmatrix}</m> and <m>A^{\transpose}\bvec =
 		\twovec{1190.2}{19857.7}</m>
 	      </p>
 	    </li>
@@ -860,7 +860,7 @@ plot_model(xhat, data, domain=(12, 22))
     <p>
       As we've seen, the least squares approximate solution
       <m>\xhat</m> to <m>A\xvec=\bvec</m> may be found by solving the
-      normal equation <m>A^TA\xhat = A^T\bvec</m>, and this can be a
+      normal equation <m>A^{\transpose}A\xhat = A^{\transpose}\bvec</m>, and this can be a
       practical strategy for some problems.  However, this approach
       can be problematic as small rounding errors can accumulate and
       lead to inaccurate final results.
@@ -886,10 +886,10 @@ plot_model(xhat, data, domain=(12, 22))
 		squares approximation solution is given by solving
 		<md>
 		  <mrow>
-		    A\xhat \amp = QQ^T\bvec \\
+		    A\xhat \amp = QQ^{\transpose}\bvec \\
 		  </mrow>
 		  <mrow>
-		    QR\xhat \amp = QQ^T\bvec \\
+		    QR\xhat \amp = QQ^{\transpose}\bvec \\
 		  </mrow>
 		</md>
 	      </p>
@@ -898,9 +898,9 @@ plot_model(xhat, data, domain=(12, 22))
 	    <li>
 	      <p>
 		Multiply both sides of the second expression by
-		<m>Q^T</m> and explain why
+		<m>Q^{\transpose}</m> and explain why
 		<me>
-		  R\xhat = Q^T\bvec.
+		  R\xhat = Q^{\transpose}\bvec.
 		</me>
 	      </p>
 
@@ -910,7 +910,7 @@ plot_model(xhat, data, domain=(12, 22))
 		saw in <xref ref="sec-gaussian-revisited" />.  We will
 		therefore write the least squares approximate solution as
 		<me>
-		  \xhat = R^{-1}Q^T\bvec,
+		  \xhat = R^{-1}Q^{\transpose}\bvec,
 		</me>
 		and put this to use in the following context.
 	      </p>
@@ -1026,7 +1026,7 @@ print(df)
 	      <p>
 		Find the least squares approximate solution
 		<m>\xhat</m> by solving the equation <m>R\xhat =
-		Q^T\bvec</m>.  You may want to use <c>N(xhat)</c> to
+		Q^{\transpose}\bvec</m>.  You may want to use <c>N(xhat)</c> to
 		display a decimal approximation of the vector.
 		What are the parameters
 		<m>\beta_0,\beta_1,\ldots,\beta_5</m> that best fit the
@@ -1064,16 +1064,16 @@ print(df)
 	    <li>
 	      <p>
 		The columns of <m>Q</m> form an orthonormal basis for
-		<m>\col(A)</m> so that <m>\bhat=QQ^T\bvec</m>.  The
+		<m>\col(A)</m> so that <m>\bhat=QQ^{\transpose}\bvec</m>.  The
 		equation <m>A\xhat=\bhat</m> then becomes
-		<m>QR\xhat=QQ^T\bvec</m>.
+		<m>QR\xhat=QQ^{\transpose}\bvec</m>.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		Since <m>Q^TQ=I</m>, we have <m>Q^TQR\xhat =
-		Q^TQQ^T\bvec</m>, which gives <m>R\xhat =
-		Q^T\bvec</m>.
+		Since <m>Q^{\transpose}Q=I</m>, we have <m>Q^{\transpose}QR\xhat =
+		Q^{\transpose}QQ^{\transpose}\bvec</m>, which gives <m>R\xhat =
+		Q^{\transpose}\bvec</m>.
 	      </p>
 	    </li>
 	    <li>
@@ -1128,12 +1128,12 @@ print(df)
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		Use the fact that <m>\bhat=QQ^T\bvec</m>.
+		Use the fact that <m>\bhat=QQ^{\transpose}\bvec</m>.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		Use the fact that <m>Q^TQ=I</m>.
+		Use the fact that <m>Q^{\transpose}Q=I</m>.
 	      </p>
 	    </li>
 	    <li>
@@ -1197,7 +1197,7 @@ print(df)
 	  squares approximate solution <m>\xhat</m> to the equation
 	  <m>A\xvec=\bvec</m> is given by
 	  <me>
-	    \xhat = R^{-1}Q^T\bvec\text{.}
+	    \xhat = R^{-1}Q^{\transpose}\bvec\text{.}
 	  </me>
 	</p>
       </statement>
@@ -1779,7 +1779,7 @@ plot_model(xhat, data)
 	<li>
 	  <p>
 	    One way to find <m>\xhat</m> is by solving the normal
-	    equations <m>A^TA\xhat = A^T\bvec.</m>  This is not our
+	    equations <m>A^{\transpose}A\xhat = A^{\transpose}\bvec.</m>  This is not our
 	    preferred method since numerical problems can arise.
 	  </p>
 	</li>
@@ -1788,7 +1788,7 @@ plot_model(xhat, data)
 	  <p>
 	    A second way to find <m>\xhat</m> uses a <m>QR</m>
 	    factorization of <m>A</m>.  If <m>A=QR</m>, then <m>\xhat
-	    = R^{-1}Q^T\bvec</m> and finding <m>R^{-1}</m> is
+	    = R^{-1}Q^{\transpose}\bvec</m> and finding <m>R^{-1}</m> is
 	    computationally feasible since <m>R</m> is upper
 	    triangular. 
 	  </p>

@@ -92,7 +92,7 @@
 	    </li>
 	    <li>
 	      <p>
-		We can write <m>C=QDQ^T</m> where
+		We can write <m>C=QDQ^{\transpose}</m> where
 		<me>
 		  D=\begin{bmatrix}
 		  15 \amp 0 \\
@@ -135,7 +135,7 @@
     <p>
       Here are some ideas we've seen previously that will be
       particularly useful for us in this section.  Remember that 
-      the covariance matrix of a dataset is <m>C=\frac 1N AA^T</m>
+      the covariance matrix of a dataset is <m>C=\frac 1N AA^{\transpose}</m>
       where <m>A</m> is the matrix of <m>N</m> demeaned
       data points.
       <ul>
@@ -185,10 +185,10 @@
 	  Suppose that we work with a dataset having 100
 	  five-dimensional data points.  The demeaned data matrix
 	  <m>A</m> is therefore <m>5\by100</m> and leads to the
-	  covariance matrix <m>C=\frac1{100}~AA^T</m>, which is a
+	  covariance matrix <m>C=\frac1{100}~AA^{\transpose}</m>, which is a
 	  <m>5\by5</m> matrix.  Because <m>C</m> is symmetric, the
 	  Spectral Theorem tells us it is orthogonally diagonalizable
-	  so suppose that <m>C = QDQ^T</m> where
+	  so suppose that <m>C = QDQ^{\transpose}</m> where
 	  <me>
 	    Q = \begin{bmatrix}
 	    \uvec_1 \amp \uvec_2 \amp \uvec_3 \amp \uvec_4 \amp \uvec_5
@@ -508,7 +508,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 		<me>
 		  \twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}.  
 		</me>
-		Construct the matrix <m>Q</m> so that <m>Q^T\xvec =
+		Construct the matrix <m>Q</m> so that <m>Q^{\transpose}\xvec =
 		\twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}</m>.
 		<sage>
 		  <input>
@@ -520,7 +520,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    <li>
 	      <p>
 		Since each column of <m>A</m> represents a data point,
-		the matrix <m>Q^TA</m> represents the coordinates of
+		the matrix <m>Q^{\transpose}A</m> represents the coordinates of
 		the projected data points.  Evaluating the following
 		cell will plot those projected data points.
 		<sage>
@@ -544,7 +544,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    <li>
 	      <p>
 		After constructing the covariance matrix <m>C =
-		\frac{1}{100}AA^T</m>, we find that <m>V_{\uvec} =
+		\frac{1}{100}AA^{\transpose}</m>, we find that <m>V_{\uvec} =
 		\uvec\cdot(C\uvec) = 7885</m>.
 	      </p>
 	    </li>
@@ -558,8 +558,8 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    <li>
 	      <p>
 		If we obtain <m>P</m>, the matrix of eigenvectors,
-		from Sage, computing <m>P^TP</m> evaluates the dot
-		products between the columns.  Since <m>P^TP=I</m>,
+		from Sage, computing <m>P^{\transpose}P</m> evaluates the dot
+		products between the columns.  Since <m>P^{\transpose}P=I</m>,
 		the basis provided by Sage is orthonormal.
 	      </p>
 	    </li>
@@ -606,7 +606,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    <li>
 	      <p>
 		If <m>P</m> is the matrix of eigenvectors, evaluate
-		<m>P^TP</m>.
+		<m>P^{\transpose}P</m>.
 	      </p>
 	    </li>
 	    <li>
@@ -639,7 +639,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
       appears to show that the data lies close to a plane, and the
       principal components will identify this plane.  Starting with
       the <m>3\by100</m> matrix of demeaned data <m>A</m>, we
-      construct the covariance matrix <m>C=\frac{1}{100} ~AA^T</m> and
+      construct the covariance matrix <m>C=\frac{1}{100} ~AA^{\transpose}</m> and
       study its eigenvalues.  Notice that the first two principal
       components account for more than 98% of the variance, which
       means we can expect the points to lie close to <m>W_2</m>, the
@@ -682,9 +682,9 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
       If we form the matrix <m>Q=\begin{bmatrix}\uvec_1 \amp \uvec_2
       \end{bmatrix}</m>, then we have
       <me>
-	Q^T\xvec = \twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}.
+	Q^{\transpose}\xvec = \twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}.
       </me>
-      This means that the columns of <m>Q^TA</m> represent the
+      This means that the columns of <m>Q^{\transpose}A</m> represent the
       coordinates of the projected points, which may now be plotted in
       the plane.
     </p>
@@ -1198,7 +1198,7 @@ sepal_plot()
 
 	    <li>
 	      <p>
-		As we have seen, the columns of the matrix <m>Q^TA</m>
+		As we have seen, the columns of the matrix <m>Q^{\transpose}A</m>
 		hold the coordinates of the demeaned data points after
 		projecting onto <m>W_2</m>, the subspace spanned by
 		the first two principal components.  Evaluating the
@@ -1376,7 +1376,7 @@ pca_plot(Q.T*A)
       This section has explored principal component analysis as a
       technique to reduce the dimension of a dataset.  From the
       demeaned data matrix <m>A</m>, we form the covariance matrix
-      <m>C= \frac1N ~AA^T</m>, where <m>N</m> is the number of data
+      <m>C= \frac1N ~AA^{\transpose}</m>, where <m>N</m> is the number of data
       points. 
       <ul>
 	<li>
@@ -1403,7 +1403,7 @@ pca_plot(Q.T*A)
 	  <p>
 	    If <m>Q</m> is the matrix whose columns are the first
 	    <m>n</m> principal components, then the columns of
-	    <m>Q^TA</m> hold the coordinates, expressed in the basis
+	    <m>Q^{\transpose}A</m> hold the coordinates, expressed in the basis
 	    <m>\uvec_1,\ldots,\uvec_n</m>, of the data once
 	    projected onto <m>W_n</m>.
 	  </p>

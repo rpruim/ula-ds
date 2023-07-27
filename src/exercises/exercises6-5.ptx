@@ -550,7 +550,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	  <li>
 	    <p>
 	      Given the <m>QR</m> factorization <m>A=QR</m>, we have
-	      <m>A\xhat=Q^TQ\bvec</m>.
+	      <m>A\xhat=Q^{\transpose}Q\bvec</m>.
 	    </p>
 	  </li>
 	  <li>
@@ -563,7 +563,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	  </li>
 	  <li>
 	    <p>
-	      A solution to <m>AA^T\xvec = A\bvec</m> is the least
+	      A solution to <m>AA^{\transpose}\xvec = A\bvec</m> is the least
 	      squares approximate solution to <m>A\xvec = \bvec</m>.
 	    </p>
 	  </li>
@@ -590,7 +590,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	  </li>
 	  <li>
 	    <p>
-	      False.  The product <m>Q^TQ = I</m> rather than the
+	      False.  The product <m>Q^{\transpose}Q = I</m> rather than the
 	      matrix that projects vectors orthogonally onto
 	      <m>\col(A)</m>.
 	    </p>
@@ -603,7 +603,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	  </li>
 	  <li>
 	    <p>
-	      False.  The normal equations <m>A^TA\xhat = A^T\bvec</m>
+	      False.  The normal equations <m>A^{\transpose}A\xhat = A^{\transpose}\bvec</m>
 	      gives the least squares approximate solution.
 	    </p>
 	  </li>
@@ -652,14 +652,14 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    <p>
 	      Since <m>A\xhat = \bhat</m> and <m>\xhat = \zerovec</m>,
 	      we know that <m>\bhat=\zerovec</m>.  This says that
-	      <m>\bvec</m> is in <m>\col(A)^\perp = \nul(A^T)</m>.
+	      <m>\bvec</m> is in <m>\col(A)^\perp = \nul(A^{\transpose})</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      In this case, <m>\bhat = AA^T\bvec</m>, which means we
-	      have <m>A\xhat = AA^T\bvec</m>.  If we multiply both
-	      sides by <m>A^T</m>, we have <m>\xhat = A^T\bvec</m>.
+	      In this case, <m>\bhat = AA^{\transpose}\bvec</m>, which means we
+	      have <m>A\xhat = AA^{\transpose}\bvec</m>.  If we multiply both
+	      sides by <m>A^{\transpose}</m>, we have <m>\xhat = A^{\transpose}\bvec</m>.
 	    </p>
 	  </li>
 	</ol>
@@ -670,12 +670,12 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      <m>\bvec</m> is in <m>\col(A)^\perp = \nul(A^T)</m>.
+	      <m>\bvec</m> is in <m>\col(A)^\perp = \nul(A^{\transpose})</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      <m>\xhat = A^T\bvec</m>.
+	      <m>\xhat = A^{\transpose}\bvec</m>.
 	    </p>
 	  </li>
 	</ol>
@@ -1292,7 +1292,7 @@ df
 	solution to the equation <m>A\xvec=\bvec</m> because the equation
 	<m>A\xhat=\bhat</m> has a unique solution.  We also said that
 	<m>\xhat</m> is the unique solution to the normal equation
-	<m>A^TA\xhat = A^T\bvec</m> without explaining why this
+	<m>A^{\transpose}A\xhat = A^{\transpose}\bvec</m> without explaining why this
 	equation has a unique solution.  This exercise offers an
 	explanation.
       </p>
@@ -1300,23 +1300,23 @@ df
       <p>
 	Assuming that the columns of <m>A</m> are linearly
 	independent, we would like to conclude that the equation
-	<m>A^TA\xhat=A^T\bvec</m> has a unique solution.
+	<m>A^{\transpose}A\xhat=A^{\transpose}\bvec</m> has a unique solution.
 	<ol marker="a.">
 	  <li>
 	    <p>
 	      Suppose that <m>\xvec</m> is a vector for which
-	      <m>A^TA\xvec = \zerovec</m>.  Explain why the following
+	      <m>A^{\transpose}A\xvec = \zerovec</m>.  Explain why the following
 	      argument is valid and allows us to conclude that
 	      <m>A\xvec = \zerovec</m>.
 	      <me>
 		\begin{aligned}
-		A^TA\xvec \amp = \zerovec \\
-		\xvec\cdot A^TA\xvec \amp = \xvec\cdot\zerovec = 0 \\
+		A^{\transpose}A\xvec \amp = \zerovec \\
+		\xvec\cdot A^{\transpose}A\xvec \amp = \xvec\cdot\zerovec = 0 \\
 		(A\xvec)\cdot(A\xvec) \amp = 0 \\
 		\len{A\xvec}^2 \amp = 0. \\
 		\end{aligned}
 	      </me>
-	      In other words, if <m>A^TA\xvec = \zerovec</m>, we know
+	      In other words, if <m>A^{\transpose}A\xvec = \zerovec</m>, we know
 	      that <m>A\xvec = \zerovec</m>.
 	    </p>
 	  </li>
@@ -1329,14 +1329,14 @@ df
 	  </li>
 	  <li>
 	    <p>
-	      Explain why <m>A^TA\xvec = \zerovec</m> can only happen
+	      Explain why <m>A^{\transpose}A\xvec = \zerovec</m> can only happen
 	      when <m>\xvec = \zerovec</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
 	      Assuming that the columns of <m>A</m> are linearly
-	      independent, explain why <m>A^TA\xhat=A^T\bvec</m> has a
+	      independent, explain why <m>A^{\transpose}A\xhat=A^{\transpose}\bvec</m> has a
 	      unique solution.
 	    </p>
 	  </li>
@@ -1348,15 +1348,15 @@ df
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Starting with the assumption that <m>A^TA\xvec =
+	      Starting with the assumption that <m>A^{\transpose}A\xvec =
 	      \zerovec</m>, we dot both sides of the equation with
-	      <m>\xvec</m> to obtain <m>\xvec \cdot A^TA\xvec =
+	      <m>\xvec</m> to obtain <m>\xvec \cdot A^{\transpose}A\xvec =
 	      0</m>.  From here, we write
 	      <me>
 		\begin{aligned}
-		\xvec\cdot A^TA\xvec \amp = 0 \\
-		\xvec^TA^TA\xvec \amp = 0 \\
-		(A\xvec)^T(A\xvec) \amp = 0 \\
+		\xvec\cdot A^{\transpose}A\xvec \amp = 0 \\
+		\xvec^{\transpose}A^{\transpose}A\xvec \amp = 0 \\
+		(A\xvec)^{\transpose}(A\xvec) \amp = 0 \\
 		(A\xvec)\cdot (A\xvec) \amp = 0 \\
 		\len{A\xvec}^2 \amp = 0. \\
 		\end{aligned}
@@ -1375,7 +1375,7 @@ df
 	  <li>
 	    <p>
 	      The previous two parts of this exercise tell us that
-	      <m>A^TA\xvec = \zerovec</m> implies
+	      <m>A^{\transpose}A\xvec = \zerovec</m> implies
 	      that <m>A\xvec = \zerovec</m>, which implies that
 	      <m>\xvec = \zerovec</m>.
 	    </p>
@@ -1383,9 +1383,9 @@ df
 	  <li>
 	    <p>
 	      Since the only solution to the homogeneous equation
-	      <m>A^TA\xvec = \zerovec</m> is <m>\xvec=\zerovec</m>,
-	      the columns of <m>A^TA</m> are linearly independent,
-	      which means that <m>A^TA\xhat=A^T\bvec</m> has only one
+	      <m>A^{\transpose}A\xvec = \zerovec</m> is <m>\xvec=\zerovec</m>,
+	      the columns of <m>A^{\transpose}A</m> are linearly independent,
+	      which means that <m>A^{\transpose}A\xhat=A^{\transpose}\bvec</m> has only one
 	      solution. 
 	    </p>
 	  </li>
@@ -1397,8 +1397,8 @@ df
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Use the fact that <m>\xvec\cdot(A^TA\xvec)=
-	      (A\xvec)^T(A\xvec)</m>.
+	      Use the fact that <m>\xvec\cdot(A^{\transpose}A\xvec)=
+	      (A\xvec)^{\transpose}(A\xvec)</m>.
 	    </p>
 	  </li>
 	  <li>
@@ -1414,7 +1414,7 @@ df
 	  </li>
 	  <li>
 	    <p>
-	      The columns of <m>A^TA</m> must be linearly independent.
+	      The columns of <m>A^{\transpose}A</m> must be linearly independent.
 	    </p>
 	  </li>
 	</ol>

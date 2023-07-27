@@ -32,9 +32,9 @@
       matrices called the <term>singular value decomposition</term> that
       is, in many ways, analogous to an orthogonal diagonalization.
       For example, we have seen that any symmetric matrix can be
-      written in the form <m>QDQ^T</m> where <m>Q</m> is an orthogonal
+      written in the form <m>QDQ^{\transpose}</m> where <m>Q</m> is an orthogonal
       matrix and <m>D</m> is diagonal.  A singular value decomposition
-      will have the form <m>U\Sigma V^T</m> where <m>U</m> and
+      will have the form <m>U\Sigma V^{\transpose}</m> where <m>U</m> and
       <m>V</m> are orthogonal and <m>\Sigma</m> is diagonal.  Most
       notably, we will see that <em>every</em> matrix has a singular
       value decomposition whether it's symmetric or not.
@@ -50,7 +50,7 @@
 	    <li>
 	      <p>
 		Suppose that <m>A</m> is any matrix.  Explain why the
-		matrix <m>G = A^TA</m> is symmetric.
+		matrix <m>G = A^{\transpose}A</m> is symmetric.
 	      </p>
 	    </li>
 
@@ -59,7 +59,7 @@
 		Suppose that <m>A = \begin{bmatrix}
 		1 \amp 2 \\
 		-2 \amp -1 \\
-		\end{bmatrix}</m>.  Find the matrix <m>G=A^TA</m> and
+		\end{bmatrix}</m>.  Find the matrix <m>G=A^{\transpose}A</m> and
 		write out the quadratic form
 		<m>q_G\left(\twovec{x_1}{x_2}\right)</m> as a function
 		of <m>x_1</m> and <m>x_2</m>.
@@ -99,7 +99,7 @@
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		<m>G^T=(A^TA)^T = A^T(A^T)^T = A^TA=G</m>.
+		<m>G^{\transpose}=(A^{\transpose}A)^{\transpose} = A^{\transpose}(A^{\transpose})^{\transpose} = A^{\transpose}A=G</m>.
 	      </p>
 	    </li>
 	    <li>
@@ -153,7 +153,7 @@
 
     <p>
       Recall how the orthogonal diagonalization of a symmetric matrix
-      is formed: if <m>A</m> is symmetric, we write <m>A = QDQ^T</m>
+      is formed: if <m>A</m> is symmetric, we write <m>A = QDQ^{\transpose}</m>
       where the diagonal entries of <m>D</m> are the eigenvalues of
       <m>A</m> and the columns of <m>Q</m> are the associated
       eigenvectors.  Moreover, the eigenvalues are related to the
@@ -191,10 +191,10 @@
       if we square it:
       <me>
 	\left(l_A(\xvec)\right)^2 = |A\xvec|^2 = (A\xvec)\cdot(A\xvec)
-	= \xvec\cdot(A^TA\xvec)=q_{A^TA}(\xvec)\text{.}
+	= \xvec\cdot(A^{\transpose}A\xvec)=q_{A^{\transpose}A}(\xvec)\text{.}
       </me>
       <idx> Gram matrix </idx>
-      We call <m>G=A^TA</m>, the <term>Gram matrix</term> associated to
+      We call <m>G=A^{\transpose}A</m>, the <term>Gram matrix</term> associated to
       <m>A</m> and note that
       <me>
 	l_A(\xvec) = \sqrt{q_G(\xvec)}\text{.}
@@ -312,7 +312,7 @@
 		Here's how we can find the right singular values and
 		vectors without using the diagram.  Remember that
 		<m>l_A(\xvec) = \sqrt{q_G(\xvec)}</m> where
-		<m>G=A^TA</m> is the Gram matrix associated to
+		<m>G=A^{\transpose}A</m> is the Gram matrix associated to
 		<m>A</m>.  Since <m>G</m> is symmetric, it is
 		orthogonally diagonalizable.  Find 
 		<m>G</m> and an orthogonal diagonalization of it.
@@ -381,7 +381,7 @@
 
 	    <li>
 	      <p>
-		Finally, explain why <m>A=U\Sigma V^T</m> and verify
+		Finally, explain why <m>A=U\Sigma V^{\transpose}</m> and verify
 		that this relationship holds for this specific
 		example.
 	      </p>
@@ -412,7 +412,7 @@
 		<m>G = \begin{bmatrix}
 		5 \amp 4 \\
 		4 \amp 5 \\
-		\end{bmatrix} = QDQ^T</m>
+		\end{bmatrix} = QDQ^{\transpose}</m>
 		where
 		<me>
 		  D = \begin{bmatrix}
@@ -464,7 +464,7 @@
 	    <li>
 	      <p>
 		Since <m>V</m> is an orthogonal matrix, we have
-		<m>A = AVV^T = U\Sigma V^T</m>.
+		<m>A = AVV^{\transpose} = U\Sigma V^{\transpose}</m>.
 	      </p>
 	    </li>
 	  </ol>
@@ -526,7 +526,7 @@
 	    <li>
 	      <p>
 		Since <m>V</m> is an orthogonal matrix, we have
-		<m>A = AVV^T = U\Sigma V^T</m>.
+		<m>A = AVV^{\transpose} = U\Sigma V^{\transpose}</m>.
 	      </p>
 	    </li>
 	  </ol>
@@ -557,7 +557,7 @@
 	</p>
 
 	<p>
-	  We begin by constructing the Gram matrix <m>G = A^TA =
+	  We begin by constructing the Gram matrix <m>G = A^{\transpose}A =
 	  \begin{bmatrix} 
 	  2 \amp 0 \\
 	  0 \amp 8 \\
@@ -653,8 +653,8 @@
 	  Because the right singular vectors, the columns of <m>V</m>,
 	  are eigenvectors of the symmetric matrix <m>G</m>, they form
 	  an orthonormal basis, which means that <m>V</m> is
-	  orthogonal.  Therefore, we have <m>(AV)V^T = A = U\Sigma
-	  V^T</m>.  This gives the singular value decomposition
+	  orthogonal.  Therefore, we have <m>(AV)V^{\transpose} = A = U\Sigma
+	  V^{\transpose}</m>.  This gives the singular value decomposition
 	  <me>
 	    A = \begin{bmatrix}
 	    1 \amp 2 \\
@@ -671,8 +671,8 @@
 	    \begin{bmatrix}
 	    0 \amp 1 \\
 	    1 \amp 0 \\
-	    \end{bmatrix}^T
-	    = U\Sigma V^T\text{.}
+	    \end{bmatrix}^{\transpose}
+	    = U\Sigma V^{\transpose}\text{.}
 	  </me>
 	</p>
       </statement>
@@ -684,7 +684,7 @@
       <ul>
 	<li>
 	  <p>
-	    Construct the Gram matrix <m>G=A^TA</m> and
+	    Construct the Gram matrix <m>G=A^{\transpose}A</m> and
 	    find an orthogonal diagonalization to obtain eigenvalues
 	    <m>\lambda_i</m> and an orthonormal basis of
 	    eigenvectors. 
@@ -720,7 +720,7 @@
 	      </mrow>
 	      <mrow>
 		\amp {}={}
-		\vvec_i\cdot(A^TA\vvec_j) 
+		\vvec_i\cdot(A^{\transpose}A\vvec_j) 
 	      </mrow>
 	      <mrow>
 		\amp {}={}
@@ -744,7 +744,7 @@
 	  2 \amp 1
 	  \end{bmatrix}</m>.  
 	  The associated Gram matrix is
-	  <me>G = A^TA = \begin{bmatrix}
+	  <me>G = A^{\transpose}A = \begin{bmatrix}
 	  5 \amp 4 \\
 	  4 \amp 5 \\
 	  \end{bmatrix}\text{,}
@@ -773,7 +773,7 @@
 	      \amp \uvec_2 = \twovec{-1/\sqrt{2}}{1/\sqrt{2}}
 	    </mrow>
 	  </md>
-	  and the singular value decomposition <m>A=U\Sigma V^T</m>
+	  and the singular value decomposition <m>A=U\Sigma V^{\transpose}</m>
 	  where 
 	  <me>
 	    U = \begin{bmatrix}
@@ -795,7 +795,7 @@
 	  This example is special because <m>A</m> is symmetric.  With
 	  a little thought, it's possible to relate this singular
 	  value decomposition to an orthogonal diagonalization of
-	  <m>A</m> using the fact that <m>G=A^TA = A^2</m>.
+	  <m>A</m> using the fact that <m>G=A^{\transpose}A = A^2</m>.
 	</p>
       </statement>
     </example>
@@ -813,7 +813,7 @@
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		Construct the Gram matrix <m>G=A^TA</m> and find an
+		Construct the Gram matrix <m>G=A^{\transpose}A</m> and find an
 		orthogonal diagonalization of it.
 		<sage>
 		  <input>
@@ -865,7 +865,7 @@
 		0 \amp \sigma_2 \amp 0
 		\end{bmatrix}
 		</me>
-		and verify that <m>A = U\Sigma V^T</m>.
+		and verify that <m>A = U\Sigma V^{\transpose}</m>.
 		<sage>
 		  <input>
 		  </input>
@@ -875,8 +875,8 @@
 	    <li>
 	      <p>
 		How can you use this singular value decomposition of
-		<m>A=U\Sigma V^T</m> to easily find a singular value
-		decomposition of <m>A^T=\begin{bmatrix}
+		<m>A=U\Sigma V^{\transpose}</m> to easily find a singular value
+		decomposition of <m>A^{\transpose}=\begin{bmatrix}
 		1 \amp 1 \\
 		0 \amp 1 \\
 		-1 \amp 1 \\
@@ -975,14 +975,14 @@
 		\Sigma = \begin{bmatrix}
 		\sqrt{3} \amp 0 \amp 0 \\
 		0 \amp \sqrt{2} \amp 0
-		\end{bmatrix}</m>, we see that <m>A=U\Sigma V^T</m>.
+		\end{bmatrix}</m>, we see that <m>A=U\Sigma V^{\transpose}</m>.
 	      </p>
 	    </li>
 
 	    <li>
 	      <p>
-		If <m>A = U\Sigma V^T</m>, then <m>A^T=(U\Sigma V^T)^T
-		= V\Sigma^T U^T</m>.
+		If <m>A = U\Sigma V^{\transpose}</m>, then <m>A^{\transpose}=(U\Sigma V^{\transpose})^{\transpose}
+		= V\Sigma^{\transpose} U^{\transpose}</m>.
 	      </p>
 	    </li>
 	  </ol>
@@ -1044,14 +1044,14 @@
 		\Sigma = \begin{bmatrix}
 		\sqrt{3} \amp 0 \amp 0 \\
 		0 \amp \sqrt{2} \amp 0
-		\end{bmatrix}</m>, we see that <m>A=U\Sigma V^T</m>.
+		\end{bmatrix}</m>, we see that <m>A=U\Sigma V^{\transpose}</m>.
 	      </p>
 	    </li>
 
 	    <li>
 	      <p>
-		<m>A^T=(U\Sigma V^T)^T
-		= V\Sigma^T U^T</m>.
+		<m>A^{\transpose}=(U\Sigma V^{\transpose})^{\transpose}
+		= V\Sigma^{\transpose} U^{\transpose}</m>.
 	      </p>
 	    </li>
 	  </ol>
@@ -1071,7 +1071,7 @@
 	</p>
 
 	<p>
-	  Finding an orthogonal diagonalization of <m>G=A^TA</m> gives
+	  Finding an orthogonal diagonalization of <m>G=A^{\transpose}A</m> gives
 	  <me>
 	    D=\begin{bmatrix}
 	    144 \amp 0 \amp 0 \\
@@ -1127,7 +1127,7 @@
 	    2/3 \amp 1/3 \amp -2/3 \\
 	    \end{bmatrix}\text{,}
 	  </me>
-	  which gives the singular value decomposition <m>A=U\Sigma V^T</m>.
+	  which gives the singular value decomposition <m>A=U\Sigma V^{\transpose}</m>.
 	</p>
 
 	<p>
@@ -1151,7 +1151,7 @@
       <title> The singular value decomposition </title>
       <statement>
 	An <m>m\by n</m> matrix <m>A</m> may be written
-	as <m>A=U\Sigma V^T</m> where <m>U</m> is an orthogonal
+	as <m>A=U\Sigma V^{\transpose}</m> where <m>U</m> is an orthogonal
 	<m>m\by m</m> matrix, <m>V</m> is an orthogonal
 	<m>n\by n</m> matrix, and <m>\Sigma</m> is an <m>m\by
 	n</m> matrix whose entries are zero except for the singular
@@ -1162,20 +1162,20 @@
     
     <p>
       Notice that a singular value decomposition of <m>A</m> gives
-      us a singular value decomposition of <m>A^T</m>.  More
-      specifically, if <m>A=U\Sigma V^T</m>, then
+      us a singular value decomposition of <m>A^{\transpose}</m>.  More
+      specifically, if <m>A=U\Sigma V^{\transpose}</m>, then
       <me>
-	A^T = (U\Sigma V^T)^T = V\Sigma^T U^T.
+	A^{\transpose} = (U\Sigma V^{\transpose})^{\transpose} = V\Sigma^{\transpose} U^{\transpose}.
       </me>
     </p>
     
     <proposition xml:id="prop-svd-transpose">
       <statement>
 	<p>
-	  If <m>A=U\Sigma V^T</m>, then <m>A^T = V\Sigma^T U^T</m>.
-	  In other words, <m>A</m> and <m>A^T</m> share the same
+	  If <m>A=U\Sigma V^{\transpose}</m>, then <m>A^{\transpose} = V\Sigma^{\transpose} U^{\transpose}</m>.
+	  In other words, <m>A</m> and <m>A^{\transpose}</m> share the same
 	  singular values, and the left singular vectors of <m>A</m> are
-	  the right singular vectors of <m>A^T</m> and vice-versa.
+	  the right singular vectors of <m>A^{\transpose}</m> and vice-versa.
 	</p>
       </statement>
     </proposition>
@@ -1184,10 +1184,10 @@
       As we said earlier, a singular value decomposition should be
       thought of a generalization of an orthogonal diagonalization.
       For instance, the Spectral Theorem tells us that a symmetric
-      matrix can be written as <m>QDQ^T</m>.  Many matrices,
+      matrix can be written as <m>QDQ^{\transpose}</m>.  Many matrices,
       however, are not symmetric and so they are not orthogonally
       diagonalizable.  However, every matrix has a singular value
-      decomposition <m>U\Sigma V^T</m>.  The price of this
+      decomposition <m>U\Sigma V^{\transpose}</m>.  The price of this
       generalization is that we usually have two sets of singular
       vectors that form the
       orthogonal matrices <m>U</m> and <m>V</m> whereas a symmetric
@@ -1216,7 +1216,7 @@
       <statement>
 	<p>
 	  Let's suppose that a matrix <m>A</m> has a singular value
-	  decomposition <m>A=U\Sigma V^T</m> where
+	  decomposition <m>A=U\Sigma V^{\transpose}</m> where
 	  <me>
 	    U=\begin{bmatrix}
 	    \uvec_1 \amp \uvec_2 \amp \uvec_3 \amp \uvec_4
@@ -1253,14 +1253,14 @@
 
 	      <p>
 		To begin, 
-		<m>V^T\xvec = \threevec{\vvec_1\cdot\xvec}
+		<m>V^{\transpose}\xvec = \threevec{\vvec_1\cdot\xvec}
 		{\vvec_2\cdot\xvec}
 		{\vvec_3\cdot\xvec} = \threevec{c_1}{c_2}{c_3}
 		</m>.
 	      </p>
 
 	      <p>
-		Now <m>\Sigma V^T \xvec = 
+		Now <m>\Sigma V^{\transpose} \xvec = 
 		\begin{bmatrix}
 		20 \amp 0 \amp 0 \\
 		0 \amp 5 \amp 0 \\
@@ -1272,7 +1272,7 @@
 
 	      <p>
 		And finally,
-		<m> A\xvec = U\Sigma V^T\xvec =
+		<m> A\xvec = U\Sigma V^{\transpose}\xvec =
 		\begin{bmatrix}
 		\uvec_1 \amp \uvec_2 \amp \uvec_3 \amp \uvec_4
 		\end{bmatrix}
@@ -1447,7 +1447,7 @@
       <statement>
 	<p>
 	  Suppose we have a singular value decomposition <m>A=U\Sigma
-	  V^T</m> where
+	  V^{\transpose}</m> where
 	  <m>\Sigma = \begin{bmatrix}
 	  \sigma_1 \amp 0 \amp 0 \amp 0 \amp 0 \\
 	  0 \amp \sigma_2 \amp 0 \amp 0 \amp 0 \\
@@ -1551,9 +1551,9 @@
     <p>
       Remember that <xref
       ref="prop-svd-transpose" /> says that <m>A</m> and its transpose
-      <m>A^T</m> share the same singular values.  Since the rank of a
+      <m>A^{\transpose}</m> share the same singular values.  Since the rank of a
       matrix equals its number of nonzero singular values, this means
-      that <m>\rank(A)=\rank(A^T)</m>, a fact that we cited back in
+      that <m>\rank(A)=\rank(A^{\transpose})</m>, a fact that we cited back in
       <xref ref="sec-transpose" />.
     </p>
 
@@ -1561,38 +1561,38 @@
       <statement>
 	<p>
 	  For any matrix <m>A</m>, <me>\rank(A) =
-	  \rank(A^T)\text{.}</me>
+	  \rank(A^{\transpose})\text{.}</me>
 	</p>
       </statement>
     </proposition>
 
     <p>
       If we have a singular value decomposition of an <m>m\by n</m>
-      matrix <m>A=U\Sigma V^T</m>, <xref ref="prop-svd-transpose" />
+      matrix <m>A=U\Sigma V^{\transpose}</m>, <xref ref="prop-svd-transpose" />
       also tells us that the left singular vectors of <m>A</m> are
-      the right singular vectors of <m>A^T</m>.  Therefore, <m>U</m> is
+      the right singular vectors of <m>A^{\transpose}</m>.  Therefore, <m>U</m> is
       the <m>m\by m</m> matrix whose columns are the right singular
-      vectors of <m>A^T</m>.  This means that the last <m>m-r</m>
-      vectors form an orthonormal basis for <m>\nul(A^T)</m>.
+      vectors of <m>A^{\transpose}</m>.  This means that the last <m>m-r</m>
+      vectors form an orthonormal basis for <m>\nul(A^{\transpose})</m>.
       Therefore, the columns of
       <m>U</m> provide orthonormal bases for <m>\col(A)</m> and
-      <m>\nul(A^T)</m>:
+      <m>\nul(A^{\transpose})</m>:
       <me>
 	U = \left[
 	\underbrace{\uvec_1 ~ \ldots ~ \uvec_r}_{\col(A)} \hspace{3pt}
-	\underbrace{\uvec_{r+1} ~ \ldots ~ \uvec_m}_{\nul(A^T)}
+	\underbrace{\uvec_{r+1} ~ \ldots ~ \uvec_m}_{\nul(A^{\transpose})}
 	\right]\text{.}
       </me>
-      This reflects the familiar fact that <m>\nul(A^T)</m> is the
+      This reflects the familiar fact that <m>\nul(A^{\transpose})</m> is the
       orthogonal complement of <m>\col(A)</m>.
     </p>
 
     <p>
 	  In the same way, <m>V</m> is the
       <m>n\by n</m> matrix whose columns are the left singular
-      vectors of <m>A^T</m>, which means that the first <m>r</m>
-      vectors form an orthonormal basis for <m>\col(A^T)</m>.  Because
-      the columns of <m>A^T</m> are the rows of <m>A</m>, this
+      vectors of <m>A^{\transpose}</m>, which means that the first <m>r</m>
+      vectors form an orthonormal basis for <m>\col(A^{\transpose})</m>.  Because
+      the columns of <m>A^{\transpose}</m> are the rows of <m>A</m>, this
       subspace is sometimes called the <term> row space </term> of
       <m>A</m> and denoted <m>\row(A)</m>.  
       <idx> row space </idx> 
@@ -1600,10 +1600,10 @@
       important to have an orthonormal basis for it, and a
       singular value decomposition provides just that.  To summarize,
       the columns of <m>V</m> provide orthonormal bases for
-      <m>\col(A^T)</m> and <m>\nul(A)</m>:
+      <m>\col(A^{\transpose})</m> and <m>\nul(A)</m>:
       <me>
 	V = \left[
-	\underbrace{\vvec_1 ~ \ldots ~ \vvec_r}_{\col(A^T)}\hspace{3pt}
+	\underbrace{\vvec_1 ~ \ldots ~ \vvec_r}_{\col(A^{\transpose})}\hspace{3pt}
 	\underbrace{\vvec_{r+1} ~ \ldots ~ \vvec_m}_{\nul(A)}
 	\right]
       </me>
@@ -1611,7 +1611,7 @@
 
     <p>
       Considered altogether, the subspaces <m>\col(A)</m>,
-      <m>\nul(A)</m>, <m>\col(A^T)</m>, and <m>\nul(A^T)</m> are
+      <m>\nul(A)</m>, <m>\col(A^{\transpose})</m>, and <m>\nul(A^{\transpose})</m> are
       called the <term>four fundamental subspaces </term> associated to
       <m>A</m>.  
 	  <idx>fundamental subspaces</idx>
@@ -1624,7 +1624,7 @@
       <statement>
 	<p>
 	  Suppose <m>A</m> is an <m>m\by n</m> matrix having a
-	  singular value decomposition <m>A=U\Sigma V^T</m>.  Then
+	  singular value decomposition <m>A=U\Sigma V^{\transpose}</m>.  Then
 	  <ul>
 	    <li>
 	      <p>
@@ -1641,13 +1641,13 @@
 	    <li>
 	      <p>
 		The columns <m>\uvec_{r+1},\ldots,\uvec_m</m> form
-		an orthonormal basis for <m>\nul(A^T)</m>.
+		an orthonormal basis for <m>\nul(A^{\transpose})</m>.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
 		The columns <m>\vvec_1,\vvec_2,\ldots,\vvec_r</m>
-		form an orthonormal basis for <m>\col(A^T)</m>.
+		form an orthonormal basis for <m>\col(A^{\transpose})</m>.
 	      </p>
 	    </li>
 	    <li>
@@ -1671,9 +1671,9 @@
       to find the left singular vectors
       <m>\uvec_{r+1},\ldots,\uvec_m</m>.  <xref
       ref="thm-four-subspaces" /> tells us how to do that: because
-      those vectors form an orthonormal basis for <m>\nul(A^T)</m>,
-      we can find them by solving <m>A^T\xvec = \zerovec</m> to obtain
-      a basis for <m>\nul(A^T)</m> and
+      those vectors form an orthonormal basis for <m>\nul(A^{\transpose})</m>,
+      we can find them by solving <m>A^{\transpose}\xvec = \zerovec</m> to obtain
+      a basis for <m>\nul(A^{\transpose})</m> and
       applying the Gram-Schmidt algorithm.
     </p>
 
@@ -1698,7 +1698,7 @@
       <statement>
 	<p>
 	  Suppose we have a singular value decomposition <m>A =
-	  U\Sigma V^T</m> where
+	  U\Sigma V^{\transpose}</m> where
 	  <me>
 	    U = \begin{bmatrix}
 	    \uvec_1 \amp \uvec_2 \amp \uvec_3 \amp \uvec_4
@@ -1722,7 +1722,7 @@
 	    </li>
 	    <li>
 	      <p>
-		Identify bases for <m>\col(A)</m> and <m>\col(A^T)</m>.
+		Identify bases for <m>\col(A)</m> and <m>\col(A^{\transpose})</m>.
 	      </p>
 	    </li>
 	    <li>
@@ -1746,25 +1746,25 @@
 		  \begin{bmatrix}
 		  18 \amp 0 \amp 0 \\
 		  0 \amp 4 \amp 0 \\
-		  \end{bmatrix}V^T =
+		  \end{bmatrix}V^{\transpose} =
 		  \begin{bmatrix}
 		  18 \amp 0 \\
 		  0 \amp 4 \\
 		  \end{bmatrix}
 		  \begin{bmatrix}
 		  \vvec_1 \amp \vvec_2
-		  \end{bmatrix}^T\text{.}
+		  \end{bmatrix}^{\transpose}\text{.}
 		</me>
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		If <m>A = U\Sigma V^T</m>, explain why
-		<m>A=U_r\Sigma_rV_r^T</m> where the columns of
+		If <m>A = U\Sigma V^{\transpose}</m>, explain why
+		<m>A=U_r\Sigma_rV_r^{\transpose}</m> where the columns of
 		<m>U_r</m> are an orthonormal basis for
 		<m>\col(A)</m>, <m>\Sigma_r</m> is a square, diagonal,
 		invertible matrix, and the columns of <m>V_r</m> form
-		an orthonormal basis for <m>\col(A^T)</m>.
+		an orthonormal basis for <m>\col(A^{\transpose})</m>.
 	      </p>
 	    </li>
 	  </ol>
@@ -1822,19 +1822,19 @@
 		  \begin{bmatrix}
 		  18 \amp 0 \amp 0 \\
 		  0 \amp 4 \amp 0 \\
-		  \end{bmatrix}V^T =
+		  \end{bmatrix}V^{\transpose} =
 		  \begin{bmatrix}
 		  18 \amp 0 \amp 0 \\
 		  0 \amp 4 \amp 0 \\
 		  \end{bmatrix}
 		  \begin{bmatrix}
-		  \vvec_1^T \\
-		  \vvec_2^T \\
-		  \vvec_3^T
+		  \vvec_1^{\transpose} \\
+		  \vvec_2^{\transpose} \\
+		  \vvec_3^{\transpose}
 		  \end{bmatrix} =
 		  \begin{bmatrix}
-		  18 \vvec_1^T \\
-		  4 \vvec_2^T
+		  18 \vvec_1^{\transpose} \\
+		  4 \vvec_2^{\transpose}
 		  \end{bmatrix} = 
 		  \begin{bmatrix}
 		  18 \amp 0 \\
@@ -1842,14 +1842,14 @@
 		  \end{bmatrix}
 		  \begin{bmatrix}
 		  \vvec_1 \amp \vvec_2
-		  \end{bmatrix}^T\text{.}
+		  \end{bmatrix}^{\transpose}\text{.}
 		</me>
 	      </p>
 	    </li>
 	    <li>
 	      <p>
 		Put together the previous parts to see that
-		<m>A=U_r\Sigma_rV_r^T</m> where
+		<m>A=U_r\Sigma_rV_r^{\transpose}</m> where
 		<me>
 		  U_r = \begin{bmatrix}
 		  \uvec_1 \amp \uvec_2
@@ -1912,15 +1912,15 @@
 		  \begin{bmatrix}
 		  18 \amp 0 \amp 0 \\
 		  0 \amp 4 \amp 0 \\
-		  \end{bmatrix}V^T =
+		  \end{bmatrix}V^{\transpose} =
 		  \begin{bmatrix}
 		  18 \amp 0 \amp 0 \\
 		  0 \amp 4 \amp 0 \\
 		  \end{bmatrix}
 		  \begin{bmatrix}
-		  \vvec_1^T \\
-		  \vvec_2^T \\
-		  \vvec_3^T
+		  \vvec_1^{\transpose} \\
+		  \vvec_2^{\transpose} \\
+		  \vvec_3^{\transpose}
 		  \end{bmatrix} 
 		</me>
 	      </p>
@@ -1928,7 +1928,7 @@
 	    <li>
 	      <p>
 		Put together the previous parts to see that
-		<m>A=U_r\Sigma_rV_r^T</m> where
+		<m>A=U_r\Sigma_rV_r^{\transpose}</m> where
 		<me>
 		  U_r = \begin{bmatrix}
 		  \uvec_1 \amp \uvec_2
@@ -1959,7 +1959,7 @@
       <statement>
 	<p>
 	  If <m>A</m> is an <m>m\by n</m> matrix having rank
-	  <m>r</m>, then <m>A=U_r \Sigma_r V_r^T</m> where
+	  <m>r</m>, then <m>A=U_r \Sigma_r V_r^{\transpose}</m> where
 	  <ul>
 	    <li>
 	      <p>
@@ -1981,7 +1981,7 @@
 	    <li>
 	      <p>
 		<m>V_r</m> is an <m>n\by r</m> matrix whose columns
-		form an orthonormal basis for <m>\col(A^T)</m>.
+		form an orthonormal basis for <m>\col(A^{\transpose})</m>.
 	      </p>
 	    </li>
 	  </ul>
@@ -2010,7 +2010,7 @@
 	    1/3 \amp 2/3 \amp 2/3 \\
 	    2/3 \amp -2/3 \amp 1/3 \\
 	    2/3 \amp 1/3 \amp -2/3 \\
-	    \end{bmatrix}^T\text{.}
+	    \end{bmatrix}^{\transpose}\text{.}
 	  </me>
 	  Since there are two nonzero singular values, <m>\rank(A)
 	  =2</m> so that the reduced singular value decomposition is
@@ -2030,7 +2030,7 @@
 	    1/3 \amp 2/3  \\
 	    2/3 \amp -2/3  \\
 	    2/3 \amp 1/3  \\
-	    \end{bmatrix}^T\text{.}
+	    \end{bmatrix}^{\transpose}\text{.}
 	  </me>
 	</p>
       </statement>
@@ -2050,7 +2050,7 @@
 	<li>
 	  <p>
 	    A singular value decomposition of a matrix <m>A</m> is
-	    a factorization where <m>A=U\Sigma V^T</m>.  The matrix
+	    a factorization where <m>A=U\Sigma V^{\transpose}</m>.  The matrix
 	    <m>\Sigma</m> has the same shape as <m>A</m>, and its
 	    only nonzero entries are the singular values of
 	    <m>A</m>, which appear in decreasing order on the
@@ -2063,7 +2063,7 @@
 	<li>
 	  <p>
 	    To find a singular value decomposition of a matrix, we
-	    construct the Gram matrix <m>G=A^TA</m>, which is
+	    construct the Gram matrix <m>G=A^{\transpose}A</m>, which is
 	    symmetric.  The singular 
 	    values of <m>A</m> are the square roots of the
 	    eigenvalues of <m>G</m>, and the right singular vectors
@@ -2082,9 +2082,9 @@
 	    matrix.  The first <m>r</m> left singular vectors form
 	    an orthonormal basis for <m>\col(A)</m> with the
 	    remaining left singular vectors forming an orthonormal
-	    basis of <m>\nul(A^T)</m>.  The first <m>r</m> right
+	    basis of <m>\nul(A^{\transpose})</m>.  The first <m>r</m> right
 	    singular vectors form an orthonormal basis for
-	    <m>\col(A^T)</m> while the remaining right singular
+	    <m>\col(A^{\transpose})</m> while the remaining right singular
 	    vectors form an orthonormal basis of <m>\nul(A)</m>.
 	  </p>
 	</li>
@@ -2092,10 +2092,10 @@
 	  <p>
 	    If <m>A</m> is a rank <m>r</m> matrix,
 	    we can write a reduced singular value decomposition as
-	    <m>A=U_r\Sigma_rV_r^T</m> where the columns of <m>U_r</m>
+	    <m>A=U_r\Sigma_rV_r^{\transpose}</m> where the columns of <m>U_r</m>
 	    form an orthonormal basis for <m>\col(A)</m>, the columns
 	    of <m>V_r</m> form an orthonormal basis for
-	    <m>\col(A^T)</m>, and <m>\Sigma_r</m> is an <m>r\by
+	    <m>\col(A^{\transpose})</m>, and <m>\Sigma_r</m> is an <m>r\by
 	    r</m> diagonal, invertible matrix.
 	  </p>
 	</li>
