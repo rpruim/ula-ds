@@ -101,14 +101,12 @@ delta = 0.2
 dz = smult(0.4, w3)
 dy = smult(delta, w2)
 
-'''
 newpath()
 moveto3d(proj)
 rmoveto3d(dz)
 rlineto3d(dy)
 rlineto3d(smult(-1,dz))
 stroke()
-'''
 
 newpath()
 arrow3dto(proj, b, lightred)
@@ -126,7 +124,7 @@ Label(r'${\boldsymbol w}_1$', w1, alignment="lt", offset=[dx,-2]).draw()
 Label(r'${\boldsymbol w}_2$', w2, alignment="rb", offset=[-dx,5]).draw()
 Label(r'${\boldsymbol b}$', 0.8 * Vec(b), alignment="rb", offset=[-dx,0], color = blue).draw()
 Label(r'$\widehat{\boldsymbol b}$', 0.8 * Vec(proj), alignment="rt", offset=[-8,-dx+2], color = lightblue).draw()
-Label(r'${\boldsymbol b} - {\hat{\boldsymbol b}}$', 0.5 * (Vec(b) + Vec(proj)), alignment="lb", offset=[dx,0], color = lightred).draw()
+Label(r'${\boldsymbol b} - {\hat{\boldsymbol b}}$', 0.5 * (Vec(b) + Vec(proj)), alignment="lb", offset=[dx,0], color = red).draw()
 
 grestore3d()
 grestore()
