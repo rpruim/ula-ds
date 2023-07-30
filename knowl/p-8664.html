@@ -25,17 +25,13 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
 </head>
 <body class="ignore-math">
 <h4 class="heading"><span class="type">Paragraph</span></h4>
-<div class="para logical"><ol class="lower-alpha">
-<li><div class="para">The eigenvalues of a matrix <code class="code-inline tex2jax_ignore">A</code> can be found with <code class="code-inline tex2jax_ignore">linalg.eigvals(A)</code>. The number of times that an eigenvalue appears in the list equals its multiplicity.</div></li>
-<li><div class="para">The eigenvectors of a matrix <code class="code-inline tex2jax_ignore">A</code> can be found with <code class="code-inline tex2jax_ignore">linalg.eig(A)</code>.</div></li>
-<li><div class="para">If <span class="process-math">\(A\)</span> can be diagonalized as <span class="process-math">\(A=PDP^{-1}\text{,}\)</span> then <pre class="ptx-sagecell sagecell-python" id="sage-324"><script type="text/x-sage"></script></pre> provides the matrices <code class="code-inline tex2jax_ignore">D</code> and <code class="code-inline tex2jax_ignore">P</code>. Recall the <code class="code-inline tex2jax_ignore">sympy</code> does symbolic computation.  We can use <code class="code-inline tex2jax_ignore">evalf()</code> to compute a numerical approximation.</div></li>
-<li><div class="para">The characteristic polynomial of <code class="code-inline tex2jax_ignore">sympy.Matrix</code> <code class="code-inline tex2jax_ignore">A</code> is <code class="code-inline tex2jax_ignore">A.charpoly('x')</code>. <pre class="ptx-sagecell sagecell-python" id="sage-325"><script type="text/x-sage">A = np.array(np.arange(9)).reshape(3,3)
-poly = sympy.Matrix(A).charpoly('x')
-pprint(poly)
-print(poly(2))
-</script></pre>
-</div></li>
-</ol></div>
+<div class="para">Be aware that Python can treat mathematically equivalent matrices in different ways depending on how they are entered. For instance, the matrix <pre class="ptx-sagecell sagecell-python" id="sage-312"><script type="text/x-sage">A = np.array([ [1, 2],
+             [2, 1] ])
+print(A.dtype)
+</script></pre> has integer entries while <pre class="ptx-sagecell sagecell-python" id="sage-313"><script type="text/x-sage">B = np.array([ [1.0, 2.0],
+               [2.0, 1.0] ])
+print(B.dtype)
+</script></pre> has floating point entries. If any of the entries in a matrix are provided as floating point numbers, then all of the entries will be converted to floating point values.</div>
 <span class="incontext"><a href="subsec-frequently-used-python.html#p-8664" class="internal">in-context</a></span>
 </body>
 </html>

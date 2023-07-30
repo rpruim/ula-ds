@@ -9,10 +9,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
+                       linked: true,
+                       languages: ['sage'],
+                       evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
+</script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para"><span class="process-math">\(\displaystyle R^2=0.99\)</span></div>
+<div class="para">Evaluating the cell below will plot the extent of Arctic sea ice, in millions of square kilometers, during the twelve months of 1980, 2012, and 2017. We will focus primarily on 2012. <pre class="ptx-sagecell sagecell-python" id="sage-209"><script type="text/x-sage">import pandas as pd
+import numpy as np
+import seaborn.objects as so
+ice = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/sea_ice.csv')
+print(ice)
+so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
+</script></pre>
+</div>
 <span class="incontext"><a href="sec-least-squares.html#p-6875" class="internal">in-context</a></span>
 </body>
 </html>

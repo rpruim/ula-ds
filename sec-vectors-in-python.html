@@ -256,6 +256,7 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\xvec}{{\boldsymbol x}}
 \newcommand{\yvec}{{\boldsymbol y}}
 \newcommand{\zvec}{{\boldsymbol z}}
+\newcommand{\betavec}{{\boldsymbol \beta}}
 \newcommand{\E}{\operatorname{E}}
 \newcommand{\zerovec}{{\boldsymbol 0}}
 \newcommand{\onevec}{{\boldsymbol 1}}
@@ -301,9 +302,13 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\uhat}{\widehat{\uvec}}
 \newcommand{\what}{\widehat{\wvec}}
 \newcommand{\xhat}{\widehat{\xvec}}
+\newcommand{\xmean}{\overline{\xvec}}
 \newcommand{\yhat}{\widehat{\yvec}}
+\newcommand{\ymean}{\overline{\yvec}}
+\newcommand{\betahat}{\widehat{\betavec}}
 \newcommand{\Sighat}{\widehat{\Sigma}}
 \newcommand{\by}{\times}
+\newcommand{\transpose}{\top}
 \newcommand{proj}[2]{\operatorname{proj}\left(#1 \to #2\right)}
 \newcommand{projsub}[2]{\operatorname{proj}_{#2}(#1)}
 \newcommand{\lt}{&lt;}
@@ -643,14 +648,16 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 <li>
-<div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Orthogonal least squares</span></a></div>
+<div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Least squares methods</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-least-squares.html#subsection-108" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-109" class="internal"><span class="codenumber">6.5.2</span> <span class="title">Solving least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-110" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-111" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Polynomial Regression</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Summary</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#exercises-29" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsec-linear-model-framework" class="internal"><span class="codenumber">6.5.2</span> <span class="title">The linear model framework</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-110" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Solving least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-111" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Polynomial Regression</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsec-skl-lm" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Fitting linear models with standard tools</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-114" class="internal"><span class="codenumber">6.5.7</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#exercises-29" class="internal"><span class="codenumber">6.5.8</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 </ul>
@@ -661,49 +668,49 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-113" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-114" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-115" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-115" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-116" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-117" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-symmetric-matrices.html#exercises-30" class="internal"><span class="codenumber">7.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Quadratic forms</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-116" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-117" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-118" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-118" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-119" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-120" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-quadratic-forms.html#exercises-31" class="internal"><span class="codenumber">7.2.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Principal Component Analysis</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pca.html#subsection-119" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-120" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-121" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-121" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-122" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-123" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#exercises-32" class="internal"><span class="codenumber">7.3.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-122" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-123" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-124" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-125" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-124" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-125" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-126" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-127" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-intro.html#exercises-33" class="internal"><span class="codenumber">7.4.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Using Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-126" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-127" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-128" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-129" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-130" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-131" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-128" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-129" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-130" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-131" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-132" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-133" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-uses.html#exercises-34" class="internal"><span class="codenumber">7.5.7</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -716,8 +723,8 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="subsection-132.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
-<li><div class="toc-item"><a href="subsection-133.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-134.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-135.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span></a></div></li>
 </ul>
 </li>
@@ -729,18 +736,18 @@ eBookConfig.enable_chatcodes =  false;
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-vectors-in-python"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">1.2</span> <span class="title">Vectors in Python</span>
 </h2>
-<section class="introduction" id="introduction-2"><div class="para" id="p-66">Now that we have been introduced to vectors, it’s time to learn how to work with vectors in Python.</div></section><section class="subsection" id="subsec-intro-to-python"><h3 class="heading hide-type">
+<section class="introduction" id="introduction-2"><div class="para" id="p-67">Now that we have been introduced to vectors, it’s time to learn how to work with vectors in Python.</div></section><section class="subsection" id="subsec-intro-to-python"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">1.2.1</span> <span class="title">Introduction to Python</span>
 </h3>
-<div class="para" id="p-67">SageMath is a free open-source mathematics software system licensed under the GPL. It builds on top of many existing open-source packages: NumPy, SciPy, matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined power through a common, Python-based language or directly via interfaces or wrappers. In this book we will use SageMath as a way to embed Python (and sometimes R) cells that you can edit and execute as you learn linear algebra.</div>
-<div class="para" id="p-68">Here is a Python cell containing a command that asks Python to multiply 5 and 3.  You may execute the command by pressing the <em class="emphasis">Evaluate</em> button. <pre class="ptx-sagecell sagecell-python" id="sage-1"><script type="text/x-sage">5 * 3
+<div class="para" id="p-68">SageMath is a free open-source mathematics software system licensed under the GPL. It builds on top of many existing open-source packages: NumPy, SciPy, matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined power through a common, Python-based language or directly via interfaces or wrappers. In this book we will use SageMath as a way to embed Python (and sometimes R) cells that you can edit and execute as you learn linear algebra.</div>
+<div class="para" id="p-69">Here is a Python cell containing a command that asks Python to multiply 5 and 3.  You may execute the command by pressing the <em class="emphasis">Evaluate</em> button. <pre class="ptx-sagecell sagecell-python" id="sage-1"><script type="text/x-sage">5 * 3
 </script></pre> Of course, you can run this sort of Python code in other Python environments as well, including in a Jupyter notebook, in an RMarkdown or Quarto document, in posit RStudio, in a Sage cell server, etc. The Python cells in this text provide a handy way to try things out as you are reading, but you should adopt one of these other platforms for saving work.</div>
-<div class="para" id="p-69">Throughout the text, we will introduce new Python commands that allow us to explore linear algebra concepts.  These commands are collected and summarized in the reference found in <a href="app-python-reference.html" class="internal" title="Appendix B: Python Reference">Appendix A</a>.</div>
+<div class="para" id="p-70">Throughout the text, we will introduce new Python commands that allow us to explore linear algebra concepts.  These commands are collected and summarized in the reference found in <a href="app-python-reference.html" class="internal" title="Appendix B: Python Reference">Appendix A</a>.</div>
 <article class="activity project-like" id="activity-1"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Basic Python commands.</span>
 </h4>
-<div class="para logical" id="p-70"><ol class="lower-alpha">
-<li id="li-27"><div class="para logical" id="p-71">
+<div class="para logical" id="p-71"><ol class="lower-alpha">
+<li id="li-27"><div class="para logical" id="p-72">
 <div class="para">Python uses the standard operators <code class="code-inline tex2jax_ignore">+</code>, <code class="code-inline tex2jax_ignore">-</code>, <code class="code-inline tex2jax_ignore">*</code>, and <code class="code-inline tex2jax_ignore">/</code> for the usual arithmetic operations.  <code class="code-inline tex2jax_ignore">**</code> is used for exponentiation. By entering text in the cell below, ask Python to evaluate</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -751,60 +758,60 @@ eBookConfig.enable_chatcodes =  false;
 </script></pre></div>
 </div></li>
 <li id="li-28">
-<div class="para" id="p-72">Notice that we can create new lines by pressing <em class="emphasis">Enter</em> and entering additional commands on them. 	What happens when you evaluate this cell? <pre class="ptx-sagecell sagecell-python" id="sage-3"><script type="text/x-sage">5 * 3
+<div class="para" id="p-73">Notice that we can create new lines by pressing <em class="emphasis">Enter</em> and entering additional commands on them. 	What happens when you evaluate this cell? <pre class="ptx-sagecell sagecell-python" id="sage-3"><script type="text/x-sage">5 * 3
 10 - 4
 </script></pre>
 </div>
-<div class="para" id="p-73">Notice that we don’t see any output from the cell we just evaluated. In order to see the results, we use <code class="code-inline tex2jax_ignore">print()</code>: <pre class="ptx-sagecell sagecell-python" id="sage-4"><script type="text/x-sage">print(5 * 3)
+<div class="para" id="p-74">Notice that we don’t see any output from the cell we just evaluated. In order to see the results, we use <code class="code-inline tex2jax_ignore">print()</code>: <pre class="ptx-sagecell sagecell-python" id="sage-4"><script type="text/x-sage">print(5 * 3)
 print(10 - 4)
 </script></pre>
 </div>
 </li>
 <li id="li-29">
-<div class="para" id="p-74">We may give a name to the result of one command and refer to it in a later command. <pre class="ptx-sagecell sagecell-python" id="sage-5"><script type="text/x-sage">income = 1500 * 12
+<div class="para" id="p-75">We may give a name to the result of one command and refer to it in a later command. <pre class="ptx-sagecell sagecell-python" id="sage-5"><script type="text/x-sage">income = 1500 * 12
 taxes = income * 0.15
 print(income - taxes)
 </script></pre>
 </div>
-<div class="para" id="p-75">Suppose you have three tests in your linear algebra class and your scores are 90, 100, and 98.  In the cell below, add your scores together and call the result <code class="code-inline tex2jax_ignore">total</code>.  On the next line, find the average of your test scores and print it. <pre class="ptx-sagecell sagecell-python" id="sage-6"><script type="text/x-sage">
+<div class="para" id="p-76">Suppose you have three tests in your linear algebra class and your scores are 90, 100, and 98.  In the cell below, add your scores together and call the result <code class="code-inline tex2jax_ignore">total</code>.  On the next line, find the average of your test scores and print it. <pre class="ptx-sagecell sagecell-python" id="sage-6"><script type="text/x-sage">
 </script></pre>
 </div>
 </li>
-<li id="li-30"><div class="para" id="p-76">We can run other sorts of Python code in these Python cells as well. For example, you may be familiar with Python for loops: <pre class="ptx-sagecell sagecell-python" id="sage-7"><script type="text/x-sage">for i in range(10):
+<li id="li-30"><div class="para" id="p-77">We can run other sorts of Python code in these Python cells as well. For example, you may be familiar with Python for loops: <pre class="ptx-sagecell sagecell-python" id="sage-7"><script type="text/x-sage">for i in range(10):
     print(i)
 </script></pre>
 </div></li>
 </ol></div>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-1" id="answer-1"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-1"><div class="answer solution-like"><ol class="lower-alpha">
-<li id="li-35"><div class="para logical" id="p-81"><pre class="code-display tex2jax_ignore">
+<li id="li-35"><div class="para logical" id="p-82"><pre class="code-display tex2jax_ignore">
 3 + 4*(2**4 - 1)
 	      </pre></div></li>
-<li id="li-36"><div class="para" id="p-82">Only the results of the last line are displayed.</div></li>
-<li id="li-37"><div class="para logical" id="p-83"><pre class="code-display tex2jax_ignore">
+<li id="li-36"><div class="para" id="p-83">Only the results of the last line are displayed.</div></li>
+<li id="li-37"><div class="para logical" id="p-84"><pre class="code-display tex2jax_ignore">
 total = 90 + 100 + 98
 average = total / 3
 print(average)
 	      </pre></div></li>
-<li id="li-38"><div class="para" id="p-84">This cell prints the integers from 0 to 9.</div></li>
+<li id="li-38"><div class="para" id="p-85">This cell prints the integers from 0 to 9.</div></li>
 </ol></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-2" id="solution-2"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-2"><div class="solution solution-like"><ol class="lower-alpha">
-<li id="li-31"><div class="para logical" id="p-77"><pre class="code-display tex2jax_ignore">
+<li id="li-31"><div class="para logical" id="p-78"><pre class="code-display tex2jax_ignore">
 3 + 4*(2**4 - 1)
 	      </pre></div></li>
-<li id="li-32"><div class="para" id="p-78">Only the results of the last line are displayed.</div></li>
-<li id="li-33"><div class="para logical" id="p-79"><pre class="code-display tex2jax_ignore">
+<li id="li-32"><div class="para" id="p-79">Only the results of the last line are displayed.</div></li>
+<li id="li-33"><div class="para logical" id="p-80"><pre class="code-display tex2jax_ignore">
 total = 90 + 100 + 98
 average = total / 3
 print(average)
 	      </pre></div></li>
-<li id="li-34"><div class="para" id="p-80">This cell prints the integers from 0 to 9.</div></li>
+<li id="li-34"><div class="para" id="p-81">This cell prints the integers from 0 to 9.</div></li>
 </ol></div></div>
 </div></article></section><section class="subsection" id="subsec-numpy-vectors"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">1.2.2</span> <span class="title"><code class="code-inline tex2jax_ignore">numpy</code> vectors</span>
 </h3>
-<div class="para" id="p-85">Since a vector is just a list of numbers, if you know Python, you might expect that we will create vectors using Python lists. This is partially correct. But Python lists don’t know about our operations (scalar multiplication and vector addition). In order to get vectors that know about these operations, we will convert our Python lists into <dfn class="terminology">ndarrays</dfn> (n-dimensional arrays) using the Python package <code class="code-inline tex2jax_ignore">numpy</code>. In <code class="code-inline tex2jax_ignore">numpy</code> parlance, a vector is a 1-dimensional array. </div>
-<div class="para" id="p-86">Python can perform scalar multiplication and vector addition. We define a vector using <code class="code-inline tex2jax_ignore">np.array()</code>; then <code class="code-inline tex2jax_ignore">*</code> and <code class="code-inline tex2jax_ignore">+</code> denote scalar multiplication and vector addition. <pre class="ptx-sagecell sagecell-python" id="sage-8"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-86">Since a vector is just a list of numbers, if you know Python, you might expect that we will create vectors using Python lists. This is partially correct. But Python lists don’t know about our operations (scalar multiplication and vector addition). In order to get vectors that know about these operations, we will convert our Python lists into <dfn class="terminology">ndarrays</dfn> (n-dimensional arrays) using the Python package <code class="code-inline tex2jax_ignore">numpy</code>. In <code class="code-inline tex2jax_ignore">numpy</code> parlance, a vector is a 1-dimensional array. </div>
+<div class="para" id="p-87">Python can perform scalar multiplication and vector addition. We define a vector using <code class="code-inline tex2jax_ignore">np.array()</code>; then <code class="code-inline tex2jax_ignore">*</code> and <code class="code-inline tex2jax_ignore">+</code> denote scalar multiplication and vector addition. <pre class="ptx-sagecell sagecell-python" id="sage-8"><script type="text/x-sage">import numpy as np
 v = np.array([3,1])
 w = np.array([-1,2])
 print(type(v))
@@ -814,10 +821,10 @@ print (v + w)
 </div>
 <article class="note remark-like" id="note-1"><h4 class="heading">
 <span class="type">Note</span><span class="space"> </span><span class="codenumber">1.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Numpy.</span>
-</h4> <div class="para" id="p-87">Numpy is a python module that is heavily used in data science. <code class="code-inline tex2jax_ignore">import numpy as np</code> loads this module and declares that we will refer to it as <code class="code-inline tex2jax_ignore">np</code> in subsequent code. Vectors are created using <code class="code-inline tex2jax_ignore">np.array()</code>, which is provided with a list of numbers.</div> <div class="para" id="p-88">Using <code class="code-inline tex2jax_ignore">np.array()</code> is better than just using a generic Python list, however, because numpy provides tools to perform all sorts of useful computations with vectors (and matrices), as we shall see.</div></article><div class="para" id="p-89">Especially when we work with vectors with many components, we will often want to have Python tell us how many components ther are. We can use <code class="code-inline tex2jax_ignore">.shape</code> to find out how many components are in one of our vectors. Give it a try. Type <code class="code-inline tex2jax_ignore">print(v.shape)</code> in the code block above and re-evaluate. </div>
+</h4> <div class="para" id="p-88">Numpy is a python module that is heavily used in data science. <code class="code-inline tex2jax_ignore">import numpy as np</code> loads this module and declares that we will refer to it as <code class="code-inline tex2jax_ignore">np</code> in subsequent code. Vectors are created using <code class="code-inline tex2jax_ignore">np.array()</code>, which is provided with a list of numbers.</div> <div class="para" id="p-89">Using <code class="code-inline tex2jax_ignore">np.array()</code> is better than just using a generic Python list, however, because numpy provides tools to perform all sorts of useful computations with vectors (and matrices), as we shall see.</div></article><div class="para" id="p-90">Especially when we work with vectors with many components, we will often want to have Python tell us how many components ther are. We can use <code class="code-inline tex2jax_ignore">.shape</code> to find out how many components are in one of our vectors. Give it a try. Type <code class="code-inline tex2jax_ignore">print(v.shape)</code> in the code block above and re-evaluate. </div>
 <article class="assemblage assemblage-like" id="assemblage-dim-v-dim"><h4 class="heading"><span class="title">Caution: Dimension vs Dimension.</span></h4>
-<div class="para" id="p-90">
-<code class="code-inline tex2jax_ignore">numpy</code> uses the term <em class="emphasis">dimension</em> differently from how we used that term in <a href="sec-vectors.html" class="internal" title="Section 1.1: Vectors">Section 1.1</a>. In numpy parlance, all of the vectors we have seen are 1-dimensional arrays because there is just one column of numbers. This will make more sense when we see 2-dimensional arrays (matrices) and higher dimensional arrays (tensors). The number returned by <code class="code-inline tex2jax_ignore">.shape</code> is the other kind of dimension -- the number of components in the vector.</div></article><div class="para" id="p-91">For low dimensional vectors, manually typing in each component is reasonable.  But ofen we will work with vectors with many components.  So we will need some better ways to create these vectors. Here are some examples showing how to create structured or random vectors. <pre class="ptx-sagecell sagecell-python" id="sage-9"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-91">
+<code class="code-inline tex2jax_ignore">numpy</code> uses the term <em class="emphasis">dimension</em> differently from how we used that term in <a href="sec-vectors.html" class="internal" title="Section 1.1: Vectors">Section 1.1</a>. In numpy parlance, all of the vectors we have seen are 1-dimensional arrays because there is just one column of numbers. This will make more sense when we see 2-dimensional arrays (matrices) and higher dimensional arrays (tensors). The number returned by <code class="code-inline tex2jax_ignore">.shape</code> is the other kind of dimension -- the number of components in the vector.</div></article><div class="para" id="p-92">For low dimensional vectors, manually typing in each component is reasonable.  But ofen we will work with vectors with many components.  So we will need some better ways to create these vectors. Here are some examples showing how to create structured or random vectors. <pre class="ptx-sagecell sagecell-python" id="sage-9"><script type="text/x-sage">import numpy as np
 v = np.arange(100)
 # 5 to 100 by 5's -- note the 101 here!
 w = np.arange(5, 101, 5)  
@@ -828,8 +835,8 @@ r = np.random.normal(100, 10, 50)
 print(r.shape)
 print(r)
 </script></pre> </div>
-<div class="para" id="p-92">Indexing in Python is 0-based.  So the first component of the vector <code class="code-inline tex2jax_ignore">v</code> is <code class="code-inline tex2jax_ignore">v[0]</code>.  If <code class="code-inline tex2jax_ignore">v</code> has 100 components, then the last component is <code class="code-inline tex2jax_ignore">v[99]</code>.  We can also use <code class="code-inline tex2jax_ignore">v[-1]</code> to access the last component. More generally, <code class="code-inline tex2jax_ignore">v[-k]</code> is the same as <code class="code-inline tex2jax_ignore">v[v.shape - k]</code> when <code class="code-inline tex2jax_ignore">k</code> is positive (so <code class="code-inline tex2jax_ignore">-k</code> is negative). </div>
-<div class="para" id="p-93">Once we have an ndarray, we can compute various summaries of it. The sum, mean, and standard deviation are commonly used summaries. For output purposes, it is often useful to round output values. <pre class="ptx-sagecell sagecell-python" id="sage-10"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-93">Indexing in Python is 0-based.  So the first component of the vector <code class="code-inline tex2jax_ignore">v</code> is <code class="code-inline tex2jax_ignore">v[0]</code>.  If <code class="code-inline tex2jax_ignore">v</code> has 100 components, then the last component is <code class="code-inline tex2jax_ignore">v[99]</code>.  We can also use <code class="code-inline tex2jax_ignore">v[-1]</code> to access the last component. More generally, <code class="code-inline tex2jax_ignore">v[-k]</code> is the same as <code class="code-inline tex2jax_ignore">v[v.shape - k]</code> when <code class="code-inline tex2jax_ignore">k</code> is positive (so <code class="code-inline tex2jax_ignore">-k</code> is negative). </div>
+<div class="para" id="p-94">Once we have an ndarray, we can compute various summaries of it. The sum, mean, and standard deviation are commonly used summaries. For output purposes, it is often useful to round output values. <pre class="ptx-sagecell sagecell-python" id="sage-10"><script type="text/x-sage">import numpy as np
 r = np.random.normal(100, 10, 50)
 print("shape:", r.shape, 
 	  "sum:", r.sum().round(2),
@@ -842,7 +849,7 @@ print("shape:", r.shape,
       "sd:", np.round(np.std(r),2))
 </script></pre> </div>
 <article class="assemblage assemblage-like" id="assemblage-numpy-help"><h4 class="heading"><span class="title">Numpy documentation.</span></h4>
-<div class="para" id="p-94">Official <code class="code-inline tex2jax_ignore">numpy</code> documentation can be found at <a class="external" href="https://numpy.org/doc/" target="_blank"><code class="code-inline tex2jax_ignore">https://numpy.org/doc/</code></a>.  You may also find it handy to use <a class="external" href="https://devdocs.io/" target="_blank"><code class="code-inline tex2jax_ignore">https://devdocs.io/</code></a> which provides documentation on many languages (including Python) and packages (including <code class="code-inline tex2jax_ignore">numpy</code>) and provides a powerful mechanism for searching within documentation.</div></article></section></section></div>
+<div class="para" id="p-95">Official <code class="code-inline tex2jax_ignore">numpy</code> documentation can be found at <a class="external" href="https://numpy.org/doc/" target="_blank"><code class="code-inline tex2jax_ignore">https://numpy.org/doc/</code></a>.  You may also find it handy to use <a class="external" href="https://devdocs.io/" target="_blank"><code class="code-inline tex2jax_ignore">https://devdocs.io/</code></a> which provides documentation on many languages (including Python) and packages (including <code class="code-inline tex2jax_ignore">numpy</code>) and provides a powerful mechanism for searching within documentation.</div></article></section></section></div>
 <div class="ptx-content-footer">
 <a class="previous-button button" href="sec-vectors.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-linear-combos-of-vectors.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>

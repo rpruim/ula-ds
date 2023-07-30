@@ -15,21 +15,42 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
 </script>
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.4.3</span><span class="period">.</span>
 </h4>
-<div class="para">Sage can automate these computations for us.  Before we begin, however, it will be helpful to understand how we can combine things using a <code class="code-inline tex2jax_ignore">list</code> in Python.  For instance, if the vectors <code class="code-inline tex2jax_ignore">v1</code>, <code class="code-inline tex2jax_ignore">v2</code>, and <code class="code-inline tex2jax_ignore">v3</code> form a basis for a subspace, we can bundle them together using square brackets: <code class="code-inline tex2jax_ignore">[v1, v2, v3]</code>.  Furthermore, we could assign this to a variable, such as <code class="code-inline tex2jax_ignore">basis = [v1, v2, v3]</code>.</div> <div class="para logical">
-<div class="para">Evaluating the following cell will load in some special commands. <pre class="ptx-sagecell sagecell-sage" id="sage-186"><script type="text/x-sage">sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py", globals())
+<div class="para">Python can automate these computations for us, and we’ll learn a standard numpy way of approaching this shortly. But first let’s see how we can code up the Gram-Schmidt process directly. The code below allows vectors to be given as 1-d arrays or as 1-column matrices. <code class="code-inline tex2jax_ignore">flatten()</code> is used to convert either to the 1-d representation. The basis is provided as a python list of vectors (in either representation).  <pre class="ptx-sagecell sagecell-python" id="sage-186"><script type="text/x-sage">import numpy as np
+
+def flatten(x):
+    return x.reshape((np.prod(x.shape), ))
+
+def projection(b, basis):
+    b = flatten(b)
+    basis = [flatten(x) for x in basis]
+    if len(basis) == 0: return np.zeros(b.shape[0])
+    return sum([ (b@v)/(v@v) * v for v in basis ])
+
+def unit(v):
+    return 1/np.linalg.norm(v) * v
+
+def gram_schmidt(basis):
+    new_basis = []
+    basis = [flatten(x) for x in basis]
+    for b in basis:
+        new_basis.append(unit(b - projection(b, new_basis)))
+    return new_basis
+
+B = [np.array([1,2,3]), np.array([1,1,1]), np.array([1,0,0])]
+print(gram_schmidt(B))
 </script></pre>
-</div>
-<ul class="disc">
-<li><div class="para">There is a command to apply the projection formula: <code class="code-inline tex2jax_ignore">projection(b, basis)</code> returns the orthogonal projection of <code class="code-inline tex2jax_ignore">b</code> onto the subspace spanned by <code class="code-inline tex2jax_ignore">basis</code>, which is a list of vectors.</div></li>
-<li><div class="para">The command <code class="code-inline tex2jax_ignore">unit(w)</code> returns a unit vector parallel to <code class="code-inline tex2jax_ignore">w</code>.</div></li>
-<li><div class="para">Given a collection of vectors, say, <code class="code-inline tex2jax_ignore">v1</code> and <code class="code-inline tex2jax_ignore">v2</code>, we can form the matrix whose columns are <code class="code-inline tex2jax_ignore">v1</code> and <code class="code-inline tex2jax_ignore">v2</code> using <code class="code-inline tex2jax_ignore">matrix([v1, v2]).T</code>.  When given a <code class="code-inline tex2jax_ignore">list</code> of vectors, Sage constructs a matrix whose <em class="emphasis">rows</em> are the given vectors.  For this reason, we need to apply the transpose.</div></li>
-</ul>
 </div> <div class="para logical">
 <div class="para">Let’s now consider <span class="process-math">\(W\text{,}\)</span> the subspace of <span class="process-math">\(\real^5\)</span> having basis</div>
 <div class="displaymath process-math">
@@ -43,7 +64,7 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 <li>
 <div class="para">Apply the Gram-Schmidt algorithm to find an orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> for <span class="process-math">\(W\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-187"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-187"><script type="text/x-sage">
 </script></pre>
 </li>
 <li><div class="para">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec = 
@@ -59,10 +80,10 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
 </div></li>
 <li>
 <div class="para">Find an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> for <span class="process-math">\(\uvec_3\)</span> for <span class="process-math">\(W\)</span> and form the matrix <span class="process-math">\(Q\)</span> whose columns are these vectors.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-188"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-188"><script type="text/x-sage">
 </script></pre>
 </li>
-<li><div class="para">Find the product <span class="process-math">\(Q^TQ\)</span> and explain the result.</div></li>
+<li><div class="para">Find the product <span class="process-math">\(Q^{\transpose}Q\)</span> and explain the result.</div></li>
 <li><div class="para">Find the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(W\)</span> and verify that <span class="process-math">\(P\bvec\)</span> gives <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection that you found earlier.</div></li>
 </ol>
 </div>

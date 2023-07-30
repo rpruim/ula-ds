@@ -256,6 +256,7 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\xvec}{{\boldsymbol x}}
 \newcommand{\yvec}{{\boldsymbol y}}
 \newcommand{\zvec}{{\boldsymbol z}}
+\newcommand{\betavec}{{\boldsymbol \beta}}
 \newcommand{\E}{\operatorname{E}}
 \newcommand{\zerovec}{{\boldsymbol 0}}
 \newcommand{\onevec}{{\boldsymbol 1}}
@@ -301,9 +302,13 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\uhat}{\widehat{\uvec}}
 \newcommand{\what}{\widehat{\wvec}}
 \newcommand{\xhat}{\widehat{\xvec}}
+\newcommand{\xmean}{\overline{\xvec}}
 \newcommand{\yhat}{\widehat{\yvec}}
+\newcommand{\ymean}{\overline{\yvec}}
+\newcommand{\betahat}{\widehat{\betavec}}
 \newcommand{\Sighat}{\widehat{\Sigma}}
 \newcommand{\by}{\times}
+\newcommand{\transpose}{\top}
 \newcommand{proj}[2]{\operatorname{proj}\left(#1 \to #2\right)}
 \newcommand{projsub}[2]{\operatorname{proj}_{#2}(#1)}
 \newcommand{\lt}{&lt;}
@@ -643,14 +648,16 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 <li>
-<div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Orthogonal least squares</span></a></div>
+<div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Least squares methods</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-least-squares.html#subsection-108" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-109" class="internal"><span class="codenumber">6.5.2</span> <span class="title">Solving least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-110" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-111" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Polynomial Regression</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Summary</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#exercises-29" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsec-linear-model-framework" class="internal"><span class="codenumber">6.5.2</span> <span class="title">The linear model framework</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-110" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Solving least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-111" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Polynomial Regression</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsec-skl-lm" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Fitting linear models with standard tools</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-114" class="internal"><span class="codenumber">6.5.7</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#exercises-29" class="internal"><span class="codenumber">6.5.8</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 </ul>
@@ -661,49 +668,49 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-113" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-114" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-115" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-115" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-116" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-117" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-symmetric-matrices.html#exercises-30" class="internal"><span class="codenumber">7.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Quadratic forms</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-116" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-117" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-118" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-118" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-119" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-120" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-quadratic-forms.html#exercises-31" class="internal"><span class="codenumber">7.2.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Principal Component Analysis</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pca.html#subsection-119" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-120" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-121" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-121" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-122" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-123" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#exercises-32" class="internal"><span class="codenumber">7.3.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-122" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-123" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-124" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-125" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-124" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-125" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-126" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-127" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-intro.html#exercises-33" class="internal"><span class="codenumber">7.4.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Using Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-126" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-127" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-128" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-129" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-130" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-131" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-128" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-129" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-130" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-131" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-132" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-133" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-uses.html#exercises-34" class="internal"><span class="codenumber">7.5.7</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -716,8 +723,8 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="subsection-132.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
-<li><div class="toc-item"><a href="subsection-133.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-134.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-135.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span></a></div></li>
 </ul>
 </li>
@@ -729,21 +736,21 @@ eBookConfig.enable_chatcodes =  false;
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-tensors"><h2 class="heading hide-type">
 <span class="type">Section</span> <span class="codenumber">1.5</span> <span class="title">Tensors</span>
 </h2>
-<section class="introduction" id="introduction-6"><div class="para" id="p-371">As we have seen, <code class="code-inline tex2jax_ignore">numpy</code> treats vectors and matrices as 1-dimensional and 2-dimensional arrays (both created using <code class="code-inline tex2jax_ignore">np.array()</code>). While mathematically 2-dimensional arrays (i.e, matrices) are the most important (and vectors can be treated like <span class="process-math">\(n \by 1\)</span> matrices); computationally, there is no reason we need to stop at rows and columns. We could add additional dimensions.  Higher dimensional arrays are often called <dfn class="terminology">tensors</dfn>. </div> <div class="para" id="p-372">There are two primary reasons for taking some time to think about tensors here. First, there are some interesting applications that use tensors.  One example of this is color images.  Recall that color images store a matrix of values <em class="emphasis">for each color channel</em>. So we have 3 indices into this data: vertical position (row), horizontal position (column), and color channel. If we have many images, we could store them in a 4-dimensional array, using the additional index to indicate which photo is which.</div> <div class="para" id="p-373">The second reason to discuss tensors is that most of the <code class="code-inline tex2jax_ignore">numpy</code> code that works with vectors and matrices is designed to work with higher dimensional tensors as well. Understanding this can help demistify how some of the <code class="code-inline tex2jax_ignore">numpy</code> functions work.</div></section><section class="subsection" id="subsec-numpy-tensors"><h3 class="heading hide-type">
+<section class="introduction" id="introduction-6"><div class="para" id="p-372">As we have seen, <code class="code-inline tex2jax_ignore">numpy</code> treats vectors and matrices as 1-dimensional and 2-dimensional arrays (both created using <code class="code-inline tex2jax_ignore">np.array()</code>). While mathematically 2-dimensional arrays (i.e, matrices) are the most important (and vectors can be treated like <span class="process-math">\(n \by 1\)</span> matrices); computationally, there is no reason we need to stop at rows and columns. We could add additional dimensions.  Higher dimensional arrays are often called <dfn class="terminology">tensors</dfn>. </div> <div class="para" id="p-373">There are two primary reasons for taking some time to think about tensors here. First, there are some interesting applications that use tensors.  One example of this is color images.  Recall that color images store a matrix of values <em class="emphasis">for each color channel</em>. So we have 3 indices into this data: vertical position (row), horizontal position (column), and color channel. If we have many images, we could store them in a 4-dimensional array, using the additional index to indicate which photo is which.</div> <div class="para" id="p-374">The second reason to discuss tensors is that most of the <code class="code-inline tex2jax_ignore">numpy</code> code that works with vectors and matrices is designed to work with higher dimensional tensors as well. Understanding this can help demistify how some of the <code class="code-inline tex2jax_ignore">numpy</code> functions work.</div></section><section class="subsection" id="subsec-numpy-tensors"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">1.5.1</span> <span class="title">Tensors in Numpy</span>
 </h3>
-<div class="para" id="p-374">Let’s create a small 3-dimensional tensor.  Notice that we can assign the shape (as long as the product of the items in our tuple is equal to the number values in the array). <pre class="ptx-sagecell sagecell-python" id="sage-21"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-375">Let’s create a small 3-dimensional tensor.  Notice that we can assign the shape (as long as the product of the items in our tuple is equal to the number values in the array). <pre class="ptx-sagecell sagecell-python" id="sage-21"><script type="text/x-sage">import numpy as np
 A = np.arange(2 * 4 * 3)
 A.shape = (2, 4, 3)
 print(A)
 </script></pre>
 </div>
-<div class="para" id="p-375">The output above expresses <code class="code-inline tex2jax_ignore">A</code> as two <span class="process-math">\(4 \by 3\)</span> matrices, and we can separate out those two matrices as <code class="code-inline tex2jax_ignore">A[0]</code> and <code class="code-inline tex2jax_ignore">A[1]</code>.</div>
-<div class="para" id="p-376">We can refer to individual numbers in an ndarray by providing the required number of indices. <pre class="ptx-sagecell sagecell-python" id="sage-22"><script type="text/x-sage">print(A[0,1,2])
+<div class="para" id="p-376">The output above expresses <code class="code-inline tex2jax_ignore">A</code> as two <span class="process-math">\(4 \by 3\)</span> matrices, and we can separate out those two matrices as <code class="code-inline tex2jax_ignore">A[0]</code> and <code class="code-inline tex2jax_ignore">A[1]</code>.</div>
+<div class="para" id="p-377">We can refer to individual numbers in an ndarray by providing the required number of indices. <pre class="ptx-sagecell sagecell-python" id="sage-22"><script type="text/x-sage">print(A[0,1,2])
 </script></pre>
 </div>
-<div class="para" id="p-377">The indexing is more flexible than demonstrated above. In each slot we can provide a <dfn class="terminology">slice</dfn> of values. A slice has the format <code class="code-inline tex2jax_ignore">start:stop:step</code>. If omitted, <code class="code-inline tex2jax_ignore">start</code> is taken to be 0, <code class="code-inline tex2jax_ignore">stop</code> is taken to be the length of the array in that dimension, and <code class="code-inline tex2jax_ignore">step</code> is taken to be 1.  To get all the values in some dimension, we can use <code class="code-inline tex2jax_ignore">:</code>. </div>
-<div class="para" id="p-378">An interesting question is what the shape of the resulting array should be, and we have some control over whether dimensions are dropped or not. Consider the following examples. <pre class="ptx-sagecell sagecell-python" id="sage-23"><script type="text/x-sage">print(A[:,:,1].shape)        # integer -> 2d
+<div class="para" id="p-378">The indexing is more flexible than demonstrated above. In each slot we can provide a <dfn class="terminology">slice</dfn> of values. A slice has the format <code class="code-inline tex2jax_ignore">start:stop:step</code>. If omitted, <code class="code-inline tex2jax_ignore">start</code> is taken to be 0, <code class="code-inline tex2jax_ignore">stop</code> is taken to be the length of the array in that dimension, and <code class="code-inline tex2jax_ignore">step</code> is taken to be 1.  To get all the values in some dimension, we can use <code class="code-inline tex2jax_ignore">:</code>. </div>
+<div class="para" id="p-379">An interesting question is what the shape of the resulting array should be, and we have some control over whether dimensions are dropped or not. Consider the following examples. <pre class="ptx-sagecell sagecell-python" id="sage-23"><script type="text/x-sage">print(A[:,:,1].shape)        # integer -> 2d
 print(A[:,:,(1)].shape)      # tuple of length 1 -> 2d
 print(A[:,:,1:2].shape)      # slice with one value -> 3d
 print(A[:,:,[1]].shape)      # list of length 1 -> 3d
@@ -751,9 +758,9 @@ print(A[:,:,[1]].shape)      # list of length 1 -> 3d
 <article class="example example-like" id="example-5"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.1</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-379">An RGB image that is 400 pixels wide and 300 pixels tall might correspond to a tensor with shape <code class="code-inline tex2jax_ignore">(400, 300, 3)</code>. Or perhaps <code class="code-inline tex2jax_ignore">(3, 300, 400)</code>, or ... The computer doesn’t really care, but we need to know which slot is being used for what in order to work with this image correctly.  The usual arrangement is row, column, channel. This is called the <dfn class="terminology">channels-last convention</dfn>. But somtimes a channels-first convention is used instead. </div> <div class="para" id="p-380">We can plot images (or other matrices that we would like to view as an image) using a number of different tools.  Here we demonstrate how to do so using <code class="code-inline tex2jax_ignore">matplotlib</code>. <code class="code-inline tex2jax_ignore">matplotlib</code> supports a variety of image formats. For RGB images, the RGB values can be integers from 0 to 255 or floating point values between 0 and 1.</div> <article class="note remark-like" id="note-3"><h5 class="heading">
+<div class="para" id="p-380">An RGB image that is 400 pixels wide and 300 pixels tall might correspond to a tensor with shape <code class="code-inline tex2jax_ignore">(400, 300, 3)</code>. Or perhaps <code class="code-inline tex2jax_ignore">(3, 300, 400)</code>, or ... The computer doesn’t really care, but we need to know which slot is being used for what in order to work with this image correctly.  The usual arrangement is row, column, channel. This is called the <dfn class="terminology">channels-last convention</dfn>. But somtimes a channels-first convention is used instead. </div> <div class="para" id="p-381">We can plot images (or other matrices that we would like to view as an image) using a number of different tools.  Here we demonstrate how to do so using <code class="code-inline tex2jax_ignore">matplotlib</code>. <code class="code-inline tex2jax_ignore">matplotlib</code> supports a variety of image formats. For RGB images, the RGB values can be integers from 0 to 255 or floating point values between 0 and 1.</div> <article class="note remark-like" id="note-3"><h5 class="heading">
 <span class="type">Note</span><span class="space"> </span><span class="codenumber">1.5.2</span><span class="period">.</span><span class="space"> </span><span class="title">The Sage Cell Server restricts internet access.</span>
-</h5> <div class="para" id="p-381">Feel free to experiment with this code using other images, but note that the Sage Cell Server only allows  access to images on selected websites. This list includes sites like GitHub (used here) and Wikimedia Commons.</div></article> <div class="para" id="p-382"><pre class="ptx-sagecell sagecell-python" id="sage-24"><script type="text/x-sage">import numpy as np
+</h5> <div class="para" id="p-382">Feel free to experiment with this code using other images, but note that the Sage Cell Server only allows  access to images on selected websites. This list includes sites like GitHub (used here) and Wikimedia Commons.</div></article> <div class="para" id="p-383"><pre class="ptx-sagecell sagecell-python" id="sage-24"><script type="text/x-sage">import numpy as np
 from skimage import io
 import matplotlib.pyplot as plt 
 url = "https://rpruim.github.io/data/images/happy-dog.jpeg"
@@ -763,42 +770,42 @@ print(dog.dtype)
 plt.figure()
 plt.imshow(dog)
 plt.show()
-</script></pre></div> <div class="para" id="p-383">Notice that <code class="code-inline tex2jax_ignore">dog</code> contains a 3-dimensional array of unsiged 8-bit integers (0 -- 255) and that the format is channels-last. We can plot individual channels in the same way. <pre class="ptx-sagecell sagecell-python" id="sage-25"><script type="text/x-sage">plt.figure()
+</script></pre></div> <div class="para" id="p-384">Notice that <code class="code-inline tex2jax_ignore">dog</code> contains a 3-dimensional array of unsiged 8-bit integers (0 -- 255) and that the format is channels-last. We can plot individual channels in the same way. <pre class="ptx-sagecell sagecell-python" id="sage-25"><script type="text/x-sage">plt.figure()
 plt.imshow(dog[:, :, 0])    # Red channel
 plt.show()
 </script></pre>
-</div> <div class="para" id="p-384">We’ve added a color bar to this image to show how matplotlib is mapping the values 0 to 255 to colors. Remember, this is the <em class="emphasis">red</em> channel. So a colormap that runs from dark blue to bright yellow probably isn’t the best choice.  We can use a scale of reds by setting <code class="code-inline tex2jax_ignore">cmap="Reds"</code> like this <pre class="ptx-sagecell sagecell-python" id="sage-26"><script type="text/x-sage">plt.figure()
+</div> <div class="para" id="p-385">We’ve added a color bar to this image to show how matplotlib is mapping the values 0 to 255 to colors. Remember, this is the <em class="emphasis">red</em> channel. So a colormap that runs from dark blue to bright yellow probably isn’t the best choice.  We can use a scale of reds by setting <code class="code-inline tex2jax_ignore">cmap="Reds"</code> like this <pre class="ptx-sagecell sagecell-python" id="sage-26"><script type="text/x-sage">plt.figure()
 plt.imshow(dog[:, :, 0], cmap = "Reds")    # Red channel
 plt.show()
-</script></pre> If you use <code class="code-inline tex2jax_ignore">cmap  = "Reds_r"</code> (give it a try), the order of the colors will be reversed and provide a better visual representation (for human eyes -- it’s the same data no matter what color scheme we use for display).</div> <div class="para" id="p-385">You can find out more about the many colormaps that are available in matplotlib at <a class="external" href="https://matplotlib.org/stable/tutorials/colors/index.html" target="_blank"><code class="code-inline tex2jax_ignore">https://matplotlib.org/stable/tutorials/colors/index.html</code></a>.</div></article></section><section class="subsection" id="subsec-axes"><h3 class="heading hide-type">
+</script></pre> If you use <code class="code-inline tex2jax_ignore">cmap  = "Reds_r"</code> (give it a try), the order of the colors will be reversed and provide a better visual representation (for human eyes -- it’s the same data no matter what color scheme we use for display).</div> <div class="para" id="p-386">You can find out more about the many colormaps that are available in matplotlib at <a class="external" href="https://matplotlib.org/stable/tutorials/colors/index.html" target="_blank"><code class="code-inline tex2jax_ignore">https://matplotlib.org/stable/tutorials/colors/index.html</code></a>.</div></article></section><section class="subsection" id="subsec-axes"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">1.5.2</span> <span class="title">Aggregation and Axes</span>
 </h3></section><section class="subsection" id="subsec-ndarray-append"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">1.5.3</span> <span class="title">Expanding an array</span>
 </h3>
-<div class="para" id="p-386">Sometimes it is useful to build up a matrix or other <span class="process-math">\(n\)</span>-dimensional array bit by bit or to add an additional "layer" (think row or column) to an existing array. For example, to create an augmented matrix, we will often append an additional column matrix to an existing matrix, increasing the number of columns by one. <code class="code-inline tex2jax_ignore">np.append()</code> allows us to do this, provided our arrays (a) have the same number of dimensions and (b) compatible shapes along the desired axis.</div>
-<div class="para" id="p-387">Here’s an example where we add a column onto a <span class="process-math">\(3 \by 2 \)</span> matrix. <pre class="ptx-sagecell sagecell-python" id="sage-27"><script type="text/x-sage">import numpy as np 
+<div class="para" id="p-387">Sometimes it is useful to build up a matrix or other <span class="process-math">\(n\)</span>-dimensional array bit by bit or to add an additional "layer" (think row or column) to an existing array. For example, to create an augmented matrix, we will often append an additional column matrix to an existing matrix, increasing the number of columns by one. <code class="code-inline tex2jax_ignore">np.append()</code> allows us to do this, provided our arrays (a) have the same number of dimensions and (b) compatible shapes along the desired axis.</div>
+<div class="para" id="p-388">Here’s an example where we add a column onto a <span class="process-math">\(3 \by 2 \)</span> matrix. <pre class="ptx-sagecell sagecell-python" id="sage-27"><script type="text/x-sage">import numpy as np 
 A = np.arange(6).reshape((3,2))
 b = np.array([5, 3, 2])
 Aplus = np.append(A, b.reshape(3,1), 1)    # need to make b 2-d first
 print(Aplus)
 </script></pre> Notice that <code class="code-inline tex2jax_ignore">np.append()</code> does not modify its arguments. It returns a new (larger) array.</div>
-<div class="para logical" id="p-388">
+<div class="para logical" id="p-389">
 <div class="para">Numpy provides several other functions that can be used to create larger arrays by combining smaller arrays.</div>
 <ul class="disc">
-<li id="li-215"><div class="para" id="p-389">
+<li id="li-215"><div class="para" id="p-390">
 <code class="code-inline tex2jax_ignore">np.concetentate()</code> takes a sequence of arrays and repeatedly appends. This is especially useful for combining three or more arrays.</div></li>
-<li id="li-216"><div class="para" id="p-390">
+<li id="li-216"><div class="para" id="p-391">
 <code class="code-inline tex2jax_ignore">np.stack()</code> (and specialized versions <code class="code-inline tex2jax_ignore">np.hstack()</code>, <code class="code-inline tex2jax_ignore">np.vstack()</code>, and <code class="code-inline tex2jax_ignore">np.column_stack()</code>) concatenate along a <em class="emphasis">new</em> axis. This can be used to combine vectors into an array or arrays into a tensor. The resulting object will have a higher dimension (more axes) than the inputs.</div></li>
-<li id="li-217"><div class="para" id="p-391">
+<li id="li-217"><div class="para" id="p-392">
 <code class="code-inline tex2jax_ignore">np.block()</code> creates a new array from a nested sequences of blocks.</div></li>
-<li id="li-218"><div class="para" id="p-392">
+<li id="li-218"><div class="para" id="p-393">
 <code class="code-inline tex2jax_ignore">np.insert()</code> allows insertion into a slice.</div></li>
 </ul>
 </div>
 <article class="example example-like" id="example-6"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.3</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-393">In scenes were some regions are very bright and others very dark, it can be challenging to create a good exposure over the entire image. Exposure bracketing is a technique that has been used since the 1850’s to help with this situation. This technique involves capturing multiple images, each with a different exposure. Later one can choose the best of the captured images or combine them in some way.  In the 1850’s, Gustave Le Gray printed seascape photos from two images, using one exposure for the sky and the other for the water. Modern HDR methods can combine multiple digital images in much more complex ways.</div> <div class="para" id="p-394">In this example we stack multiple images with different exposures and use a very simple method (averaging) to convert the stack of images into a single HDR (high dynamic range) image.  This works because each images loses some information in the brightest or darkest regions due to the limits on the values (typically 0 to 255) that each pixel may have. The averages will remain in the appropriate range, but do a better job of distinguishing among the very dark and very bright regions of the image.</div> <div class="para" id="p-395">The images were obtained from <a class="external" href="https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG" target="_blank"><code class="code-inline tex2jax_ignore">https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG</code></a>. We will use low resolutoin images below, but you can repeat this example with higher resolution images if you like. Notice the use of <code class="code-inline tex2jax_ignore">np.stack()</code> to combine the images into one 4-dimensional tensor, and the use of <code class="code-inline tex2jax_ignore">np.rint()</code> and <code class="code-inline tex2jax_ignore">astype(int)</code> to make sure the resulting data is again integer (the nearest integer to the average). <pre class="ptx-sagecell sagecell-python" id="sage-28"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-394">In scenes were some regions are very bright and others very dark, it can be challenging to create a good exposure over the entire image. Exposure bracketing is a technique that has been used since the 1850’s to help with this situation. This technique involves capturing multiple images, each with a different exposure. Later one can choose the best of the captured images or combine them in some way.  In the 1850’s, Gustave Le Gray printed seascape photos from two images, using one exposure for the sky and the other for the water. Modern HDR methods can combine multiple digital images in much more complex ways.</div> <div class="para" id="p-395">In this example we stack multiple images with different exposures and use a very simple method (averaging) to convert the stack of images into a single HDR (high dynamic range) image.  This works because each images loses some information in the brightest or darkest regions due to the limits on the values (typically 0 to 255) that each pixel may have. The averages will remain in the appropriate range, but do a better job of distinguishing among the very dark and very bright regions of the image.</div> <div class="para" id="p-396">The images were obtained from <a class="external" href="https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG" target="_blank"><code class="code-inline tex2jax_ignore">https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG</code></a>. We will use low resolutoin images below, but you can repeat this example with higher resolution images if you like. Notice the use of <code class="code-inline tex2jax_ignore">np.stack()</code> to combine the images into one 4-dimensional tensor, and the use of <code class="code-inline tex2jax_ignore">np.rint()</code> and <code class="code-inline tex2jax_ignore">astype(int)</code> to make sure the resulting data is again integer (the nearest integer to the average). <pre class="ptx-sagecell sagecell-python" id="sage-28"><script type="text/x-sage">import numpy as np
 from skimage import io
 import matplotlib.pyplot as plt 
 url = "https://rpruim.github.io/data/images/StLouisArchMultExpEV1.jpg"
@@ -823,7 +830,7 @@ plt.imshow(average_photo)
 plt.show()
 </script></pre> More sophisticated algorithms can do an even better job of creating the final image from multiple exposures of the same scene.</div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-15" id="solution-15"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-15"><div class="solution solution-like"><div class="para" id="p-396"></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-15" id="solution-15"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-15"><div class="solution solution-like"><div class="para" id="p-397"></div></div></div>
 </div></article></section><section class="subsection" id="subsec-broadcasting"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">1.5.4</span> <span class="title">Broadcasting</span>
 </h3></section></section></div>

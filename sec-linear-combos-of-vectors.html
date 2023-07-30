@@ -256,6 +256,7 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\xvec}{{\boldsymbol x}}
 \newcommand{\yvec}{{\boldsymbol y}}
 \newcommand{\zvec}{{\boldsymbol z}}
+\newcommand{\betavec}{{\boldsymbol \beta}}
 \newcommand{\E}{\operatorname{E}}
 \newcommand{\zerovec}{{\boldsymbol 0}}
 \newcommand{\onevec}{{\boldsymbol 1}}
@@ -301,9 +302,13 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\uhat}{\widehat{\uvec}}
 \newcommand{\what}{\widehat{\wvec}}
 \newcommand{\xhat}{\widehat{\xvec}}
+\newcommand{\xmean}{\overline{\xvec}}
 \newcommand{\yhat}{\widehat{\yvec}}
+\newcommand{\ymean}{\overline{\yvec}}
+\newcommand{\betahat}{\widehat{\betavec}}
 \newcommand{\Sighat}{\widehat{\Sigma}}
 \newcommand{\by}{\times}
+\newcommand{\transpose}{\top}
 \newcommand{proj}[2]{\operatorname{proj}\left(#1 \to #2\right)}
 \newcommand{projsub}[2]{\operatorname{proj}_{#2}(#1)}
 \newcommand{\lt}{&lt;}
@@ -643,14 +648,16 @@ eBookConfig.enable_chatcodes =  false;
 </ul>
 </li>
 <li>
-<div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Orthogonal least squares</span></a></div>
+<div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Least squares methods</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-least-squares.html#subsection-108" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-109" class="internal"><span class="codenumber">6.5.2</span> <span class="title">Solving least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-110" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-111" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Polynomial Regression</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Summary</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#exercises-29" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsec-linear-model-framework" class="internal"><span class="codenumber">6.5.2</span> <span class="title">The linear model framework</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-110" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Solving least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-111" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Polynomial Regression</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsec-skl-lm" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Fitting linear models with standard tools</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-114" class="internal"><span class="codenumber">6.5.7</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#exercises-29" class="internal"><span class="codenumber">6.5.8</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 </ul>
@@ -661,49 +668,49 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-113" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-114" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-115" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-115" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-116" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-117" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-symmetric-matrices.html#exercises-30" class="internal"><span class="codenumber">7.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Quadratic forms</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-116" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-117" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-118" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-118" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-119" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-120" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-quadratic-forms.html#exercises-31" class="internal"><span class="codenumber">7.2.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Principal Component Analysis</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pca.html#subsection-119" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-120" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-121" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-121" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-122" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-123" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#exercises-32" class="internal"><span class="codenumber">7.3.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-122" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-123" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-124" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-125" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-124" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-125" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-126" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-127" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-intro.html#exercises-33" class="internal"><span class="codenumber">7.4.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Using Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-126" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-127" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-128" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-129" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-130" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-131" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-128" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-129" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-130" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-131" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-132" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-133" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-uses.html#exercises-34" class="internal"><span class="codenumber">7.5.7</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -716,8 +723,8 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="subsection-132.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
-<li><div class="toc-item"><a href="subsection-133.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-134.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-135.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span></a></div></li>
 </ul>
 </li>
@@ -731,7 +738,7 @@ eBookConfig.enable_chatcodes =  false;
 </h2>
 <section class="introduction" id="introduction-3"><article class="definition definition-like" id="definition-1"><h3 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">1.3.1</span><span class="period">.</span>
-</h3> <div class="para logical" id="p-95">
+</h3> <div class="para logical" id="p-96">
 <div class="para">The <dfn class="terminology">linear combination</dfn> of the vectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> with scalars <span class="process-math">\(c_1,c_2,\ldots,c_n\)</span> is the vector</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -755,10 +762,10 @@ c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n\text{.}
 </div></article> <article class="activity project-like" id="activity-2"><h3 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.3.1</span><span class="period">.</span>
 </h3>
-<div class="para" id="p-96">In this activity, we will look at linear combinations of a pair of vectors, <span class="process-math">\(\vvec = \left[\begin{array}{r} 2 \\ 1 \end{array}\right]\)</span> and <span class="process-math">\(\wvec = \left[\begin{array}{r} 1 \\ 2 \end{array}\right]
+<div class="para" id="p-97">In this activity, we will look at linear combinations of a pair of vectors, <span class="process-math">\(\vvec = \left[\begin{array}{r} 2 \\ 1 \end{array}\right]\)</span> and <span class="process-math">\(\wvec = \left[\begin{array}{r} 1 \\ 2 \end{array}\right]
 \text{.}\)</span>
 </div> <figure class="figure figure-like" id="js-linear-combs"><iframe id="interactive-linear-combs" width="600" height="493" src="interactive-linear-combs-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-1" id="instructions-1"><h4 class="heading"><span class="type">Instructions<span class="period">.</span></span></h4></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-1"><div class="solution-like"><div class="para logical" id="p-98">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-1" id="instructions-1"><h4 class="heading"><span class="type">Instructions<span class="period">.</span></span></h4></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-1"><div class="solution-like"><div class="para logical" id="p-99">
 <div class="para">The diagram below can be used to construct linear combinations whose weights <span class="process-math">\(c\)</span> and <span class="process-math">\(d\)</span> may be varied using the sliders at the top. The vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> are outlined while the linear combination</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -769,35 +776,35 @@ c\vvec + d\wvec
 </div></div></div>
 </div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.3<span class="period">.</span></span><span class="space"> </span>Linear combinations of vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span></figcaption></figure> <ol class="lower-alpha">
-<li id="li-39"><div class="para" id="p-99">The weight <span class="process-math">\(d\)</span> is initially set to 0. Explain what happens as you vary <span class="process-math">\(c\)</span> while keeping <span class="process-math">\(d=0\text{.}\)</span> How is this related to scalar multiplication?</div></li>
-<li id="li-40"><div class="para" id="p-100">What is the linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> when <span class="process-math">\(c = 1\)</span> and <span class="process-math">\(d=-2\text{?}\)</span> You may find this result using the diagram, but you should also verify it by computing the linear combination.</div></li>
-<li id="li-41"><div class="para" id="p-101">Describe the vectors that arise when the weight <span class="process-math">\(d\)</span> is set to 1 and <span class="process-math">\(c\)</span> is varied. How is this related to our investigations in the preview activity?</div></li>
-<li id="li-42"><div class="para" id="p-102">Can the vector <span class="process-math">\(\left[\begin{array}{r} 0 \\ 0 \end{array} \right]\)</span> be expressed as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> If so, what are the weights <span class="process-math">\(c\)</span> and <span class="process-math">\(d\text{?}\)</span>
+<li id="li-39"><div class="para" id="p-100">The weight <span class="process-math">\(d\)</span> is initially set to 0. Explain what happens as you vary <span class="process-math">\(c\)</span> while keeping <span class="process-math">\(d=0\text{.}\)</span> How is this related to scalar multiplication?</div></li>
+<li id="li-40"><div class="para" id="p-101">What is the linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> when <span class="process-math">\(c = 1\)</span> and <span class="process-math">\(d=-2\text{?}\)</span> You may find this result using the diagram, but you should also verify it by computing the linear combination.</div></li>
+<li id="li-41"><div class="para" id="p-102">Describe the vectors that arise when the weight <span class="process-math">\(d\)</span> is set to 1 and <span class="process-math">\(c\)</span> is varied. How is this related to our investigations in the preview activity?</div></li>
+<li id="li-42"><div class="para" id="p-103">Can the vector <span class="process-math">\(\left[\begin{array}{r} 0 \\ 0 \end{array} \right]\)</span> be expressed as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> If so, what are the weights <span class="process-math">\(c\)</span> and <span class="process-math">\(d\text{?}\)</span>
 </div></li>
-<li id="li-43"><div class="para" id="p-103">Can the vector <span class="process-math">\(\left[\begin{array}{r} 3 \\ 0 \end{array} \right]\)</span> be expressed as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> If so, what are the weights <span class="process-math">\(c\)</span> and <span class="process-math">\(d\text{?}\)</span>
+<li id="li-43"><div class="para" id="p-104">Can the vector <span class="process-math">\(\left[\begin{array}{r} 3 \\ 0 \end{array} \right]\)</span> be expressed as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> If so, what are the weights <span class="process-math">\(c\)</span> and <span class="process-math">\(d\text{?}\)</span>
 </div></li>
-<li id="li-44"><div class="para" id="p-104">Can the vector <span class="process-math">\(\left[\begin{array}{r} 1.3 \\ -1.7 \end{array} \right]\)</span> be expressed as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> What about the vector <span class="process-math">\(\left[\begin{array}{r} 15.2 \\ 7.1 \end{array} \right]\text{?}\)</span> For each write down a system of equations that can be used to answer the question. If you know how to solve such a system, go ahead. But we will be learning a general method for this soon.</div></li>
-<li id="li-45"><div class="para" id="p-105">Are there any two-dimensional vectors that cannot be expressed as linear combinations of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> (Hint: Think geometrically.)</div></li>
+<li id="li-44"><div class="para" id="p-105">Can the vector <span class="process-math">\(\left[\begin{array}{r} 1.3 \\ -1.7 \end{array} \right]\)</span> be expressed as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> What about the vector <span class="process-math">\(\left[\begin{array}{r} 15.2 \\ 7.1 \end{array} \right]\text{?}\)</span> For each write down a system of equations that can be used to answer the question. If you know how to solve such a system, go ahead. But we will be learning a general method for this soon.</div></li>
+<li id="li-45"><div class="para" id="p-106">Are there any two-dimensional vectors that cannot be expressed as linear combinations of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> (Hint: Think geometrically.)</div></li>
 </ol>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-2" id="answer-2"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-2"><div class="answer solution-like"><div class="para logical" id="p-115"><ol class="lower-alpha">
-<li id="li-53"><div class="para" id="p-116">The linear combinations lie on the line defined by <span class="process-math">\(\vvec\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-2" id="answer-2"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-2"><div class="answer solution-like"><div class="para logical" id="p-116"><ol class="lower-alpha">
+<li id="li-53"><div class="para" id="p-117">The linear combinations lie on the line defined by <span class="process-math">\(\vvec\text{.}\)</span>
 </div></li>
-<li id="li-54"><div class="para" id="p-117"><span class="process-math">\(\twovec{0}{-3}\text{.}\)</span></div></li>
-<li id="li-55"><div class="para" id="p-118">They lie on the line through <span class="process-math">\(\wvec\)</span> parallel to <span class="process-math">\(\vvec\text{.}\)</span>
+<li id="li-54"><div class="para" id="p-118"><span class="process-math">\(\twovec{0}{-3}\text{.}\)</span></div></li>
+<li id="li-55"><div class="para" id="p-119">They lie on the line through <span class="process-math">\(\wvec\)</span> parallel to <span class="process-math">\(\vvec\text{.}\)</span>
 </div></li>
-<li id="li-56"><div class="para" id="p-119">Yes, with weights <span class="process-math">\(c=d=0\text{.}\)</span>
+<li id="li-56"><div class="para" id="p-120">Yes, with weights <span class="process-math">\(c=d=0\text{.}\)</span>
 </div></li>
-<li id="li-57"><div class="para" id="p-120">Yes, with weights <span class="process-math">\(c=2\)</span> and <span class="process-math">\(d=-1\text{.}\)</span>
+<li id="li-57"><div class="para" id="p-121">Yes, with weights <span class="process-math">\(c=2\)</span> and <span class="process-math">\(d=-1\text{.}\)</span>
 </div></li>
-<li id="li-58"><div class="para" id="p-121">This can be done by writing the appropriate linear system for the weights.</div></li>
-<li id="li-59"><div class="para" id="p-122">No, any two-dimensional vector can be expressed as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span>
+<li id="li-58"><div class="para" id="p-122">This can be done by writing the appropriate linear system for the weights.</div></li>
+<li id="li-59"><div class="para" id="p-123">No, any two-dimensional vector can be expressed as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-3" id="solution-3"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-3"><div class="solution solution-like"><div class="para logical" id="p-106"><ol class="lower-alpha">
-<li id="li-46"><div class="para" id="p-107">When we vary <span class="process-math">\(c\)</span> with <span class="process-math">\(d=0\text{,}\)</span> the linear combination moves along the line defined by <span class="process-math">\(\vvec\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-3" id="solution-3"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-3"><div class="solution solution-like"><div class="para logical" id="p-107"><ol class="lower-alpha">
+<li id="li-46"><div class="para" id="p-108">When we vary <span class="process-math">\(c\)</span> with <span class="process-math">\(d=0\text{,}\)</span> the linear combination moves along the line defined by <span class="process-math">\(\vvec\text{.}\)</span>
 </div></li>
-<li id="li-47"><div class="para logical" id="p-108">
+<li id="li-47"><div class="para logical" id="p-109">
 <div class="para">When <span class="process-math">\(c=1\)</span> and <span class="process-math">\(d=-2\text{,}\)</span> we find</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -806,11 +813,11 @@ c\vvec + d\wvec
 \end{equation*}
 </div>
 </div></li>
-<li id="li-48"><div class="para" id="p-109">When <span class="process-math">\(d=1\)</span> and <span class="process-math">\(c\)</span> is allowed to vary, the linear combinations lie on the line through <span class="process-math">\(\wvec\)</span> parallel to <span class="process-math">\(\vvec\text{.}\)</span>
+<li id="li-48"><div class="para" id="p-110">When <span class="process-math">\(d=1\)</span> and <span class="process-math">\(c\)</span> is allowed to vary, the linear combinations lie on the line through <span class="process-math">\(\wvec\)</span> parallel to <span class="process-math">\(\vvec\text{.}\)</span>
 </div></li>
-<li id="li-49"><div class="para" id="p-110">If the weights <span class="process-math">\(c=0\)</span> and <span class="process-math">\(d=0\text{,}\)</span> then the linear combination is the vector <span class="process-math">\(\twovec{0}{0}\text{.}\)</span>
+<li id="li-49"><div class="para" id="p-111">If the weights <span class="process-math">\(c=0\)</span> and <span class="process-math">\(d=0\text{,}\)</span> then the linear combination is the vector <span class="process-math">\(\twovec{0}{0}\text{.}\)</span>
 </div></li>
-<li id="li-50"><div class="para logical" id="p-111">
+<li id="li-50"><div class="para logical" id="p-112">
 <div class="para">If the weights <span class="process-math">\(c=2\)</span> and <span class="process-math">\(d=-1\text{,}\)</span> then the linear combination is the vector <span class="process-math">\(\twovec{3}{0}\text{.}\)</span> You could determine this by a little trial and error, or using a little algebra. <span class="process-math">\(c \vvec + d \wvec = \twovec 30\)</span> is equivalent to</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -823,7 +830,7 @@ c\vvec + d\wvec
 <div class="para">We will learn general methods for solving systems of equations like this soon. But in this case, the second equation tells us that <span class="process-math">\(c = -2d\text{.}\)</span>  Plugging that into the first equation gives <span class="process-math">\(-4d + d = -3d = 3\text{,}\)</span> so <span class="process-math">\(d = -1\)</span> and <span class="process-math">\(c = 2\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-51"><div class="para logical" id="p-112">
+<li id="li-51"><div class="para logical" id="p-113">
 <div class="para">Our two systems of equations are</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -845,22 +852,22 @@ c\vvec + d\wvec
 <div class="para">We don’t have a 0 on the right hand side this time, so the algebra is a little messier.  But both systems have a solution. Stay tuned to learn how to systematically solve such systems.</div>
 </div></li>
 <li id="li-52">
-<div class="para" id="p-113">Every two-dimensional vector can be written as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span>  The number <span class="process-math">\(c\)</span> chooses a line parallel to <span class="process-math">\(\wvec\text{,}\)</span> and <span class="process-math">\(d\)</span> chooses a point along that line.  Since we can pick any line parallel to <span class="process-math">\(\wvec\)</span> and any point along that line, this allows us to get to any point in the plane. Use the interactive app above to illustrate this. Note that this only works because <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> are not parllel.</div>
-<div class="para" id="p-114">We will soon learn an algebraic way to arrive at the same conclusion.</div>
+<div class="para" id="p-114">Every two-dimensional vector can be written as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span>  The number <span class="process-math">\(c\)</span> chooses a line parallel to <span class="process-math">\(\wvec\text{,}\)</span> and <span class="process-math">\(d\)</span> chooses a point along that line.  Since we can pick any line parallel to <span class="process-math">\(\wvec\)</span> and any point along that line, this allows us to get to any point in the plane. Use the interactive app above to illustrate this. Note that this only works because <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> are not parllel.</div>
+<div class="para" id="p-115">We will soon learn an algebraic way to arrive at the same conclusion.</div>
 </li>
 </ol></div></div></div>
-</div></article> <div class="para" id="p-123">This activity illustrates how linear combinations are constructed geometrically: the linear combination <span class="process-math">\(c\vvec +
+</div></article> <div class="para" id="p-124">This activity illustrates how linear combinations are constructed geometrically: the linear combination <span class="process-math">\(c\vvec +
 d\wvec\)</span> is found by walking along <span class="process-math">\(\vvec\)</span> a total of <span class="process-math">\(c\)</span> times followed by walking along <span class="process-math">\(\wvec\)</span> a total of <span class="process-math">\(d\)</span> times. When one of the weights is held constant while the other varies, the vector moves along a line.</div> <article class="example example-like" id="example-linear-systems-preview"><h3 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">1.3.4</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-124">
+<div class="para logical" id="p-125">
 <div class="para">Suppose we have vectors <span class="process-math">\(\vvec = \twovec3{-1}\)</span> and <span class="process-math">\(\wvec=\twovec43\text{.}\)</span> Suppose we want to know whether we can describe the vector <span class="process-math">\(\bvec=\twovec{-11}{-18}\)</span> as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span> In other words, we would like to know whether there are weights <span class="process-math">\(c\)</span> and <span class="process-math">\(d\)</span> such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
 c\vvec + d\wvec= \bvec.
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-125">
+</div> <div class="para logical" id="p-126">
 <div class="para">This leads to the equations</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -877,7 +884,7 @@ c\twovec3{-1} + d\twovec43
 \end{aligned}
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-126">
+</div> <div class="para logical" id="p-127">
 <div class="para">Equating the components of the vectors on each side of the equation, we arrive at the linear system</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -888,12 +895,12 @@ c\twovec3{-1} + d\twovec43
 \end{equation*}
 </div>
 <div class="para">This means that <span class="process-math">\(\bvec\)</span> is a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> if and only if this <dfn class="terminology">linear system</dfn> of equations has a solution. </div>
-</div></article> <div class="para" id="p-127">
+</div></article> <div class="para" id="p-128">
 <a href="" class="xref" data-knowl="./knowl/example-linear-systems-preview.html" title="Example 1.3.4">Example 1.3.4</a> demonstrates a connection between linear combinations of vectors and linear systems of equations: Asking whether a vector <span class="process-math">\(\bvec\)</span> is a linear combination of vectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is equivalent to asking whether an associated <dfn class="terminology">linear system</dfn> has a solution. In <a href="chap2.html" class="internal" title="Chapter 2: Systems of equations: Solving A \xvec = \bvec">Chapter 2</a> we will study linear systems more carefully, giving a careful definition and demonstrating how we can determine the solutions to any such system of equations.</div> <article class="activity project-like" id="activity-3"><h3 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.3.2</span><span class="period">.</span><span class="space"> </span><span class="title">Linear combinations and linear systems.</span>
 </h3>
-<div class="para logical" id="p-128"><ol class="lower-alpha">
-<li id="li-60"><div class="para logical" id="p-129">
+<div class="para logical" id="p-129"><ol class="lower-alpha">
+<li id="li-60"><div class="para logical" id="p-130">
 <div class="para">Given the vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -909,7 +916,7 @@ c\twovec3{-1} + d\twovec43
 </div>
 <div class="para">can <span class="process-math">\(\bvec\)</span> be expressed as a linear combination of <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{?}\)</span> Rephrase this question by writing a linear system for the weights <span class="process-math">\(c_1\text{,}\)</span> <span class="process-math">\(c_2\text{,}\)</span> and <span class="process-math">\(c_3\text{.}\)</span> </div>
 </div></li>
-<li id="li-61"><div class="para logical" id="p-130">
+<li id="li-61"><div class="para logical" id="p-131">
 <div class="para">Now let’s go in the other direction. Consider the following linear system.</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -925,9 +932,9 @@ x_1 \amp \amp \amp {}+{} 2x_3 \amp {}={} \amp 0 \\
 </div></li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-3" id="answer-3"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-3"><div class="answer solution-like"><div class="para logical" id="p-135"><ol class="lower-alpha">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-3" id="answer-3"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-3"><div class="answer solution-like"><div class="para logical" id="p-136"><ol class="lower-alpha">
 <li id="li-65"><div class="para" id="p-derived-li-65"></div></li>
-<li id="li-66"><div class="para logical" id="p-136">
+<li id="li-66"><div class="para logical" id="p-137">
 <div class="para">We find vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -939,8 +946,8 @@ x_1 \amp \amp \amp {}+{} 2x_3 \amp {}={} \amp 0 \\
 </div>
 </div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-4" id="solution-4"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-4"><div class="solution solution-like"><div class="para logical" id="p-131"><ol class="lower-alpha">
-<li id="li-62"><div class="para logical" id="p-132">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-4" id="solution-4"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-4"><div class="solution solution-like"><div class="para logical" id="p-132"><ol class="lower-alpha">
+<li id="li-62"><div class="para logical" id="p-133">
 <div class="para">We find the linear system</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -957,7 +964,7 @@ c_1 \amp {}+{} \amp c_2 \amp \amp \amp
 \end{equation*}
 </div>
 </div></li>
-<li id="li-63"><div class="para logical" id="p-133">
+<li id="li-63"><div class="para logical" id="p-134">
 <div class="para">We find vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -968,7 +975,7 @@ c_1 \amp {}+{} \amp c_2 \amp \amp \amp
 \end{equation*}
 </div>
 </div></li>
-<li id="li-64"><div class="para logical" id="p-134">
+<li id="li-64"><div class="para logical" id="p-135">
 <div class="para">This is the same as asking if the linear system corresponding to the following augmented matrix is consistent:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -984,8 +991,8 @@ c_1 \amp {}+{} \amp c_2 \amp \amp \amp
 </div></article> <article class="example example-like" id="example-2"><h3 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">1.3.5</span><span class="period">.</span>
 </h3>
-<div class="para" id="p-137">Consider the vectors <span class="process-math">\(\vvec=\twovec{-1}1\)</span> and <span class="process-math">\(\wvec=\twovec{2}{-2}\text{,}\)</span> as shown in <a href="" class="xref" data-knowl="./knowl/fig-lin-comb-ex.html" title="Figure 1.3.6">Figure 1.3.6</a>.</div> <figure class="figure figure-like" id="fig-lin-comb-ex"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/lin-comb-ex.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.6<span class="period">.</span></span><span class="space"> </span>Vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span></figcaption></figure> <div class="para logical" id="p-138">
+<div class="para" id="p-138">Consider the vectors <span class="process-math">\(\vvec=\twovec{-1}1\)</span> and <span class="process-math">\(\wvec=\twovec{2}{-2}\text{,}\)</span> as shown in <a href="" class="xref" data-knowl="./knowl/fig-lin-comb-ex.html" title="Figure 1.3.6">Figure 1.3.6</a>.</div> <figure class="figure figure-like" id="fig-lin-comb-ex"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/lin-comb-ex.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.3.6<span class="period">.</span></span><span class="space"> </span>Vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span></figcaption></figure> <div class="para logical" id="p-139">
 <div class="para">These vectors appear to lie on the same line, a fact that becomes apparent once we notice that <span class="process-math">\(\wvec =
 -2\vvec\text{.}\)</span> Intuitively, we think of the linear combination</div>
 <div class="displaymath process-math">
@@ -999,17 +1006,17 @@ c\vvec + d\wvec
 </div> </article></section><section class="subsection" id="subsection-5"><h3 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">1.3.1</span> <span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-139">
+<div class="para logical" id="p-140">
 <div class="para">This section has introduced linear combinations of vectors and their connection to linear systems.</div>
 <ul class="disc">
-<li id="li-67"><div class="para" id="p-140">Given a set of vectors and a set of scalars we call weights, we can create a linear combination using scalar multiplication and vector addition.</div></li>
+<li id="li-67"><div class="para" id="p-141">Given a set of vectors and a set of scalars we call weights, we can create a linear combination using scalar multiplication and vector addition.</div></li>
 <li id="li-68"><div class="para" id="p-derived-li-68">To know whether one vector can be formed as a linear combination of some other vectors is equivalent to solving a (linear) system of equations.</div></li>
 </ul>
 </div></section><section class="exercises" id="exercises-1"><h3 class="heading hide-type">
 <span class="type">Exercises</span> <span class="codenumber">1.3.2</span> <span class="title">Exercises</span>
 </h3>
 <article class="exercise exercise-like" id="exercise-1"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-141">
+<div class="para logical" id="p-142">
 <div class="para">Consider the vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1018,28 +1025,28 @@ c\vvec + d\wvec
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="ex2-1-1-a"><div class="para" id="p-142">Sketch these vectors below. <div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
+<li id="ex2-1-1-a"><div class="para" id="p-143">Sketch these vectors below. <div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
 </div></li>
-<li id="ex2-1-1-b"><div class="para" id="p-143">Compute the vectors <span class="process-math">\(-3\vvec\text{,}\)</span> <span class="process-math">\(2\wvec\text{,}\)</span> <span class="process-math">\(\vvec + \wvec\text{,}\)</span> and <span class="process-math">\(\vvec - \wvec\)</span> and add them into the sketch above.</div></li>
-<li id="li-71"><div class="para" id="p-144">Sketch below the set of vectors having the form <span class="process-math">\(2\vvec +
+<li id="ex2-1-1-b"><div class="para" id="p-144">Compute the vectors <span class="process-math">\(-3\vvec\text{,}\)</span> <span class="process-math">\(2\wvec\text{,}\)</span> <span class="process-math">\(\vvec + \wvec\text{,}\)</span> and <span class="process-math">\(\vvec - \wvec\)</span> and add them into the sketch above.</div></li>
+<li id="li-71"><div class="para" id="p-145">Sketch below the set of vectors having the form <span class="process-math">\(2\vvec +
 c\wvec\)</span> where <span class="process-math">\(c\)</span> is any scalar. <div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
 </div></li>
-<li id="li-72"><div class="para" id="p-145">Sketch below the line <span class="process-math">\(y=3x - 2\text{.}\)</span>  Then identify two vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> so that this line is described by <span class="process-math">\(\vvec + c\wvec\text{.}\)</span>  Are there other choices for the vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> <div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
+<li id="li-72"><div class="para" id="p-146">Sketch below the line <span class="process-math">\(y=3x - 2\text{.}\)</span>  Then identify two vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> so that this line is described by <span class="process-math">\(\vvec + c\wvec\text{.}\)</span>  Are there other choices for the vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> <div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-2"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para logical" id="p-152">
+<div class="para logical" id="p-153">
 <div class="para">Shown below are two vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> <div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/ex-linear-comb.svg" role="img" class="contained"></div></div></div>
 </div>
 <ol class="lower-alpha">
-<li id="li-81"><div class="para" id="p-153">Express the labeled points as linear combinations of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span>
+<li id="li-81"><div class="para" id="p-154">Express the labeled points as linear combinations of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span>
 </div></li>
-<li id="li-82"><div class="para" id="p-154">Sketch the line described parametrically as <span class="process-math">\(-2\vvec +
+<li id="li-82"><div class="para" id="p-155">Sketch the line described parametrically as <span class="process-math">\(-2\vvec +
 c\wvec\text{.}\)</span>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-3"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-161">
+<div class="para logical" id="p-162">
 <div class="para">Nutritional information about a breakfast cereal is printed on the box.  For instance, one serving of Frosted Flakes has 111 calories, 140 milligrams of sodium, and 1.2 grams of protein.  We may represent this as the case vector</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1050,10 +1057,10 @@ c\wvec\text{.}\)</span>
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-87"><div class="para" id="p-162">Write the vector describing the nutritional content of Cocoa Puffs.</div></li>
-<li id="li-88"><div class="para" id="p-163">Suppose you eat <span class="process-math">\(c\)</span> servings of Frosted Flakes and <span class="process-math">\(d\)</span> servings of Cocoa Puffs.  Use the language of vectors and linear combinations to express the quantities of calories, sodium, and protein you have consumed.</div></li>
-<li id="li-89"><div class="para" id="p-164">How many servings of each cereal have you eaten if you have consumed 342 calories, 385 milligrams of sodium, and 3.4 grams of protein.</div></li>
-<li id="li-90"><div class="para" id="p-165">Suppose your sister consumed 250 calories, 200 milligrams of sodium, and 4 grams of protein.  What can you conclude about her breakfast?</div></li>
+<li id="li-87"><div class="para" id="p-163">Write the vector describing the nutritional content of Cocoa Puffs.</div></li>
+<li id="li-88"><div class="para" id="p-164">Suppose you eat <span class="process-math">\(c\)</span> servings of Frosted Flakes and <span class="process-math">\(d\)</span> servings of Cocoa Puffs.  Use the language of vectors and linear combinations to express the quantities of calories, sodium, and protein you have consumed.</div></li>
+<li id="li-89"><div class="para" id="p-165">How many servings of each cereal have you eaten if you have consumed 342 calories, 385 milligrams of sodium, and 3.4 grams of protein.</div></li>
+<li id="li-90"><div class="para" id="p-166">Suppose your sister consumed 250 calories, 200 milligrams of sodium, and 4 grams of protein.  What can you conclude about her breakfast?</div></li>
 </ol>
 </div></article></section></section></div>
 <div class="ptx-content-footer">

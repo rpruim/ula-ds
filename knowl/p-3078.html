@@ -25,12 +25,16 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para">The Python cell below defines the vector <span class="process-math">\(\xvec\text{,}\)</span> which is the vector of luminance values in the first column, as seen in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block-luminance.html" title="Figure 4.4.8">Figure 4.4.8</a>. Use the cell below to find the vector <span class="process-math">\(\fvec\)</span> of Fourier coefficients <span class="process-math">\(F_0,F_1,\ldots,F_7\text{.}\)</span>  If you have evaluated the cell above, you will still be able to refer to <code class="code-inline tex2jax_ignore">P</code> and <code class="code-inline tex2jax_ignore">Pinv</code> in this cell. <pre class="ptx-sagecell sagecell-python" id="sage-107"><script type="text/x-sage">import numpy as np
-x = np.array([176,181,165,139,131,131,140,150])
-#  find the vector of Fourier coefficients f below
-f =
-print (f.round(4))
-</script></pre> Write the Fourier coefficients and discuss the relative sizes of the coefficients.</div>
+<div class="para">The Python cell below will construct the vector <span class="process-math">\(P_{\bcal}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">P</code>, and its inverse <span class="process-math">\(P_{\bcal}^{-1}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">Pinv</code>.  Evaluate this Python cell and notice that it prints the matrix <span class="process-math">\(P_{\bcal}^{-1}\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-dct-def"><script type="text/x-sage">import numpy as np
+mat = [[math.cos((2*i+1)*j*pi/16) for j in range(8)] for i in range(8)]
+P = np.array(mat)
+print(P.dtype)
+print(P.round(3))
+print("------------")
+Pinv = np.linalg.inv(P)
+print (Pinv.round(3))
+</script></pre> Now look at the form of <span class="process-math">\(P_{\bcal}^{-1}\)</span> and explain why <span class="process-math">\(F_0\)</span> is the average of the luminance values in the vector <span class="process-math">\(\xvec\text{.}\)</span>
+</div>
 <span class="incontext"><a href="sec-jpeg.html#p-3078" class="internal">in-context</a></span>
 </body>
 </html>

@@ -15,19 +15,53 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
                        linked: true,
                        languages: ['sage'],
                        evalButtonText: 'Evaluate (Sage)'});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
+                       linked: true,
+                       languages: ['python'],
+                       evalButtonText: 'Evaluate (Python)'});
 </script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para">This solution to the first system is <span class="process-math">\(x=2\)</span> and <span class="process-math">\(y=0\text{.}\)</span>  However, with just a small change in the system, we find the solution <span class="process-math">\(x=1\)</span> and <span class="process-math">\(y=1\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-52"><script type="text/x-sage">import numpy as np
+<div class="para logical">
+<div class="para">The exact solution is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+x=9, y=-36, z=30\text{.}
+\end{equation*}
+</div>
+<div class="para">However, if we first round to 3 digits, we find the approximate solution</div>
+<div class="displaymath process-math">
+\begin{equation*}
+x = 9.04, y = -36.2, z = 30.2
+\end{equation*}
+</div>
+<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-51"><script type="text/x-sage">import numpy as np
 import sympy as s
 
-A = np.array([[1,1,2],[1, 1.001, 2]])
-print(s.Matrix(A).rref())
+A = s.Matrix([[1,1/2,1/3,1] , [1/2, 1/3, 1/4, 0], [1/3, 1/4, 1/5, 0]])
+B = s.Matrix(3, 4, lambda i,j: s.Rational(A[i,j]))
+C = s.Matrix([
+    [s.Rational(1,1), s.Rational(1,2), s.Rational(1,3), s.Rational(1,1)],
+    [s.Rational(1,2), s.Rational(1,3), s.Rational(1,4), s.Rational(0,1)],
+    [s.Rational(1,3), s.Rational(1,4), s.Rational(1,5), s.Rational(0,1)]
+])
 
-B = np.array([[1,1,2],[1, 1.001, 2.001]])
-print(s.Matrix(B).rref())
-</script></pre>
+print("Using A:")
+print(A.rref())
+print("\nB:")
+print(B)
+print("Using B:")
+print(B.rref()[0])
+print(B.rref()[0].evalf(10))
+print("\nUsing C:")
+print(C.rref())
+
+print("\nUsing A, rounded to 3 digits:")
+print(A.evalf(3).rref())
+</script></pre></div>
 </div>
 <span class="incontext"><a href="sec-python-introduction.html#p-950" class="internal">in-context</a></span>
 </body>
