@@ -9,46 +9,28 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
-                       linked: true,
-                       languages: ['sage'],
-                       evalButtonText: 'Evaluate (Sage)'});
-</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
-                       linked: true,
-                       languages: ['python'],
-                       evalButtonText: 'Evaluate (Python)'});
-</script>
 </head>
 <body class="ignore-math">
-<h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para">Python can automate these computations for us, and we’ll learn a standard numpy way of approaching this shortly. But first let’s see how we can code up the Gram-Schmidt process directly. The code below allows vectors to be given as 1-d arrays or as 1-column matrices. <code class="code-inline tex2jax_ignore">flatten()</code> is used to convert either to the 1-d representation. The basis is provided as a python list of vectors (in either representation).  <pre class="ptx-sagecell sagecell-python" id="sage-186"><script type="text/x-sage">import numpy as np
-
-def flatten(x):
-    return x.reshape((np.prod(x.shape), ))
-
-def projection(b, basis):
-    b = flatten(b)
-    basis = [flatten(x) for x in basis]
-    if len(basis) == 0: return np.zeros(b.shape[0])
-    return sum([ (b@v)/(v@v) * v for v in basis ])
-
-def unit(v):
-    return 1/np.linalg.norm(v) * v
-
-def gram_schmidt(basis):
-    new_basis = []
-    basis = [flatten(x) for x in basis]
-    for b in basis:
-        new_basis.append(unit(b - projection(b, new_basis)))
-    return new_basis
-
-B = [np.array([1,2,3]), np.array([1,1,1]), np.array([1,0,0])]
-print(gram_schmidt(B))
-</script></pre>
+<h4 class="heading"><span class="type">Paragraph</span></h4>
+<div class="para logical">
+<div class="para">More generally, if we have a basis <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> for a subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^m\text{,}\)</span> the Gram-Schmidt algorithm creates an orthogonal basis for <span class="process-math">\(W\)</span> in the following way:</div>
+<div class="displaymath process-math">
+\begin{align*}
+\wvec_1 \amp = \vvec_1\\
+\wvec_2 \amp = \vvec_2 -
+\frac{\vvec_2\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1\\
+\wvec_3 \amp = \vvec_3 -
+\frac{\vvec_3\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 -
+\frac{\vvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2\\
+\amp \vdots\\
+\wvec_n \amp = \vvec_n -
+\frac{\vvec_n\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 -
+\frac{\vvec_n\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 -
+\ldots - 
+\frac{\vvec_n\cdot\wvec_{n-1}}
+{\wvec_{n-1}\cdot\wvec_{n-1}}\wvec_{n-1}
+\end{align*}
+</div>
 </div>
 <span class="incontext"><a href="sec-gram-schmidt.html#p-6518" class="internal">in-context</a></span>
 </body>

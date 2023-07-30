@@ -736,7 +736,7 @@ eBookConfig.enable_chatcodes =  false;
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="subsection" id="subsec-frequently-used-python"><h2 class="heading hide-type">
 <span class="type">Subsection</span> <span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span>
 </h2>
-<div class="para" id="p-8659">If some code that you write isn’t working, check whether you are missing one of the required import statements. The following will be used frequently. <pre class="ptx-sagecell sagecell-python" id="sage-308"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-8661">If some code that you write isn’t working, check whether you are missing one of the required import statements. The following will be used frequently. <pre class="ptx-sagecell sagecell-python" id="sage-308"><script type="text/x-sage">import numpy as np
 from scipy import linalg
 </script></pre> Less frequently we will use some of the following: <pre class="ptx-sagecell sagecell-python" id="sage-309"><script type="text/x-sage">import pandas as pd
 import sympy    # or import sympy as s
@@ -744,10 +744,10 @@ import matplotlib.pyplot as plt
 import seaborn.objects as so
 </script></pre>
 </div>
-<div class="para logical" id="p-8660"><dl class="description-list">
-<dt id="li-5988">Creating matrices</dt>
+<div class="para logical" id="p-8662"><dl class="description-list">
+<dt id="li-5989">Creating matrices</dt>
 <dd>
-<div class="para logical" id="p-8661">
+<div class="para logical" id="p-8663">
 <div class="para">There are a couple of ways to create matrices.  For instance, the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -760,7 +760,7 @@ import seaborn.objects as so
 </div>
 <div class="para">can be created in either of the two following ways.</div>
 <ol class="lower-alpha">
-<li id="li-5989"><div class="para" id="p-8662"><pre class="ptx-sagecell sagecell-python" id="sage-310"><script type="text/x-sage">import numpy as np
+<li id="li-5990"><div class="para" id="p-8664"><pre class="ptx-sagecell sagecell-python" id="sage-310"><script type="text/x-sage">import numpy as np
 A = np.array([ 
     [-2, 3, 0, 4],
     [ 1,-2, 1,-3],
@@ -768,13 +768,13 @@ A = np.array([
 	])
 print(A)
 </script></pre></div></li>
-<li id="li-5990"><div class="para" id="p-8663"><pre class="ptx-sagecell sagecell-python" id="sage-311"><script type="text/x-sage">import numpy as np
+<li id="li-5991"><div class="para" id="p-8665"><pre class="ptx-sagecell sagecell-python" id="sage-311"><script type="text/x-sage">import numpy as np
 A = np.array([-2, 3, 0, 4, 1,-2, 1,-3, 0, 2, 3, 0]).reshape(3,4)
 print(A)
 </script></pre></div></li>
 </ol>
 </div>
-<div class="para" id="p-8664">Be aware that Python can treat mathematically equivalent matrices in different ways depending on how they are entered. For instance, the matrix <pre class="ptx-sagecell sagecell-python" id="sage-312"><script type="text/x-sage">A = np.array([ [1, 2],
+<div class="para" id="p-8666">Be aware that Python can treat mathematically equivalent matrices in different ways depending on how they are entered. For instance, the matrix <pre class="ptx-sagecell sagecell-python" id="sage-312"><script type="text/x-sage">A = np.array([ [1, 2],
              [2, 1] ])
 print(A.dtype)
 </script></pre> has integer entries while <pre class="ptx-sagecell sagecell-python" id="sage-313"><script type="text/x-sage">B = np.array([ [1.0, 2.0],
@@ -782,25 +782,25 @@ print(A.dtype)
 print(B.dtype)
 </script></pre> has floating point entries. If any of the entries in a matrix are provided as floating point numbers, then all of the entries will be converted to floating point values.</div>
 </dd>
-<dt id="li-5991">Special matrices</dt>
-<dd><div class="para" id="p-8665">The <span class="process-math">\(4\by 4\)</span> identity matrix can be created with the curiously named function <code class="code-inline tex2jax_ignore">np.eye()</code> (or <code class="code-inline tex2jax_ignore">sympy.eye()</code>).  This has nothing to do with eyes, but is a play on the pronunciation of <span class="process-math">\(\boldsymbol I\text{.}\)</span> Notice that <code class="code-inline tex2jax_ignore">sympy</code> creates a matrix with integer entries, but <code class="code-inline tex2jax_ignore">np</code> produces a matrix with floating point entries. <pre class="ptx-sagecell sagecell-python" id="sage-314"><script type="text/x-sage">print(np.eye(3))
+<dt id="li-5992">Special matrices</dt>
+<dd><div class="para" id="p-8667">The <span class="process-math">\(4\by 4\)</span> identity matrix can be created with the curiously named function <code class="code-inline tex2jax_ignore">np.eye()</code> (or <code class="code-inline tex2jax_ignore">sympy.eye()</code>).  This has nothing to do with eyes, but is a play on the pronunciation of <span class="process-math">\(\boldsymbol I\text{.}\)</span> Notice that <code class="code-inline tex2jax_ignore">sympy</code> creates a matrix with integer entries, but <code class="code-inline tex2jax_ignore">np</code> produces a matrix with floating point entries. <pre class="ptx-sagecell sagecell-python" id="sage-314"><script type="text/x-sage">print(np.eye(3))
 print(sympy.eye(3))
 </script></pre> A diagonal matrix can be created from a list of its diagonal entries.  For instance, <pre class="ptx-sagecell sagecell-python" id="sage-315"><script type="text/x-sage">print(np.diag([3, -4, 2]))
 </script></pre>
 </div></dd>
-<dt id="li-5992">Reduced row echelon form</dt>
-<dd><div class="para" id="p-8666">The reduced row echelon form of a matrix can be obtained using the <code class="code-inline tex2jax_ignore">rref()</code> method after converting our matrix to a <code class="code-inline tex2jax_ignore">sympy.Matrix</code>. For instance, <pre class="ptx-sagecell sagecell-python" id="sage-316"><script type="text/x-sage">A = np.array([ [1,2,3], [2,1,2] ])
+<dt id="li-5993">Reduced row echelon form</dt>
+<dd><div class="para" id="p-8668">The reduced row echelon form of a matrix can be obtained using the <code class="code-inline tex2jax_ignore">rref()</code> method after converting our matrix to a <code class="code-inline tex2jax_ignore">sympy.Matrix</code>. For instance, <pre class="ptx-sagecell sagecell-python" id="sage-316"><script type="text/x-sage">A = np.array([ [1,2,3], [2,1,2] ])
 rref = sympy.Matrix(A).rref()
 print(rref)
 </script></pre>
 </div></dd>
-<dt id="li-5993">Vectors</dt>
-<dd><div class="para" id="p-8667">Numpy arrays do not need to be 2-dimensional. A vector is defined by listing its components. Notice that the shape of <code class="code-inline tex2jax_ignore">v</code> is a 1-tuple. <pre class="ptx-sagecell sagecell-python" id="sage-317"><script type="text/x-sage">v = np.array([3,-1,2])
+<dt id="li-5994">Vectors</dt>
+<dd><div class="para" id="p-8669">Numpy arrays do not need to be 2-dimensional. A vector is defined by listing its components. Notice that the shape of <code class="code-inline tex2jax_ignore">v</code> is a 1-tuple. <pre class="ptx-sagecell sagecell-python" id="sage-317"><script type="text/x-sage">v = np.array([3,-1,2])
 print(v.shape)
 </script></pre>
 </div></dd>
-<dt id="li-5994">Addition</dt>
-<dd><div class="para" id="p-8668">The <code class="code-inline tex2jax_ignore">+</code> operator performs vector and matrix addition. <pre class="ptx-sagecell sagecell-python" id="sage-318"><script type="text/x-sage">v = np.array([2,1])
+<dt id="li-5995">Addition</dt>
+<dd><div class="para" id="p-8670">The <code class="code-inline tex2jax_ignore">+</code> operator performs vector and matrix addition. <pre class="ptx-sagecell sagecell-python" id="sage-318"><script type="text/x-sage">v = np.array([2,1])
 w = np.array([-3,2])
 print(v+w)
 </script></pre> <pre class="ptx-sagecell sagecell-python" id="sage-319"><script type="text/x-sage">A = np.array([[2, -3], [1,  2]])
@@ -808,17 +808,17 @@ B = np.array([[-4, 1], [3, -1]])
 print(A+B)
 </script></pre>
 </div></dd>
-<dt id="li-5995">Multiplication</dt>
+<dt id="li-5996">Multiplication</dt>
 <dd>
-<div class="para" id="p-8669">From a mathematical perspecitve, the <code class="code-inline tex2jax_ignore">*</code> operator performs scalar multiplication of vectors and matrices. <pre class="ptx-sagecell sagecell-python" id="sage-320"><script type="text/x-sage">v = np.array([2,1])
+<div class="para" id="p-8671">From a mathematical perspecitve, the <code class="code-inline tex2jax_ignore">*</code> operator performs scalar multiplication of vectors and matrices. <pre class="ptx-sagecell sagecell-python" id="sage-320"><script type="text/x-sage">v = np.array([2,1])
 print(3*v)
 A = np.array([[2,1],[-3,2]])	    
 print(3*A)
 </script></pre>
 </div>
-<div class="para" id="p-8670">Computationally, numpy is using something called <dfn class="terminology">broadcasting</dfn>, which is more general than scalar multiplication. When two numpy arrays have different shapes, numpy starts from the end of the shape tuples and compares their values.  If they match, that’s good.  But it is also OK if one of them is 1 (or non-existant, which amounts to nearly the samething) and the other is not.  In this case, we can imagine duplicating the array with 1 in that dimension to fill out its shape to match the other. (Numpy does not actually do this duplication, since that would be ineffcient, but it is a good mental model for how the operation behaves.) Working from back to front, each axis is considered, and in the end, if the shapes are compatible, they can be treated as if they had the same shape.  At that point, the opreation proceeds element by element in the expanded arrays.</div>
-<div class="para" id="p-8671">You can find out much more about broadcasting at <a class="external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html" target="_blank"><code class="code-inline tex2jax_ignore">https://numpy.org/doc/stable/user/basics.broadcasting.html</code></a>.</div>
-<div class="para" id="p-8672">Broadcasting means that <code class="code-inline tex2jax_ignore">*</code> cannot be used for for matrix-vector and matrix-matrix multiplication in the linear algebra sense.  Instead we use <code class="code-inline tex2jax_ignore">@</code>. <pre class="ptx-sagecell sagecell-python" id="sage-321"><script type="text/x-sage">A = np.array([[2,-3],[1,2]])
+<div class="para" id="p-8672">Computationally, numpy is using something called <dfn class="terminology">broadcasting</dfn>, which is more general than scalar multiplication. When two numpy arrays have different shapes, numpy starts from the end of the shape tuples and compares their values.  If they match, that’s good.  But it is also OK if one of them is 1 (or non-existant, which amounts to nearly the samething) and the other is not.  In this case, we can imagine duplicating the array with 1 in that dimension to fill out its shape to match the other. (Numpy does not actually do this duplication, since that would be ineffcient, but it is a good mental model for how the operation behaves.) Working from back to front, each axis is considered, and in the end, if the shapes are compatible, they can be treated as if they had the same shape.  At that point, the opreation proceeds element by element in the expanded arrays.</div>
+<div class="para" id="p-8673">You can find out much more about broadcasting at <a class="external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html" target="_blank"><code class="code-inline tex2jax_ignore">https://numpy.org/doc/stable/user/basics.broadcasting.html</code></a>.</div>
+<div class="para" id="p-8674">Broadcasting means that <code class="code-inline tex2jax_ignore">*</code> cannot be used for for matrix-vector and matrix-matrix multiplication in the linear algebra sense.  Instead we use <code class="code-inline tex2jax_ignore">@</code>. <pre class="ptx-sagecell sagecell-python" id="sage-321"><script type="text/x-sage">A = np.array([[2,-3],[1,2]])
 v = np.array([2,1])	    
 print(A*v)  # component-wise after broadcasting
 print(A@v)  # CORRECT way to do linear algebra
@@ -828,48 +828,48 @@ print(A@B)   # linear algebra
 </script></pre>
 </div>
 </dd>
-<dt id="li-5996">Operations on vectors</dt>
-<dd><div class="para logical" id="p-8673"><ol class="lower-alpha">
-<li id="li-5997">
-<div class="para" id="p-8674">The length of a vector <code class="code-inline tex2jax_ignore">v</code> is found using <code class="code-inline tex2jax_ignore">scipy.linalg.norm()</code>. <pre class="ptx-sagecell sagecell-python" id="sage-322"><script type="text/x-sage">v = np.array([3, 4])
+<dt id="li-5997">Operations on vectors</dt>
+<dd><div class="para logical" id="p-8675"><ol class="lower-alpha">
+<li id="li-5998">
+<div class="para" id="p-8676">The length of a vector <code class="code-inline tex2jax_ignore">v</code> is found using <code class="code-inline tex2jax_ignore">scipy.linalg.norm()</code>. <pre class="ptx-sagecell sagecell-python" id="sage-322"><script type="text/x-sage">v = np.array([3, 4])
 print(linalg.norm(v))
 </script></pre>
 </div>
-<div class="para" id="p-8675">Actually, <code class="code-inline tex2jax_ignore">np.linalg.norm()</code> can compute many different norms of both vectors and matrices.</div>
+<div class="para" id="p-8677">Actually, <code class="code-inline tex2jax_ignore">np.linalg.norm()</code> can compute many different norms of both vectors and matrices.</div>
 </li>
-<li id="li-5998"><div class="para" id="p-8676">The dot product of two vectors <code class="code-inline tex2jax_ignore">v</code> and <code class="code-inline tex2jax_ignore">w</code> is also computed using <code class="code-inline tex2jax_ignore">@</code> <pre class="ptx-sagecell sagecell-python" id="sage-323"><script type="text/x-sage">v @ v  # should match linalg.norv(v)
+<li id="li-5999"><div class="para" id="p-8678">The dot product of two vectors <code class="code-inline tex2jax_ignore">v</code> and <code class="code-inline tex2jax_ignore">w</code> is also computed using <code class="code-inline tex2jax_ignore">@</code> <pre class="ptx-sagecell sagecell-python" id="sage-323"><script type="text/x-sage">v @ v  # should match linalg.norv(v)
 </script></pre>
 </div></li>
 </ol></div></dd>
-<dt id="li-5999">Operations on matrices</dt>
-<dd><div class="para logical" id="p-8677"><ol class="lower-alpha">
-<li id="li-6000"><div class="para" id="p-8678">The transpose of a matrix <code class="code-inline tex2jax_ignore">A</code> is obtained using <code class="code-inline tex2jax_ignore">np.transpose()</code> <pre class="ptx-sagecell sagecell-python" id="sage-324"><script type="text/x-sage">A = np.array(np.arange(6)).reshape(2,3)
+<dt id="li-6000">Operations on matrices</dt>
+<dd><div class="para logical" id="p-8679"><ol class="lower-alpha">
+<li id="li-6001"><div class="para" id="p-8680">The transpose of a matrix <code class="code-inline tex2jax_ignore">A</code> is obtained using <code class="code-inline tex2jax_ignore">np.transpose()</code> <pre class="ptx-sagecell sagecell-python" id="sage-324"><script type="text/x-sage">A = np.array(np.arange(6)).reshape(2,3)
 At = np.transpose(A)
 print(A, "\n------\n", At)
 </script></pre>
 </div></li>
-<li id="li-6001"><div class="para" id="p-8679">The inverse of a matrix <code class="code-inline tex2jax_ignore">A</code> is obtained using either <code class="code-inline tex2jax_ignore">linalg.inv(A)</code>. But for serious computational work, there is almost always something better than explicitly computing an inverse this way.</div></li>
-<li id="li-6002"><div class="para" id="p-8680">The determinant of <code class="code-inline tex2jax_ignore">A</code> is <code class="code-inline tex2jax_ignore">linalg.det(A)</code>.</div></li>
-<li id="li-6003"><div class="para" id="p-8681">An orthonormal basis for the null space <span class="process-math">\(\nul(A)\)</span> is found with <code class="code-inline tex2jax_ignore">linalg.nullspace(A)</code>.</div></li>
+<li id="li-6002"><div class="para" id="p-8681">The inverse of a matrix <code class="code-inline tex2jax_ignore">A</code> is obtained using either <code class="code-inline tex2jax_ignore">linalg.inv(A)</code>. But for serious computational work, there is almost always something better than explicitly computing an inverse this way.</div></li>
+<li id="li-6003"><div class="para" id="p-8682">The determinant of <code class="code-inline tex2jax_ignore">A</code> is <code class="code-inline tex2jax_ignore">linalg.det(A)</code>.</div></li>
+<li id="li-6004"><div class="para" id="p-8683">An orthonormal basis for the null space <span class="process-math">\(\nul(A)\)</span> is found with <code class="code-inline tex2jax_ignore">linalg.nullspace(A)</code>.</div></li>
 </ol></div></dd>
-<dt id="li-6004">Eigenvectors and eigenvalues</dt>
-<dd><div class="para logical" id="p-8682"><ol class="lower-alpha">
-<li id="li-6005"><div class="para" id="p-8683">The eigenvalues of a matrix <code class="code-inline tex2jax_ignore">A</code> can be found with <code class="code-inline tex2jax_ignore">linalg.eigvals(A)</code>. The number of times that an eigenvalue appears in the list equals its multiplicity.</div></li>
-<li id="li-6006"><div class="para" id="p-8684">The eigenvectors of a matrix <code class="code-inline tex2jax_ignore">A</code> can be found with <code class="code-inline tex2jax_ignore">linalg.eig(A)</code>.</div></li>
-<li id="li-6007"><div class="para" id="p-8685">If <span class="process-math">\(A\)</span> can be diagonalized as <span class="process-math">\(A=PDP^{-1}\text{,}\)</span> then <pre class="ptx-sagecell sagecell-python" id="sage-325"><script type="text/x-sage"></script></pre> provides the matrices <code class="code-inline tex2jax_ignore">D</code> and <code class="code-inline tex2jax_ignore">P</code>. Recall the <code class="code-inline tex2jax_ignore">sympy</code> does symbolic computation.  We can use <code class="code-inline tex2jax_ignore">evalf()</code> to compute a numerical approximation.</div></li>
-<li id="li-6008"><div class="para" id="p-8686">The characteristic polynomial of <code class="code-inline tex2jax_ignore">sympy.Matrix</code> <code class="code-inline tex2jax_ignore">A</code> is <code class="code-inline tex2jax_ignore">A.charpoly('x')</code>. <pre class="ptx-sagecell sagecell-python" id="sage-326"><script type="text/x-sage">A = np.array(np.arange(9)).reshape(3,3)
+<dt id="li-6005">Eigenvectors and eigenvalues</dt>
+<dd><div class="para logical" id="p-8684"><ol class="lower-alpha">
+<li id="li-6006"><div class="para" id="p-8685">The eigenvalues of a matrix <code class="code-inline tex2jax_ignore">A</code> can be found with <code class="code-inline tex2jax_ignore">linalg.eigvals(A)</code>. The number of times that an eigenvalue appears in the list equals its multiplicity.</div></li>
+<li id="li-6007"><div class="para" id="p-8686">The eigenvectors of a matrix <code class="code-inline tex2jax_ignore">A</code> can be found with <code class="code-inline tex2jax_ignore">linalg.eig(A)</code>.</div></li>
+<li id="li-6008"><div class="para" id="p-8687">If <span class="process-math">\(A\)</span> can be diagonalized as <span class="process-math">\(A=PDP^{-1}\text{,}\)</span> then <pre class="ptx-sagecell sagecell-python" id="sage-325"><script type="text/x-sage"></script></pre> provides the matrices <code class="code-inline tex2jax_ignore">D</code> and <code class="code-inline tex2jax_ignore">P</code>. Recall the <code class="code-inline tex2jax_ignore">sympy</code> does symbolic computation.  We can use <code class="code-inline tex2jax_ignore">evalf()</code> to compute a numerical approximation.</div></li>
+<li id="li-6009"><div class="para" id="p-8688">The characteristic polynomial of <code class="code-inline tex2jax_ignore">sympy.Matrix</code> <code class="code-inline tex2jax_ignore">A</code> is <code class="code-inline tex2jax_ignore">A.charpoly('x')</code>. <pre class="ptx-sagecell sagecell-python" id="sage-326"><script type="text/x-sage">A = np.array(np.arange(9)).reshape(3,3)
 poly = sympy.Matrix(A).charpoly('x')
 pprint(poly)
 print(poly(2))
 </script></pre>
 </div></li>
 </ol></div></dd>
-<dt id="li-6009">Matrix factorizations</dt>
-<dd><div class="para logical" id="p-8687"><ol class="lower-alpha">
-<li id="li-6010"><div class="para" id="p-8688">The <span class="process-math">\(LU\)</span> factorization of a matrix <pre class="ptx-sagecell sagecell-python" id="sage-327"><script type="text/x-sage">A = np.array(np.arange(9)).reshape(3,3)
+<dt id="li-6010">Matrix factorizations</dt>
+<dd><div class="para logical" id="p-8689"><ol class="lower-alpha">
+<li id="li-6011"><div class="para" id="p-8690">The <span class="process-math">\(LU\)</span> factorization of a matrix <pre class="ptx-sagecell sagecell-python" id="sage-327"><script type="text/x-sage">A = np.array(np.arange(9)).reshape(3,3)
 P, L, U = linal.lu(A)
 </script></pre> gives matrices so that <span class="process-math">\(A = PLU\text{,}\)</span> where <span class="process-math">\(P\)</span> is a permutation matrix, <span class="process-math">\(L\)</span> is lower diagonal, and <span class="process-math">\(U\)</span> is upper diagonal.</div></li>
-<li id="li-6011"><div class="para" id="p-8689">A singular value decomposition is obtained with <pre class="ptx-sagecell sagecell-python" id="sage-328"><script type="text/x-sage">A = np.array(np.arange(12)).reshape(3,4)
+<li id="li-6012"><div class="para" id="p-8691">A singular value decomposition is obtained with <pre class="ptx-sagecell sagecell-python" id="sage-328"><script type="text/x-sage">A = np.array(np.arange(12)).reshape(3,4)
 U, s, V = linalg.svd(A)
 print([x.shape for x in [U, s, V]])
 </script></pre> Note that <code class="code-inline tex2jax_ignore">s</code> is not a matric but a 1-d array of singular values. If the matrix is needed, we can construct it with <pre class="ptx-sagecell sagecell-python" id="sage-329"><script type="text/x-sage">Sigma = linalg.diagsvd(s, 3, 4)  # must specify the shape 
@@ -877,7 +877,7 @@ print(s.round(3))
 print(Sigma.round(3))
 </script></pre>
 </div></li>
-<li id="li-6012"><div class="para" id="p-8690">The <span class="process-math">\(QR\)</span> factorization of <code class="code-inline tex2jax_ignore">A</code> is <code class="code-inline tex2jax_ignore">linalg.qr(A)</code> provided that <code class="code-inline tex2jax_ignore">A</code>. <pre class="ptx-sagecell sagecell-python" id="sage-330"><script type="text/x-sage">Q, R = linalg.qr(A)
+<li id="li-6013"><div class="para" id="p-8692">The <span class="process-math">\(QR\)</span> factorization of <code class="code-inline tex2jax_ignore">A</code> is <code class="code-inline tex2jax_ignore">linalg.qr(A)</code> provided that <code class="code-inline tex2jax_ignore">A</code>. <pre class="ptx-sagecell sagecell-python" id="sage-330"><script type="text/x-sage">Q, R = linalg.qr(A)
 print(Q.round(2))
 print(R.round(2))
 </script></pre>
