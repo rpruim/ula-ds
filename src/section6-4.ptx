@@ -13,13 +13,29 @@
       ref="prop-proj-formula">Projection Formula</xref>
       tells us that the orthogonal projection
       of a vector <m>\bvec</m> onto <m>W</m> is
-      <me>
+		<md>
+			<mrow>
+				\bhat \amp = \proj{\bvec}{W}
+			</mrow>
+			<mrow>
+				\amp = \proj{\bvec}{\wvec_1} +
+				\proj{\bvec}{\wvec_2} + \cdots +
+				\proj{\bvec}{\wvec_n} 
+			</mrow>
+			<mrow> \amp = 
+					\frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+					\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
+					\cdots +
+					\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n
+			</mrow>
+		</md>.
+      <!-- <me>
 	\bhat =
 	\frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}~\wvec_1 + 
 	\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}~\wvec_2 +
 	\cdots + 
 	\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n\text{.}
-      </me>
+      </me> -->
       An orthonormal basis <m>\uvec_1,\uvec_2,\ldots,\uvec_n</m>
       is even more convenient:  after forming the matrix
       <m>Q=\begin{bmatrix} \uvec_1 \amp \uvec_2 \amp \ldots \amp
@@ -31,7 +47,7 @@
       In the examples we've seen so far, however, orthogonal bases
       were given to us.  What we need now is a way to form orthogonal
       bases.  In this section, we'll explore an algorithm that begins
-      with a basis for a subspace and creates an
+      with any basis for a subspace and creates an
       orthogonal basis. Once we have an orthogonal basis, we can scale
       each of the vectors appropriately to produce an orthonormal
       basis.
@@ -62,16 +78,13 @@
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Find the vector <m>\vhat_2</m> that is the orthogonal
-	      projection of 
-	      <m>\vvec_2</m> onto the line defined by <m>\vvec_1</m>.
+	      Find the vector <m>\vhat_2 = \proj{\vvec_2}{\vvec_1}</m>. 
 	    </p>
 	  </li>
 
 	  <li>
 	    <p>
-	      Explain why <m>\vvec_2 - \vhat_2</m> is orthogonal to
-	      <m>\vvec_1</m>.
+	      Explain why <m>\vvec_2 - \vhat_2</m> is orthogonal to <m>\vvec_1</m>.
 	    </p>
 	  </li>
 	
@@ -168,7 +181,7 @@
     
     <figure xml:id="fig-proj-orthog">
       <sidebyside width="50%">
-	<image source="images/3d-orthog-proj-2" />
+	<image source="images/3d-orthog-proj-3" />
       </sidebyside>
       <caption>
 	If <m>\bhat</m> is the orthogonal projection of <m>\bvec</m>
@@ -192,8 +205,8 @@
 	  <me>
 	    \vvec_1 = \fourvec1111,\hspace{24pt}
 	    \vvec_2 = \fourvec1322,\hspace{24pt}
-	    \vvec_3 = \fourvec1{-3}{-3}{-3}\text{.}
-	  </me>
+	    \vvec_3 = \fourvec1{-3}{-3}{-3}
+	  </me>.
 	  We can see that this basis is not orthogonal by noting that
 	  <m>\vvec_1\cdot\vvec_2 = 8</m>.  Our goal is to create an
 	  orthogonal basis <m>\wvec_1</m>, <m>\wvec_2</m>, and
@@ -201,19 +214,21 @@
 	</p>
 	<p>
 	  To begin, we declare that <m>\wvec_1=\vvec_1</m>, and we
-	  call <m>W_1</m> the line defined by <m>\wvec_1</m>.
+	  call <m>W_1</m> the line defined by <m>\wvec_1</m>:
+	  <me>
+		\wvec_2 = \vvec_2 - \proj{\vvec_2}{\wvec_1}
+	  </me>.
 	</p>
+
 	<p>
-	  <sage>
+	  <sage language="python">
 	    <input>
 	    </input>
 	  </sage>
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		Find the vector <m>\vhat_2</m> that is the orthogonal
-		projection of <m>\vvec_2</m> onto <m>W_1</m>, the line
-		defined by <m>\wvec_1</m>.
+			Find the vector <m>\vhat_2 = \proj{\vvec_2}{\vvec_1}</m>. 
 	      </p>
 	    </li>
 
@@ -290,8 +305,8 @@
 		<me>
 		  c_1\vvec_1+c_2\vvec_2 =
 		  c_1\wvec_1+c_2(\wvec_2+2\wvec_1) =
-		  (c_1+2c_2)\wvec_1 + c_2\wvec_2\text{.}
-		</me>
+		  (c_1+2c_2)\wvec_1 + c_2\wvec_2
+		</me>.
 		In the same way, <m>\wvec_1=\vvec_1</m> and <m>\wvec_2
 		= \vvec_2-2\vvec_1</m> so any linear combination of
 		<m>\wvec_1</m> and <m>\wvec_2</m> can be rewritten as
@@ -390,7 +405,7 @@
 
     <p>
       As this activity illustrates, Gram-Schmidt orthogonalization
-      begins with a basis <m>\vvec_1\vvec_2,\ldots,\vvec_n</m> for a
+      begins with a basis <m>\vvec_1, \vvec_2,\ldots,\vvec_n</m> for a
       subspace <m>W</m> of <m>\real^m</m> and creates an orthogonal
       basis for <m>W</m>.  Let's work through a second example.
     </p>
@@ -402,8 +417,8 @@
 	  <me>
 	    \vvec_1=\threevec{2}{-1}2,\hspace{24pt}
 	    \vvec_2=\threevec{-3}{3}0,\hspace{24pt}
-	    \vvec_3=\threevec{-2}71\text{,}
-	  </me>
+	    \vvec_3=\threevec{-2}71
+	  </me>,
 	  which is a basis for <m>\real^3</m>.
 	</p>
 
@@ -413,12 +428,17 @@
 	  We construct <m>\wvec_2</m> from <m>\vvec_2</m> by
 	  subtracting its orthogonal projection onto <m>W_1</m>, the
 	  line defined 
-	  by <m>\wvec_1</m>.  This gives
+	  by <m>\wvec_1</m>:  
+	  <me>
+		\wvec_2 = \vvec_2 - \proj{\vvec_2}{\wvec_1}
+	  </me>
+	  
+	  This gives
 	  <me>
 	    \wvec_2 = \vvec_2 -
 	    \frac{\vvec_2\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 =
-	    \vvec_2 + \wvec_1 = \threevec{-1}22\text{.}
-	  </me>
+	    \vvec_2 + \wvec_1 = \threevec{-1}22
+	  </me>.
 	</p>
 
 	<p>
@@ -427,14 +447,14 @@
 	  <m>\vvec_1</m> and <m>\vvec_2</m> as
 	  <me>
 	    c_1\vvec_1 + c_2\vvec_2 = c_1\wvec_1 + c_2(-\wvec_1+\wvec_2)
-	    = (c_1-c_2)\wvec_1 + c_2\wvec_2\text{,}
-	  </me>
+	    = (c_1-c_2)\wvec_1 + c_2\wvec_2
+	  </me>,
 	  a linear combination of <m>\wvec_1</m> and <m>\wvec_2</m>.
 	  This tells us that
 	  <me>
 	    W_2 = \laspan{\wvec_1,\wvec_2} = 
-	    \laspan{\vvec_1,\vvec_2}\text{.}
-	  </me>
+	    \laspan{\vvec_1,\vvec_2}
+	  </me>.
 	  In other words, <m>\wvec_1</m> and <m>\wvec_2</m> is a
 	  orthogonal basis for <m>W_2</m>,  the 2-dimensional subspace
 	  that is the span of <m>\vvec_1</m> and
@@ -449,8 +469,8 @@
 	    \frac{\vvec_3\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 -
 	    \frac{\vvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_1
 	    = \vvec_3 + \wvec_1 - 2\wvec_2
-	    = \threevec22{-1}\text{.}
-	  </me>
+	    = \threevec22{-1}
+	  </me>.
 	</p>
 
 	<p>
@@ -473,8 +493,8 @@
 	  <me>
 	    \uvec_1 = \threevec{2/3}{-1/3}{2/3},\hspace{24pt}
 	    \uvec_2 = \threevec{-1/3}{2/3}{2/3},\hspace{24pt}
-	    \uvec_3 = \threevec{2/3}{2/3}{-1/3}\text{.}
-	  </me>
+	    \uvec_3 = \threevec{2/3}{2/3}{-1/3}
+	  </me>.
 	</p>
       </statement>
     </example>
@@ -507,8 +527,7 @@
 	  \ldots - 
 	  \frac{\vvec_n\cdot\wvec_{n-1}}
 	  {\wvec_{n-1}\cdot\wvec_{n-1}}\wvec_{n-1}
-	  \text{.} 
-	</mrow>
+	</mrow>.
       </md>
     </p>
 
@@ -521,51 +540,43 @@
     <activity>
       <statement>
 	<p>
-	  Sage can automate these computations for us.  Before
-	  we begin, however, it will be helpful to understand how we can
-	  combine things using a <c>list</c> in Python.  For
-	  instance, if the vectors <c>v1</c>, <c>v2</c>, and <c>v3</c>
-	  form a basis for a subspace, we can bundle them together using
-	  square brackets: <c>[v1, v2, v3]</c>.  Furthermore, we could
-	  assign this to a variable, such as <c>basis = [v1, v2, v3]</c>.
-	</p>
+	  Python can automate these computations for us, and we'll learn 
+	  a standard numpy way of approaching this shortly. But first let's see  
+	  how we can code up the Gram-Schmidt process directly. The code below 
+	  allows vectors to be given as 1-d arrays or as 1-column matrices.
+	  <c>flatten()</c> is used to convert either to the 1-d representation.
+	  The basis is provided as a python list of vectors (in either representation).
 	
-	<p>
-	  Evaluating the following cell will load in some special
-	  commands.  
-	  <sage>
+<!-- sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py", globals()) -->
+	  <sage language="python">
 	    <input>
-sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py", globals())
+import numpy as np
+
+def flatten(x):
+    return x.reshape((np.prod(x.shape), ))
+
+def projection(b, basis):
+    b = flatten(b)
+    basis = [flatten(x) for x in basis]
+    if len(basis) == 0: return np.zeros(b.shape[0])
+    return sum([ (b@v)/(v@v) * v for v in basis ])
+
+def unit(v):
+    return 1/np.linalg.norm(v) * v
+
+def gram_schmidt(basis):
+    new_basis = []
+    basis = [flatten(x) for x in basis]
+    for b in basis:
+        new_basis.append(unit(b - projection(b, new_basis)))
+    return new_basis
+
+B = [np.array([1,2,3]), np.array([1,1,1]), np.array([1,0,0])]
+print(gram_schmidt(B))
 	    </input>
 	  </sage>
-	  <ul>
-	    <li>
-	      <p>
-		There is a command to apply the projection formula:
-		<c>projection(b, basis)</c> returns the orthogonal
-		projection of <c>b</c> onto the subspace spanned by
-		<c>basis</c>, which is a list of vectors.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The command <c>unit(w)</c> returns a unit vector
-		parallel to <c>w</c>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Given a collection of vectors, say, <c>v1</c> and
-		<c>v2</c>, we can form the matrix whose columns are
-		<c>v1</c> and <c>v2</c> using
-		<c>matrix([v1, v2]).T</c>.  When given a <c>list</c> of
-		vectors, Sage constructs a matrix whose <em>rows</em>
-		are the given vectors.  For this reason, we need to apply
-		the transpose.
-	      </p>
-	    </li>
-	  </ul>
 	</p>
+
 
 	<p>
 	  Let's now consider <m>W</m>, the subspace of <m>\real^5</m>
@@ -583,7 +594,7 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 		basis <m>\wvec_1</m>, <m>\wvec_2</m>, and <m>\wvec_3</m>
 		for <m>W</m>.
 	      </p>
-	      <sage>
+	      <sage language="python">
 		<input>
 		</input>
 	      </sage>
@@ -615,7 +626,7 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 		<m>\uvec_2</m>, for <m>\uvec_3</m> for <m>W</m> and form
 		the matrix <m>Q</m> whose columns are these vectors.
 	      </p>
-	      <sage>
+	      <sage language="python">
 		<input>
 		</input>
 	      </sage>
@@ -758,12 +769,14 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 
   <subsection>
     <title> <m>QR</m> factorizations </title>
+	<idx><h><m>QR</m> factorization</h></idx>
 
     <p>
       Now that we've seen how the Gram-Schmidt algorithm forms an
       orthonormal basis for a given subspace, we will explore how the
       algorithm leads to an important matrix factorization known as
-      the <m>QR</m> factorization.
+      the <term><m>QR</m> factorization</term>. The <m>QR</m> factorization 
+	  can be computed in most any computer package that does linear algebra.
     </p>
 
     <activity>
@@ -774,13 +787,13 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	  <me>
 	    \vvec_1 = \fourvec1111,\hspace{24pt}
 	    \vvec_2 = \fourvec1322,\hspace{24pt}
-	    \vvec_3 = \fourvec1{-3}{-3}{-3}\text{.}
-	  </me>
+	    \vvec_3 = \fourvec1{-3}{-3}{-3}
+	  </me>.
 	  These vectors form a basis for <m>W</m>, the subspace of
 	  <m>\real^4</m> that we encountered in <xref
 	  ref="activity-gram-schmidt" />.  Since these vectors are the
 	  columns of <m>A</m>, we have <m>\col(A) = W</m>.
-	  <sage>
+	  <sage language="python">
 	    <input>
 	    </input>
 	  </sage>
@@ -793,11 +806,16 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 		<me>
 		  \begin{aligned}
 		  \wvec_1 \amp = \vvec_1 \\
-		  \wvec_2 \amp = \vvec_2 -
+		  \wvec_2 \amp = \vvec_2 - \proj{\vvec_2}{\wvec_1} \\
+		  \wvec_3 \amp = \vvec_3 - \proj{\vvec_3}{\wvec_1}  - \proj{\vvec_3}{\wvec_2} \\
+		  \end{aligned}
+		</me>
+		That is,
+		<me>
 		  \frac{\vvec_2\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 \\
 		  \wvec_3 \amp = \vvec_3 -
 		  \frac{\vvec_3\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 -
-		  \frac{\vvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2\text{.}
+		  \frac{\vvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 \; .
 		  \\
 		  \end{aligned}
 		</me>
@@ -820,7 +838,7 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 		Write the vectors <m>\wvec_i</m> as scalar multiples of
 		<m>\uvec_i</m>.
 		Then use these expressions to write
-		<m>\vvec_1</m>, <m>\vvec_1</m>, and
+		<m>\vvec_1</m>, <m>\vvec_2</m>, and
 		<m>\vvec_3</m> as linear combinations of <m>\uvec_1</m>,
 		<m>\uvec_2</m>, and <m>\uvec_3</m>.
 	      </p>
@@ -917,8 +935,8 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 		<me>
 		  \wvec_1 = 2\uvec_1,\hspace{24pt}
 		  \wvec_1 = \sqrt{2}\uvec_2,\hspace{24pt}
-		  \wvec_1 = 2\uvec_3\text{.}
-		</me>
+		  \wvec_1 = 2\uvec_3
+		</me>.
 		This leads to
 		<me>
 		  \begin{aligned}
@@ -1072,8 +1090,8 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	      \vvec_2 \amp {}={} -\wvec_1 + \wvec_2
 	    </mrow>
 	    <mrow>
-	      \vvec_3 \amp {}={} -\wvec_1 + 2\wvec_2 + \wvec _3\text{.}
-	    </mrow>
+	      \vvec_3 \amp {}={} -\wvec_1 + 2\wvec_2 + \wvec _3
+	    </mrow>.
 	  </md>
 	</p>
 
@@ -1094,8 +1112,8 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	      \vvec_2 \amp {}={} -3\uvec_1 + 3\uvec_2
 	    </mrow>
 	    <mrow>
-	      \vvec_3 \amp {}={} -3\uvec_1 + 6\uvec_2 + 3\uvec _3\text{.}
-	    </mrow>
+	      \vvec_3 \amp {}={} -3\uvec_1 + 6\uvec_2 + 3\uvec _3
+	    </mrow>.
 	  </md>
 	</p>
 
@@ -1108,8 +1126,8 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    0 \amp 3 \amp 6 \\
 	    0 \amp 0 \amp 3 \\
 	    \end{bmatrix}
-	    =QR\text{.}
-	  </me>
+	    =QR
+	  </me>.
 	</p>
       </statement>
     </example>
@@ -1123,18 +1141,19 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
     <activity>
       <statement>
 	<p>
-	  As before, we would like to use Sage to automate the process
+	  As before, we would like to use Python to automate the process
 	  of finding and using the <m>QR</m> factorization of a matrix
 	  <m>A</m>. 
-	  Evaluating the following cell provides a command <c>QR(A)</c>
-	  that returns the factorization, which may be stored using,
-	  for example, 
-	  <c>Q, R = QR(A)</c>.
-	  <sage>
+	  <c>Q, R = numpy.linalg.qr(A)</c> will do the trick.
+	  	<idx><h><c>numpy.linalg.qr()</c></h></idx>
+		<idx><h><m>QR</m> factorization</h></idx>
+		<idx><h><m>QR</m> factorization</h><seealso><c>numpy.linalg.qr()</c></seealso></idx>
+
+	  <!-- <sage language="python">
 	    <input>
 sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py", globals())
 	    </input>
-	  </sage>
+	  </sage> -->
 	</p>
 	
 	<p>
@@ -1152,18 +1171,20 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		If <m>A=QR</m>, what is the shape of <m>Q</m> and
+		If <m>A=QR</m>, what are the shapes of <m>Q</m> and of
 		<m>R</m>?  What is special about the form of <m>R</m>?
 	      </p>
 	    </li>
 	    
 	    <li>
 	      <p>
-		Find the <m>QR</m> factorization using 
-		<c>Q, R = QR(A)</c> and verify that <m>R</m> has the predicted
-		shape and that <m>A=QR</m>.
-		<sage>
+		Find the <m>QR</m> factorization of <m>A</m> and verify that 
+		(a) they havce the anticipated shapes and (b) <m>QR = A</m>.
+	    <sage language="python">
 		  <input>
+import numpy as np
+A = np.array(
+	[[1,0,-3], [0, 2, -1], [1, 0, 1], [1, 3, 5]])
 		  </input>
 		</sage>
 	      </p>
@@ -1248,6 +1269,60 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    </li>
 	  </ol>
 	</p>
+	<p>
+		Here is some Python code that performs the necessary calculations.
+	  <sage language="python">
+		<input>
+import numpy as np
+A = np.array(
+	[[1,0,-3], [0, 2, -1], [1, 0, 1], [1, 3, 5]])
+Q,R = np.linalg.qr(A)
+print([x.shape for x in (Q,R)]); print()
+print("Q:\n", Q); print()
+print("R:\n", R); print()
+print("QR:\n", (Q @ R).round(4)); print();
+b = np.array([4, -17, -14, 22]).reshape(4,1)
+bhat = Q @ np.transpose(Q) @ b
+print("bhat:\n", bhat); print()
+import sympy
+Aug = np.hstack((A, bhat))
+print(sympy.Matrix(Aug).rref())
+		</input>
+		<output>
+[(4, 3), (3, 3)]
+
+Q:
+ [[-0.57735027  0.31622777  0.62554324]
+ [-0.         -0.63245553  0.62554324]
+ [-0.57735027  0.31622777 -0.20851441]
+ [-0.57735027 -0.63245553 -0.41702883]]
+
+R:
+ [[-1.73205081 -1.73205081 -1.73205081]
+ [ 0.         -3.16227766 -3.16227766]
+ [ 0.          0.         -4.79583152]]
+
+QR:
+ [[ 1.  0. -3.]
+ [ 0.  2. -1.]
+ [ 1.  0.  1.]
+ [ 1.  3.  5.]]
+
+bhat:
+ [[-7.]
+ [-5.]
+ [ 5.]
+ [14.]]
+
+(Matrix([
+[1, 0, 0,  2.0],
+[0, 1, 0, -1.0],
+[0, 0, 1,  3.0],
+[0, 0, 0,    0]]), (0, 1, 2)))
+		</output>
+	  </sage>
+	  </p>
+
       </solution>
 	    
       <answer>
@@ -1299,17 +1374,19 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	      </p>
 	    </li>
 	  </ol>
+
+	  
 	</p>
       </answer>
 	    
     </activity>
 
-    <p>
+    <!-- <p>
       In fact, Sage provides its own version of the <m>QR</m>
       factorization that is a bit different than the way we've
       developed the factorization here.  For this reason, we have
       provided our own version of the factorization.
-    </p>
+    </p> -->
 
   </subsection>
 
@@ -1328,6 +1405,25 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    \vvec_2,\ldots,\vvec_n</m> for a subspace <m>W</m>
 	    of <m>\real^m</m>, the vectors
 	    <md>
+	      <mrow>
+		\wvec_1 \amp = \vvec_1
+	      </mrow>
+	      <mrow>
+		\wvec_2 \amp = \vvec_2 - \proj{\vvec_2}{\wvec_1}
+		  </mrow>
+	      <mrow>
+		\wvec_3 \amp = \vvec_3 - \proj{\vvec_3}{\wvec_1} - \proj{\vvec_3}{\wvec_2}
+		  </mrow>
+		  <mrow>
+			\amp \vdots
+		  </mrow>
+	      <mrow>
+		\wvec_n \amp = \vvec_n - \proj{\vvec_n}{\wvec_1} - \proj{\vvec_n}{\wvec_2} - \cdots - \proj{\vvec_n}{\wvec_{n-1}}
+		  </mrow>
+		</md>
+	    form an orthogonal basis for <m>W</m>.
+
+	    <!-- <md>
 	      <mrow>
 		\wvec_1 \amp = \vvec_1
 	      </mrow>
@@ -1351,8 +1447,7 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 		\frac{\vvec_n\cdot\wvec_{n-1}}
 		{\wvec_{n-1}\cdot\wvec_{n-1}}\wvec_{n-1}
 	      </mrow>
-	    </md>
-	    form an orthogonal basis for <m>W</m>.
+	    </md> -->
 	  </p>
 	</li>
 
@@ -1371,7 +1466,14 @@ sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    independent, then we can write <m>A=QR</m>, where the
 	    columns of <m>Q</m> form an orthonormal basis for
 	    <m>\col(A)</m> and <m>R</m> is upper triangular.
+		<m>R</m> is upper triangular because each <m>\wvec_i</m> only 
+		depends on <m>\vvec_j</m> for <m>j \le i</m>.
 	  </p>
+	</li>
+	<li>
+		<p>
+			<c>numpy.linalg.qr()</c> will compute <m>QR</m> factorizations for us.
+		</p>
 	</li>
       </ul>
     </p>

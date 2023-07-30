@@ -2,7 +2,7 @@
 
 <section xml:id="sec-least-squares"
 	 xmlns:xi="http://www.w3.org/2001/XInclude">
-  <title> Orthogonal least squares </title>
+  <title> Least squares methods </title>
 
   <introduction>
     <p>
@@ -29,14 +29,20 @@
     <p>
       In this section, we'll explore how the techniques developed in
       this chapter enable us to find the line that best approximates
-      the data.  More specifically, we'll see how the search for a
-      line passing through the data points leads to an inconsistent
-      system <m>A\xvec=\bvec</m>.  Since we are unable to find a
-      solution, we instead seek the vector <m>\xvec</m>
-      where <m>A\xvec</m> is as close as possible to <m>\bvec</m>.
+      the data.  
+	  </p>
+	 
+	  <p>
+	  More generally, that whenever
+      <m>A\xvec=\bvec</m> is inconsistent, we can instead seek 
+	  an approximate solution -- a solution to 
+      <m>A\xvec=\bhat</m> where <m>\bhat</m> is a close as possible 
+	  to <m>\bvec</m>.
       Orthogonal projection gives us just the right tool for doing
       this.
     </p>
+
+	
     
     <exploration>
       <statement>
@@ -52,10 +58,13 @@
 	      2 \amp 5 \\
 	      -1 \amp 0 \\
 	      \end{bmatrix}
-	      \xvec = \threevec5{-3}{-1}\text{.}
-	    </me>
-	    <sage>
+	      \xvec = \threevec5{-3}{-1}
+	    </me>.
+	    <sage language="python">
 	      <input>
+import numpy as np
+A = np.array([1, 2, 2, 5, -1, 0]).reshape(3,2)
+b = np.array([5, -3, -1)]
 	      </input>
 	    </sage>
 	    </p>
@@ -177,34 +186,43 @@
 	    <li>
 	      <p>
 		Remember that the equation of a line can be written
-		as <m>b + mx=y</m> where <m>m</m> is the slope and <m>b</m> is
-		the <m>y</m>-intercept.  We will try to find <m>b</m> and
-		<m>m</m> so that the three points lie on the line.
-	      </p>
-	      
-	      <p>
+		as 
+		<me>y = mx + b</me> 
+		where <m>m</m> is the slope and <m>b</m> is the <m>y</m>-intercept.  
+		Statisticans prefer the notation <me> y = \beta_0 + \beta_1 x</me>,
+		and we're going to adopt statistical preferences for most of the remainder of 
+		this chapter since least squares is such an important method in 
+		statistics.
+		  </p>
+
+		  <p>
+		To begin, we will try to find <m>\beta_0</m> and
+		<m>\beta_1</m> so that the three points lie on the line with 
+		equation  <m>y = \beta_0 + \beta_1 x</m>.
 		The first data point <m>(1,1)</m> gives an equation
-		for <m>b</m> and <m>m</m>.  In particular, we know that when
+		for <m>\beta_0</m> and <m>\beta_1</m>. 
+		In particular, we know that when
 		<m>x=1</m>, then <m>y=1</m> so we have
-		<m>b + m(1) = 1</m> or <m>b + m = 1</m>.  Use the other two
-		data points to create a linear system describing <m>m</m> and
-		<m>b</m>.
+		<m>\beta_0 + \beta_1(1) = 1</m> or <m>\beta_0 + \beta_1 = 1</m>.  
+		  </p>
+		  <p>
+		Use the other two data points to create a linear system describing 
+		<m>\beta_0</m> and <m>\beta_1</m>.
 	      </p>
 	    </li>
 
 	    <li>
 	      <p>
 		We have obtained a linear system having three equations,
-		one from each data 
-		point, for the two unknowns <m>b</m> and <m>m</m>.
-		Identify a matrix <m>A</m> and vector <m>\bvec</m> so
-		that the system has the form <m>A\xvec=\bvec</m>, where
-		<m>\xvec=\ctwovec bm</m>.  
+		one from each data point, for the two unknowns <m>\beta_0</m> and <m>\beta_1</m>.
+		Identify a matrix <m>X</m> and vector <m>\betavec</m> so
+		that the system has the form <m>\yvec = X \betavec</m>, where
+		<m>\betavec=\ctwovec{\beta_0}{\beta_1}</m>.  
 	      </p>
 
 	      <p>
-		Notice that the unknown vector <m>\xvec=\ctwovec bm</m>
-		describes the line that we seek.
+		Notice that the unknown vector <m>\betavec=\ctwovec {\beta_0}{\beta_1}</m>
+		specifies the intercept and slope of the line that we seek.
 	      </p>
 	    </li>
 
@@ -213,7 +231,7 @@
 		Is there a solution to this linear system?  How does
 		this question relate to your attempt to draw a line
 		through the three points above?
-		<sage>
+		<sage language="python">
 		  <input>
 
 		  </input>
@@ -224,20 +242,25 @@
 	    <li>
 	      <p>
 		Since this system is inconsistent, we know that
-		<m>\bvec</m> is not in the column space <m>\col(A)</m>.
-		Find an orthogonal basis for <m>\col(A)</m> and use it
-		to find the orthogonal projection <m>\widehat\bvec</m>
-		of <m>\bvec</m> onto <m>\col(A)</m>.
+		<m>\yvec</m> is not in the column space <m>\col(X)</m>.
+		Find an orthogonal basis for <m>\col(X)</m> and use it
+		to find the orthogonal projection <m>\yhat = \proj{\yvec}{\col(X)}</m>.
 	      </p>
 	    </li>
 
 	    <li>
 	      <p>
-		Since <m>\widehat\bvec</m> is in <m>\col(A)</m>, the
-		equation <m>A\xvec = \widehat\bvec</m> is consistent.  Find its
-		solution <m>\xvec = \ctwovec{b}{m}</m> and sketch the line
-		<m>y=b + mx</m> in <xref ref="fig-ls-empty" />.  We say that
-		this is the line of best fit.
+		Since <m>\yhat</m> is in <m>\col(X)</m>, the
+		equation <m>X\betavec = \yhat</m> is consistent.  Find its
+		solution, which we will denote <m>\betahat = \ctwovec{\hat\beta_0}{\hat\beta_1}</m>,
+		and sketch the line <m>y=\hat{\beta}_0 + \hat{\beta}_1 x</m> in 
+		<xref ref="fig-ls-empty" />.  
+		This line is called the <term>least squares regression line</term>.
+		<idx><h>least squares regression</h></idx>
+		<idx><h>regression</h><see>least squares regression</see></idx>
+		That "hat" on <m>\betahat</m> indicates that these coefficients (most likely) 
+		do not fit the data exactly, but come as close as we can to doing so (in the 
+		sense of minimizing the distance between <m>\yhat = X\betahat</m> and <m>\yvec</m>).
 	      </p>
 	    </li>
 	  </ol>
@@ -258,24 +281,24 @@
 		We have the equations
 		<md>
 		  <mrow>
-		    b + m \amp {}={} 1
+		    \beta_0 + \beta_1 \amp {}={} 1
 		  </mrow>
 		  <mrow>
-		    b + 2m \amp {}={} 1
+		    \beta_0 + 2\beta_1 \amp {}={} 1
 		  </mrow>
 		  <mrow>
-		    b + 3m \amp {}={} 3
+		    \beta_0 + 3\beta_1 \amp {}={} 3
 		  </mrow>
 		</md>
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		We have <m>A = \begin{bmatrix}
+		We have <m>X = \begin{bmatrix}
 		1 \amp 1 \\
 		1 \amp 2 \\
 		1 \amp 3 \\
-		\end{bmatrix}</m> and <m>\bvec=\threevec113</m>.
+		\end{bmatrix}</m> and <m>\yvec=\threevec113</m>.
 	      </p>
 	    </li>
 	    <li>
@@ -291,15 +314,15 @@
 	      <p>
 		Applying Gram-Schmidt gives us the orthogonal basis
 		<m>\wvec_1=\threevec111</m> and <m>\wvec_2 =
-		\threevec{-1}01</m>.  Projecting <m>\bvec</m> onto
-		<m>\col(A)</m> gives
-		<m>\bhat=\threevec{2/3}{5/3}{8/3}</m>.
+		\threevec{-1}01</m>.  Projecting <m>\yvec</m> onto
+		<m>\col(X)</m> gives
+		<m>\yhat=\threevec{2/3}{5/3}{8/3}</m>.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		Solving the equation <m>A\xvec = \bhat</m> gives
-		<m>\xvec=\ctwovec{-1/3}1</m>, which describes a line
+		Solving the equation <m>X\betavec = \yhat</m> gives
+		<m>\betahat=\ctwovec{-1/3}1</m>, which describes a line
 		having vertical intercept <m>b=-1/3</m> and the slope
 		<m>=1</m>.  This line is shown in <xref
 		ref="fig-best-fit-line" />.
@@ -331,25 +354,25 @@
 	      <p>
 		We have the equations
 		<md>
-		  <mrow>
-		    b + m \amp {}={} 1
-		  </mrow>
-		  <mrow>
-		    b + 2m \amp {}={} 1
-		  </mrow>
-		  <mrow>
-		    b + 3m \amp {}={} 3
-		  </mrow>
-		</md>
+			<mrow>
+			  \beta_0 + \beta_1 \amp {}={} 1
+			</mrow>
+			<mrow>
+			  \beta_0 + 2\beta_1 \amp {}={} 1
+			</mrow>
+			<mrow>
+			  \beta_0 + 3\beta_1 \amp {}={} 3
+			</mrow>
+		  </md>
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		We have <m>A = \begin{bmatrix}
-		1 \amp 1 \\
-		1 \amp 2 \\
-		1 \amp 3 \\
-		\end{bmatrix}</m> and <m>\bvec=\threevec113</m>.
+			We have <m>X = \begin{bmatrix}
+				1 \amp 1 \\
+				1 \amp 2 \\
+				1 \amp 3 \\
+				\end{bmatrix}</m> and <m>\yvec=\threevec113</m>.
 	      </p>
 	    </li>
 	    <li>
@@ -359,12 +382,12 @@
 	    </li>
 	    <li>
 	      <p>
-		<m>\bhat=\threevec{2/3}{5/3}{8/3}</m>.
+		<m>\yhat=\threevec{2/3}{5/3}{8/3}</m>.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		<m>\xvec=\twovec{-1/3}1</m>.
+		<m>\betahat=\twovec{-1/3}1</m>.
 		This line is shown in <xref
 		ref="fig-best-fit-line-ans" />.
 	      </p>
@@ -384,12 +407,14 @@
 
     </activity>
 
+
     <p>
       This activity illustrates the idea behind a technique known as
-      <em>orthogonal least squares</em>, which we have been working
+	  <idx><h>least squares regression</h></idx>
+      <term>least squares regression</term>, which we have been working
       toward throughout this chapter.  If the data points are denoted as
-      <m>(x_i, y_i)</m>, we construct the matrix <m>A</m> and vector
-      <m>\bvec</m> as
+      <m>(x_i, y_i)</m>, we construct the matrix <m>X</m> and vector
+      <m>\yvec</m> as
       <me>
 	A =
 	\begin{bmatrix}
@@ -397,58 +422,67 @@
 	1 \amp x_2 \\
 	1 \amp x_3 \\
 	\end{bmatrix},\hspace{24pt}
-	\bvec = \threevec{y_1}{y_2}{y_3}\text{.}
-      </me>
-      With the vector <m>\xvec=\ctwovec bm</m> representing the line
-      <m>b+mx = y</m>, we see that
-      the equation <m>A\xvec=\bvec</m> describes a line passing
+	\yvec = \threevec{y_1}{y_2}{y_3}
+      </me>.
+      With the vector <m>\betavec=\ctwovec{\beta_0}{\beta_1}</m> 
+	  representing the line with equation <m>y = \beta_0 + \beta_1 x</m>, we see that
+      the equation <m>\yvec = X\betavec</m> describes a line passing
       through all the data points.  In our activity, it is visually
       apparent that there is no such line, which agrees with
-      the fact that the equation <m>A\xvec=\bvec</m> is inconsistent.
+      the fact that the equation <m>\yvec = X\betavec</m> is inconsistent.
     </p>
 
     <p>
-      Remember that <m>\bhat</m>, the orthogonal projection of
-      <m>\bvec</m> onto <m>\col(A)</m>, is the closest vector in
-      <m>\col(A)</m> to <m>\bvec</m>.  Therefore, when we solve the
-      equation <m>A\xvec=\bhat</m>, we are finding the vector
-      <m>\xvec</m> so that <m>A\xvec = 
-      \threevec{b+mx_1}{b+mx_2}{b+mx_3}</m> is as close to
-      <m>\bvec=\threevec{y_1}{y_2}{y_3}</m>
+      Remember that <m>\yhat = \proj{\yvec}{\col(X)}</m> 
+	  is the closest vector in <m>\col(X)</m> to <m>\yvec</m>.  
+	  Therefore, when we solve the equation <m>X\betavec=\yhat</m>, we are finding the vector
+      <m>\betahat</m> so that 
+	  <m>\yhat = X\betahat = \threevec{\hat{\beta}_0+ \hat{\beta_1} x_1}{\hat{\beta}_0+ \hat{\beta_1} x_2}{\hat{\beta}_0+ \hat{\beta_1} x_3}</m> 
+	  is as close to <m>\yvec=\threevec{y_1}{y_2}{y_3}</m>
       as possible.  Let's think about what this means within the
       context of this problem.
     </p>
 
     <p>
-      The difference <m>\bvec-A\xvec =
-      \threevec{y_1-(b+mx_1)}{y_2-(b+mx_2)}{y_3-(b+mx_3)}</m> so that
-      the square of the distance between <m> A\xvec</m> and
-      <m>\bvec</m> is
+      The difference 
+	    <me>\yvec-\yhat =
+      \threevec{y_1-(\hat{\beta_0} +\hat{\beta_1} x_1)}{y_2-(\hat{\beta_0} + 
+	                 \hat{\beta_1} x_2)}{y_3-(\hat{\beta_0} +\hat{\beta_1} x_3)}
+		</me> 
+	  so that the square of the distance between <m> \yhat = X\betahat</m> and
+      <m>\yvec</m> is
       <md>
 	<mrow>
-	  \len{\bvec - A\xvec}^2 \amp =
+	  \len{\yvec - \yhat}^2 \amp =
 	</mrow>
 	<mrow>
-	  \amp \left(y_1-(b+mx_1)\right)^2 + 
-	  \left(y_2-(b+mx_2)\right)^2 +
-	  \left(y_3-(b+mx_3)\right)^2\text{.}
-	</mrow>
+	  \amp 
+	  \left(y_1-(\hat{\beta}_0 +\hat{\beta}_1 x_1)\right)^2 + 
+	  \left(y_2-(\hat{\beta}_0 +\hat{\beta}_1 x_2)\right)^2 +
+	  \left(y_3-(\hat{\beta}_0 +\hat{\beta}_1 x_3)\right)^2
+	</mrow>.
       </md>
-      Our approach finds the values for <m>b</m> and <m>m</m> that
+	  <idx><h>least squares regression</h></idx>
+      Our approach finds the values for <m>\beta_0</m> and <m>\beta_1</m> that
       make this sum of squares as small as possible, which is
-      why we call this a <em>least squares</em> problem.
+      why we call this a <term>least squares</term> problem.
     </p>
 
     <p>
-      Drawing the line defined by the vector <m>\xvec=\ctwovec bm</m>,
-      the quantity <m>y_i - (b + mx_i)</m> reflects the vertical
-      distance between the line and the data point <m>(x_i, y_i)</m>,
-      as shown in <xref ref="fig-least-squares-def" />.  Seen in this
-      way, the square of the distance <m>\len{\bvec-A\xvec}^2</m> is a
-      measure of how much the line defined by the vector <m>\xvec</m>
+		Usually the least squares regression line does not pass through all of the data points.
+		Statisticians call <m> y_i - \hat{y}_i = y_i - (\hat\beta_0 + \hat\beta_1 x_i)</m> the 
+		<term>residual</term> for observation <m>i</m>.
+        As shown in <xref ref="fig-least-squares-def" />,  
+		residuals measure the vertical distance between the observed response  
+		value <m>y_i</m> and the predicted response value <m>\hat y_i</m>:
+		<me>
+			\mbox{residual} = \mbox{observed} - \mbox{expected}
+		</me>.
+	  Seen in this way, the square of the distance <m>\len{\yvec-\hat y}^2</m> is a
+      measure of how much the line defined by the vector <m>\betahat</m>
       misses the data points.  The solution to the least squares
       problem is the line that misses the data points by the smallest
-      amount possible.
+      amount possible (when measured in this way).
     </p>
 
     <figure xml:id="fig-least-squares-def">
@@ -460,106 +494,251 @@
 	distances between the line and the data points.
       </caption>
     </figure>
+</subsection>
+
+<subsection xml:id="subsec-linear-model-framework">
+	<idx><h>linear model</h></idx>
+	<title>The linear model framework</title>
+	<p>
+		The previous example is an example of <term>simple linear regression</term>. In simple linear 
+		regression there is a single quantitative predictor and the model proposes a linear 
+		relationship between the explanatory variable and the response.
+		<idx><h>linear model</h></idx>
+		Least squares regression can be used with multiple explanatory variables just as easily as with one 
+		-- at least if we are willing to let the computer take care of the tedious arithmetic involved.
+		In this section we describe a general framework called <term>linear models</term>.
+		Linear models and their generalizations are arguably the most important and commonly used method 
+		of data analysis.
+	</p>
+	<p>
+		Suppose we are looking for a relationship of the form 
+		<me>
+			y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_p x_p
+		</me>.
+		We mean for this to hold for every subject in the data, each of whom has (likely different) 
+		values of <m>y</m> and the <m>x_i</m>'s.  But we want the values of the <m>\beta's </m> to be the 
+		same for everyone.  Let's rewrite our equation to emphasize that we are really dealing 
+		with vectors here. 
+		<me>
+			\yvec = \beta_0 \onevec + \beta_1 \xvec_1 + \beta_2 \xvec_2 + \cdots + \beta_p \xvec_p
+		</me>.
+		Notice that we snuck in a vector of 1's to make the "constant" term look like all the others.
+	</p>
+
+	<p>
+		Now let's go one more step and express this model using matrices. 
+		<idx><h>data matrix</h></idx>
+		The vector of ones 
+		and the <m>\xvec_i</m> vectors form the columns of the <m>n \by (p+1)</m> 
+		matrix <m>X</m>.  
+		This matrix is usually refered to as the <term>model matrix</term>.
+		<idx><h>coefficients</h><h>of a regression equation</h></idx>
+		<idx><h>model matrix</h></idx>
+		The <term>coefficients</term> <m>\beta_i</m> are arranged into a column vector. 
+		Then the entire relationship is expressed as a simple equation of the form 
+		<m>A\xvec = \bvec</m>, but with different letters. And typically statisticians prefer to 
+		swap the left and right sides of the equation as well. So the model is exprssed like this:
+
+		<md>
+			<mrow>
+			X \amp = \begin{bmatrix} \onevec \; \xvec_1 \; \xvec_2 \; \cdots \; \xvec_p \end{bmatrix} \; , \quad
+			\betavec = \begin{bmatrix} \beta_0 \\ \beta_1 \\ \beta_2 \\ \vdots \\ \beta_p \end{bmatrix}
+			</mrow>
+			<mrow>
+				\yvec \amp = X \betavec
+			</mrow>.
+		</md>
+		This equation will almost never have an exact solution because in typical applications  
+		<m>X</m> will have many more rows than columns.
+	</p>
+
+	<p>
+		Since there is typically no exact solution, we seek an approximate solution, a solution to 
+		<me>
+			\yhat = X \betahat\; \mbox{where} \; \yhat = \proj{\yvec}{\col(X)}
+		</me>. 
+		<idx><h>model space</h></idx>
+		In this context, <m>\col(X)</m> is called the <term>model space</term>. It will be important below  to 
+		note that this means that 
+		<me>\yvec - \yhat \mbox{\ is orthogonal to (every vector in) the model space}</me>.
+	</p>
+
+	<p>
+		Whether we express our equation as <m>A \xvec = \bvec</m>, as we have mostly done to this point, 
+		or as <m>\yvec = X \betavec</m>, as we will typically do in statistical applications, or using 
+		some other letters, the linear algebra is the same (and familiar): 
+		orthogonal projection, solving sytems of linear equations, etc.  
+	</p>
+
+	<example>
+		<statement>
+			<p>
+				Add example of setting up a multiple regression problem.
+				Include at least a binary categorical predictor.
+			</p>
+		</statement>
+	</example>
+
+	<p>
+	We conclude this section with a note about the intercept term.
+	</p>
+
+	<note>
+	<title>Models without an intercept</title>	
+	<p> It is possible to fit models without an intecept term.  In this case the column of 1's will be  
+		omitted from the model matrix <m>X</m>. Algebraically, a few things, like the defnition and 
+		interpretation of <m>R^2</m> below do not work out as well in that case. And statistically, omitting 
+		the intercept makes a strong assumption about the nature of the relationship.  In most statistical 
+		software, the default it to always include an intercept, but there are options to fit models without 
+		the intercept term if so desired.
+	</p>
+	</note>
+
   </subsection>
 
   <subsection>
     <title> Solving least squares problems </title>
     
-    <p> Now that we've seen an example of what we're trying to
-    accomplish, let's put this technique into a more general
-    framework.
+    <p> Now that we've discussed least squares approximate solutions to 
+		<m>A \xvec = \bvec</m> and seen an important application of this 
+		method in linear models, usually expressed as <m> \yvec = X \betavec</m>,
+		it is time to turn our attention to some of the details involved in solving 
+		least squares problems. We'll continue with the statistical notation for this.
     </p>
 
-    <p> Given an inconsistent system <m>A\xvec = \bvec</m>, we seek
-    the vector <m>\xvec</m> that minimizes the distance from
-    <m>A\xvec</m> to <m>\bvec</m>.  In other words, <m>\xvec</m>
-    satisfies <m>A\xvec = \widehat\bvec</m>, where <m>\bhat</m> is the
-    orthogonal projection of <m>\bvec</m> onto the column space
-    <m>\col(A)</m>.  We know the equation <m>A\xvec=\bhat</m> is
-    consistent since <m>\bhat</m> is in <m>\col(A)</m>, and we know
-    there is only one solution if we assume that the columns of
-    <m>A</m> are linearly independent.
-    </p>
+	<p> We already know one way to solve a least squares problem <m>\yvec = X \betavec</m>, namely
+		<ol>
+			<li>
+				<title>Project <m>y</m> into the model space</title>
+				<p>
+					Compute <m>\yhat = \proj{\yvec}{\col(X)}</m>.
+				</p>
+			</li>
+			<li>
+				<title>Solve the new equation <m>\yhat = X \betavec</m> for <m>\betavec</m></title>
+				<p>
+					Because <m>\yhat \in \col(X)</m>, we know this equation is consistent.
+					If the columns of <m>X</m> are linearly independent (as will usually be the case
+					in linear model applications),
+					then there is exactly one solution.
+					We denote the solution to this  as <m>\betahat</m>. The entries in 
+					<m>\betahat</m> are called the (estiamted) coeffients of the model.
+				</p>
+				<p>Because we can measure how close <m>\yhat</m> is to <m>\yvec</m> using an expression 
+					that involves a sum of squares, and <m>\betahat</m> makes this expression as small as possible,
+					<m>\betahat</m> is called a <term>least squares approximate solution</term> 
+					to the original equation <m>\yvec = X\betavec</m>.
+				</p>
+			</li>
+		</ol>
+	</p>
 
     <p>
-    We will usually denote the solution of
-    <m>A\xvec = \bhat</m> by <m>\xhat</m> and call this vector the
-    <em>least squares approximate solution</em> of <m>A\xvec=\bvec</m>
-    to distinguish it from a (possibly non-existent) solution of
-    <m>A\xvec=\bvec</m>.
-    </p>
+		That is the method we have outlined above. But there are other methods 
+		that are usually used in practice, because they are more efficient and more 
+		stable numerically. 
+	</p>
+	
+	<p>
+		We begin by describing a method 
+	  for finding <m>\betahat</m> that does
+      not involve first finding the orthogonal projection <m>\yhat</m>.
 
-    <p>
-      There is an alternative method for finding <m>\xhat</m> that does
-      not involve first finding the orthogonal projection <m>\bhat</m>.
-      Remember that <m>\bhat</m> 
-      is defined by
-      the fact that <m>\widehat\bvec - \bvec</m> is orthogonal to
-      <m>\col(A)</m>.  In other words, <m>\bhat-\bvec</m> is in the
+      Remember that <me>\yhat = \proj{\yvec}{\col(X)}</me>, so
+      <m>\yvec - \yhat</m> is orthogonal to <m>\col(A)</m>.  
+	  In other words, <m>\yvec - \yhat</m> is in the
       orthogonal complement <m>\col(A)^\perp</m>, which <xref
       ref="prop-col-orthog" /> tells us is the same as
-      <m>\nul(A^{\transpose})</m>.  Since <m>\bhat-\bvec</m> is in
-      <m>\nul(A^{\transpose})</m>, it follows that
+      <m>\nul(X^{\transpose})</m>.  Since <m>\yvec - \yhat</m> is in
+      <m>\nul(X^{\transpose})</m>, it follows that
       <me>
-	A^{\transpose}(\widehat\bvec-\bvec) = \zerovec\text{.}
-      </me>
+	X^{\transpose}(\yvec -\yhat) = \zerovec
+      </me>.
+	  This is just another way of writing down that <m>\yvec - \yhat</m> is orthogonal to 
+	  each column of <m>X</m>.
+	</p>
+
+	<p>
       Because the least squares approximate
-      solution is the vector <m>\xhat</m> such that <m>A\xhat =
-      \bhat</m>, we can rearrange this equation to see that
+      solution is the vector <m>\betahat</m> such that 
+	  <m>X\betahat = \yhat</m>, we can rearrange this equation to see that
       <md>
 	<mrow>
-	  A^{\transpose}(A\xhat - \bvec) \amp = \zerovec
+	  X^{\transpose}(X\betahat - \yvec) \amp = \zerovec
 	</mrow>
 	<mrow>
-	  A^{\transpose}A\xhat - A^{\transpose}\bvec \amp = \zerovec
+	  X^{\transpose}X\betahat - X^{\transpose}\yvec \amp = \zerovec
 	</mrow>
 	<mrow>
-	  A^{\transpose}A\xhat \amp = A^{\transpose}\bvec\text{.}
-	</mrow>
+	  X^{\transpose}X\betahat \amp = X^{\transpose}\yvec
+	</mrow>.
       </md>
-      <idx> normal equation </idx>
-      This equation is called the <em>normal equation</em>, and we
+      <idx> <h>normal equation</h> </idx>
+      This equation is called the <term>normal equation</term>, and we
       have the following proposition.
     </p>
 
     <proposition>
       <statement>
-	<p> If the columns of <m>A</m> are linearly independent, then
+	<p> If the columns of <m>X</m> are linearly independent, then
 	there is a unique least squares approximate solution
-	<m>\xhat</m> to the equation <m>A\xvec=\bvec</m> given by the
+	<m>\betahat</m> to the equation <m>X\betahat=\yvec</m> given by the
 	normal equation
 	<me>
-	  A^{\transpose}A\xhat = A^{\transpose}\bvec\text{.}
-	</me>
+	  X^{\transpose}X\betahat = X^{\transpose}\yvec
+	</me>.
 	</p>
       </statement>
     </proposition>
 
-    <example>
+	<p>
+	The next example demonstrates how we can use the normal equation to 
+	find the least squares approximate solution.
+	</p>
+
+    <example xml:id="example-toy-normal-equation">
       <p>
 	Consider the equation
 	<me>
+		\begin{array}{cccc}
+	  \threevec{16}{-1}7 \amp = \amp
 	  \begin{bmatrix}
 	  2 \amp 1 \\
 	  2 \amp 0 \\
 	  -1 \amp 3 \\
 	  \end{bmatrix}
-	  \xvec
-	  = \threevec{16}{-1}7
-	</me>
-	with matrix <m>A</m> and vector <m>\bvec</m>.  
+	  \amp
+	  \betavec
+	  \\
+	  \yvec \amp = \amp X \amp \betavec  
+	  \end{array}
+	</me>.
 	Since this equation is inconsistent, we will find the least squares
-	approximate solution <m>\xhat</m> by solving the normal
-	equation <m>A^{\transpose}A\xhat = A^{\transpose}\bvec</m>, which has the form
-	<me>
-	  A^{\transpose}A\xhat = \begin{bmatrix} 9 \amp -1 \\ -1 \amp 10 \\
-	  \end{bmatrix} = \twovec{23}{37} = A^{\transpose}\bvec 
-	</me>
-	and the solution <m>\xhat=\twovec34</m>.
+	approximate solution <m>\betahat</m> by solving the normal
+	equation <m>X^{\transpose}X\betahat = X^{\transpose}\yvec</m>, which has the form
+	<md>
+		<mrow>
+	  X^{\transpose}X\betahat \amp =  X^{\transpose}\yvec 
+		</mrow>
+		<mrow> 
+	  \begin{bmatrix} 9 \amp -1 \\ -1 \amp 10 \\ \end{bmatrix} \betahat \amp = \twovec{23}{37} 
+		</mrow>
+	</md>.
+	Solving this yields <m>\betahat=\twovec34</m>.
       </p>
     </example>
 
-    <activity>
+	<p>
+	You may wonder why the approach in <xref ref="example-toy-normal-equation"/> is better than 
+	the original appraoch.  Here's one reason why.  Suppose we have a larger example and <m>X</m> is
+	<m>n\by m</m> with <m>n</m> much larger than <m>p</m>, as is often the case. Then 
+	<m>X^{\transpose} X</m> is <m> p\by p</m>, which is small. But <m> X  X^\transpose</m> 
+	is <m>n \by n</m>, which is large -- much larger than <m>X</m>.  So computing 
+	<m>\yhat = \proj{\yvec}{\col(X)} = X X^{\transpose} \yvec</m> is expensive.
+	Working with <m>X^\transpose \yvec</m> is comparatively much less computationally intensive.
+	</p>
+
+    <activity xml:id="activity-crickets">
       <statement>
 	<p>
 	  The rate at which a cricket chirps is related to the outdoor
@@ -570,44 +749,23 @@
 	  following cell to load the data:
 	  <sage>
 	    <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
-df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/crickets.csv')
-data = [vector(row) for row in df.values]
-chirps = vector(df['Chirps'])
-temps = vector(df['Temperature'])
-print(df)
-list_plot(data, color='blue', size=40, xmin=12, xmax=22, ymin=60, ymax=100)
+import pandas as pd 
+import numpy as np 
+import seaborn.objects as so 
+url = 'https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/crickets.csv'
+Crickets = pd.read_csv(url)
+print(Crickets)
+so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 	    </input>
 	  </sage>
-	  Evaluating this cell also provides:
-	  <ul>
-	    <li>
-	      <p> the vectors <c>chirps</c> and <c>temps</c> formed from
-	      the columns of the dataset.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		the command <c>onesvec(n)</c>, which creates an
-		<m>n</m>-dimensional vector whose entries are all one.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Remember that you can form a matrix whose columns are
-		the vectors <c>v1</c> and <c>v2</c> with
-		<c>matrix([v1, v2]).T</c>.
-	      </p>
-	    </li>
-	  </ul>
 	</p>
 
 	<p>
 	  We would like to represent this relationship by a linear
 	  function
 	  <me>
-	    \beta_0 + \beta_1 C = T\text{.}
-	  </me>
+	    \beta_0 + \beta_1 C = T
+	  </me>.
 	  <ol marker="a.">
 	    <li>
 	      <p>
@@ -619,15 +777,13 @@ list_plot(data, color='blue', size=40, xmin=12, xmax=22, ymin=60, ymax=100)
 	    
 	    <li>
 	      <p>
-		Suppose that we represent the unknowns using a vector
-		<m>\xvec = \twovec{\beta_0}{\beta_1}</m>.  Use the 15
-		data points to
-		create the matrix
-		<m>A</m> and vector <m>\bvec</m> 
+		Suppose that we represent the coefficients using a vector
+		<m>\betavec = \twovec{\beta_0}{\beta_1}</m>.  
+		Use the 15 data points to create the matrix
+		<m>X</m> and vector <m>\yvec</m> 
 		so that the linear system
-		<m>A\xvec= \bvec</m> describes the unknown vector
-		<m>\xvec</m>.
-		<sage>
+		<m>\yvec = X \betavec</m> describes the desired relationship.
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -636,18 +792,17 @@ list_plot(data, color='blue', size=40, xmin=12, xmax=22, ymin=60, ymax=100)
 
 	    <li>
 	      <p>
-		Write the normal equations <m>A^{\transpose}A\xhat =
-		A^{\transpose}\bvec</m>; that is, find the matrix <m>A^{\transpose}A</m> and the
-		vector <m>A^{\transpose}\bvec</m>.
+		Write the normal equations 
+		<me>X^{\transpose}X\betahat = X^{\transpose}\yvec</me>; 
+		that is, find the matrix <m>X^{\transpose}X</m> and the
+		vector <m>X^{\transpose}\yvec</m>.
 	      </p>
 	    </li>
 
 	    <li>
-	      <p> Solve the normal equations to find <m>\xhat</m>, the
+	      <p> Solve the normal equations to find <m>\betahat</m>, the
 	      least squares approximate solution to the equation
-	      <m>A\xvec=\bvec</m>.  Call your solution <c>xhat</c>
-	      since <c>x</c>
-	      has another meaning in Sage.
+	      <m>\yvec = X \betavec</m>.  Call your solution <m>\betahat</m>.
 	      <sage>
 		<input>
 		</input>
@@ -667,12 +822,9 @@ list_plot(data, color='blue', size=40, xmin=12, xmax=22, ymin=60, ymax=100)
 	      </p>
 
 	      <p>
-		You can plot the data and your line, assuming you called
-		the solution <c>xhat</c>, using the cell
-		below.
-		<sage>
+			Plot the data and your least squares regression line.
+		<sage language="python">
 		  <input>
-plot_model(xhat, data, domain=(12, 22))
 		  </input>
 		</sage>
 	      </p>
@@ -693,31 +845,30 @@ plot_model(xhat, data, domain=(12, 22))
 	    </li>
 	    <li>
 	      <p>
-		<m>A</m> is the <m>15\by2</m> matrix whose first
+		<m>X</m> is the <m>15\by2</m> matrix whose first
 		column consists only of 1's and whose second column is
-		the vector of chirp rates.  The vector <m>\bvec</m> is
+		the vector of chirp rates.  The vector <m>\yvec</m> is
 		the vector of temperatures.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		<m>A^{\transpose}A=\begin{bmatrix}
+		<m>X^{\transpose}X=\begin{bmatrix}
 		15.0 \amp 248.5 \\
 		248.5 \amp 4157.9 \\
-		\end{bmatrix}</m> and <m>A^{\transpose}\bvec =
+		\end{bmatrix}</m> and <m>X^{\transpose}\yvec =
 		\twovec{1190.2}{19857.7}</m>
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		<m>\xhat = \twovec{\beta_0}{\beta_1} =
+		<m>\betahat = \twovec{\beta_0}{\beta_1} =
 		\twovec{22.8}{3.4}</m>.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		The predicted temperature is <m>\beta_0 + 22\beta_1 =
-		97.9</m> degrees.
+		The predicted temperature is <m>\beta_0 + 22\beta_1 = 97.9</m> degrees.
 	      </p>
 	    </li>
 	  </ol>
@@ -729,24 +880,23 @@ plot_model(xhat, data, domain=(12, 22))
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		<m>\beta_0 + 20.0\beta_1 =
-		88.6</m>.
+		<m>\beta_0 + 20.0\beta_1 = 88.6</m>.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		<m>A</m> is the <m>15\by2</m> matrix whose first
+		<m>X</m> is the <m>15\by2</m> matrix whose first
 		column consists only of 1's and whose second column is
-		the vector of chirp rates.  The vector <m>\bvec</m> is
+		the vector of chirp rates.  The vector <m>\yvec</m> is
 		the vector of temperatures.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		<m>A^{\transpose}A=\begin{bmatrix}
+		<m>X^{\transpose}X=\begin{bmatrix}
 		15.0 \amp 248.5 \\
 		248.5 \amp 4157.9 \\
-		\end{bmatrix}</m> and <m>A^{\transpose}\bvec =
+		\end{bmatrix}</m> and <m>X^{\transpose}\yvec =
 		\twovec{1190.2}{19857.7}</m>
 	      </p>
 	    </li>
@@ -767,15 +917,16 @@ plot_model(xhat, data, domain=(12, 22))
     </activity>
 
     <p>
-      This example demonstrates an approach, called <em>linear
-      regression</em>, in which a collection of data is modeled using
+		<!-- <xref ref="activity-crickets" />
+      demonstrates an approach, called <term>linear regression</term>, 
+	  in which a collection of data is modeled using
       a linear function found by solving a least squares problem.
+		<idx><h>least squares regression</h></idx>
+		<idx><h>linear regression</h></idx>
+		<idx><h>linear regression</h><seealso>least squares regression</seealso></idx> -->
       Once we have the linear function that best fits the data,
       we can make predictions about situations that we haven't
       encountered in the data.  
-    </p>
-
-    <p>
       If we're going to use our function to make predictions, it's
       natural to ask how much confidence we have in these
       predictions.  This is a statistical question that leads to a
@@ -786,15 +937,15 @@ plot_model(xhat, data, domain=(12, 22))
     </p>
 
     <p>
-      We have seen that the square of the distance
-      <m>\len{\bvec-A\xvec}^2</m> measures the amount by which the
-      line 
-      fails to pass through the data points.  When the line is close
+      We have seen that the predicted values from our model are given by 
+	  <m>\yhat = X \betahat</m> and that the square of the distance
+      <m>\len{\yvec-\yhat}^2</m> measures the amount by which the
+      line fails to pass through the data points.  When the line is close
       to the data points, we expect this number to be small.  However,
       the size of this measure depends on the scale of the data.  For
       instance, the two lines shown in <xref
       ref="fig-regression-scale" /> seem to fit the data equally well,
-      but <m>|\bvec-A\xhat|^2</m> is 100 times larger on
+      but <m>|\yvec-\yhat|^2</m> is 100 times larger on
       the right.
     </p>
 
@@ -805,37 +956,111 @@ plot_model(xhat, data, domain=(12, 22))
       </sidebyside>
       <caption>
 	The lines appear to fit equally well in spite of the fact that
-	<m>\len{\bvec-A\xhat}^2</m> differs by a factor of 100.
+	<m>\len{\yvec-\yhat}^2</m> differs by a factor of 100.
       </caption>
     </figure>
 
-    <p>
+	<p> We can create a measure of fit that is indpendent of scale if we consider the 
+		relationship among three important vectors:
+		<ul>
+			<li>
+				<p>
+					<m> \yvec - \ymean</m> 
+					holds the differences between the observed response values and their mean value. 
+					The (square of the) length of this vector is a measure of the total 
+					variability in the response variable.
+				</p>
+			</li>
+			<li>
+				<p>
+					<m> \yvec - \yhat</m> 
+					holds the differences between the observed response values and model fitted values. 
+					These differences are called <term>residuals</term>
+					This vector is orthogonal to the <term>model space </term>, <m>\col(X)</m>.
+				</p>
+			</li>
+			<li>
+				<p>
+					<m> \yhat - \ymean</m>
+					holds the differences between the fitted values and the mean response. 
+					Importantly, this vector <em>is in the model space</em>.  We can see this as follows.
+					The vector <m>\yhat</m> is in the model space by definition.
+					If our model includes an intercept (so the first column of <m>X</m> is <m>\onevec</m>),
+					then 
+					<me>\ymean = \overline{y} \onevec = \overline{y}\onevec + 0 \xvec_1 + 0 \xvec_2 + \cdots + 0 \xvec_p
+						= X \begin{bmatrix}\overline{y} \\0\\\vdots\\0\end{bmatrix}
+					</me>,
+					so <m>\ymean</m> is also in the model space.  This implies that <m>\yhat - \ymean</m> 
+					is in the model space.
+				</p>
+				<p>
+					Because <m>\yhat - \ymean</m> is in the model space and <m>y - \yhat</m> is orthogonal to the 
+					model space, we know that these vectors are orthogonal.
+				</p>
+			</li>
+		</ul>
+		Putting this together we see that 
+		<md>
+			<mrow> \yvec - \ymean \amp = (\yvec - \yhat ) + (\yhat - \ymean) </mrow>
+			<mrow> \len{\yvec - \ymean}^2 \amp = \len{\yvec - \yhat}^2 + \len{\yhat - \ymean}^2 </mrow>.
+		</md>
+		The second equation is the just the Pythagorean Theorem applied to the triangle formed by our 
+		three vectors.
+	</p>
+
+	<p>
+		This provides a natural way to measure how well our model fits the data:
+	</p>
+
+    <!-- <p>
       The coefficient of determination <m>R^2</m> is defined by
-      normalizing <m>|\bvec-A\xhat|^2</m> so that it is
+      normalizing <m>|\yvec-\yhat|^2</m> so that it is
       independent of the scale.  Recall that we described how to
       demean a vector in
-      <xref ref="sec-dot-product" />:  given a vector <m>\vvec</m>, we
-      obtain <m>\widetilde{\vvec}</m> by subtracting the average of the
+      <xref ref="sec-dot-product" />:  given a vector <m>\yvec</m>, we
+      obtain <m>\widetilde{\yvec}</m> by subtracting the average of the
       components from each component.  
-    </p>
+	  That is, <m> \widetilde{\yvec} = \yvec - \overline{\yvec}</m>.
+    </p> -->
 
-    <definition>
+    <definition xml:id="def-rsquared">
       <title> Coefficient of determination </title>
       <idx> coefficient of determination </idx>
-      <idx> <h> <m> R^2</m> </h> </idx>
+      <idx> <h> <m> R^2</m> </h><see>coefficient of determination</see> </idx>
+	  <notation>
+		<usage><m>R^2</m></usage>
+		<description>the coefficient of determination</description>
+	  </notation>
       <statement>
 	<p>
-	  The coefficient of determination is
-	  <me>
-	    R^2 = 1 - \frac{|\bvec - A\xhat|^2}
-	    {|\widetilde{\bvec}|^2},
-	  </me>
-	  where <m>\widetilde{\bvec}</m> is the vector obtained by
-	  demeaning 
-	  <m>\bvec</m>.
+		For any model that determines predictions <m>\yhat</m> for a response  
+		variable <m>\yvec</m>, we can define 
+		the <term>coefficient of determination</term> as 
+		<md>
+			<mrow>
+			R^2 \amp = \frac{ \len{\yhat - \ymean}^2}{\len{\yvec - \ymean}^2}
+			</mrow>
+			<mrow>
+			 	\amp = \frac{ \len{\yhat - \ymean}^2}{\len{\yvec - \yhat}^2 + \len{\yhat - \ymean}^2 }
+			</mrow>.
+		</md>    
+	  <!-- <me>
+	    R^2 = 1 - \frac{\len{\yvec - \yhat}^2}{\len{\yvec - \overline{\yvec}}}
+	  </me>. -->
+	  For a linear model, <me>\yhat = X \betahat</me>, but the definition can 
+	  be applied to other models as well.
 	</p>
       </statement>
     </definition>
+
+	<p>It is clear from the definition that for linear models with an intercept,
+		<me>0 \le R^2 \le 1</me>. 
+		So one way to interpret <m>R^2</m>
+		is as the proportion of the variation in <m>\yvec</m> that is explained by the model 
+		(i.e., by <m>\yhat</m>). If <m>\yhat = \yvec</m>, the fit is perfect and <m>R^2 = 1</m>. 
+		At the other extreme, if our model predicts <m>\yhat = \ymean</m> (everyone is average),
+		then <m>R^2 = 0</m>.
+	</p>
 
     <p>
       A more complete explanation of this definition relies on the
@@ -851,6 +1076,24 @@ plot_model(xhat, data, domain=(12, 22))
       considerable thought, and it would be naive to rely only on the
       value of <m>R^2</m>.
     </p>
+
+	<p>There is also a connection between the correlation coefficient and the coefficient of  
+		of determination.  For a simple linear model <m>\yvec = \beta_0 + \beta_1 \xvec</m>, 
+		<me>
+			\corr(\xvec, \yvec) = R^2
+		</me>.
+		For this model, an orthogonal basis for the model space is  
+		<md>
+			<mrow> \wvec_1 \amp = \onevec </mrow>
+			<mrow> \wvec_2 \amp = \xvec - \proj{\xvec}{\onevec} = \xvec - \xmean </mrow>,
+		</md>
+		and 
+		<me>
+			\yhat = \proj{\yvec}{\onevec} + \proj{\yvec}{\xvec - \xmean} = ???
+		</me>
+		
+	</p>
+		
 	
   </subsection>
 
@@ -867,10 +1110,12 @@ plot_model(xhat, data, domain=(12, 22))
     </p>
 
     <p>
-      As the next activity demonstrates, there is an alternate method
+      As the next activity demonstrates, there is an third method
       for finding the least squares approximate solution <m>\xhat</m>
       using a <m>QR</m> factorization of the matrix <m>A</m>, and this
-      method is preferable as it is numerically more reliable.
+      method is preferable as it is both computatinoally efficient and 
+	  numerically more reliable. This is the method implemented in most 
+	  statistical software packages.
     </p>
 
     <activity xml:id="activity-BFI">
@@ -1197,8 +1442,8 @@ print(df)
 	  squares approximate solution <m>\xhat</m> to the equation
 	  <m>A\xvec=\bvec</m> is given by
 	  <me>
-	    \xhat = R^{-1}Q^{\transpose}\bvec\text{.}
-	  </me>
+	    \xhat = R^{-1}Q^{\transpose}\bvec
+	  </me>.
 	</p>
       </statement>
     </proposition>
@@ -1226,36 +1471,21 @@ print(df)
 		points <m>(0,2)</m>, <m>(1,1)</m>, <m>(2,3)</m>, and
 		<m>(3,3)</m>, such as appear when the following cell is
 		evaluated.
-		<sage>
+		<sage language="python">
 		  <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py',
-globals())
-data = [[0, 2], [1, 1], [2, 3], [3, 3]]
+import numpy as np
+import seaborn.objects as so 
+small_data = np.array([[0, 2], [1, 1], [2, 3], [3, 3]])
+so.Plot(x=small_data[:,0], y = small_data[:, 1]).add(so.Dot())
 list_plot(data, color='blue', size=40)		  
 		  </input>
 		</sage>
-		In addition to loading and plotting the data, evaluating
-		that cell provides the following commands:
-		<ul>
-		  <li>
-		    <p>
-		      <c>Q, R = QR(A)</c> returns the <m>QR</m>
-		      factorization of <m>A</m>.
-		    </p>
-		  </li>
-		  <li>
-		    <p>
-		      <c>demean(v)</c> returns the demeaned vector
-		      <m>\widetilde{\vvec}</m>.
-		    </p>
-		  </li>
-		</ul>
 	      </p>
 
 	      <p>
 		Let's fit a quadratic function of the form
 		<me>
-		  \beta_0 + \beta_1 x + \beta_2 x^2 = y
+		  \yvec = \beta_0 + \beta_1 \xvec + \beta_2 \xvec^2 
 		</me>
 		to this dataset.
 	      </p>
@@ -1271,14 +1501,14 @@ list_plot(data, color='blue', size=40)
 	    <li>
 	      <p>
 		Express these four equations as a linear system
-		<m>A\xvec = \bvec</m> where <m>\xvec =
-		\threevec{\beta_0}{\beta_1}{\beta_2}</m>.
+		<m>\yvec = X \betavec </m> where 
+		<m>\betavec = \threevec{\beta_0}{\beta_1}{\beta_2}</m>.
 	      </p>
 
 	      <p>
-		Find the <m>QR</m> factorization of <m>A</m> and use it
+		Find the <m>QR</m> factorization of <m>X</m> and use it
 		to find the least squares approximate solution
-		<m>\xhat</m>.
+		<m>\betahat</m>.
 		<sage>
 		  <input>
 		  </input>
@@ -1288,15 +1518,11 @@ list_plot(data, color='blue', size=40)
 
 	    <li>
 	      <p>
-		Use the parameters <m>\beta_0</m>,
-		<m>\beta_1</m>, and <m>\beta_2</m> that you found to
-		write the quadratic function that fits the data.  You
-		can plot this function, along with the data, by entering
-		your function in the place indicated below.
-		<sage>
+		Use the parameters <m>\beta_0</m>, <m>\beta_1</m>, and <m>\beta_2</m> that you found to
+		write the quadratic function that fits the data.  
+		Creat a plot that incluedes the raw data and the quadratic fit.
+		<sage language="python">
 		  <input>
-list_plot(data, color='blue', size=40) + plot( **your function here**,
-0, 3, color='red')
 		  </input>
 		</sage>
 	      </p>
@@ -1304,7 +1530,7 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
 
 	    <li>
 	      <p>
-		What is your predicted <m>y</m> value when <m>x=1.5</m>.
+		What is your predicted <m>\hat{y}</m> value when <m>x=1.5</m>.
 	      </p>
 	    </li>
 
@@ -1312,7 +1538,7 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
 	      <p>
 		Find the coefficient of determination <m>R^2</m> for the
 		quadratic 
-		function?  What does this say about the quality of the
+		function.  What does this say about the quality of the
 		fit?
 	      </p>
 	    </li>
@@ -1321,7 +1547,7 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
 	      <p>
 		Now fit a cubic polynomial of the form
 		<me>
-		  \beta_0 + \beta_1x + \beta_2 x^2 + \beta_3x^3 = y
+		  \yvec = \beta_0 \onevec + \beta_1 \xvec  + \beta_2 \xvec^2 + \beta_3 \xvec ^3
 		</me>
 		to this dataset.
 		<sage>
@@ -1344,10 +1570,8 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
 		What do you notice when you plot the cubic function
 		along with the data?  How does this reflect the value of
 		<m>R^2</m> that you found?
-		<sage>
+		<sage language="python">
 		  <input>
-list_plot(data, color='blue', size=40) + plot( **your function here**,
-0, 3, color='red')
 		  </input>
 		</sage>
 	      </p>
@@ -1381,14 +1605,14 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
 	    </li>
 	    <li>
 	      <p>
-		With <m>A=\begin{bmatrix}
+		With <m>X=\begin{bmatrix}
 		1 \amp 0 \amp 0 \\
 		1 \amp 1 \amp 1 \\
 		1 \amp 2 \amp 4 \\
 		1 \amp 3 \amp 9 \\
 		\end{bmatrix}
-		</m> and <m>\bvec=\fourvec2133</m>, we find
-		<m>\xhat = \threevec{7/4}{-1/4}{1/4}</m>
+		</m> and <m>\yvec=\fourvec2133</m>, we find
+		<m>\betahat = \threevec{7/4}{-1/4}{1/4}</m>
 	      </p>
 	    </li>
 	    <li>
@@ -1410,7 +1634,7 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
 	    </li>
 	    <li>
 	      <p>
-		We find <m>2-\frac{25}{6}x+4x^2-\frac56x^3 = y</m>.
+		We find <m>\yhat = 2-\frac{25}{6} \xvec +4 \xvec ^2-\frac56 \xvec^3 </m>.
 	      </p>
 	    </li>
 	    <li>
@@ -1452,13 +1676,12 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
 	    </li>
 	    <li>
 	      <p>
-		<m>\xhat = \threevec{7/4}{-1/4}{1/4}</m>
+		<m>\betahat = \threevec{7/4}{-1/4}{1/4}</m>
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		<m>\frac74 - \frac14 x +
-		\frac14x^2 = y</m>.
+		<m>\frac74 - \frac14 x + \frac14x^2 = y</m>.
 	      </p>
 	    </li>
 	    <li>
@@ -1473,7 +1696,7 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
 	    </li>
 	    <li>
 	      <p>
-		<m>2-\frac{25}{6}x+4x^2-\frac56x^3 = y</m>.
+		<m>\yhat = 2-\frac{25}{6} \xvec +4 \xvec ^2-\frac56 \xvec^3 </m>.
 	      </p>
 	    </li>
 	    <li>
@@ -1493,12 +1716,12 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
     </activity>
 
     <p>
-      The matrices <m>A</m> that you created in the last activity when
+      The matrices <m>X</m> that you created in the last activity when
       fitting a quadratic and cubic function to a dataset have
       a special form.  In particular, if the data points are labeled
       <m>(x_i, y_i)</m> and we seek a degree <m>k</m> polynomial, then
       <me>
-	A =
+	X =
 	\begin{bmatrix}
 	1 \amp x_1 \amp x_1^2 \amp \ldots \amp x_1^k \\
 	1 \amp x_2 \amp x_2^2 \amp \ldots \amp x_2^k \\
@@ -1506,7 +1729,28 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
 	1 \amp x_m \amp x_m^2 \amp \ldots \amp x_m^k \\
 	\end{bmatrix}.
       </me>
-      This is called a <em>Vandermonde</em> matrix of degree <m>k</m>.   
+	  <idx><h>Vandermonde matrix</h></idx>
+      This is called a <term>Vandermonde matrix</term> of degree <m>k</m>.   
+	  You can use <c>numpy.polynomial.polynomial.polyvander()</c> to create  
+	  <idx><h> <c>numpy.polynomial.polynomial.polyvander()</c> </h> </idx>
+	  <idx><h>Vandermonde matrix</h><seealso> <c>numpy.polynomial.polynomial.polyvander()</c> </seealso> </idx>
+	  these matrices for a specified vector <m>\xvec</m> and degree.
+<sage>
+	<input>
+import numpy as np 
+from numpy.polynomial.polynomial import polyvander
+x = np.arange(5)
+print(polyvander(x, 5))
+	</input>
+	<output>
+[[1.000e+00 0.000e+00 0.000e+00 0.000e+00 0.000e+00 0.000e+00]
+[1.000e+00 1.000e+00 1.000e+00 1.000e+00 1.000e+00 1.000e+00]
+[1.000e+00 2.000e+00 4.000e+00 8.000e+00 1.600e+01 3.200e+01]
+[1.000e+00 3.000e+00 9.000e+00 2.700e+01 8.100e+01 2.430e+02]
+[1.000e+00 4.000e+00 1.600e+01 6.400e+01 2.560e+02 1.024e+03]]
+	</output>
+</sage>
+Notice that <m>0^0</m> is treated as <m>1</m> for the purposes of this matrix.
     </p>
 
     <activity>
@@ -1523,61 +1767,27 @@ list_plot(data, color='blue', size=40) + plot( **your function here**,
 	<p>
 	  Evaluating the cell below will plot the extent of Arctic sea
 	  ice, in millions of square kilometers, during the twelve
-	  months of 2012.
-	  <sage>
+	  months of 1980, 2012, and 2017. We will focus primarily on 2012.
+	  <sage language="python">
 	    <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
-df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/sea_ice.csv')
-data = [vector([row[0], row[2]]) for row in df.values]
-month = vector(df['Month'])
-ice = vector(df['2012'])
-print(df[['Month', '2012']])
-list_plot(data, color='blue', size=40)
+import pandas as pd
+import numpy as np
+import seaborn.objects as so
+ice = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/sea_ice.csv')
+print(ice)
+so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
 	    </input>
 	  </sage>
-	  In addition, you have access to a few special variables and
-	  commands: 
-	  <ul>
-	    <li>
-	      <p>
-		<c>month</c> is the vector of month values and
-		<c>ice</c> is the vector of sea ice values from the
-		table above.  
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		<c>vandermonde(x, k)</c> constructs the Vandermonde
-		matrix of degree <m>k</m> using the points in the vector
-		<c>x</c>.
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		<c>Q, R = QR(A)</c> provides the <m>QR</m> factorization
-		of <m>A</m>.
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		<c>demean(v)</c> returns the demeaned vector
-		<m>\widetilde{\vvec}</m>.
-	      </p>
-	    </li>
-	  </ul>
 	</p>
 
 	<p>
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		Find the vector <m>\xhat</m>, the least squares
+		Find the vector <m>\betahat</m>, the least squares
 		approximate solution to the linear system that results
 		from fitting a degree 5 polynomial to the data.
-		<sage>
+		<sage language="python">
 		  <input>
 
 		  </input>
@@ -1587,12 +1797,9 @@ list_plot(data, color='blue', size=40)
 
 	    <li>
 	      <p>
-		If your result is stored in the variable <c>xhat</c>,
-		you may plot the polynomial and the data together using
-		the following cell.
-		<sage>
+			Plot the data along with the fitted polynomial model.
+		<sage language="python">
 		  <input>
-plot_model(xhat, data)
 		  </input>
 		</sage>
 	      </p>
@@ -1637,24 +1844,27 @@ plot_model(xhat, data)
 		hard to fit the data, which usually contains some
 		uncertainty, especially if it's obtained from
 		measurements.  The error built in to the data is called
-		<em>noise,</em> and its presence means that we shouldn't
+		<term>noise</term>, and its presence means that we shouldn't
 		expect our polynomial to fit the data perfectly.  When
 		we choose a polynomial whose degree is too high, we give
-		the noise too much weight in the model, which leads to
+		the noise too much influence over the fit of the model, which leads to
 		some undesirable behavior, like the wiggles in the
 		graph.
 	      </p>
 
 	      <p>
-		Fitting the data with a polynomial whose degree is too
-		high is called <em>overfitting</em>, a phenomenon that
+		Fitting the data with a function that is too flexible and fits  
+		the training data better than it can be expected to fit new data  
+		high is called <term>overfitting</term>, a phenomenon that
 		can appear in many machine learning applications.
 		Generally speaking, we would like to choose <m>k</m>
 		large enough to capture the essential features of the
 		data but not so large that we overfit and build the
-		noise into the model.  There are ways to determine the
-		optimal value of <m>k</m>, but we won't pursue that
-		here.
+		noise into the model.  What we really need is a method for selecting 
+		a good value for <m>k</m> and a better way to measure how well we should 
+		expect the model to fit <em>new</em> data, not the data used to train the model.
+		That discussion would take us too far afield for the moment, but it is an 
+		important discussion.
 	      </p>
 	    </li>
 
@@ -1757,6 +1967,13 @@ plot_model(xhat, data)
 
   </subsection>
 
+  <subsection xml:id="subsec-skl-lm">
+	<title>Fitting linear models with standard tools</title>
+	
+
+  </subsection>
+
+
   <subsection>
     <title> Summary </title>
 
@@ -1767,49 +1984,95 @@ plot_model(xhat, data)
 	<li>
 	  <p>
 	    Given an inconsistent system <m>A\xvec=\bvec</m>, we find
-	    <m>\xhat</m>, the least squares approximate solution, by
-	    requiring that <m>A\xhat</m> be as 
-	    possible to <m>\bvec</m> as possible.  In other words,
-	    <m>A\xhat = \bhat</m> where <m>\bhat</m> is the
-	    orthogonal projection of <m>\bvec</m> onto
-	    <m>\col(A)</m>.  
+	    <m>\xhat</m>, the <term>least squares approximate solution</term> 
+		by requiring that <m>A\xhat</m> be as close
+	    to <m>\bvec</m> as possible.  In other words, we solve 
+	    <m>A\xhat = \bhat</m> where <m>\bhat = \proj{\bvec}{\col(A)}</m>
+	  </p>
+	</li>
+
+	<li>
+		<p>
+			One important application of this is fitting <term>linear models</term> to data.
+			In that context, we typically use different letters. Instead of  
+			<m>A \xvec = \bvec</m>, you are more likely to see  
+			<m> \yvec = X \betavec</m>. Here  
+			<ol>
+				<li>
+					<title>	<m>\yvec</m> represents the <term>response variable</term>.</title>
+					<p>
+						the variable we are trying to predict or estimate from other available data.
+					</p>
+				</li>
+				<li>
+					<title>
+						<m>X</m> represents the <term>data matrix</term>.  
+					</title>
+					<p>
+						Each row of <m>X</m> represents an observation unit.
+						Each column represents a data variable.  
+						Often we include a column of 1's in <m>X</m>.  
+						This  allows us to model an <term>intercept</term> which represents a 
+						baseline amount that is  part of every prediction. 
+						<m>X</m> may include the results of applying a function to 
+						some of the "raw data", after all, that's just another variable.
+					</p>
+				</li>
+				<li>
+					<title>
+						<m>\betavec = \begin{bmatrix}\beta_0\\\beta_1\\ \vdots \\ \beta_p \\\end{bmatrix}</m> 
+						represents the coefficients of the model.
+					</title>
+				</li>
+			</ol>
+
+		</p>
+	</li>
+
+	<li>
+	  <p>
+	    One way to find <m>\xhat</m> with <m>A \xhat = \bhat</m> is by solving 
+		the normal equations <me>A^{\transpose}A\xhat = A^{\transpose}\bvec</me>.  
+		This is not our preferred method since numerical problems can arise.
+	  </p>
+	  <p>
+		The statistical version of the normal equation is 
+		<me>X^{\transpose}X\betahat = A^{\transpose}\yvec</me>.
 	  </p>
 	</li>
 
 	<li>
 	  <p>
-	    One way to find <m>\xhat</m> is by solving the normal
-	    equations <m>A^{\transpose}A\xhat = A^{\transpose}\bvec.</m>  This is not our
-	    preferred method since numerical problems can arise.
+	    A second way to find <m>\xhat</m> with <m>A \xhat = \bhat</m> 
+		uses a <m>QR</m> factorization of <m>A</m>.  If <m>A=QR</m>, 
+		then <m>\xhat = R^{-1}Q^{\transpose}\bvec</m> and finding <m>R^{-1}</m> is
+	    computationally feasible since <m>R</m> is upper triangular.  Alternatively, we can 
+		use backsubstitution to solve <m>R \xhat = Q^{\transpose} \bvec</m>.
 	  </p>
-	</li>
-
-	<li>
 	  <p>
-	    A second way to find <m>\xhat</m> uses a <m>QR</m>
-	    factorization of <m>A</m>.  If <m>A=QR</m>, then <m>\xhat
-	    = R^{-1}Q^{\transpose}\bvec</m> and finding <m>R^{-1}</m> is
-	    computationally feasible since <m>R</m> is upper
-	    triangular. 
+		The statistical version of this is <m>X = QR</m> and  
+		<m>R \betahat = Q^{\transpose} \yvec</m>.
 	  </p>
 	</li>
 
 	<li>
 	  <p>
 	    This technique may be applied widely and is useful for
-	    modeling data.  We saw examples in
-	    this section where linear functions of several input
-	    variables and polynomials provided effective models
-	    for different datasets.
+	    modeling data.  
+		We saw examples in this section where linear functions of 
+		several input variables and polynomials provided 
+		effective models for different datasets.
 	  </p>
 	</li>
 
 	<li>
 	  <p>
-	    A simple 
-	    measure of the quality of the fit is the coefficient of
-	    determination <m>R^2</m> though some additional thought
-	    should be given in real applications.
+	    A simple measure of the quality of the fit is the coefficient of
+	    determination <m>R^2</m> though some care must be used in interpreting 
+		this number in context.  In particular, as models become more complex, <m>R^2</m> 
+		generally increases because more flexible models can fit the data better. 
+		But they may be prone to overfitting. Our goal is generally not to fit the 
+		data at hand but to learn something of value about other data.
 	  </p>
 	</li>
       </ul>

@@ -12,7 +12,8 @@
       strategy for dealing with inconsistent systems by finding
       <m>\bhat</m>, the vector in <m>\col(A)</m> that minimizes the
       distance to
-      <m>\bvec</m>.  The equation <m>A\xvec=\bhat</m> is therefore
+      <m>\bvec</m> (i.e., minimizes <m> \len{\vec b - \bhat}</m>).  
+	  The equation <m>A\xvec=\bhat</m> is therefore
       consistent and its solution set can provide us with useful
       information about the original system <m>A\xvec=\bvec</m>.
     </p>
@@ -30,13 +31,13 @@
 	the distributive property of dot products:
 	<me>
 	  \vvec\cdot(c_1\wvec_1+c_2\wvec_2) = c_1\vvec\cdot\wvec_1 +
-	  c_2\vvec\cdot\wvec_2\text{.}
-	</me>
+	  c_2\vvec\cdot\wvec_2
+	</me>.
 	We'll work with the basis of <m>\real^2</m> formed by the vectors
 	<me>
 	  \wvec_1=\twovec12,\hspace{24pt}
-	  \wvec_2=\twovec{-2}1\text{.}
-	</me>
+	  \wvec_2=\twovec{-2}1
+	</me>.
 	<ol marker="a.">
 	  <li>
 	    <p>
@@ -60,14 +61,14 @@
 	      means that we need to find weights <m>c_1</m> and
 	      <m>c_2</m> such that
 	      <me>
-		\bvec = c_1\wvec_1 + c_2\wvec_2\text{.}
-	      </me>
+		\bvec = c_1\wvec_1 + c_2\wvec_2
+	      </me>.
 	      To find the weight <m>c_1</m>, dot both sides of this
 	      expression with <m>\wvec_1</m>:
 	      <me>
 		\bvec\cdot\wvec_1 = (c_1\wvec_1 +
-		c_2\wvec_2)\cdot\wvec_1\text{,}
-	      </me>
+		c_2\wvec_2)\cdot\wvec_1
+	      </me>,
 	      and apply the distributive property.
 	    </p>
 	  </li>
@@ -76,6 +77,12 @@
 	    <p>
 	      In a similar fashion, find the weight <m>c_2</m>.
 	    </p>
+	  </li>
+
+	  <li>
+		<p>
+			Now look at the expression for <m>c_i \wvec_i</m> and express it in terms of a projection.
+		</p>
 	  </li>
 	  
 	  <li>
@@ -113,6 +120,11 @@
 		= -2</m>.
 	      </p>
 	    </li>
+		<li>
+			<p>
+			<m>c_i \wvec_i = \frac{\bvec\cdot\wvec_i}{\wvec_i\cdot\wvec_i} = \proj{\bvec}{\wvec_i}</m>.
+			</p>
+		</li>
 	    <li>
 	      <p> <m>\bvec = 3\wvec_1 - 2\wvec_2</m>.
 	      </p>
@@ -144,11 +156,11 @@
     </p>
 
     <definition>
-      <idx> orthogonal set </idx>
+      <idx><h> orthogonal set of vectors</h> </idx>
 	
       <statement>
 	<p>
-	  By an <em> orthogonal set</em> of vectors, we mean a set of
+	  By an <term> orthogonal set</term> of vectors, we mean a set of
 	  nonzero vectors each of which is orthogonal to the others.
 	</p>
       </statement>
@@ -168,9 +180,9 @@
 	    \begin{array}{rcl}
 	    \wvec_1\cdot\wvec_2 \amp {}={} \amp 0 \\
 	    \wvec_1\cdot\wvec_3 \amp {}={} \amp 0 \\
-	    \wvec_2\cdot\wvec_3 \amp {}={} \amp 0\text{.} \\
+	    \wvec_2\cdot\wvec_3 \amp {}={} \amp 0\\
 	    \end{array}
-	  </me>
+	  </me>.
 	  Notice that this set of vectors forms a basis for
 	  <m>\real^3</m>.
 	</p>
@@ -219,8 +231,8 @@
 	</mrow>
 	<mrow>
 	  c_1 \amp = 
-	  \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\text{.}
-	</mrow>
+	  \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}
+	</mrow>.
       </md>
       Notice how the presence of an orthogonal set causes most
       of the terms in the sum to vanish.  In the same way, we find
@@ -229,12 +241,19 @@
 	c_i = \frac{\bvec\cdot\wvec_i}{\wvec_i\cdot\wvec_i}
       </me>
       so that
-      <me>
-	\bvec = \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+      <md>
+		<mrow>
+	\bvec \amp = \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
 	\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
 	\cdots +
-	\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n\text{.}
-      </me>
+	\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n
+		</mrow>.
+		<mrow> \amp = 
+			\proj{\bvec}{\wvec_1} +
+			\proj{\bvec}{\wvec_2} + \cdots +
+			\proj{\bvec}{\wvec_n} 
+		</mrow>
+      </md>
     </p>
 
     <p>
@@ -247,12 +266,26 @@
 	  If a vector <m>\bvec</m> is a linear combination of an
 	  orthogonal set of vectors
 	  <m>\wvec_1,\wvec_2,\ldots,\wvec_n</m>, then
-	  <me>
+		<md>
+			<mrow>
+				\bvec \amp = 
+				\proj{\bvec}{\wvec_1} +
+				\proj{\bvec}{\wvec_2} + \cdots +
+				\proj{\bvec}{\wvec_n} 
+			</mrow>
+			<mrow> \amp = 
+					\frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+					\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
+					\cdots +
+					\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n
+			</mrow>
+		</md>.
+	  <!-- <me>
 	    \bvec = \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
 	    \frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
 	    \cdots +
 	    \frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n\text{.}
-	  </me>
+	  </me> -->
 	</p>
       </statement>
     </proposition>
@@ -264,15 +297,15 @@
       orthogonal vectors and that one of the vectors is a linear
       combination of the others, say,
       <me>
-	\wvec_3 = c_1\wvec_1 + c_2\wvec_2\text{.}
-      </me>
+	\wvec_3 = c_1\wvec_1 + c_2\wvec_2
+      </me>.
       We therefore know that
       <me>
 	\wvec_3 =
 	\frac{\wvec_3\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
-	\frac{\wvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_1}\wvec_2
-	= \zerovec\text{,}
-      </me>
+	\frac{\wvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2
+	= \zerovec
+      </me>,
       which cannot happen since we know that <m>\wvec_3</m> is nonzero.
       This tells us that
     </p>
@@ -288,12 +321,12 @@
     </proposition>
 
     <p>
-      If the vectors in an orthogonal set have dimension <m>m</m>, they
+      If <m>n</m> vectors in an orthogonal set in <m>\real^m</m>, they
       form a linearly independent set in <m>\real^m</m> and are
       therefore a basis for the subspace
-      <m>W=\laspan{\wvec_1,\wvec_2,\ldots,\wvec_n}</m>.  If there are
-      <m>m</m> vectors in the orthogonal set, they form a basis for
-      <m>\real^m</m>. 
+      <m>W=\laspan{\wvec_1,\wvec_2,\ldots,\wvec_n}</m>.  This means that 
+	  <m>n \le m</m>.  If <m> n = m</m>, then the vectors form 
+	  an <term>orthogonal basis</term> for <m>\real^m</m>.
     </p>
 
     <activity>
@@ -344,10 +377,10 @@
 	      </p>
 
 	      <p>
-		<idx>unit vector</idx>
+		<idx><h>unit vector</h></idx>
 		Using this observation, find a vector <m>\uvec_1</m>
 		that is parallel to <m>\wvec_1</m> and has length 1.
-		Such vectors are called <em>unit vectors</em>.
+		Such vectors are called <term>unit vectors</term>.
 		<sage language="python">
 		  <input>
 		  </input>
@@ -488,32 +521,25 @@
     <p>
       This activity introduces an important way of modifying an
       orthogonal set so that the vectors in the set have unit length.
-      Recall that we may multiply any nonzero vector
-      <m>\wvec</m> by a scalar so that the new vector has length 1.
-      For instance, we know that if <m>s</m> is a positive scalar,
-      then <m>\len{s\wvec} = s\len{\wvec}</m>.  To obtain a vector
-      <m>\uvec</m> having unit length, we want
-      <me>
-	\len{\uvec} = \len{s\wvec} = s\len{\wvec} = 1
-      </me>
-      so that <m>s=1/\len{\wvec}</m>.  Therefore,
-      <me>
-	\uvec = \frac{1}{\len{\wvec}}\wvec
-      </me>
-      becomes a unit vector parallel to <m>\wvec</m>.
+	  Since <m>\len{s \wvec} = s \len{\wvec}</m> for any vector <m>\wvec</m>
+	  and scalar <m>s</m>,
+	  <me>
+		\len{\frac{\wvec}{\len{\wvec}}} = \frac{\len{\wvec}}{\len{\wvec}} = 1
+	  </me>.
+	  That is, if we divide each vector in an orthogonal set by its length,
+	  the result is an orthogonal set of vectors each of which is a unit vector.
     </p>
 
     <p>
-      Orthogonal sets in which the vectors have unit length are called
-      <em>orthonormal</em> and are especially convenient.
+      Orthogonal sets of unit vectors are called
+      <term>orthonormal</term> and are especially convenient.
     </p>
 
     <definition>
       <idx> othonormal set </idx>
       <statement>
 	<p>
-	  An <em>orthonormal</em> set is an orthogonal set of vectors
-	  each of which has unit length.
+	  An <term>orthonormal</term> set is an orthogonal set of unit vectors.
 	</p>
       </statement>
     </definition>
@@ -539,8 +565,8 @@
 	    = \begin{bmatrix}
 	    1/\sqrt{2} \amp -1/\sqrt{2} \\
 	    1/\sqrt{2} \amp 1/\sqrt{2} \\
-	    \end{bmatrix}\text{,}
-	  </me>
+	    \end{bmatrix}
+	  </me>,
 	  we find that <m>Q^{\transpose}Q = I</m> since <xref
 	  ref="prop-transpose-multiplication" /> tells us that
 	  <me>
@@ -610,10 +636,7 @@
     </p>
 
     <figure xml:id="fig-projection-line-a">
-      <sidebyside widths="45% 45%">
-	<image source="images/projection-line-1" />
 	<image source="images/projection-line-4" />
-      </sidebyside>
       <caption>
 	Given a line <m>L</m> and a vector <m>\bvec</m>, we seek the
 	vector <m>\bhat</m> on <m>L</m> that is closest to
@@ -622,44 +645,28 @@
     </figure>
 
     <p>
-      To find <m>\bhat</m>, we require 
-      that <m>\bvec-\bhat</m> be orthogonal to <m>L</m>.  For
-      instance, if <m>\yvec</m> is another vector on the line, as shown
-      in <xref ref="fig-projection-line-b" />, then the
-      Pythagorean theorem implies that
-      <me>
-	\len{\bvec-\yvec}^2 = |\bvec-\bhat|^2 +
-	|\bhat-\yvec|^2
-      </me>
-      which means that <m>\len{\bvec-\yvec}\geq|\bvec-\bhat|</m>.
-      Therefore, <m>\bhat</m> is closer to <m>\bvec</m> than any other
-      vector on the line <m>L</m>.
-    </p>
+		We have already seen how to find <m>\bhat</m>.
+		<me>
+			\bhat = \proj{\bvec}{\wvec} = \frac{\bvec \cdot \wvec}{\len{\wvec}^2} \wvec
+		</me>
+		Our goal now is to expand on this idea to determine the 
+		orthogonal projection of a vector onto any <em>subspace</em> of <m>\real^m</m>.
+	</p>
+		
 
-    <figure xml:id="fig-projection-line-b">
-      <sidebyside width="45%">
-	<image source="images/projection-line-3" />
-      </sidebyside>
-      <caption>
-	The vector <m>\bhat</m> is closer to <m>\bvec</m> than
-	<m>\yvec</m> because <m>\bvec-\bhat</m> is orthogonal to
-	<m>L</m>. 
-      </caption>
-    </figure>
-
-    <definition>
+    <!-- <definition>
       <idx>orthogonal projection</idx>
       <statement>
 	<p>
 	  Given a vector <m>\bvec</m> in <m>\real^m</m> and a subspace
-	  <m>W</m> of <m>\real^m</m>, the <em>orthogonal
-	  projection</em> of <m>\bvec</m> onto <m>W</m> is the vector
+	  <m>W</m> of <m>\real^m</m>, the <term>orthogonal
+	  projection</term> of <m>\bvec</m> onto <m>W</m> is the vector
 	  <m>\bhat</m> in <m>W</m> that is closest to <m>\bvec</m>.
 	  It is characterized by the property that <m>\bvec-\bhat</m>
 	  is orthogonal to <m>W</m>.
 	</p>
       </statement>
-    </definition>
+    </definition> -->
 
     <activity>
       <statement>
@@ -690,15 +697,14 @@
 		<ol marker="1.">
 		  <li>
 		    <p>
-		      To find <m>\bhat</m>, first notice that <m>\bhat =
-		      s\wvec</m> for some scalar <m>s</m>.
-		      Since <m>\bvec-\bhat = \bvec -
-		      s\wvec</m> is orthogonal to 
-		      <m>\wvec</m>, what do we know about the dot
-		      product 
+			  We already know the formula for <m>\bhat = \proj{\bvec}{\wvec}</m>.
+			  But let's rederive it using properties of the dot product.
+			  First notice that <m>\bhat = s\wvec</m> for some scalar <m>s</m>.
+		      Since <m>\bvec-\bhat = \bvec - s\wvec</m> is orthogonal to 
+		      <m>\wvec</m>, what do we know about the dot product 
 		      <me>
-			(\bvec-s\wvec)\cdot\wvec\text{?}
-		      </me>
+					(\bvec-s\wvec)\cdot\wvec
+		      </me>?
 		    </p>
 		  </li>
 		  
@@ -720,8 +726,8 @@
 		      <m>\wvec</m> is 
 		      <me>
 			\bhat=
-			\frac{\bvec\cdot\wvec}{\wvec\cdot\wvec}~\wvec\text{.} 
-		      </me>
+			\frac{\bvec\cdot\wvec}{\wvec\cdot\wvec}~\wvec
+		      </me>.
 		    </p>
 		  </li>
 		</ol>
@@ -774,8 +780,8 @@
 		      <m>\bhat = c_1\wvec_1 + c_2\wvec_2</m>.
 		      Then
 		      <me>
-			\bvec-\bhat = \bvec - (c_1\wvec_1+c_2\wvec_2)\text{.}
-		      </me>
+			\bvec-\bhat = \bvec - (c_1\wvec_1+c_2\wvec_2)
+		      </me>.
 		      Find the weight <m>c_1</m> by dotting
 		      <m>\bvec-\bhat</m> with 
 		      <m>\wvec_1</m> and applying the distributive
@@ -807,15 +813,15 @@
 		  \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}~\wvec_1 + 
 		  \frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}~\wvec_2 +
 		  \cdots + 
-		  \frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n\text{.} 
-		</me>
+		  \frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n
+		</me>.
 	      </p>
 	    </li>
 
 	    <li>
 	      <p>
 		Suppose that <m>\uvec_1,\uvec_2,\ldots,\uvec_n</m> is
-		an <em>orthonormal</em> basis for <m>W</m>;  that is,
+		an <term>orthonormal</term> basis for <m>W</m>;  that is,
 		the vectors are orthogonal to one another and have unit
 		length.  Explain 
 		why the orthogonal projection is
@@ -824,8 +830,8 @@
 		  (\bvec\cdot\uvec_1)~\uvec_1 + 
 		  (\bvec\cdot\uvec_2)~\uvec_2 +
 		  \cdots +
-		  (\bvec\cdot\uvec_n)~\uvec_n\text{.}
-		</me>
+		  (\bvec\cdot\uvec_n)~\uvec_n
+		</me>.
 	      </p>
 	    </li>
 	    <li>
@@ -923,8 +929,8 @@
 		  (\bvec\cdot\uvec_1)~\uvec_1 + 
 		  (\bvec\cdot\uvec_2)~\uvec_2 +
 		  \cdots +
-		  (\bvec\cdot\uvec_n)~\uvec_n=\bhat\text{.}
-		</me>
+		  (\bvec\cdot\uvec_n)~\uvec_n=\bhat
+		</me>.
 	      </p>
 	    </li>
 	  </ol>
@@ -1047,13 +1053,27 @@
 	  and <m>\bvec</m> is a vector in <m>\real^m</m>, then
 	  the
 	  orthogonal projection of <m>\bvec</m> onto <m>W</m> is
-	  <me>
+		<md>
+			<mrow>
+				\bhat \amp = 
+				\proj{\bvec}{\wvec_1} +
+				\proj{\bvec}{\wvec_2} + \cdots +
+				\proj{\bvec}{\wvec_n} 
+			</mrow>
+			<mrow> \amp = 
+					\frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+					\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
+					\cdots +
+					\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n
+			</mrow>
+		</md>.
+	  <!-- <me>
 	    \bhat=
 	    \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}~\wvec_1 + 
 	    \frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}~\wvec_2 +
 	    \cdots +
-	    \frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n\text{.}
-	  </me>
+	    \frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n
+	  </me>. -->
 	</p>
       </statement>
     </proposition>
@@ -1064,7 +1084,7 @@
 	Remember that the projection formula given in <xref
 	ref="prop-proj-formula" /> applies only when the basis
 	<m>\wvec_1,\wvec_2,\cdots,\wvec_n</m> of <m>W</m> is
-	<em>orthogonal</em>.
+	<term>orthogonal</term>.
       </p>
     </assemblage>
 
@@ -1077,15 +1097,15 @@
 	(\bvec\cdot\uvec_1)~\uvec_1 + 
 	(\bvec\cdot\uvec_2)~\uvec_2 +
 	\cdots + 
-	(\bvec\cdot\uvec_n)~\uvec_n\text{.}
-      </me>
+	(\bvec\cdot\uvec_n)~\uvec_n
+      </me>.
       If we then form the matrix
       <me>
 	Q =
 	\begin{bmatrix}
 	\uvec_1 \amp \uvec_2 \amp \ldots \amp \uvec_n 
-	\end{bmatrix}\text{,}
-      </me>
+	\end{bmatrix}
+      </me>,
       this expression may be succintly written
       <md>
 	<mrow>
@@ -1128,8 +1148,8 @@
 	  Q =
 	  \begin{bmatrix}
 	  \uvec_1 \amp \uvec_2 \amp \ldots \amp \uvec_n \\
-	  \end{bmatrix}\text{.}
-	</me>
+	  \end{bmatrix}
+	</me>.
 	</p>
       </statement>
     </proposition>
@@ -1141,16 +1161,16 @@
 	  defined by the two orthogonal vectors
 	  <me>
 	    \wvec_1=\threevec22{-1},\hspace{24pt}
-	    \wvec_2=\threevec102\text{.}
-	  </me>
+	    \wvec_2=\threevec102
+	  </me>.
 	  We can form an orthonormal basis by scalar multiplying these
 	  vectors to have unit length:
 	  <me>
 	    \uvec_1=\frac13\threevec22{-1} =
 	    \threevec{2/3}{2/3}{-1/3},\hspace{24pt}
 	    \uvec_2=\frac1{\sqrt{5}}\threevec102 =
-	    \threevec{1/\sqrt{5}}0{2/\sqrt{5}}\text{.}
-	  </me>
+	    \threevec{1/\sqrt{5}}0{2/\sqrt{5}}
+	  </me>.
 	  Using these vectors, we form the matrix
 	  <me>
 	    Q =
@@ -1158,8 +1178,8 @@
 	    2/3 \amp 1/\sqrt{5} \\
 	    2/3 \amp 0 \\
 	    -1/3 \amp 2/\sqrt{5} \\
-	    \end{bmatrix}\text{.}
-	  </me>
+	    \end{bmatrix}
+	  </me>.
 	  The projection onto the plane <m>W</m> is then given by
 	  the matrix
 	  <me>
@@ -1178,8 +1198,8 @@
 	    {29}/{45} \amp {4}/{9} \amp {8}/{45} \\
 	    {4}/{9} \amp {4}/{9} \amp -{2}/{9} \\
 	    {8}/{45} \amp -{2}/{9} \amp {41}/{45}
-	    \end{bmatrix}\text{.}
-	  </me>
+	    \end{bmatrix}
+	  </me>.
 	</p>
 
 	<p>
@@ -1210,8 +1230,8 @@
 	    {8}/{45} \amp -{2}/{9} \amp {41}/{45}
 	    \end{bmatrix}\threevec100
 	    =
-	    \cthreevec{{29}/{45}}{4/9}{8/{45}}\text{.}
-	  </me>
+	    \cthreevec{{29}/{45}}{4/9}{8/{45}}
+	  </me>.
 	</p>
       </statement>
     </example>
@@ -1602,8 +1622,8 @@
 	    1/\sqrt{3} \amp 1/\sqrt{2} \\
 	    -1/\sqrt{3} \amp 1/\sqrt{2} \\
 	    1/\sqrt{3} \amp 0 \\
-	    \end{bmatrix}\text{.}
-	  </me>
+	    \end{bmatrix}
+	  </me>.
 	  In this case, <m>\uvec_1</m> and <m>\uvec_2</m> span a
 	  plane, a 2-dimensional subspace of <m>\real^3</m>.  We know
 	  that <m>Q^{\transpose}Q = I_2</m> and <m>QQ^{\transpose}</m> projects vectors
@@ -1630,8 +1650,8 @@
 	    1/\sqrt{3} \amp 1/\sqrt{2} \amp 1/\sqrt{6} \\
 	    -1/\sqrt{3} \amp 1/\sqrt{2} \amp -1/\sqrt{6} \\
 	    1/\sqrt{3} \amp 0 \amp -2/\sqrt{6} \\
-	    \end{bmatrix}\text{.}
-	  </me>
+	    \end{bmatrix}
+	  </me>.
 	  Here, <m>\uvec_1</m>, <m>\uvec_2</m>, and <m>\uvec_3</m>
 	  form a basis for <m>\real^3</m> so that both <m>Q^{\transpose}Q=I_3</m>
 	  and <m>QQ^{\transpose}=I_3</m>.  Therefore, <m>Q</m> is a square matrix
@@ -1653,8 +1673,8 @@
 	<idx> orthogonal matrix </idx>
 	<p>
 	  A square <m>m\by m</m> matrix <m>Q</m> whose columns form
-	  an orthonormal basis for <m>\real^m</m> is called <em>
-	  orthogonal</em>.  
+	  an orthonormal basis for <m>\real^m</m> is called <term>
+	  orthogonal</term>.  
 	</p>
       </statement>
     </definition>
@@ -1694,14 +1714,21 @@
 	    that spans an <m>n</m>-dimensional
 	    subspace <m>W</m> of <m>\real^m</m>, the orthogonal 
 	    projection of <m>\bvec</m> onto <m>W</m> is the vector in <m>W</m>
-	    closest to <m>\bvec</m> and may be written as
-	    <me>
-	      \bhat =
-	      \frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}~\wvec_1 + 
-	      \frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}~\wvec_2 +
-	      \cdots + 
-	      \frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}~\wvec_n\text{.}
-	    </me>
+	    closest to <m>\bvec</m> and may be written as 
+		<md>
+			<mrow>
+				\bhat \amp = 
+				\proj{\bvec}{\wvec_1} +
+				\proj{\bvec}{\wvec_2} + \cdots +
+				\proj{\bvec}{\wvec_n} 
+			</mrow>
+			<mrow> \amp = 
+					\frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
+					\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
+					\cdots +
+					\frac{\bvec\cdot\wvec_n}{\wvec_n\cdot\wvec_n}\wvec_n
+			</mrow>
+		</md>.
 	  </p>
 	</li>
 	  
@@ -1724,7 +1751,7 @@
 
 	<li>
 	  <p>
-	    An orthogonal matrix <m>Q</m> is a square matrix whose
+	    An <term>orthogonal matrix</term> <m>Q</m> is a square matrix whose
 	    columns form an orthonormal basis.  In this case,
 	    <m>QQ^{\transpose}=Q^{\transpose}Q = I</m> so that <m>Q^{-1} = Q^{\transpose}</m>.
 	  </p>
