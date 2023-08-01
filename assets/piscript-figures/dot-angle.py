@@ -24,13 +24,15 @@ u = [3,1]
 v = [2,3.5]
 w = vdiff(v,u)
 
+# turn of difference vector which makes it appear that it is orthogonal to one of the other vectors.
+
 Vector(u).fill()
 Vector(v).fill()
-Vector(v, tail=u).fill()
+# Vector(v, tail=u).fill()
 Label(r"${\boldsymbol x}$", u, alignment="lt", offset=[3,-3]).draw()
 Label(r"${\boldsymbol y}$", v, alignment="rb", offset=[-3,3]).draw()
-Label(r"${\boldsymbol y}-{\boldsymbol x}$", vsum(smult(0.5,w), u),
-      alignment="lb", offset=[3,3]).draw()
+# Label(r"${\boldsymbol y}-{\boldsymbol x}$", vsum(smult(0.5,w), u),
+#       alignment="lb", offset=[3,3]).draw()
 
 a1 = math.atan2(u[1],u[0])
 a2 = math.atan2(v[1],v[0])
