@@ -1,11 +1,6 @@
 
 
 all: \
-projection-line-1.svg projection-line-8.svg projection-line-10.svg projection-line-12.svg \
-projection-line-1.pdf projection-line-8.pdf projection-line-10.pdf projection-line-12.pdf \
-3d-orthog-proj-3.svg \
-3d-orthog-proj-3.pdf \
-21-pca-plots.pdf \
 2d-span-line.pdf \
 2d-span-plane.pdf \
 2dy0.pdf \
@@ -14,7 +9,6 @@ projection-line-1.pdf projection-line-8.pdf projection-line-10.pdf projection-li
 3d-orthog-proj-1.pdf \
 3d-orthog-proj-2.pdf \
 3d-orthog-proj-3.pdf \
-3d-orthog-proj.pdf \
 3d-plane-nonstd-w.pdf \
 3d-plane-nonstd.pdf \
 3d-plane-span-no-w.pdf \
@@ -46,9 +40,7 @@ animate-shadow-a.pdf \
 animate-shadow-b.pdf \
 animate-shadow-c.pdf \
 animate-translate.pdf \
-animate.pdf \
 area-shear.pdf \
-axes-4.pdf \
 basis-1.pdf \
 basis-revenue-approx-1.pdf \
 basis-revenue-approx-2.pdf \
@@ -70,7 +62,9 @@ det-3d-identity.pdf \
 det-3d.pdf \
 det-identity.pdf \
 det-orientation.pdf \
-diag-D.pdf \
+diag-D-a.pdf \
+diag-D-b.pdf \
+diag-D-c.pdf \
 dot-angle.pdf \
 dot-length.pdf \
 edges-grayscale.pdf \
@@ -82,7 +76,9 @@ eigen-3d-saddle-e.pdf \
 eigen-3d-saddle.pdf \
 eigen-3d-species.pdf \
 eigen-3d-stoch.pdf \
-eigen-A.pdf \
+eigen-A-a.pdf \
+eigen-A-b.pdf \
+eigen-A-c.pdf \
 eigen-basis.pdf \
 eigen-complex-action.pdf \
 eigen-diag-A.pdf \
@@ -105,6 +101,7 @@ eigen-phase-saddle.pdf \
 eigen-phase-spirala.pdf \
 eigen-phase-spiralr.pdf \
 eigen-polar.pdf \
+empty-3.pdf \
 empty-4-diag.pdf \
 empty-4.pdf \
 empty-5-k.pdf \
@@ -115,9 +112,12 @@ empty.pdf \
 ex-3-5.pdf \
 ex-6-1-1-plot.pdf \
 ex-basis.pdf \
-ex-comp-power.pdf \
+ex-comp-power-a.pdf \
+ex-comp-power-b.pdf \
+ex-comp-power-c.pdf \
 ex-complex-polar.pdf \
-ex-coord-1.pdf \
+ex-coord-nonstd.pdf \
+ex-coord-std.pdf \
 ex-dynam-sol-a.pdf \
 ex-dynam-sol-c.pdf \
 ex-dynam-sol-d.pdf \
@@ -144,7 +144,10 @@ ex-phase-repellor.pdf \
 ex-phase-saddle.pdf \
 ex-phase-spirala.pdf \
 ex-phase-spiralr.pdf \
-ex-powers.pdf \
+ex-power-a.pdf \
+ex-power-b.pdf \
+ex-power-c.pdf \
+ex-power-d.pdf \
 ex-predator-prey-empty.pdf \
 ex-predator-sol-a.pdf \
 ex-predator-sol-b.pdf \
@@ -154,8 +157,6 @@ ex-rotate-about-p.pdf \
 ex-stoch.pdf \
 ex2-1-1-a.pdf \
 ex2-1-1-b.pdf \
-fig3d.pdf \
-figures.pdf \
 fourier-sine-basis.pdf \
 google-cyclic.pdf \
 google-intro.pdf \
@@ -165,23 +166,16 @@ google-reducible.pdf \
 gram-schmidt-intro.pdf \
 graph-line.pdf \
 graph-square.pdf \
-graph.pdf \
 heat.pdf \
-interpolation.pdf \
+interpolation-0.pdf \
+interpolation-1.pdf \
 intro-coincident.pdf \
 intro-parallel.pdf \
 intro-single.pdf \
 intro-three.pdf \
 intro-two.pdf \
-jpeg-block-luminance.pdf \
-jpeg-blue-chrominance.pdf \
 jpeg-fourier-basis.pdf \
 jpeg-luminance-col-graph.pdf \
-jpeg-luminance.pdf \
-jpeg-red-chrominance.pdf \
-jpeg.old.pdf \
-jpeg.pdf \
-jpegfourier.pdf \
 k-means-6-1.pdf \
 kmeans-data.pdf \
 license.pdf \
@@ -193,7 +187,8 @@ line-regress-2.pdf \
 linear-trans-compose.pdf \
 linearcomb.pdf \
 ls-crickets.pdf \
-lst-squares.pdf \
+lst-squares-1.pdf \
+lst-squares-2.pdf \
 nul-at.pdf \
 numerical-power-line.pdf \
 numerical-power-norm.pdf \
@@ -202,29 +197,36 @@ orthog-comp.pdf \
 orthog-decomp.pdf \
 orthog-lines.pdf \
 orthogonal-basis.pdf \
+parallelogram-a.pdf \
 parallelogram-area.pdf \
+parallelogram-b.pdf \
+parallelogram-c.pdf \
+parallelogram-d.pdf \
+parallelogram-e.pdf \
+parallelogram-f.pdf \
 parallelogram-g.pdf \
+parallelogram-h.pdf \
+parallelogram-i.pdf \
+parallelogram-j.pdf \
 parallelogram-law.pdf \
-parallelograms.pdf \
 partial-pivot-ex.pdf \
 pca-coords.pdf \
 pca-plot-1.pdf \
 pca-plot-2.pdf \
 pca-proj.pdf \
 plane-int-1.pdf \
-plane-int-2.a.pdf \
 plane-int-2.pdf \
 plane-int-3.pdf \
 plane-simple.pdf \
-processfig.pdf \
+projection-line-1.pdf \
+projection-line-8.pdf \
+projection-line-10.pdf \
+projection-line-12.pdf \
 quad-variance-a.pdf \
 quad-variance-b.pdf \
 quad-variance-data.pdf \
 quad-variance.pdf \
-reducible.pdf \
 reflect-intro.pdf \
-revenue.pdf \
-revenuecoords.pdf \
 scalar-mult.pdf \
 similar-vectors.pdf \
 span-linear-dep.pdf \
@@ -240,11 +242,10 @@ subspace-quadrant-2.pdf \
 subspace-quadrant-vector.pdf \
 subspace-quadrant.pdf \
 subspace-xaxis.pdf \
-svd-compress.pdf \
-svd.pdf \
 three-possibilities-2.pdf \
 three-possibilities.pdf \
-traffic.pdf \
+traffic-a.pdf \
+traffic-b.pdf \
 two-dim-basis-180.pdf \
 two-dim-basis-rotate.pdf \
 two-dim-basis.pdf \
@@ -255,7 +256,6 @@ vector-addition.pdf \
 vector-u.pdf \
 x-axis-4.pdf \
 y-axis-4.pdf \
-21-pca-plots.svg \
 2d-span-line.svg \
 2d-span-plane.svg \
 2dy0.svg \
@@ -264,7 +264,6 @@ y-axis-4.pdf \
 3d-orthog-proj-1.svg \
 3d-orthog-proj-2.svg \
 3d-orthog-proj-3.svg \
-3d-orthog-proj.svg \
 3d-plane-nonstd-w.svg \
 3d-plane-nonstd.svg \
 3d-plane-span-no-w.svg \
@@ -296,9 +295,7 @@ animate-shadow-a.svg \
 animate-shadow-b.svg \
 animate-shadow-c.svg \
 animate-translate.svg \
-animate.svg \
 area-shear.svg \
-axes-4.svg \
 basis-1.svg \
 basis-revenue-approx-1.svg \
 basis-revenue-approx-2.svg \
@@ -320,7 +317,9 @@ det-3d-identity.svg \
 det-3d.svg \
 det-identity.svg \
 det-orientation.svg \
-diag-D.svg \
+diag-D-a.svg \
+diag-D-b.svg \
+diag-D-c.svg \
 dot-angle.svg \
 dot-length.svg \
 edges-grayscale.svg \
@@ -332,7 +331,9 @@ eigen-3d-saddle-e.svg \
 eigen-3d-saddle.svg \
 eigen-3d-species.svg \
 eigen-3d-stoch.svg \
-eigen-A.svg \
+eigen-A-a.svg \
+eigen-A-b.svg \
+eigen-A-c.svg \
 eigen-basis.svg \
 eigen-complex-action.svg \
 eigen-diag-A.svg \
@@ -355,6 +356,7 @@ eigen-phase-saddle.svg \
 eigen-phase-spirala.svg \
 eigen-phase-spiralr.svg \
 eigen-polar.svg \
+empty-3.svg \
 empty-4-diag.svg \
 empty-4.svg \
 empty-5-k.svg \
@@ -365,9 +367,12 @@ empty.svg \
 ex-3-5.svg \
 ex-6-1-1-plot.svg \
 ex-basis.svg \
-ex-comp-power.svg \
+ex-comp-power-a.svg \
+ex-comp-power-b.svg \
+ex-comp-power-c.svg \
 ex-complex-polar.svg \
-ex-coord-1.svg \
+ex-coord-nonstd.svg \
+ex-coord-std.svg \
 ex-dynam-sol-a.svg \
 ex-dynam-sol-c.svg \
 ex-dynam-sol-d.svg \
@@ -394,7 +399,10 @@ ex-phase-repellor.svg \
 ex-phase-saddle.svg \
 ex-phase-spirala.svg \
 ex-phase-spiralr.svg \
-ex-powers.svg \
+ex-power-a.svg \
+ex-power-b.svg \
+ex-power-c.svg \
+ex-power-d.svg \
 ex-predator-prey-empty.svg \
 ex-predator-sol-a.svg \
 ex-predator-sol-b.svg \
@@ -404,8 +412,6 @@ ex-rotate-about-p.svg \
 ex-stoch.svg \
 ex2-1-1-a.svg \
 ex2-1-1-b.svg \
-fig3d.svg \
-figures.svg \
 fourier-sine-basis.svg \
 google-cyclic.svg \
 google-intro.svg \
@@ -415,23 +421,16 @@ google-reducible.svg \
 gram-schmidt-intro.svg \
 graph-line.svg \
 graph-square.svg \
-graph.svg \
 heat.svg \
-interpolation.svg \
+interpolation-0.svg \
+interpolation-1.svg \
 intro-coincident.svg \
 intro-parallel.svg \
 intro-single.svg \
 intro-three.svg \
 intro-two.svg \
-jpeg-block-luminance.svg \
-jpeg-blue-chrominance.svg \
 jpeg-fourier-basis.svg \
 jpeg-luminance-col-graph.svg \
-jpeg-luminance.svg \
-jpeg-red-chrominance.svg \
-jpeg.old.svg \
-jpeg.svg \
-jpegfourier.svg \
 k-means-6-1.svg \
 kmeans-data.svg \
 license.svg \
@@ -443,7 +442,8 @@ line-regress-2.svg \
 linear-trans-compose.svg \
 linearcomb.svg \
 ls-crickets.svg \
-lst-squares.svg \
+lst-squares-1.svg \
+lst-squares-2.svg \
 nul-at.svg \
 numerical-power-line.svg \
 numerical-power-norm.svg \
@@ -452,29 +452,36 @@ orthog-comp.svg \
 orthog-decomp.svg \
 orthog-lines.svg \
 orthogonal-basis.svg \
+parallelogram-a.svg \
 parallelogram-area.svg \
+parallelogram-b.svg \
+parallelogram-c.svg \
+parallelogram-d.svg \
+parallelogram-e.svg \
+parallelogram-f.svg \
 parallelogram-g.svg \
+parallelogram-h.svg \
+parallelogram-i.svg \
+parallelogram-j.svg \
 parallelogram-law.svg \
-parallelograms.svg \
 partial-pivot-ex.svg \
 pca-coords.svg \
 pca-plot-1.svg \
 pca-plot-2.svg \
 pca-proj.svg \
 plane-int-1.svg \
-plane-int-2.a.svg \
 plane-int-2.svg \
 plane-int-3.svg \
 plane-simple.svg \
-processfig.svg \
+projection-line-1.svg \
+projection-line-8.svg \
+projection-line-10.svg \
+projection-line-12.svg \
 quad-variance-a.svg \
 quad-variance-b.svg \
 quad-variance-data.svg \
 quad-variance.svg \
-reducible.svg \
 reflect-intro.svg \
-revenue.svg \
-revenuecoords.svg \
 scalar-mult.svg \
 similar-vectors.svg \
 span-linear-dep.svg \
@@ -490,11 +497,10 @@ subspace-quadrant-2.svg \
 subspace-quadrant-vector.svg \
 subspace-quadrant.svg \
 subspace-xaxis.svg \
-svd-compress.svg \
-svd.svg \
 three-possibilities-2.svg \
 three-possibilities.svg \
-traffic.svg \
+traffic-a.svg \
+traffic-b.svg \
 two-dim-basis-180.svg \
 two-dim-basis-rotate.svg \
 two-dim-basis.svg \
@@ -504,20 +510,60 @@ vector-addition-a.svg \
 vector-addition.svg \
 vector-u.svg \
 x-axis-4.svg \
-y-axis-4.svg \
+y-axis-4.svg 
 
+# missing source files -- and possibly python packages -- needed to rebuild these
+jpegs := spring-canyon-blue-chominance.jpg utah.gray.0.jpg 
 
-projection-line-1.eps: projection-line.py
+unsure := animate-woody.pdf jpeg-block-luminance-values.pdf jpeg-block-luminance.pdf jpeg-orig-block.pdf 
+
+%-axis-4.eps: axis-4.py
+	python axis-4.py
+
+diag-D-%.eps: diag-D.py
+	python diag-D.py
+
+eigen-A-%.eps: eigen-A.py
+	python eigen-A.py
+
+ex-comp-power-%.eps: ex-comp-power.py
+	python ex-comp-power.py
+
+ex-coord-%.eps: ex-coord-1.py
+	python ex-coord-1.py
+
+ex-power-%.eps: ex-powers.py
+	python ex-powers.py
+
+jpeg-orig-block.eps: jpeg.py
+	python jpeg.py
+
+jpeg-block-luminance-%.eps: jpeg-block-luminance.py
+	python jpeg-block-luminance.py
+
+lst-squares-%: lst-squares.py
+	python lst-squares.py
+
+parallelogram-%.eps: parallelograms.py
+	python parallelograms.py
+
+projection-line-%.eps: projection-line.py
 	python projection-line.py
 
-projection-line-8.eps: projection-line.py
-	python projection-line.py
+spring-canyon-blue-chominance.jpg: jpeg-blue-chrominance.py
+	python jpeg-blue-chrominance.py
 
-projection-line-10.eps: projection-line.py
-	python projection-line.py
+spring-canyon-red-chominance.jpg: jpeg-red-chrominance.py
+	python jpeg-red-chrominance.py
+	
+spring-canyon-luminance.jpg: jpeg-luminance.py
+	python jpeg-luminance.py
 
-projection-line-12.eps: projection-line.py
-	python projection-line.py
+traffic-%.eps: traffic.py
+	python traffic.py
+
+utah.gray.0.jpg: svd-compress.py A
+	python svd-compress.py
 
 %.eps: %.py
 	-python $<
