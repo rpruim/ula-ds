@@ -247,7 +247,7 @@ print (v + w)
 
 
 	  <p>Especially when we work with vectors with many components, we will often  
-	  want to have Python tell us how many components ther are.
+	  want to have Python tell us how many components there are.
 	  We can use <c>.shape</c> to find out how
         many components are in one of our vectors. Give it a try. Type <c>print(v.shape)</c> in the
         code block above and re-evaluate. 
@@ -325,18 +325,109 @@ print("shape:", r.shape,
 		<idx> <c>numpy.round()</c> </idx>
       </p>
 
+	</subsection>
+
+	<subsection>
+		<title>Plotting vectors</title>
+
+		<p> We can use <c>matplotlib.pyplot.quiver()</c> to visualize 2-d and 3-d vectors.
+			Below are two examples showing the sum of two vectors.  
+			<idx><h>vector</h><h>plotting</h></idx>
+			<idx><h><c>matplotlib.plt.quiver()</c></h></idx>
+			<idx><h><c>quiver()</c></h><see><c>matplotlib.plt.quiver()</c></see></idx>
+			For simplicity, we plot each vector as a separate command, but it is possible to 
+			plot multiple arrows all at once.  This explain the name <c>quiver</c>.
+		</p>
+		<p>
+			The arguments to <c>quiver</c> include the coordiantes of the starting point for 
+			the arrow and coordinates specifying the amount of change in each direction.
+			This makes it easy to plot vectors originating at the origin or originating at 
+			some other place, as is useful to illustrating the sum.
+			Notice the use of <c>*</c>
+			in these examples. <c>*origin</c>, for example, is shorthand for <c>origin[0], origin[1]</c> 
+			(in the 2-d case).
+			By default, for the 2-d plots, Matplotlib will rescale the lengths of the vectors. 
+			Additional arugments are included here so that the vectors are plotted on their natural scale.
+		</p>
+		<sage language="python">
+			<input>
+import matplotlib.pyplot as plt
+import numpy as np
+
+v = np.array([1,2])
+w = np.array([-2,1])
+origin = np.zeros(2)
+
+plt.quiver(*origin, *v, color = 'green', angles='xy', scale_units='xy', scale=1)
+plt.quiver(*v, *w, color = 'blue', angles='xy', scale_units='xy', scale=1)
+plt.quiver(*w, *v, color = 'green', angles='xy', scale_units='xy', scale=1)
+plt.quiver(*origin, *w, color = 'blue', angles='xy', scale_units='xy', scale=1)
+plt.quiver(*origin, *(v+w), color = 'red', angles='xy', scale_units='xy', scale=1)
+
+plt.xlim([-5,5])
+plt.ylim([-5,5])
+plt.show()				
+			</input>
+		</sage>
+		
+		<sage language="python">
+			<input>
+import matplotlib.pyplot as plt
+import numpy as np
+
+v = np.array([1,2,3])
+w = np.array([2,1,-2])
+origin = np.zeros(3)
+
+fig = plt.figure()
+ax = plt.axes(projection = '3d')
+ax.quiver(*origin, *v, color = 'green')
+ax.quiver(*v, *w, color = 'blue')
+ax.quiver(*w, *v, color = 'green')
+ax.quiver(*origin, *w, color = 'blue')
+ax.quiver(*origin, *(v+w), color = 'red')
+
+ax.set_xlim([-5,5])
+ax.set_ylim([-5,5])
+ax.set_zlim([-5,5])
+plt.show()
+			</input>
+		</sage>
+
 	  <assemblage xml:id="assemblage-numpy-help">
 		<title>Numpy documentation</title>
 		<p>
 			Official <c>numpy</c> documentation can be found at 
-			<url href="https://numpy.org/doc/" />.  You may also find 
-			it handy to use <url href="https://devdocs.io/" /> which 
+			<url href="https://numpy.org/doc/" visual="numpy.org/doc" />.  You may also find 
+			it handy to use <url href="https://devdocs.io/" visual="devdocs.io"/> which 
 			provides documentation on many languages (including Python) 
 			and packages (including <c>numpy</c>) and provides a powerful  
 			mechanism for searching within documentation.
-			
+		</p>
+		<p>
+			A brief visual introduction to numpy can be found at 
+			<url href="https://jalammar.github.io/visual-numpy/" 
+			     visual="jalammar.github.io/visual-numpy/" />.
 		</p>
 	  </assemblage>
+
+	  <assemblage xml:id="assemblage-matplotlib-help">
+		<title>Matplotlib documentation</title>
+		<p>
+			Official <c>matplotlib</c> documentation can be found at 
+			<url href="https://matplotlib.org/" visual="matplotlib.org"/>.  Matplotlib documentation
+			is also avilable via <url href="https://devdocs.io/" />.
+		</p>
+	  </assemblage>
+
+	  <note>
+		<title>Figures in this book</title>
+		<p>
+			The figures in this book were also created in Python using 
+			<url href="https://personal.math.ubc.ca/~cass/piscript/">PiScript</url>, a system for 
+			creating mathematical diagrams created by Bill Casselman.
+		</p>
+	  </note>
 
 
 
