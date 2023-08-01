@@ -27,9 +27,9 @@ w = vdiff(v,u)
 Vector(u).fill()
 Vector(v).fill()
 Vector(v, tail=u).fill()
-Label(r"${\boldsymbol v}$", u, alignment="lt", offset=[3,-3]).draw()
-Label(r"${\boldsymbol w}$", v, alignment="rb", offset=[-3,3]).draw()
-Label(r"${\boldsymbol w}-{\boldsymbol v}$", vsum(smult(0.5,w), u),
+Label(r"${\boldsymbol x}$", u, alignment="lt", offset=[3,-3]).draw()
+Label(r"${\boldsymbol y}$", v, alignment="rb", offset=[-3,3]).draw()
+Label(r"${\boldsymbol y}-{\boldsymbol x}$", vsum(smult(0.5,w), u),
       alignment="lb", offset=[3,3]).draw()
 
 a1 = math.atan2(u[1],u[0])
