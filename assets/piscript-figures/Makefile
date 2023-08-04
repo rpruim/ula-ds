@@ -222,6 +222,7 @@ projection-line-1.pdf \
 projection-line-8.pdf \
 projection-line-10.pdf \
 projection-line-12.pdf \
+pythagorean-length.pdf \
 quad-variance-a.pdf \
 quad-variance-b.pdf \
 quad-variance-data.pdf \
@@ -477,6 +478,7 @@ projection-line-1.svg \
 projection-line-8.svg \
 projection-line-10.svg \
 projection-line-12.svg \
+pythagorean-length.svg \
 quad-variance-a.svg \
 quad-variance-b.svg \
 quad-variance-data.svg \
