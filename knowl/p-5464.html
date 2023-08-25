@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <!--********************************************-->
 <!--*       Generated from PreTeXt source      *-->
 <!--*                                          *-->
@@ -9,16 +9,39 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para"><span class="process-math">\(A= \left[\begin{array}{rrrr}
-1.9  \amp -16.0 \amp  -13.0 \amp 27.0 \\
--2.4 \amp  20.3 \amp  4.6 \amp -17.7 \\
--0.51 \amp -11.7 \amp -1.4 \amp  13.1  \\
--2.1 \amp  15.3 \amp  6.9 \amp -20.5 \\
-\end{array}\right]
-\text{.}\)</span></div>
+<div class="para">The Python cell below has a function <code class="code-inline tex2jax_ignore">find_closest_eigenvalue(A, s, x, N)</code> that implements <span class="process-math">\(N\)</span> steps of the inverse power method using the matrix <span class="process-math">\(A-sI\)</span> and an initial vector <span class="process-math">\(x\text{.}\)</span>  This function prints approximations to the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\)</span> and its associated eigenvector.  By trying different values of <span class="process-math">\(s\)</span> in the shaded regions of the number line shown in <a href="" class="xref" data-knowl="./knowl/fig-numerical-power-line.html" title="Figure 5.6.3">Figure 5.6.3</a>, find the other two eigenvalues of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-177"><script type="text/x-sage">from scipy import linalg 
+def find_closest_eigenvalue(A, s, x, N):
+    B = A - s @ linalg.eye(A.shape[0])
+	result = []
+    for i in range(N):
+        x = B.solve(x)
+        m = max([comp for comp in x], key=abs)
+        x = 1/m * x
+		result.append((1/m + s, x))
+	return result
+
+### define the matrix A and vector x0
+A =
+x0 =
+print(find_closest_eigenvalue(A, 2, x0, 20))
+</script></pre>
+</div>
 <span class="incontext"><a href="sec-power-method.html#p-5464" class="internal">in-context</a></span>
 </body>
 </html>

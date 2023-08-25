@@ -5,7 +5,7 @@
 <!--*         https://pretextbook.org          *-->
 <!--*                                          *-->
 <!--********************************************-->
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Linear independence</title>
@@ -14,20 +14,38 @@
 <meta property="og:type" content="book">
 <meta property="book:title" content="Understanding Linear Algebra">
 <meta property="book:author" content=" Randall Pruim ">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>
+var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
 window.MathJax = {
-  tex: {
-    inlineMath: [['\\(','\\)']],
-    tags: "none",
-    tagSide: "right",
-    tagIndent: ".8em",
-    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  "tex": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "tags": "none",
+    "tagSide": "right",
+    "tagIndent": ".8em",
+    "packages": {
+      "[+]": [
+        "base",
+        "extpfeil",
+        "ams",
+        "amscd",
+        "color",
+        "newcommand",
+        "knowl"
+      ]
+    }
   },
-  options: {
-    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
-    processHtmlClass: "process-math",
-    renderActions: {
-        findScript: [10, function (doc) {
+  "options": {
+    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
+    "processHtmlClass": "process-math",
+    "renderActions": {
+      "findScript": [
+        10,
+        function (doc) {
             document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
                 var display = !!node.type.match(/; *mode=display/);
                 var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
@@ -37,101 +55,81 @@ window.MathJax = {
                 math.end = {node: text, delim: '', n: 0};
                 doc.math.push(math);
             });
-        }, '']
-    },
+        },
+        ""
+      ]
+    }
   },
-  chtml: {
-    scale: 0.98,
-    mtextInheritFont: true
+  "chtml": {
+    "scale": 0.98,
+    "mtextInheritFont": true
   },
-  loader: {
-    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
-    paths: {pretext: "https://pretextbook.org/js/lib"},
+  "loader": {
+    "load": [
+      "input/asciimath",
+      "[tex]/extpfeil",
+      "[tex]/amscd",
+      "[tex]/color",
+      "[tex]/newcommand",
+      "[pretext]/mathjaxknowl3.js"
+    ],
+    "paths": {
+      "pretext": "https://pretextbook.org/js/lib"
+    }
   },
-  startup: {
+  "startup": {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
       rsMathReady();
       }
     )}
-  },
+  }
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
-                       linked: true,
-                       languages: ['sage'],
-                       evalButtonText: 'Evaluate (Sage)'});
-</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
-                       linked: true,
-                       languages: ['python'],
-                       evalButtonText: 'Evaluate (Python)'});
-</script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
-<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.3/pretext_search.js"></script><link href="https://pretextbook.org/css/0.7/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.3</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.3/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.3/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.3/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
-<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/colors_blue_grey.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
-<!--** eBookCongig is necessary to configure interactive       **-->
-<!--** Runestone components to run locally in reader's browser **-->
-<!--** No external communication:                              **-->
-<!--**     log level is 0, Runestone Services are disabled     **-->
-<script type="text/javascript">
-eBookConfig = {};
-eBookConfig.useRunestoneServices = false;
-eBookConfig.host = 'http://127.0.0.1:8000';
-eBookConfig.course = 'PTX_Course_Title_Here';
-eBookConfig.basecourse = 'PTX_Base_Course';
-eBookConfig.isLoggedIn = false;
-eBookConfig.email = '';
-eBookConfig.isInstructor = false;
-eBookConfig.logLevel = 0;
-eBookConfig.username = '';
-eBookConfig.readings = null;
-eBookConfig.activities = null;
-eBookConfig.downloadsEnabled = false;
-eBookConfig.allow_pairs = false;
-eBookConfig.enableScratchAC = false;
-eBookConfig.build_info = "";
-eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.0.7';
-eBookConfig.jobehost = '';
-eBookConfig.proxyuri_runs = '';
-eBookConfig.proxyuri_files = '';
-eBookConfig.enable_chatcodes =  false;
-</script>
-<!--*** Runestone Services ***-->
-<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.7/prefix-runtime.fd9ce61c3c71cb22.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.7/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.7/prefix-runestone.89acb6c6122954e4.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.7/prefix-347.f9add1ca35d5ad93.css">
-<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.7/prefix-runestone.8d2f742bc74f4a41.css">
+<link href="https://pretextbook.org/css/0.7/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/colors_blue_grey.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/setcolors.css" rel="stylesheet" type="text/css">
 </head>
 <body class="pretext book ignore-math">
-<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
-<a id="logo-link" href=""></a><div class="title-container">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" class="logo-link" href=""></a><div class="title-container">
 <h1 class="heading"><a href="ula.html"><span class="title">Understanding Linear Algebra:</span> <span class="subtitle">Data Science Edition</span></a></h1>
 <p class="byline">Randall Pruim</p>
 </div>
-<div id="searchresultsplaceholder" style="display: none">
-<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+<div id="searchresultsplaceholder" class="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" class="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms" class="searchterms"></span>
 </h2>
-<div id="searchempty"><span>No results.</span></div>
-<ol id="searchresults"></ol>
+<div id="searchempty" class="searchempty"><span>No results.</span></div>
+<ol id="searchresults" class="searchresults"></ol>
 </div>
-</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+</div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="avatarbutton" class="avatarbutton name">You!</span><div id="preferences_menu_holder" class="preferences_menu_holder hidden"><ol id="preferences_menu" class="preferences_menu" style="font-family: 'Roboto Serif', serif;">
 <li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
 <ol class="hidden avatar">
 <li data-val="You!" tabindex="-1">
@@ -235,7 +233,7 @@ eBookConfig.enable_chatcodes =  false;
 </li>
 </ol></div></button><span class="treebuttons"><a class="previous-button button" href="sec-span.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="chap3.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="sec-linear-trans.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchwrapper" role="search"><div class="gcse-search"></div></div>
 <div class="searchbox"><div class="searchwidget">
-<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+<input id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" class="searchbutton" type="button" onclick="doSearch()">🔍</button>
 </div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\avec}{{\boldsymbol a}}
 \newcommand{\bvec}{{\boldsymbol b}}
 \newcommand{\cvec}{{\boldsymbol c}}
@@ -309,8 +307,8 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\Sighat}{\widehat{\Sigma}}
 \newcommand{\by}{\times}
 \newcommand{\transpose}{\top}
-\newcommand{proj}[2]{\operatorname{proj}\left(#1 \to #2\right)}
-\newcommand{projsub}[2]{\operatorname{proj}_{#2}(#1)}
+\newcommand{\proj}[2]{\operatorname{proj}\left(#1 \to #2\right)}
+\newcommand{\projsub}[2]{\operatorname{proj}_{#2}(#1)}
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -318,12 +316,13 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
 <div class="ptx-page">
-<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<div id="ptx-sidebar" class="ptx-sidebar"><nav id="ptx-toc" class="ptx-toc depth2"><ul class="structural">
 <li>
 <div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="colophon-1.html" class="internal"><span class="title">Colophon</span></a></div></li>
-<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Our goals</span></a></div></li>
+<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Our goals -- Preface to David Austin’s original edition</span></a></div></li>
+<li><div class="toc-item"><a href="preface-2.html" class="internal"><span class="title">What’s different in the data science edition?</span></a></div></li>
 </ul>
 </li>
 <li>
@@ -339,9 +338,10 @@ eBookConfig.enable_chatcodes =  false;
 <li><div class="toc-item"><a href="sec-vectors.html#subsubsec-scalar-multiplication" class="internal"><span class="codenumber">1.1.2.1</span> <span class="title">Scalar Multiplication</span></a></div></li>
 <li><div class="toc-item"><a href="sec-vectors.html#subsubsec-vector-addition" class="internal"><span class="codenumber">1.1.2.2</span> <span class="title">Vector addition</span></a></div></li>
 <li><div class="toc-item"><a href="sec-vectors.html#subsubsec-vector-properties" class="internal"><span class="codenumber">1.1.2.3</span> <span class="title">Mathematical properties of vector operations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-vectors.html#subsubsection-4" class="internal"><span class="codenumber">1.1.2.4</span> <span class="title">Summary</span></a></div></li>
 </ul>
 </li>
+<li><div class="toc-item"><a href="sec-vectors.html#subsection-3" class="internal"><span class="codenumber">1.1.3</span> <span class="title">The (Euclidean) length of a vector</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors.html#subsection-4" class="internal"><span class="codenumber">1.1.4</span> <span class="title">Summary</span></a></div></li>
 </ul>
 </li>
 <li>
@@ -349,12 +349,14 @@ eBookConfig.enable_chatcodes =  false;
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-vectors-in-python.html#subsec-intro-to-python" class="internal"><span class="codenumber">1.2.1</span> <span class="title">Introduction to Python</span></a></div></li>
 <li><div class="toc-item"><a href="sec-vectors-in-python.html#subsec-numpy-vectors" class="internal"><span class="codenumber">1.2.2</span> <span class="title"><code class="code-inline tex2jax_ignore">numpy</code> vectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors-in-python.html#subsec-vector-length-numpy" class="internal"><span class="codenumber">1.2.3</span> <span class="title">Vector length</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors-in-python.html#subsection-8" class="internal"><span class="codenumber">1.2.4</span> <span class="title">Plotting vectors</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-linear-combos-of-vectors.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Linear combinations of vectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-linear-combos-of-vectors.html#subsection-5" class="internal"><span class="codenumber">1.3.1</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-combos-of-vectors.html#subsection-9" class="internal"><span class="codenumber">1.3.1</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-combos-of-vectors.html#exercises-1" class="internal"><span class="codenumber">1.3.2</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -362,13 +364,13 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-item"><a href="sec-matrices.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Matrices</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-matrices.html#subsec-matrices-and-their-uses" class="internal"><span class="codenumber">1.4.1</span> <span class="title">Matrices and their uses</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrices.html#subsection-7" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Scalar multiplication and addition of matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrices.html#subsection-8" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Matrix-vector multiplication and linear combinations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrices.html#subsection-9" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Matrix-vector multiplication and linear systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-11" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Scalar multiplication and addition of matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-12" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Matrix-vector multiplication and linear combinations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-13" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Matrix-vector multiplication and linear systems</span></a></div></li>
 <li><div class="toc-item"><a href="sec-matrices.html#sec-matrices-in-python" class="internal"><span class="codenumber">1.4.5</span> <span class="title">Matrices in Python</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrices.html#subsection-11" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Matrix-matrix products</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-15" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Matrix-matrix products</span></a></div></li>
 <li><div class="toc-item"><a href="sec-matrices.html#subsec-special-matrices" class="internal"><span class="codenumber">1.4.7</span> <span class="title">Some special types of matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrices.html#subsection-13" class="internal"><span class="codenumber">1.4.8</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-17" class="internal"><span class="codenumber">1.4.8</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-matrices.html#exercises-2" class="internal"><span class="codenumber">1.4.9</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -389,30 +391,30 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-expect.html" class="internal"><span class="codenumber">2.1</span> <span class="title">What can we expect</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-expect.html#subsection-18" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Some simple examples</span></a></div></li>
-<li><div class="toc-item"><a href="sec-expect.html#subsection-19" class="internal"><span class="codenumber">2.1.2</span> <span class="title">Systems of linear equations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-expect.html#subsection-20" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-expect.html#subsection-22" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Some simple examples</span></a></div></li>
+<li><div class="toc-item"><a href="sec-expect.html#subsection-23" class="internal"><span class="codenumber">2.1.2</span> <span class="title">Systems of linear equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-expect.html#subsection-24" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-expect.html#exercises-3" class="internal"><span class="codenumber">2.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-finding-solutions.html" class="internal"><span class="codenumber">2.2</span> <span class="title">Finding solutions to linear systems</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-21" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Gaussian elimination</span></a></div></li>
-<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-22" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Augmented matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-23" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Reduced row echelon form</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-25" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Gaussian elimination</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-26" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Augmented matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-27" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Reduced row echelon form</span></a></div></li>
 <li><div class="toc-item"><a href="sec-finding-solutions.html#subsec-solving-matrix-equations" class="internal"><span class="codenumber">2.2.4</span> <span class="title">Solving matrix equations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-25" class="internal"><span class="codenumber">2.2.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-29" class="internal"><span class="codenumber">2.2.5</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-finding-solutions.html#exercises-4" class="internal"><span class="codenumber">2.2.6</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-python-introduction.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Computational Linear Algebra</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-26" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Reduced row echelon form in Python</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-30" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Reduced row echelon form in Python</span></a></div></li>
 <li><div class="toc-item"><a href="sec-python-introduction.html#subsec-linalg-solve" class="internal"><span class="codenumber">2.3.2</span> <span class="title">np.linalg.solve()</span></a></div></li>
 <li><div class="toc-item"><a href="sec-python-introduction.html#subsec-compute-effort" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Computational effort</span></a></div></li>
-<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-29" class="internal"><span class="codenumber">2.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-33" class="internal"><span class="codenumber">2.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-python-introduction.html#exercises-5" class="internal"><span class="codenumber">2.3.5</span> <span class="title">Exercises</span></a></div></li>
 <li><div class="toc-item"><a href="sec-python-introduction.html#exercises-6" class="internal"><span class="codenumber">2.3.6</span> <span class="title">Exercises</span></a></div></li>
 </ul>
@@ -420,9 +422,9 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-pivots.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Pivots and their relationship to solution spaces</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pivots.html#subsection-30" class="internal"><span class="codenumber">2.4.1</span> <span class="title">The existence of solutions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pivots.html#subsection-31" class="internal"><span class="codenumber">2.4.2</span> <span class="title">The uniqueness of solutions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pivots.html#subsection-32" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-34" class="internal"><span class="codenumber">2.4.1</span> <span class="title">The existence of solutions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-35" class="internal"><span class="codenumber">2.4.2</span> <span class="title">The uniqueness of solutions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-36" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pivots.html#exercises-7" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -434,38 +436,38 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-span.html" class="internal"><span class="codenumber">3.1</span> <span class="title">The span of a set of vectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-span.html#subsection-33" class="internal"><span class="codenumber">3.1.1</span> <span class="title">The span of a set of vectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-span.html#subsection-34" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Pivot positions and span</span></a></div></li>
-<li><div class="toc-item"><a href="sec-span.html#subsection-35" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-37" class="internal"><span class="codenumber">3.1.1</span> <span class="title">The span of a set of vectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-38" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Pivot positions and span</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-39" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-span.html#exercises-8" class="internal"><span class="codenumber">3.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li class="active">
 <div class="toc-item"><a href="sec-linear-dep.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Linear independence</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-36" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Linear dependence</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-37" class="internal"><span class="codenumber">3.2.2</span> <span class="title">How to recognize linear dependence</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-38" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Homogeneous equations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-39" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-40" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Linear dependence</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-41" class="internal"><span class="codenumber">3.2.2</span> <span class="title">How to recognize linear dependence</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-42" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Homogeneous equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-43" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-dep.html#exercises-9" class="internal"><span class="codenumber">3.2.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-linear-trans.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Matrix transformations</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-40" class="internal"><span class="codenumber">3.3.1</span> <span class="title">Matrix transformations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-41" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Composing matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-44" class="internal"><span class="codenumber">3.3.1</span> <span class="title">Matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-45" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Composing matrix transformations</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-trans.html#subsec-dynamical-systems" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Discrete Dynamical Systems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-43" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-47" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-trans.html#exercises-10" class="internal"><span class="codenumber">3.3.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-transforms-geom.html" class="internal"><span class="codenumber">3.4</span> <span class="title">The geometry of matrix transformations</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-44" class="internal"><span class="codenumber">3.4.1</span> <span class="title">The geometry of <span class="process-math">\(2\by2\)</span> matrix transformations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-45" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Matrix transformations and computer animation</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-46" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-48" class="internal"><span class="codenumber">3.4.1</span> <span class="title">The geometry of <span class="process-math">\(2\by2\)</span> matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-49" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Matrix transformations and computer animation</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-50" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-transforms-geom.html#exercises-11" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -477,9 +479,9 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-matrix-inverse.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Invertibility</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-47" class="internal"><span class="codenumber">4.1.1</span> <span class="title">Invertible matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-48" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Solving equations with an inverse</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-49" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-51" class="internal"><span class="codenumber">4.1.1</span> <span class="title">Invertible matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-52" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Solving equations with an inverse</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-53" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-matrix-inverse.html#exercises-12" class="internal"><span class="codenumber">4.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -488,46 +490,46 @@ eBookConfig.enable_chatcodes =  false;
 <ul class="structural">
 <li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsec-triangular-matrices" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Triangular matrices</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsec-elementary-matrices" class="internal"><span class="codenumber">4.2.2</span> <span class="title">Elementary matrices</span></a></div></li>
-<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsection-52" class="internal"><span class="codenumber">4.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsection-56" class="internal"><span class="codenumber">4.2.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-triangular-invertible.html#exercises-13" class="internal"><span class="codenumber">4.2.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-bases.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Bases and coordinate systems</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-bases.html#subsection-53" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Bases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-bases.html#subsection-54" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Coordinate systems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-bases.html#subsection-55" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Examples of bases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-bases.html#subsection-56" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-57" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Bases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-58" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Coordinate systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-59" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Examples of bases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-60" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-bases.html#exercises-14" class="internal"><span class="codenumber">4.3.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-jpeg.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Image compression</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-jpeg.html#subsection-57" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Color models</span></a></div></li>
-<li><div class="toc-item"><a href="sec-jpeg.html#subsection-58" class="internal"><span class="codenumber">4.4.2</span> <span class="title">The JPEG compression algorithm</span></a></div></li>
-<li><div class="toc-item"><a href="sec-jpeg.html#subsection-59" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-61" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Color models</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-62" class="internal"><span class="codenumber">4.4.2</span> <span class="title">The JPEG compression algorithm</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-63" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-jpeg.html#exercises-15" class="internal"><span class="codenumber">4.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-determinants.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Determinants</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-60" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Determinants of <span class="process-math">\(2\by2\)</span> matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-61" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Determinants and invertibility</span></a></div></li>
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-62" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Cofactor expansions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-63" class="internal"><span class="codenumber">4.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-64" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Determinants of <span class="process-math">\(2\by2\)</span> matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-65" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Determinants and invertibility</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-66" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Cofactor expansions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-67" class="internal"><span class="codenumber">4.5.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-determinants.html#exercises-16" class="internal"><span class="codenumber">4.5.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-subspaces.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Subspaces</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-64" class="internal"><span class="codenumber">4.6.1</span> <span class="title">Subspaces</span></a></div></li>
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-65" class="internal"><span class="codenumber">4.6.2</span> <span class="title">The column space of <span class="process-math">\(A\)</span></span></a></div></li>
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-66" class="internal"><span class="codenumber">4.6.3</span> <span class="title">The null space of <span class="process-math">\(A\)</span></span></a></div></li>
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-67" class="internal"><span class="codenumber">4.6.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-68" class="internal"><span class="codenumber">4.6.1</span> <span class="title">Subspaces</span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-69" class="internal"><span class="codenumber">4.6.2</span> <span class="title">The column space of <span class="process-math">\(A\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-70" class="internal"><span class="codenumber">4.6.3</span> <span class="title">The null space of <span class="process-math">\(A\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-71" class="internal"><span class="codenumber">4.6.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-subspaces.html#exercises-17" class="internal"><span class="codenumber">4.6.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -535,8 +537,8 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-item"><a href="sec-gaussian-revisited.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Partial pivoting and LU factorizations</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsec-partial-pivot" class="internal"><span class="codenumber">4.7.1</span> <span class="title">Partial pivoting</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-69" class="internal"><span class="codenumber">4.7.2</span> <span class="title"><span class="process-math">\(LU\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-70" class="internal"><span class="codenumber">4.7.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-73" class="internal"><span class="codenumber">4.7.2</span> <span class="title"><span class="process-math">\(LU\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-74" class="internal"><span class="codenumber">4.7.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-gaussian-revisited.html#exercises-18" class="internal"><span class="codenumber">4.7.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -548,59 +550,59 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-eigen-intro.html" class="internal"><span class="codenumber">5.1</span> <span class="title">An introduction to eigenvalues and eigenvectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-71" class="internal"><span class="codenumber">5.1.1</span> <span class="title">A few examples</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-75" class="internal"><span class="codenumber">5.1.1</span> <span class="title">A few examples</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-intro.html#subsec-eigen-use" class="internal"><span class="codenumber">5.1.2</span> <span class="title">The usefulness of eigenvalues and eigenvectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-73" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-77" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-intro.html#exercises-19" class="internal"><span class="codenumber">5.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-eigen-find.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Finding eigenvalues and eigenvectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-74" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The characteristic polynomial</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-75" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Finding eigenvectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-76" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The characteristic polynomial and the dimension of eigenspaces</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-77" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Using Python to find eigenvalues and eigenvectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-78" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-78" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The characteristic polynomial</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-79" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Finding eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-80" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The characteristic polynomial and the dimension of eigenspaces</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-81" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Using Python to find eigenvalues and eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-82" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-find.html#exercises-20" class="internal"><span class="codenumber">5.2.6</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-eigen-diag.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Diagonalization, similarity, and powers of a matrix</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-79" class="internal"><span class="codenumber">5.3.1</span> <span class="title">Diagonalization of matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-80" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Powers of a diagonalizable matrix</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-81" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Similarity and complex eigenvalues</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-82" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-83" class="internal"><span class="codenumber">5.3.1</span> <span class="title">Diagonalization of matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-84" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Powers of a diagonalizable matrix</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-85" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Similarity and complex eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-86" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-diag.html#exercises-21" class="internal"><span class="codenumber">5.3.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-dynamical.html" class="internal"><span class="codenumber">5.4</span> <span class="title">Dynamical systems</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-83" class="internal"><span class="codenumber">5.4.1</span> <span class="title">A first example</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-84" class="internal"><span class="codenumber">5.4.2</span> <span class="title">Classifying dynamical systems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-85" class="internal"><span class="codenumber">5.4.3</span> <span class="title">A <span class="process-math">\(3\by3\)</span> system</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-86" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-87" class="internal"><span class="codenumber">5.4.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-88" class="internal"><span class="codenumber">5.4.2</span> <span class="title">Classifying dynamical systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-89" class="internal"><span class="codenumber">5.4.3</span> <span class="title">A <span class="process-math">\(3\by3\)</span> system</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-90" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-dynamical.html#exercises-22" class="internal"><span class="codenumber">5.4.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-stochastic.html" class="internal"><span class="codenumber">5.5</span> <span class="title">Markov chains and Google’s PageRank algorithm</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-stochastic.html#subsection-87" class="internal"><span class="codenumber">5.5.1</span> <span class="title">A first example</span></a></div></li>
-<li><div class="toc-item"><a href="sec-stochastic.html#subsection-88" class="internal"><span class="codenumber">5.5.2</span> <span class="title">Markov chains</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-91" class="internal"><span class="codenumber">5.5.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-92" class="internal"><span class="codenumber">5.5.2</span> <span class="title">Markov chains</span></a></div></li>
 <li><div class="toc-item"><a href="sec-stochastic.html#subsec-google" class="internal"><span class="codenumber">5.5.3</span> <span class="title">Google’s PageRank algorithm</span></a></div></li>
-<li><div class="toc-item"><a href="sec-stochastic.html#subsection-90" class="internal"><span class="codenumber">5.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-94" class="internal"><span class="codenumber">5.5.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-stochastic.html#exercises-23" class="internal"><span class="codenumber">5.5.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-power-method.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Finding eigenvectors numerically</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-power-method.html#subsection-91" class="internal"><span class="codenumber">5.6.1</span> <span class="title">The power method</span></a></div></li>
-<li><div class="toc-item"><a href="sec-power-method.html#subsection-92" class="internal"><span class="codenumber">5.6.2</span> <span class="title">Finding other eigenvalues</span></a></div></li>
-<li><div class="toc-item"><a href="sec-power-method.html#subsection-93" class="internal"><span class="codenumber">5.6.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-95" class="internal"><span class="codenumber">5.6.1</span> <span class="title">The power method</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-96" class="internal"><span class="codenumber">5.6.2</span> <span class="title">Finding other eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-97" class="internal"><span class="codenumber">5.6.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-power-method.html#exercises-24" class="internal"><span class="codenumber">5.6.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -614,49 +616,49 @@ eBookConfig.enable_chatcodes =  false;
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-dot-product.html#sec-projections-and-dot-products" class="internal"><span class="codenumber">6.1.1</span> <span class="title">Projections and dot products</span></a></div></li>
 <li><div class="toc-item"><a href="sec-dot-product.html#subsec-computing-dot-products" class="internal"><span class="codenumber">6.1.2</span> <span class="title">Computing dot products</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dot-product.html#subsection-96" class="internal"><span class="codenumber">6.1.3</span> <span class="title"><span class="process-math">\(k\)</span>-means clustering</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dot-product.html#subsection-97" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-100" class="internal"><span class="codenumber">6.1.3</span> <span class="title"><span class="process-math">\(k\)</span>-means clustering</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-101" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-dot-product.html#exercises-25" class="internal"><span class="codenumber">6.1.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-transpose.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Orthogonal complements and the matrix transpose</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-98" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Orthogonal complements</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-99" class="internal"><span class="codenumber">6.2.2</span> <span class="title">The matrix transpose</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-100" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Properties of the matrix transpose</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-101" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-102" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Orthogonal complements</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-103" class="internal"><span class="codenumber">6.2.2</span> <span class="title">The matrix transpose</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-104" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Properties of the matrix transpose</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-105" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-transpose.html#exercises-26" class="internal"><span class="codenumber">6.2.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-orthogonal-bases.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Orthogonal bases and projections</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-102" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Orthogonal sets</span></a></div></li>
-<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-103" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Orthogonal projections</span></a></div></li>
-<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-104" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-106" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Orthogonal sets</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-107" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Orthogonal projections</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-108" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-orthogonal-bases.html#exercises-27" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-gram-schmidt.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Finding orthogonal bases</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-105" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Gram-Schmidt orthogonalization</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-106" class="internal"><span class="codenumber">6.4.2</span> <span class="title"><span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-107" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-109" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Gram-Schmidt orthogonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-110" class="internal"><span class="codenumber">6.4.2</span> <span class="title"><span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-111" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-gram-schmidt.html#exercises-28" class="internal"><span class="codenumber">6.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Least squares methods</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-108" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
 <li><div class="toc-item"><a href="sec-least-squares.html#subsec-linear-model-framework" class="internal"><span class="codenumber">6.5.2</span> <span class="title">The linear model framework</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-110" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Solving least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-111" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Polynomial Regression</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-114" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Solving least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-115" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-116" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Polynomial Regression</span></a></div></li>
 <li><div class="toc-item"><a href="sec-least-squares.html#subsec-skl-lm" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Fitting linear models with standard tools</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-114" class="internal"><span class="codenumber">6.5.7</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-118" class="internal"><span class="codenumber">6.5.7</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-least-squares.html#exercises-29" class="internal"><span class="codenumber">6.5.8</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -668,49 +670,49 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-115" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-116" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-117" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-119" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-120" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-121" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-symmetric-matrices.html#exercises-30" class="internal"><span class="codenumber">7.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Quadratic forms</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-118" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-119" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-120" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-122" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-123" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-124" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-quadratic-forms.html#exercises-31" class="internal"><span class="codenumber">7.2.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Principal Component Analysis</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pca.html#subsection-121" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-122" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-123" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-125" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-126" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-127" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#exercises-32" class="internal"><span class="codenumber">7.3.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-124" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-125" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-126" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-127" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-128" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-129" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-130" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-131" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-intro.html#exercises-33" class="internal"><span class="codenumber">7.4.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Using Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-128" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-129" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-130" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-131" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-132" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-133" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-132" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-133" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-134" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-135" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-136" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-137" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-uses.html#exercises-34" class="internal"><span class="codenumber">7.5.7</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -723,9 +725,9 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="subsection-134.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
-<li><div class="toc-item"><a href="subsection-135.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
-<li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-138.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-139.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Frequently used Python commands</span></a></div></li>
 </ul>
 </li>
 <li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
@@ -734,17 +736,17 @@ eBookConfig.enable_chatcodes =  false;
 </li>
 </ul></nav></div>
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-linear-dep"><h2 class="heading hide-type">
-<span class="type">Section</span> <span class="codenumber">3.2</span> <span class="title">Linear independence</span>
+<span class="type">Section</span><span class="space"> </span><span class="codenumber">3.2</span><span class="space"> </span><span class="title">Linear independence</span>
 </h2>
-<section class="introduction" id="introduction-13"><div class="para" id="p-1599">In the previous section, questions about the existence of solutions of a linear system led to the concept of the span of a set of vectors.  In particular, the span of a set of vectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is the set of vectors <span class="process-math">\(\bvec\)</span> for which a solution to the linear system <span class="process-math">\(\left[\begin{array}{rrrr}
+<section class="introduction" id="introduction-13"><div class="para" id="p-1627">In the previous section, questions about the existence of solutions of a linear system led to the concept of the span of a set of vectors.  In particular, the span of a set of vectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is the set of vectors <span class="process-math">\(\bvec\)</span> for which a solution to the linear system <span class="process-math">\(\left[\begin{array}{rrrr}
 \vvec_1\amp\vvec_2\amp\ldots\amp\vvec_n \end{array}\right] ~\xvec
-= \bvec \)</span> exists.</div> <div class="para" id="p-1600">In this section, we turn to the uniqueness of solutions of a linear system, the second of our <a href="" class="xref" data-knowl="./knowl/fundamental-questions.html" title="Question 2.4.3: Two Fundamental Questions">two fundamental questions</a>.  This will lead us to the concept of linear independence.</div> <article class="exploration project-like" id="exploration-6"><h3 class="heading">
+= \bvec \)</span> exists.</div> <div class="para" id="p-1628">In this section, we turn to the uniqueness of solutions of a linear system, the second of our <a href="" class="xref" data-knowl="./knowl/fundamental-questions.html" title="Question 2.4.3: Two Fundamental Questions">two fundamental questions</a>.  This will lead us to the concept of linear independence.</div> <article class="exploration project-like" id="exploration-6"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">3.2.1</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-1601">
+<div class="para logical" id="p-1629">
 <div class="para">Let’s begin by looking at some sets of vectors in <span class="process-math">\(\real^3\text{.}\)</span>  As we saw in the previous section, the span of a set of vectors in <span class="process-math">\(\real^3\)</span> will be either a line, a plane, or <span class="process-math">\(\real^3\)</span> itself.</div>
 <ol class="lower-alpha">
-<li id="li-1026"><div class="para logical" id="p-1602">
+<li id="li-1032"><div class="para logical" id="p-1630">
 <div class="para">Consider the following vectors in <span class="process-math">\(\real^3\text{:}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -754,11 +756,11 @@ eBookConfig.enable_chatcodes =  false;
 \vvec_3=\threevec{2}{0}{1}\text{.}
 \end{equation*}
 </div>
-<div class="para">Describe the span of these vectors, <span class="process-math">\(\laspan{\vvec_1,\vvec_2,\vvec_3}\text{,}\)</span> as a line, a plane, or <span class="process-math">\(\real^3\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-78"><script type="text/x-sage">
+<div class="para">Describe the span of these vectors, <span class="process-math">\(\laspan{\vvec_1,\vvec_2,\vvec_3}\text{,}\)</span> as a line, a plane, or <span class="process-math">\(\real^3\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-92"><script type="text/x-sage">
 </script></pre>
 </div>
 </div></li>
-<li id="li-1027"><div class="para logical" id="p-1603">
+<li id="li-1033"><div class="para logical" id="p-1631">
 <div class="para">Now consider the set of vectors:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -767,11 +769,11 @@ eBookConfig.enable_chatcodes =  false;
 \wvec_3=\threevec{3}{0}{1}\text{.}
 \end{equation*}
 </div>
-<div class="para">Describe the span of these vectors, <span class="process-math">\(\laspan{\wvec_1,\wvec_2,\wvec_3}\text{,}\)</span> as a line, a plane, or <span class="process-math">\(\real^3\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-79"><script type="text/x-sage">
+<div class="para">Describe the span of these vectors, <span class="process-math">\(\laspan{\wvec_1,\wvec_2,\wvec_3}\text{,}\)</span> as a line, a plane, or <span class="process-math">\(\real^3\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-93"><script type="text/x-sage">
 </script></pre>
 </div>
 </div></li>
-<li id="li-1028"><div class="para logical" id="p-1604">
+<li id="li-1034"><div class="para logical" id="p-1632">
 <div class="para">Show that the vector <span class="process-math">\(\wvec_3\)</span> is a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> by finding weights such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -779,7 +781,7 @@ eBookConfig.enable_chatcodes =  false;
 \end{equation*}
 </div>
 </div></li>
-<li id="li-1029"><div class="para logical" id="p-1605">
+<li id="li-1035"><div class="para logical" id="p-1633">
 <div class="para">Explain why any linear combination of <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\text{,}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -790,7 +792,7 @@ c_1\wvec_1 + c_2\wvec_2 + c_3\wvec_3
 <div class="para">can be written as a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-1030"><div class="para logical" id="p-1606">
+<li id="li-1036"><div class="para logical" id="p-1634">
 <div class="para">Explain why</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -801,8 +803,8 @@ c_1\wvec_1 + c_2\wvec_2 + c_3\wvec_3
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-78" id="solution-78"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-78"><div class="solution solution-like"><div class="para logical" id="p-1607"><ol class="lower-alpha">
-<li id="li-1031"><div class="para logical" id="p-1608">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-78" id="solution-78"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-78"><div class="solution solution-like"><div class="para logical" id="p-1635"><ol class="lower-alpha">
+<li id="li-1037"><div class="para logical" id="p-1636">
 <div class="para">We will construct the matrix whose columns are <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{:}\)</span>
 </div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-pivot-row.html">
@@ -823,7 +825,7 @@ c_1\wvec_1 + c_2\wvec_2 + c_3\wvec_3
 <div class="para">Because there is a pivot in every row, <a href="" class="xref" data-knowl="./knowl/prop-pivot-row.html" title="Proposition 3.1.14">Proposition 3.1.14</a> tells us that <span class="process-math">\(\laspan{\vvec_1,\vvec_2,\vvec_3} = \real^3\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-1032"><div class="para logical" id="p-1609">
+<li id="li-1038"><div class="para logical" id="p-1637">
 <div class="para">Similarly,</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -843,7 +845,7 @@ c_1\wvec_1 + c_2\wvec_2 + c_3\wvec_3
 <div class="para">As there are two pivot positions, we see that <span class="process-math">\(\laspan{\wvec_1, \wvec_2, \wvec_3}\)</span> is a plane in <span class="process-math">\(\real^3\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-1033"><div class="para logical" id="p-1610">
+<li id="li-1039"><div class="para logical" id="p-1638">
 <div class="para">We see that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -868,7 +870,7 @@ c_1\wvec_1 + c_2\wvec_2 + c_3\wvec_3
 \wvec_2\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-1034"><div class="para logical" id="p-1611">
+<li id="li-1040"><div class="para logical" id="p-1639">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -878,17 +880,17 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(\wvec_1+\wvec_2)=
 \end{equation*}
 </div>
 </div></li>
-<li id="li-1035"><div class="para" id="p-1612">Any linear combination of <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> is itself a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>
+<li id="li-1041"><div class="para" id="p-1640">Any linear combination of <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> is itself a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-</div></article></section><section class="subsection" id="subsection-36"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">3.2.1</span> <span class="title">Linear dependence</span>
+</div></article></section><section class="subsection" id="subsection-40"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">3.2.1</span><span class="space"> </span><span class="title">Linear dependence</span>
 </h3>
-<div class="para" id="p-1613">We have seen examples where the span of a set of three vectors in <span class="process-math">\(\real^3\)</span> is <span class="process-math">\(\real^3\)</span> and other examples where the span of three vectors is a plane.  We would like to understand the difference between these two situations.</div>
+<div class="para" id="p-1641">We have seen examples where the span of a set of three vectors in <span class="process-math">\(\real^3\)</span> is <span class="process-math">\(\real^3\)</span> and other examples where the span of three vectors is a plane.  We would like to understand the difference between these two situations.</div>
 <article class="example example-like" id="example-span-r3"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">3.2.1</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-1614">
+<div class="para logical" id="p-1642">
 <div class="para">Let’s consider the set of three vectors in <span class="process-math">\(\real^3\text{:}\)</span>
 </div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-pivot-row.html">
@@ -921,7 +923,7 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(\wvec_1+\wvec_2)=
 </div></article><article class="example example-like" id="example-span-plane"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">3.2.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-1615">
+<div class="para logical" id="p-1643">
 <div class="para">Now let’s consider the set of three vectors:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -949,7 +951,7 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(\wvec_1+\wvec_2)=
 \end{equation*}
 </div>
 <div class="para">Since the last row does not have a pivot position, we know that the span of these vectors is not <span class="process-math">\(\real^3\)</span> but is instead a plane.</div>
-</div> <div class="para logical" id="p-1616">
+</div> <div class="para logical" id="p-1644">
 <div class="para">In fact, we can say more if we shift our perspective slightly and view this as an augmented matrix:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -988,7 +990,7 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(-2\wvec_1-\wvec_2) \\
 \end{aligned}
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-1617">
+</div> <div class="para logical" id="p-1645">
 <div class="para">In other words, any linear combination of <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> may be written as a linear combination using only the vectors <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>  Since the span of a set of vectors is simply the set of their linear combinations, this shows that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -996,30 +998,30 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(-2\wvec_1-\wvec_2) \\
 \end{equation*}
 </div>
 <div class="para">As a result, adding the vector <span class="process-math">\(\wvec_3\)</span> to the set of vectors <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> does not change the span.</div>
-</div></article><div class="para" id="p-1618">Before exploring this type of behavior more generally, let’s think about it from a geometric point of view.  Suppose that we begin with the two vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> in <a href="" class="xref" data-knowl="./knowl/example-span-r3.html" title="Example 3.2.1">Example 3.2.1</a>.  The span of these two vectors is a plane in <span class="process-math">\(\real^3\text{,}\)</span> as seen on the left of <a href="" class="xref" data-knowl="./knowl/figure-span-r3.html" title="Figure 3.2.3">Figure 3.2.3</a>.</div>
+</div></article><div class="para" id="p-1646">Before exploring this type of behavior more generally, let’s think about it from a geometric point of view.  Suppose that we begin with the two vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> in <a href="" class="xref" data-knowl="./knowl/example-span-r3.html" title="Example 3.2.1">Example 3.2.1</a>.  The span of these two vectors is a plane in <span class="process-math">\(\real^3\text{,}\)</span> as seen on the left of <a href="" class="xref" data-knowl="./knowl/figure-span-r3.html" title="Figure 3.2.3">Figure 3.2.3</a>.</div>
 <figure class="figure figure-like" id="figure-span-r3"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/3d-plane-nonstd.svg" role="img" class="contained"></div>
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/3d-plane-span-no-w.svg" role="img" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.2.3<span class="period">.</span></span><span class="space"> </span>The span of the vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{.}\)</span></figcaption></figure><div class="para" id="p-1619">Because the vector <span class="process-math">\(\vvec_3\)</span> is not a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{,}\)</span> it provides a direction to move that is independent of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>  Adding this third vector <span class="process-math">\(\vvec_3\)</span> therefore forms a set whose span is <span class="process-math">\(\real^3\text{,}\)</span> as seen on the right of <a href="" class="xref" data-knowl="./knowl/figure-span-r3.html" title="Figure 3.2.3">Figure 3.2.3</a>.</div>
-<div class="para" id="p-1620">Similarly, the span of the vectors <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> in <a href="" class="xref" data-knowl="./knowl/example-span-plane.html" title="Example 3.2.2">Example 3.2.2</a> is also a plane.  However, the third vector <span class="process-math">\(\wvec_3\)</span> is a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{,}\)</span> which means that it already lies in the plane formed by <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{,}\)</span> as seen in <a href="" class="xref" data-knowl="./knowl/figure-span-plane.html" title="Figure 3.2.4">Figure 3.2.4</a>. Since we can already move in this direction using just <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{,}\)</span> adding <span class="process-math">\(\wvec_3\)</span> to the set does not change the span.  As a result, it remains a plane.</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.2.3<span class="period">.</span></span><span class="space"> </span>The span of the vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{.}\)</span></figcaption></figure><div class="para" id="p-1647">Because the vector <span class="process-math">\(\vvec_3\)</span> is not a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{,}\)</span> it provides a direction to move that is independent of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>  Adding this third vector <span class="process-math">\(\vvec_3\)</span> therefore forms a set whose span is <span class="process-math">\(\real^3\text{,}\)</span> as seen on the right of <a href="" class="xref" data-knowl="./knowl/figure-span-r3.html" title="Figure 3.2.3">Figure 3.2.3</a>.</div>
+<div class="para" id="p-1648">Similarly, the span of the vectors <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> in <a href="" class="xref" data-knowl="./knowl/example-span-plane.html" title="Example 3.2.2">Example 3.2.2</a> is also a plane.  However, the third vector <span class="process-math">\(\wvec_3\)</span> is a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{,}\)</span> which means that it already lies in the plane formed by <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{,}\)</span> as seen in <a href="" class="xref" data-knowl="./knowl/figure-span-plane.html" title="Figure 3.2.4">Figure 3.2.4</a>. Since we can already move in this direction using just <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{,}\)</span> adding <span class="process-math">\(\wvec_3\)</span> to the set does not change the span.  As a result, it remains a plane.</div>
 <figure class="figure figure-like" id="figure-span-plane"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/3d-plane-nonstd-w.svg" role="img" class="contained"></div>
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/3d-plane-span-yes-w.svg" role="img" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.2.4<span class="period">.</span></span><span class="space"> </span>The span of the vectors <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\text{.}\)</span></figcaption></figure><div class="para" id="p-1621">What distinguishes these two examples is whether one of the vectors is a linear combination of the others, an observation that leads to the following definition.</div>
-<article class="definition definition-like" id="definition-10"><h4 class="heading">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">3.2.4<span class="period">.</span></span><span class="space"> </span>The span of the vectors <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\text{.}\)</span></figcaption></figure><div class="para" id="p-1649">What distinguishes these two examples is whether one of the vectors is a linear combination of the others, an observation that leads to the following definition.</div>
+<article class="definition definition-like" id="definition-11"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">3.2.5</span><span class="period">.</span>
-</h4> <div class="para" id="p-1622">A set of vectors is called <dfn class="terminology">linearly dependent</dfn> if one of the vectors is a linear combination of the others.  Otherwise, the set of vectors is called <dfn class="terminology">linearly independent</dfn>.</div></article><div class="para" id="p-1623">For the sake of completeness, we say that a set of vectors containing only one nonzero vector is linearly independent.</div></section><section class="subsection" id="subsection-37"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">3.2.2</span> <span class="title">How to recognize linear dependence</span>
+</h4> <div class="para" id="p-1650">A set of vectors is called <dfn class="terminology">linearly dependent</dfn> if one of the vectors is a linear combination of the others.  Otherwise, the set of vectors is called <dfn class="terminology">linearly independent</dfn>.</div></article><div class="para" id="p-1651">For the sake of completeness, we say that a set of vectors containing only one nonzero vector is linearly independent.</div></section><section class="subsection" id="subsection-41"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">3.2.2</span><span class="space"> </span><span class="title">How to recognize linear dependence</span>
 </h3>
 <article class="activity project-like" id="activity-18"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.2.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-1624">
+<div class="para logical" id="p-1652">
 <div class="para">We would like to develop a means to detect when a set of vectors is linearly dependent.  This activity will point the way.</div>
 <ol class="lower-alpha">
-<li id="li-1036"><div class="para logical" id="p-1625">
+<li id="li-1042"><div class="para logical" id="p-1653">
 <div class="para">Suppose we have five vectors in <span class="process-math">\(\real^4\)</span> that form the columns of a matrix having reduced row echelon form</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1038,7 +1040,7 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(-2\wvec_1-\wvec_2) \\
 </div>
 <div class="para">Is it possible to write one of the vectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_5\)</span> as a linear combination of the others?  If so, show explicitly how one vector appears as a linear combination of some of the other vectors.  Is this set of vectors linearly dependent or independent?</div>
 </div></li>
-<li id="li-1037"><div class="para logical" id="p-1626">
+<li id="li-1043"><div class="para logical" id="p-1654">
 <div class="para">Suppose we have another set of three vectors in <span class="process-math">\(\real^4\)</span> that form the columns of a matrix having reduced row echelon form</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1056,14 +1058,14 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(-2\wvec_1-\wvec_2) \\
 </div>
 <div class="para">Is it possible to write one of these vectors <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> <span class="process-math">\(\wvec_3\)</span> as a linear combination of the others?  If so, show explicitly how one vector appears as a linear combination of some of the other vectors.  Is this set of vectors linearly dependent or independent?</div>
 </div></li>
-<li id="li-1038"><div class="para" id="p-1627">By looking at the pivot positions, how can you determine whether the columns of a matrix are linearly dependent or independent?</div></li>
-<li id="li-1039"><div class="para" id="p-1628">If one vector in a set is the zero vector <span class="process-math">\(\zerovec\text{,}\)</span> can the set of vectors be linearly independent?</div></li>
-<li id="li-1040"><div class="para" id="p-1629">Suppose a set of vectors in <span class="process-math">\(\real^{10}\)</span> has twelve vectors.  Is it possible for this set to be linearly independent?</div></li>
+<li id="li-1044"><div class="para" id="p-1655">By looking at the pivot positions, how can you determine whether the columns of a matrix are linearly dependent or independent?</div></li>
+<li id="li-1045"><div class="para" id="p-1656">If one vector in a set is the zero vector <span class="process-math">\(\zerovec\text{,}\)</span> can the set of vectors be linearly independent?</div></li>
+<li id="li-1046"><div class="para" id="p-1657">Suppose a set of vectors in <span class="process-math">\(\real^{10}\)</span> has twelve vectors.  Is it possible for this set to be linearly independent?</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-79" id="solution-79"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-79"><div class="solution solution-like"><div class="para logical" id="p-1630"><ol class="lower-alpha">
-<li id="li-1041"><div class="para logical" id="p-1631">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-79" id="solution-79"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-79"><div class="solution solution-like"><div class="para logical" id="p-1658"><ol class="lower-alpha">
+<li id="li-1047"><div class="para logical" id="p-1659">
 <div class="para">Let’s focus on the first three vectors and view the matrix as an augmented one:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1081,14 +1083,14 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(-2\wvec_1-\wvec_2) \\
 </div>
 <div class="para">This shows that <span class="process-math">\(\vvec_3=-\vvec_1+2\vvec_2\)</span> so it is possible to write one of the vectors as a linear combination of the others. Therefore, the set is linearly dependent.</div>
 </div></li>
-<li id="li-1042"><div class="para" id="p-1632">Applying the same reasoning as in the previous part, we see that we cannot write any of the vectors as a linear combination of the others.  Therefore, the set is linearly independent.</div></li>
-<li id="li-1043"><div class="para" id="p-1633">The columns of a matrix are linearly independent exactly when there is a pivot position in every column of the matrix.</div></li>
-<li id="li-1044"><div class="para" id="p-1634">No, because we can write the zero vector <span class="process-math">\(\zerovec\)</span> as a linear combination of the other vectors: <span class="process-math">\(\zerovec
+<li id="li-1048"><div class="para" id="p-1660">Applying the same reasoning as in the previous part, we see that we cannot write any of the vectors as a linear combination of the others.  Therefore, the set is linearly independent.</div></li>
+<li id="li-1049"><div class="para" id="p-1661">The columns of a matrix are linearly independent exactly when there is a pivot position in every column of the matrix.</div></li>
+<li id="li-1050"><div class="para" id="p-1662">No, because we can write the zero vector <span class="process-math">\(\zerovec\)</span> as a linear combination of the other vectors: <span class="process-math">\(\zerovec
 = 0\vvec_2 + \ldots + 0\vvec_n\text{.}\)</span>
 </div></li>
-<li id="li-1045"><div class="para" id="p-1635">No, because the matrix formed by the vectors would have 12 columns and only 10 rows.  There can at most be 10 pivot positions so there are at least two columns without pivot positions.</div></li>
+<li id="li-1051"><div class="para" id="p-1663">No, because the matrix formed by the vectors would have 12 columns and only 10 rows.  There can at most be 10 pivot positions so there are at least two columns without pivot positions.</div></li>
 </ol></div></div></div>
-</div></article><div class="para logical" id="p-1636">
+</div></article><div class="para logical" id="p-1664">
 <div class="para">By now, we should expect that the pivot positions play an important role in determining whether the columns of a matrix are linearly dependent.  For instance, suppose we have four vectors and their associated matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1134,8 +1136,8 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(-2\wvec_1-\wvec_2) \\
 \end{equation*}
 </div>
 </div>
-<div class="para" id="p-1637">More generally, the same reasoning implies that a set of vectors is linearly dependent if the associated matrix has a column without a pivot position.  Indeed, as illustrated here, a vector corresponding to a column without a pivot position can be expressed as a linear combination of the vectors whose columns do contain pivot positions.</div>
-<div class="para logical" id="p-1638">
+<div class="para" id="p-1665">More generally, the same reasoning implies that a set of vectors is linearly dependent if the associated matrix has a column without a pivot position.  Indeed, as illustrated here, a vector corresponding to a column without a pivot position can be expressed as a linear combination of the vectors whose columns do contain pivot positions.</div>
+<div class="para logical" id="p-1666">
 <div class="para">Suppose instead that the matrix associated to a set of vectors has a pivot position in every column.</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1154,11 +1156,11 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(-2\wvec_1-\wvec_2) \\
 </div>
 <div class="para">Viewing this as an augmented matrix again, we see that the linear system is inconsistent since there is a pivot in the rightmost column, which means that <span class="process-math">\(\wvec_4\)</span> cannot be expressed as a linear combination of the other vectors. Similarly, <span class="process-math">\(\wvec_3\)</span> cannot be expressed as a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span> In fact, none of the vectors can be written as a linear combination of the others so this set of vectors is linearly independent.</div>
 </div>
-<div class="para" id="p-1639">The following proposition summarizes these findings.</div>
+<div class="para" id="p-1667">The following proposition summarizes these findings.</div>
 <article class="proposition theorem-like" id="proposition-9"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">3.2.6</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-1640">The columns of a matrix are linearly independent if and only if every column contains a pivot position.</div></article><div class="para logical" id="p-1641">
+<div class="para" id="p-1668">The columns of a matrix are linearly independent if and only if every column contains a pivot position.</div></article><div class="para logical" id="p-1669">
 <div class="para">This condition imposes a constraint on how many vectors we can have in a linearly independent set.  Here is an example of the reduced row echelon form of a matrix whose columns form a set of three linearly independent vectors in <span class="process-math">\(\real^5\text{:}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -1174,27 +1176,27 @@ c_1\wvec_1 + c_2\wvec_2 + c_3(-2\wvec_1-\wvec_2) \\
 </div>
 <div class="para">Notice that there are at least as many rows as columns, which must be the case if every column is to have a pivot position.</div>
 </div>
-<div class="para" id="p-1642">More generally, if <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is a linearly independent set of vectors in <span class="process-math">\(\real^m\text{,}\)</span> the associated matrix must have a pivot position in every column.  Since every row contains at most one pivot position, the number of columns can be no greater than the number of rows. This means that the number of vectors in a linearly independent set can be no greater than the number of dimensions.</div>
+<div class="para" id="p-1670">More generally, if <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is a linearly independent set of vectors in <span class="process-math">\(\real^m\text{,}\)</span> the associated matrix must have a pivot position in every column.  Since every row contains at most one pivot position, the number of columns can be no greater than the number of rows. This means that the number of vectors in a linearly independent set can be no greater than the number of dimensions.</div>
 <article class="proposition theorem-like" id="prop-linear-indep-bound"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">3.2.7</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-1643">A linearly independent set of vectors in <span class="process-math">\(\real^m\)</span> contains at most <span class="process-math">\(m\)</span> vectors.</div></article><div class="para" id="p-1644">This says, for instance, that any linearly independent set of vectors in <span class="process-math">\(\real^3\)</span> can contain no more three vectors.  We usually imagine three independent directions, such as up/down, front/back, left/right, in our three-dimensional world.  This proposition tells us that there can be no more independent directions.</div>
-<div class="para" id="p-1645">The proposition above says that a set of vectors in <span class="process-math">\(\real^m\)</span> that is linearly independent has at most <span class="process-math">\(m\)</span> vectors.  By comparison, <a href="" class="xref" data-knowl="./knowl/prop-span-bound.html" title="Proposition 3.1.15">Proposition 3.1.15</a> says that a set of vectors whose span is <span class="process-math">\(\real^m\)</span> has at least <span class="process-math">\(m\)</span> vectors.</div>
-<div class="para" id="p-1646">This implies that a set of linearly independent vectors that spans <span class="process-math">\(\real^m\)</span> must have exactly <span class="process-math">\(m\)</span> vectors. Such a set is called a <dfn class="terminology">basis</dfn> for <span class="process-math">\(\real^m\text{.}\)</span> We will have more to say about bases in <a href="sec-bases.html" class="internal" title="Section 4.3: Bases and coordinate systems">Section 4.3</a>
-</div></section><section class="subsection" id="subsection-38"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">3.2.3</span> <span class="title">Homogeneous equations</span>
+<div class="para" id="p-1671">A linearly independent set of vectors in <span class="process-math">\(\real^m\)</span> contains at most <span class="process-math">\(m\)</span> vectors.</div></article><div class="para" id="p-1672">This says, for instance, that any linearly independent set of vectors in <span class="process-math">\(\real^3\)</span> can contain no more three vectors.  We usually imagine three independent directions, such as up/down, front/back, left/right, in our three-dimensional world.  This proposition tells us that there can be no more independent directions.</div>
+<div class="para" id="p-1673">The proposition above says that a set of vectors in <span class="process-math">\(\real^m\)</span> that is linearly independent has at most <span class="process-math">\(m\)</span> vectors.  By comparison, <a href="" class="xref" data-knowl="./knowl/prop-span-bound.html" title="Proposition 3.1.15">Proposition 3.1.15</a> says that a set of vectors whose span is <span class="process-math">\(\real^m\)</span> has at least <span class="process-math">\(m\)</span> vectors.</div>
+<div class="para" id="p-1674">This implies that a set of linearly independent vectors that spans <span class="process-math">\(\real^m\)</span> must have exactly <span class="process-math">\(m\)</span> vectors. Such a set is called a <dfn class="terminology">basis</dfn> for <span class="process-math">\(\real^m\text{.}\)</span> We will have more to say about bases in <a href="sec-bases.html" class="internal" title="Section 4.3: Bases and coordinate systems">Section 4.3</a>
+</div></section><section class="subsection" id="subsection-42"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">3.2.3</span><span class="space"> </span><span class="title">Homogeneous equations</span>
 </h3>
-<div class="para" id="p-1647">If <span class="process-math">\(A\)</span> is a matrix, we call the equation <span class="process-math">\(A\xvec =
+<div class="para" id="p-1675">If <span class="process-math">\(A\)</span> is a matrix, we call the equation <span class="process-math">\(A\xvec =
 \zerovec\)</span> a <em class="emphasis">homogeneous</em> equation.  As we’ll see, the uniqueness of solutions to this equation reflects on the linear independence of the columns of <span class="process-math">\(A\text{.}\)</span>
 </div>
 <article class="activity project-like" id="activity-19"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">3.2.3</span><span class="period">.</span><span class="space"> </span><span class="title">Linear independence and homogeneous equations.</span>
 </h4>
-<div class="para logical" id="p-1648"><ol class="lower-alpha">
-<li id="li-1046"><div class="para" id="p-1649">Explain why the homogeneous equation <span class="process-math">\(A\xvec =
+<div class="para logical" id="p-1676"><ol class="lower-alpha">
+<li id="li-1052"><div class="para" id="p-1677">Explain why the homogeneous equation <span class="process-math">\(A\xvec =
 \zerovec\)</span> is consistent no matter the matrix <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-1047"><div class="para logical" id="p-1650">
+<li id="li-1053"><div class="para logical" id="p-1678">
 <div class="para">Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1205,11 +1207,11 @@ A = \left[\begin{array}{rrr}
 \end{array}\right]
 \end{equation*}
 </div>
-<div class="para">whose columns we denote by <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{.}\)</span> Describe the solution space of the homogeneous equation <span class="process-math">\(A\xvec = \zerovec\)</span> using a parametric description, if appropriate. <pre class="ptx-sagecell sagecell-python" id="sage-80"><script type="text/x-sage">
+<div class="para">whose columns we denote by <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{.}\)</span> Describe the solution space of the homogeneous equation <span class="process-math">\(A\xvec = \zerovec\)</span> using a parametric description, if appropriate. <pre class="ptx-sagecell sagecell-python" id="sage-94"><script type="text/x-sage">
 </script></pre>
 </div>
 </div></li>
-<li id="li-1048"><div class="para logical" id="p-1651">
+<li id="li-1054"><div class="para logical" id="p-1679">
 <div class="para">Find a nonzero solution to the homogeneous equation and use it to find weights <span class="process-math">\(c_1\text{,}\)</span> <span class="process-math">\(c_2\text{,}\)</span> and <span class="process-math">\(c_3\)</span> such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1217,13 +1219,13 @@ c_1\vvec_1 + c_2\vvec_2 + c_3\vvec_3 = \zerovec\text{.}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-1049"><div class="para" id="p-1652">Use the equation you found in the previous part to write one of the vectors as a linear combination of the others.</div></li>
-<li id="li-1050"><div class="para" id="p-1653">Are the vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> linearly dependent or independent?</div></li>
+<li id="li-1055"><div class="para" id="p-1680">Use the equation you found in the previous part to write one of the vectors as a linear combination of the others.</div></li>
+<li id="li-1056"><div class="para" id="p-1681">Are the vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> linearly dependent or independent?</div></li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-80" id="solution-80"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-80"><div class="solution solution-like"><div class="para logical" id="p-1654"><ol class="lower-alpha">
-<li id="li-1051"><div class="para" id="p-1655">The vector <span class="process-math">\(\zerovec\)</span> is always a solution.</div></li>
-<li id="li-1052"><div class="para logical" id="p-1656">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-80" id="solution-80"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-80"><div class="solution solution-like"><div class="para logical" id="p-1682"><ol class="lower-alpha">
+<li id="li-1057"><div class="para" id="p-1683">The vector <span class="process-math">\(\zerovec\)</span> is always a solution.</div></li>
+<li id="li-1058"><div class="para logical" id="p-1684">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1256,7 +1258,7 @@ x_2 \amp {}={} 3x_3\text{.} \\
 \end{equation*}
 </div>
 </div></li>
-<li id="li-1053"><div class="para logical" id="p-1657">
+<li id="li-1059"><div class="para logical" id="p-1685">
 <div class="para">If we set <span class="process-math">\(x_3=1\text{,}\)</span> then we have the solution <span class="process-math">\(\xvec=\threevec{-2}{3}{1}\text{,}\)</span> which says that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1264,15 +1266,15 @@ x_2 \amp {}={} 3x_3\text{.} \\
 \end{equation*}
 </div>
 </div></li>
-<li id="li-1054"><div class="para" id="p-1658">We may rewrite this expression as <span class="process-math">\(\vvec_3=2\vvec_1-3\vvec_2\text{,}\)</span> showing that <span class="process-math">\(\vvec_3\)</span> is a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>
+<li id="li-1060"><div class="para" id="p-1686">We may rewrite this expression as <span class="process-math">\(\vvec_3=2\vvec_1-3\vvec_2\text{,}\)</span> showing that <span class="process-math">\(\vvec_3\)</span> is a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>
 </div></li>
-<li id="li-1055"><div class="para" id="p-1659">The vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> are linearly dependent, and we know this in two ways.  We have seen how to express one vector as a linear combination of the others.  Also, we have seen that the associated matrix has a column without a pivot position.</div></li>
+<li id="li-1061"><div class="para" id="p-1687">The vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> are linearly dependent, and we know this in two ways.  We have seen how to express one vector as a linear combination of the others.  Also, we have seen that the associated matrix has a column without a pivot position.</div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-1660">This activity shows how the solution space of the homogeneous equation <span class="process-math">\(A\xvec = \zerovec\)</span> indicates whether the columns of <span class="process-math">\(A\)</span> are linearly dependent or independent.  First, we know that the equation <span class="process-math">\(A\xvec = \zerovec\)</span> always has at least one solution, the vector <span class="process-math">\(\xvec = \zerovec\text{.}\)</span>  Any other solution is a nonzero solution.</div>
-<article class="example example-like" id="example-16"><h4 class="heading">
+</div></article><div class="para" id="p-1688">This activity shows how the solution space of the homogeneous equation <span class="process-math">\(A\xvec = \zerovec\)</span> indicates whether the columns of <span class="process-math">\(A\)</span> are linearly dependent or independent.  First, we know that the equation <span class="process-math">\(A\xvec = \zerovec\)</span> always has at least one solution, the vector <span class="process-math">\(\xvec = \zerovec\text{.}\)</span>  Any other solution is a nonzero solution.</div>
+<article class="example example-like" id="example-19"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">3.2.8</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-1661">
+<div class="para logical" id="p-1689">
 <div class="para">Let’s consider the vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1286,7 +1288,7 @@ x_2 \amp {}={} 3x_3\text{.} \\
 \end{bmatrix}
 \text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-1662">
+</div> <div class="para logical" id="p-1690">
 <div class="para">The homogeneous equation <span class="process-math">\(A\xvec = \zerovec\)</span> has the associated augmented matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1310,7 +1312,7 @@ x_2 \amp {}={} 3x_3\text{.} \\
 \end{equation*}
 </div>
 <div class="para">Therefore, <span class="process-math">\(A\)</span> has a column without a pivot position, which tells us that the vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> are linearly dependent.  However, we can also see this fact in another way.</div>
-</div> <div class="para logical" id="p-1663">
+</div> <div class="para logical" id="p-1691">
 <div class="para">The reduced row echelon matrix tells us that the homogeneous equation has a free variable so that there must be infinitely many solutions.  In particular, we have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1327,7 +1329,7 @@ x_2 \amp {}={} -x_3 \\
 \threevec{-x_3}{-x_3}{x_3} = x_3\threevec{-1}{-1}1.
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-1664">
+</div> <div class="para logical" id="p-1692">
 <div class="para">If we choose <span class="process-math">\(x_3=1\text{,}\)</span> then we obtain the nonzero solution to the homogeneous equation <span class="process-math">\(\xvec =
 \threevec{-1}{-1}1\text{,}\)</span> which implies that</div>
 <div class="displaymath process-math">
@@ -1349,21 +1351,21 @@ A\threevec{-1}{-1}1 =
 \end{aligned}
 \end{equation*}
 </div>
-</div> <div class="para" id="p-1665">Because <span class="process-math">\(\vvec_3\)</span> is a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{,}\)</span> we know that this set of vectors is linearly dependent.</div></article><div class="para" id="p-1666">As this example demonstrates, there are many ways we can view the question of linear independence, some of which are recorded in the following proposition.</div>
+</div> <div class="para" id="p-1693">Because <span class="process-math">\(\vvec_3\)</span> is a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{,}\)</span> we know that this set of vectors is linearly dependent.</div></article><div class="para" id="p-1694">As this example demonstrates, there are many ways we can view the question of linear independence, some of which are recorded in the following proposition.</div>
 <article class="proposition theorem-like" id="proposition-11"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">3.2.9</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-1667">
+<div class="para logical" id="p-1695">
 <div class="para">For a matrix <span class="process-math">\(A = \left[\begin{array}{rrrr}
 \vvec_1\amp\vvec_2\amp\ldots\amp\vvec_n
 \end{array}\right]
 \text{,}\)</span> the following statements are equivalent:</div>
 <ul class="disc">
-<li id="li-1056"><div class="para" id="p-1668">The columns of <span class="process-math">\(A\)</span> are linearly dependent.</div></li>
-<li id="li-1057"><div class="para" id="p-1669">One of the vectors in the set <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is a linear combination of the others.</div></li>
-<li id="li-1058"><div class="para" id="p-1670">The matrix <span class="process-math">\(A\)</span> has a column without a pivot position.</div></li>
-<li id="li-1059"><div class="para" id="p-1671">The homogeneous equation <span class="process-math">\(A\xvec = \zerovec\)</span> has infinitely many solutions and hence a nonzero solution.</div></li>
-<li id="li-1060"><div class="para logical" id="p-1672">
+<li id="li-1062"><div class="para" id="p-1696">The columns of <span class="process-math">\(A\)</span> are linearly dependent.</div></li>
+<li id="li-1063"><div class="para" id="p-1697">One of the vectors in the set <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is a linear combination of the others.</div></li>
+<li id="li-1064"><div class="para" id="p-1698">The matrix <span class="process-math">\(A\)</span> has a column without a pivot position.</div></li>
+<li id="li-1065"><div class="para" id="p-1699">The homogeneous equation <span class="process-math">\(A\xvec = \zerovec\)</span> has infinitely many solutions and hence a nonzero solution.</div></li>
+<li id="li-1066"><div class="para logical" id="p-1700">
 <div class="para">There are weights <span class="process-math">\(c_1,c_2,\ldots,c_n\text{,}\)</span> not all of which are zero, such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1372,17 +1374,17 @@ c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n = \zerovec\text{.}
 </div>
 </div></li>
 </ul>
-</div></article></section><section class="subsection" id="subsection-39"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">3.2.4</span> <span class="title">Summary</span>
+</div></article></section><section class="subsection" id="subsection-43"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">3.2.4</span><span class="space"> </span><span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-1673">
+<div class="para logical" id="p-1701">
 <div class="para">This section developed the concept of linear dependence of a set of vectors.  More specifically, we saw that:</div>
 <ul class="disc">
-<li id="li-1061"><div class="para" id="p-1674">A set of vectors is linearly dependent if one of the vectors is a linear combination of the others.</div></li>
-<li id="li-1062"><div class="para" id="p-1675">A set of vectors is linearly independent if and only if the vectors form a matrix that has a pivot position in every column.</div></li>
-<li id="li-1063"><div class="para" id="p-1676">A set of linearly independent vectors in <span class="process-math">\(\real^m\)</span> contains no more than <span class="process-math">\(m\)</span> vectors.</div></li>
-<li id="li-1064"><div class="para" id="p-1677">The columns of the matrix <span class="process-math">\(A\)</span> are linearly dependent if the homogeneous equation <span class="process-math">\(A\xvec = \zerovec\)</span> has a nonzero solution.</div></li>
-<li id="li-1065"><div class="para logical" id="p-1678">
+<li id="li-1067"><div class="para" id="p-1702">A set of vectors is linearly dependent if one of the vectors is a linear combination of the others.</div></li>
+<li id="li-1068"><div class="para" id="p-1703">A set of vectors is linearly independent if and only if the vectors form a matrix that has a pivot position in every column.</div></li>
+<li id="li-1069"><div class="para" id="p-1704">A set of linearly independent vectors in <span class="process-math">\(\real^m\)</span> contains no more than <span class="process-math">\(m\)</span> vectors.</div></li>
+<li id="li-1070"><div class="para" id="p-1705">The columns of the matrix <span class="process-math">\(A\)</span> are linearly dependent if the homogeneous equation <span class="process-math">\(A\xvec = \zerovec\)</span> has a nonzero solution.</div></li>
+<li id="li-1071"><div class="para logical" id="p-1706">
 <div class="para">A set of vectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is linearly dependent if there are weights <span class="process-math">\(c_1,c_2,\ldots,c_n\text{,}\)</span> not all of which are zero, such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1392,8 +1394,8 @@ c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n = \zerovec\text{.}
 </div></li>
 </ul>
 </div>
-<div class="para" id="p-1679">At the beginning of the section, we said that this concept addressed the second of our <a href="" class="xref" data-knowl="./knowl/fundamental-questions.html" title="Question 2.4.3: Two Fundamental Questions">two fundamental questions</a> concerning the uniqueness of solutions to a linear system.  It is worth comparing the results of this section with those of the previous one so that the parallels between them become clear.</div>
-<div class="para logical" id="p-1680">
+<div class="para" id="p-1707">At the beginning of the section, we said that this concept addressed the second of our <a href="" class="xref" data-knowl="./knowl/fundamental-questions.html" title="Question 2.4.3: Two Fundamental Questions">two fundamental questions</a> concerning the uniqueness of solutions to a linear system.  It is worth comparing the results of this section with those of the previous one so that the parallels between them become clear.</div>
+<div class="para logical" id="p-1708">
 <div class="para">As usual, we will write a matrix as a collection of vectors,</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1408,29 +1410,29 @@ A=\left[\begin{array}{rrrr} \vvec_1\amp\vvec_2 \amp
 <th scope="col" class="c t b2 r0 l0 t0 lines">Linear independence</th>
 </tr>
 <tr>
-<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1681">A vector <span class="process-math">\(\bvec\)</span> is in the span of a set of vectors if it is a linear combination of those vectors.</div></td>
-<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1682">A set of vectors is linearly dependent if one of the vectors is a linear combination of the others.</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1709">A vector <span class="process-math">\(\bvec\)</span> is in the span of a set of vectors if it is a linear combination of those vectors.</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1710">A set of vectors is linearly dependent if one of the vectors is a linear combination of the others.</div></td>
 </tr>
 <tr>
-<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1683">A vector <span class="process-math">\(\bvec\)</span> is in the span of <span class="process-math">\(\vvec_1,
+<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1711">A vector <span class="process-math">\(\bvec\)</span> is in the span of <span class="process-math">\(\vvec_1,
 \vvec_2, \ldots, \vvec_n\)</span> if there exists a solution to <span class="process-math">\(A\xvec = \bvec\text{.}\)</span>
 </div></td>
-<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1684">The vectors <span class="process-math">\(\vvec_1, \vvec_2, \ldots, \vvec_n\)</span> are linearly independent if <span class="process-math">\(\xvec=\zerovec\)</span> is the only solution to <span class="process-math">\(A\xvec = \zerovec\text{.}\)</span>
+<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1712">The vectors <span class="process-math">\(\vvec_1, \vvec_2, \ldots, \vvec_n\)</span> are linearly independent if <span class="process-math">\(\xvec=\zerovec\)</span> is the only solution to <span class="process-math">\(A\xvec = \zerovec\text{.}\)</span>
 </div></td>
 </tr>
 <tr>
-<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1685">The columns of an <span class="process-math">\(m\by n\)</span> matrix span <span class="process-math">\(\real^m\)</span> if the matrix has a pivot position in every row.</div></td>
-<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1686">The columns of a matrix are linearly independent if the matrix has a pivot position in every column.</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1713">The columns of an <span class="process-math">\(m\by n\)</span> matrix span <span class="process-math">\(\real^m\)</span> if the matrix has a pivot position in every row.</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1714">The columns of a matrix are linearly independent if the matrix has a pivot position in every column.</div></td>
 </tr>
 <tr>
-<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1687">A set of vectors that span <span class="process-math">\(\real^m\)</span> has at least <span class="process-math">\(m\)</span> vectors.</div></td>
-<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1688">A set of linearly independent vectors in <span class="process-math">\(\real^m\)</span> has at most <span class="process-math">\(m\)</span> vectors.</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1715">A set of vectors that span <span class="process-math">\(\real^m\)</span> has at least <span class="process-math">\(m\)</span> vectors.</div></td>
+<td class="l t b1 r0 l0 t0" style="max-width:300px;"><div class="para" id="p-1716">A set of linearly independent vectors in <span class="process-math">\(\real^m\)</span> has at most <span class="process-math">\(m\)</span> vectors.</div></td>
 </tr>
 </table></div></figure></section><section class="exercises" id="exercises-9"><h3 class="heading hide-type">
-<span class="type">Exercises</span> <span class="codenumber">3.2.5</span> <span class="title">Exercises</span>
+<span class="type">Exercises</span><span class="space"> </span><span class="codenumber">3.2.5</span><span class="space"> </span><span class="title">Exercises</span>
 </h3>
-<article class="exercise exercise-like" id="exercise-61"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-1689">
+<article class="exercise exercise-like" id="exercise-58"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1717">
 <div class="para">Consider the set of vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1441,11 +1443,11 @@ A=\left[\begin{array}{rrrr} \vvec_1\amp\vvec_2 \amp
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-1066"><div class="para" id="p-1690">Explain why this set of vectors is linearly dependent.</div></li>
-<li id="li-1067"><div class="para" id="p-1691">Write one of the vectors as a linear combination of the others. <pre class="ptx-sagecell sagecell-python" id="sage-81"><script type="text/x-sage">
+<li id="li-1072"><div class="para" id="p-1718">Explain why this set of vectors is linearly dependent.</div></li>
+<li id="li-1073"><div class="para" id="p-1719">Write one of the vectors as a linear combination of the others. <pre class="ptx-sagecell sagecell-python" id="sage-95"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-1068"><div class="para logical" id="p-1692">
+<li id="li-1074"><div class="para logical" id="p-1720">
 <div class="para">Find weights <span class="process-math">\(c_1\text{,}\)</span> <span class="process-math">\(c_2\text{,}\)</span> <span class="process-math">\(c_3\text{,}\)</span> and <span class="process-math">\(c_4\text{,}\)</span> not all of which are zero, such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1454,13 +1456,13 @@ c_1\vvec_1 + c_2 \vvec_2 + c_3 \vvec_3
 \end{equation*}
 </div>
 </div></li>
-<li id="li-1069"><div class="para" id="p-1693">Find a nonzero solution to the homogenous equation <span class="process-math">\(A\xvec = \zerovec\)</span> where <span class="process-math">\(A=\left[\begin{array}{rrrr}
+<li id="li-1075"><div class="para" id="p-1721">Find a nonzero solution to the homogenous equation <span class="process-math">\(A\xvec = \zerovec\)</span> where <span class="process-math">\(A=\left[\begin{array}{rrrr}
 \vvec_1\amp\vvec_2\amp\vvec_3\amp\vvec_4
 \end{array}\right]\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-62"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para logical" id="p-1704">
+</div></article><article class="exercise exercise-like" id="exercise-59"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1732">
 <div class="para">Consider the vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1470,37 +1472,37 @@ c_1\vvec_1 + c_2 \vvec_2 + c_3 \vvec_3
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-1078"><div class="para" id="p-1705">Are these vectors linearly independent or linearly dependent? <pre class="ptx-sagecell sagecell-python" id="sage-82"><script type="text/x-sage">
+<li id="li-1084"><div class="para" id="p-1733">Are these vectors linearly independent or linearly dependent? <pre class="ptx-sagecell sagecell-python" id="sage-96"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-1079"><div class="para" id="p-1706">Describe the <span class="process-math">\(\laspan{\vvec_1,\vvec_2,\vvec_3}\text{.}\)</span>
+<li id="li-1085"><div class="para" id="p-1734">Describe the <span class="process-math">\(\laspan{\vvec_1,\vvec_2,\vvec_3}\text{.}\)</span>
 </div></li>
-<li id="li-1080"><div class="para" id="p-1707">Suppose that <span class="process-math">\(\bvec\)</span> is a vector in <span class="process-math">\(\real^3\text{.}\)</span>  Explain why we can guarantee that <span class="process-math">\(\bvec\)</span> may be written as a linear combination of <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{.}\)</span>
+<li id="li-1086"><div class="para" id="p-1735">Suppose that <span class="process-math">\(\bvec\)</span> is a vector in <span class="process-math">\(\real^3\text{.}\)</span>  Explain why we can guarantee that <span class="process-math">\(\bvec\)</span> may be written as a linear combination of <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{.}\)</span>
 </div></li>
-<li id="li-1081"><div class="para" id="p-1708">Suppose that <span class="process-math">\(\bvec\)</span> is a vector in <span class="process-math">\(\real^3\text{.}\)</span>  In how many ways can <span class="process-math">\(\bvec\)</span> be written as a linear combination of <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{?}\)</span>
+<li id="li-1087"><div class="para" id="p-1736">Suppose that <span class="process-math">\(\bvec\)</span> is a vector in <span class="process-math">\(\real^3\text{.}\)</span>  In how many ways can <span class="process-math">\(\bvec\)</span> be written as a linear combination of <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{?}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-63"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-1719">
+</div></article><article class="exercise exercise-like" id="exercise-60"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1747">
 <div class="para">Respond to the following questions and provide a justification for your responses.</div>
 <ol class="lower-alpha">
-<li id="li-1090"><div class="para" id="p-1720">If the vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> form a linearly dependent set, must one vector be a scalar multiple of the other?</div></li>
-<li id="li-1091"><div class="para" id="p-1721">Suppose that <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is a linearly independent set of vectors.  What can you say about the linear independence or dependence of a subset of these vectors?</div></li>
-<li id="li-1092"><div class="para" id="p-1722">Suppose <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is a linearly independent set of vectors that form the columns of a matrix <span class="process-math">\(A\text{.}\)</span>  If the equation <span class="process-math">\(A\xvec = \bvec\)</span> is inconsistent, what can you say about the linear independence or dependence of the set of vectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n,\bvec\text{?}\)</span>
+<li id="li-1096"><div class="para" id="p-1748">If the vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> form a linearly dependent set, must one vector be a scalar multiple of the other?</div></li>
+<li id="li-1097"><div class="para" id="p-1749">Suppose that <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is a linearly independent set of vectors.  What can you say about the linear independence or dependence of a subset of these vectors?</div></li>
+<li id="li-1098"><div class="para" id="p-1750">Suppose <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is a linearly independent set of vectors that form the columns of a matrix <span class="process-math">\(A\text{.}\)</span>  If the equation <span class="process-math">\(A\xvec = \bvec\)</span> is inconsistent, what can you say about the linear independence or dependence of the set of vectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n,\bvec\text{?}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-64"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-1731">
+</div></article><article class="exercise exercise-like" id="exercise-61"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1759">
 <div class="para">Determine whether the following statements are true or false and provide a justification for your response.</div>
 <ol class="lower-alpha">
-<li id="li-1099"><div class="para" id="p-1732">If <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> are linearly dependent, then one vector is a scalar multiple of one of the others.</div></li>
-<li id="li-1100"><div class="para" id="p-1733">If <span class="process-math">\(\vvec_1, \vvec_2, \ldots, \vvec_{10}\)</span> are vectors in <span class="process-math">\(\real^5\text{,}\)</span> then the set of vectors is linearly dependent.</div></li>
-<li id="li-1101"><div class="para" id="p-1734">If <span class="process-math">\(\vvec_1, \vvec_2, \ldots, \vvec_{5}\)</span> are vectors in <span class="process-math">\(\real^{10}\text{,}\)</span> then the set of vectors is linearly independent.</div></li>
-<li id="li-1102"><div class="para" id="p-1735">Suppose we have a set of vectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> and that <span class="process-math">\(\vvec_2\)</span> is a scalar multiple of <span class="process-math">\(\vvec_1\text{.}\)</span>  Then the set is linearly dependent.</div></li>
-<li id="li-1103"><div class="para" id="p-1736">Suppose that <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> are linearly independent and form the columns of a matrix <span class="process-math">\(A\text{.}\)</span>  If <span class="process-math">\(A\xvec = \bvec\)</span> is consistent, then there is exactly one solution.</div></li>
+<li id="li-1105"><div class="para" id="p-1760">If <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> are linearly dependent, then one vector is a scalar multiple of one of the others.</div></li>
+<li id="li-1106"><div class="para" id="p-1761">If <span class="process-math">\(\vvec_1, \vvec_2, \ldots, \vvec_{10}\)</span> are vectors in <span class="process-math">\(\real^5\text{,}\)</span> then the set of vectors is linearly dependent.</div></li>
+<li id="li-1107"><div class="para" id="p-1762">If <span class="process-math">\(\vvec_1, \vvec_2, \ldots, \vvec_{5}\)</span> are vectors in <span class="process-math">\(\real^{10}\text{,}\)</span> then the set of vectors is linearly independent.</div></li>
+<li id="li-1108"><div class="para" id="p-1763">Suppose we have a set of vectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> and that <span class="process-math">\(\vvec_2\)</span> is a scalar multiple of <span class="process-math">\(\vvec_1\text{.}\)</span>  Then the set is linearly dependent.</div></li>
+<li id="li-1109"><div class="para" id="p-1764">Suppose that <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> are linearly independent and form the columns of a matrix <span class="process-math">\(A\text{.}\)</span>  If <span class="process-math">\(A\xvec = \bvec\)</span> is consistent, then there is exactly one solution.</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-65"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para logical" id="p-1749">
+</div></article><article class="exercise exercise-like" id="exercise-62"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1777">
 <div class="para">Suppose we have a set of vectors <span class="process-math">\(\vvec_1,\vvec_2,\vvec_3,\vvec_4\)</span> in <span class="process-math">\(\real^5\)</span> that satisfy the relationship:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1513,50 +1515,50 @@ c_1\vvec_1 + c_2 \vvec_2 + c_3 \vvec_3
 \text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-1114"><div class="para" id="p-1750">Find a nonzero solution to the equation <span class="process-math">\(A\xvec =
+<li id="li-1120"><div class="para" id="p-1778">Find a nonzero solution to the equation <span class="process-math">\(A\xvec =
 \zerovec\text{.}\)</span>
 </div></li>
-<li id="li-1115"><div class="para" id="p-1751">Explain why the matrix <span class="process-math">\(A\)</span> has a column without a pivot position.</div></li>
-<li id="li-1116"><div class="para" id="p-1752">Write one of the vectors as a linear combination of the others.</div></li>
-<li id="li-1117"><div class="para" id="p-1753">Explain why the set of vectors is linearly dependent.</div></li>
+<li id="li-1121"><div class="para" id="p-1779">Explain why the matrix <span class="process-math">\(A\)</span> has a column without a pivot position.</div></li>
+<li id="li-1122"><div class="para" id="p-1780">Write one of the vectors as a linear combination of the others.</div></li>
+<li id="li-1123"><div class="para" id="p-1781">Explain why the set of vectors is linearly dependent.</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-66"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
-<div class="para logical" id="p-1764">
+</div></article><article class="exercise exercise-like" id="exercise-63"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1792">
 <div class="para">Suppose that <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> is a set of vectors in <span class="process-math">\(\real^{27}\)</span> that form the columns of a matrix <span class="process-math">\(A\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-1126"><div class="para" id="p-1765">Suppose that the vectors span <span class="process-math">\(\real^{27}\text{.}\)</span>  What can you say about the number of vectors <span class="process-math">\(n\)</span> in this set?</div></li>
-<li id="li-1127"><div class="para" id="p-1766">Suppose instead that the vectors are linearly independent.  What can you say about the number of vectors <span class="process-math">\(n\)</span> in this set?</div></li>
-<li id="li-1128"><div class="para" id="p-1767">Suppose that the vectors are both linearly independent and span <span class="process-math">\(\real^{27}\text{.}\)</span>  What can you say about the number of vectors in the set?</div></li>
-<li id="li-1129"><div class="para" id="p-1768">Assume that the vectors are both linearly independent and span <span class="process-math">\(\real^{27}\text{.}\)</span>  Given a vector <span class="process-math">\(\bvec\)</span> in <span class="process-math">\(\real^{27}\text{,}\)</span> what can you say about the solution space to the equation <span class="process-math">\(A\xvec = \bvec\text{?}\)</span>
+<li id="li-1132"><div class="para" id="p-1793">Suppose that the vectors span <span class="process-math">\(\real^{27}\text{.}\)</span>  What can you say about the number of vectors <span class="process-math">\(n\)</span> in this set?</div></li>
+<li id="li-1133"><div class="para" id="p-1794">Suppose instead that the vectors are linearly independent.  What can you say about the number of vectors <span class="process-math">\(n\)</span> in this set?</div></li>
+<li id="li-1134"><div class="para" id="p-1795">Suppose that the vectors are both linearly independent and span <span class="process-math">\(\real^{27}\text{.}\)</span>  What can you say about the number of vectors in the set?</div></li>
+<li id="li-1135"><div class="para" id="p-1796">Assume that the vectors are both linearly independent and span <span class="process-math">\(\real^{27}\text{.}\)</span>  Given a vector <span class="process-math">\(\bvec\)</span> in <span class="process-math">\(\real^{27}\text{,}\)</span> what can you say about the solution space to the equation <span class="process-math">\(A\xvec = \bvec\text{?}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-67"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
-<div class="para logical" id="p-1779">
+</div></article><article class="exercise exercise-like" id="exercise-64"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1807">
 <div class="para">Given below are some descriptions of sets of vectors that form the columns of a matrix <span class="process-math">\(A\text{.}\)</span>  For each description, give a possible reduced row echelon form for <span class="process-math">\(A\)</span> or indicate why there is no set of vectors satisfying the description by stating why the required reduced row echelon matrix cannot exist.</div>
 <ol class="lower-alpha">
-<li id="li-1138"><div class="para" id="p-1780">A set of 4 linearly independent vectors in <span class="process-math">\(\real^5\text{.}\)</span>
+<li id="li-1144"><div class="para" id="p-1808">A set of 4 linearly independent vectors in <span class="process-math">\(\real^5\text{.}\)</span>
 </div></li>
-<li id="li-1139"><div class="para" id="p-1781">A set of 4 linearly independent vectors in <span class="process-math">\(\real^4\text{.}\)</span>
+<li id="li-1145"><div class="para" id="p-1809">A set of 4 linearly independent vectors in <span class="process-math">\(\real^4\text{.}\)</span>
 </div></li>
-<li id="li-1140"><div class="para" id="p-1782">A set of 3 vectors whose span is <span class="process-math">\(\real^4\text{.}\)</span>
+<li id="li-1146"><div class="para" id="p-1810">A set of 3 vectors whose span is <span class="process-math">\(\real^4\text{.}\)</span>
 </div></li>
-<li id="li-1141"><div class="para" id="p-1783">A set of 5 linearly independent vectors in <span class="process-math">\(\real^3\text{.}\)</span>
+<li id="li-1147"><div class="para" id="p-1811">A set of 5 linearly independent vectors in <span class="process-math">\(\real^3\text{.}\)</span>
 </div></li>
-<li id="li-1142"><div class="para" id="p-1784">A set of 5 vectors whose span is <span class="process-math">\(\real^4\text{.}\)</span>
+<li id="li-1148"><div class="para" id="p-1812">A set of 5 vectors whose span is <span class="process-math">\(\real^4\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-68"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
-<div class="para logical" id="p-1797">
+</div></article><article class="exercise exercise-like" id="exercise-65"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1825">
 <div class="para">When we explored matrix multiplication in <a href="sec-matrices.html" class="internal" title="Section 1.4: Matrices">Section 1.4</a>, we saw that some properties that are true for real numbers are not true for matrices.  This exercise will investigate that in some more depth.</div>
 <ol class="lower-alpha">
-<li id="li-1153"><div class="para" id="p-1798">Suppose that <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are two matrices and that <span class="process-math">\(AB = 0\text{.}\)</span>  If <span class="process-math">\(B \neq 0\text{,}\)</span> what can you say about the linear independence of the columns of <span class="process-math">\(A\text{?}\)</span>
+<li id="li-1159"><div class="para" id="p-1826">Suppose that <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are two matrices and that <span class="process-math">\(AB = 0\text{.}\)</span>  If <span class="process-math">\(B \neq 0\text{,}\)</span> what can you say about the linear independence of the columns of <span class="process-math">\(A\text{?}\)</span>
 </div></li>
-<li id="li-1154"><div class="para" id="p-1799">Suppose that we have matrices <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(B\)</span> and <span class="process-math">\(C\)</span> such that <span class="process-math">\(AB = AC\text{.}\)</span>  We have seen that we cannot generally conclude that <span class="process-math">\(B=C\text{.}\)</span>  If we assume additionally that <span class="process-math">\(A\)</span> is a matrix whose columns are linearly independent, explain why <span class="process-math">\(B = C\text{.}\)</span>  You may wish to begin by rewriting the equation <span class="process-math">\(AB = AC\)</span> as <span class="process-math">\(AB-AC = A(B-C) = 0\text{.}\)</span>
+<li id="li-1160"><div class="para" id="p-1827">Suppose that we have matrices <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(B\)</span> and <span class="process-math">\(C\)</span> such that <span class="process-math">\(AB = AC\text{.}\)</span>  We have seen that we cannot generally conclude that <span class="process-math">\(B=C\text{.}\)</span>  If we assume additionally that <span class="process-math">\(A\)</span> is a matrix whose columns are linearly independent, explain why <span class="process-math">\(B = C\text{.}\)</span>  You may wish to begin by rewriting the equation <span class="process-math">\(AB = AC\)</span> as <span class="process-math">\(AB-AC = A(B-C) = 0\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-69"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
-<div class="para logical" id="p-1806">
+</div></article><article class="exercise exercise-like" id="exercise-66"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1834">
 <div class="para">Suppose that <span class="process-math">\(k\)</span> is an unknown parameter and consider the set of vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1566,18 +1568,18 @@ c_1\vvec_1 + c_2 \vvec_2 + c_3 \vvec_3
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-1159"><div class="para" id="p-1807">For what values of <span class="process-math">\(k\)</span> is the set of vectors linearly dependent?</div></li>
-<li id="li-1160"><div class="para" id="p-1808">For what values of <span class="process-math">\(k\)</span> does the set of vectors span <span class="process-math">\(\real^3\text{?}\)</span>
+<li id="li-1165"><div class="para" id="p-1835">For what values of <span class="process-math">\(k\)</span> is the set of vectors linearly dependent?</div></li>
+<li id="li-1166"><div class="para" id="p-1836">For what values of <span class="process-math">\(k\)</span> does the set of vectors span <span class="process-math">\(\real^3\text{?}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-70"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
-<div class="para logical" id="p-1815">
+</div></article><article class="exercise exercise-like" id="exercise-67"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
+<div class="para logical" id="p-1843">
 <div class="para">Given a set of linearly dependent vectors, we can eliminate some of the vectors to create a smaller, linearly independent set of vectors.</div>
 <ol class="lower-alpha">
-<li id="li-1165"><div class="para" id="p-1816">Suppose that <span class="process-math">\(\wvec\)</span> is a linear combination of the vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span> Explain why <span class="process-math">\(\laspan{\vvec_1,\vvec_2, \wvec} =
+<li id="li-1171"><div class="para" id="p-1844">Suppose that <span class="process-math">\(\wvec\)</span> is a linear combination of the vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span> Explain why <span class="process-math">\(\laspan{\vvec_1,\vvec_2, \wvec} =
 \laspan{\vvec_1,\vvec_2}\text{.}\)</span>
 </div></li>
-<li id="li-1166"><div class="para logical" id="p-1817">
+<li id="li-1172"><div class="para logical" id="p-1845">
 <div class="para">Consider the vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1590,16 +1592,16 @@ c_1\vvec_1 + c_2 \vvec_2 + c_3 \vvec_3
 <div class="para">Write one of the vectors as a linear combination of the others.  Find a set of three vectors whose span is the same as <span class="process-math">\(\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4}\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-1167"><div class="para" id="p-1818">Are the three vectors you are left with linearly independent?  If not, express one of the vectors as a linear combination of the others and find a set of two vectors whose span is the same as <span class="process-math">\(\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4}\text{.}\)</span>
+<li id="li-1173"><div class="para" id="p-1846">Are the three vectors you are left with linearly independent?  If not, express one of the vectors as a linear combination of the others and find a set of two vectors whose span is the same as <span class="process-math">\(\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4}\text{.}\)</span>
 </div></li>
-<li id="li-1168"><div class="para" id="p-1819">Give a geometric description of <span class="process-math">\(\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4}\)</span> in <span class="process-math">\(\real^3\)</span> as we did in <a href="sec-span.html" class="internal" title="Section 3.1: The span of a set of vectors">Section 3.1</a>.</div></li>
+<li id="li-1174"><div class="para" id="p-1847">Give a geometric description of <span class="process-math">\(\laspan{\vvec_1,\vvec_2,\vvec_3,\vvec_4}\)</span> in <span class="process-math">\(\real^3\)</span> as we did in <a href="sec-span.html" class="internal" title="Section 3.1: The span of a set of vectors">Section 3.1</a>.</div></li>
 </ol>
 </div></article></section></section></div>
 <div class="ptx-content-footer">
 <a class="previous-button button" href="sec-span.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-linear-trans.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>
 </div>
-<div id="ptx-page-footer">
+<div id="ptx-page-footer" class="ptx-page-footer">
 <a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
 </div>
 </body>

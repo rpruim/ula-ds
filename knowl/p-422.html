@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <!--********************************************-->
 <!--*       Generated from PreTeXt source      *-->
 <!--*                                          *-->
@@ -9,10 +9,45 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
-<h4 class="heading"><span class="type">Paragraph</span></h4>
-<div class="para">This example illustrates a general principle to which we will frequently return.</div>
-<span class="incontext"><a href="sec-expect.html#p-422" class="internal">in-context</a></span>
+<h5 class="heading"><span class="type">Paragraph</span></h5>
+<div class="para">The images were obtained from <a class="external" href="https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG" target="_blank"><code class="code-inline tex2jax_ignore">https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG</code></a>. We will use low resolutoin images below, but you can repeat this example with higher resolution images if you like. Notice the use of <code class="code-inline tex2jax_ignore">np.stack()</code> to combine the images into one 4-dimensional tensor, and the use of <code class="code-inline tex2jax_ignore">np.rint()</code> and <code class="code-inline tex2jax_ignore">astype(int)</code> to make sure the resulting data is again integer (the nearest integer to the average). <pre class="ptx-sagecell sagecell-python" id="sage-41"><script type="text/x-sage">from skimage import io
+import matplotlib.pyplot as plt 
+url = "https://rpruim.github.io/data/images/StLouisArchMultExpEV1.jpg"
+urls = [url.replace('1', x) for x in ["1","2","3","4"]]
+print(urls)
+
+photos = [io.imread(u) for u in urls]
+photo_stack = np.stack(photos)
+print(p.shape for p in photos)
+print(photo_stack.shape)
+average_photo = np.rint(photo_stack.mean(axis = 0)).astype(int)
+fig, ax = plt.subplots(1, 4)
+print("four different exposures")
+for i in range(4):
+    ax[i].imshow(photos[i])
+plt.show()
+print("the average image")
+
+plt.subplots(1, 1)
+
+plt.imshow(average_photo)
+plt.show()
+</script></pre> More sophisticated algorithms can do an even better job of creating the final image from multiple exposures of the same scene.</div>
+<span class="incontext"><a href="sec-tensors.html#p-422" class="internal">in-context</a></span>
 </body>
 </html>

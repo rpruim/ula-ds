@@ -5,7 +5,7 @@
 <!--*         https://pretextbook.org          *-->
 <!--*                                          *-->
 <!--********************************************-->
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <head xmlns:og="http://ogp.me/ns#" xmlns:book="https://ogp.me/ns/book#">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Invertibility</title>
@@ -14,20 +14,38 @@
 <meta property="og:type" content="book">
 <meta property="book:title" content="Understanding Linear Algebra">
 <meta property="book:author" content=" Randall Pruim ">
-<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
+<script src="https://sagecell.sagemath.org/static/embedded_sagecell.js"></script><script>
+var runestoneMathReady = new Promise((resolve) => window.rsMathReady = resolve);
 window.MathJax = {
-  tex: {
-    inlineMath: [['\\(','\\)']],
-    tags: "none",
-    tagSide: "right",
-    tagIndent: ".8em",
-    packages: {'[+]': ['base', 'extpfeil', 'ams', 'amscd', 'color', 'newcommand', 'knowl']}
+  "tex": {
+    "inlineMath": [
+      [
+        "\\(",
+        "\\)"
+      ]
+    ],
+    "tags": "none",
+    "tagSide": "right",
+    "tagIndent": ".8em",
+    "packages": {
+      "[+]": [
+        "base",
+        "extpfeil",
+        "ams",
+        "amscd",
+        "color",
+        "newcommand",
+        "knowl"
+      ]
+    }
   },
-  options: {
-    ignoreHtmlClass: "tex2jax_ignore|ignore-math",
-    processHtmlClass: "process-math",
-    renderActions: {
-        findScript: [10, function (doc) {
+  "options": {
+    "ignoreHtmlClass": "tex2jax_ignore|ignore-math",
+    "processHtmlClass": "process-math",
+    "renderActions": {
+      "findScript": [
+        10,
+        function (doc) {
             document.querySelectorAll('script[type^="math/tex"]').forEach(function(node) {
                 var display = !!node.type.match(/; *mode=display/);
                 var math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
@@ -37,101 +55,81 @@ window.MathJax = {
                 math.end = {node: text, delim: '', n: 0};
                 doc.math.push(math);
             });
-        }, '']
-    },
+        },
+        ""
+      ]
+    }
   },
-  chtml: {
-    scale: 0.98,
-    mtextInheritFont: true
+  "chtml": {
+    "scale": 0.98,
+    "mtextInheritFont": true
   },
-  loader: {
-    load: ['input/asciimath', '[tex]/extpfeil', '[tex]/amscd', '[tex]/color', '[tex]/newcommand', '[pretext]/mathjaxknowl3.js'],
-    paths: {pretext: "https://pretextbook.org/js/lib"},
+  "loader": {
+    "load": [
+      "input/asciimath",
+      "[tex]/extpfeil",
+      "[tex]/amscd",
+      "[tex]/color",
+      "[tex]/newcommand",
+      "[pretext]/mathjaxknowl3.js"
+    ],
+    "paths": {
+      "pretext": "https://pretextbook.org/js/lib"
+    }
   },
-  startup: {
+  "startup": {
     pageReady() {
       return MathJax.startup.defaultPageReady().then(function () {
       console.log("in ready function");
       rsMathReady();
       }
     )}
-  },
+  }
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
-                       linked: true,
-                       languages: ['sage'],
-                       evalButtonText: 'Evaluate (Sage)'});
-</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
-                       linked: true,
-                       languages: ['python'],
-                       evalButtonText: 'Evaluate (Python)'});
-</script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.2/pretext_search.js"></script><link href="https://pretextbook.org/css/0.6/pretext_search.css" rel="stylesheet" type="text/css">
-<script>js_version = 0.2</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.2/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.2/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.2/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.3/pretext_search.js"></script><link href="https://pretextbook.org/css/0.7/pretext_search.css" rel="stylesheet" type="text/css">
+<script>js_version = 0.3</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.3/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.3/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.3/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Tinos:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.cdnfonts.com/css/dejavu-serif" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Serif:opsz,wdth,wght@8..144,50..150,100..900&amp;display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wdth,wght@75..100,300..800&amp;display=swap" rel="stylesheet">
-<link href="https://pretextbook.org/css/0.6/pretext.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/pretext_add_on.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/shell_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/banner_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/navbar_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/toc_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/knowls_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/style_default.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/colors_blue_grey.css" rel="stylesheet" type="text/css">
-<link href="https://pretextbook.org/css/0.6/setcolors.css" rel="stylesheet" type="text/css">
-<!--** eBookCongig is necessary to configure interactive       **-->
-<!--** Runestone components to run locally in reader's browser **-->
-<!--** No external communication:                              **-->
-<!--**     log level is 0, Runestone Services are disabled     **-->
-<script type="text/javascript">
-eBookConfig = {};
-eBookConfig.useRunestoneServices = false;
-eBookConfig.host = 'http://127.0.0.1:8000';
-eBookConfig.course = 'PTX_Course_Title_Here';
-eBookConfig.basecourse = 'PTX_Base_Course';
-eBookConfig.isLoggedIn = false;
-eBookConfig.email = '';
-eBookConfig.isInstructor = false;
-eBookConfig.logLevel = 0;
-eBookConfig.username = '';
-eBookConfig.readings = null;
-eBookConfig.activities = null;
-eBookConfig.downloadsEnabled = false;
-eBookConfig.allow_pairs = false;
-eBookConfig.enableScratchAC = false;
-eBookConfig.build_info = "";
-eBookConfig.python3 = null;
-eBookConfig.runestone_version = '7.0.7';
-eBookConfig.jobehost = '';
-eBookConfig.proxyuri_runs = '';
-eBookConfig.proxyuri_files = '';
-eBookConfig.enable_chatcodes =  false;
-</script>
-<!--*** Runestone Services ***-->
-<script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.7/prefix-runtime.fd9ce61c3c71cb22.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.7/prefix-347.193e36c07abd0197.bundle.js"></script><script type="text/javascript" src="https://runestone.academy/cdn/runestone/7.0.7/prefix-runestone.89acb6c6122954e4.bundle.js"></script><link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.7/prefix-347.f9add1ca35d5ad93.css">
-<link rel="stylesheet" type="text/css" href="https://runestone.academy/cdn/runestone/7.0.7/prefix-runestone.8d2f742bc74f4a41.css">
+<link href="https://pretextbook.org/css/0.7/pretext.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/pretext_add_on.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/shell_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/banner_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/navbar_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/toc_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/knowls_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/style_default.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/colors_blue_grey.css" rel="stylesheet" type="text/css">
+<link href="https://pretextbook.org/css/0.7/setcolors.css" rel="stylesheet" type="text/css">
 </head>
 <body class="pretext book ignore-math">
-<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead"><div class="ptx-banner">
-<a id="logo-link" href=""></a><div class="title-container">
+<a class="assistive" href="#ptx-content">Skip to main content</a><header id="ptx-masthead" class="ptx-masthead"><div class="ptx-banner">
+<a id="logo-link" class="logo-link" href=""></a><div class="title-container">
 <h1 class="heading"><a href="ula.html"><span class="title">Understanding Linear Algebra:</span> <span class="subtitle">Data Science Edition</span></a></h1>
 <p class="byline">Randall Pruim</p>
 </div>
-<div id="searchresultsplaceholder" style="display: none">
-<button id="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms"></span>
+<div id="searchresultsplaceholder" class="searchresultsplaceholder" style="display: none">
+<button id="closesearchresults" class="closesearchresults" onclick="document.getElementById('searchresultsplaceholder').style.display = 'none'; return false;">x</button><h2>Search Results: <span id="searchterms" class="searchterms"></span>
 </h2>
-<div id="searchempty"><span>No results.</span></div>
-<ol id="searchresults"></ol>
+<div id="searchempty" class="searchempty"><span>No results.</span></div>
+<ol id="searchresults" class="searchresults"></ol>
 </div>
-</div></header><nav id="ptx-navbar" class="navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="theavatarbutton" class="name">You!</span><div id="preferences_menu_holder" class="hidden"><ol id="preferences_menu" style="font-family: 'Roboto Serif', serif;">
+</div></header><nav id="ptx-navbar" class="ptx-navbar navbar"><button class="toc-toggle button" aria-label="Show or hide table of contents"><span class="icon">☰</span><span class="name">Contents</span></button><a class="index-button button" href="index-1.html" title="Index"><span class="name">Index</span></a><button id="user-preferences-button" class="user-preferences-button button" title="Modify user preferences"><span id="avatarbutton" class="avatarbutton name">You!</span><div id="preferences_menu_holder" class="preferences_menu_holder hidden"><ol id="preferences_menu" class="preferences_menu" style="font-family: 'Roboto Serif', serif;">
 <li data-env="avatar" tabindex="-1">Choose avatar<div class="wrap_to_submenu"><span class="to_submenu">▻</span></div>
 <ol class="hidden avatar">
 <li data-val="You!" tabindex="-1">
@@ -235,7 +233,7 @@ eBookConfig.enable_chatcodes =  false;
 </li>
 </ol></div></button><span class="treebuttons"><a class="previous-button button" href="chap4.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="chap4.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="subsec-triangular-invertible.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchwrapper" role="search"><div class="gcse-search"></div></div>
 <div class="searchbox"><div class="searchwidget">
-<input id="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" type="button" onclick="doSearch()">🔍</button>
+<input id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" class="searchbutton" type="button" onclick="doSearch()">🔍</button>
 </div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\avec}{{\boldsymbol a}}
 \newcommand{\bvec}{{\boldsymbol b}}
 \newcommand{\cvec}{{\boldsymbol c}}
@@ -309,8 +307,8 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\Sighat}{\widehat{\Sigma}}
 \newcommand{\by}{\times}
 \newcommand{\transpose}{\top}
-\newcommand{proj}[2]{\operatorname{proj}\left(#1 \to #2\right)}
-\newcommand{projsub}[2]{\operatorname{proj}_{#2}(#1)}
+\newcommand{\proj}[2]{\operatorname{proj}\left(#1 \to #2\right)}
+\newcommand{\projsub}[2]{\operatorname{proj}_{#2}(#1)}
 \newcommand{\lt}{&lt;}
 \newcommand{\gt}{&gt;}
 \newcommand{\amp}{&amp;}
@@ -318,12 +316,13 @@ eBookConfig.enable_chatcodes =  false;
 \newcommand{\fillinmath}[1]{\mathchoice{\colorbox{fillinmathshade}{$\displaystyle     \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\textstyle        \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptstyle      \phantom{\,#1\,}$}}{\colorbox{fillinmathshade}{$\scriptscriptstyle\phantom{\,#1\,}$}}}
 \)</span></div>
 <div class="ptx-page">
-<div id="ptx-sidebar"><nav id="ptx-toc" class="depth2"><ul class="structural">
+<div id="ptx-sidebar" class="ptx-sidebar"><nav id="ptx-toc" class="ptx-toc depth2"><ul class="structural">
 <li>
 <div class="toc-item"><a href="frontmatter.html" class="internal"><span class="title">Front Matter</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="colophon-1.html" class="internal"><span class="title">Colophon</span></a></div></li>
-<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Our goals</span></a></div></li>
+<li><div class="toc-item"><a href="preface-1.html" class="internal"><span class="title">Our goals -- Preface to David Austin’s original edition</span></a></div></li>
+<li><div class="toc-item"><a href="preface-2.html" class="internal"><span class="title">What’s different in the data science edition?</span></a></div></li>
 </ul>
 </li>
 <li>
@@ -339,9 +338,10 @@ eBookConfig.enable_chatcodes =  false;
 <li><div class="toc-item"><a href="sec-vectors.html#subsubsec-scalar-multiplication" class="internal"><span class="codenumber">1.1.2.1</span> <span class="title">Scalar Multiplication</span></a></div></li>
 <li><div class="toc-item"><a href="sec-vectors.html#subsubsec-vector-addition" class="internal"><span class="codenumber">1.1.2.2</span> <span class="title">Vector addition</span></a></div></li>
 <li><div class="toc-item"><a href="sec-vectors.html#subsubsec-vector-properties" class="internal"><span class="codenumber">1.1.2.3</span> <span class="title">Mathematical properties of vector operations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-vectors.html#subsubsection-4" class="internal"><span class="codenumber">1.1.2.4</span> <span class="title">Summary</span></a></div></li>
 </ul>
 </li>
+<li><div class="toc-item"><a href="sec-vectors.html#subsection-3" class="internal"><span class="codenumber">1.1.3</span> <span class="title">The (Euclidean) length of a vector</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors.html#subsection-4" class="internal"><span class="codenumber">1.1.4</span> <span class="title">Summary</span></a></div></li>
 </ul>
 </li>
 <li>
@@ -349,12 +349,14 @@ eBookConfig.enable_chatcodes =  false;
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-vectors-in-python.html#subsec-intro-to-python" class="internal"><span class="codenumber">1.2.1</span> <span class="title">Introduction to Python</span></a></div></li>
 <li><div class="toc-item"><a href="sec-vectors-in-python.html#subsec-numpy-vectors" class="internal"><span class="codenumber">1.2.2</span> <span class="title"><code class="code-inline tex2jax_ignore">numpy</code> vectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors-in-python.html#subsec-vector-length-numpy" class="internal"><span class="codenumber">1.2.3</span> <span class="title">Vector length</span></a></div></li>
+<li><div class="toc-item"><a href="sec-vectors-in-python.html#subsection-8" class="internal"><span class="codenumber">1.2.4</span> <span class="title">Plotting vectors</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-linear-combos-of-vectors.html" class="internal"><span class="codenumber">1.3</span> <span class="title">Linear combinations of vectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-linear-combos-of-vectors.html#subsection-5" class="internal"><span class="codenumber">1.3.1</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-combos-of-vectors.html#subsection-9" class="internal"><span class="codenumber">1.3.1</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-combos-of-vectors.html#exercises-1" class="internal"><span class="codenumber">1.3.2</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -362,13 +364,13 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-item"><a href="sec-matrices.html" class="internal"><span class="codenumber">1.4</span> <span class="title">Matrices</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-matrices.html#subsec-matrices-and-their-uses" class="internal"><span class="codenumber">1.4.1</span> <span class="title">Matrices and their uses</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrices.html#subsection-7" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Scalar multiplication and addition of matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrices.html#subsection-8" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Matrix-vector multiplication and linear combinations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrices.html#subsection-9" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Matrix-vector multiplication and linear systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-11" class="internal"><span class="codenumber">1.4.2</span> <span class="title">Scalar multiplication and addition of matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-12" class="internal"><span class="codenumber">1.4.3</span> <span class="title">Matrix-vector multiplication and linear combinations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-13" class="internal"><span class="codenumber">1.4.4</span> <span class="title">Matrix-vector multiplication and linear systems</span></a></div></li>
 <li><div class="toc-item"><a href="sec-matrices.html#sec-matrices-in-python" class="internal"><span class="codenumber">1.4.5</span> <span class="title">Matrices in Python</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrices.html#subsection-11" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Matrix-matrix products</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-15" class="internal"><span class="codenumber">1.4.6</span> <span class="title">Matrix-matrix products</span></a></div></li>
 <li><div class="toc-item"><a href="sec-matrices.html#subsec-special-matrices" class="internal"><span class="codenumber">1.4.7</span> <span class="title">Some special types of matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrices.html#subsection-13" class="internal"><span class="codenumber">1.4.8</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrices.html#subsection-17" class="internal"><span class="codenumber">1.4.8</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-matrices.html#exercises-2" class="internal"><span class="codenumber">1.4.9</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -389,30 +391,30 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-expect.html" class="internal"><span class="codenumber">2.1</span> <span class="title">What can we expect</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-expect.html#subsection-18" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Some simple examples</span></a></div></li>
-<li><div class="toc-item"><a href="sec-expect.html#subsection-19" class="internal"><span class="codenumber">2.1.2</span> <span class="title">Systems of linear equations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-expect.html#subsection-20" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-expect.html#subsection-22" class="internal"><span class="codenumber">2.1.1</span> <span class="title">Some simple examples</span></a></div></li>
+<li><div class="toc-item"><a href="sec-expect.html#subsection-23" class="internal"><span class="codenumber">2.1.2</span> <span class="title">Systems of linear equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-expect.html#subsection-24" class="internal"><span class="codenumber">2.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-expect.html#exercises-3" class="internal"><span class="codenumber">2.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-finding-solutions.html" class="internal"><span class="codenumber">2.2</span> <span class="title">Finding solutions to linear systems</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-21" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Gaussian elimination</span></a></div></li>
-<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-22" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Augmented matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-23" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Reduced row echelon form</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-25" class="internal"><span class="codenumber">2.2.1</span> <span class="title">Gaussian elimination</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-26" class="internal"><span class="codenumber">2.2.2</span> <span class="title">Augmented matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-27" class="internal"><span class="codenumber">2.2.3</span> <span class="title">Reduced row echelon form</span></a></div></li>
 <li><div class="toc-item"><a href="sec-finding-solutions.html#subsec-solving-matrix-equations" class="internal"><span class="codenumber">2.2.4</span> <span class="title">Solving matrix equations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-25" class="internal"><span class="codenumber">2.2.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-finding-solutions.html#subsection-29" class="internal"><span class="codenumber">2.2.5</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-finding-solutions.html#exercises-4" class="internal"><span class="codenumber">2.2.6</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-python-introduction.html" class="internal"><span class="codenumber">2.3</span> <span class="title">Computational Linear Algebra</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-26" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Reduced row echelon form in Python</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-30" class="internal"><span class="codenumber">2.3.1</span> <span class="title">Reduced row echelon form in Python</span></a></div></li>
 <li><div class="toc-item"><a href="sec-python-introduction.html#subsec-linalg-solve" class="internal"><span class="codenumber">2.3.2</span> <span class="title">np.linalg.solve()</span></a></div></li>
 <li><div class="toc-item"><a href="sec-python-introduction.html#subsec-compute-effort" class="internal"><span class="codenumber">2.3.3</span> <span class="title">Computational effort</span></a></div></li>
-<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-29" class="internal"><span class="codenumber">2.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-python-introduction.html#subsection-33" class="internal"><span class="codenumber">2.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-python-introduction.html#exercises-5" class="internal"><span class="codenumber">2.3.5</span> <span class="title">Exercises</span></a></div></li>
 <li><div class="toc-item"><a href="sec-python-introduction.html#exercises-6" class="internal"><span class="codenumber">2.3.6</span> <span class="title">Exercises</span></a></div></li>
 </ul>
@@ -420,9 +422,9 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-pivots.html" class="internal"><span class="codenumber">2.4</span> <span class="title">Pivots and their relationship to solution spaces</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pivots.html#subsection-30" class="internal"><span class="codenumber">2.4.1</span> <span class="title">The existence of solutions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pivots.html#subsection-31" class="internal"><span class="codenumber">2.4.2</span> <span class="title">The uniqueness of solutions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pivots.html#subsection-32" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-34" class="internal"><span class="codenumber">2.4.1</span> <span class="title">The existence of solutions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-35" class="internal"><span class="codenumber">2.4.2</span> <span class="title">The uniqueness of solutions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pivots.html#subsection-36" class="internal"><span class="codenumber">2.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pivots.html#exercises-7" class="internal"><span class="codenumber">2.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -434,38 +436,38 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-span.html" class="internal"><span class="codenumber">3.1</span> <span class="title">The span of a set of vectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-span.html#subsection-33" class="internal"><span class="codenumber">3.1.1</span> <span class="title">The span of a set of vectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-span.html#subsection-34" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Pivot positions and span</span></a></div></li>
-<li><div class="toc-item"><a href="sec-span.html#subsection-35" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-37" class="internal"><span class="codenumber">3.1.1</span> <span class="title">The span of a set of vectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-38" class="internal"><span class="codenumber">3.1.2</span> <span class="title">Pivot positions and span</span></a></div></li>
+<li><div class="toc-item"><a href="sec-span.html#subsection-39" class="internal"><span class="codenumber">3.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-span.html#exercises-8" class="internal"><span class="codenumber">3.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-linear-dep.html" class="internal"><span class="codenumber">3.2</span> <span class="title">Linear independence</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-36" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Linear dependence</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-37" class="internal"><span class="codenumber">3.2.2</span> <span class="title">How to recognize linear dependence</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-38" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Homogeneous equations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-39" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-40" class="internal"><span class="codenumber">3.2.1</span> <span class="title">Linear dependence</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-41" class="internal"><span class="codenumber">3.2.2</span> <span class="title">How to recognize linear dependence</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-42" class="internal"><span class="codenumber">3.2.3</span> <span class="title">Homogeneous equations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-dep.html#subsection-43" class="internal"><span class="codenumber">3.2.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-dep.html#exercises-9" class="internal"><span class="codenumber">3.2.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-linear-trans.html" class="internal"><span class="codenumber">3.3</span> <span class="title">Matrix transformations</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-40" class="internal"><span class="codenumber">3.3.1</span> <span class="title">Matrix transformations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-41" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Composing matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-44" class="internal"><span class="codenumber">3.3.1</span> <span class="title">Matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-45" class="internal"><span class="codenumber">3.3.2</span> <span class="title">Composing matrix transformations</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-trans.html#subsec-dynamical-systems" class="internal"><span class="codenumber">3.3.3</span> <span class="title">Discrete Dynamical Systems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-43" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-linear-trans.html#subsection-47" class="internal"><span class="codenumber">3.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-linear-trans.html#exercises-10" class="internal"><span class="codenumber">3.3.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-transforms-geom.html" class="internal"><span class="codenumber">3.4</span> <span class="title">The geometry of matrix transformations</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-44" class="internal"><span class="codenumber">3.4.1</span> <span class="title">The geometry of <span class="process-math">\(2\by2\)</span> matrix transformations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-45" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Matrix transformations and computer animation</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-46" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-48" class="internal"><span class="codenumber">3.4.1</span> <span class="title">The geometry of <span class="process-math">\(2\by2\)</span> matrix transformations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-49" class="internal"><span class="codenumber">3.4.2</span> <span class="title">Matrix transformations and computer animation</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transforms-geom.html#subsection-50" class="internal"><span class="codenumber">3.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-transforms-geom.html#exercises-11" class="internal"><span class="codenumber">3.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -477,9 +479,9 @@ eBookConfig.enable_chatcodes =  false;
 <li class="active">
 <div class="toc-item"><a href="sec-matrix-inverse.html" class="internal"><span class="codenumber">4.1</span> <span class="title">Invertibility</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-47" class="internal"><span class="codenumber">4.1.1</span> <span class="title">Invertible matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-48" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Solving equations with an inverse</span></a></div></li>
-<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-49" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-51" class="internal"><span class="codenumber">4.1.1</span> <span class="title">Invertible matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-52" class="internal"><span class="codenumber">4.1.2</span> <span class="title">Solving equations with an inverse</span></a></div></li>
+<li><div class="toc-item"><a href="sec-matrix-inverse.html#subsection-53" class="internal"><span class="codenumber">4.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-matrix-inverse.html#exercises-12" class="internal"><span class="codenumber">4.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -488,46 +490,46 @@ eBookConfig.enable_chatcodes =  false;
 <ul class="structural">
 <li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsec-triangular-matrices" class="internal"><span class="codenumber">4.2.1</span> <span class="title">Triangular matrices</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsec-elementary-matrices" class="internal"><span class="codenumber">4.2.2</span> <span class="title">Elementary matrices</span></a></div></li>
-<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsection-52" class="internal"><span class="codenumber">4.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-triangular-invertible.html#subsection-56" class="internal"><span class="codenumber">4.2.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-triangular-invertible.html#exercises-13" class="internal"><span class="codenumber">4.2.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-bases.html" class="internal"><span class="codenumber">4.3</span> <span class="title">Bases and coordinate systems</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-bases.html#subsection-53" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Bases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-bases.html#subsection-54" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Coordinate systems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-bases.html#subsection-55" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Examples of bases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-bases.html#subsection-56" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-57" class="internal"><span class="codenumber">4.3.1</span> <span class="title">Bases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-58" class="internal"><span class="codenumber">4.3.2</span> <span class="title">Coordinate systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-59" class="internal"><span class="codenumber">4.3.3</span> <span class="title">Examples of bases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-bases.html#subsection-60" class="internal"><span class="codenumber">4.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-bases.html#exercises-14" class="internal"><span class="codenumber">4.3.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-jpeg.html" class="internal"><span class="codenumber">4.4</span> <span class="title">Image compression</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-jpeg.html#subsection-57" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Color models</span></a></div></li>
-<li><div class="toc-item"><a href="sec-jpeg.html#subsection-58" class="internal"><span class="codenumber">4.4.2</span> <span class="title">The JPEG compression algorithm</span></a></div></li>
-<li><div class="toc-item"><a href="sec-jpeg.html#subsection-59" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-61" class="internal"><span class="codenumber">4.4.1</span> <span class="title">Color models</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-62" class="internal"><span class="codenumber">4.4.2</span> <span class="title">The JPEG compression algorithm</span></a></div></li>
+<li><div class="toc-item"><a href="sec-jpeg.html#subsection-63" class="internal"><span class="codenumber">4.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-jpeg.html#exercises-15" class="internal"><span class="codenumber">4.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-determinants.html" class="internal"><span class="codenumber">4.5</span> <span class="title">Determinants</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-60" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Determinants of <span class="process-math">\(2\by2\)</span> matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-61" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Determinants and invertibility</span></a></div></li>
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-62" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Cofactor expansions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-determinants.html#subsection-63" class="internal"><span class="codenumber">4.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-64" class="internal"><span class="codenumber">4.5.1</span> <span class="title">Determinants of <span class="process-math">\(2\by2\)</span> matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-65" class="internal"><span class="codenumber">4.5.2</span> <span class="title">Determinants and invertibility</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-66" class="internal"><span class="codenumber">4.5.3</span> <span class="title">Cofactor expansions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-determinants.html#subsection-67" class="internal"><span class="codenumber">4.5.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-determinants.html#exercises-16" class="internal"><span class="codenumber">4.5.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-subspaces.html" class="internal"><span class="codenumber">4.6</span> <span class="title">Subspaces</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-64" class="internal"><span class="codenumber">4.6.1</span> <span class="title">Subspaces</span></a></div></li>
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-65" class="internal"><span class="codenumber">4.6.2</span> <span class="title">The column space of <span class="process-math">\(A\)</span></span></a></div></li>
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-66" class="internal"><span class="codenumber">4.6.3</span> <span class="title">The null space of <span class="process-math">\(A\)</span></span></a></div></li>
-<li><div class="toc-item"><a href="sec-subspaces.html#subsection-67" class="internal"><span class="codenumber">4.6.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-68" class="internal"><span class="codenumber">4.6.1</span> <span class="title">Subspaces</span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-69" class="internal"><span class="codenumber">4.6.2</span> <span class="title">The column space of <span class="process-math">\(A\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-70" class="internal"><span class="codenumber">4.6.3</span> <span class="title">The null space of <span class="process-math">\(A\)</span></span></a></div></li>
+<li><div class="toc-item"><a href="sec-subspaces.html#subsection-71" class="internal"><span class="codenumber">4.6.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-subspaces.html#exercises-17" class="internal"><span class="codenumber">4.6.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -535,8 +537,8 @@ eBookConfig.enable_chatcodes =  false;
 <div class="toc-item"><a href="sec-gaussian-revisited.html" class="internal"><span class="codenumber">4.7</span> <span class="title">Partial pivoting and LU factorizations</span></a></div>
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsec-partial-pivot" class="internal"><span class="codenumber">4.7.1</span> <span class="title">Partial pivoting</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-69" class="internal"><span class="codenumber">4.7.2</span> <span class="title"><span class="process-math">\(LU\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-70" class="internal"><span class="codenumber">4.7.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-73" class="internal"><span class="codenumber">4.7.2</span> <span class="title"><span class="process-math">\(LU\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gaussian-revisited.html#subsection-74" class="internal"><span class="codenumber">4.7.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-gaussian-revisited.html#exercises-18" class="internal"><span class="codenumber">4.7.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -548,59 +550,59 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-eigen-intro.html" class="internal"><span class="codenumber">5.1</span> <span class="title">An introduction to eigenvalues and eigenvectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-71" class="internal"><span class="codenumber">5.1.1</span> <span class="title">A few examples</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-75" class="internal"><span class="codenumber">5.1.1</span> <span class="title">A few examples</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-intro.html#subsec-eigen-use" class="internal"><span class="codenumber">5.1.2</span> <span class="title">The usefulness of eigenvalues and eigenvectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-73" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-intro.html#subsection-77" class="internal"><span class="codenumber">5.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-intro.html#exercises-19" class="internal"><span class="codenumber">5.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-eigen-find.html" class="internal"><span class="codenumber">5.2</span> <span class="title">Finding eigenvalues and eigenvectors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-74" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The characteristic polynomial</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-75" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Finding eigenvectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-76" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The characteristic polynomial and the dimension of eigenspaces</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-77" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Using Python to find eigenvalues and eigenvectors</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-78" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-78" class="internal"><span class="codenumber">5.2.1</span> <span class="title">The characteristic polynomial</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-79" class="internal"><span class="codenumber">5.2.2</span> <span class="title">Finding eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-80" class="internal"><span class="codenumber">5.2.3</span> <span class="title">The characteristic polynomial and the dimension of eigenspaces</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-81" class="internal"><span class="codenumber">5.2.4</span> <span class="title">Using Python to find eigenvalues and eigenvectors</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-find.html#subsection-82" class="internal"><span class="codenumber">5.2.5</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-find.html#exercises-20" class="internal"><span class="codenumber">5.2.6</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-eigen-diag.html" class="internal"><span class="codenumber">5.3</span> <span class="title">Diagonalization, similarity, and powers of a matrix</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-79" class="internal"><span class="codenumber">5.3.1</span> <span class="title">Diagonalization of matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-80" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Powers of a diagonalizable matrix</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-81" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Similarity and complex eigenvalues</span></a></div></li>
-<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-82" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-83" class="internal"><span class="codenumber">5.3.1</span> <span class="title">Diagonalization of matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-84" class="internal"><span class="codenumber">5.3.2</span> <span class="title">Powers of a diagonalizable matrix</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-85" class="internal"><span class="codenumber">5.3.3</span> <span class="title">Similarity and complex eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="sec-eigen-diag.html#subsection-86" class="internal"><span class="codenumber">5.3.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-eigen-diag.html#exercises-21" class="internal"><span class="codenumber">5.3.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-dynamical.html" class="internal"><span class="codenumber">5.4</span> <span class="title">Dynamical systems</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-83" class="internal"><span class="codenumber">5.4.1</span> <span class="title">A first example</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-84" class="internal"><span class="codenumber">5.4.2</span> <span class="title">Classifying dynamical systems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-85" class="internal"><span class="codenumber">5.4.3</span> <span class="title">A <span class="process-math">\(3\by3\)</span> system</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dynamical.html#subsection-86" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-87" class="internal"><span class="codenumber">5.4.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-88" class="internal"><span class="codenumber">5.4.2</span> <span class="title">Classifying dynamical systems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-89" class="internal"><span class="codenumber">5.4.3</span> <span class="title">A <span class="process-math">\(3\by3\)</span> system</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dynamical.html#subsection-90" class="internal"><span class="codenumber">5.4.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-dynamical.html#exercises-22" class="internal"><span class="codenumber">5.4.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-stochastic.html" class="internal"><span class="codenumber">5.5</span> <span class="title">Markov chains and Google’s PageRank algorithm</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-stochastic.html#subsection-87" class="internal"><span class="codenumber">5.5.1</span> <span class="title">A first example</span></a></div></li>
-<li><div class="toc-item"><a href="sec-stochastic.html#subsection-88" class="internal"><span class="codenumber">5.5.2</span> <span class="title">Markov chains</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-91" class="internal"><span class="codenumber">5.5.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-92" class="internal"><span class="codenumber">5.5.2</span> <span class="title">Markov chains</span></a></div></li>
 <li><div class="toc-item"><a href="sec-stochastic.html#subsec-google" class="internal"><span class="codenumber">5.5.3</span> <span class="title">Google’s PageRank algorithm</span></a></div></li>
-<li><div class="toc-item"><a href="sec-stochastic.html#subsection-90" class="internal"><span class="codenumber">5.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-stochastic.html#subsection-94" class="internal"><span class="codenumber">5.5.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-stochastic.html#exercises-23" class="internal"><span class="codenumber">5.5.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-power-method.html" class="internal"><span class="codenumber">5.6</span> <span class="title">Finding eigenvectors numerically</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-power-method.html#subsection-91" class="internal"><span class="codenumber">5.6.1</span> <span class="title">The power method</span></a></div></li>
-<li><div class="toc-item"><a href="sec-power-method.html#subsection-92" class="internal"><span class="codenumber">5.6.2</span> <span class="title">Finding other eigenvalues</span></a></div></li>
-<li><div class="toc-item"><a href="sec-power-method.html#subsection-93" class="internal"><span class="codenumber">5.6.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-95" class="internal"><span class="codenumber">5.6.1</span> <span class="title">The power method</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-96" class="internal"><span class="codenumber">5.6.2</span> <span class="title">Finding other eigenvalues</span></a></div></li>
+<li><div class="toc-item"><a href="sec-power-method.html#subsection-97" class="internal"><span class="codenumber">5.6.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-power-method.html#exercises-24" class="internal"><span class="codenumber">5.6.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -614,49 +616,49 @@ eBookConfig.enable_chatcodes =  false;
 <ul class="structural">
 <li><div class="toc-item"><a href="sec-dot-product.html#sec-projections-and-dot-products" class="internal"><span class="codenumber">6.1.1</span> <span class="title">Projections and dot products</span></a></div></li>
 <li><div class="toc-item"><a href="sec-dot-product.html#subsec-computing-dot-products" class="internal"><span class="codenumber">6.1.2</span> <span class="title">Computing dot products</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dot-product.html#subsection-96" class="internal"><span class="codenumber">6.1.3</span> <span class="title"><span class="process-math">\(k\)</span>-means clustering</span></a></div></li>
-<li><div class="toc-item"><a href="sec-dot-product.html#subsection-97" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-100" class="internal"><span class="codenumber">6.1.3</span> <span class="title"><span class="process-math">\(k\)</span>-means clustering</span></a></div></li>
+<li><div class="toc-item"><a href="sec-dot-product.html#subsection-101" class="internal"><span class="codenumber">6.1.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-dot-product.html#exercises-25" class="internal"><span class="codenumber">6.1.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-transpose.html" class="internal"><span class="codenumber">6.2</span> <span class="title">Orthogonal complements and the matrix transpose</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-98" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Orthogonal complements</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-99" class="internal"><span class="codenumber">6.2.2</span> <span class="title">The matrix transpose</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-100" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Properties of the matrix transpose</span></a></div></li>
-<li><div class="toc-item"><a href="sec-transpose.html#subsection-101" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-102" class="internal"><span class="codenumber">6.2.1</span> <span class="title">Orthogonal complements</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-103" class="internal"><span class="codenumber">6.2.2</span> <span class="title">The matrix transpose</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-104" class="internal"><span class="codenumber">6.2.3</span> <span class="title">Properties of the matrix transpose</span></a></div></li>
+<li><div class="toc-item"><a href="sec-transpose.html#subsection-105" class="internal"><span class="codenumber">6.2.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-transpose.html#exercises-26" class="internal"><span class="codenumber">6.2.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-orthogonal-bases.html" class="internal"><span class="codenumber">6.3</span> <span class="title">Orthogonal bases and projections</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-102" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Orthogonal sets</span></a></div></li>
-<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-103" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Orthogonal projections</span></a></div></li>
-<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-104" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-106" class="internal"><span class="codenumber">6.3.1</span> <span class="title">Orthogonal sets</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-107" class="internal"><span class="codenumber">6.3.2</span> <span class="title">Orthogonal projections</span></a></div></li>
+<li><div class="toc-item"><a href="sec-orthogonal-bases.html#subsection-108" class="internal"><span class="codenumber">6.3.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-orthogonal-bases.html#exercises-27" class="internal"><span class="codenumber">6.3.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-gram-schmidt.html" class="internal"><span class="codenumber">6.4</span> <span class="title">Finding orthogonal bases</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-105" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Gram-Schmidt orthogonalization</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-106" class="internal"><span class="codenumber">6.4.2</span> <span class="title"><span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-107" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-109" class="internal"><span class="codenumber">6.4.1</span> <span class="title">Gram-Schmidt orthogonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-110" class="internal"><span class="codenumber">6.4.2</span> <span class="title"><span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-gram-schmidt.html#subsection-111" class="internal"><span class="codenumber">6.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-gram-schmidt.html#exercises-28" class="internal"><span class="codenumber">6.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-least-squares.html" class="internal"><span class="codenumber">6.5</span> <span class="title">Least squares methods</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-108" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.1</span> <span class="title">A first example</span></a></div></li>
 <li><div class="toc-item"><a href="sec-least-squares.html#subsec-linear-model-framework" class="internal"><span class="codenumber">6.5.2</span> <span class="title">The linear model framework</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-110" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Solving least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-111" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-112" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Polynomial Regression</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-114" class="internal"><span class="codenumber">6.5.3</span> <span class="title">Solving least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-115" class="internal"><span class="codenumber">6.5.4</span> <span class="title">Using <span class="process-math">\(QR\)</span> factorizations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-116" class="internal"><span class="codenumber">6.5.5</span> <span class="title">Polynomial Regression</span></a></div></li>
 <li><div class="toc-item"><a href="sec-least-squares.html#subsec-skl-lm" class="internal"><span class="codenumber">6.5.6</span> <span class="title">Fitting linear models with standard tools</span></a></div></li>
-<li><div class="toc-item"><a href="sec-least-squares.html#subsection-114" class="internal"><span class="codenumber">6.5.7</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-least-squares.html#subsection-118" class="internal"><span class="codenumber">6.5.7</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-least-squares.html#exercises-29" class="internal"><span class="codenumber">6.5.8</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -668,49 +670,49 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-115" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-116" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-117" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-119" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-120" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-121" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-symmetric-matrices.html#exercises-30" class="internal"><span class="codenumber">7.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Quadratic forms</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-118" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-119" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-120" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-122" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-123" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-124" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-quadratic-forms.html#exercises-31" class="internal"><span class="codenumber">7.2.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Principal Component Analysis</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pca.html#subsection-121" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-122" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-123" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-125" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-126" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-127" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#exercises-32" class="internal"><span class="codenumber">7.3.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-124" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-125" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-126" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-127" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-128" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-129" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-130" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-131" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-intro.html#exercises-33" class="internal"><span class="codenumber">7.4.5</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
 <div class="toc-item"><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Using Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-128" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-129" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-130" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-131" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-132" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-133" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-132" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-133" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-134" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-135" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-136" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-137" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-svd-uses.html#exercises-34" class="internal"><span class="codenumber">7.5.7</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
@@ -723,9 +725,9 @@ eBookConfig.enable_chatcodes =  false;
 <li>
 <div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="subsection-134.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
-<li><div class="toc-item"><a href="subsection-135.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
-<li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Freuqently used Python commands</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-138.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-139.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Frequently used Python commands</span></a></div></li>
 </ul>
 </li>
 <li><div class="toc-item"><a href="index-1.html" class="internal"><span class="title">Index</span></a></div></li>
@@ -734,27 +736,27 @@ eBookConfig.enable_chatcodes =  false;
 </li>
 </ul></nav></div>
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-matrix-inverse"><h2 class="heading hide-type">
-<span class="type">Section</span> <span class="codenumber">4.1</span> <span class="title">Invertibility</span>
+<span class="type">Section</span><span class="space"> </span><span class="codenumber">4.1</span><span class="space"> </span><span class="title">Invertibility</span>
 </h2>
-<section class="introduction" id="introduction-17"><div class="para" id="p-2394">Up to this point, we have used the Gaussian elimination algorithm to find solutions to linear systems, which is equivalent to solving matrix equations of the form <span class="process-math">\(A \xvec = \bvec\text{,}\)</span> where <span class="process-math">\(\bvec\)</span> is a vector of constants, <span class="process-math">\(A\)</span> a matrix of coefficients, and <span class="process-math">\(x\)</span> a vector of variables, or unknowns. We now investigate another way to find solutions to the equation <span class="process-math">\(A\xvec=\bvec\)</span> when the matrix <span class="process-math">\(A\)</span> is square. To get started, let’s look at some familiar examples.</div> <article class="exploration project-like" id="exploration-9"><h3 class="heading">
+<section class="introduction" id="introduction-17"><div class="para" id="p-2422">Up to this point, we have used the Gaussian elimination algorithm to find solutions to linear systems, which is equivalent to solving matrix equations of the form <span class="process-math">\(A \xvec = \bvec\text{,}\)</span> where <span class="process-math">\(\bvec\)</span> is a vector of constants, <span class="process-math">\(A\)</span> a matrix of coefficients, and <span class="process-math">\(x\)</span> a vector of variables, or unknowns. We now investigate another way to find solutions to the equation <span class="process-math">\(A\xvec=\bvec\)</span> when the matrix <span class="process-math">\(A\)</span> is square. To get started, let’s look at some familiar examples.</div> <article class="exploration project-like" id="exploration-9"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">4.1.1</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-2395"><ol class="lower-alpha">
-<li id="li-1598"><div class="para" id="p-2396">Explain how you would solve the equation <span class="process-math">\(3x =
+<div class="para logical" id="p-2423"><ol class="lower-alpha">
+<li id="li-1604"><div class="para" id="p-2424">Explain how you would solve the equation <span class="process-math">\(3x =
 5\)</span> using multiplication rather than division.</div></li>
-<li id="li-1599"><div class="para" id="p-2397">Find the <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(A\)</span> that rotates vectors counterclockwise by <span class="process-math">\(90^\circ\text{.}\)</span> </div></li>
-<li id="li-1600"><div class="para" id="p-2398">Find the <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(B\)</span> that rotates vectors <em class="emphasis">clockwise</em> by <span class="process-math">\(90^\circ\text{.}\)</span>
+<li id="li-1605"><div class="para" id="p-2425">Find the <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(A\)</span> that rotates vectors counterclockwise by <span class="process-math">\(90^\circ\text{.}\)</span> </div></li>
+<li id="li-1606"><div class="para" id="p-2426">Find the <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(B\)</span> that rotates vectors <em class="emphasis">clockwise</em> by <span class="process-math">\(90^\circ\text{.}\)</span>
 </div></li>
-<li id="li-1601"><div class="para" id="p-2399">What do you expect the product <span class="process-math">\(AB\)</span> to be? Explain the reasoning behind your expectation and then compute <span class="process-math">\(AB\)</span> to verify it.</div></li>
-<li id="li-1602"><div class="para" id="p-2400">Solve the equation <span class="process-math">\(A\xvec = \twovec{3}{-2}\)</span> using Gaussian elimination. <pre class="ptx-sagecell sagecell-python" id="sage-89"><script type="text/x-sage">
+<li id="li-1607"><div class="para" id="p-2427">What do you expect the product <span class="process-math">\(AB\)</span> to be? Explain the reasoning behind your expectation and then compute <span class="process-math">\(AB\)</span> to verify it.</div></li>
+<li id="li-1608"><div class="para" id="p-2428">Solve the equation <span class="process-math">\(A\xvec = \twovec{3}{-2}\)</span> using Gaussian elimination. <pre class="ptx-sagecell sagecell-python" id="sage-103"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-1603"><div class="para" id="p-2401">Explain why your solution may also be found by computing <span class="process-math">\(\xvec = B\twovec{3}{-2}\text{.}\)</span>
+<li id="li-1609"><div class="para" id="p-2429">Explain why your solution may also be found by computing <span class="process-math">\(\xvec = B\twovec{3}{-2}\text{.}\)</span>
 </div></li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-118" id="solution-118"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-118"><div class="solution solution-like"><div class="para logical" id="p-2402"><ol class="lower-alpha">
-<li id="li-1604"><div class="para logical" id="p-2403">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-118" id="solution-118"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-118"><div class="solution solution-like"><div class="para logical" id="p-2430"><ol class="lower-alpha">
+<li id="li-1610"><div class="para logical" id="p-2431">
 <div class="para">Dividing by <span class="process-math">\(3\)</span> is the same as multiplying by <span class="process-math">\(\frac13\text{,}\)</span> the multiplicative inverse <span class="process-math">\(\frac13\)</span> of <span class="process-math">\(3\text{.}\)</span>  We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -767,18 +769,18 @@ x \amp = \dfrac53\text{.} \\
 \end{equation*}
 </div>
 </div></li>
-<li id="li-1605"><div class="para" id="p-2404">As we have seen a few times, the matrix is <span class="process-math">\(A=\left[\begin{array}{rr}
+<li id="li-1611"><div class="para" id="p-2432">As we have seen a few times, the matrix is <span class="process-math">\(A=\left[\begin{array}{rr}
 0 \amp -1 \\
 1 \amp 0 \\
 \end{array}\right]\text{.}\)</span>
 </div></li>
-<li id="li-1606"><div class="para" id="p-2405">Here, the matrix is <span class="process-math">\(B=\left[\begin{array}{rr}
+<li id="li-1612"><div class="para" id="p-2433">Here, the matrix is <span class="process-math">\(B=\left[\begin{array}{rr}
 0 \amp 1 \\
 -1 \amp 0 \\
 \end{array}\right]\text{.}\)</span>
 </div></li>
-<li id="li-1607"><div class="para" id="p-2406">We should expect that <span class="process-math">\(AB=I\)</span> since the effect of rotating by <span class="process-math">\(90^\circ\)</span> clockwise followed by rotating <span class="process-math">\(90^\circ\)</span> counterclockwise is to leave a vector unchanged.  We can verify this by performing the matrix multiplication.</div></li>
-<li id="li-1608"><div class="para logical" id="p-2407">
+<li id="li-1613"><div class="para" id="p-2434">We should expect that <span class="process-math">\(AB=I\)</span> since the effect of rotating by <span class="process-math">\(90^\circ\)</span> clockwise followed by rotating <span class="process-math">\(90^\circ\)</span> counterclockwise is to leave a vector unchanged.  We can verify this by performing the matrix multiplication.</div></li>
+<li id="li-1614"><div class="para logical" id="p-2435">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -796,7 +798,7 @@ x \amp = \dfrac53\text{.} \\
 <div class="para">so the solution is <span class="process-math">\(\xvec=\twovec{-2}{-3}\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-1609"><div class="para logical" id="p-2408">
+<li id="li-1615"><div class="para logical" id="p-2436">
 <div class="para">The equation <span class="process-math">\(A\xvec=\twovec{3}{-2}\)</span> is asking us to find the vector that becomes <span class="process-math">\(\twovec{3}{-2}\)</span> after being rotated by <span class="process-math">\(90^\circ\text{.}\)</span>  If we rotate <span class="process-math">\(\twovec{3}{-2}\)</span> by <span class="process-math">\(90^\circ\)</span> in the opposite direction, it will have this property.  That is, if <span class="process-math">\(\xvec = B\twovec{-2}{-3}\text{,}\)</span> then</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -808,20 +810,20 @@ A\xvec = A(B\xvec)
 </div>
 </div></li>
 </ol></div></div></div>
-</div></article></section><section class="subsection" id="subsection-47"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">4.1.1</span> <span class="title">Invertible matrices</span>
+</div></article></section><section class="subsection" id="subsection-51"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.1.1</span><span class="space"> </span><span class="title">Invertible matrices</span>
 </h3>
-<div class="para" id="p-2409">The preview activity began with a familiar type of equation, <span class="process-math">\(3x = 5\text{,}\)</span> and asked for a strategy to solve it. One possible response is to divide both sides by 3. Instead, let’s rephrase this as multiplying by <span class="process-math">\(3^{-1} = \frac
+<div class="para" id="p-2437">The preview activity began with a familiar type of equation, <span class="process-math">\(3x = 5\text{,}\)</span> and asked for a strategy to solve it. One possible response is to divide both sides by 3. Instead, let’s rephrase this as multiplying by <span class="process-math">\(3^{-1} = \frac
 13\text{,}\)</span> the multiplicative inverse of 3.</div>
-<div class="para" id="p-2410">Now that we are interested in solving equations of the form <span class="process-math">\(A\xvec = \bvec\text{,}\)</span> we might try to find a similar approach. Is there a matrix <span class="process-math">\(A^{-1}\)</span> that plays the role of the multiplicative inverse of <span class="process-math">\(A\text{?}\)</span>  Of course, the real number <span class="process-math">\(0\)</span> does not have a multiplicative inverse so we probably shouldn’t expect every matrix to have a multiplicative inverse. We will see, however, that many do.</div>
-<article class="definition definition-like" id="definition-12"><h4 class="heading">
+<div class="para" id="p-2438">Now that we are interested in solving equations of the form <span class="process-math">\(A\xvec = \bvec\text{,}\)</span> we might try to find a similar approach. Is there a matrix <span class="process-math">\(A^{-1}\)</span> that plays the role of the multiplicative inverse of <span class="process-math">\(A\text{?}\)</span>  Of course, the real number <span class="process-math">\(0\)</span> does not have a multiplicative inverse so we probably shouldn’t expect every matrix to have a multiplicative inverse. We will see, however, that many do.</div>
+<article class="definition definition-like" id="definition-13"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">4.1.1</span><span class="period">.</span>
-</h4> <div class="para" id="p-2411">An <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is called <dfn class="terminology">invertible</dfn> if there is a matrix <span class="process-math">\(B\)</span> such that <span class="process-math">\(AB = I_n\text{,}\)</span> where <span class="process-math">\(I_n\)</span> is the <span class="process-math">\(n\by n\)</span> identity matrix.  The matrix <span class="process-math">\(B\)</span> is called the <dfn class="terminology">inverse</dfn> of <span class="process-math">\(A\)</span> and denoted <span class="process-math">\(A^{-1}\text{.}\)</span>
-</div></article><div class="para" id="p-2412"> Notice that we only define invertibility for matrices that have the same number of rows and columns in which case we say that the matrix is <em class="emphasis">square</em>.</div>
-<article class="example example-like" id="example-20"><h4 class="heading">
+</h4> <div class="para" id="p-2439">An <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is called <dfn class="terminology">invertible</dfn> if there is a matrix <span class="process-math">\(B\)</span> such that <span class="process-math">\(AB = I_n\text{,}\)</span> where <span class="process-math">\(I_n\)</span> is the <span class="process-math">\(n\by n\)</span> identity matrix.  The matrix <span class="process-math">\(B\)</span> is called the <dfn class="terminology">inverse</dfn> of <span class="process-math">\(A\)</span> and denoted <span class="process-math">\(A^{-1}\text{.}\)</span>
+</div></article><div class="para" id="p-2440"> Notice that we only define invertibility for matrices that have the same number of rows and columns in which case we say that the matrix is <em class="emphasis">square</em>.</div>
+<article class="example example-like" id="example-23"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">4.1.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-2413">
+<div class="para logical" id="p-2441">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> is the matrix that rotates two-dimensional vectors counterclockwise by <span class="process-math">\(90^\circ\)</span> and that <span class="process-math">\(B\)</span> rotates vectors by <span class="process-math">\(-90^\circ\text{.}\)</span>  We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -855,14 +857,14 @@ AB = \begin{bmatrix}
 </div>
 <div class="para">which shows that <span class="process-math">\(A\)</span> is invertible and that <span class="process-math">\(A^{-1}=B\text{.}\)</span>
 </div>
-</div> <div class="para" id="p-2414">Notice that if we multiply the matrices in the opposite order, we find that <span class="process-math">\(BA=I\text{,}\)</span> which says that <span class="process-math">\(B\)</span> is also invertible and that <span class="process-math">\(B^{-1} = A\text{.}\)</span>  In other words, <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are inverses of each other.</div></article><article class="activity project-like" id="activity-27"><h4 class="heading">
+</div> <div class="para" id="p-2442">Notice that if we multiply the matrices in the opposite order, we find that <span class="process-math">\(BA=I\text{,}\)</span> which says that <span class="process-math">\(B\)</span> is also invertible and that <span class="process-math">\(B^{-1} = A\text{.}\)</span>  In other words, <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are inverses of each other.</div></article><article class="activity project-like" id="activity-27"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.1.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-2415">
+<div class="para logical" id="p-2443">
 <div class="para">This activity demonstrates a procedure for finding the inverse of a matrix <span class="process-math">\(A\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-1610"><div class="para logical" id="p-2416">
+<li id="li-1616"><div class="para logical" id="p-2444">
 <div class="para">Suppose that <span class="process-math">\(A = \begin{bmatrix}
 3 \amp -2 \\
 1 \amp -1 \\
@@ -891,20 +893,20 @@ A\bvec_1 = \twovec10,~~~
 A\bvec_2 = \twovec01.
 \end{equation*}
 </div>
-<div class="para">Solve these equations to find <span class="process-math">\(\bvec_1\)</span> and <span class="process-math">\(\bvec_2\text{.}\)</span>  Then write the matrix <span class="process-math">\(B\)</span> and verify that <span class="process-math">\(AB=I\text{.}\)</span>  This is enough for us to conclude that <span class="process-math">\(B\)</span> is the inverse of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-90"><script type="text/x-sage">
+<div class="para">Solve these equations to find <span class="process-math">\(\bvec_1\)</span> and <span class="process-math">\(\bvec_2\text{.}\)</span>  Then write the matrix <span class="process-math">\(B\)</span> and verify that <span class="process-math">\(AB=I\text{.}\)</span>  This is enough for us to conclude that <span class="process-math">\(B\)</span> is the inverse of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-104"><script type="text/x-sage">
 </script></pre>
 </div>
 </div></li>
-<li id="li-1611"><div class="para" id="p-2417">Find the product <span class="process-math">\(BA\)</span> and explain why we now know that <span class="process-math">\(B\)</span> is invertible and <span class="process-math">\(B^{-1}=A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-91"><script type="text/x-sage">
+<li id="li-1617"><div class="para" id="p-2445">Find the product <span class="process-math">\(BA\)</span> and explain why we now know that <span class="process-math">\(B\)</span> is invertible and <span class="process-math">\(B^{-1}=A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-105"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-1612"><div class="para" id="p-2418">What happens when you try to find the inverse of <span class="process-math">\(C = \begin{bmatrix}
+<li id="li-1618"><div class="para" id="p-2446">What happens when you try to find the inverse of <span class="process-math">\(C = \begin{bmatrix}
 -2 \amp 1 \\
 4 \amp -2 \\
 \end{bmatrix}\text{?}\)</span>
 </div></li>
-<li id="li-1613">
-<div class="para logical" id="p-2419">
+<li id="li-1619">
+<div class="para logical" id="p-2447">
 <div class="para">We now develop a condition that must be satisfied by an invertible matrix. Suppose that <span class="process-math">\(A\)</span> is an invertible <span class="process-math">\(n\by n\)</span> matrix with inverse <span class="process-math">\(B\)</span> and suppose that <span class="process-math">\(\bvec\)</span> is any <span class="process-math">\(n\)</span>-dimensional vector. Since <span class="process-math">\(AB=I\text{,}\)</span> we have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -913,12 +915,12 @@ A(B\bvec) = (AB)\bvec = I\bvec = \bvec.
 </div>
 <div class="para">This says that the equation <span class="process-math">\(A\xvec = \bvec\)</span> is consistent and that <span class="process-math">\(\xvec=B\bvec\)</span> is a solution.</div>
 </div>
-<div class="para" id="p-2420">Since we know that <span class="process-math">\(A\xvec = \bvec\)</span> is consistent for any vector <span class="process-math">\(\bvec\text{,}\)</span> what does this say about the span of the columns of <span class="process-math">\(A\text{?}\)</span>
+<div class="para" id="p-2448">Since we know that <span class="process-math">\(A\xvec = \bvec\)</span> is consistent for any vector <span class="process-math">\(\bvec\text{,}\)</span> what does this say about the span of the columns of <span class="process-math">\(A\text{?}\)</span>
 </div>
 </li>
-<li id="li-1614"><div class="para" id="p-2421">Since <span class="process-math">\(A\)</span> is a square matrix, what does this say about the pivot positions of <span class="process-math">\(A\text{?}\)</span> What is the reduced row echelon form of <span class="process-math">\(A\text{?}\)</span>
+<li id="li-1620"><div class="para" id="p-2449">Since <span class="process-math">\(A\)</span> is a square matrix, what does this say about the pivot positions of <span class="process-math">\(A\text{?}\)</span> What is the reduced row echelon form of <span class="process-math">\(A\text{?}\)</span>
 </div></li>
-<li id="li-1615"><div class="para logical" id="p-2422">
+<li id="li-1621"><div class="para logical" id="p-2450">
 <div class="para">In this activity, we have studied the matrices</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -937,19 +939,19 @@ C = \begin{bmatrix}
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-119" id="solution-119"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-119"><div class="solution solution-like"><div class="para logical" id="p-2423"><ol class="lower-alpha">
-<li id="li-1616"><div class="para" id="p-2424">Solving the two equations for <span class="process-math">\(\bvec_1\)</span> and <span class="process-math">\(\bvec_2\)</span> gives <span class="process-math">\(B = \begin{bmatrix}
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-119" id="solution-119"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-119"><div class="solution solution-like"><div class="para logical" id="p-2451"><ol class="lower-alpha">
+<li id="li-1622"><div class="para" id="p-2452">Solving the two equations for <span class="process-math">\(\bvec_1\)</span> and <span class="process-math">\(\bvec_2\)</span> gives <span class="process-math">\(B = \begin{bmatrix}
 1 \amp -2 \\
 1 \amp -3 \\
 \end{bmatrix}\text{.}\)</span>  We can verify that, as we expect, <span class="process-math">\(AB=I\text{.}\)</span>
 </div></li>
-<li id="li-1617"><div class="para" id="p-2425">We find that <span class="process-math">\(BA=I\text{,}\)</span> which is the condition that tells us that <span class="process-math">\(B\)</span> is invertible.</div></li>
-<li id="li-1618"><div class="para" id="p-2426">Seeking the first column of <span class="process-math">\(C^{-1}\text{,}\)</span> we see that the equation <span class="process-math">\(C\xvec = \twovec10\)</span> is not consistent. This means that <span class="process-math">\(C\)</span> is not invertible.</div></li>
-<li id="li-1619"><div class="para" id="p-2427">Since the equation <span class="process-math">\(A\xvec = \bvec\)</span> is consistent for every <span class="process-math">\(\bvec\text{,}\)</span> we know that the span of the columns of <span class="process-math">\(A\)</span> is <span class="process-math">\(\real^n\text{.}\)</span>
+<li id="li-1623"><div class="para" id="p-2453">We find that <span class="process-math">\(BA=I\text{,}\)</span> which is the condition that tells us that <span class="process-math">\(B\)</span> is invertible.</div></li>
+<li id="li-1624"><div class="para" id="p-2454">Seeking the first column of <span class="process-math">\(C^{-1}\text{,}\)</span> we see that the equation <span class="process-math">\(C\xvec = \twovec10\)</span> is not consistent. This means that <span class="process-math">\(C\)</span> is not invertible.</div></li>
+<li id="li-1625"><div class="para" id="p-2455">Since the equation <span class="process-math">\(A\xvec = \bvec\)</span> is consistent for every <span class="process-math">\(\bvec\text{,}\)</span> we know that the span of the columns of <span class="process-math">\(A\)</span> is <span class="process-math">\(\real^n\text{.}\)</span>
 </div></li>
-<li id="li-1620"><div class="para" id="p-2428">Because the span of the columns of <span class="process-math">\(A\)</span> is <span class="process-math">\(\real^n\text{,}\)</span> there is a pivot position in every row. Since <span class="process-math">\(A\)</span> is square, there is also a pivot position in every column.  This means that the reduced row echelon form of <span class="process-math">\(A\)</span> must be the identity matrix <span class="process-math">\(I_n\text{.}\)</span>
+<li id="li-1626"><div class="para" id="p-2456">Because the span of the columns of <span class="process-math">\(A\)</span> is <span class="process-math">\(\real^n\text{,}\)</span> there is a pivot position in every row. Since <span class="process-math">\(A\)</span> is square, there is also a pivot position in every column.  This means that the reduced row echelon form of <span class="process-math">\(A\)</span> must be the identity matrix <span class="process-math">\(I_n\text{.}\)</span>
 </div></li>
-<li id="li-1621"><div class="para logical" id="p-2429">
+<li id="li-1627"><div class="para logical" id="p-2457">
 <div class="para">We see that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -970,7 +972,7 @@ C\sim
 </div></article><article class="example example-like" id="example-inverse-augment-I"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">4.1.3</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-2430">
+<div class="para logical" id="p-2458">
 <div class="para">We can reformulate this procedure for finding the inverse of a matrix.  For the sake of convenience, suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> invertible matrix with inverse <span class="process-math">\(B=\begin{bmatrix} \bvec_1 \amp \bvec_2 \end{bmatrix}\text{.}\)</span> Rather than solving the equations</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -979,7 +981,7 @@ A\bvec_2 = \twovec01
 \end{equation*}
 </div>
 <div class="para">separately, we can solve them at the same time by augmenting <span class="process-math">\(A\)</span> by both vectors <span class="process-math">\(\twovec10\)</span> and <span class="process-math">\(\twovec01\)</span> and finding the reduced row echelon form.</div>
-</div> <div class="para logical" id="p-2431">
+</div> <div class="para logical" id="p-2459">
 <div class="para">For example, if <span class="process-math">\(A =
 \begin{bmatrix}
 1 \amp 2 \\
@@ -1008,7 +1010,7 @@ A\bvec_2 = \twovec01
 1 \amp 1 \\
 \end{bmatrix}\)</span> is the inverse of <span class="process-math">\(A\text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-2432">
+</div> <div class="para logical" id="p-2460">
 <div class="para">In other words, beginning with <span class="process-math">\(A\text{,}\)</span> we augment by the identify and find the reduced row echelon form to determine <span class="process-math">\(A^{-1}\text{:}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -1026,19 +1028,19 @@ I \amp A^{-1} \\
 \right].
 \end{equation*}
 </div>
-</div></article><div class="para" id="p-2433">In fact, this reformulation will always work.  Suppose that <span class="process-math">\(A\)</span> is an invertible <span class="process-math">\(n\by n\)</span> matrix with inverse <span class="process-math">\(B\text{.}\)</span>  Suppose furthermore that <span class="process-math">\(\bvec\)</span> is any <span class="process-math">\(n\)</span>-dimensional vector and consider the equation <span class="process-math">\(A\xvec = \bvec\text{.}\)</span>  We know that <span class="process-math">\(x=B\bvec\)</span> is a solution because <span class="process-math">\(A(B\bvec) = (AB)\bvec = I\bvec = \bvec.\)</span>
+</div></article><div class="para" id="p-2461">In fact, this reformulation will always work.  Suppose that <span class="process-math">\(A\)</span> is an invertible <span class="process-math">\(n\by n\)</span> matrix with inverse <span class="process-math">\(B\text{.}\)</span>  Suppose furthermore that <span class="process-math">\(\bvec\)</span> is any <span class="process-math">\(n\)</span>-dimensional vector and consider the equation <span class="process-math">\(A\xvec = \bvec\text{.}\)</span>  We know that <span class="process-math">\(x=B\bvec\)</span> is a solution because <span class="process-math">\(A(B\bvec) = (AB)\bvec = I\bvec = \bvec.\)</span>
 </div>
 <article class="proposition theorem-like" id="proposition-inverse-solve"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">4.1.4</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-2434">If <span class="process-math">\(A\)</span> is an invertible matrix with inverse <span class="process-math">\(B\text{,}\)</span> then any equation <span class="process-math">\(A\xvec = \bvec\)</span> is consistent and <span class="process-math">\(\xvec = B\bvec\)</span> is a solution.  In other words, the solution to <span class="process-math">\(A\xvec = \bvec\)</span> is <span class="process-math">\(\xvec =
+<div class="para" id="p-2462">If <span class="process-math">\(A\)</span> is an invertible matrix with inverse <span class="process-math">\(B\text{,}\)</span> then any equation <span class="process-math">\(A\xvec = \bvec\)</span> is consistent and <span class="process-math">\(\xvec = B\bvec\)</span> is a solution.  In other words, the solution to <span class="process-math">\(A\xvec = \bvec\)</span> is <span class="process-math">\(\xvec =
 A^{-1}\bvec\text{.}\)</span>
-</div></article><div class="para" id="p-2435">Notice that this is similar to saying that the solution to <span class="process-math">\(3x=5\)</span> is <span class="process-math">\(x = \frac13\cdot 5\text{,}\)</span> as we saw in the preview activity.</div>
-<div class="para" id="p-2436">Now since <span class="process-math">\(A\xvec=\bvec\)</span> is consistent for every vector <span class="process-math">\(\bvec\text{,}\)</span> the columns of <span class="process-math">\(A\)</span> must span <span class="process-math">\(\real^n\)</span> so there is a pivot position in every row.  Since <span class="process-math">\(A\)</span> is also square, this means that the reduced row echelon form of <span class="process-math">\(A\)</span> is the identity matrix.</div>
+</div></article><div class="para" id="p-2463">Notice that this is similar to saying that the solution to <span class="process-math">\(3x=5\)</span> is <span class="process-math">\(x = \frac13\cdot 5\text{,}\)</span> as we saw in the preview activity.</div>
+<div class="para" id="p-2464">Now since <span class="process-math">\(A\xvec=\bvec\)</span> is consistent for every vector <span class="process-math">\(\bvec\text{,}\)</span> the columns of <span class="process-math">\(A\)</span> must span <span class="process-math">\(\real^n\)</span> so there is a pivot position in every row.  Since <span class="process-math">\(A\)</span> is also square, this means that the reduced row echelon form of <span class="process-math">\(A\)</span> is the identity matrix.</div>
 <article class="proposition theorem-like" id="proposition-invertible-rref"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">4.1.5</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-2437">
+<div class="para logical" id="p-2465">
 <div class="para">The matrix <span class="process-math">\(A\)</span> is invertible if and only if the reduced row echelon form of <span class="process-math">\(A\)</span> is the identity matrix:  <span class="process-math">\(A\sim I\text{.}\)</span> In addition, we can find the inverse by augmenting <span class="process-math">\(A\)</span> by the identity and finding the reduced row echelon form:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1055,28 +1057,28 @@ I \amp A^{-1} \\
 \right].
 \end{equation*}
 </div>
-</div></article><div class="para" id="p-2438">You may have noticed that <a href="" class="xref" data-knowl="./knowl/proposition-inverse-solve.html" title="Proposition 4.1.4">Proposition 4.1.4</a> says that <em class="emphasis">the</em> solution to the equation <span class="process-math">\(A\xvec = \bvec\)</span> is <span class="process-math">\(\xvec =
+</div></article><div class="para" id="p-2466">You may have noticed that <a href="" class="xref" data-knowl="./knowl/proposition-inverse-solve.html" title="Proposition 4.1.4">Proposition 4.1.4</a> says that <em class="emphasis">the</em> solution to the equation <span class="process-math">\(A\xvec = \bvec\)</span> is <span class="process-math">\(\xvec =
 A^{-1}\bvec\text{.}\)</span>  Indeed, we know that this equation has a unique solution because <span class="process-math">\(A\)</span> has a pivot position in every column.</div>
-<div class="para" id="p-2439">It is important to remember that the product of two matrices depends on the order in which they are multiplied.  That is, if <span class="process-math">\(C\)</span> and <span class="process-math">\(D\)</span> are matrices, then it sometimes happens that <span class="process-math">\(CD \neq DC\text{.}\)</span>  However, something fortunate happens when we consider invertibility.  It turns that if <span class="process-math">\(A\)</span> is an <span class="process-math">\(n\by n\)</span> matrix and that <span class="process-math">\(AB=I\text{,}\)</span> then it is also true that <span class="process-math">\(BA=I\text{.}\)</span>  We have verified this in a few examples so far, and <a href="" class="xref" data-knowl="./knowl/ex-right-inverse.html" title="Exercise 4.1.4.10">Exercise 4.1.4.10</a> explains why it always happens.  This leads to the following proposition.</div>
+<div class="para" id="p-2467">It is important to remember that the product of two matrices depends on the order in which they are multiplied.  That is, if <span class="process-math">\(C\)</span> and <span class="process-math">\(D\)</span> are matrices, then it sometimes happens that <span class="process-math">\(CD \neq DC\text{.}\)</span>  However, something fortunate happens when we consider invertibility.  It turns that if <span class="process-math">\(A\)</span> is an <span class="process-math">\(n\by n\)</span> matrix and that <span class="process-math">\(AB=I\text{,}\)</span> then it is also true that <span class="process-math">\(BA=I\text{.}\)</span>  We have verified this in a few examples so far, and <a href="" class="xref" data-knowl="./knowl/ex-right-inverse.html" title="Exercise 4.1.4.10">Exercise 4.1.4.10</a> explains why it always happens.  This leads to the following proposition.</div>
 <article class="proposition theorem-like" id="proposition-inverse-inverse"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">4.1.6</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-2440">
+<div class="para logical" id="p-2468">
 <div class="para">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(n\by n\)</span> invertible matrix with inverse <span class="process-math">\(B\text{,}\)</span> then <span class="process-math">\(BA=I\text{,}\)</span> which tells us that <span class="process-math">\(B\)</span> is invertible with inverse <span class="process-math">\(A\text{.}\)</span>  In other words,</div>
 <div class="displaymath process-math">
 \begin{equation*}
 (A^{-1})^{-1} = A.
 \end{equation*}
 </div>
-</div></article></section><section class="subsection" id="subsection-48"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">4.1.2</span> <span class="title">Solving equations with an inverse</span>
+</div></article></section><section class="subsection" id="subsection-52"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.1.2</span><span class="space"> </span><span class="title">Solving equations with an inverse</span>
 </h3>
-<div class="para" id="p-2441">If <span class="process-math">\(A\)</span> is an invertible matrix, then <a href="" class="xref" data-knowl="./knowl/proposition-inverse-solve.html" title="Proposition 4.1.4">Proposition 4.1.4</a> shows us how to use <span class="process-math">\(A^{-1}\)</span> to solve equations involving <span class="process-math">\(A\text{.}\)</span>  In particular, the solution to <span class="process-math">\(A\xvec = \bvec\)</span> is <span class="process-math">\(\xvec = A^{-1}\bvec\text{.}\)</span>
+<div class="para" id="p-2469">If <span class="process-math">\(A\)</span> is an invertible matrix, then <a href="" class="xref" data-knowl="./knowl/proposition-inverse-solve.html" title="Proposition 4.1.4">Proposition 4.1.4</a> shows us how to use <span class="process-math">\(A^{-1}\)</span> to solve equations involving <span class="process-math">\(A\text{.}\)</span>  In particular, the solution to <span class="process-math">\(A\xvec = \bvec\)</span> is <span class="process-math">\(\xvec = A^{-1}\bvec\text{.}\)</span>
 </div>
 <article class="activity project-like" id="activity-28"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.1.3</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-2442">
+<div class="para logical" id="p-2470">
 <div class="para">We’ll begin by considering the square matrix</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/proposition-invertible-rref.html">
 \begin{equation*}
@@ -1088,14 +1090,14 @@ A = \begin{bmatrix}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-1622"><div class="para" id="p-2443">Describe the solution space to the equation <span class="process-math">\(A\xvec
-= \threevec343\)</span> by augmenting <span class="process-math">\(A\)</span> and finding the reduced row echelon form. <pre class="ptx-sagecell sagecell-python" id="sage-92"><script type="text/x-sage">
+<li id="li-1628"><div class="para" id="p-2471">Describe the solution space to the equation <span class="process-math">\(A\xvec
+= \threevec343\)</span> by augmenting <span class="process-math">\(A\)</span> and finding the reduced row echelon form. <pre class="ptx-sagecell sagecell-python" id="sage-106"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-1623"><div class="para" id="p-2444">Using <a href="" class="xref" data-knowl="./knowl/proposition-invertible-rref.html" title="Proposition 4.1.5">Proposition 4.1.5</a>, explain why <span class="process-math">\(A\)</span> is invertible and find its inverse.</div></li>
-<li id="li-1624"><div class="para" id="p-2445">Now use the inverse to solve the equation <span class="process-math">\(A\xvec =
+<li id="li-1629"><div class="para" id="p-2472">Using <a href="" class="xref" data-knowl="./knowl/proposition-invertible-rref.html" title="Proposition 4.1.5">Proposition 4.1.5</a>, explain why <span class="process-math">\(A\)</span> is invertible and find its inverse.</div></li>
+<li id="li-1630"><div class="para" id="p-2473">Now use the inverse to solve the equation <span class="process-math">\(A\xvec =
 \threevec343\)</span> and verify that your result agrees with what you found in part a.</div></li>
-<li id="li-1625"><div class="para logical" id="p-2446">
+<li id="li-1631"><div class="para logical" id="p-2474">
 <div class="para">If you have defined a matrix <code class="code-inline tex2jax_ignore">B</code> in Python, you can find it’s inverse as <code class="code-inline tex2jax_ignore">np.linalg.inv(B)</code>. Use Python to find the inverse of the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1107,14 +1109,14 @@ B = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 <div class="para">and use the inverse to solve the equation <span class="process-math">\(B\xvec =
-\threevec83{36}\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-93"><script type="text/x-sage">
+\threevec83{36}\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-107"><script type="text/x-sage">
 </script></pre>
 </div>
 </div></li>
-<li id="li-1626"><div class="para" id="p-2447">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are the two matrices defined in this activity, find their product <span class="process-math">\(AB\)</span> and verify that it is invertible.</div></li>
-<li id="li-1627"><div class="para" id="p-2448">Compute the products <span class="process-math">\(A^{-1}B^{-1}\)</span> and <span class="process-math">\(B^{-1}A^{-1}\text{.}\)</span>  Which one agrees with <span class="process-math">\((AB)^{-1}\text{?}\)</span>
+<li id="li-1632"><div class="para" id="p-2475">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are the two matrices defined in this activity, find their product <span class="process-math">\(AB\)</span> and verify that it is invertible.</div></li>
+<li id="li-1633"><div class="para" id="p-2476">Compute the products <span class="process-math">\(A^{-1}B^{-1}\)</span> and <span class="process-math">\(B^{-1}A^{-1}\text{.}\)</span>  Which one agrees with <span class="process-math">\((AB)^{-1}\text{?}\)</span>
 </div></li>
-<li id="li-1628"><div class="para logical" id="p-2449">
+<li id="li-1634"><div class="para logical" id="p-2477">
 <div class="para">Explain your finding by considering the product</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1126,8 +1128,8 @@ B = \left[\begin{array}{rrr}
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-120" id="solution-120"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-120"><div class="solution solution-like"><div class="para logical" id="p-2450"><ol class="lower-alpha">
-<li id="li-1629"><div class="para logical" id="p-2451">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-120" id="solution-120"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-120"><div class="solution solution-like"><div class="para logical" id="p-2478"><ol class="lower-alpha">
+<li id="li-1635"><div class="para logical" id="p-2479">
 <div class="para">Constructing the augmented matrix, we see that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1148,7 +1150,7 @@ B = \left[\begin{array}{rrr}
 \threevec{-1}22\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-1630"><div class="para logical" id="p-2452">
+<li id="li-1636"><div class="para logical" id="p-2480">
 <div class="para">Our work in part a shows that <span class="process-math">\(A\sim I\)</span> from which we conclude that <span class="process-math">\(A\)</span> is invertible.  To find the inverse,</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1176,15 +1178,15 @@ A^{-1} = \begin{bmatrix}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-1631"><div class="para" id="p-2453">We see that <span class="process-math">\(A^{-1}\threevec343 = \threevec{-1}22\text{.}\)</span>
+<li id="li-1637"><div class="para" id="p-2481">We see that <span class="process-math">\(A^{-1}\threevec343 = \threevec{-1}22\text{.}\)</span>
 </div></li>
-<li id="li-1632"><div class="para" id="p-2454">Python tells us that <span class="process-math">\(B^{-1}\threevec{8}3{36} =
+<li id="li-1638"><div class="para" id="p-2482">Python tells us that <span class="process-math">\(B^{-1}\threevec{8}3{36} =
 \threevec4{-1}2\text{.}\)</span>
 </div></li>
-<li id="li-1633"><div class="para" id="p-2455">Python helps us see that <span class="process-math">\((AB)\sim I\text{,}\)</span> which tells us that <span class="process-math">\(AB\)</span> is invertible.</div></li>
-<li id="li-1634"><div class="para" id="p-2456">We find that <span class="process-math">\((AB)^{-1} = B^{-1}A^{-1}\text{.}\)</span>
+<li id="li-1639"><div class="para" id="p-2483">Python helps us see that <span class="process-math">\((AB)\sim I\text{,}\)</span> which tells us that <span class="process-math">\(AB\)</span> is invertible.</div></li>
+<li id="li-1640"><div class="para" id="p-2484">We find that <span class="process-math">\((AB)^{-1} = B^{-1}A^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-1635"><div class="para logical" id="p-2457">
+<li id="li-1641"><div class="para logical" id="p-2485">
 <div class="para">We see that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1194,17 +1196,17 @@ AA^{-1} = I.
 </div>
 </div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-2458">The next proposition summarizes much of what we have found about invertible matrices.</div>
+</div></article><div class="para" id="p-2486">The next proposition summarizes much of what we have found about invertible matrices.</div>
 <article class="proposition theorem-like" id="proposition-invertible-properties"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">4.1.7</span><span class="period">.</span><span class="space"> </span><span class="title">Properties of invertible matrices.</span>
 </h4>
-<div class="para logical" id="p-2459"><ul class="disc">
-<li id="li-1636"><div class="para" id="p-2460">An <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is invertible if and only if <span class="process-math">\(A\sim I\text{.}\)</span>
+<div class="para logical" id="p-2487"><ul class="disc">
+<li id="li-1642"><div class="para" id="p-2488">An <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is invertible if and only if <span class="process-math">\(A\sim I\text{.}\)</span>
 </div></li>
-<li id="li-1637"><div class="para" id="p-2461">If <span class="process-math">\(A\)</span> is invertible, then the solution to the equation <span class="process-math">\(A\xvec = \bvec\)</span> is given by <span class="process-math">\(\xvec =
+<li id="li-1643"><div class="para" id="p-2489">If <span class="process-math">\(A\)</span> is invertible, then the solution to the equation <span class="process-math">\(A\xvec = \bvec\)</span> is given by <span class="process-math">\(\xvec =
 A^{-1}\bvec\text{.}\)</span>
 </div></li>
-<li id="li-1638"><div class="para logical" id="p-2462">
+<li id="li-1644"><div class="para logical" id="p-2490">
 <div class="para">We can find <span class="process-math">\(A^{-1}\)</span> by finding the reduced row echelon form of <span class="process-math">\(\left[\begin{array}{r|r} A \amp I
 \end{array}\right]\text{;}\)</span> namely,</div>
 <div class="displaymath process-math">
@@ -1215,12 +1217,12 @@ A^{-1}\bvec\text{.}\)</span>
 \end{equation*}
 </div>
 </div></li>
-<li id="li-1639"><div class="para" id="p-2463">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are two invertible <span class="process-math">\(n\by
+<li id="li-1645"><div class="para" id="p-2491">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are two invertible <span class="process-math">\(n\by
 n\)</span> matrices, then their product <span class="process-math">\(AB\)</span> is also invertible and <span class="process-math">\((AB)^{-1} = B^{-1}A^{-1}\text{.}\)</span>
 </div></li>
 </ul></div></article><article class="remark remark-like" id="remark-3"><h4 class="heading">
 <span class="type">Remark</span><span class="space"> </span><span class="codenumber">4.1.8</span><span class="period">.</span><span class="space"> </span><span class="title">Formulas for inverse matrices.</span>
-</h4> <div class="para logical" id="p-2464">
+</h4> <div class="para logical" id="p-2492">
 <div class="para">There is a simple formula for finding the inverse of a <span class="process-math">\(2\by2\)</span> matrix:</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/sec-determinants.html">
 \begin{equation*}
@@ -1238,17 +1240,17 @@ d \amp -b \\
 </div>
 <div class="para">which can be easily checked.  The condition that <span class="process-math">\(A\)</span> be invertible is, in this case, reduced to the condition that <span class="process-math">\(ad-bc\neq 0\text{.}\)</span>  We will understand this condition better once we have explored determinants in <a href="sec-determinants.html" class="internal" title="Section 4.5: Determinants">Section 4.5</a>. There is a similar formula for the inverse of a <span class="process-math">\(3\by
 3\)</span> matrix, but there is not a good reason to write it here.</div>
-</div></article></section><section class="subsection" id="subsection-49"><h3 class="heading hide-type">
-<span class="type">Subsection</span> <span class="codenumber">4.1.3</span> <span class="title">Summary</span>
+</div></article></section><section class="subsection" id="subsection-53"><h3 class="heading hide-type">
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.1.3</span><span class="space"> </span><span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-2465">
+<div class="para logical" id="p-2493">
 <div class="para">In this section, we found conditions guaranteeing that a matrix has an inverse.  When these conditions hold, we also found an algorithm for finding the inverse.</div>
 <ul class="disc">
-<li id="li-1640"><div class="para" id="p-2466">A square matrix is invertible if there is a matrix <span class="process-math">\(B\text{,}\)</span> known as the inverse of <span class="process-math">\(A\text{,}\)</span> such that <span class="process-math">\(AB =
+<li id="li-1646"><div class="para" id="p-2494">A square matrix is invertible if there is a matrix <span class="process-math">\(B\text{,}\)</span> known as the inverse of <span class="process-math">\(A\text{,}\)</span> such that <span class="process-math">\(AB =
 I\text{.}\)</span>  We usually write <span class="process-math">\(A^{-1} = B\text{.}\)</span>
 </div></li>
-<li id="li-1641"><div class="para" id="p-2467">The <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is invertible if and only if it is row equivalent to <span class="process-math">\(I_n\text{,}\)</span> the <span class="process-math">\(n\by n\)</span> identity matrix.</div></li>
-<li id="li-1642"><div class="para logical" id="p-2468">
+<li id="li-1647"><div class="para" id="p-2495">The <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is invertible if and only if it is row equivalent to <span class="process-math">\(I_n\text{,}\)</span> the <span class="process-math">\(n\by n\)</span> identity matrix.</div></li>
+<li id="li-1648"><div class="para logical" id="p-2496">
 <div class="para">If a matrix <span class="process-math">\(A\)</span> is invertible, we can use Gaussian elimination to find its inverse:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1257,15 +1259,15 @@ I\text{.}\)</span>  We usually write <span class="process-math">\(A^{-1} = B\tex
 \end{equation*}
 </div>
 </div></li>
-<li id="li-1643"><div class="para" id="p-2469">If a matrix <span class="process-math">\(A\)</span> is invertible, then the solution to the equation <span class="process-math">\(A\xvec = \bvec\)</span> is <span class="process-math">\(\xvec =
+<li id="li-1649"><div class="para" id="p-2497">If a matrix <span class="process-math">\(A\)</span> is invertible, then the solution to the equation <span class="process-math">\(A\xvec = \bvec\)</span> is <span class="process-math">\(\xvec =
 A^{-1}\bvec\text{.}\)</span>
 </div></li>
 </ul>
 </div></section><section class="exercises" id="exercises-12"><h3 class="heading hide-type">
-<span class="type">Exercises</span> <span class="codenumber">4.1.4</span> <span class="title">Exercises</span>
+<span class="type">Exercises</span><span class="space"> </span><span class="codenumber">4.1.4</span><span class="space"> </span><span class="title">Exercises</span>
 </h3>
-<article class="exercise exercise-like" id="exercise-89"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-2470">
+<article class="exercise exercise-like" id="exercise-86"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2498">
 <div class="para">Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1277,46 +1279,46 @@ A = \left[\begin{array}{rrrr}
 \end{array}\right]\text{.}
 \end{equation*}
 </div>
-<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-94"><script type="text/x-sage">
+<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-108"><script type="text/x-sage">
 </script></pre></div>
 <ol class="lower-alpha">
-<li id="li-1644"><div class="para" id="p-2471">Explain why <span class="process-math">\(A\)</span> has an inverse.</div></li>
-<li id="li-1645"><div class="para" id="p-2472">Find the inverse of <span class="process-math">\(A\)</span> by augmenting by the identity <span class="process-math">\(I\)</span> to form <span class="process-math">\(\left[\begin{array}{r|r}A \amp
+<li id="li-1650"><div class="para" id="p-2499">Explain why <span class="process-math">\(A\)</span> has an inverse.</div></li>
+<li id="li-1651"><div class="para" id="p-2500">Find the inverse of <span class="process-math">\(A\)</span> by augmenting by the identity <span class="process-math">\(I\)</span> to form <span class="process-math">\(\left[\begin{array}{r|r}A \amp
 I \end{array}\right]\text{.}\)</span>
 </div></li>
-<li id="li-1646"><div class="para" id="p-2473">Use your inverse to solve the equation <span class="process-math">\(A\xvec =
+<li id="li-1652"><div class="para" id="p-2501">Use your inverse to solve the equation <span class="process-math">\(A\xvec =
 \fourvec{3}{2}{-3}{-1}\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-90"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para logical" id="p-2482">
+</div></article><article class="exercise exercise-like" id="exercise-87"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2510">
 <div class="para">In this exercise, we will consider <span class="process-math">\(2\by 2\)</span> matrices as defining matrix transformations.</div>
 <ol class="lower-alpha">
-<li id="li-1653"><div class="para" id="p-2483">Write the matrix <span class="process-math">\(A\)</span> that performs a <span class="process-math">\(45^\circ\)</span> rotation.  What geometric operation undoes this rotation? Find the matrix that perform this operation and verify that it is <span class="process-math">\(A^{-1}\text{.}\)</span>
+<li id="li-1659"><div class="para" id="p-2511">Write the matrix <span class="process-math">\(A\)</span> that performs a <span class="process-math">\(45^\circ\)</span> rotation.  What geometric operation undoes this rotation? Find the matrix that perform this operation and verify that it is <span class="process-math">\(A^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-1654"><div class="para" id="p-2484">Write the matrix <span class="process-math">\(A\)</span> that performs a <span class="process-math">\(180^\circ\)</span> rotation.  Verify that <span class="process-math">\(A^2 = I\)</span> so that <span class="process-math">\(A^{-1} = A\text{,}\)</span> and explain geometrically why this is the case.</div></li>
-<li id="li-1655"><div class="para" id="p-2485">Find three more matrices <span class="process-math">\(A\)</span> that satisfy <span class="process-math">\(A^2
+<li id="li-1660"><div class="para" id="p-2512">Write the matrix <span class="process-math">\(A\)</span> that performs a <span class="process-math">\(180^\circ\)</span> rotation.  Verify that <span class="process-math">\(A^2 = I\)</span> so that <span class="process-math">\(A^{-1} = A\text{,}\)</span> and explain geometrically why this is the case.</div></li>
+<li id="li-1661"><div class="para" id="p-2513">Find three more matrices <span class="process-math">\(A\)</span> that satisfy <span class="process-math">\(A^2
 = I\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-91"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-2494">
+</div></article><article class="exercise exercise-like" id="exercise-88"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2522">
 <div class="para">Inverses for certain types of matrices can be found in a relatively straightforward fashion.</div>
 <ol class="lower-alpha">
-<li id="li-1662">
-<div class="para" id="p-2495">The matrix <span class="process-math">\(D=\begin{bmatrix}
+<li id="li-1668">
+<div class="para" id="p-2523">The matrix <span class="process-math">\(D=\begin{bmatrix}
 2 \amp 0 \amp 0 \\
 0 \amp -1 \amp 0 \\
 0 \amp 0 \amp -4 \\
 \end{bmatrix}\)</span> is called <dfn class="terminology">diagonal</dfn> since the only nonzero entries are on the diagonal of the matrix.</div>
-<div class="para logical" id="p-2496"><ol class="decimal">
-<li id="li-1663"><div class="para" id="p-2497">Find <span class="process-math">\(D^{-1}\)</span> by augmenting <span class="process-math">\(D\)</span> by the identity and finding its reduced row echelon form.</div></li>
-<li id="li-1664"><div class="para" id="p-2498">Under what conditions is a diagonal matrix invertible?</div></li>
-<li id="li-1665"><div class="para" id="p-2499">Explain why the inverse of a diagonal matrix is also diagonal and explain the relationship between the diagonal entries in <span class="process-math">\(D\)</span> and <span class="process-math">\(D^{-1}\text{.}\)</span>
+<div class="para logical" id="p-2524"><ol class="decimal">
+<li id="li-1669"><div class="para" id="p-2525">Find <span class="process-math">\(D^{-1}\)</span> by augmenting <span class="process-math">\(D\)</span> by the identity and finding its reduced row echelon form.</div></li>
+<li id="li-1670"><div class="para" id="p-2526">Under what conditions is a diagonal matrix invertible?</div></li>
+<li id="li-1671"><div class="para" id="p-2527">Explain why the inverse of a diagonal matrix is also diagonal and explain the relationship between the diagonal entries in <span class="process-math">\(D\)</span> and <span class="process-math">\(D^{-1}\text{.}\)</span>
 </div></li>
 </ol></div>
 </li>
-<li id="li-1666"><div class="para logical" id="p-2500">
+<li id="li-1672"><div class="para logical" id="p-2528">
 <div class="para">Consider the lower triangular matrix <span class="process-math">\(L = \begin{bmatrix}
 1 \amp 0 \amp 0 \\
 -2 \amp 1 \amp 0 \\
@@ -1325,13 +1327,13 @@ I \end{array}\right]\text{.}\)</span>
 \text{.}\)</span>
 </div>
 <ol class="decimal">
-<li id="li-1667"><div class="para" id="p-2501">Find <span class="process-math">\(L^{-1}\)</span> by augmenting <span class="process-math">\(L\)</span> by the identity and finding its reduced row echelon form.</div></li>
-<li id="li-1668"><div class="para" id="p-2502">Explain why the inverse of a lower triangular matrix is also lower triangular.</div></li>
+<li id="li-1673"><div class="para" id="p-2529">Find <span class="process-math">\(L^{-1}\)</span> by augmenting <span class="process-math">\(L\)</span> by the identity and finding its reduced row echelon form.</div></li>
+<li id="li-1674"><div class="para" id="p-2530">Explain why the inverse of a lower triangular matrix is also lower triangular.</div></li>
 </ol>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-92"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-2519">
+</div></article><article class="exercise exercise-like" id="exercise-89"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2547">
 <div class="para">Our definition of an invertible matrix requires that <span class="process-math">\(A\)</span> be a square <span class="process-math">\(n\by n\)</span> matrix.  Let’s examine what happens when <span class="process-math">\(A\)</span> is not square.  For instance, suppose that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1348,15 +1350,15 @@ B = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-1683"><div class="para" id="p-2520">Verify that <span class="process-math">\(BA = I_2\text{.}\)</span>  In this case, we say that <span class="process-math">\(B\)</span> is a <dfn class="terminology">left inverse</dfn> of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-95"><script type="text/x-sage">
+<li id="li-1689"><div class="para" id="p-2548">Verify that <span class="process-math">\(BA = I_2\text{.}\)</span>  In this case, we say that <span class="process-math">\(B\)</span> is a <dfn class="terminology">left inverse</dfn> of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-109"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-1684">
-<div class="para" id="p-2521">If <span class="process-math">\(A\)</span> has a left inverse <span class="process-math">\(B\text{,}\)</span> we can still use it to find solutions to linear equations.  If we know there is a solution to the equation <span class="process-math">\(A\xvec = \bvec\text{,}\)</span> we can multiply both sides of the equation by <span class="process-math">\(B\)</span> to find <span class="process-math">\(\xvec = B\bvec\text{.}\)</span>
+<li id="li-1690">
+<div class="para" id="p-2549">If <span class="process-math">\(A\)</span> has a left inverse <span class="process-math">\(B\text{,}\)</span> we can still use it to find solutions to linear equations.  If we know there is a solution to the equation <span class="process-math">\(A\xvec = \bvec\text{,}\)</span> we can multiply both sides of the equation by <span class="process-math">\(B\)</span> to find <span class="process-math">\(\xvec = B\bvec\text{.}\)</span>
 </div>
-<div class="para" id="p-2522">Suppose you know there is a solution to the equation <span class="process-math">\(A\xvec = \threevec{-1}{-3}{6}\text{.}\)</span>  Use the left inverse <span class="process-math">\(B\)</span> to find <span class="process-math">\(\xvec\)</span> and verify that it is a solution.</div>
+<div class="para" id="p-2550">Suppose you know there is a solution to the equation <span class="process-math">\(A\xvec = \threevec{-1}{-3}{6}\text{.}\)</span>  Use the left inverse <span class="process-math">\(B\)</span> to find <span class="process-math">\(\xvec\)</span> and verify that it is a solution.</div>
 </li>
-<li id="li-1685"><div class="para logical" id="p-2523">
+<li id="li-1691"><div class="para logical" id="p-2551">
 <div class="para">Now consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1369,92 +1371,92 @@ C = \left[\begin{array}{rrr}
 <div class="para">and verify that <span class="process-math">\(C\)</span> is also a left inverse of <span class="process-math">\(A\text{.}\)</span>  This shows that the matrix <span class="process-math">\(A\)</span> may have more than one left inverse.</div>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-93"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para logical" id="p-2532">
+</div></article><article class="exercise exercise-like" id="exercise-90"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2560">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> is an <span class="process-math">\(n\by n\)</span> matrix.</div>
 <ol class="lower-alpha">
-<li id="li-1692"><div class="para" id="p-2533">Suppose that <span class="process-math">\(A^2 = AA\)</span> is invertible with inverse <span class="process-math">\(B\text{.}\)</span>  This means that <span class="process-math">\(A^2B = AAB = I\text{.}\)</span> Explain why <span class="process-math">\(A\)</span> must be invertible with inverse <span class="process-math">\(AB\text{.}\)</span>
+<li id="li-1698"><div class="para" id="p-2561">Suppose that <span class="process-math">\(A^2 = AA\)</span> is invertible with inverse <span class="process-math">\(B\text{.}\)</span>  This means that <span class="process-math">\(A^2B = AAB = I\text{.}\)</span> Explain why <span class="process-math">\(A\)</span> must be invertible with inverse <span class="process-math">\(AB\text{.}\)</span>
 </div></li>
-<li id="li-1693"><div class="para" id="p-2534">Suppose that <span class="process-math">\(A^{100}\)</span> is invertible with inverse <span class="process-math">\(B\text{.}\)</span>  Explain why <span class="process-math">\(A\)</span> is invertible.  What is <span class="process-math">\(A^{-1}\)</span> in terms of <span class="process-math">\(A\)</span> and <span class="process-math">\(B\text{?}\)</span>
+<li id="li-1699"><div class="para" id="p-2562">Suppose that <span class="process-math">\(A^{100}\)</span> is invertible with inverse <span class="process-math">\(B\text{.}\)</span>  Explain why <span class="process-math">\(A\)</span> is invertible.  What is <span class="process-math">\(A^{-1}\)</span> in terms of <span class="process-math">\(A\)</span> and <span class="process-math">\(B\text{?}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-94"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
-<div class="para logical" id="p-2541">
+</div></article><article class="exercise exercise-like" id="exercise-91"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2569">
 <div class="para">Determine whether the following statements are true or false and explain your reasoning.</div>
 <ol class="lower-alpha">
-<li id="li-1698"><div class="para" id="p-2542">If <span class="process-math">\(A\)</span> is invertible, then the columns of <span class="process-math">\(A\)</span> are linearly independent.</div></li>
-<li id="li-1699"><div class="para" id="p-2543">If <span class="process-math">\(A\)</span> is a square matrix whose diagonal entries are all nonzero, then <span class="process-math">\(A\)</span> is invertible.</div></li>
-<li id="li-1700"><div class="para" id="p-2544">If <span class="process-math">\(A\)</span> is an invertible <span class="process-math">\(n\by n\)</span> matrix, then span of the columns of <span class="process-math">\(A\)</span> is <span class="process-math">\(\real^n\text{.}\)</span>
+<li id="li-1704"><div class="para" id="p-2570">If <span class="process-math">\(A\)</span> is invertible, then the columns of <span class="process-math">\(A\)</span> are linearly independent.</div></li>
+<li id="li-1705"><div class="para" id="p-2571">If <span class="process-math">\(A\)</span> is a square matrix whose diagonal entries are all nonzero, then <span class="process-math">\(A\)</span> is invertible.</div></li>
+<li id="li-1706"><div class="para" id="p-2572">If <span class="process-math">\(A\)</span> is an invertible <span class="process-math">\(n\by n\)</span> matrix, then span of the columns of <span class="process-math">\(A\)</span> is <span class="process-math">\(\real^n\text{.}\)</span>
 </div></li>
-<li id="li-1701"><div class="para" id="p-2545">If <span class="process-math">\(A\)</span> is invertible, then there is a nonzero solution to the homogeneous equation <span class="process-math">\(A\xvec =
+<li id="li-1707"><div class="para" id="p-2573">If <span class="process-math">\(A\)</span> is invertible, then there is a nonzero solution to the homogeneous equation <span class="process-math">\(A\xvec =
 \zerovec\text{.}\)</span>
 </div></li>
-<li id="li-1702"><div class="para" id="p-2546">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n\by n\)</span> matrix and the equation <span class="process-math">\(A\xvec = \bvec\)</span> has a solution for every vector <span class="process-math">\(\bvec\text{,}\)</span> then <span class="process-math">\(A\)</span> is invertible.</div></li>
+<li id="li-1708"><div class="para" id="p-2574">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n\by n\)</span> matrix and the equation <span class="process-math">\(A\xvec = \bvec\)</span> has a solution for every vector <span class="process-math">\(\bvec\text{,}\)</span> then <span class="process-math">\(A\)</span> is invertible.</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-95"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
-<div class="para logical" id="p-2559">
+</div></article><article class="exercise exercise-like" id="exercise-92"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2587">
 <div class="para">Provide a justification for your response to the following questions.</div>
 <ol class="lower-alpha">
-<li id="li-1713"><div class="para" id="p-2560">Suppose that <span class="process-math">\(A\)</span> is a square matrix with two identical columns.  Can <span class="process-math">\(A\)</span> be invertible?</div></li>
-<li id="li-1714"><div class="para" id="p-2561">Suppose that <span class="process-math">\(A\)</span> is a square matrix with two identical rows.  Can <span class="process-math">\(A\)</span> be invertible?</div></li>
-<li id="li-1715"><div class="para" id="p-2562">Suppose that <span class="process-math">\(A\)</span> is an invertible matrix and that <span class="process-math">\(AB = AC\text{.}\)</span>  Can you conclude that <span class="process-math">\(B = C\text{?}\)</span>
+<li id="li-1719"><div class="para" id="p-2588">Suppose that <span class="process-math">\(A\)</span> is a square matrix with two identical columns.  Can <span class="process-math">\(A\)</span> be invertible?</div></li>
+<li id="li-1720"><div class="para" id="p-2589">Suppose that <span class="process-math">\(A\)</span> is a square matrix with two identical rows.  Can <span class="process-math">\(A\)</span> be invertible?</div></li>
+<li id="li-1721"><div class="para" id="p-2590">Suppose that <span class="process-math">\(A\)</span> is an invertible matrix and that <span class="process-math">\(AB = AC\text{.}\)</span>  Can you conclude that <span class="process-math">\(B = C\text{?}\)</span>
 </div></li>
-<li id="li-1716"><div class="para" id="p-2563">Suppose that <span class="process-math">\(A\)</span> is an invertible <span class="process-math">\(n\by
+<li id="li-1722"><div class="para" id="p-2591">Suppose that <span class="process-math">\(A\)</span> is an invertible <span class="process-math">\(n\by
 n\)</span> matrix.  What can you say about the span of the columns of <span class="process-math">\(A^{-1}\text{?}\)</span>
 </div></li>
-<li id="li-1717"><div class="para" id="p-2564">Suppose that <span class="process-math">\(A\)</span> is an invertible matrix and that <span class="process-math">\(B\)</span> is row equivalent to <span class="process-math">\(A\text{.}\)</span> Can you guarantee that <span class="process-math">\(B\)</span> is invertible?</div></li>
+<li id="li-1723"><div class="para" id="p-2592">Suppose that <span class="process-math">\(A\)</span> is an invertible matrix and that <span class="process-math">\(B\)</span> is row equivalent to <span class="process-math">\(A\text{.}\)</span> Can you guarantee that <span class="process-math">\(B\)</span> is invertible?</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-96"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
-<div class="para logical" id="p-2577">
+</div></article><article class="exercise exercise-like" id="exercise-93"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2605">
 <div class="para">We say that two square matrices <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are <dfn class="terminology">similar</dfn> if there is an invertible matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(B = PAP^{-1}\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-1728"><div class="para" id="p-2578">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar, explain why <span class="process-math">\(A^2\)</span> and <span class="process-math">\(B^2\)</span> are similar as well.  In particular, if <span class="process-math">\(B = PAP^{-1}\text{,}\)</span> explain why <span class="process-math">\(B^2 =
+<li id="li-1734"><div class="para" id="p-2606">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar, explain why <span class="process-math">\(A^2\)</span> and <span class="process-math">\(B^2\)</span> are similar as well.  In particular, if <span class="process-math">\(B = PAP^{-1}\text{,}\)</span> explain why <span class="process-math">\(B^2 =
 PA^2P^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-1729"><div class="para" id="p-2579">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar and <span class="process-math">\(A\)</span> is invertible, explain why <span class="process-math">\(B\)</span> is also invertible.</div></li>
-<li id="li-1730"><div class="para" id="p-2580">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar and both are invertible, explain why <span class="process-math">\(A^{-1}\)</span> and <span class="process-math">\(B^{-1}\)</span> are similar.</div></li>
-<li id="li-1731"><div class="para" id="p-2581">If <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(B\)</span> and <span class="process-math">\(B\)</span> is similar to <span class="process-math">\(C\text{,}\)</span> explain why <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C\text{.}\)</span>  To begin, you may wish to assume that <span class="process-math">\(B =
+<li id="li-1735"><div class="para" id="p-2607">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar and <span class="process-math">\(A\)</span> is invertible, explain why <span class="process-math">\(B\)</span> is also invertible.</div></li>
+<li id="li-1736"><div class="para" id="p-2608">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar and both are invertible, explain why <span class="process-math">\(A^{-1}\)</span> and <span class="process-math">\(B^{-1}\)</span> are similar.</div></li>
+<li id="li-1737"><div class="para" id="p-2609">If <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(B\)</span> and <span class="process-math">\(B\)</span> is similar to <span class="process-math">\(C\text{,}\)</span> explain why <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C\text{.}\)</span>  To begin, you may wish to assume that <span class="process-math">\(B =
 PAP^{-1}\)</span> and <span class="process-math">\(C = QBQ^{-1}\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-97"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
-<div class="para logical" id="p-2592">
+</div></article><article class="exercise exercise-like" id="exercise-94"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<div class="para logical" id="p-2620">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are two <span class="process-math">\(n\by n\)</span> matrices and that <span class="process-math">\(AB\)</span> is invertible.  We would like to explain why both <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are invertible.</div>
 <ol class="lower-alpha">
-<li id="li-1740"><div class="para logical" id="p-2593">
+<li id="li-1746"><div class="para logical" id="p-2621">
 <div class="para">We first explain why <span class="process-math">\(B\)</span> is invertible.</div>
 <ol class="decimal">
-<li id="li-1741"><div class="para" id="p-2594">Since <span class="process-math">\(AB\)</span> is invertible, explain why any solution to the homogeneous equation <span class="process-math">\(AB\xvec = \zerovec\)</span> is <span class="process-math">\(\xvec=\zerovec\text{.}\)</span>
+<li id="li-1747"><div class="para" id="p-2622">Since <span class="process-math">\(AB\)</span> is invertible, explain why any solution to the homogeneous equation <span class="process-math">\(AB\xvec = \zerovec\)</span> is <span class="process-math">\(\xvec=\zerovec\text{.}\)</span>
 </div></li>
-<li id="li-1742"><div class="para" id="p-2595">Use this fact to explain why any solution to <span class="process-math">\(B\xvec = \zerovec\)</span> must be <span class="process-math">\(\xvec=\zerovec\text{.}\)</span>
+<li id="li-1748"><div class="para" id="p-2623">Use this fact to explain why any solution to <span class="process-math">\(B\xvec = \zerovec\)</span> must be <span class="process-math">\(\xvec=\zerovec\text{.}\)</span>
 </div></li>
-<li id="li-1743"><div class="para" id="p-2596">Explain why <span class="process-math">\(B\)</span> must be invertible.</div></li>
+<li id="li-1749"><div class="para" id="p-2624">Explain why <span class="process-math">\(B\)</span> must be invertible.</div></li>
 </ol>
 </div></li>
-<li id="li-1744"><div class="para logical" id="p-2597">
+<li id="li-1750"><div class="para logical" id="p-2625">
 <div class="para">Now we explain why <span class="process-math">\(A\)</span> is invertible.</div>
 <ol class="decimal">
-<li id="li-1745"><div class="para" id="p-2598">Since <span class="process-math">\(AB\)</span> is invertible, explain why the equation <span class="process-math">\(AB\xvec=\bvec\)</span> is consistent for every vector <span class="process-math">\(\bvec\text{.}\)</span>
+<li id="li-1751"><div class="para" id="p-2626">Since <span class="process-math">\(AB\)</span> is invertible, explain why the equation <span class="process-math">\(AB\xvec=\bvec\)</span> is consistent for every vector <span class="process-math">\(\bvec\text{.}\)</span>
 </div></li>
-<li id="li-1746"><div class="para" id="p-2599">Using the fact that <span class="process-math">\(AB\xvec = A(B\xvec) =
+<li id="li-1752"><div class="para" id="p-2627">Using the fact that <span class="process-math">\(AB\xvec = A(B\xvec) =
 \bvec\)</span> is consistent for every <span class="process-math">\(\bvec\text{,}\)</span> explain why every equation <span class="process-math">\(A\xvec = \bvec\)</span> is consistent.</div></li>
-<li id="li-1747"><div class="para" id="p-2600">Explain why <span class="process-math">\(A\)</span> must be invertible.</div></li>
+<li id="li-1753"><div class="para" id="p-2628">Explain why <span class="process-math">\(A\)</span> must be invertible.</div></li>
 </ol>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="ex-right-inverse"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
-<div class="para logical" id="p-2619">
+<div class="para logical" id="p-2647">
 <div class="para">We defined an <span class="process-math">\(n\by n\)</span> matrix to be invertible if there is a matrix <span class="process-math">\(B\)</span> such that <span class="process-math">\(AB=I_n\text{.}\)</span>  In this exercise, we will explain why it is also true that <span class="process-math">\(BA = I\text{,}\)</span> which is the statement of <a href="" class="xref" data-knowl="./knowl/proposition-inverse-inverse.html" title="Proposition 4.1.6">Proposition 4.1.6</a>. This means that, if <span class="process-math">\(B=A^{-1}\text{,}\)</span> then <span class="process-math">\(A = B^{-1}\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-1764"><div class="para" id="p-2620">Suppose that <span class="process-math">\(\xvec\)</span> is an <span class="process-math">\(n\)</span>-dimensional vector.  Since <span class="process-math">\(AB=I\text{,}\)</span> explain why <span class="process-math">\(AB\xvec =
+<li id="li-1770"><div class="para" id="p-2648">Suppose that <span class="process-math">\(\xvec\)</span> is an <span class="process-math">\(n\)</span>-dimensional vector.  Since <span class="process-math">\(AB=I\text{,}\)</span> explain why <span class="process-math">\(AB\xvec =
 \xvec\)</span> and use this to explain why the only vector for which <span class="process-math">\(B\xvec = \zerovec\)</span> is <span class="process-math">\(\xvec = \zerovec\text{.}\)</span>
 </div></li>
-<li id="li-1765"><div class="para" id="p-2621">Explain why this implies that <span class="process-math">\(B\)</span> must be invertible.  We will call the inverse <span class="process-math">\(C\)</span> so that <span class="process-math">\(BC =
+<li id="li-1771"><div class="para" id="p-2649">Explain why this implies that <span class="process-math">\(B\)</span> must be invertible.  We will call the inverse <span class="process-math">\(C\)</span> so that <span class="process-math">\(BC =
 I\text{.}\)</span>
 </div></li>
-<li id="li-1766"><div class="para" id="p-2622">Beginning with <span class="process-math">\(AB = I\text{,}\)</span> explain why <span class="process-math">\(B(AB)C = BIC\)</span> and why this tells us that <span class="process-math">\(BA = I\text{.}\)</span>
+<li id="li-1772"><div class="para" id="p-2650">Beginning with <span class="process-math">\(AB = I\text{,}\)</span> explain why <span class="process-math">\(B(AB)C = BIC\)</span> and why this tells us that <span class="process-math">\(BA = I\text{.}\)</span>
 </div></li>
 </ol>
 </div></article></section></section></div>
@@ -1462,7 +1464,7 @@ I\text{.}\)</span>
 <a class="previous-button button" href="chap4.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="subsec-triangular-invertible.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>
 </div>
-<div id="ptx-page-footer">
+<div id="ptx-page-footer" class="ptx-page-footer">
 <a class="pretext-link" href="https://pretextbook.org" title="PreTeXt"><div class="logo"><svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="338 3000 8772 6866"><g style="stroke-width:.025in; stroke:black; fill:none"><polyline points="472,3590 472,9732 " style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round; "></polyline><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,9448 A 4660 4660  0  0  1  8598  9259"></path><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4488,9685 A 4228 4228  0  0  0   472  9732"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:butt;" d="M 4724,3590 A 4241 4241  0  0  1  8598  3496"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,3496  A 4241 4241  0  0  1  4724  3590"></path><path style="stroke:#000000;stroke-width:126;stroke-linecap:round;" d="M 850,9259  A 4507 4507  0  0  1  4724  9448"></path><polyline points="5385,4299 4062,8125" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8598,3496 8598,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="850,3496 850,9259" style="stroke:#000000;stroke-width:126; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="4960,9685 4488,9685" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="3070,4582 1889,6141 3070,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="6418,4582 7600,6141 6418,7700" style="stroke:#000000;stroke-width:300; stroke-linejoin:miter; stroke-linecap:round;"></polyline><polyline points="8976,3590 8976,9732" style="stroke:#000000;stroke-width:174; stroke-linejoin:miter; stroke-linecap:round;"></polyline><path style="stroke:#000000;stroke-width:174;stroke-linecap:butt;" d="M 4960,9685 A 4228 4228  0  0  1  8976  9732"></path></g></svg></div></a><a class="runestone-link" href="https://runestone.academy" title="Runestone Academy"><img class="logo" src="https://runestone.academy/runestone/static/images/RAIcon_cropped.png"></a><a class="mathjax-link" href="https://www.mathjax.org" title="MathJax"><img class="logo" src="https://www.mathjax.org/badge/badge-square-2.png"></a>
 </div>
 </body>

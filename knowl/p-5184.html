@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <!--********************************************-->
 <!--*       Generated from PreTeXt source      *-->
 <!--*                                          *-->
@@ -9,20 +9,50 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
-<h4 class="heading"><span class="type">Paragraph</span></h4>
-<div class="para logical">
-<div class="para">This section explored stochastic matrices and Markov chains.</div>
-<ul class="disc">
-<li><div class="para">A probability vector is one whose entries are nonnegative and sum to 1.  A stochastic matrix is a square matrix whose columns are probability vectors.</div></li>
-<li><div class="para">A Markov chain is formed from a stochastic matrix <span class="process-math">\(A\)</span> and an initial probability vector <span class="process-math">\(\xvec_0\)</span> using the rule <span class="process-math">\(\xvec_{k+1}=A\xvec_k\text{.}\)</span>  We may think of the sequence <span class="process-math">\(\xvec_k\)</span> as describing the evolution of some conserved quantity, such as the number of rental cars or voters, among a number of possible states over time.</div></li>
-<li><div class="para">A steady-state vector <span class="process-math">\(\qvec\)</span> for a stochastic matrix <span class="process-math">\(A\)</span> is a probability vector that satisfies <span class="process-math">\(A\qvec = \qvec\text{.}\)</span>
+<h5 class="heading"><span class="type">Paragraph</span></h5>
+<div class="para logical"><ol class="lower-alpha">
+<li><div class="para">Construct the Google matrix <span class="process-math">\(G\)</span> for this Internet.  Then use a Markov chain to find the steady-state PageRank vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-166"><script type="text/x-sage">def markov_chain(A, x0, N):
+    result = [x0]
+    for i in range(N):
+        x_new = A@result[-1]
+        result.append(x_new)
+    return result
+
+## define the matrix G and x0
+G =
+x0 =
+markov_chain(G, x0, 20)
+</script></pre>
 </div></li>
-<li><div class="para">The Perron-Frobenius theorem tells us that, if <span class="process-math">\(A\)</span> is a positive stochastic matrix, then every Markov chain defined by <span class="process-math">\(A\)</span> converges to a unique, positive steady-state vector.</div></li>
-<li><div class="para">Google’s PageRank algorithm uses Markov chains and the Perron-Frobenius theorem to assess the relative quality of web pages on the Internet.</div></li>
-</ul>
-</div>
+<li><div class="para">What does this vector tell us about the relative quality of the pages in this Internet?  Which page has the highest quality and which the lowest?</div></li>
+<li>
+<div class="para">Now consider the Internet with five pages, shown in <a href="" class="xref" data-knowl="./knowl/fig-google-cyclic.html" title="Figure 5.5.9">Figure 5.5.9</a>.</div>
+<figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/google-cyclic.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.5.9<span class="period">.</span></span><span class="space"> </span>A model of the Internet with five web pages.</figcaption></figure><div class="para">What happens when you begin the Markov chain with the vector <span class="process-math">\(\xvec_0=\fivevec{1}{0}{0}{0}{0}\text{?}\)</span>  Explain why this behavior is consistent with the Perron-Frobenius theorem.</div>
+</li>
+<li><div class="para">What do you think the PageRank vector for this Internet should be?  Is any one page of a higher quality than another?</div></li>
+<li>
+<div class="para">Now consider the Internet with eight web pages, shown in <a href="" class="xref" data-knowl="./knowl/fig-google-reducible.html" title="Figure 5.5.10">Figure 5.5.10</a>.</div>
+<figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/google-reducible.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.5.10<span class="period">.</span></span><span class="space"> </span>Another model of the Internet with eight web pages.</figcaption></figure><div class="para">Notice that this version of the Internet is identical to the first one that we saw in this activity, except that a single link from page 7 to page 1 has been removed.  We can therefore find its Google matrix <span class="process-math">\(G\)</span> by slightly modifying the earlier matrix.</div>
+<div class="para">What is the long-term behavior of a Markov chain defined by <span class="process-math">\(G\)</span> and why is this behavior not desirable?  How is this behavior consistent with the Perron-Frobenius theorem?</div>
+</li>
+</ol></div>
 <span class="incontext"><a href="sec-stochastic.html#p-5184" class="internal">in-context</a></span>
 </body>
 </html>

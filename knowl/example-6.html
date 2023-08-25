@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <!--********************************************-->
 <!--*       Generated from PreTeXt source      *-->
 <!--*                                          *-->
@@ -9,48 +9,42 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
-                       linked: true,
-                       languages: ['sage'],
-                       evalButtonText: 'Evaluate (Sage)'});
-</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
-                       linked: true,
-                       languages: ['python'],
-                       evalButtonText: 'Evaluate (Python)'});
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
 </script>
 </head>
 <body class="ignore-math">
 <article class="example example-like"><h4 class="heading">
-<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.3</span><span class="period">.</span>
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.1</span><span class="period">.</span>
 </h4>
-<div class="para">In scenes were some regions are very bright and others very dark, it can be challenging to create a good exposure over the entire image. Exposure bracketing is a technique that has been used since the 1850’s to help with this situation. This technique involves capturing multiple images, each with a different exposure. Later one can choose the best of the captured images or combine them in some way.  In the 1850’s, Gustave Le Gray printed seascape photos from two images, using one exposure for the sky and the other for the water. Modern HDR methods can combine multiple digital images in much more complex ways.</div> <div class="para">In this example we stack multiple images with different exposures and use a very simple method (averaging) to convert the stack of images into a single HDR (high dynamic range) image.  This works because each images loses some information in the brightest or darkest regions due to the limits on the values (typically 0 to 255) that each pixel may have. The averages will remain in the appropriate range, but do a better job of distinguishing among the very dark and very bright regions of the image.</div> <div class="para">The images were obtained from <a class="external" href="https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG" target="_blank"><code class="code-inline tex2jax_ignore">https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG</code></a>. We will use low resolutoin images below, but you can repeat this example with higher resolution images if you like. Notice the use of <code class="code-inline tex2jax_ignore">np.stack()</code> to combine the images into one 4-dimensional tensor, and the use of <code class="code-inline tex2jax_ignore">np.rint()</code> and <code class="code-inline tex2jax_ignore">astype(int)</code> to make sure the resulting data is again integer (the nearest integer to the average). <pre class="ptx-sagecell sagecell-python" id="sage-28"><script type="text/x-sage">import numpy as np
-from skimage import io
+<div class="para">An RGB image that is 400 pixels wide and 300 pixels tall might correspond to a tensor with shape <code class="code-inline tex2jax_ignore">(400, 300, 3)</code>. Or perhaps <code class="code-inline tex2jax_ignore">(3, 300, 400)</code>, or ... The computer doesn’t really care, but we need to know which slot is being used for what in order to work with this image correctly.  The usual arrangement is row, column, channel. This is called the <dfn class="terminology">channels-last convention</dfn>. But somtimes a channels-first convention is used instead. </div> <div class="para">We can plot images (or other matrices that we would like to view as an image) using a number of different tools.  Here we demonstrate how to do so using <code class="code-inline tex2jax_ignore">matplotlib</code>. <code class="code-inline tex2jax_ignore">matplotlib</code> supports a variety of image formats. For RGB images, the RGB values can be integers from 0 to 255 or floating point values between 0 and 1.</div> <article class="note remark-like"><h5 class="heading">
+<span class="type">Note</span><span class="space"> </span><span class="codenumber">1.5.2</span><span class="period">.</span><span class="space"> </span><span class="title">The Sage Cell Server restricts internet access.</span>
+</h5> <div class="para">Feel free to experiment with this code using other images, but note that the Sage Cell Server only allows  access to images on selected websites. This list includes sites like GitHub (used here) and Wikimedia Commons.</div></article> <div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-35"><script type="text/x-sage">from skimage import io
 import matplotlib.pyplot as plt 
-url = "https://rpruim.github.io/data/images/StLouisArchMultExpEV1.jpg"
-urls = [url.replace('1', x) for x in ["1","2","3","4"]]
-print(urls)
-
-photos = [io.imread(u) for u in urls]
-photo_stack = np.stack(photos)
-print(p.shape for p in photos)
-print(photo_stack.shape)
-average_photo = np.rint(photo_stack.mean(axis = 0)).astype(int)
-fig, ax = plt.subplots(1, 4)
-print("four different exposures")
-for i in range(4):
-    ax[i].imshow(photos[i])
+url = "https://rpruim.github.io/data/images/happy-dog.jpeg"
+dog = io.imread(url)
+print(dog.shape)
+print(dog.dtype)
+plt.figure()
+plt.imshow(dog)
 plt.show()
-print("the average image")
-
-plt.subplots(1, 1)
-
-plt.imshow(average_photo)
+</script></pre></div> <div class="para">Notice that <code class="code-inline tex2jax_ignore">dog</code> contains a 3-dimensional array of unsiged 8-bit integers (0 -- 255) and that the format is channels-last. We can plot individual channels in the same way. <pre class="ptx-sagecell sagecell-python" id="sage-36"><script type="text/x-sage">plt.figure()
+plt.imshow(dog[:, :, 0])    # Red channel
 plt.show()
-</script></pre> More sophisticated algorithms can do an even better job of creating the final image from multiple exposures of the same scene.</div>
-<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-15-hidden.html" title="Solution 1.5.3.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-tensors.html#example-6" class="internal">in-context</a></span>
+</script></pre>
+</div> <div class="para">We’ve added a color bar to this image to show how matplotlib is mapping the values 0 to 255 to colors. Remember, this is the <em class="emphasis">red</em> channel. So a colormap that runs from dark blue to bright yellow probably isn’t the best choice.  We can use a scale of reds by setting <code class="code-inline tex2jax_ignore">cmap="Reds"</code> like this <pre class="ptx-sagecell sagecell-python" id="sage-37"><script type="text/x-sage">plt.figure()
+plt.imshow(dog[:, :, 0], cmap = "Reds")    # Red channel
+plt.show()
+</script></pre> If you use <code class="code-inline tex2jax_ignore">cmap  = "Reds_r"</code> (give it a try), the order of the colors will be reversed and provide a better visual representation (for human eyes -- it’s the same data no matter what color scheme we use for display).</div> <div class="para">You can find out more about the many colormaps that are available in matplotlib at <a class="external" href="https://matplotlib.org/stable/tutorials/colors/index.html" target="_blank"><code class="code-inline tex2jax_ignore">matplotlib.org/stable/tutorials/colors/index.html</code></a>.</div></article><span class="incontext"><a href="sec-tensors.html#example-6" class="internal">in-context</a></span>
 </body>
 </html>

@@ -111,9 +111,9 @@ dx = 4
 #Label(r'$z$', [0,za,0], alignment="lt", offset=[dx,-dx]).draw()
 #Label(r'$y$', [ya,0,0], alignment="rt", offset=[4,-dx]).draw()
 #Label(r'$x$', [0,0,xa], alignment="rb", offset=[-dx,0]).draw()
-Label(r'${\mathbf v}_1$', e1, alignment="lt", offset=[dx,-2]).draw()
-Label(r'${\mathbf v}_2$', e2, alignment="rb", offset=[-dx,5]).draw()
-Label(r'${\mathbf w}$', w, alignment="lt", offset=[dx,0]).draw()
+Label(r'${\boldsymbol v}_1$', e1, alignment="lt", offset=[dx,-2]).draw()
+Label(r'${\boldsymbol v}_2$', e2, alignment="rb", offset=[-dx,5]).draw()
+Label(r'${\boldsymbol w}$', w, alignment="lt", offset=[dx,0]).draw()
 
  
 grestore3d()

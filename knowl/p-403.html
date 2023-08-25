@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <!--********************************************-->
 <!--*       Generated from PreTeXt source      *-->
 <!--*                                          *-->
@@ -9,20 +9,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
-<h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para logical">
-<div class="para">On the grid below, graph the lines</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\begin{aligned}
-y \amp = x+1 \\
-y \amp = x-1\text{.} \\
-\end{aligned}
-\end{equation*}
-</div>
-</div>
-<span class="incontext"><a href="sec-expect.html#p-403" class="internal">in-context</a></span>
+<h4 class="heading"><span class="type">Paragraph</span></h4>
+<div class="para">An interesting question is what the shape of the resulting array should be, and we have some control over whether dimensions are dropped or not. Consider the following examples.  <pre class="ptx-sagecell sagecell-python" id="sage-35"><script type="text/x-sage">print(A[:,:,1].shape)        # integer -> 2d
+print(A[:,:,(1)].shape)      # tuple of length 1 -> 2d
+print(A[:,:,1:2].shape)      # slice with one value -> 3d
+print(A[:,:,[1]].shape)      # list of length 1 -> 3d
+</script></pre> The first two methods drop a dimension.  The latter two retain all three axes, even though one of them has only one legal index (0). It is always important to know the shape of the arrays you are working with.  When in doubt, check.</div>
+<span class="incontext"><a href="sec-tensors.html#p-403" class="internal">in-context</a></span>
 </body>
 </html>

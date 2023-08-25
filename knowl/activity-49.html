@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" dir="ltr">
 <!--********************************************-->
 <!--*       Generated from PreTeXt source      *-->
 <!--*                                          *-->
@@ -11,16 +11,28 @@
 <meta name="robots" content="noindex, nofollow">
 <script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
 // Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-sage',
-                       linked: true,
-                       languages: ['sage'],
-                       evalButtonText: 'Evaluate (Sage)'});
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-sage",
+  "linked": true,
+  "linkKey": "linked-sage",
+  "autoeval": false,
+  "languages": [
+    "sage"
+  ],
+  "evalButtonText": "Evaluate (Sage)"
+});
 </script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
-sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
-                       linked: true,
-                       languages: ['python'],
-                       evalButtonText: 'Evaluate (Python)'});
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
 </script>
 </head>
 <body class="ignore-math">
@@ -37,7 +49,7 @@ sagecell.makeSagecell({inputLocation: 'pre.sagecell-python',
 <ol class="lower-alpha">
 <li>
 <div class="para">We can find the characteristic polynomial of a <code class="code-inline tex2jax_ignore">sympy.Matrix</code> <code class="code-inline tex2jax_ignore">A</code> by writing <code class="code-inline tex2jax_ignore">A.charpoly('lambda')</code>.  Notice that we have to give Python a variable in which to write the polynomial;  here, we use <code class="code-inline tex2jax_ignore">lambda</code> though <code class="code-inline tex2jax_ignore">x</code> works just as well.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-128"><script type="text/x-sage">import numpy as np
+<pre class="ptx-sagecell sagecell-python" id="sage-142"><script type="text/x-sage">import numpy as np
 import sympy
 A = np.array([[-3,1],[0,-3]])
 M = sympy.Matrix(A)
@@ -45,7 +57,7 @@ p = M.charpoly('lambda')
 print(p)
 </script></pre>
 <div class="para">The factored form of the characteristic polynomial may be more useful since it will tell us the eigenvalues and their multiplicities.  The factored characteristic polynomial is found with <code class="code-inline tex2jax_ignore">sympy.factor()</code>.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-129"><script type="text/x-sage">import numpy as np 
+<pre class="ptx-sagecell sagecell-python" id="sage-143"><script type="text/x-sage">import numpy as np 
 import sympy
 A = np.array([[-3, 1], [0, -3]])
 M = sympy.Matrix(A)
@@ -56,7 +68,7 @@ print(sympy.factor(p.as_expr()))
 </li>
 <li>
 <div class="para">If we only want the eigenvalues, we can use <code class="code-inline tex2jax_ignore">numpy.linalg.eigvals()</code> or <code class="code-inline tex2jax_ignore">scipy.linalg.eigvals()</code>.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-130"><script type="text/x-sage">import numpy as np
+<pre class="ptx-sagecell sagecell-python" id="sage-144"><script type="text/x-sage">import numpy as np
 A = np.array([[-3, 1], [0, -3]])
 print(np.linalg.eigvals(A))
 </script></pre>
@@ -66,7 +78,7 @@ print(np.linalg.eigvals(A))
 <div class="para">Finally, we can find both eigenvalues and (right) eigenvectors using <code class="code-inline tex2jax_ignore">numpy.linalg.eig(A)</code> or <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A)</code>. </div>
 <article class="note remark-like"><h5 class="heading">
 <span class="type">Note</span><span class="space"> </span><span class="codenumber">5.2.16</span><span class="period">.</span><span class="space"> </span><span class="title">Left and right eigenvectors.</span>
-</h5> <div class="para">Technically, we are finding <dfn class="terminology">right eigenvectors</dfn> since the vector <span class="process-math">\(\vvec\)</span> appears to the right of <span class="process-math">\(A\)</span> in the definition <span class="process-math">\(A\vvec=\lambda \vvec\text{.}\)</span> That’s most often what we want.  But we can also get <dfn class="terminology">left eigenvectors</dfn> with <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A, left = True)</code>. Feel free to try it in the code chunk below. Numpy does not provide this option.</div></article><pre class="ptx-sagecell sagecell-python" id="sage-131"><script type="text/x-sage">import numpy as np
+</h5> <div class="para">Technically, we are finding <dfn class="terminology">right eigenvectors</dfn> since the vector <span class="process-math">\(\vvec\)</span> appears to the right of <span class="process-math">\(A\)</span> in the definition <span class="process-math">\(A\vvec=\lambda \vvec\text{.}\)</span> That’s most often what we want.  But we can also get <dfn class="terminology">left eigenvectors</dfn> with <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A, left = True)</code>. Feel free to try it in the code chunk below. Numpy does not provide this option.</div></article><pre class="ptx-sagecell sagecell-python" id="sage-145"><script type="text/x-sage">import numpy as np
 import scipy
 A = np.array([[-3, 1], [0, -3]])
 evals, evecs = scipy.linalg.eig(A) 
@@ -89,18 +101,18 @@ print(evecs.round(10))
 <li>
 <div class="para">Let’s now use Python to determine the reduced row echelon form of <span class="process-math">\(A-I\text{:}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-132"><script type="text/x-sage">import numpy as np 
+<pre class="ptx-sagecell sagecell-python" id="sage-146"><script type="text/x-sage">import numpy as np 
 import sympy 
 A = sympy.Matrix([[0.4,0.3],[0.6,0.7]])
 print((A - sympy.eye(2)).rref())   # use sympy.eye() to get a sympy.Matrix
 </script></pre>
 <div class="para">What result does Python report for the reduced row echelon form?  Why is this result not correct? (Hint: compute row and column sums.)</div>
 </li>
-<li><div class="para">Despite the error in finding the reduce row echelon form, numpy and scipy <em class="emphasis">can</em> compute these eigenvalues and eigenvectors for us. <pre class="ptx-sagecell sagecell-python" id="sage-133"><script type="text/x-sage">import numpy as np  
+<li><div class="para">Despite the error in finding the reduce row echelon form, numpy and scipy <em class="emphasis">can</em> compute these eigenvalues and eigenvectors for us. <pre class="ptx-sagecell sagecell-python" id="sage-147"><script type="text/x-sage">import numpy as np  
 A = np.array([[0.4, 0.3],[0.6,0.7]])
 print(np.linalg.eig(A))
 </script></pre> As you might expect, this implies that the method being used does not rely on using RREF along the way. RREF is not numerically stable, this is why it is not included in numpy and scipy.</div></li>
-<li><div class="para">If we provide sympy with rational values instead of floating point, then it can compute the RREF of our matrix exactly and the error from above goes away. <pre class="ptx-sagecell sagecell-python" id="sage-134"><script type="text/x-sage">import numpy as np  
+<li><div class="para">If we provide sympy with rational values instead of floating point, then it can compute the RREF of our matrix exactly and the error from above goes away. <pre class="ptx-sagecell sagecell-python" id="sage-148"><script type="text/x-sage">import numpy as np  
 import sympy 
 from sympy import Rational as r
 A = sympy.Matrix([[r(4,10),r(3,10)],[r(6,10),r(7,10)]])
