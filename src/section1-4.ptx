@@ -97,7 +97,7 @@
     <li>
       <title>Coefficient matrices for linear systems</title>
       <p>
-        All the important information in a linear system of equations like 
+        All the important information in a <term>linear system of equations</term> like 
 	  <me>
 	    \begin{alignedat}{4}
 	    -x \amp  {}-{}  \amp 2y \amp  {}+{}  \amp 2z \amp  {}={}  \amp -1 \\
@@ -163,8 +163,17 @@
   </me>
   </p>
   <p>
-	  As shorthand, we will write this augmented matrix replacing the
-      columns with their vector representation: <me>
+	  As shorthand, we can write this augmented matrix 
+       <me>
+	    \left[
+	    \begin{array}{rrr|r}
+	    -1 \amp -2 \amp 2 \amp -1 \\
+	    2 \amp 4 \amp -1 \amp 5 \\
+	    1 \amp 2 \amp 0 \amp 3 \\
+	    \end{array}
+	    \right].
+	  </me>
+	  replacing each column with its vector representation: <me>
         \left[
         \begin{array}{rrr|r}
         \vvec_1 \amp \vvec_2 \amp \vvec_2 \amp \bvec
@@ -325,13 +334,14 @@
 	<li> <p> Suppose that <m>A</m> and <m>B</m> are two matrices.
 	What do we need to know about their shapes before we can
 	form the sum <m>A+B</m>? In this situation, is it always the case  
-	that $A+B = B+A$?</p></li>
+	that <m>A+B = B+A</m>?</p></li>
 
 	<li> 
 	<p> The matrix <m>I_n</m>, which we call the 
 	<term> identity matrix</term>, is the <m>n\by n</m> matrix whose
-	entries are zero except for the diagonal entries, all of which
-	are 1.  For instance,
+	entries are zero except for the <term>main diagonal</term> entries, all of which
+	are 1.  (The main diagonal is the diagonal going from top left to bottom right. These are the elements 
+	for which the row index and column index are the same.) For instance,
 	<idx> <h>matrix</h> <h>identity</h> </idx>
 	<idx> <h>identity matrix</h>  </idx>
 	<notation>
@@ -537,7 +547,7 @@
       More generally, we have the following definition.
     </p>
 
-    <definition>
+    <definition xml:id="def-matrix-times-vector">
       <title> Matrix-vector multiplication</title>
       <idx> matrix-vector multiplication </idx>
       <statement>
@@ -551,11 +561,11 @@
 	    \vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_n
 	    \end{array}\right],~~~
 	    \xvec = \left[\begin{array}{r}
-	    c_1 \\ c_2 \\ \vdots \\ c_n \end{array}\right],
+	    x_1 \\ x_2 \\ \vdots \\ x_n \end{array}\right],
 	  </me>
 	  then
 	  <me>
-	    A\xvec = c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n
+	    A\xvec = x_1\vvec_1 + x_2\vvec_2 + \ldots + x_n\vvec_n
 	    </me>.
 	</p>
 	
@@ -572,7 +582,7 @@
       multiplication. 
     </p>
 
-    <activity>
+    <activity xml:id="example-matrix-vector-product">
       <title> Matrix-vector multiplication </title>
 
       <statement><p>
@@ -801,7 +811,7 @@
     
     <p>
       You are encouraged to evaluate the product <xref
-      ref="li-example-product" /> of the previous activity
+      ref="li-example-product" /> of <xref ref="xml:example-matrix-prodcut" />
       using this new method and compare the result to what you found
       while completing that activity.
     </p>
@@ -820,7 +830,7 @@
       their product <m>A\xvec = \bvec</m>.  We would now like to turn
       this around:  Suppose we know <m>A</m> and <m>\bvec</m> but don't know
 	  <m>\xvec</m>, can find a vector <m>\xvec</m> such
-      that <m>A\xvec = \bvec</m>?  This questions will naturally lead back to
+      that <m>A\xvec = \bvec</m>?  This question will naturally lead back to
       linear systems.
     </p>
 
@@ -837,7 +847,7 @@
 	\right],
 	\xvec = \left[
 	\begin{array}{c}
-	c_1 \\ c_2 \\ \vdots \\ c_n \\
+	x_1 \\ x_2 \\ \vdots \\ x_n \\
 	\end{array}
 	\right]
       </me>.
@@ -847,9 +857,9 @@
       We know that the matrix product <m>A\xvec</m> forms a linear
       combination of the columns of <m>A</m>.  Therefore, the equation
       <m>A\xvec = \bvec</m> is merely a compact way of writing the
-      equation for the weights <m>c_i</m>:
+      equation for the weights <m>x_i</m>:
       <me>
-	c_1\vvec_1 + c_2\vvec_2 + \ldots + c_n\vvec_n = \bvec
+	x_1\vvec_1 + x_2\vvec_2 + \ldots + x_n\vvec_n = \bvec
       </me>.
       We have seen this equation before:  Remember that
       <xref ref="prop-system-comb" /> says that the solutions of this
@@ -1182,6 +1192,7 @@
 	<subsection xml:id="sec-matrices-in-python">
 		<title>Matrices in Python</title>
 
+		
 <!-- 
     <p> 
       First, notice
@@ -1201,23 +1212,24 @@
     </p> 
 	-->
 
-    <p> We may ask Python to create the <m>2\by4</m> matrix
-    <me>
-      \left[
-      \begin{array}{rrrr}
-      -1 \amp 0 \amp 2 \amp 7 \\
-      2 \amp 1 \amp -3 \amp -1 \\
-      \end{array}
-      \right]
-    </me>
+    <p> We may ask Python to create matrices 
     by using nested lists (a list of lists).  But just as we did with 
-	vectors, we will convert this to a <c>numpy</c> n-dimensional array 
-	using <c>np.array()</c>. The shape of the resulting array tells us the 
-	number of rows and columns in the matrix.
+	vectors, we will convert these nested lists to a <c>numpy</c> n-dimensional array 
+	using <c>np.array()</c>. 
+	</p>
+		<sage language="python" auto-evaluate="yes">
+			<input>
+import numpy as np
+			</input>
+		</sage>
 
-    <sage language="python">
+	<p>
+	The shape of the resulting array tells us the 
+	number of rows and columns in the matrix.
+	</p>
+
+    <!-- <sage language="python">
       <input>
-	import numpy as np
 	my_matrix = np.array(
 		[[-1, 0, 2, 7],
 	     [2, 1, -3, -1]
@@ -1225,12 +1237,9 @@
 	print(my_matrix)
 	print(my_matrix.shape) # how many rows and columns?
       </input>
-    </sage>
-    </p>
+    </sage> -->
 
-		
-
-
+<!-- 
     <p> 
       First, notice
       that a matrix has a certain number of rows and columns.  For
@@ -1246,8 +1255,9 @@
     </me>
     has three rows and five columns.  We consequently refer to this as a 
     <m>3\by 5</m> matrix.
-    </p>
+    </p> -->
 
+	<example xml:id="example-first-matrix" >
     <p> We may ask Python to create the <m>2\by4</m> matrix
     <me>
       \left[
@@ -1260,7 +1270,6 @@
     by entering
     <sage language="python">
       <input>
-	import numpy as np
 	my_matrix = np.array(
 		[[-1, 0, 2, 7],
 	     [2, 1, -3, -1]
@@ -1270,8 +1279,9 @@
       </input>
     </sage>
     </p>
+	</example>
 
-	<note>
+	<!-- <note>
 	  <title>Numpy</title>
 	  <p>
 	  Numpy is a python module that is heavily used in data science. <c>import numpy as np</c> 
@@ -1284,7 +1294,7 @@
 	  numpy provides tools to perform all sorts of useful computations with matrices, as we shall
 	  see.</p>
 
-	</note>
+	</note> -->
 
     <activity>
       <statement>
@@ -1293,7 +1303,6 @@
 	using the <c>@</c> operator.  For example,
 	<sage language="python">
 	  <input>
-import numpy as np
 A = np.array([[1,2],[2,1]])
 v = np.array([3,-1])
 print(A@v)
@@ -1315,7 +1324,7 @@ print(A@v)
 	    \end{array}
 	    \right]
 	  </me>
-	  from <xref ref="li-example-product" /> of the previous activity.
+	  from <xref ref="li-example-product" /> of the <xref ref="example-matrix-vector-product" />.
 	  <sage language="python">
 	    <input>
 	    </input>
@@ -1470,6 +1479,10 @@ A = np.arry([[ 1, 2, -1, 0],
 	<li> <p>For small matrices, you can print your original matrix to check that you have
 	entered it correctly.  For larger matrices, you should at least confirm that that shape 
 	matches your expectation.
+	</p>
+	</li>
+	<li>
+		<p>
 	You may want to also print labels or to include a dividing line to separate different 
 	parts of your output.
 	<cd>
@@ -1573,7 +1586,7 @@ print("shape of A =", A.shape)
 		of the procuct. In <xref ref="example-matrix-product"/>, we have 
 
 		<me>
-			(4, 2) (2, 3) \to (4, \not{2}) (\not{2}, 3) \to (4, 3)
+			(4, 2) (2, 3) \to (4, \cancel{2}) (\cancel{2}, 3) \to (4, 3)
 		</me>
 		
 	  </p>
@@ -1715,12 +1728,14 @@ print("shape of A =", A.shape)
 	    </m>.
 	  </p></li>
 
-	  <li><p> Define
-	    <cd>
-A = matrix(2, 3, [1, 3, 2, -3, 4, -1])
-B = matrix(3, 2, [3, 0, 1, 2, -2, -1])
-A*B
-	    </cd>
+	  <li><p> 
+		<sage language="python">
+			<input>
+A = np.array([[1, 3, 2], [ -3, 4, -1]])
+B = np.array([[3, 0], [1, 2], [-2, -1]])
+A@B
+			</input>
+		</sage>
 	  </p></li>
 
 	  <li><p>
@@ -1767,12 +1782,14 @@ A*B
 	    </m>.
 	  </p></li>
 
-	  <li><p> Define
-	    <cd>
-A = matrix(2, 3, [1, 3, 2, -3, 4, -1])
-B = matrix(3, 2, [3, 0, 1, 2, -2, -1])
-A*B
-	    </cd>
+	  <li><p> 
+		<sage language="python">
+			<input>
+A = np.array([[1, 3, 2], [ -3, 4, -1]])
+B = np.array([[3, 0], [1, 2], [-2, -1]])
+A@B
+			</input>
+		</sage>
 	  </p></li>
 
 	  <li><p>
@@ -1858,9 +1875,9 @@ A*B
 
 	<idx> identity matrix </idx>
 	<p>
-	We have already encountered the <m>n</m>- dimensional <term>identity matrix</term> <m>I_n</m>. 
-	This <m>n \by n</m> square matrix has ones along the diagonal (where the row number 
-	and column number are the same) and zeros everywhere else.  For example,
+	We have already encountered the <m>n</m>-dimensional <term>identity matrix</term> <m>I_n</m>. 
+	This <m>n \by n</m> square matrix has ones along the <term>main diagonal</term> (where the row index 
+	and column index are the same) and zeros everywhere else.  For example,
 	<me>
 	I_3 = \left[\begin{array}{rrr}
 	  1 \amp 0 \amp 0 \\
@@ -1872,7 +1889,7 @@ A*B
 
 	<p>
 	More generally, a matrix is called <term>diagonal</term> if the only non-zero values  
-	are along the diagonal.  Here are some example of diagonal matrices.
+	are along the main diagonal.  Here are some example of diagonal matrices.
 	<idx><h>diagonal matrix</h></idx>
 	<idx><h>matrix</h> <h>diagonal</h></idx>
 
@@ -1970,8 +1987,8 @@ A*B
 	  -2 \amp 1 \amp 2 \\
 	  -1 \amp 4 \amp 5 \\
 	  3 \amp 0 \amp 3 \\
-	  \end{array}\right]^\top .
-	</me>
+	  \end{array}\right]
+	</me>.
 	</p>
 
 	<p>
