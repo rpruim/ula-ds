@@ -25,7 +25,7 @@
 	  Access their combined power through a common, Python-based language or directly via 
 	  interfaces or wrappers. 
 
-	  In this book we will use SageMath as a way to embed Python (and sometimes R) cells 
+	  In this book we will use SageMath as a way to embed Python cells 
 	  that you can edit and execute as you learn linear algebra.
 	</p>
 
@@ -209,20 +209,39 @@ print(average)
   
       <p> Since a vector is just a list of numbers, if you know Python, you might expect that we
         will create vectors using Python lists. This is partially correct. But Python lists don't
-        know about our operations (scalar multiplication and vector addition). In order to get
-        vectors that know about these operations, we will convert our Python lists into <term>
-        ndarrays</term> (n-dimensional arrays) using the Python package <c>numpy</c>. 
-		In <c>numpy</c> parlance, a vector is a 1-dimensional array.
+        know about our operations (scalar multiplication and vector addition). 
 		<idx> n-dimensional array </idx>
+		In order to get vectors that know about these operations, we will
+		convert our Python lists into <term> ndarrays</term> (n-dimensional
+		arrays) using the Python package <c>numpy</c>. 
 		</p>
 
-     
+		<assemblage>
+			<title>Importing Numpy</title>
+		<p>
+	  Numpy is a python module that is heavily used in data science. 
+	  <c>import numpy as np</c> 
+		In order to use Numpy, we must first import it like this:
+        <sage language="python" auto-evaluate="yes">
+          <input>
+import numpy as np
+		  </input>
+		</sage>
+	    This loads this module and declares that we will refer to it as
+	    <c>np</c> (the standard convention) in subsequent code.
+		In an interactive environment, this cell will be auto-evaluated and Numpy will be available in all 
+		the cells in this section. In your own work, don't forget to import Numpy (or any other packages you need).
+		</p>
 
-      <p> Python can perform scalar multiplication and vector addition. We define a vector using 
+	</assemblage>
+
+      <p> 
+		In <c>numpy</c> parlance, a vector is a 1-dimensional array.
+	  Vectors are created using <c>np.array()</c>, which is provided with a list of numbers.
+		Python can perform scalar multiplication and vector addition. We define a vector using 
       <c>np.array()</c>; then <c>*</c> and <c>+</c> denote scalar multiplication and vector addition. 
         <sage language="python">
           <input>
-import numpy as np
 v = np.array([3,1])
 w = np.array([-1,2])
 print(type(v))
@@ -232,18 +251,6 @@ print (v + w)
         </sage>
       </p>
 
-	<note>
-	  <title>Numpy</title>
-	  <p>
-	  Numpy is a python module that is heavily used in data science. <c>import numpy as np</c> 
-	  loads this module and declares that we will refer to it as <c>np</c> in subsequent code.
-	  Vectors are created using <c>np.array()</c>, which is provided with a list of numbers.
-	  </p>
-
-	  <p>Using <c>np.array()</c> is better than just using a generic Python list, however, because 
-	  numpy provides tools to perform all sorts of useful computations with vectors (and matrices), 
-    as we shall see.</p>
-	</note>
 
 
 	  <p>Especially when we work with vectors with many components, we will often  
@@ -260,7 +267,7 @@ print (v + w)
 		<p>
 	   <c>numpy</c> uses the term <em>dimension</em> differently from how we used that 
 	   term in <xref ref="sec-vectors"/>.
-	   In numpy parlance, all of the vectors we have seen are 1-dimensional arrays 
+	   In Numpy parlance, all of the vectors we have seen are 1-dimensional arrays 
 	   because there is just one column of numbers. 
 	   This will make more sense when we see 2-dimensional arrays
        (matrices) and higher dimensional arrays (tensors). 
@@ -275,7 +282,6 @@ print (v + w)
         vectors. Here are some examples showing how to create structured or random vectors.
         <sage language="python">
           <input>
-import numpy as np
 v = np.arange(100)
 # 5 to 100 by 5's -- note the 101 here!
 w = np.arange(5, 101, 5)  
@@ -306,7 +312,6 @@ print(r)
 		For output purposes, it is often useful to round output values.
         <sage language="python">
           <input>
-import numpy as np
 r = np.random.normal(100, 10, 50)
 print("shape:", r.shape, 
 	  "sum:", r.sum().round(2),
@@ -325,7 +330,96 @@ print("shape:", r.shape,
 		<idx> <c>numpy.round()</c> </idx>
       </p>
 
+	  <assemblage>
+		<title> Linked Python cells</title>
+		<p>
+			In interactive versions of this text, all the cells in a section are linked, so you 
+			can refer to objects created in one cell while working in another cell, provided you have 
+			already executed the code in the first cell. 
+		</p>
+	  </assemblage>
+
+	  <example xml:id="example-linked-cells">
+		In the cell below, we can refer to the vector <c>v</c> and <c>w</c> from above -- if we have executed 
+		the cell where they were defined (and have not subsequently changed their values).
+		<sage>
+			<input>
+print(v)
+print(w)
+			</input>
+		</sage>
+		
+	  </example>
+
 	</subsection>
+
+	<subsection xml:id="subsec-vector-length-numpy">
+		<title>Vector length</title>
+			<idx><h>norm</h><h>of a vector</h></idx>
+
+		<p>
+			We can compute the (Euclidean) length of a vector two ways.  The first takes advantage 
+			of python comprehension. The second uses the <c>numpy.linalg.norm()</c> function.
+		</p>
+
+		<p>
+			List comprehension is a powerful feature of Python that lets us compute with lists, 
+			including numpy arrays.  Here is a simple exmaple that creates a new list that contains  
+			the squares of the elements in the original list.
+
+			<sage language="python">
+				<input>
+numbers = np.arange(5)
+squares = [n**2 for n in numbers]
+print("numbers:", numbers, "squares:", squares)
+				</input>
+				<output>
+numbers: [0 1 2 3 4] squares: [0, 1, 4, 9, 16]
+				</output>
+			</sage>
+		</p>
+
+		<p>
+			Notice that the code above computes all the terms we need to add
+			when computing the length of  a vector.  So we can combine with
+			<c>numpy.sum()</c> to get the square of the length.  Also notice
+			that <c>squares</c> is a Python list, not an numpy array.  We can
+			see that from the way that <c>numbers</c> and <c>squares</c> are
+			printed.  (The are no commas in the dispaly of <c>numbers</c>.)
+			You can confirm the types using <c>type()</c>.
+			<sage laguage="python">
+				<input>
+import math   # alternative: from math import sqrt
+a = np.ones(4)  # [1, 1, 1, 1]
+length_squared = np.sum([ c for c in a])
+print(math.sqrt(length_squared))
+				</input>
+				<output>
+2.0
+				</output>
+			</sage>
+		</p>
+
+		<p>
+			Computing the length of a vector is common enough that numpy includes a function for this:
+			<c>numpy.linalg.norm()</c>. 
+			<idx><h><c>numpy.linalg.norm()</c></h><see>norm of a vector</see></idx>
+			It can compute several different norms, but the default is  
+			the familiar Euclidean norm.
+
+			<sage laguage="python">
+				<input>
+a = np.ones(4)
+print(numpy.linalg.norm(a))
+				</input>
+				<output>
+2.0
+				</output>
+			</sage>
+			
+		</p>
+	</subsection>
+
 
 	<subsection>
 		<title>Plotting vectors</title>
@@ -352,7 +446,6 @@ print("shape:", r.shape,
 		<sage language="python">
 			<input>
 import matplotlib.pyplot as plt
-import numpy as np
 
 v = np.array([1,2])
 w = np.array([-2,1])
@@ -373,7 +466,6 @@ plt.show()
 		<sage language="python">
 			<input>
 import matplotlib.pyplot as plt
-import numpy as np
 
 v = np.array([1,2,3])
 w = np.array([2,1,-2])

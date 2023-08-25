@@ -37,26 +37,54 @@
 
 <subsection xml:id="subsec-numpy-tensors">
 	<title>Tensors in Numpy</title>
-	
+
+	<p>
+		In order to use Numpy, we first load the <c>numpy</c> package. 
+	</p>
+
+	<sage langauge="python" auto-evaluate="yes">
+		<input>
+import numpy as np
+		</input>
+	</sage>
+
 	<p>
 		Let's create a small 3-dimensional tensor.  Notice that we can assign the shape 
 		(as long as the product of the items in our tuple is equal to the number values 
 		in the array).
-
+	</p>
+		
 	<sage language="python">
 	<input>
-import numpy as np
-A = np.arange(2 * 4 * 3)
-A.shape = (2, 4, 3)
+A = np.arange(4 * 3 * 2)
+A.shape = (4, 3, 2)
 print(A)
 	</input>
 	</sage>
+
+	<p>
+		Alternatively, we can use the <c>reshape</c> method of an array.
+		<idx><c>reshape()</c></idx>
 	</p>
+
+	<sage language="python">
+	<input>
+A = np.arange(2 * 4 * 3).reshape(2, 4, 3)
+print(A)
+	</input>
+	</sage>
 
 	<p>
 		The output above expresses <c>A</c> as two <m>4 \by 3</m> matrices, and we can separate out 
 		those two matrices as <c>A[0]</c> and <c>A[1]</c>.  
 	</p>
+
+	<sage language="python">
+	<input>
+print(A[0])
+	</input>
+	</sage>
+
 
 	<p>We can refer to individual numbers in an ndarray by providing the required number of indices.
 	<sage language="python">
@@ -78,6 +106,7 @@ print(A[0,1,2])
 	<p>
 		An interesting question is what the shape of the resulting array should be, and we have some control 
 		over whether dimensions are dropped or not. Consider the following examples.
+		<idx><h>axis</h><h>of an array or tensor</h></idx>
 	<sage language="python">
 	<input>
 print(A[:,:,1].shape)        # integer -> 2d
@@ -129,7 +158,6 @@ print(A[:,:,[1]].shape)      # list of length 1 -> 3d
 			<p>
 			  <sage language="python">
 			  <input>
-import numpy as np
 from skimage import io
 import matplotlib.pyplot as plt 
 url = "https://rpruim.github.io/data/images/happy-dog.jpeg"
@@ -182,6 +210,35 @@ plt.show()
 	<subsection xml:id="subsec-axes">
 		<title>Aggregation and Axes</title>
 
+		<p>
+			We have already discussed axes in the context of slices that do or do not drop axes.
+			Aggregation (computing a value based on a subset of values in an n-dimensional array)
+			is another place where axes are important.
+		</p>
+
+		<example>
+			<title>Row and column sums and means</title>
+			<p>
+			We often want to know the sum or mean of all rows or columns of a matrix. Numpy provides two ways 
+			to compute aggregating functions like this.
+			</p>
+			<sage language="python">
+				<input>
+A = nd.arange(6).reshape(2,3)
+print(A)
+print(A.sum())
+print(A.sum(axes = 0))
+print(A.sum(axes = 1))
+				</input>
+				<output>
+				</output>
+			</sage>
+			
+			
+			
+			
+		</example>
+
 
 	</subsection>
 
@@ -202,7 +259,6 @@ plt.show()
 
 		<sage language="python">
 			<input>
-import numpy as np 
 A = np.arange(6).reshape((3,2))
 b = np.array([5, 3, 2])
 Aplus = np.append(A, b.reshape(3,1), 1)    # need to make b 2-d first
@@ -279,7 +335,6 @@ print(Aplus)
 				is again integer (the nearest integer to the average).
 				<sage language="python">
 					<input>
-import numpy as np
 from skimage import io
 import matplotlib.pyplot as plt 
 url = "https://rpruim.github.io/data/images/StLouisArchMultExpEV1.jpg"
