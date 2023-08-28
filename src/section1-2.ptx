@@ -32,6 +32,7 @@
 	    <p> Here is a Python cell containing a command
 	    that asks Python to multiply 5 and 3.  You may execute the
 	    command by pressing the <em>Evaluate</em> button.
+		</p>
 	    
 	    <sage language="python">
 	      <input>
@@ -39,6 +40,7 @@
 	      </input>
 	    </sage>
 
+		<p>
 		Of course, you can run this sort of Python code in other Python 
 		environments as well, including in a Jupyter notebook, in an RMarkdown
 		or Quarto document, in posit RStudio, in a Sage cell server, etc.
@@ -68,28 +70,29 @@
 	      <me>
 		3 + 4(2^4 - 1)
 	      </me>
+		</p>
 	      <sage language="python">
 		<input>
 		</input>
 	      </sage>
-	      </p>
 	    </li>
 	    <li>
 	      <p>
 		Notice that we can create new lines by pressing
 		<em>Enter</em> and entering additional commands on
 		them. 	What happens when you evaluate this cell?
+		  </p>
 		<sage language="python">
 		  <input>
 		    5 * 3
 		    10 - 4
 		  </input>
 		</sage>
-	      </p>
 	      
 	      <p>
 		Notice that we don't see any output from the cell we just evaluated.
     In order to see the results, we use <c>print()</c>:
+		  </p>
 
 		<sage language="python">
 		  <input>
@@ -97,12 +100,12 @@
 		    print(10 - 4)
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 	    
 	    <li>
 	      <p> We may give a name to the result of one command and
 	      refer to it in a later command.
+		  </p>
 	      <sage language="python">
 		<input>
 		  income = 1500 * 12
@@ -110,35 +113,35 @@
 		  print(income - taxes)
 		</input>
 	      </sage>
-	      </p>
 	      
 	      <p> Suppose you have three tests in your linear algebra
 	      class and your scores are 90, 100, and 98.  In the cell
 	      below, add your scores together and call the result
 	      <c>total</c>.  On the next line, find the average of your
 	      test scores and print it.
+		  </p>
 	      <sage language="python">
 		<input>
 		</input>
 	      </sage>
-	      </p>
 	    </li>
 	    
 	    <li>
 	      <p> We can run other sorts of Python code in these Python cells as well.
 		  For example, you may be familiar with Python for loops:
+		  </p>
 	      <sage language="python">
 		<input>
 for i in range(10):
     print(i)
 		</input>
 	      </sage>
-	      </p>
 	    </li>
 	  </ol>
 	</p>
       </statement>
       <solution>
+		<p>
 	<ol marker="a.">
 	  <li>
 	    <p>
@@ -168,8 +171,10 @@ print(average)
 	    </p>
 	  </li>
 	</ol>
+</p>
       </solution>
       <answer>
+		<p>
 	<ol marker="a.">
 	  <li>
 	    <p>
@@ -199,6 +204,7 @@ print(average)
 	    </p>
 	  </li>
 	</ol>
+</p>
       </answer>
 
     </activity>
@@ -216,16 +222,18 @@ print(average)
 		arrays) using the Python package <c>numpy</c>. 
 		</p>
 
-		<assemblage>
+		<note>
 			<title>Importing NumPy</title>
 		<p>
 	  NumPy is a python module that is heavily used in data science. 
 	  In order to use NumPy, we must first import it like this:
+		</p>
         <sage language="python" auto-evaluate="yes">
           <input>
 import numpy as np
 		  </input>
 		</sage>
+		<p>
 	    This loads <c>numpy</c> and declares that we will refer to it as
 	    <c>np</c> (the standard convention) in subsequent code.  In an
 	    interactive environment, this cell will be auto-evaluated and NumPy will
@@ -233,25 +241,23 @@ import numpy as np
 	    forget to import NumPy (or any other packages you need).
 		</p>
 
-	</assemblage>
+	</note>
 
       <p> 
 		In <c>numpy</c> parlance, a vector is a 1-dimensional array.
 	  Vectors are created using <c>np.array()</c>, which is provided with a list of numbers.
 		Python can perform scalar multiplication and vector addition. We define a vector using 
       <c>np.array()</c>; then <c>*</c> and <c>+</c> denote scalar multiplication and vector addition. 
+	  </p>
         <sage language="python">
           <input>
 v = np.array([3,1])
 w = np.array([-1,2])
 print(type(v))
-print (2*v)
-print (v + w)
+print(2*v)
+print(v + w)
           </input>
         </sage>
-      </p>
-
-
 
 	  <p>Especially when we work with vectors with many components, we will often  
 	  want to have Python tell us how many components there are.
@@ -261,9 +267,9 @@ print (v + w)
       <idx> shape, of a vector </idx>
 	  </p>
 
-	<assemblage xml:id="assemblage-dim-v-dim">
-		<idx><h>dimension</h></idx>
+	<warning xml:id="warning-dim-v-dim">
 		<title>Caution: Dimension vs Dimension</title>
+		<idx><h>dimension</h></idx>
 		<p>
 	   <c>numpy</c> uses the term <em>dimension</em> differently from how we used that 
 	   term in <xref ref="sec-vectors"/>.
@@ -274,12 +280,15 @@ print (v + w)
 	   The number returned by <c>.shape</c> is the other kind of dimension -- the number 
 	   of components in the vector.
 		</p>
-	</assemblage>
+	</warning>
 
       <p>
         For low dimensional vectors, manually typing in each component is reasonable.  But ofen we will  
         work with vectors with many components.  So we will need some better ways to create these  
         vectors. Here are some examples showing how to create structured or random vectors.
+		<idx> <c>numpy.random.normal()</c> </idx>
+		<idx> <c>numpy.arange()</c> </idx>
+	  </p>
         <sage language="python">
           <input>
 v = np.arange(100)
@@ -293,9 +302,6 @@ print(r.shape)
 print(r)
           </input>
         </sage>
-		<idx> <c>numpy.random.normal()</c> </idx>
-		<idx> <c>numpy.arange()</c> </idx>
-      </p>
 
 	  <p>
 		Indexing in Python is 0-based.  So the first component of the vector <c>v</c>
@@ -310,6 +316,11 @@ print(r)
         Once we have an ndarray, we can compute various summaries of it.
         The sum, mean, and standard deviation are commonly used summaries. 
 		For output purposes, it is often useful to round output values.
+		<idx> <c>numpy.mean()</c> </idx>
+		<idx> <c>numpy.std()</c> </idx>
+		<idx> <c>numpy.sum()</c> </idx>
+		<idx> <c>numpy.round()</c> </idx>
+		</p>
         <sage language="python">
           <input>
 r = np.random.normal(100, 10, 50)
@@ -324,30 +335,29 @@ print("shape:", r.shape,
       "sd:", np.round(np.std(r),2))
           </input>
         </sage>
-		<idx> <c>numpy.mean()</c> </idx>
-		<idx> <c>numpy.std()</c> </idx>
-		<idx> <c>numpy.sum()</c> </idx>
-		<idx> <c>numpy.round()</c> </idx>
-      </p>
 
-	  <assemblage>
+	  <note>
 		<title> Linked Python cells</title>
 		<p>
 			In interactive versions of this text, all the cells in a section are linked, so you 
 			can refer to objects created in one cell while working in another cell, provided you have 
 			already executed the code in the first cell. 
 		</p>
-	  </assemblage>
+	</note>
 
 	  <example xml:id="example-linked-cells">
+		<statement>
+			<p>
 		In the cell below, we can refer to the vector <c>v</c> and <c>w</c> from above -- if we have executed 
 		the cell where they were defined (and have not subsequently changed their values).
+			</p>
 		<sage>
 			<input>
 print(v)
 print(w)
 			</input>
 		</sage>
+	</statement>
 		
 	  </example>
 
@@ -366,6 +376,7 @@ print(w)
 			List comprehension is a powerful feature of Python that lets us compute with lists, 
 			including numpy arrays.  Here is a simple exmaple that creates a new list that contains  
 			the squares of the elements in the original list.
+		</p>
 
 			<sage language="python">
 				<input>
@@ -377,7 +388,6 @@ print("numbers:", numbers, "squares:", squares)
 numbers: [0 1 2 3 4] squares: [0, 1, 4, 9, 16]
 				</output>
 			</sage>
-		</p>
 
 		<p>
 			Notice that the code above computes all the terms we need to add
@@ -387,7 +397,8 @@ numbers: [0 1 2 3 4] squares: [0, 1, 4, 9, 16]
 			see that from the way that <c>numbers</c> and <c>squares</c> are
 			printed.  (The are no commas in the dispaly of <c>numbers</c>.)
 			You can confirm the types using <c>type()</c>.
-			<sage laguage="python">
+		</p>
+			<sage language="python">
 				<input>
 import math   # alternative: from math import sqrt
 a = np.ones(4)  # [1, 1, 1, 1]
@@ -398,7 +409,6 @@ print(math.sqrt(length_squared))
 2.0
 				</output>
 			</sage>
-		</p>
 
 		<p>
 			Computing the length of a vector is common enough that numpy includes a function for this:
@@ -406,8 +416,9 @@ print(math.sqrt(length_squared))
 			<idx><h><c>numpy.linalg.norm()</c></h><see>norm of a vector</see></idx>
 			It can compute several different norms, but the default is  
 			the familiar Euclidean norm.
+		</p>
 
-			<sage laguage="python">
+			<sage language="python">
 				<input>
 a = np.ones(4)
 print(numpy.linalg.norm(a))
@@ -417,7 +428,6 @@ print(numpy.linalg.norm(a))
 				</output>
 			</sage>
 			
-		</p>
 	</subsection>
 
 
@@ -516,7 +526,7 @@ plt.show()
 		<title>Figures in this book</title>
 		<p>
 			The figures in this book were also created in Python using 
-			<url href="https://personal.math.ubc.ca/~cass/piscript/">PiScript</url>, a system for 
+			<url href="https://personal.math.ubc.ca/~cass/piscript/" visual="personal.math.ubc.ca/~cass/piscript/">PiScript</url>, a system for 
 			creating mathematical diagrams created by Bill Casselman.
 		</p>
 	  </note>
