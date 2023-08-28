@@ -9,10 +9,30 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
-<h4 class="heading"><span class="type">Paragraph</span></h4>
-<div class="para">A simple measure of the quality of the fit is the coefficient of determination <span class="process-math">\(R^2\)</span> though some care must be used in interpreting this number in context.  In particular, as models become more complex, <span class="process-math">\(R^2\)</span> generally increases because more flexible models can fit the data better. But they may be prone to overfitting. Our goal is generally not to fit the data at hand but to learn something of value about other data.</div>
+<h5 class="heading"><span class="type">Paragraph</span></h5>
+<div class="para">Evaluating the cell below will plot the extent of Arctic sea ice, in millions of square kilometers, during the twelve months of 1980, 2012, and 2017. We will focus primarily on 2012. <pre class="ptx-sagecell sagecell-python" id="sage-225"><script type="text/x-sage">import pandas as pd
+import numpy as np
+import seaborn.objects as so
+ice = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/sea_ice.csv')
+print(ice)
+so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
+</script></pre>
+</div>
 <span class="incontext"><a href="sec-least-squares.html#p-6939" class="internal">in-context</a></span>
 </body>
 </html>

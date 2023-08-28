@@ -377,7 +377,7 @@ sagecell.makeSagecell({
 <li>
 <div class="toc-item"><a href="sec-tensors.html" class="internal"><span class="codenumber">1.5</span> <span class="title">Tensors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in Numpy</span></a></div></li>
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in NumPy</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-axes" class="internal"><span class="codenumber">1.5.2</span> <span class="title">Aggregation and Axes</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-ndarray-append" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Expanding an array</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-broadcasting" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Broadcasting</span></a></div></li>
@@ -738,70 +738,70 @@ sagecell.makeSagecell({
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-determinants"><h2 class="heading hide-type">
 <span class="type">Section</span><span class="space"> </span><span class="codenumber">4.5</span><span class="space"> </span><span class="title">Determinants</span>
 </h2>
-<section class="introduction" id="introduction-21"><div class="para" id="p-3243">As invertibility plays a central role in this chapter, we need a criterion that tells us when a matrix is invertible. We already know that a square matrix is invertible if and only if it is row equivalent to the identity matrix.  In this section, we will develop a second, numerical criterion that tells us when a square matrix is invertible.</div> <div class="para" id="p-3244">To begin, let’s consider a <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(A\)</span> whose columns are vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>  We have frequently drawn the vectors and studied the linear combinations they form using a figure such as <a href="" class="xref" data-knowl="./knowl/fig-intro-dets.html" title="Figure 4.5.1">Figure 4.5.1</a>.</div> <figure class="figure figure-like" id="fig-intro-dets"><div class="sidebyside"><div class="sbsrow" style="margin-left:30%;margin-right:30%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/basis-1.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.1<span class="period">.</span></span><span class="space"> </span>Linear combinations of two vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> form a collection of congruent parallelograms.</figcaption></figure> <div class="para" id="p-3245">Notice how the linear combinations form a set of congruent parallelograms in the plane.  In this section, we will use the area of these parallelograms to define a numerical quantity called the determinant that tells us whether the matrix <span class="process-math">\(A\)</span> is invertible.</div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel middle" style="width:60%;"><div class="para" id="p-3246">To recall, the area of parallelogram is found by multiplying the length of one side by the perpendicular distance to its parallel side.  Using the notation in the figure, the area of the parallelogram is <span class="process-math">\(bh\text{.}\)</span>
+<section class="introduction" id="introduction-20"><div class="para" id="p-3277">As invertibility plays a central role in this chapter, we need a criterion that tells us when a matrix is invertible. We already know that a square matrix is invertible if and only if it is row equivalent to the identity matrix.  In this section, we will develop a second, numerical criterion that tells us when a square matrix is invertible.</div> <div class="para" id="p-3278">To begin, let’s consider a <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(A\)</span> whose columns are vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>  We have frequently drawn the vectors and studied the linear combinations they form using a figure such as <a href="" class="xref" data-knowl="./knowl/fig-intro-dets.html" title="Figure 4.5.1">Figure 4.5.1</a>.</div> <figure class="figure figure-like" id="fig-intro-dets"><div class="sidebyside"><div class="sbsrow" style="margin-left:30%;margin-right:30%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/basis-1.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.1<span class="period">.</span></span><span class="space"> </span>Linear combinations of two vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> form a collection of congruent parallelograms.</figcaption></figure> <div class="para" id="p-3279">Notice how the linear combinations form a set of congruent parallelograms in the plane.  In this section, we will use the area of these parallelograms to define a numerical quantity called the determinant that tells us whether the matrix <span class="process-math">\(A\)</span> is invertible.</div> <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
+<div class="sbspanel middle" style="width:60%;"><div class="para" id="p-3280">To recall, the area of parallelogram is found by multiplying the length of one side by the perpendicular distance to its parallel side.  Using the notation in the figure, the area of the parallelogram is <span class="process-math">\(bh\text{.}\)</span>
 </div></div>
 <div class="sbspanel middle" style="width:40%;"><img src="external/images/parallelogram-area.svg" role="img" class="contained"></div>
 </div></div> <article class="exploration project-like" id="exploration-12"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">4.5.1</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-3247">
+<div class="para logical" id="p-3281">
 <div class="para">We will explore the area formula in this preview activity.</div>
 <ol class="lower-alpha">
-<li id="li-2172">
-<div class="para" id="p-3248">Find the area of the following parallelograms.</div>
+<li id="li-2180">
+<div class="para" id="p-3282">Find the area of the following parallelograms.</div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0.0833333333333333%;margin-right:0.0833333333333333%;">
-<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3249">1.</div></div>
+<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3283">1.</div></div>
 <div class="sbspanel top" style="width:30.0500834724541%;"><img src="external/images/parallelogram-a.svg" role="img" class="contained"></div>
-<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3250">2.</div></div>
+<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3284">2.</div></div>
 <div class="sbspanel top" style="width:30.0500834724541%;"><img src="external/images/parallelogram-b.svg" role="img" class="contained"></div>
-<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3251">3.</div></div>
+<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3285">3.</div></div>
 <div class="sbspanel top" style="width:30.0500834724541%;"><img src="external/images/parallelogram-c.svg" role="img" class="contained"></div>
 </div></div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0.0833333333333333%;margin-right:0.0833333333333333%;">
-<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3252">4.</div></div>
+<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3286">4.</div></div>
 <div class="sbspanel top" style="width:30.0500834724541%;"><img src="external/images/parallelogram-d.svg" role="img" class="contained"></div>
-<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3253">5.</div></div>
+<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3287">5.</div></div>
 <div class="sbspanel top" style="width:30.0500834724541%;"><img src="external/images/parallelogram-e.svg" role="img" class="contained"></div>
-<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3254"></div></div>
-<div class="sbspanel top" style="width:30.0500834724541%;"><div class="para" id="p-3255"></div></div>
+<div class="sbspanel top" style="width:3.005008347245409%;"><div class="para" id="p-3288"></div></div>
+<div class="sbspanel top" style="width:30.0500834724541%;"><div class="para" id="p-3289"></div></div>
 </div></div>
 </li>
-<li id="li-2173"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
-<div class="sbspanel middle" style="width:52.6315789473684%;"><div class="para" id="p-3256">Explain why the area of the parallelogram formed by the vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec_1\)</span> is the same as that formed by <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>
+<li id="li-2181"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
+<div class="sbspanel middle" style="width:52.6315789473684%;"><div class="para" id="p-3290">Explain why the area of the parallelogram formed by the vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec_1\)</span> is the same as that formed by <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>
 </div></div>
 <div class="sbspanel middle" style="width:42.1052631578947%;"><img src="external/images/area-shear.svg" role="img" class="contained"></div>
 </div></div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-155" id="solution-155"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-155"><div class="solution solution-like"><div class="para logical" id="p-3257"><ol class="lower-alpha">
-<li id="li-2174"><div class="para logical" id="p-3258">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-154" id="solution-154"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-154"><div class="solution solution-like"><div class="para logical" id="p-3291"><ol class="lower-alpha">
+<li id="li-2182"><div class="para logical" id="p-3292">
 <div class="para">We find the following areas.</div>
 <ol class="decimal">
-<li id="li-2175"><div class="para" id="p-3259">A <span class="process-math">\(1\by1\)</span> square has area 1.</div></li>
-<li id="li-2176"><div class="para" id="p-3260">A <span class="process-math">\(2\by3\)</span> rectangle has area 6.</div></li>
-<li id="li-2177"><div class="para" id="p-3261">The square has side length <span class="process-math">\(\sqrt{2}\)</span> giving an area of 2.</div></li>
-<li id="li-2178"><div class="para" id="p-3262">If we consider the horizontal length as the base, we see that <span class="process-math">\(b=h=2\)</span> so that the area is 4.</div></li>
-<li id="li-2179"><div class="para" id="p-3263">In the same way, we can consider both the base and height to be 2 so that the area is 4.</div></li>
+<li id="li-2183"><div class="para" id="p-3293">A <span class="process-math">\(1\by1\)</span> square has area 1.</div></li>
+<li id="li-2184"><div class="para" id="p-3294">A <span class="process-math">\(2\by3\)</span> rectangle has area 6.</div></li>
+<li id="li-2185"><div class="para" id="p-3295">The square has side length <span class="process-math">\(\sqrt{2}\)</span> giving an area of 2.</div></li>
+<li id="li-2186"><div class="para" id="p-3296">If we consider the horizontal length as the base, we see that <span class="process-math">\(b=h=2\)</span> so that the area is 4.</div></li>
+<li id="li-2187"><div class="para" id="p-3297">In the same way, we can consider both the base and height to be 2 so that the area is 4.</div></li>
 </ol>
 </div></li>
-<li id="li-2180"><div class="para" id="p-3264">If we consider the base to be the length of <span class="process-math">\(\vvec\text{,}\)</span> then the height, which is the perpendicular distance to its parallel side, is the same in both parallelograms.</div></li>
+<li id="li-2188"><div class="para" id="p-3298">If we consider the base to be the length of <span class="process-math">\(\vvec\text{,}\)</span> then the height, which is the perpendicular distance to its parallel side, is the same in both parallelograms.</div></li>
 </ol></div></div></div>
 </div></article></section><section class="subsection" id="subsection-64"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.5.1</span><span class="space"> </span><span class="title">Determinants of <span class="process-math">\(2\by2\)</span> matrices</span>
 </h3>
-<div class="para" id="p-3265">We will begin by defining the determinant of a <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(A =
+<div class="para" id="p-3299">We will begin by defining the determinant of a <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(A =
 \left[\begin{array}{rr} \vvec_1 \amp \vvec_2
 \end{array}\right]\text{.}\)</span>  First, however, we need to define the <dfn class="terminology">orientation</dfn> of an ordered pair of vectors.  As shown in <a href="" class="xref" data-knowl="./knowl/fig-det-orientation.html" title="Figure 4.5.2">Figure 4.5.2</a>, an ordered pair of vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> is called <dfn class="terminology">positively oriented</dfn> if the angle, measured in the counterclockwise direction, from <span class="process-math">\(\vvec_1\)</span> to <span class="process-math">\(\vvec_2\)</span> is less than <span class="process-math">\(180^\circ\text{;}\)</span> we say the pair is <dfn class="terminology">negatively oriented</dfn> if it is more than <span class="process-math">\(180^\circ\text{.}\)</span> </div>
 <figure class="figure figure-like" id="fig-det-orientation"><div class="sidebyside"><div class="sbsrow" style="margin-left:20%;margin-right:20%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/det-orientation.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.2<span class="period">.</span></span><span class="space"> </span>The vectors on the left are positively oriented while the ones on the right are negatively oriented.</figcaption></figure><article class="definition definition-like" id="definition-16"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">4.5.3</span><span class="period">.</span>
-</h4> <div class="para" id="p-3266">Suppose a <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(A\)</span> has columns <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>  If the pair of vectors is positively oriented, then the <dfn class="terminology">determinant</dfn> of <span class="process-math">\(A\text{,}\)</span> denoted <span class="process-math">\(\det(A)\text{,}\)</span> is the area of the parallelogram formed by <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span> If the pair is negatively oriented, then <span class="process-math">\(\det(A)\)</span> is minus the area of the parallelogram.</div></article><article class="example example-like" id="example-det-identity"><h4 class="heading">
+</h4> <div class="para" id="p-3300">Suppose a <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(A\)</span> has columns <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>  If the pair of vectors is positively oriented, then the <dfn class="terminology">determinant</dfn> of <span class="process-math">\(A\text{,}\)</span> denoted <span class="process-math">\(\det(A)\text{,}\)</span> is the area of the parallelogram formed by <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span> If the pair is negatively oriented, then <span class="process-math">\(\det(A)\)</span> is minus the area of the parallelogram.</div></article><article class="example example-like" id="example-det-identity"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">4.5.4</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-3267">
+<div class="para logical" id="p-3301">
 <div class="para">Consider the determinant of the identity matrix</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/fig-det-identity.html">
 \begin{equation*}
@@ -816,7 +816,7 @@ I =
 <div class="para">As seen on the left of <a href="" class="xref" data-knowl="./knowl/fig-det-identity.html" title="Figure 4.5.5">Figure 4.5.5</a>, the vectors <span class="process-math">\(\vvec_1 = \evec_1\)</span> and <span class="process-math">\(\vvec_2=\evec_2\)</span> form a positively oriented pair. Since the parallelogram they form is a <span class="process-math">\(1\by1\)</span> square, we have <span class="process-math">\(\det(I) = 1.\)</span>
 </div>
 </div> <figure class="figure figure-like" id="fig-det-identity"><div class="sidebyside"><div class="sbsrow" style="margin-left:12.5%;margin-right:12.5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/det-identity.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.5<span class="period">.</span></span><span class="space"> </span>The determinant <span class="process-math">\(\det(I) = 1\text{,}\)</span> as seen on the left. On the right, we see that <span class="process-math">\(\det(A) = -2\)</span> where <span class="process-math">\(A\)</span> is the matrix whose columns are shown.</figcaption></figure> <div class="para logical" id="p-3268">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.5<span class="period">.</span></span><span class="space"> </span>The determinant <span class="process-math">\(\det(I) = 1\text{,}\)</span> as seen on the left. On the right, we see that <span class="process-math">\(\det(A) = -2\)</span> where <span class="process-math">\(A\)</span> is the matrix whose columns are shown.</figcaption></figure> <div class="para logical" id="p-3302">
 <div class="para">Now consider the matrix</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/fig-det-identity.html">
 \begin{equation*}
@@ -833,29 +833,29 @@ A =
 </div></article><article class="activity project-like" id="activity-35"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.5.2</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-3269">In this activity, we will find the determinant of some simple <span class="process-math">\(2\by2\)</span> matrices and discover some important properties of determinants.</div> <figure class="figure figure-like" id="js-det"><iframe id="interactive-det" width="600" height="480" src="interactive-det-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-12" id="instructions-12"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-12"><div class="solution-like"><div class="para" id="p-3270">The sliders in the diagram below allow you to choose a matrix <span class="process-math">\(A=\begin{bmatrix}a \amp b \\
+<div class="para" id="p-3303">In this activity, we will find the determinant of some simple <span class="process-math">\(2\by2\)</span> matrices and discover some important properties of determinants.</div> <figure class="figure figure-like" id="js-det"><iframe id="interactive-det" width="600" height="480" src="interactive-det-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-12" id="instructions-12"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-12"><div class="solution-like"><div class="para" id="p-3304">The sliders in the diagram below allow you to choose a matrix <span class="process-math">\(A=\begin{bmatrix}a \amp b \\
 c \amp d \\
 \end{bmatrix}\text{.}\)</span>  The two vectors representing the columns of the matrix, along with the parallelograms they define, are shown below.</div></div></div>
 </div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.6<span class="period">.</span></span><span class="space"> </span>The geometric meaning of the determinant of a matrix.</figcaption></figure> <div class="para logical" id="p-3272"><ol class="lower-alpha">
-<li id="li-2181"><div class="para" id="p-3273">Use the diagram to find the determinant of the matrix <span class="process-math">\(\left[\begin{array}{rr} -\frac12 \amp 0 \\ 0 \amp 2
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.6<span class="period">.</span></span><span class="space"> </span>The geometric meaning of the determinant of a matrix.</figcaption></figure> <div class="para logical" id="p-3306"><ol class="lower-alpha">
+<li id="li-2189"><div class="para" id="p-3307">Use the diagram to find the determinant of the matrix <span class="process-math">\(\left[\begin{array}{rr} -\frac12 \amp 0 \\ 0 \amp 2
 \end{array}\right]\text{.}\)</span> Along with <a href="" class="xref" data-knowl="./knowl/example-det-identity.html" title="Example 4.5.4">Example 4.5.4</a>, what does this lead you to believe is generally true about the determinant of a diagonal matrix?</div></li>
-<li id="li-2182"><div class="para" id="p-3274">Use the diagram to find the determinant of the matrix <span class="process-math">\(\left[\begin{array}{rr} 0 \amp 1 \\
+<li id="li-2190"><div class="para" id="p-3308">Use the diagram to find the determinant of the matrix <span class="process-math">\(\left[\begin{array}{rr} 0 \amp 1 \\
 1 \amp 0 \\
 \end{array}\right]\text{.}\)</span>  What is the geometric effect of the matrix transformation defined by this matrix?</div></li>
-<li id="li-2183"><div class="para" id="p-3275">Use the diagram to find the determinant of the matrix <span class="process-math">\(\left[\begin{array}{rr} 2 \amp 1 \\
+<li id="li-2191"><div class="para" id="p-3309">Use the diagram to find the determinant of the matrix <span class="process-math">\(\left[\begin{array}{rr} 2 \amp 1 \\
 0 \amp 1 \\
 \end{array}\right]\text{.}\)</span> More generally, what do you notice about the determinant of any matrix of the form <span class="process-math">\(\left[\begin{array}{rr} 2 \amp k \\
 0 \amp 1 \\
 \end{array}\right]\text{?}\)</span>  What does this say about the determinant of an upper triangular matrix?</div></li>
-<li id="li-2184"><div class="para" id="p-3276">Use the diagram to find the determinant of any matrix of the form <span class="process-math">\(\left[\begin{array}{rr} 2 \amp 0 \\
+<li id="li-2192"><div class="para" id="p-3310">Use the diagram to find the determinant of any matrix of the form <span class="process-math">\(\left[\begin{array}{rr} 2 \amp 0 \\
 k \amp 1 \\
 \end{array}\right]\text{.}\)</span>  What does this say about the determinant of a lower triangular matrix?</div></li>
-<li id="li-2185"><div class="para" id="p-3277">Use the diagram to find the determinant of the matrix <span class="process-math">\(\left[\begin{array}{rr} 1 \amp -1 \\
+<li id="li-2193"><div class="para" id="p-3311">Use the diagram to find the determinant of the matrix <span class="process-math">\(\left[\begin{array}{rr} 1 \amp -1 \\
 -2 \amp 2 \\
 \end{array}\right]\text{.}\)</span>   In general, what is the determinant of a matrix whose columns are linearly dependent?</div></li>
-<li id="li-2186"><div class="para logical" id="p-3278">
+<li id="li-2194"><div class="para logical" id="p-3312">
 <div class="para">Consider the matrices</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -874,29 +874,29 @@ B = \left[\begin{array}{rr}
 </div></li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-156" id="solution-156"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-156"><div class="solution solution-like"><div class="para logical" id="p-3279"><ol class="lower-alpha">
-<li id="li-2187"><div class="para" id="p-3280">The determinant is <span class="process-math">\(-1\)</span> because the vectors are negatively oriented and the rectangle has sides of length <span class="process-math">\(\frac12\)</span> and <span class="process-math">\(2\text{.}\)</span> The determinant of a diagonal matrix seems to be the product of the diagonal entries.</div></li>
-<li id="li-2188"><div class="para" id="p-3281">The matrix transformation is a reflection over the line <span class="process-math">\(y=x\)</span> and we see that the determinant is <span class="process-math">\(-1\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-155" id="solution-155"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-155"><div class="solution solution-like"><div class="para logical" id="p-3313"><ol class="lower-alpha">
+<li id="li-2195"><div class="para" id="p-3314">The determinant is <span class="process-math">\(-1\)</span> because the vectors are negatively oriented and the rectangle has sides of length <span class="process-math">\(\frac12\)</span> and <span class="process-math">\(2\text{.}\)</span> The determinant of a diagonal matrix seems to be the product of the diagonal entries.</div></li>
+<li id="li-2196"><div class="para" id="p-3315">The matrix transformation is a reflection over the line <span class="process-math">\(y=x\)</span> and we see that the determinant is <span class="process-math">\(-1\text{.}\)</span>
 </div></li>
-<li id="li-2189"><div class="para" id="p-3282">The determinant will continue to be <span class="process-math">\(2\)</span> for any value of <span class="process-math">\(k\text{.}\)</span>  This illustrates the fact that the determinant of an upper triangular matrix equals the product of its diagonal entries.</div></li>
-<li id="li-2190"><div class="para" id="p-3283">The same reasoning tells us that this determinant is <span class="process-math">\(2\)</span> and, in fact, the determinant of a lower triangular matrix equals the product of its diagonal entries.</div></li>
-<li id="li-2191"><div class="para" id="p-3284">The determinant of this matrix is <span class="process-math">\(0\)</span> because the parallelogram formed by the vector has no area.  This suggests that the determinant of a matrix whose columns are linearly dependent is <span class="process-math">\(0\text{.}\)</span>
+<li id="li-2197"><div class="para" id="p-3316">The determinant will continue to be <span class="process-math">\(2\)</span> for any value of <span class="process-math">\(k\text{.}\)</span>  This illustrates the fact that the determinant of an upper triangular matrix equals the product of its diagonal entries.</div></li>
+<li id="li-2198"><div class="para" id="p-3317">The same reasoning tells us that this determinant is <span class="process-math">\(2\)</span> and, in fact, the determinant of a lower triangular matrix equals the product of its diagonal entries.</div></li>
+<li id="li-2199"><div class="para" id="p-3318">The determinant of this matrix is <span class="process-math">\(0\)</span> because the parallelogram formed by the vector has no area.  This suggests that the determinant of a matrix whose columns are linearly dependent is <span class="process-math">\(0\text{.}\)</span>
 </div></li>
-<li id="li-2192"><div class="para" id="p-3285">We find that <span class="process-math">\(\det(A) = -4\text{,}\)</span> <span class="process-math">\(\det(B) = 2\text{,}\)</span> and <span class="process-math">\(\det(AB) = -8\text{.}\)</span>  This suggests that <span class="process-math">\(\det(AB) = \det(A) \det(B)\text{.}\)</span>
+<li id="li-2200"><div class="para" id="p-3319">We find that <span class="process-math">\(\det(A) = -4\text{,}\)</span> <span class="process-math">\(\det(B) = 2\text{,}\)</span> and <span class="process-math">\(\det(AB) = -8\text{.}\)</span>  This suggests that <span class="process-math">\(\det(AB) = \det(A) \det(B)\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-3286">Later in this section, we will learn an algebraic technique for computing determinants.  In the meantime, we will simply note that we can define determinants for <span class="process-math">\(n\by
+</div></article><div class="para" id="p-3320">Later in this section, we will learn an algebraic technique for computing determinants.  In the meantime, we will simply note that we can define determinants for <span class="process-math">\(n\by
 n\)</span> matrices by measuring the volume of a box defined by the columns of the matrix, even if this box resides in <span class="process-math">\(\real^n\)</span> for some very large <span class="process-math">\(n\text{.}\)</span>
 </div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel top" style="width:60%;"><div class="para" id="p-3287">For example, the columns of a <span class="process-math">\(3\by3\)</span> matrix <span class="process-math">\(A\)</span> will form a parallelpiped, like the one shown here, and there is a means by which we can classify sets of such vectors as either positively or negatively oriented.  Therefore, we can define the determinant <span class="process-math">\(\det(A)\)</span> in terms of the volume of the parallelpiped, but we will not worry about the details here.</div></div>
+<div class="sbspanel top" style="width:60%;"><div class="para" id="p-3321">For example, the columns of a <span class="process-math">\(3\by3\)</span> matrix <span class="process-math">\(A\)</span> will form a parallelpiped, like the one shown here, and there is a means by which we can classify sets of such vectors as either positively or negatively oriented.  Therefore, we can define the determinant <span class="process-math">\(\det(A)\)</span> in terms of the volume of the parallelpiped, but we will not worry about the details here.</div></div>
 <div class="sbspanel top" style="width:40%;"><img src="external/images/det-3d.svg" role="img" class="contained"></div>
 </div></div>
-<div class="para logical" id="p-3288">
+<div class="para logical" id="p-3322">
 <div class="para">Though the previous activity deals with determinants of <span class="process-math">\(2\by2\)</span> matrices, it illustrates some important properties of determinants that are true more generally.</div>
 <ul class="disc">
-<li id="li-2193">
-<div class="para logical" id="p-3289">
+<li id="li-2201">
+<div class="para logical" id="p-3323">
 <div class="para">If <span class="process-math">\(A\)</span> is a triangular matrix, then <span class="process-math">\(\det(A)\)</span> equals the product of the entries on the diagonal.  For example,</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/fig-parallelogram-f.html">
 \begin{equation*}
@@ -912,7 +912,7 @@ n\)</span> matrices by measuring the volume of a box defined by the columns of t
 </div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.7<span class="period">.</span></span><span class="space"> </span>The determinant of a triangular matrix equals the product of its diagonal entries.</figcaption></figure>
 </li>
-<li id="li-2194"><div class="para logical" id="p-3290">
+<li id="li-2202"><div class="para logical" id="p-3324">
 <div class="para">We also saw that</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/subsec-triangular-invertible.html">
 \begin{equation*}
@@ -924,7 +924,7 @@ n\)</span> matrices by measuring the volume of a box defined by the columns of t
 </div>
 <div class="para">because the columns form a negatively oriented pair. You may remember from <a href="subsec-triangular-invertible.html" class="internal" title="Section 4.2: Triangular matrices and Gaussian elimination">Section 4.2</a> that a matrix such as this is obtained by interchanging two rows of the identity matrix.</div>
 </div></li>
-<li id="li-2195"><div class="para logical" id="p-3291">
+<li id="li-2203"><div class="para logical" id="p-3325">
 <div class="para">The determinant satisfies a multiplicative property, which says that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -939,32 +939,32 @@ n\)</span> matrices by measuring the volume of a box defined by the columns of t
 <article class="proposition theorem-like" id="proposition-det-properties"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">4.5.8</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-3292">
+<div class="para logical" id="p-3326">
 <div class="para">The determinant satisfies these properties:</div>
 <ul class="disc">
-<li id="li-2196"><div class="para" id="p-3293">The determinant of a triangular matrix equals the product of its diagonal entries.</div></li>
-<li id="li-2197"><div class="para" id="p-3294">If <span class="process-math">\(P\)</span> is obtained by interchanging two rows of the identity matrix, then <span class="process-math">\(\det(P) = -1\text{.}\)</span>
+<li id="li-2204"><div class="para" id="p-3327">The determinant of a triangular matrix equals the product of its diagonal entries.</div></li>
+<li id="li-2205"><div class="para" id="p-3328">If <span class="process-math">\(P\)</span> is obtained by interchanging two rows of the identity matrix, then <span class="process-math">\(\det(P) = -1\text{.}\)</span>
 </div></li>
-<li id="li-2198"><div class="para" id="p-3295"><span class="process-math">\(\det(AB) = \det(A)\det(B)\text{.}\)</span></div></li>
+<li id="li-2206"><div class="para" id="p-3329"><span class="process-math">\(\det(AB) = \det(A)\det(B)\text{.}\)</span></div></li>
 </ul>
 </div></article></section><section class="subsection" id="subsection-65"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.5.2</span><span class="space"> </span><span class="title">Determinants and invertibility</span>
 </h3>
-<div class="para" id="p-3296">Perhaps the most important property of determinants also appeared in the previous activity.  We saw that when the columns of the matrix <span class="process-math">\(A\)</span> are linearly dependent, the parallelogram formed by those vectors folds down onto a line. For instance, if <span class="process-math">\(A=\begin{bmatrix} 1 \amp 2 \\ -1 \amp -2 \\
+<div class="para" id="p-3330">Perhaps the most important property of determinants also appeared in the previous activity.  We saw that when the columns of the matrix <span class="process-math">\(A\)</span> are linearly dependent, the parallelogram formed by those vectors folds down onto a line. For instance, if <span class="process-math">\(A=\begin{bmatrix} 1 \amp 2 \\ -1 \amp -2 \\
 \end{bmatrix}\text{,}\)</span> then the resulting parallelogram, as shown in <a href="" class="xref" data-knowl="./knowl/figure-linear-dep-det.html" title="Figure 4.5.9">Figure 4.5.9</a>, has zero area, which means that <span class="process-math">\(\det(A)=0\text{.}\)</span>
 </div>
 <figure class="figure figure-like" id="figure-linear-dep-det"><div class="sidebyside"><div class="sbsrow" style="margin-left:30%;margin-right:30%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/parallelogram-g.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.9<span class="period">.</span></span><span class="space"> </span>When the columns of <span class="process-math">\(A\)</span> are linearly dependent, we find that <span class="process-math">\(\det(A) = 0\text{.}\)</span></figcaption></figure><div class="para" id="p-3297">The condition that the columns of <span class="process-math">\(A\)</span> are linearly dependent is precisely the same as the condition that <span class="process-math">\(A\)</span> is not invertible.  This leads us to believe that <span class="process-math">\(A\)</span> is not invertible if and only if its determinant is zero. The following proposition expresses this thought.</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.5.9<span class="period">.</span></span><span class="space"> </span>When the columns of <span class="process-math">\(A\)</span> are linearly dependent, we find that <span class="process-math">\(\det(A) = 0\text{.}\)</span></figcaption></figure><div class="para" id="p-3331">The condition that the columns of <span class="process-math">\(A\)</span> are linearly dependent is precisely the same as the condition that <span class="process-math">\(A\)</span> is not invertible.  This leads us to believe that <span class="process-math">\(A\)</span> is not invertible if and only if its determinant is zero. The following proposition expresses this thought.</div>
 <article class="proposition theorem-like" id="prop-invertible-det"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">4.5.10</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-3298">The matrix <span class="process-math">\(A\)</span> is invertible if and only if <span class="process-math">\(\det(A)
+<div class="para" id="p-3332">The matrix <span class="process-math">\(A\)</span> is invertible if and only if <span class="process-math">\(\det(A)
 \neq 0\text{.}\)</span>
-</div></article><div class="para" id="p-3299">To understand this proposition more fully, let’s remember that the matrix <span class="process-math">\(A\)</span> is invertible if and only if it is row equivalent to the identity matrix <span class="process-math">\(I\text{.}\)</span>  We will therefore consider how the determinant changes when we perform row operations on a matrix. Along the way, we will discover an effective means to compute the determinant.</div>
-<div class="para logical" id="p-3300">
+</div></article><div class="para" id="p-3333">To understand this proposition more fully, let’s remember that the matrix <span class="process-math">\(A\)</span> is invertible if and only if it is row equivalent to the identity matrix <span class="process-math">\(I\text{.}\)</span>  We will therefore consider how the determinant changes when we perform row operations on a matrix. Along the way, we will discover an effective means to compute the determinant.</div>
+<div class="para logical" id="p-3334">
 <div class="para">In <a href="subsec-triangular-invertible.html" class="internal" title="Section 4.2: Triangular matrices and Gaussian elimination">Section 4.2</a>, we saw how to describe the three row operations, scaling, interchange, and replacement, using matrix multiplication.  If we perform a row operation on the matrix <span class="process-math">\(A\)</span> to obtain the matrix <span class="process-math">\(A'\text{,}\)</span> we would like to relate <span class="process-math">\(\det(A)\)</span> and <span class="process-math">\(\det(A')\text{.}\)</span>  To do so, remember that</div>
 <ul class="disc">
-<li id="li-2199"><div class="para logical" id="p-3301">
+<li id="li-2207"><div class="para logical" id="p-3335">
 <div class="para">Scalings are performed by multiplying a matrix <span class="process-math">\(A\)</span> by a diagonal matrix, such as</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -985,7 +985,7 @@ S = \left[\begin{array}{rrr}
 k\det(A)\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-2200"><div class="para logical" id="p-3302">
+<li id="li-2208"><div class="para logical" id="p-3336">
 <div class="para">Interchanges are performed by matrices such as</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/proposition-det-properties.html">
 \begin{equation*}
@@ -1006,7 +1006,7 @@ P = \left[\begin{array}{rrr}
 <div class="para">In other words, <span class="process-math">\(\det(A') =
 -\det(A)\)</span> when we perform an interchange.</div>
 </div></li>
-<li id="li-2201"><div class="para logical" id="p-3303">
+<li id="li-2209"><div class="para logical" id="p-3337">
 <div class="para">Row replacement operations are performed by matrices such as</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1024,21 +1024,21 @@ R = \left[\begin{array}{rrr}
 <article class="proposition theorem-like" id="proposition-det-row-operations"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">4.5.11</span><span class="period">.</span><span class="space"> </span><span class="title">The effect of row operations on the determinant.</span>
 </h4>
-<div class="para logical" id="p-3304"><ul class="disc">
-<li id="li-2202"><div class="para" id="p-3305">If <span class="process-math">\(A'\)</span> is obtained from <span class="process-math">\(A\)</span> by scaling a row by <span class="process-math">\(k\text{,}\)</span> then <span class="process-math">\(\det(A') = k\det(A)\text{.}\)</span>
+<div class="para logical" id="p-3338"><ul class="disc">
+<li id="li-2210"><div class="para" id="p-3339">If <span class="process-math">\(A'\)</span> is obtained from <span class="process-math">\(A\)</span> by scaling a row by <span class="process-math">\(k\text{,}\)</span> then <span class="process-math">\(\det(A') = k\det(A)\text{.}\)</span>
 </div></li>
-<li id="li-2203"><div class="para" id="p-3306">If <span class="process-math">\(A'\)</span> is obtained from <span class="process-math">\(A\)</span> by interchanging two rows, then <span class="process-math">\(\det(A') =
+<li id="li-2211"><div class="para" id="p-3340">If <span class="process-math">\(A'\)</span> is obtained from <span class="process-math">\(A\)</span> by interchanging two rows, then <span class="process-math">\(\det(A') =
 -\det(A)\text{.}\)</span>
 </div></li>
-<li id="li-2204"><div class="para" id="p-3307">If <span class="process-math">\(A'\)</span> is obtained from <span class="process-math">\(A\)</span> by performing a replacement operation, then <span class="process-math">\(\det(A') = \det(A)\text{.}\)</span>
+<li id="li-2212"><div class="para" id="p-3341">If <span class="process-math">\(A'\)</span> is obtained from <span class="process-math">\(A\)</span> by performing a replacement operation, then <span class="process-math">\(\det(A') = \det(A)\text{.}\)</span>
 </div></li>
 </ul></div></article><article class="activity project-like" id="act-determinant-gaussian-elimination"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.5.3</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-3308">
+<div class="para logical" id="p-3342">
 <div class="para">We will investigate the connection between the determinant of a matrix and its invertibility using Gaussian elimination.</div>
 <ol class="lower-alpha">
-<li id="li-2205"><div class="para logical" id="p-3309">
+<li id="li-2213"><div class="para logical" id="p-3343">
 <div class="para">Consider the two upper triangular matrices</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/proposition-triangular-invertibility.html">
 \begin{equation*}
@@ -1059,8 +1059,8 @@ U_2 =
 <div class="para">Remembering <a href="" class="xref" data-knowl="./knowl/proposition-triangular-invertibility.html" title="Proposition 4.2.2">Proposition 4.2.2</a>, which of the matrices <span class="process-math">\(U_1\)</span> and <span class="process-math">\(U_2\)</span> are invertible?  What are the determinants <span class="process-math">\(\det(U_1)\)</span> and <span class="process-math">\(\det(U_2)\text{?}\)</span>
 </div>
 </div></li>
-<li id="li-2206"><div class="para" id="p-3310">Explain why an upper triangular matrix is invertible if and only if its determinant is not zero.</div></li>
-<li id="li-2207"><div class="para logical" id="p-3311">
+<li id="li-2214"><div class="para" id="p-3344">Explain why an upper triangular matrix is invertible if and only if its determinant is not zero.</div></li>
+<li id="li-2215"><div class="para logical" id="p-3345">
 <div class="para">Let’s now consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1093,7 +1093,7 @@ A =
 <div class="para">What is the relationship between <span class="process-math">\(\det(A)\)</span> and <span class="process-math">\(\det(A_1)\text{?}\)</span>
 </div>
 </div></li>
-<li id="li-2208"><div class="para logical" id="p-3312">
+<li id="li-2216"><div class="para logical" id="p-3346">
 <div class="para">Next we perform another row replacement operation:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1115,7 +1115,7 @@ A_1=
 <div class="para">What is the relationship between <span class="process-math">\(\det(A)\)</span> and <span class="process-math">\(\det(A_2)\text{?}\)</span>
 </div>
 </div></li>
-<li id="li-2209"><div class="para logical" id="p-3313">
+<li id="li-2217"><div class="para logical" id="p-3347">
 <div class="para">Finally, we perform an interchange:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1137,8 +1137,8 @@ A_2 =
 <div class="para">to arrive at an upper triangular matrix <span class="process-math">\(U\text{.}\)</span>  What is the relationship between <span class="process-math">\(\det(A)\)</span> and <span class="process-math">\(\det(U)\text{?}\)</span>
 </div>
 </div></li>
-<li id="li-2210"><div class="para" id="p-3314">Since <span class="process-math">\(U\)</span> is upper triangular, we can compute its determinant, which allows us to find <span class="process-math">\(\det(A)\text{.}\)</span>  What is <span class="process-math">\(\det(A)\text{?}\)</span>  Is <span class="process-math">\(A\)</span> invertible?</div></li>
-<li id="li-2211"><div class="para logical" id="p-3315">
+<li id="li-2218"><div class="para" id="p-3348">Since <span class="process-math">\(U\)</span> is upper triangular, we can compute its determinant, which allows us to find <span class="process-math">\(\det(A)\text{.}\)</span>  What is <span class="process-math">\(\det(A)\text{?}\)</span>  Is <span class="process-math">\(A\)</span> invertible?</div></li>
+<li id="li-2219"><div class="para logical" id="p-3349">
 <div class="para">Now consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1152,26 +1152,26 @@ A =
 </div>
 <div class="para">Perform a sequence of row operations to find an upper triangular matrix <span class="process-math">\(U\)</span> that is row equivalent to <span class="process-math">\(A\text{.}\)</span>  Use this to determine <span class="process-math">\(\det(A)\)</span> and whether <span class="process-math">\(A\)</span> invertible?</div>
 </div></li>
-<li id="li-2212"><div class="para" id="p-3316">Suppose we apply a sequence of row operations on a matrix <span class="process-math">\(A\)</span> to obtain <span class="process-math">\(A'\text{.}\)</span>  Explain why <span class="process-math">\(\det(A)
+<li id="li-2220"><div class="para" id="p-3350">Suppose we apply a sequence of row operations on a matrix <span class="process-math">\(A\)</span> to obtain <span class="process-math">\(A'\text{.}\)</span>  Explain why <span class="process-math">\(\det(A)
 \neq 0\)</span> if and only if <span class="process-math">\(\det(A') \neq 0\text{.}\)</span>
 </div></li>
-<li id="li-2213"><div class="para" id="p-3317">Explain why an <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is invertible if and only if <span class="process-math">\(\det(A) \neq 0\text{.}\)</span>
+<li id="li-2221"><div class="para" id="p-3351">Explain why an <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is invertible if and only if <span class="process-math">\(\det(A) \neq 0\text{.}\)</span>
 </div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-157" id="solution-157"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-157"><div class="solution solution-like"><div class="para logical" id="p-3318"><ol class="lower-alpha">
-<li id="li-2214"><div class="para" id="p-3319">The matrix <span class="process-math">\(U_1\)</span> is invertible because we see there is a pivot position in every row and column.  The matrix <span class="process-math">\(U_2\text{,}\)</span> however, is not invertible because there is not a pivot position in the third row.</div></li>
-<li id="li-2215"><div class="para" id="p-3320">The determinant of an upper triangular matrix equals the product of its diagonal entries.  Consequently, if the determinant of an upper triangular matrix is not zero, then each of its diagonal entries must be nonzero.  In this case, there is a pivot position in every row and every column so that the matrix is invertible.</div></li>
-<li id="li-2216"><div class="para" id="p-3321">Row replacement operations do not change the determinant so <span class="process-math">\(\det(A) = \det(A_1)\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-156" id="solution-156"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-156"><div class="solution solution-like"><div class="para logical" id="p-3352"><ol class="lower-alpha">
+<li id="li-2222"><div class="para" id="p-3353">The matrix <span class="process-math">\(U_1\)</span> is invertible because we see there is a pivot position in every row and column.  The matrix <span class="process-math">\(U_2\text{,}\)</span> however, is not invertible because there is not a pivot position in the third row.</div></li>
+<li id="li-2223"><div class="para" id="p-3354">The determinant of an upper triangular matrix equals the product of its diagonal entries.  Consequently, if the determinant of an upper triangular matrix is not zero, then each of its diagonal entries must be nonzero.  In this case, there is a pivot position in every row and every column so that the matrix is invertible.</div></li>
+<li id="li-2224"><div class="para" id="p-3355">Row replacement operations do not change the determinant so <span class="process-math">\(\det(A) = \det(A_1)\text{.}\)</span>
 </div></li>
-<li id="li-2217"><div class="para" id="p-3322">In the same way, <span class="process-math">\(\det(A) =
+<li id="li-2225"><div class="para" id="p-3356">In the same way, <span class="process-math">\(\det(A) =
 \det(A_2)\text{.}\)</span>
 </div></li>
-<li id="li-2218"><div class="para" id="p-3323">Interchanges change the sign of the determinant so <span class="process-math">\(\det(A) = -\det(U)\text{.}\)</span>
+<li id="li-2226"><div class="para" id="p-3357">Interchanges change the sign of the determinant so <span class="process-math">\(\det(A) = -\det(U)\text{.}\)</span>
 </div></li>
-<li id="li-2219"><div class="para" id="p-3324">The determinant <span class="process-math">\(\det(U) = -4\)</span> since it is the product of the diagonal entries of <span class="process-math">\(U\text{.}\)</span>  This means that <span class="process-math">\(\det(A) = 4\text{.}\)</span>  We see that <span class="process-math">\(A\)</span> is invertible because <span class="process-math">\(U\text{,}\)</span> which has a pivot position in every row and every column, is invertible.</div></li>
-<li id="li-2220"><div class="para logical" id="p-3325">
+<li id="li-2227"><div class="para" id="p-3358">The determinant <span class="process-math">\(\det(U) = -4\)</span> since it is the product of the diagonal entries of <span class="process-math">\(U\text{.}\)</span>  This means that <span class="process-math">\(\det(A) = 4\text{.}\)</span>  We see that <span class="process-math">\(A\)</span> is invertible because <span class="process-math">\(U\text{,}\)</span> which has a pivot position in every row and every column, is invertible.</div></li>
+<li id="li-2228"><div class="para logical" id="p-3359">
 <div class="para">Beginning with a row replacement operation, we arrive at</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1204,17 +1204,17 @@ A_3=\left[\begin{array}{rrr}
 </div>
 <div class="para">Putting these operations together, we see that <span class="process-math">\(\det(A) = 2\det(U) = 0\text{.}\)</span>  In this case, <span class="process-math">\(A\)</span> is not invertible because <span class="process-math">\(U\text{,}\)</span> which has a row without a pivot position, is not invertible.</div>
 </div></li>
-<li id="li-2221"><div class="para" id="p-3326">Performing one of the three row operations either leaves the determinant unchanged (row replacement), changes its sign (interchange), or multiplies it by a nonzero number (scaling).  Therefore, if we begin with a matrix whose determinant is not zero, the determinant remains not zero after any row operation is applied.</div></li>
-<li id="li-2222"><div class="para" id="p-3327">If we apply a sequence of row operations to <span class="process-math">\(A\)</span> to find a row equivalent matrix <span class="process-math">\(U\)</span> that is upper triangular, we know that <span class="process-math">\(\det(A)\neq0\)</span> if and only if <span class="process-math">\(\det(U) \neq 0\text{.}\)</span> We also know that <span class="process-math">\(A\)</span> is invertible if and only if <span class="process-math">\(U\)</span> is invertible.  Putting these facts together, we conclude that <span class="process-math">\(\det(A)\neq 0\)</span> if and only if <span class="process-math">\(A\)</span> is invertible.</div></li>
+<li id="li-2229"><div class="para" id="p-3360">Performing one of the three row operations either leaves the determinant unchanged (row replacement), changes its sign (interchange), or multiplies it by a nonzero number (scaling).  Therefore, if we begin with a matrix whose determinant is not zero, the determinant remains not zero after any row operation is applied.</div></li>
+<li id="li-2230"><div class="para" id="p-3361">If we apply a sequence of row operations to <span class="process-math">\(A\)</span> to find a row equivalent matrix <span class="process-math">\(U\)</span> that is upper triangular, we know that <span class="process-math">\(\det(A)\neq0\)</span> if and only if <span class="process-math">\(\det(U) \neq 0\text{.}\)</span> We also know that <span class="process-math">\(A\)</span> is invertible if and only if <span class="process-math">\(U\)</span> is invertible.  Putting these facts together, we conclude that <span class="process-math">\(\det(A)\neq 0\)</span> if and only if <span class="process-math">\(A\)</span> is invertible.</div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-3328">As seen in this activity, row operations can be used to compute the determinant of a matrix.  More specifically, applying the forward substitution phase of Gaussian elimination to the matrix <span class="process-math">\(A\)</span> leads us to an upper triangular matrix <span class="process-math">\(U\)</span> so that <span class="process-math">\(A\sim U\text{.}\)</span>
+</div></article><div class="para" id="p-3362">As seen in this activity, row operations can be used to compute the determinant of a matrix.  More specifically, applying the forward substitution phase of Gaussian elimination to the matrix <span class="process-math">\(A\)</span> leads us to an upper triangular matrix <span class="process-math">\(U\)</span> so that <span class="process-math">\(A\sim U\text{.}\)</span>
 </div>
-<div class="para" id="p-3329">We know that <span class="process-math">\(U\)</span> is invertible when all of its diagonal entries are nonzero.  We also know that <span class="process-math">\(\det(U)\neq 0\)</span> under the same condition.  This tells us <span class="process-math">\(U\)</span> is invertible if and only if <span class="process-math">\(\det(U) \neq 0\text{.}\)</span>
+<div class="para" id="p-3363">We know that <span class="process-math">\(U\)</span> is invertible when all of its diagonal entries are nonzero.  We also know that <span class="process-math">\(\det(U)\neq 0\)</span> under the same condition.  This tells us <span class="process-math">\(U\)</span> is invertible if and only if <span class="process-math">\(\det(U) \neq 0\text{.}\)</span>
 </div>
-<div class="para" id="p-3330">Now if <span class="process-math">\(\det(A)\neq 0\text{,}\)</span> we also have <span class="process-math">\(\det(U)\neq 0\)</span> since applying a sequence of row operations to <span class="process-math">\(A\)</span> only multiplies the determinant by a nonzero number.  It then follows that <span class="process-math">\(U\)</span> is invertible so <span class="process-math">\(U\sim I\text{.}\)</span>  Therefore, we also know that <span class="process-math">\(A\sim I\)</span> and so <span class="process-math">\(A\)</span> must also be invertible.</div>
-<div class="para" id="p-3331">This explains <a href="" class="xref" data-knowl="./knowl/prop-invertible-det.html" title="Proposition 4.5.10">Proposition 4.5.10</a> and so we know that <span class="process-math">\(A\)</span> is invertible if and only if <span class="process-math">\(\det(A)\neq 0\text{.}\)</span>
+<div class="para" id="p-3364">Now if <span class="process-math">\(\det(A)\neq 0\text{,}\)</span> we also have <span class="process-math">\(\det(U)\neq 0\)</span> since applying a sequence of row operations to <span class="process-math">\(A\)</span> only multiplies the determinant by a nonzero number.  It then follows that <span class="process-math">\(U\)</span> is invertible so <span class="process-math">\(U\sim I\text{.}\)</span>  Therefore, we also know that <span class="process-math">\(A\sim I\)</span> and so <span class="process-math">\(A\)</span> must also be invertible.</div>
+<div class="para" id="p-3365">This explains <a href="" class="xref" data-knowl="./knowl/prop-invertible-det.html" title="Proposition 4.5.10">Proposition 4.5.10</a> and so we know that <span class="process-math">\(A\)</span> is invertible if and only if <span class="process-math">\(\det(A)\neq 0\text{.}\)</span>
 </div>
-<div class="para logical" id="p-3332">
+<div class="para logical" id="p-3366">
 <div class="para">Finally, notice that if <span class="process-math">\(A\)</span> is invertible, we have <span class="process-math">\(A^{-1}A = I\text{,}\)</span> which tells us that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1227,14 +1227,14 @@ A_3=\left[\begin{array}{rrr}
 <article class="proposition theorem-like" id="proposition-25"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">4.5.12</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-3333">If <span class="process-math">\(A\)</span> is an invertible matrix, then <span class="process-math">\(\det(A^{-1}) = 1/\det(A)\text{.}\)</span>
+<div class="para" id="p-3367">If <span class="process-math">\(A\)</span> is an invertible matrix, then <span class="process-math">\(\det(A^{-1}) = 1/\det(A)\text{.}\)</span>
 </div></article></section><section class="subsection" id="subsection-66"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.5.3</span><span class="space"> </span><span class="title">Cofactor expansions</span>
 </h3>
-<div class="para" id="p-3334">We now have a technique for computing the determinant of a matrix using row operations.  There is another way to compute determinants, using what are called <dfn class="terminology">cofactor expansions</dfn>, that will be important for us in the next chapter. We will describe this method here.</div>
-<div class="para" id="p-3335">To begin, let’s show how to compute the determinant of a <span class="process-math">\(2\by2\)</span> matrix.</div>
+<div class="para" id="p-3368">We now have a technique for computing the determinant of a matrix using row operations.  There is another way to compute determinants, using what are called <dfn class="terminology">cofactor expansions</dfn>, that will be important for us in the next chapter. We will describe this method here.</div>
+<div class="para" id="p-3369">To begin, let’s show how to compute the determinant of a <span class="process-math">\(2\by2\)</span> matrix.</div>
 <article class="assemblage assemblage-like" id="assemblage-det-2-by-2"><h4 class="heading"><span class="title">Determinant of a <span class="process-math">\(2 \by 2 \)</span> matrix.</span></h4>
-<div class="para logical" id="p-3336">
+<div class="para logical" id="p-3370">
 <div class="para">Let <span class="process-math">\(A = \left[\begin{array}{rr}
 a \amp b \\
 c \amp d \\
@@ -1257,12 +1257,12 @@ a (-\frac{c}{a} b + d)
 ad-bc\text{.}
 \end{equation*}
 </div>
-</div></article><div class="para" id="p-3337">Note that the derivation of a formula for the determinant of a <span class="process-math">\(2 \by 2 \)</span> matrix relied on two facts: (a) replacement doesn’t change the determinant, and (b) the determinant of a triangular matrix is the product of the diagonal elements. This same general approach could be used on any square matrix: keep applying row operations until we obtain a triangular matrix.  If we use scaling or or interchange, we need to keep track of how our determinant changes.  But we can obtain a triangular matrix without using scaling, so  this just amounts to keeping track of a possible sign change when we use interchange.</div>
-<div class="para" id="p-3338">Now that we have a formula for the determinant of a <span class="process-math">\(2 \by 2 \)</span> matrix in hand, we can develop the method of cofactor expansion. Using a cofactor expansion to find the determinant of a more general <span class="process-math">\(n\by n\)</span> matrix is a little more work so we will demonstrate it with an example.</div>
-<article class="example example-like" id="example-31"><h4 class="heading">
+</div></article><div class="para" id="p-3371">Note that the derivation of a formula for the determinant of a <span class="process-math">\(2 \by 2 \)</span> matrix relied on two facts: (a) replacement doesn’t change the determinant, and (b) the determinant of a triangular matrix is the product of the diagonal elements. This same general approach could be used on any square matrix: keep applying row operations until we obtain a triangular matrix.  If we use scaling or or interchange, we need to keep track of how our determinant changes.  But we can obtain a triangular matrix without using scaling, so  this just amounts to keeping track of a possible sign change when we use interchange.</div>
+<div class="para" id="p-3372">Now that we have a formula for the determinant of a <span class="process-math">\(2 \by 2 \)</span> matrix in hand, we can develop the method of cofactor expansion. Using a cofactor expansion to find the determinant of a more general <span class="process-math">\(n\by n\)</span> matrix is a little more work so we will demonstrate it with an example.</div>
+<article class="example example-like" id="example-32"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">4.5.13</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-3339">
+<div class="para logical" id="p-3373">
 <div class="para">We illustrate how to use a cofactor expansion to find the determinant of <span class="process-math">\(A\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1274,7 +1274,7 @@ A =
 \end{array}\right].
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-3340">
+</div> <div class="para logical" id="p-3374">
 <div class="para">To begin, we choose one row or column.  It doesn’t matter which we choose because the result will be the same in any case.  Here, we choose the second row</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1285,15 +1285,15 @@ A =
 \end{array}\right]\text{.}
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-3341">
+</div> <div class="para logical" id="p-3375">
 <div class="para">The determinant will be found by creating a sum of terms, one for each entry in the row we have chosen.  For each entry in the row, we form its term by multiplying</div>
 <ul class="disc">
-<li id="li-2223"><div class="para" id="p-3342">
+<li id="li-2231"><div class="para" id="p-3376">
 <span class="process-math">\((-1)^{i+j}\)</span> where <span class="process-math">\(i\)</span> and <span class="process-math">\(j\)</span> are the row and column numbers, respectively, of the entry,</div></li>
-<li id="li-2224"><div class="para" id="p-3343">the entry itself, and</div></li>
-<li id="li-2225"><div class="para" id="p-3344">the determinant of the entries left over when we have crossed out the row and column containing the entry.</div></li>
+<li id="li-2232"><div class="para" id="p-3377">the entry itself, and</div></li>
+<li id="li-2233"><div class="para" id="p-3378">the determinant of the entries left over when we have crossed out the row and column containing the entry.</div></li>
 </ul>
-</div> <div class="para logical" id="p-3345">
+</div> <div class="para logical" id="p-3379">
 <div class="para">Since we are computing the determinant of this matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1305,7 +1305,7 @@ A =
 \end{equation*}
 </div>
 <div class="para">using the second row, the entry in the first column of this row is <span class="process-math">\(-2\text{.}\)</span>  Let’s see how to form the term from this entry.</div>
-</div> <div class="para logical" id="p-3346">
+</div> <div class="para logical" id="p-3380">
 <div class="para">The term itself is <span class="process-math">\(-2\text{,}\)</span> and the matrix that is left over when we cross out the second row and first column is</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1329,7 +1329,7 @@ A =
 <div class="para">Since this entry is in the second row and first column, the term we construct is <span class="process-math">\((-1)^{2+1}(-2)(-8) = -16
 \text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-3347">
+</div> <div class="para logical" id="p-3381">
 <div class="para">Putting this together, we find the determinant to be</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/act-determinant-gaussian-elimination.html">
 \begin{equation*}
@@ -1376,10 +1376,10 @@ A =
 </div></article><article class="activity project-like" id="activity-37"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.5.4</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-3348">
+<div class="para logical" id="p-3382">
 <div class="para">We will explore cofactor expansions through some examples.</div>
 <ol class="lower-alpha">
-<li id="li-2226"><div class="para logical" id="p-3349">
+<li id="li-2234"><div class="para logical" id="p-3383">
 <div class="para">Using a cofactor expansion, show that the determinant of the following matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1393,7 +1393,7 @@ A =
 </div>
 <div class="para">Remember that you can choose any row or column to create the expansion, but the choice of a particular row or column may simplify the computation.</div>
 </div></li>
-<li id="li-2227"><div class="para logical" id="p-3350">
+<li id="li-2235"><div class="para logical" id="p-3384">
 <div class="para">Use a cofactor expansion to find the determinant of</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1407,7 +1407,7 @@ A =
 </div>
 <div class="para">(Which row should you choose to make your work especially easy?) Explain how the cofactor expansion technique shows that the determinant of a triangular matrix is equal to the product of its diagonal entries.</div>
 </div></li>
-<li id="li-2228"><div class="para logical" id="p-3351">
+<li id="li-2236"><div class="para logical" id="p-3385">
 <div class="para">Use a cofactor expansion to determine whether the following vectors form a basis of <span class="process-math">\(\real^3\text{:}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -1418,8 +1418,8 @@ A =
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2229"><div class="para logical" id="p-3352">
-<div class="para">Numpy or scipy will compute the determinant of a matrix <code class="code-inline tex2jax_ignore">A</code> with the command <code class="code-inline tex2jax_ignore">numpy.linalg.det()</code> or <code class="code-inline tex2jax_ignore">scipy.linal.det</code>. Use Python to find the determinant of the matrix </div>
+<li id="li-2237"><div class="para logical" id="p-3386">
+<div class="para">NumPy or SciPy will compute the determinant of a matrix <code class="code-inline tex2jax_ignore">A</code> with the command <code class="code-inline tex2jax_ignore">numpy.linalg.det()</code> or <code class="code-inline tex2jax_ignore">scipy.linal.det</code>. Use Python to find the determinant of the matrix </div>
 <div class="displaymath process-math">
 \begin{equation*}
 \left[\begin{array}{rrrr}
@@ -1430,15 +1430,15 @@ A =
 \end{array}\right]\text{.}
 \end{equation*}
 </div>
-<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-130"><script type="text/x-sage">import numpy as np 
+<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-132"><script type="text/x-sage">import numpy as np 
 from scipy import linalg
 </script></pre></div>
 </div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-158" id="solution-158"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-158"><div class="solution solution-like"><div class="para logical" id="p-3353"><ol class="lower-alpha">
-<li id="li-2230"><div class="para logical" id="p-3354">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-157" id="solution-157"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-157"><div class="solution solution-like"><div class="para logical" id="p-3387"><ol class="lower-alpha">
+<li id="li-2238"><div class="para logical" id="p-3388">
 <div class="para">We will using a cofactor expansion along the first row so that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1464,7 +1464,7 @@ from scipy import linalg
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2231"><div class="para logical" id="p-3355">
+<li id="li-2239"><div class="para logical" id="p-3389">
 <div class="para">Expanding along the first row gives</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1494,40 +1494,40 @@ from scipy import linalg
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2232"><div class="para" id="p-3356">We form the matrix <span class="process-math">\(A\)</span> whose columns are the three given vectors.  Expanding along either the second row or third column to take advantage of the zero in the <span class="process-math">\((2,3)\)</span> entry, we see that <span class="process-math">\(\det(A) = 0\text{,}\)</span> which means that <span class="process-math">\(A\)</span> is not invertible.  Therefore, the vectors do not form a basis for <span class="process-math">\(\real^3\text{.}\)</span>
+<li id="li-2240"><div class="para" id="p-3390">We form the matrix <span class="process-math">\(A\)</span> whose columns are the three given vectors.  Expanding along either the second row or third column to take advantage of the zero in the <span class="process-math">\((2,3)\)</span> entry, we see that <span class="process-math">\(\det(A) = 0\text{,}\)</span> which means that <span class="process-math">\(A\)</span> is not invertible.  Therefore, the vectors do not form a basis for <span class="process-math">\(\real^3\text{.}\)</span>
 </div></li>
-<li id="li-2233"><div class="para" id="p-3357">Python tells us that <span class="process-math">\(\det(A) = 72\text{.}\)</span>
+<li id="li-2241"><div class="para" id="p-3391">Python tells us that <span class="process-math">\(\det(A) = 72\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
 </div></article></section><section class="subsection" id="subsection-67"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.5.4</span><span class="space"> </span><span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-3358">
+<div class="para logical" id="p-3392">
 <div class="para">In this section, we associated a numerical quantity, the determinant, to a square matrix and showed how it tells us whether the matrix is invertible.</div>
 <ul class="disc">
-<li id="li-2234"><div class="para" id="p-3359">The determinant of a matrix has a geometric interpretation. In particular, when <span class="process-math">\(n=2\text{,}\)</span> the determinant is the signed area of the parallelogram formed by the two columns of the matrix.</div></li>
-<li id="li-2235"><div class="para logical" id="p-3360">
+<li id="li-2242"><div class="para" id="p-3393">The determinant of a matrix has a geometric interpretation. In particular, when <span class="process-math">\(n=2\text{,}\)</span> the determinant is the signed area of the parallelogram formed by the two columns of the matrix.</div></li>
+<li id="li-2243"><div class="para logical" id="p-3394">
 <div class="para">The determinant satisfies many properties, including the facts that</div>
 <ul class="circle">
-<li id="li-2236"><div class="para" id="p-3361">
+<li id="li-2244"><div class="para" id="p-3395">
 <span class="process-math">\(\det(AB) = \det(A) \det(B)\text{,}\)</span> and</div></li>
-<li id="li-2237"><div class="para" id="p-3362">the determinant of a triangular matrix is equal to the product of its diagonal entries.</div></li>
+<li id="li-2245"><div class="para" id="p-3396">the determinant of a triangular matrix is equal to the product of its diagonal entries.</div></li>
 </ul>
 </div></li>
-<li id="li-2238"><div class="para" id="p-3363">These properties helped us compute the determinant of a matrix using row operations. This also led to the important observation that the determinant of a matrix is nonzero if and only if the matrix is invertible.</div></li>
-<li id="li-2239"><div class="para" id="p-3364">Finally, we learned how to compute the determinant of a matrix using <dfn class="terminology">cofactor expansions</dfn>, which will be a valuable tool for us in the next chapter.</div></li>
+<li id="li-2246"><div class="para" id="p-3397">These properties helped us compute the determinant of a matrix using row operations. This also led to the important observation that the determinant of a matrix is nonzero if and only if the matrix is invertible.</div></li>
+<li id="li-2247"><div class="para" id="p-3398">Finally, we learned how to compute the determinant of a matrix using <dfn class="terminology">cofactor expansions</dfn>, which will be a valuable tool for us in the next chapter.</div></li>
 </ul>
 </div>
-<div class="para" id="p-3365">We have seen three ways to compute the determinant: by interpreting the determinant as a signed area or volume; by applying appropriate row operations; and by using a cofactor expansion.  It’s worth spending a moment to think about the relative merits of these approaches.</div>
-<div class="para" id="p-3366">The geometric definition of the determinant tells us that the determinant is measuring a natural geometric quantity, an insight that does not easily come through the other two approaches.  The intuition we gain by thinking about the determinant geometrically makes it seem reasonable that the determinant should be zero for matrices that are not invertible: if the columns are linearly dependent, the vectors cannot create a positive volume.</div>
-<div class="para" id="p-3367">Approaching the determinant through row operations provides an effective means of computing the determinant.  In fact, this is what most computer programs do behind the scenes when they compute a determinant.  This approach is also a useful theoretical tool for explaining why the determinant tells us whether a matrix is invertible.</div>
-<div class="para" id="p-3368">The cofactor expansion method will be useful to us in the next chapter when we look at eigenvalues and eigenvectors.  It is not, however, a practical way to compute a determinant.  To see why, consider the fact that the determinant of a <span class="process-math">\(2\by2\)</span> matrix, written as <span class="process-math">\(ad-bc\text{,}\)</span> requires us to compute two terms, <span class="process-math">\(ad\)</span> and <span class="process-math">\(bc\text{.}\)</span>  To compute the determinant of a <span class="process-math">\(3\by3\)</span> matrix, we need to compute three <span class="process-math">\(2\by2\)</span> determinants, which involves <span class="process-math">\(3\cdot 2 = 6\)</span> terms.  For a <span class="process-math">\(4\by4\)</span> matrix, we need to compute four <span class="process-math">\(3\by3\)</span> determinants, which produces <span class="process-math">\(4\cdot3\cdot2 = 24\)</span> terms.  Continuing in this way, we see that the cofactor expansion of a <span class="process-math">\(10\by10\)</span> matrix would involve <span class="process-math">\(10\cdot9\cdot8\ldots3\cdot2 = 10! = 3628800\)</span> terms.</div>
-<div class="para" id="p-3369">By contrast, we have seen that the number of steps required to perform Gaussian elimination on an <span class="process-math">\(n\by n\)</span> matrix is proportional to <span class="process-math">\(n^3\text{.}\)</span>  When <span class="process-math">\(n=10\text{,}\)</span> we have <span class="process-math">\(n^3 =
+<div class="para" id="p-3399">We have seen three ways to compute the determinant: by interpreting the determinant as a signed area or volume; by applying appropriate row operations; and by using a cofactor expansion.  It’s worth spending a moment to think about the relative merits of these approaches.</div>
+<div class="para" id="p-3400">The geometric definition of the determinant tells us that the determinant is measuring a natural geometric quantity, an insight that does not easily come through the other two approaches.  The intuition we gain by thinking about the determinant geometrically makes it seem reasonable that the determinant should be zero for matrices that are not invertible: if the columns are linearly dependent, the vectors cannot create a positive volume.</div>
+<div class="para" id="p-3401">Approaching the determinant through row operations provides an effective means of computing the determinant.  In fact, this is what most computer programs do behind the scenes when they compute a determinant.  This approach is also a useful theoretical tool for explaining why the determinant tells us whether a matrix is invertible.</div>
+<div class="para" id="p-3402">The cofactor expansion method will be useful to us in the next chapter when we look at eigenvalues and eigenvectors.  It is not, however, a practical way to compute a determinant.  To see why, consider the fact that the determinant of a <span class="process-math">\(2\by2\)</span> matrix, written as <span class="process-math">\(ad-bc\text{,}\)</span> requires us to compute two terms, <span class="process-math">\(ad\)</span> and <span class="process-math">\(bc\text{.}\)</span>  To compute the determinant of a <span class="process-math">\(3\by3\)</span> matrix, we need to compute three <span class="process-math">\(2\by2\)</span> determinants, which involves <span class="process-math">\(3\cdot 2 = 6\)</span> terms.  For a <span class="process-math">\(4\by4\)</span> matrix, we need to compute four <span class="process-math">\(3\by3\)</span> determinants, which produces <span class="process-math">\(4\cdot3\cdot2 = 24\)</span> terms.  Continuing in this way, we see that the cofactor expansion of a <span class="process-math">\(10\by10\)</span> matrix would involve <span class="process-math">\(10\cdot9\cdot8\ldots3\cdot2 = 10! = 3628800\)</span> terms.</div>
+<div class="para" id="p-3403">By contrast, we have seen that the number of steps required to perform Gaussian elimination on an <span class="process-math">\(n\by n\)</span> matrix is proportional to <span class="process-math">\(n^3\text{.}\)</span>  When <span class="process-math">\(n=10\text{,}\)</span> we have <span class="process-math">\(n^3 =
 1000\text{,}\)</span> which points to the fact that finding the determinant using Gaussian elimination is considerably less work.</div></section><section class="exercises" id="exercises-16"><h3 class="heading hide-type">
 <span class="type">Exercises</span><span class="space"> </span><span class="codenumber">4.5.5</span><span class="space"> </span><span class="title">Exercises</span>
 </h3>
-<article class="exercise exercise-like" id="exercise-112"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3370">
+<article class="exercise exercise-like" id="exercise-113"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3404">
 <div class="para">Consider the matrices</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1548,19 +1548,19 @@ B =
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2240"><div class="para" id="p-3371">Find the determinants of <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> using row operations.</div></li>
-<li id="li-2241"><div class="para" id="p-3372">Now find the determinants of <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> using cofactor expansions to verify your results</div></li>
+<li id="li-2248"><div class="para" id="p-3405">Find the determinants of <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> using row operations.</div></li>
+<li id="li-2249"><div class="para" id="p-3406">Now find the determinants of <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> using cofactor expansions to verify your results</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-113"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3375">
+</div></article><article class="exercise exercise-like" id="exercise-114"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3409">
 <div class="para">This exercise concerns rotations and reflections in <span class="process-math">\(\real^2\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-2242"><div class="para" id="p-3376">Suppose that <span class="process-math">\(A\)</span> is the matrix that performs a counterclockwise rotation in <span class="process-math">\(\real^2\text{.}\)</span>  Draw a typical picture of the vectors that form the columns of <span class="process-math">\(A\)</span> and use the geometric definition of the determinant to determine <span class="process-math">\(\det(A)\text{.}\)</span>
+<li id="li-2250"><div class="para" id="p-3410">Suppose that <span class="process-math">\(A\)</span> is the matrix that performs a counterclockwise rotation in <span class="process-math">\(\real^2\text{.}\)</span>  Draw a typical picture of the vectors that form the columns of <span class="process-math">\(A\)</span> and use the geometric definition of the determinant to determine <span class="process-math">\(\det(A)\text{.}\)</span>
 </div></li>
-<li id="li-2243"><div class="para" id="p-3377">Suppose that <span class="process-math">\(B\)</span> is the matrix that performs a reflection in a line passing through the origin.  Draw a typical picture of the columns of <span class="process-math">\(B\)</span> and use the geometric definition of the determinant to determine <span class="process-math">\(\det(B)\text{.}\)</span>
+<li id="li-2251"><div class="para" id="p-3411">Suppose that <span class="process-math">\(B\)</span> is the matrix that performs a reflection in a line passing through the origin.  Draw a typical picture of the columns of <span class="process-math">\(B\)</span> and use the geometric definition of the determinant to determine <span class="process-math">\(\det(B)\text{.}\)</span>
 </div></li>
-<li id="li-2244"><div class="para logical" id="p-3378">
+<li id="li-2252"><div class="para logical" id="p-3412">
 <div class="para">As we saw in <a href="sec-transforms-geom.html" class="internal" title="Section 3.4: The geometry of matrix transformations">Section 3.4</a>, the matrices have the form</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/sec-transforms-geom.html">
 \begin{equation*}
@@ -1578,14 +1578,14 @@ B = \left[\begin{array}{rr}
 <div class="para">Compute the determinants of <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> and verify that they agree with what you found in the earlier parts of this exercise.</div>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-114"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3386">
+</div></article><article class="exercise exercise-like" id="exercise-115"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3420">
 <div class="para">In the next chapter, we will say that matrices <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are <em class="emphasis">similar</em> if there is a matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A= PBP^{-1}\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-2250"><div class="para" id="p-3387">Suppose that <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are matrices and that there is a matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A=PBP^{-1}\text{.}\)</span>  Explain why <span class="process-math">\(\det(A) = \det(B)\text{.}\)</span>
+<li id="li-2258"><div class="para" id="p-3421">Suppose that <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are matrices and that there is a matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A=PBP^{-1}\text{.}\)</span>  Explain why <span class="process-math">\(\det(A) = \det(B)\text{.}\)</span>
 </div></li>
-<li id="li-2251"><div class="para logical" id="p-3388">
+<li id="li-2259"><div class="para logical" id="p-3422">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(3\by3\)</span> matrix and that there is a matrix <span class="process-math">\(P\)</span> such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1602,8 +1602,8 @@ P^{-1}\text{.}
 </div>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-115"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3395">
+</div></article><article class="exercise exercise-like" id="exercise-116"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3429">
 <div class="para">Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1616,9 +1616,9 @@ A = \left[\begin{array}{rrr}
 </div>
 <div class="para">where <span class="process-math">\(k\)</span> is a parameter.</div>
 <ol class="lower-alpha">
-<li id="li-2256"><div class="para" id="p-3396">Find an expression for <span class="process-math">\(\det(A)\)</span> in terms of the parameter <span class="process-math">\(k\text{.}\)</span>
+<li id="li-2264"><div class="para" id="p-3430">Find an expression for <span class="process-math">\(\det(A)\)</span> in terms of the parameter <span class="process-math">\(k\text{.}\)</span>
 </div></li>
-<li id="li-2257"><div class="para logical" id="p-3397">
+<li id="li-2265"><div class="para logical" id="p-3431">
 <div class="para">Use your expression for <span class="process-math">\(\det(A)\)</span> to determine the values of <span class="process-math">\(k\)</span> for which the vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1630,48 +1630,48 @@ A = \left[\begin{array}{rrr}
 <div class="para">are linearly independent.</div>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-116"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3404">
+</div></article><article class="exercise exercise-like" id="exercise-117"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3438">
 <div class="para">Determine whether the following statements are true or false and explain your response.</div>
 <ol class="lower-alpha">
-<li id="li-2262"><div class="para" id="p-3405">If we have a square matrix <span class="process-math">\(A\)</span> and multiply the first row by <span class="process-math">\(5\)</span> and add it to the third row to obtain <span class="process-math">\(A'\text{,}\)</span> then <span class="process-math">\(\det(A') = 5\det(A)\text{.}\)</span>
+<li id="li-2270"><div class="para" id="p-3439">If we have a square matrix <span class="process-math">\(A\)</span> and multiply the first row by <span class="process-math">\(5\)</span> and add it to the third row to obtain <span class="process-math">\(A'\text{,}\)</span> then <span class="process-math">\(\det(A') = 5\det(A)\text{.}\)</span>
 </div></li>
-<li id="li-2263"><div class="para" id="p-3406">If we interchange two rows of a matrix, then the determinant is unchanged.</div></li>
-<li id="li-2264"><div class="para" id="p-3407">If we scale a row of the matrix <span class="process-math">\(A\)</span> by <span class="process-math">\(17\)</span> to obtain <span class="process-math">\(A'\text{,}\)</span> then <span class="process-math">\(\det(A') =
+<li id="li-2271"><div class="para" id="p-3440">If we interchange two rows of a matrix, then the determinant is unchanged.</div></li>
+<li id="li-2272"><div class="para" id="p-3441">If we scale a row of the matrix <span class="process-math">\(A\)</span> by <span class="process-math">\(17\)</span> to obtain <span class="process-math">\(A'\text{,}\)</span> then <span class="process-math">\(\det(A') =
 17\det(A)\text{.}\)</span>
 </div></li>
-<li id="li-2265"><div class="para" id="p-3408">If <span class="process-math">\(A\)</span> and <span class="process-math">\(A'\)</span> are row equivalent and <span class="process-math">\(\det(A') = 0\text{,}\)</span> then <span class="process-math">\(\det(A) = 0\)</span> also.</div></li>
-<li id="li-2266"><div class="para" id="p-3409">If <span class="process-math">\(A\)</span> is row equivalent to the identity matrix, then <span class="process-math">\(\det(A) = \det(I) = 1\text{.}\)</span>
+<li id="li-2273"><div class="para" id="p-3442">If <span class="process-math">\(A\)</span> and <span class="process-math">\(A'\)</span> are row equivalent and <span class="process-math">\(\det(A') = 0\text{,}\)</span> then <span class="process-math">\(\det(A) = 0\)</span> also.</div></li>
+<li id="li-2274"><div class="para" id="p-3443">If <span class="process-math">\(A\)</span> is row equivalent to the identity matrix, then <span class="process-math">\(\det(A) = \det(I) = 1\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-117"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3422">
+</div></article><article class="exercise exercise-like" id="exercise-118"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3456">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are <span class="process-math">\(5\by5\)</span> matrices such that <span class="process-math">\(\det(A) = -2\)</span> and <span class="process-math">\(\det(B) = 5\text{.}\)</span> Find the following determinants:</div>
 <ol class="lower-alpha">
-<li id="li-2277"><div class="para" id="p-3423"><span class="process-math">\(\det(2A)\text{.}\)</span></div></li>
-<li id="li-2278"><div class="para" id="p-3424"><span class="process-math">\(\det(A^3)\text{.}\)</span></div></li>
-<li id="li-2279"><div class="para" id="p-3425"><span class="process-math">\(\det(AB)\text{.}\)</span></div></li>
-<li id="li-2280"><div class="para" id="p-3426"><span class="process-math">\(\det(-A)\text{.}\)</span></div></li>
-<li id="li-2281"><div class="para" id="p-3427"><span class="process-math">\(\det(AB^{-1})\text{.}\)</span></div></li>
+<li id="li-2285"><div class="para" id="p-3457"><span class="process-math">\(\det(2A)\text{.}\)</span></div></li>
+<li id="li-2286"><div class="para" id="p-3458"><span class="process-math">\(\det(A^3)\text{.}\)</span></div></li>
+<li id="li-2287"><div class="para" id="p-3459"><span class="process-math">\(\det(AB)\text{.}\)</span></div></li>
+<li id="li-2288"><div class="para" id="p-3460"><span class="process-math">\(\det(-A)\text{.}\)</span></div></li>
+<li id="li-2289"><div class="para" id="p-3461"><span class="process-math">\(\det(AB^{-1})\text{.}\)</span></div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-118"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3440">
+</div></article><article class="exercise exercise-like" id="exercise-119"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3474">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are <span class="process-math">\(n\by n\)</span> matrices.</div>
 <ol class="lower-alpha">
-<li id="li-2292"><div class="para" id="p-3441">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are both invertible, use determinants to explain why <span class="process-math">\(AB\)</span> is invertible.</div></li>
-<li id="li-2293"><div class="para" id="p-3442">If <span class="process-math">\(AB\)</span> is invertible, use determinants to explain why both <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are invertible.</div></li>
+<li id="li-2300"><div class="para" id="p-3475">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are both invertible, use determinants to explain why <span class="process-math">\(AB\)</span> is invertible.</div></li>
+<li id="li-2301"><div class="para" id="p-3476">If <span class="process-math">\(AB\)</span> is invertible, use determinants to explain why both <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are invertible.</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-119"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3449">
+</div></article><article class="exercise exercise-like" id="exercise-120"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3483">
 <div class="para">Provide a justification for your responses to the following questions.</div>
 <ol class="lower-alpha">
-<li id="li-2298"><div class="para" id="p-3450">If every entry in one row of a matrix is zero, what can you say about the determinant?</div></li>
-<li id="li-2299"><div class="para" id="p-3451">If two rows of a square matrix are identical, what can you say about the determinant?</div></li>
-<li id="li-2300"><div class="para" id="p-3452">If two columns of a square matrix are identical, what can you say about the determinant?</div></li>
-<li id="li-2301"><div class="para" id="p-3453">If one column of a matrix is a linear combination of the others, what can you say about the determinant?</div></li>
+<li id="li-2306"><div class="para" id="p-3484">If every entry in one row of a matrix is zero, what can you say about the determinant?</div></li>
+<li id="li-2307"><div class="para" id="p-3485">If two rows of a square matrix are identical, what can you say about the determinant?</div></li>
+<li id="li-2308"><div class="para" id="p-3486">If two columns of a square matrix are identical, what can you say about the determinant?</div></li>
+<li id="li-2309"><div class="para" id="p-3487">If one column of a matrix is a linear combination of the others, what can you say about the determinant?</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-120"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3460">
+</div></article><article class="exercise exercise-like" id="exercise-121"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3494">
 <div class="para">Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1683,14 +1683,14 @@ A = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2306"><div class="para" id="p-3461">Assuming that <span class="process-math">\(\det(A) = 0\text{,}\)</span> rewrite the equation in terms of <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\text{.}\)</span>
+<li id="li-2314"><div class="para" id="p-3495">Assuming that <span class="process-math">\(\det(A) = 0\text{,}\)</span> rewrite the equation in terms of <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\text{.}\)</span>
 </div></li>
-<li id="li-2307"><div class="para" id="p-3462">Explain why <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{,}\)</span> the first two columns of <span class="process-math">\(A\text{,}\)</span> satisfy the equation you found in the previous part.</div></li>
-<li id="li-2308"><div class="para" id="p-3463">Explain why the solution space of this equation is the plane spanned by <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>
+<li id="li-2315"><div class="para" id="p-3496">Explain why <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{,}\)</span> the first two columns of <span class="process-math">\(A\text{,}\)</span> satisfy the equation you found in the previous part.</div></li>
+<li id="li-2316"><div class="para" id="p-3497">Explain why the solution space of this equation is the plane spanned by <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-121"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
-<div class="para" id="p-3472">In this section, we studied the effect of row operations on the matrix <span class="process-math">\(A\text{.}\)</span>  In this exercise, we will study the effect of analogous <em class="emphasis">column</em> operations.</div> <div class="para logical" id="p-3473">
+</div></article><article class="exercise exercise-like" id="exercise-122"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
+<div class="para" id="p-3506">In this section, we studied the effect of row operations on the matrix <span class="process-math">\(A\text{.}\)</span>  In this exercise, we will study the effect of analogous <em class="emphasis">column</em> operations.</div> <div class="para logical" id="p-3507">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> is the <span class="process-math">\(3\by3\)</span> matrix <span class="process-math">\(A= \left[\begin{array}{rrr} \vvec_1 \amp \vvec_2 \amp \vvec_3
 \end{array}\right]\text{.}\)</span>  Also consider elementary matrices</div>
 <div class="displaymath process-math">
@@ -1713,10 +1713,10 @@ P = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2315"><div class="para" id="p-3474">Explain why the matrix <span class="process-math">\(AR\)</span> is obtained from <span class="process-math">\(A\)</span> by replacing the first column <span class="process-math">\(\vvec_1\)</span> by <span class="process-math">\(\vvec_1 - 3\vvec_3\text{.}\)</span>  We call this a column replacement operation.  Explain why column replacement operations do not change the determinant.</div></li>
-<li id="li-2316"><div class="para" id="p-3475">Explain why the matrix <span class="process-math">\(AS\)</span> is obtained from <span class="process-math">\(A\)</span> by multiplying the second column by <span class="process-math">\(3\text{.}\)</span> Explain the effect that scaling a column has on the determinant of a matrix.</div></li>
-<li id="li-2317"><div class="para" id="p-3476">Explain why the matrix <span class="process-math">\(AP\)</span> is obtained from <span class="process-math">\(A\)</span> by interchanging the first and third columns.  What is the effect of this operation on the determinant?</div></li>
-<li id="li-2318"><div class="para logical" id="p-3477">
+<li id="li-2323"><div class="para" id="p-3508">Explain why the matrix <span class="process-math">\(AR\)</span> is obtained from <span class="process-math">\(A\)</span> by replacing the first column <span class="process-math">\(\vvec_1\)</span> by <span class="process-math">\(\vvec_1 - 3\vvec_3\text{.}\)</span>  We call this a column replacement operation.  Explain why column replacement operations do not change the determinant.</div></li>
+<li id="li-2324"><div class="para" id="p-3509">Explain why the matrix <span class="process-math">\(AS\)</span> is obtained from <span class="process-math">\(A\)</span> by multiplying the second column by <span class="process-math">\(3\text{.}\)</span> Explain the effect that scaling a column has on the determinant of a matrix.</div></li>
+<li id="li-2325"><div class="para" id="p-3510">Explain why the matrix <span class="process-math">\(AP\)</span> is obtained from <span class="process-math">\(A\)</span> by interchanging the first and third columns.  What is the effect of this operation on the determinant?</div></li>
+<li id="li-2326"><div class="para logical" id="p-3511">
 <div class="para">Use column operations to compute the determinant of</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1729,8 +1729,8 @@ A=\left[\begin{array}{rrr}
 </div>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-122"><h4 class="heading"><span class="codenumber">11<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3489">
+</div></article><article class="exercise exercise-like" id="exercise-123"><h4 class="heading"><span class="codenumber">11<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3523">
 <div class="para">Consider the matrices</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1755,8 +1755,8 @@ d \amp 0 \amp 0 \amp 0 \\
 \end{equation*}
 </div>
 <div class="para">Use row operations to find the determinants of these matrices.</div>
-</div></article><article class="exercise exercise-like" id="exercise-123"><h4 class="heading"><span class="codenumber">12<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3494">
+</div></article><article class="exercise exercise-like" id="exercise-124"><h4 class="heading"><span class="codenumber">12<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3528">
 <div class="para">Consider the matrices</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1793,11 +1793,11 @@ D = \left[\begin{array}{rrrrr}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2327"><div class="para" id="p-3495">Use row (and/or column) operations to find the determinants of these matrices.</div></li>
-<li id="li-2328"><div class="para" id="p-3496">Write the <span class="process-math">\(6\by6\)</span> and <span class="process-math">\(7\by7\)</span> matrices that follow in this pattern and state their determinants based on what you have seen.</div></li>
+<li id="li-2335"><div class="para" id="p-3529">Use row (and/or column) operations to find the determinants of these matrices.</div></li>
+<li id="li-2336"><div class="para" id="p-3530">Write the <span class="process-math">\(6\by6\)</span> and <span class="process-math">\(7\by7\)</span> matrices that follow in this pattern and state their determinants based on what you have seen.</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-124"><h4 class="heading"><span class="codenumber">13<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3503">
+</div></article><article class="exercise exercise-like" id="exercise-125"><h4 class="heading"><span class="codenumber">13<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3537">
 <div class="para">The following matrix is called a <em class="emphasis">Vandermond</em> matrix:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1809,13 +1809,13 @@ V = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2333"><div class="para" id="p-3504">Use row operations to explain why <span class="process-math">\(\det(V) =
+<li id="li-2341"><div class="para" id="p-3538">Use row operations to explain why <span class="process-math">\(\det(V) =
 (b-a)(c-a)(c-b)\text{.}\)</span>
 </div></li>
-<li id="li-2334"><div class="para" id="p-3505">Explain why <span class="process-math">\(V\)</span> is invertible if and only if <span class="process-math">\(a\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> and <span class="process-math">\(c\)</span> are all distinct real numbers.</div></li>
-<li id="li-2335"><div class="para" id="p-3506">There is a natural way to generalize this to a <span class="process-math">\(4\by4\)</span> matrix with parameters <span class="process-math">\(a\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> <span class="process-math">\(c\text{,}\)</span> and <span class="process-math">\(d\text{.}\)</span>  Write this matrix and state its determinant based on your previous work.</div></li>
+<li id="li-2342"><div class="para" id="p-3539">Explain why <span class="process-math">\(V\)</span> is invertible if and only if <span class="process-math">\(a\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> and <span class="process-math">\(c\)</span> are all distinct real numbers.</div></li>
+<li id="li-2343"><div class="para" id="p-3540">There is a natural way to generalize this to a <span class="process-math">\(4\by4\)</span> matrix with parameters <span class="process-math">\(a\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> <span class="process-math">\(c\text{,}\)</span> and <span class="process-math">\(d\text{.}\)</span>  Write this matrix and state its determinant based on your previous work.</div></li>
 </ol>
-</div> <div class="para" id="p-3507">This matrix appeared in <a href="" class="xref" data-knowl="./knowl/exercise-poly-fit.html" title="Exercise 2.4.4.9">Exercise 2.4.4.9</a> when we were found a polynomial that passed through a given set of points.</div></article></section></section></div>
+</div> <div class="para" id="p-3541">This matrix appeared in <a href="" class="xref" data-knowl="./knowl/exercise-poly-fit.html" title="Exercise 2.4.4.9">Exercise 2.4.4.9</a> when we were found a polynomial that passed through a given set of points.</div></article></section></section></div>
 <div class="ptx-content-footer">
 <a class="previous-button button" href="sec-jpeg.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-subspaces.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>

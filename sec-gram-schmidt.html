@@ -377,7 +377,7 @@ sagecell.makeSagecell({
 <li>
 <div class="toc-item"><a href="sec-tensors.html" class="internal"><span class="codenumber">1.5</span> <span class="title">Tensors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in Numpy</span></a></div></li>
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in NumPy</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-axes" class="internal"><span class="codenumber">1.5.2</span> <span class="title">Aggregation and Axes</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-ndarray-append" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Expanding an array</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-broadcasting" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Broadcasting</span></a></div></li>
@@ -738,7 +738,7 @@ sagecell.makeSagecell({
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-gram-schmidt"><h2 class="heading hide-type">
 <span class="type">Section</span><span class="space"> </span><span class="codenumber">6.4</span><span class="space"> </span><span class="title">Finding orthogonal bases</span>
 </h2>
-<section class="introduction" id="introduction-35"><div class="para logical" id="p-6496">
+<section class="introduction" id="introduction-34"><div class="para logical" id="p-6530">
 <div class="para">The last section demonstrated the value of working with orthogonal, and especially orthonormal, sets.  If we have an orthogonal basis <span class="process-math">\(\wvec_1,\wvec_2,\ldots,\wvec_n\)</span> for a subspace <span class="process-math">\(W\text{,}\)</span> the <a href="" class="xref" data-knowl="./knowl/prop-proj-formula.html" title="Proposition 6.3.13: Projection formula">Projection Formula 6.3.13</a> tells us that the orthogonal projection of a vector <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W\)</span> is</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/prop-proj-formula.html" id="md-18">
 \begin{align*}
@@ -757,10 +757,10 @@ sagecell.makeSagecell({
 \uvec_n
 \end{bmatrix}\text{,}\)</span> we have <span class="process-math">\(\bhat = QQ^{\transpose}\bvec\text{.}\)</span>
 </div>
-</div> <div class="para" id="p-6497">In the examples we’ve seen so far, however, orthogonal bases were given to us.  What we need now is a way to form orthogonal bases.  In this section, we’ll explore an algorithm that begins with any basis for a subspace and creates an orthogonal basis. Once we have an orthogonal basis, we can scale each of the vectors appropriately to produce an orthonormal basis.</div> <article class="exploration project-like" id="exploration-23"><h3 class="heading">
+</div> <div class="para" id="p-6531">In the examples we’ve seen so far, however, orthogonal bases were given to us.  What we need now is a way to form orthogonal bases.  In this section, we’ll explore an algorithm that begins with any basis for a subspace and creates an orthogonal basis. Once we have an orthogonal basis, we can scale each of the vectors appropriately to produce an orthonormal basis.</div> <article class="exploration project-like" id="exploration-23"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">6.4.1</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-6498">
+<div class="para logical" id="p-6532">
 <div class="para">Suppose we have a basis for <span class="process-math">\(\real^2\)</span> consisting of the vectors</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/fig-gs-intro.html">
 \begin{equation*}
@@ -770,46 +770,46 @@ sagecell.makeSagecell({
 </div>
 <div class="para">as shown in <a href="" class="xref" data-knowl="./knowl/fig-gs-intro.html" title="Figure 6.4.1">Figure 6.4.1</a>.  Notice that this basis is not orthogonal.</div>
 </div> <figure class="figure figure-like" id="fig-gs-intro"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/gram-schmidt-intro.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.4.1<span class="period">.</span></span><span class="space"> </span>A basis for <span class="process-math">\(\real^2\text{.}\)</span></figcaption></figure> <div class="para logical" id="p-6499"><ol class="lower-alpha">
-<li id="li-4425"><div class="para" id="p-6500">Find the vector <span class="process-math">\(\vhat_2 = \proj{\vvec_2}{\vvec_1}\text{.}\)</span>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.4.1<span class="period">.</span></span><span class="space"> </span>A basis for <span class="process-math">\(\real^2\text{.}\)</span></figcaption></figure> <div class="para logical" id="p-6533"><ol class="lower-alpha">
+<li id="li-4433"><div class="para" id="p-6534">Find the vector <span class="process-math">\(\vhat_2 = \proj{\vvec_2}{\vvec_1}\text{.}\)</span>
 </div></li>
-<li id="li-4426"><div class="para" id="p-6501">Explain why <span class="process-math">\(\vvec_2 - \vhat_2\)</span> is orthogonal to <span class="process-math">\(\vvec_1\text{.}\)</span>
+<li id="li-4434"><div class="para" id="p-6535">Explain why <span class="process-math">\(\vvec_2 - \vhat_2\)</span> is orthogonal to <span class="process-math">\(\vvec_1\text{.}\)</span>
 </div></li>
-<li id="li-4427">
-<div class="para" id="p-6502">Define the new vectors <span class="process-math">\(\wvec_1=\vvec_1\)</span> and <span class="process-math">\(\wvec_2=\vvec_2-\vhat_2\)</span> and sketch them in <a href="" class="xref" data-knowl="./knowl/fig-gs-empty.html" title="Figure 6.4.2">Figure 6.4.2</a>.  Explain why <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> define an orthogonal basis for <span class="process-math">\(\real^2\text{.}\)</span>
+<li id="li-4435">
+<div class="para" id="p-6536">Define the new vectors <span class="process-math">\(\wvec_1=\vvec_1\)</span> and <span class="process-math">\(\wvec_2=\vvec_2-\vhat_2\)</span> and sketch them in <a href="" class="xref" data-knowl="./knowl/fig-gs-empty.html" title="Figure 6.4.2">Figure 6.4.2</a>.  Explain why <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> define an orthogonal basis for <span class="process-math">\(\real^2\text{.}\)</span>
 </div>
 <figure class="figure figure-like" id="fig-gs-empty"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-3.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.4.2<span class="period">.</span></span><span class="space"> </span>Sketch the new basis <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span></figcaption></figure>
 </li>
-<li id="li-4428"><div class="para" id="p-6503">Write the vector <span class="process-math">\(\bvec=\twovec8{-10}\)</span> as a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>
+<li id="li-4436"><div class="para" id="p-6537">Write the vector <span class="process-math">\(\bvec=\twovec8{-10}\)</span> as a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>
 </div></li>
-<li id="li-4429"><div class="para" id="p-6504">Scale the vectors <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> to produce an orthonormal basis <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> for <span class="process-math">\(\real^2\text{.}\)</span>
+<li id="li-4437"><div class="para" id="p-6538">Scale the vectors <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> to produce an orthonormal basis <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> for <span class="process-math">\(\real^2\text{.}\)</span>
 </div></li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-332" id="solution-332"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-332"><div class="solution solution-like"><div class="para logical" id="p-6505"><ol class="lower-alpha">
-<li id="li-4430"><div class="para" id="p-6506"><span class="process-math">\(\vhat_2 = \vvec_1\text{.}\)</span></div></li>
-<li id="li-4431"><div class="para" id="p-6507">The orthogonal projection <span class="process-math">\(\vhat_2\)</span> is defined so that <span class="process-math">\(\vvec_2-\vhat_2\)</span> is orthogonal to <span class="process-math">\(\vvec_1\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-331" id="solution-331"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-331"><div class="solution solution-like"><div class="para logical" id="p-6539"><ol class="lower-alpha">
+<li id="li-4438"><div class="para" id="p-6540"><span class="process-math">\(\vhat_2 = \vvec_1\text{.}\)</span></div></li>
+<li id="li-4439"><div class="para" id="p-6541">The orthogonal projection <span class="process-math">\(\vhat_2\)</span> is defined so that <span class="process-math">\(\vvec_2-\vhat_2\)</span> is orthogonal to <span class="process-math">\(\vvec_1\text{.}\)</span>
 </div></li>
-<li id="li-4432"><div class="para" id="p-6508">
+<li id="li-4440"><div class="para" id="p-6542">
 <span class="process-math">\(\wvec_1 = \twovec11\)</span> and <span class="process-math">\(\wvec_2=\twovec{-1}1\)</span> are othogonal, which can be checked with the dot product.</div></li>
-<li id="li-4433"><div class="para" id="p-6509">The projection formula gives <span class="process-math">\(\bvec = -\wvec_1
+<li id="li-4441"><div class="para" id="p-6543">The projection formula gives <span class="process-math">\(\bvec = -\wvec_1
 -9\wvec_2\text{.}\)</span>
 </div></li>
-<li id="li-4434"><div class="para" id="p-6510">
+<li id="li-4442"><div class="para" id="p-6544">
 <span class="process-math">\(\uvec_1=\frac1{\sqrt{2}}\twovec11\)</span> and <span class="process-math">\(\uvec_2=\frac1{\sqrt{2}}\twovec{-1}1\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
 </div></article></section><section class="subsection" id="subsection-109"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">6.4.1</span><span class="space"> </span><span class="title">Gram-Schmidt orthogonalization</span>
 </h3>
-<div class="para" id="p-6511"> The preview activity illustrates the main idea behind an algorithm, known as <em class="emphasis">Gram-Schmidt orthogonalization</em>, that begins with a basis for some subspace of <span class="process-math">\(\real^m\)</span> and produces an orthogonal or orthonormal basis. The algorithm relies on our construction of the orthogonal projection.  Remember that we formed the orthogonal projection <span class="process-math">\(\bhat\)</span> of <span class="process-math">\(\bvec\)</span> onto a subspace <span class="process-math">\(W\)</span> by requiring that <span class="process-math">\(\bvec-\bhat\)</span> is orthogonal to <span class="process-math">\(W\)</span> as shown in <a href="" class="xref" data-knowl="./knowl/fig-proj-orthog.html" title="Figure 6.4.3">Figure 6.4.3</a>.</div>
+<div class="para" id="p-6545"> The preview activity illustrates the main idea behind an algorithm, known as <em class="emphasis">Gram-Schmidt orthogonalization</em>, that begins with a basis for some subspace of <span class="process-math">\(\real^m\)</span> and produces an orthogonal or orthonormal basis. The algorithm relies on our construction of the orthogonal projection.  Remember that we formed the orthogonal projection <span class="process-math">\(\bhat\)</span> of <span class="process-math">\(\bvec\)</span> onto a subspace <span class="process-math">\(W\)</span> by requiring that <span class="process-math">\(\bvec-\bhat\)</span> is orthogonal to <span class="process-math">\(W\)</span> as shown in <a href="" class="xref" data-knowl="./knowl/fig-proj-orthog.html" title="Figure 6.4.3">Figure 6.4.3</a>.</div>
 <figure class="figure figure-like" id="fig-proj-orthog"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/3d-orthog-proj-3.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.4.3<span class="period">.</span></span><span class="space"> </span>If <span class="process-math">\(\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W\text{,}\)</span> then <span class="process-math">\(\bvec-\bhat\)</span> is orthogonal to <span class="process-math">\(W\text{.}\)</span></figcaption></figure><div class="para" id="p-6512">This observation guides our construction of an orthogonal basis for it allows us to create a vector that is orthogonal to a given subspace.  Let’s see how the Gram-Schmidt algorithm works.</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.4.3<span class="period">.</span></span><span class="space"> </span>If <span class="process-math">\(\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(W\text{,}\)</span> then <span class="process-math">\(\bvec-\bhat\)</span> is orthogonal to <span class="process-math">\(W\text{.}\)</span></figcaption></figure><div class="para" id="p-6546">This observation guides our construction of an orthogonal basis for it allows us to create a vector that is orthogonal to a given subspace.  Let’s see how the Gram-Schmidt algorithm works.</div>
 <article class="activity project-like" id="activity-gram-schmidt"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.4.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6513">
+<div class="para logical" id="p-6547">
 <div class="para">Suppose that <span class="process-math">\(W\)</span> is a three-dimensional subspace of <span class="process-math">\(\real^4\)</span> with basis:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -820,7 +820,7 @@ sagecell.makeSagecell({
 </div>
 <div class="para">We can see that this basis is not orthogonal by noting that <span class="process-math">\(\vvec_1\cdot\vvec_2 = 8\text{.}\)</span>  Our goal is to create an orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> for <span class="process-math">\(W\text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-6514">
+</div> <div class="para logical" id="p-6548">
 <div class="para">To begin, we declare that <span class="process-math">\(\wvec_1=\vvec_1\text{,}\)</span> and we call <span class="process-math">\(W_1\)</span> the line defined by <span class="process-math">\(\wvec_1\text{:}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -828,39 +828,39 @@ sagecell.makeSagecell({
 \wvec_2 = \vvec_2 - \proj{\vvec_2}{\wvec_1}\text{.}
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-6515">
-<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-199"><script type="text/x-sage">
+</div> <div class="para logical" id="p-6549">
+<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-201"><script type="text/x-sage">
 </script></pre></div>
 <ol class="lower-alpha">
-<li id="li-4435"><div class="para" id="p-6516">Find the vector <span class="process-math">\(\vhat_2 = \proj{\vvec_2}{\vvec_1}\text{.}\)</span>
+<li id="li-4443"><div class="para" id="p-6550">Find the vector <span class="process-math">\(\vhat_2 = \proj{\vvec_2}{\vvec_1}\text{.}\)</span>
 </div></li>
-<li id="li-4436"><div class="para" id="p-6517">Form the vector <span class="process-math">\(\wvec_2 = \vvec_2-\vhat_2\)</span> and verify that it is orthogonal to <span class="process-math">\(\wvec_1\text{.}\)</span>
+<li id="li-4444"><div class="para" id="p-6551">Form the vector <span class="process-math">\(\wvec_2 = \vvec_2-\vhat_2\)</span> and verify that it is orthogonal to <span class="process-math">\(\wvec_1\text{.}\)</span>
 </div></li>
-<li id="li-4437"><div class="para" id="p-6518">Explain why <span class="process-math">\(\laspan{\wvec_1,\wvec_2} =
+<li id="li-4445"><div class="para" id="p-6552">Explain why <span class="process-math">\(\laspan{\wvec_1,\wvec_2} =
 \laspan{\vvec_1,\vvec_2}\)</span> by showing that any linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> can be written as a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> and vice versa.</div></li>
-<li id="li-4438"><div class="para" id="p-6519">The vectors <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> are an orthogonal basis for a two-dimensional subspace <span class="process-math">\(W_2\)</span> of <span class="process-math">\(\real^4\text{.}\)</span>  Find the vector <span class="process-math">\(\vhat_3\)</span> that is the orthogonal projection of <span class="process-math">\(\vvec_3\)</span> onto <span class="process-math">\(W_2\text{.}\)</span>
+<li id="li-4446"><div class="para" id="p-6553">The vectors <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> are an orthogonal basis for a two-dimensional subspace <span class="process-math">\(W_2\)</span> of <span class="process-math">\(\real^4\text{.}\)</span>  Find the vector <span class="process-math">\(\vhat_3\)</span> that is the orthogonal projection of <span class="process-math">\(\vvec_3\)</span> onto <span class="process-math">\(W_2\text{.}\)</span>
 </div></li>
-<li id="li-4439"><div class="para" id="p-6520">Verify that <span class="process-math">\(\wvec_3 = \vvec_3-\vhat_3\)</span> is orthogonal to both <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>
+<li id="li-4447"><div class="para" id="p-6554">Verify that <span class="process-math">\(\wvec_3 = \vvec_3-\vhat_3\)</span> is orthogonal to both <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>
 </div></li>
-<li id="li-4440"><div class="para" id="p-6521">Explain why <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> form an orthogonal basis for <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4448"><div class="para" id="p-6555">Explain why <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> form an orthogonal basis for <span class="process-math">\(W\text{.}\)</span>
 </div></li>
-<li id="li-4441"><div class="para" id="p-6522">Now find an orthonormal basis for <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4449"><div class="para" id="p-6556">Now find an orthonormal basis for <span class="process-math">\(W\text{.}\)</span>
 </div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-258" id="answer-258"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-258"><div class="answer solution-like"><div class="para logical" id="p-6531"><ol class="lower-alpha">
-<li id="li-4449"><div class="para" id="p-6532"><span class="process-math">\(\widehat{\vvec}_2 = \fourvec2222\text{.}\)</span></div></li>
-<li id="li-4450"><div class="para" id="p-6533"><span class="process-math">\(\displaystyle \wvec_2 = \fourvec{-1}100\)</span></div></li>
-<li id="li-4451"><div class="para" id="p-6534">We have <span class="process-math">\(\vvec_1 = \wvec_1\)</span> and <span class="process-math">\(\vvec_2 =
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-258" id="answer-258"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-258"><div class="answer solution-like"><div class="para logical" id="p-6565"><ol class="lower-alpha">
+<li id="li-4457"><div class="para" id="p-6566"><span class="process-math">\(\widehat{\vvec}_2 = \fourvec2222\text{.}\)</span></div></li>
+<li id="li-4458"><div class="para" id="p-6567"><span class="process-math">\(\displaystyle \wvec_2 = \fourvec{-1}100\)</span></div></li>
+<li id="li-4459"><div class="para" id="p-6568">We have <span class="process-math">\(\vvec_1 = \wvec_1\)</span> and <span class="process-math">\(\vvec_2 =
 \wvec_2 + 2\wvec_1\)</span> so a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_1\)</span> can be rewritten as a linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\text{.}\)</span>
 </div></li>
-<li id="li-4452"><div class="para" id="p-6535"><span class="process-math">\(\widehat{\vvec}_3 =
+<li id="li-4460"><div class="para" id="p-6569"><span class="process-math">\(\widehat{\vvec}_3 =
 \fourvec0{-4}{-2}{-2}\text{.}\)</span></div></li>
-<li id="li-4453"><div class="para" id="p-6536"><span class="process-math">\(\displaystyle \wvec_3 = \fourvec11{-1}{-1}\)</span></div></li>
-<li id="li-4454"><div class="para" id="p-6537">Since <span class="process-math">\(\vvec_i\)</span> can be written in terms of <span class="process-math">\(\wvec_j\)</span> and vice-versa, these new vectors form a basis for <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4461"><div class="para" id="p-6570"><span class="process-math">\(\displaystyle \wvec_3 = \fourvec11{-1}{-1}\)</span></div></li>
+<li id="li-4462"><div class="para" id="p-6571">Since <span class="process-math">\(\vvec_i\)</span> can be written in terms of <span class="process-math">\(\wvec_j\)</span> and vice-versa, these new vectors form a basis for <span class="process-math">\(W\text{.}\)</span>
 </div></li>
-<li id="li-4455"><div class="para logical" id="p-6538"><div class="displaymath process-math">
+<li id="li-4463"><div class="para logical" id="p-6572"><div class="displaymath process-math">
 \begin{equation*}
 \uvec_1=\fourvec{1/2}{1/2}{1/2}{1/2},\hspace{24pt}
 \uvec_2=\fourvec{-1/\sqrt{2}}{1/\sqrt{2}}00,\hspace{24pt}
@@ -868,11 +868,11 @@ sagecell.makeSagecell({
 \end{equation*}
 </div></div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-333" id="solution-333"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-333"><div class="solution solution-like"><div class="para logical" id="p-6523"><ol class="lower-alpha">
-<li id="li-4442"><div class="para" id="p-6524"><span class="process-math">\(\widehat{\vvec}_2 = \frac{\vvec_2\cdot\wvec_1}
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-332" id="solution-332"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-332"><div class="solution solution-like"><div class="para logical" id="p-6557"><ol class="lower-alpha">
+<li id="li-4450"><div class="para" id="p-6558"><span class="process-math">\(\widehat{\vvec}_2 = \frac{\vvec_2\cdot\wvec_1}
 {\wvec_1\cdot\wvec_1}\wvec_1=\fourvec2222\text{.}\)</span></div></li>
-<li id="li-4443"><div class="para" id="p-6525"><span class="process-math">\(\displaystyle \wvec_2 = \fourvec{-1}100\)</span></div></li>
-<li id="li-4444"><div class="para logical" id="p-6526">
+<li id="li-4451"><div class="para" id="p-6559"><span class="process-math">\(\displaystyle \wvec_2 = \fourvec{-1}100\)</span></div></li>
+<li id="li-4452"><div class="para logical" id="p-6560">
 <div class="para">We have <span class="process-math">\(\vvec_1 = \wvec_1\)</span> and <span class="process-math">\(\vvec_2 =
 \wvec_2 + 2\wvec_1\text{.}\)</span>  Therefore, a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_1\)</span> can be rewritten as</div>
 <div class="displaymath process-math">
@@ -886,13 +886,13 @@ c_1\wvec_1+c_2(\wvec_2+2\wvec_1) =
 = \vvec_2-2\vvec_1\)</span> so any linear combination of <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> can be rewritten as a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_1\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-4445"><div class="para" id="p-6527">By the Projection Formula, <span class="process-math">\(\widehat{\vvec}_3 =
+<li id="li-4453"><div class="para" id="p-6561">By the Projection Formula, <span class="process-math">\(\widehat{\vvec}_3 =
 \fourvec0{-4}{-2}{-2}\text{.}\)</span>
 </div></li>
-<li id="li-4446"><div class="para" id="p-6528"><span class="process-math">\(\displaystyle \wvec_3 = \fourvec11{-1}{-1}\)</span></div></li>
-<li id="li-4447"><div class="para" id="p-6529">We can check that <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> form an orthogonal set.  Since <span class="process-math">\(\vvec_i\)</span> can be written in terms of <span class="process-math">\(\wvec_j\)</span> and vice-versa, these new vectors form a basis for <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4454"><div class="para" id="p-6562"><span class="process-math">\(\displaystyle \wvec_3 = \fourvec11{-1}{-1}\)</span></div></li>
+<li id="li-4455"><div class="para" id="p-6563">We can check that <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> form an orthogonal set.  Since <span class="process-math">\(\vvec_i\)</span> can be written in terms of <span class="process-math">\(\wvec_j\)</span> and vice-versa, these new vectors form a basis for <span class="process-math">\(W\text{.}\)</span>
 </div></li>
-<li id="li-4448"><div class="para logical" id="p-6530"><div class="displaymath process-math">
+<li id="li-4456"><div class="para logical" id="p-6564"><div class="displaymath process-math">
 \begin{equation*}
 \uvec_1=\fourvec{1/2}{1/2}{1/2}{1/2},\hspace{24pt}
 \uvec_2=\fourvec{-1/\sqrt{2}}{1/\sqrt{2}}00,\hspace{24pt}
@@ -900,11 +900,11 @@ c_1\wvec_1+c_2(\wvec_2+2\wvec_1) =
 \end{equation*}
 </div></div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-6539">As this activity illustrates, Gram-Schmidt orthogonalization begins with a basis <span class="process-math">\(\vvec_1, \vvec_2,\ldots,\vvec_n\)</span> for a subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^m\)</span> and creates an orthogonal basis for <span class="process-math">\(W\text{.}\)</span>  Let’s work through a second example.</div>
+</div></article><div class="para" id="p-6573">As this activity illustrates, Gram-Schmidt orthogonalization begins with a basis <span class="process-math">\(\vvec_1, \vvec_2,\ldots,\vvec_n\)</span> for a subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^m\)</span> and creates an orthogonal basis for <span class="process-math">\(W\text{.}\)</span>  Let’s work through a second example.</div>
 <article class="example example-like" id="example-gram-schmidt"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">6.4.4</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6540">
+<div class="para logical" id="p-6574">
 <div class="para">Let’s start with the basis</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -915,7 +915,7 @@ c_1\wvec_1+c_2(\wvec_2+2\wvec_1) =
 </div>
 <div class="para">which is a basis for <span class="process-math">\(\real^3\text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-6541">
+</div> <div class="para logical" id="p-6575">
 <div class="para">To get started, we’ll simply set <span class="process-math">\(\wvec_1=\vvec_1=\threevec{2}{-1}2\text{.}\)</span> We construct <span class="process-math">\(\wvec_2\)</span> from <span class="process-math">\(\vvec_2\)</span> by subtracting its orthogonal projection onto <span class="process-math">\(W_1\text{,}\)</span> the line defined by <span class="process-math">\(\wvec_1\text{:}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -931,7 +931,7 @@ c_1\wvec_1+c_2(\wvec_2+2\wvec_1) =
 \vvec_2 + \wvec_1 = \threevec{-1}22\text{.}
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-6542">
+</div> <div class="para logical" id="p-6576">
 <div class="para">Notice that we found <span class="process-math">\(\vvec_2 = -\wvec_1 + \wvec_2\text{.}\)</span> Therefore, we can rewrite any linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> as</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -948,7 +948,7 @@ W_2 = \laspan{\wvec_1,\wvec_2} =
 </div>
 <div class="para">In other words, <span class="process-math">\(\wvec_1\)</span> and <span class="process-math">\(\wvec_2\)</span> is a orthogonal basis for <span class="process-math">\(W_2\text{,}\)</span>  the 2-dimensional subspace that is the span of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-6543">
+</div> <div class="para logical" id="p-6577">
 <div class="para">Finally, we form <span class="process-math">\(\wvec_3\)</span> from <span class="process-math">\(\vvec_3\)</span> by subtracting its orthogonal projection onto <span class="process-math">\(W_2\text{:}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -960,7 +960,7 @@ W_2 = \laspan{\wvec_1,\wvec_2} =
 = \threevec22{-1}\text{.}
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-6544">
+</div> <div class="para logical" id="p-6578">
 <div class="para">We can now check that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -972,7 +972,7 @@ W_2 = \laspan{\wvec_1,\wvec_2} =
 <div class="para">is an orthogonal set.  Furthermore, we have, as before, <span class="process-math">\(\laspan{\wvec_1,\wvec_2,\wvec_3}
 = \laspan{\vvec_1,\vvec_2,\vvec_3}\text{,}\)</span> which says that we have found a new orthogonal basis for <span class="process-math">\(\real^3\text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-6545">
+</div> <div class="para logical" id="p-6579">
 <div class="para">To create an orthonormal basis, we form unit vectors parallel to each of the vectors in the orthogonal basis:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -981,7 +981,7 @@ W_2 = \laspan{\wvec_1,\wvec_2} =
 \uvec_3 = \threevec{2/3}{2/3}{-1/3}\text{.}
 \end{equation*}
 </div>
-</div></article><div class="para logical" id="p-6546">
+</div></article><div class="para logical" id="p-6580">
 <div class="para">More generally, if we have a basis <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> for a subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^m\text{,}\)</span> the Gram-Schmidt algorithm creates an orthogonal basis for <span class="process-math">\(W\)</span> in the following way:</div>
 <div class="displaymath process-math" id="md-19">
 \begin{align*}
@@ -1001,12 +1001,12 @@ W_2 = \laspan{\wvec_1,\wvec_2} =
 \end{align*}
 </div>
 </div>
-<div class="para" id="p-6547">From here, we may form an orthonormal basis by constructing a unit vector parallel to each vector in the orthogonal basis: <span class="process-math">\(\uvec_j = 1/\len{\wvec_j}~\wvec_j\text{.}\)</span>
+<div class="para" id="p-6581">From here, we may form an orthonormal basis by constructing a unit vector parallel to each vector in the orthogonal basis: <span class="process-math">\(\uvec_j = 1/\len{\wvec_j}~\wvec_j\text{.}\)</span>
 </div>
 <article class="activity project-like" id="activity-80"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.4.3</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-6548">Python can automate these computations for us, and we’ll learn a standard numpy way of approaching this shortly. But first let’s see how we can code up the Gram-Schmidt process directly. The code below allows vectors to be given as 1-d arrays or as 1-column matrices. <code class="code-inline tex2jax_ignore">flatten()</code> is used to convert either to the 1-d representation. The basis is provided as a python list of vectors (in either representation).  <pre class="ptx-sagecell sagecell-python" id="sage-200"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-6582">Python can automate these computations for us, and we’ll learn a standard numpy way of approaching this shortly. But first let’s see how we can code up the Gram-Schmidt process directly. The code below allows vectors to be given as 1-d arrays or as 1-column matrices. <code class="code-inline tex2jax_ignore">flatten()</code> is used to convert either to the 1-d representation. The basis is provided as a python list of vectors (in either representation).  <pre class="ptx-sagecell sagecell-python" id="sage-202"><script type="text/x-sage">import numpy as np
 
 def flatten(x):
     return x.reshape((np.prod(x.shape), ))
@@ -1030,7 +1030,7 @@ def gram_schmidt(basis):
 B = [np.array([1,2,3]), np.array([1,1,1]), np.array([1,0,0])]
 print(gram_schmidt(B))
 </script></pre>
-</div> <div class="para logical" id="p-6549">
+</div> <div class="para logical" id="p-6583">
 <div class="para">Let’s now consider <span class="process-math">\(W\text{,}\)</span> the subspace of <span class="process-math">\(\real^5\)</span> having basis</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1040,16 +1040,16 @@ print(gram_schmidt(B))
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-4456">
-<div class="para" id="p-6550">Apply the Gram-Schmidt algorithm to find an orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> for <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4464">
+<div class="para" id="p-6584">Apply the Gram-Schmidt algorithm to find an orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> for <span class="process-math">\(W\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-201"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-203"><script type="text/x-sage">
 </script></pre>
 </li>
-<li id="li-4457"><div class="para" id="p-6551">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec = 
+<li id="li-4465"><div class="para" id="p-6585">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec = 
 \fivevec{-5}{11}0{-1}5\)</span> onto <span class="process-math">\(W\text{.}\)</span>
 </div></li>
-<li id="li-4458"><div class="para logical" id="p-6552">
+<li id="li-4466"><div class="para logical" id="p-6586">
 <div class="para">Explain why we know that <span class="process-math">\(\bhat\)</span> is a linear combination of the original vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> and then find weights so that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1057,27 +1057,27 @@ print(gram_schmidt(B))
 \end{equation*}
 </div>
 </div></li>
-<li id="li-4459">
-<div class="para" id="p-6553">Find an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> for <span class="process-math">\(\uvec_3\)</span> for <span class="process-math">\(W\)</span> and form the matrix <span class="process-math">\(Q\)</span> whose columns are these vectors.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-202"><script type="text/x-sage">
+<li id="li-4467">
+<div class="para" id="p-6587">Find an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> for <span class="process-math">\(\uvec_3\)</span> for <span class="process-math">\(W\)</span> and form the matrix <span class="process-math">\(Q\)</span> whose columns are these vectors.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-204"><script type="text/x-sage">
 </script></pre>
 </li>
-<li id="li-4460"><div class="para" id="p-6554">Find the product <span class="process-math">\(Q^{\transpose}Q\)</span> and explain the result.</div></li>
-<li id="li-4461"><div class="para" id="p-6555">Find the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(W\)</span> and verify that <span class="process-math">\(P\bvec\)</span> gives <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection that you found earlier.</div></li>
+<li id="li-4468"><div class="para" id="p-6588">Find the product <span class="process-math">\(Q^{\transpose}Q\)</span> and explain the result.</div></li>
+<li id="li-4469"><div class="para" id="p-6589">Find the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(W\)</span> and verify that <span class="process-math">\(P\bvec\)</span> gives <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection that you found earlier.</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-259" id="answer-259"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-259"><div class="answer solution-like"><div class="para logical" id="p-6563"><ol class="lower-alpha">
-<li id="li-4468"><div class="para logical" id="p-6564"><div class="displaymath process-math">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-259" id="answer-259"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-259"><div class="answer solution-like"><div class="para logical" id="p-6597"><ol class="lower-alpha">
+<li id="li-4476"><div class="para logical" id="p-6598"><div class="displaymath process-math">
 \begin{equation*}
 \wvec_1=\fivevec{14}{-6}82{-6},\hspace{24pt}
 \wvec_2=\fivevec{-2}{0}02{-4},\hspace{24pt}
 \wvec_3=\fivevec130{-1}{-1}
 \end{equation*}
 </div></div></li>
-<li id="li-4469"><div class="para" id="p-6565"><span class="process-math">\(\displaystyle \bhat=\fivevec{-4}9{-4}{-4}3\)</span></div></li>
-<li id="li-4470"><div class="para" id="p-6566"><span class="process-math">\(\bhat=-\frac34\vvec_1+\frac12\vvec_2+2\vvec_3\text{.}\)</span></div></li>
-<li id="li-4471"><div class="para logical" id="p-6567"><div class="displaymath process-math">
+<li id="li-4477"><div class="para" id="p-6599"><span class="process-math">\(\displaystyle \bhat=\fivevec{-4}9{-4}{-4}3\)</span></div></li>
+<li id="li-4478"><div class="para" id="p-6600"><span class="process-math">\(\bhat=-\frac34\vvec_1+\frac12\vvec_2+2\vvec_3\text{.}\)</span></div></li>
+<li id="li-4479"><div class="para logical" id="p-6601"><div class="displaymath process-math">
 \begin{equation*}
 \uvec_1=\fivevec{14/\sqrt{336}}{-6\sqrt{336}}{8/\sqrt{336}}
 {2/\sqrt{336}}{-6/\sqrt{336}},\hspace{24pt}
@@ -1087,8 +1087,8 @@ print(gram_schmidt(B))
 {-1/\sqrt{12}}{-1/\sqrt{12}}
 \end{equation*}
 </div></div></li>
-<li id="li-4472"><div class="para" id="p-6568"><span class="process-math">\(\displaystyle Q^{\transpose}Q=I\)</span></div></li>
-<li id="li-4473"><div class="para" id="p-6569"><span class="process-math">\(\displaystyle P = QQ^{\transpose} = \begin{bmatrix}
+<li id="li-4480"><div class="para" id="p-6602"><span class="process-math">\(\displaystyle Q^{\transpose}Q=I\)</span></div></li>
+<li id="li-4481"><div class="para" id="p-6603"><span class="process-math">\(\displaystyle P = QQ^{\transpose} = \begin{bmatrix}
 5/6 \amp 0 \amp 1/3 \amp -1/6 \amp 0 \\
 0 \amp 6/7 \amp -1/7 \amp -2/7 \amp -1/7 \\
 1/3 \amp -1/7 \amp 4/21 \amp 1/21 \amp -1/7 \\
@@ -1096,18 +1096,18 @@ print(gram_schmidt(B))
 0 \amp -1/7 \amp -1/7 \amp -2/7 \amp 6/7
 \end{bmatrix}\)</span></div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-334" id="solution-334"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-334"><div class="solution solution-like"><div class="para logical" id="p-6556"><ol class="lower-alpha">
-<li id="li-4462"><div class="para logical" id="p-6557"><div class="displaymath process-math">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-333" id="solution-333"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-333"><div class="solution solution-like"><div class="para logical" id="p-6590"><ol class="lower-alpha">
+<li id="li-4470"><div class="para logical" id="p-6591"><div class="displaymath process-math">
 \begin{equation*}
 \wvec_1=\fivevec{14}{-6}82{-6},\hspace{24pt}
 \wvec_2=\fivevec{-2}{0}02{-4},\hspace{24pt}
 \wvec_3=\fivevec130{-1}{-1}
 \end{equation*}
 </div></div></li>
-<li id="li-4463"><div class="para" id="p-6558"><span class="process-math">\(\displaystyle \bhat=\fivevec{-4}9{-4}{-4}3\)</span></div></li>
-<li id="li-4464"><div class="para" id="p-6559">We know that <span class="process-math">\(\bhat\)</span> is in <span class="process-math">\(W\)</span> and <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> is a basis for <span class="process-math">\(W\text{.}\)</span>  We find <span class="process-math">\(\bhat=-\frac34\vvec_1+\frac12\vvec_2+2\vvec_3\text{.}\)</span>
+<li id="li-4471"><div class="para" id="p-6592"><span class="process-math">\(\displaystyle \bhat=\fivevec{-4}9{-4}{-4}3\)</span></div></li>
+<li id="li-4472"><div class="para" id="p-6593">We know that <span class="process-math">\(\bhat\)</span> is in <span class="process-math">\(W\)</span> and <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> is a basis for <span class="process-math">\(W\text{.}\)</span>  We find <span class="process-math">\(\bhat=-\frac34\vvec_1+\frac12\vvec_2+2\vvec_3\text{.}\)</span>
 </div></li>
-<li id="li-4465"><div class="para logical" id="p-6560"><div class="displaymath process-math">
+<li id="li-4473"><div class="para logical" id="p-6594"><div class="displaymath process-math">
 \begin{equation*}
 \uvec_1=\fivevec{14/\sqrt{336}}{-6\sqrt{336}}{8/\sqrt{336}}
 {2/\sqrt{336}}{-6/\sqrt{336}},\hspace{24pt}
@@ -1115,10 +1115,10 @@ print(gram_schmidt(B))
 \uvec_3=\fivevec{1/\sqrt{12}}{3/\sqrt{12}}0{-1/\sqrt{12}}{-1/\sqrt{12}}
 \end{equation*}
 </div></div></li>
-<li id="li-4466"><div class="para" id="p-6561">
+<li id="li-4474"><div class="para" id="p-6595">
 <span class="process-math">\(Q^{\transpose}Q=I\)</span> since the matrix product computes the dot products of the columns of <span class="process-math">\(Q\text{.}\)</span>
 </div></li>
-<li id="li-4467"><div class="para" id="p-6562"><span class="process-math">\(\displaystyle P = QQ^{\transpose} = \begin{bmatrix}
+<li id="li-4475"><div class="para" id="p-6596"><span class="process-math">\(\displaystyle P = QQ^{\transpose} = \begin{bmatrix}
 5/6 \amp 0 \amp 1/3 \amp -1/6 \amp 0 \\
 0 \amp 6/7 \amp -1/7 \amp -2/7 \amp -1/7 \\
 1/3 \amp -1/7 \amp 4/21 \amp 1/21 \amp -1/7 \\
@@ -1129,11 +1129,11 @@ print(gram_schmidt(B))
 </div></article></section><section class="subsection" id="subsection-110"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">6.4.2</span><span class="space"> </span><span class="title"><span class="process-math">\(QR\)</span> factorizations</span>
 </h3>
-<div class="para" id="p-6570">Now that we’ve seen how the Gram-Schmidt algorithm forms an orthonormal basis for a given subspace, we will explore how the algorithm leads to an important matrix factorization known as the <dfn class="terminology"><span class="process-math">\(QR\)</span> factorization</dfn>. The <span class="process-math">\(QR\)</span> factorization can be computed in most any computer package that does linear algebra.</div>
+<div class="para" id="p-6604">Now that we’ve seen how the Gram-Schmidt algorithm forms an orthonormal basis for a given subspace, we will explore how the algorithm leads to an important matrix factorization known as the <dfn class="terminology"><span class="process-math">\(QR\)</span> factorization</dfn>. The <span class="process-math">\(QR\)</span> factorization can be computed in most any computer package that does linear algebra.</div>
 <article class="activity project-like" id="activity-81"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.4.4</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6571">
+<div class="para logical" id="p-6605">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> is the <span class="process-math">\(4\by3\)</span> matrix whose columns are</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/activity-gram-schmidt.html">
 \begin{equation*}
@@ -1142,11 +1142,11 @@ print(gram_schmidt(B))
 \vvec_3 = \fourvec1{-3}{-3}{-3}\text{.}
 \end{equation*}
 </div>
-<div class="para">These vectors form a basis for <span class="process-math">\(W\text{,}\)</span> the subspace of <span class="process-math">\(\real^4\)</span> that we encountered in <a href="" class="xref" data-knowl="./knowl/activity-gram-schmidt.html" title="Activity 6.4.2">Activity 6.4.2</a>.  Since these vectors are the columns of <span class="process-math">\(A\text{,}\)</span> we have <span class="process-math">\(\col(A) = W\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-203"><script type="text/x-sage">
+<div class="para">These vectors form a basis for <span class="process-math">\(W\text{,}\)</span> the subspace of <span class="process-math">\(\real^4\)</span> that we encountered in <a href="" class="xref" data-knowl="./knowl/activity-gram-schmidt.html" title="Activity 6.4.2">Activity 6.4.2</a>.  Since these vectors are the columns of <span class="process-math">\(A\text{,}\)</span> we have <span class="process-math">\(\col(A) = W\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-205"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-4474"><div class="para logical" id="p-6572">
+<li id="li-4482"><div class="para logical" id="p-6606">
 <div class="para">When we implemented Gram-Schmidt, we first found an orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> using</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1171,23 +1171,23 @@ print(gram_schmidt(B))
 <div class="para">Use these expressions to write <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_1\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> as linear combinations of <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-4475">
-<div class="para" id="p-6573">We next normalized the orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> to obtain an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\text{.}\)</span>
+<li id="li-4483">
+<div class="para" id="p-6607">We next normalized the orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> to obtain an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\text{.}\)</span>
 </div>
-<div class="para" id="p-6574">Write the vectors <span class="process-math">\(\wvec_i\)</span> as scalar multiples of <span class="process-math">\(\uvec_i\text{.}\)</span> Then use these expressions to write <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> as linear combinations of <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\text{.}\)</span>
+<div class="para" id="p-6608">Write the vectors <span class="process-math">\(\wvec_i\)</span> as scalar multiples of <span class="process-math">\(\uvec_i\text{.}\)</span> Then use these expressions to write <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> as linear combinations of <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\text{.}\)</span>
 </div>
 </li>
-<li id="li-4476"><div class="para" id="p-6575">Suppose that <span class="process-math">\(Q =
+<li id="li-4484"><div class="para" id="p-6609">Suppose that <span class="process-math">\(Q =
 \left[
 \begin{array}{ccc}
 \uvec_1 \amp \uvec_2 \amp \uvec_3
 \end{array}
 \right]\text{.}\)</span>  Use the result of the previous part to find a vector <span class="process-math">\(\rvec_1\)</span> so that <span class="process-math">\(Q\rvec_1 = \vvec_1\text{.}\)</span>
 </div></li>
-<li id="li-4477"><div class="para" id="p-6576">Then find vectors <span class="process-math">\(\rvec_2\)</span> and <span class="process-math">\(\rvec_3\)</span> such that <span class="process-math">\(Q\rvec_2 = \vvec_2\)</span> and <span class="process-math">\(Q\rvec_3 =
+<li id="li-4485"><div class="para" id="p-6610">Then find vectors <span class="process-math">\(\rvec_2\)</span> and <span class="process-math">\(\rvec_3\)</span> such that <span class="process-math">\(Q\rvec_2 = \vvec_2\)</span> and <span class="process-math">\(Q\rvec_3 =
 \vvec_3\text{.}\)</span>
 </div></li>
-<li id="li-4478"><div class="para" id="p-6577">Construct the matrix <span class="process-math">\(R =
+<li id="li-4486"><div class="para" id="p-6611">Construct the matrix <span class="process-math">\(R =
 \left[
 \begin{array}{ccc}
 \rvec_1 \amp \rvec_2 \amp \rvec_3
@@ -1199,15 +1199,15 @@ print(gram_schmidt(B))
 \end{array}
 \right]\text{,}\)</span> explain why <span class="process-math">\(A = QR\text{.}\)</span>
 </div></li>
-<li id="li-4479"><div class="para" id="p-6578">What is special about the shape of <span class="process-math">\(R\text{?}\)</span>
+<li id="li-4487"><div class="para" id="p-6612">What is special about the shape of <span class="process-math">\(R\text{?}\)</span>
 </div></li>
-<li id="li-4480"><div class="para" id="p-6579">Suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(10\by 6\)</span> matrix whose columns are linearly independent.  This means that the columns of <span class="process-math">\(A\)</span> form a basis for <span class="process-math">\(W=\col(A)\text{,}\)</span> a 6-dimensional subspace of <span class="process-math">\(\real^{10}\text{.}\)</span>  Suppose that we apply Gram-Schmidt orthogonalization to create an orthonormal basis whose vectors form the columns of <span class="process-math">\(Q\)</span> and that we write <span class="process-math">\(A=QR\text{.}\)</span>  What are the shape of <span class="process-math">\(Q\)</span> and what the shape of <span class="process-math">\(R\text{?}\)</span>
+<li id="li-4488"><div class="para" id="p-6613">Suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(10\by 6\)</span> matrix whose columns are linearly independent.  This means that the columns of <span class="process-math">\(A\)</span> form a basis for <span class="process-math">\(W=\col(A)\text{,}\)</span> a 6-dimensional subspace of <span class="process-math">\(\real^{10}\text{.}\)</span>  Suppose that we apply Gram-Schmidt orthogonalization to create an orthonormal basis whose vectors form the columns of <span class="process-math">\(Q\)</span> and that we write <span class="process-math">\(A=QR\text{.}\)</span>  What are the shape of <span class="process-math">\(Q\)</span> and what the shape of <span class="process-math">\(R\text{?}\)</span>
 </div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-260" id="answer-260"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-260"><div class="answer solution-like"><div class="para logical" id="p-6588"><ol class="lower-alpha">
-<li id="li-4488"><div class="para logical" id="p-6589"><div class="displaymath process-math">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-260" id="answer-260"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-260"><div class="answer solution-like"><div class="para logical" id="p-6622"><ol class="lower-alpha">
+<li id="li-4496"><div class="para logical" id="p-6623"><div class="displaymath process-math">
 \begin{equation*}
 \begin{aligned}
 \vvec_1 \amp = \wvec_1 \\
@@ -1216,7 +1216,7 @@ print(gram_schmidt(B))
 \end{aligned}
 \end{equation*}
 </div></div></li>
-<li id="li-4489"><div class="para logical" id="p-6590"><div class="displaymath process-math">
+<li id="li-4497"><div class="para logical" id="p-6624"><div class="displaymath process-math">
 \begin{equation*}
 \begin{aligned}
 \vvec_1 \amp = 2\uvec_1 \\
@@ -1225,23 +1225,23 @@ print(gram_schmidt(B))
 \end{aligned}
 \end{equation*}
 </div></div></li>
-<li id="li-4490"><div class="para" id="p-6591"><span class="process-math">\(\vvec_1 =
+<li id="li-4498"><div class="para" id="p-6625"><span class="process-math">\(\vvec_1 =
 Q\threevec{2}00\text{.}\)</span></div></li>
-<li id="li-4491"><div class="para" id="p-6592">
+<li id="li-4499"><div class="para" id="p-6626">
 <span class="process-math">\(\vvec_2 =
 Q\threevec4{\sqrt{2}}0\)</span> and <span class="process-math">\(\vvec_3=Q\threevec{-4}{-2\sqrt{2}}2\text{.}\)</span>
 </div></li>
-<li id="li-4492"><div class="para" id="p-6593">We have <span class="process-math">\(QR = \begin{bmatrix} Q\rvec_1 \amp Q\rvec_2
+<li id="li-4500"><div class="para" id="p-6627">We have <span class="process-math">\(QR = \begin{bmatrix} Q\rvec_1 \amp Q\rvec_2
 \amp Q\rvec_3 \end{bmatrix} = A\text{.}\)</span>
 </div></li>
-<li id="li-4493"><div class="para" id="p-6594">
+<li id="li-4501"><div class="para" id="p-6628">
 <span class="process-math">\(R\)</span> is upper triangular.</div></li>
-<li id="li-4494"><div class="para" id="p-6595">
+<li id="li-4502"><div class="para" id="p-6629">
 <span class="process-math">\(Q\)</span> will be <span class="process-math">\(10\by6\)</span> and <span class="process-math">\(R\)</span> will be <span class="process-math">\(6\by 6\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-335" id="solution-335"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-335"><div class="solution solution-like"><div class="para logical" id="p-6580"><ol class="lower-alpha">
-<li id="li-4481"><div class="para logical" id="p-6581">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-334" id="solution-334"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-334"><div class="solution solution-like"><div class="para logical" id="p-6614"><ol class="lower-alpha">
+<li id="li-4489"><div class="para logical" id="p-6615">
 <div class="displaymath process-math">
 \begin{equation*}
 \begin{aligned}
@@ -1262,7 +1262,7 @@ Q\threevec4{\sqrt{2}}0\)</span> and <span class="process-math">\(\vvec_3=Q\three
 \end{equation*}
 </div>
 </div></li>
-<li id="li-4482"><div class="para logical" id="p-6582">
+<li id="li-4490"><div class="para logical" id="p-6616">
 <div class="para">
 <span class="process-math">\(\wvec_i = \len{\wvec_i}\uvec_i\)</span> so we have</div>
 <div class="displaymath process-math">
@@ -1283,32 +1283,32 @@ Q\threevec4{\sqrt{2}}0\)</span> and <span class="process-math">\(\vvec_3=Q\three
 \end{equation*}
 </div>
 </div></li>
-<li id="li-4483"><div class="para" id="p-6583">Since <span class="process-math">\(\vvec_1 = 2\uvec_1\text{,}\)</span> we have <span class="process-math">\(\vvec_1 =
+<li id="li-4491"><div class="para" id="p-6617">Since <span class="process-math">\(\vvec_1 = 2\uvec_1\text{,}\)</span> we have <span class="process-math">\(\vvec_1 =
 Q\threevec{2}00\text{.}\)</span>
 </div></li>
-<li id="li-4484"><div class="para" id="p-6584">In the same way, we have <span class="process-math">\(\vvec_2 =
+<li id="li-4492"><div class="para" id="p-6618">In the same way, we have <span class="process-math">\(\vvec_2 =
 Q\threevec4{\sqrt{2}}0\)</span> and <span class="process-math">\(\vvec_3=Q\threevec{-4}{-2\sqrt{2}}2\text{.}\)</span>
 </div></li>
-<li id="li-4485"><div class="para" id="p-6585">We have <span class="process-math">\(QR = \begin{bmatrix} Q\rvec_1 \amp Q\rvec_2
+<li id="li-4493"><div class="para" id="p-6619">We have <span class="process-math">\(QR = \begin{bmatrix} Q\rvec_1 \amp Q\rvec_2
 \amp Q\rvec_3 \end{bmatrix} = A\text{.}\)</span>
 </div></li>
-<li id="li-4486"><div class="para" id="p-6586">
+<li id="li-4494"><div class="para" id="p-6620">
 <span class="process-math">\(R=\begin{bmatrix}
 2 \amp 4 \amp -4 \\
 0 \amp \sqrt{2} \amp -2\sqrt{2} \\
 0 \amp 0 \amp 2 \\
 \end{bmatrix}\)</span> so <span class="process-math">\(R\)</span> is upper triangular.</div></li>
-<li id="li-4487"><div class="para" id="p-6587">
+<li id="li-4495"><div class="para" id="p-6621">
 <span class="process-math">\(Q\)</span> will be <span class="process-math">\(10\by6\)</span> and <span class="process-math">\(R\)</span> will be a <span class="process-math">\(6\by 6\)</span> upper triangular matrix.</div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-6596">When the columns of a matrix <span class="process-math">\(A\)</span> are linearly independent, they form a basis for <span class="process-math">\(\col(A)\)</span> so that we can perform the Gram-Schmidt algorithm.  The previous activity shows how this leads to a factorization of <span class="process-math">\(A\)</span> as the product of a matrix <span class="process-math">\(Q\)</span> whose columns are an orthonormal basis for <span class="process-math">\(\col(A)\)</span> and an upper triangular matrix <span class="process-math">\(R\text{.}\)</span>
+</div></article><div class="para" id="p-6630">When the columns of a matrix <span class="process-math">\(A\)</span> are linearly independent, they form a basis for <span class="process-math">\(\col(A)\)</span> so that we can perform the Gram-Schmidt algorithm.  The previous activity shows how this leads to a factorization of <span class="process-math">\(A\)</span> as the product of a matrix <span class="process-math">\(Q\)</span> whose columns are an orthonormal basis for <span class="process-math">\(\col(A)\)</span> and an upper triangular matrix <span class="process-math">\(R\text{.}\)</span>
 </div>
 <article class="proposition theorem-like" id="prop-qr"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">6.4.5</span><span class="period">.</span><span class="space"> </span><span class="title"><span class="process-math">\(QR\)</span> factorization.</span>
-</h4>If <span class="process-math">\(A\)</span> is an <span class="process-math">\(m\by n\)</span> matrix whose columns are linearly independent, we may write <span class="process-math">\(A=QR\)</span> where <span class="process-math">\(Q\)</span> is an <span class="process-math">\(m\by n\)</span> matrix whose columns form an orthonormal basis for <span class="process-math">\(\col(A)\)</span> and <span class="process-math">\(R\)</span> is an <span class="process-math">\(n\by n\)</span> upper triangular matrix.</article><article class="example example-like" id="example-75"><h4 class="heading">
+</h4>If <span class="process-math">\(A\)</span> is an <span class="process-math">\(m\by n\)</span> matrix whose columns are linearly independent, we may write <span class="process-math">\(A=QR\)</span> where <span class="process-math">\(Q\)</span> is an <span class="process-math">\(m\by n\)</span> matrix whose columns form an orthonormal basis for <span class="process-math">\(\col(A)\)</span> and <span class="process-math">\(R\)</span> is an <span class="process-math">\(n\by n\)</span> upper triangular matrix.</article><article class="example example-like" id="example-76"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">6.4.6</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-6597">
+<div class="para logical" id="p-6631">
 <div class="para">We’ll consider the matrix <span class="process-math">\(A=\begin{bmatrix}
 2 \amp -3 \amp -2 \\
 -1 \amp 3 \amp 7 \\
@@ -1321,7 +1321,7 @@ Q\threevec4{\sqrt{2}}0\)</span> and <span class="process-math">\(\vvec_3=Q\three
 \vvec_3 \amp {}={} -\wvec_1 + 2\wvec_2 + \wvec _3
 \end{align*}
 </div>
-</div> <div class="para logical" id="p-6598">
+</div> <div class="para logical" id="p-6632">
 <div class="para">In terms of the resulting orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\text{,}\)</span> we had</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1338,7 +1338,7 @@ Q\threevec4{\sqrt{2}}0\)</span> and <span class="process-math">\(\vvec_3=Q\three
 \vvec_3 \amp {}={} -3\uvec_1 + 6\uvec_2 + 3\uvec _3
 \end{align*}
 </div>
-</div> <div class="para logical" id="p-6599">
+</div> <div class="para logical" id="p-6633">
 <div class="para">Therefore, if <span class="process-math">\(Q=\begin{bmatrix} \uvec_1 \amp \uvec_2 \amp
 \uvec_3 \end{bmatrix}\text{,}\)</span> we have the <span class="process-math">\(QR\)</span> factorization</div>
 <div class="displaymath process-math">
@@ -1351,11 +1351,11 @@ A = Q\begin{bmatrix}
 =QR\text{.}
 \end{equation*}
 </div>
-</div></article><div class="para" id="p-6600">The value of the <span class="process-math">\(QR\)</span> factorization will become clear in the next section where we use it to solve least squares problems.</div>
+</div></article><div class="para" id="p-6634">The value of the <span class="process-math">\(QR\)</span> factorization will become clear in the next section where we use it to solve least squares problems.</div>
 <article class="activity project-like" id="activity-82"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.4.5</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-6601">As before, we would like to use Python to automate the process of finding and using the <span class="process-math">\(QR\)</span> factorization of a matrix <span class="process-math">\(A\text{.}\)</span> <code class="code-inline tex2jax_ignore">Q, R = numpy.linalg.qr(A)</code> will do the trick.  </div> <div class="para logical" id="p-6602">
+<div class="para" id="p-6635">As before, we would like to use Python to automate the process of finding and using the <span class="process-math">\(QR\)</span> factorization of a matrix <span class="process-math">\(A\text{.}\)</span> <code class="code-inline tex2jax_ignore">Q, R = numpy.linalg.qr(A)</code> will do the trick.  </div> <div class="para logical" id="p-6636">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> is the following matrix whose columns are linearly independent.</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1369,26 +1369,26 @@ A =
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-4495"><div class="para" id="p-6603">If <span class="process-math">\(A=QR\text{,}\)</span> what are the shapes of <span class="process-math">\(Q\)</span> and of <span class="process-math">\(R\text{?}\)</span>  What is special about the form of <span class="process-math">\(R\text{?}\)</span>
+<li id="li-4503"><div class="para" id="p-6637">If <span class="process-math">\(A=QR\text{,}\)</span> what are the shapes of <span class="process-math">\(Q\)</span> and of <span class="process-math">\(R\text{?}\)</span>  What is special about the form of <span class="process-math">\(R\text{?}\)</span>
 </div></li>
-<li id="li-4496"><div class="para" id="p-6604">Find the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\)</span> and verify that (a) they havce the anticipated shapes and (b) <span class="process-math">\(QR = A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-204"><script type="text/x-sage">import numpy as np
+<li id="li-4504"><div class="para" id="p-6638">Find the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\)</span> and verify that (a) they havce the anticipated shapes and (b) <span class="process-math">\(QR = A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-206"><script type="text/x-sage">import numpy as np
 A = np.array(
 	[[1,0,-3], [0, 2, -1], [1, 0, 1], [1, 3, 5]])
 </script></pre>
 </div></li>
-<li id="li-4497"><div class="para" id="p-6605">Find the matrix <span class="process-math">\(P\)</span> that orthogonally projects vectors onto <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4505"><div class="para" id="p-6639">Find the matrix <span class="process-math">\(P\)</span> that orthogonally projects vectors onto <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4498"><div class="para" id="p-6606">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec=\fourvec4{-17}{-14}{22}\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4506"><div class="para" id="p-6640">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec=\fourvec4{-17}{-14}{22}\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4499"><div class="para" id="p-6607">Explain why the equation <span class="process-math">\(A\xvec=\bhat\)</span> must be consistent and then find <span class="process-math">\(\xvec\text{.}\)</span>
+<li id="li-4507"><div class="para" id="p-6641">Explain why the equation <span class="process-math">\(A\xvec=\bhat\)</span> must be consistent and then find <span class="process-math">\(\xvec\text{.}\)</span>
 </div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-261" id="answer-261"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-261"><div class="answer solution-like"><div class="para logical" id="p-6615"><ol class="lower-alpha">
-<li id="li-4505"><div class="para" id="p-6616">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-261" id="answer-261"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-261"><div class="answer solution-like"><div class="para logical" id="p-6649"><ol class="lower-alpha">
+<li id="li-4513"><div class="para" id="p-6650">
 <span class="process-math">\(Q\)</span> is <span class="process-math">\(4\by3\)</span> and <span class="process-math">\(R\)</span> is a <span class="process-math">\(3\by3\)</span> upper triangular matrix.</div></li>
-<li id="li-4506"><div class="para logical" id="p-6617">
+<li id="li-4514"><div class="para logical" id="p-6651">
 <div class="para">We see that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1406,20 +1406,20 @@ R = \begin{bmatrix}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-4507"><div class="para" id="p-6618"><span class="process-math">\(\displaystyle P=QQ^{\transpose} = \begin{bmatrix}
+<li id="li-4515"><div class="para" id="p-6652"><span class="process-math">\(\displaystyle P=QQ^{\transpose} = \begin{bmatrix}
 569/690 \amp 22/115 \amp 209/690 \amp -44/345 \\
 22/115 \amp 91/115 \amp -38/115 \amp 16/115 \\
 209/690 \amp -38/115 \amp 329/690 \amp 76/345 \\
 -44/345 \amp 16/115 \amp 76/345 \amp 313/345 \\
 \end{bmatrix}\)</span></div></li>
-<li id="li-4508"><div class="para" id="p-6619"><span class="process-math">\(\displaystyle \bhat = \fourvec{-7}{-5}5{14}\)</span></div></li>
-<li id="li-4509"><div class="para" id="p-6620"><span class="process-math">\(\xvec = \threevec2{-1}3\text{.}\)</span></div></li>
+<li id="li-4516"><div class="para" id="p-6653"><span class="process-math">\(\displaystyle \bhat = \fourvec{-7}{-5}5{14}\)</span></div></li>
+<li id="li-4517"><div class="para" id="p-6654"><span class="process-math">\(\xvec = \threevec2{-1}3\text{.}\)</span></div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-336" id="solution-336"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-336"><div class="solution solution-like">
-<div class="para logical" id="p-6608"><ol class="lower-alpha">
-<li id="li-4500"><div class="para" id="p-6609">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-335" id="solution-335"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-335"><div class="solution solution-like">
+<div class="para logical" id="p-6642"><ol class="lower-alpha">
+<li id="li-4508"><div class="para" id="p-6643">
 <span class="process-math">\(Q\)</span> is <span class="process-math">\(4\by3\)</span> and <span class="process-math">\(R\)</span> is a <span class="process-math">\(3\by3\)</span> upper triangular matrix.</div></li>
-<li id="li-4501"><div class="para logical" id="p-6610">
+<li id="li-4509"><div class="para logical" id="p-6644">
 <div class="para">We see that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1437,16 +1437,16 @@ R = \begin{bmatrix}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-4502"><div class="para" id="p-6611"><span class="process-math">\(\displaystyle P=QQ^{\transpose} = \begin{bmatrix}
+<li id="li-4510"><div class="para" id="p-6645"><span class="process-math">\(\displaystyle P=QQ^{\transpose} = \begin{bmatrix}
 569/690 \amp 22/115 \amp 209/690 \amp -44/345 \\
 22/115 \amp 91/115 \amp -38/115 \amp 16/115 \\
 209/690 \amp -38/115 \amp 329/690 \amp 76/345 \\
 -44/345 \amp 16/115 \amp 76/345 \amp 313/345 \\
 \end{bmatrix}\)</span></div></li>
-<li id="li-4503"><div class="para" id="p-6612"><span class="process-math">\(\displaystyle \bhat = QQ^{\transpose}\bvec = \fourvec{-7}{-5}5{14}\)</span></div></li>
-<li id="li-4504"><div class="para" id="p-6613">Since <span class="process-math">\(\bhat\)</span> is in <span class="process-math">\(\col(A)\text{,}\)</span> the system <span class="process-math">\(A\xvec=\bhat\)</span> must be consistent.  We find a solution by augmenting <span class="process-math">\(A\)</span> by <span class="process-math">\(\bhat\)</span> and row reducing:  <span class="process-math">\(\xvec = \threevec2{-1}3\text{.}\)</span>
+<li id="li-4511"><div class="para" id="p-6646"><span class="process-math">\(\displaystyle \bhat = QQ^{\transpose}\bvec = \fourvec{-7}{-5}5{14}\)</span></div></li>
+<li id="li-4512"><div class="para" id="p-6647">Since <span class="process-math">\(\bhat\)</span> is in <span class="process-math">\(\col(A)\text{,}\)</span> the system <span class="process-math">\(A\xvec=\bhat\)</span> must be consistent.  We find a solution by augmenting <span class="process-math">\(A\)</span> by <span class="process-math">\(\bhat\)</span> and row reducing:  <span class="process-math">\(\xvec = \threevec2{-1}3\text{.}\)</span>
 </div></li>
-</ol></div> <div class="para" id="p-6614">Here is some Python code that performs the necessary calculations. <pre class="ptx-sagecell sagecell-python" id="sage-205"><script type="text/x-sage">import numpy as np
+</ol></div> <div class="para" id="p-6648">Here is some Python code that performs the necessary calculations. <pre class="ptx-sagecell sagecell-python" id="sage-207"><script type="text/x-sage">import numpy as np
 A = np.array(
 	[[1,0,-3], [0, 2, -1], [1, 0, 1], [1, 3, 5]])
 Q,R = np.linalg.qr(A)
@@ -1466,10 +1466,10 @@ print(sympy.Matrix(Aug).rref())
 </div></article></section><section class="subsection" id="subsection-111"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">6.4.3</span><span class="space"> </span><span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-6621">
+<div class="para logical" id="p-6655">
 <div class="para">This section explored the Gram-Schmidt orthogonalization algorithm and how it leads to the matrix factorization <span class="process-math">\(A=QR\)</span> when the columns of <span class="process-math">\(A\)</span> are linearly independent.</div>
 <ul class="disc">
-<li id="li-4510"><div class="para logical" id="p-6622">
+<li id="li-4518"><div class="para logical" id="p-6656">
 <div class="para">Beginning with a basis <span class="process-math">\(\vvec_1,
 \vvec_2,\ldots,\vvec_n\)</span> for a subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^m\text{,}\)</span> the vectors</div>
 <div class="displaymath process-math" id="md-22">
@@ -1483,18 +1483,18 @@ print(sympy.Matrix(Aug).rref())
 </div>
 <div class="para">form an orthogonal basis for <span class="process-math">\(W\text{.}\)</span> </div>
 </div></li>
-<li id="li-4511"><div class="para" id="p-6623">We may scale each vector <span class="process-math">\(\wvec_i\)</span> appropriately to obtain an orthonormal basis <span class="process-math">\(\uvec_1,\uvec_2,\ldots,\uvec_n\text{.}\)</span>
+<li id="li-4519"><div class="para" id="p-6657">We may scale each vector <span class="process-math">\(\wvec_i\)</span> appropriately to obtain an orthonormal basis <span class="process-math">\(\uvec_1,\uvec_2,\ldots,\uvec_n\text{.}\)</span>
 </div></li>
-<li id="li-4512"><div class="para" id="p-6624">Expressing the Gram-Schmidt algorithm in matrix form shows that, if the columns of <span class="process-math">\(A\)</span> are linearly independent, then we can write <span class="process-math">\(A=QR\text{,}\)</span> where the columns of <span class="process-math">\(Q\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\)</span> and <span class="process-math">\(R\)</span> is upper triangular. <span class="process-math">\(R\)</span> is upper triangular because each <span class="process-math">\(\wvec_i\)</span> only depends on <span class="process-math">\(\vvec_j\)</span> for <span class="process-math">\(j \le i\text{.}\)</span>
+<li id="li-4520"><div class="para" id="p-6658">Expressing the Gram-Schmidt algorithm in matrix form shows that, if the columns of <span class="process-math">\(A\)</span> are linearly independent, then we can write <span class="process-math">\(A=QR\text{,}\)</span> where the columns of <span class="process-math">\(Q\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\)</span> and <span class="process-math">\(R\)</span> is upper triangular. <span class="process-math">\(R\)</span> is upper triangular because each <span class="process-math">\(\wvec_i\)</span> only depends on <span class="process-math">\(\vvec_j\)</span> for <span class="process-math">\(j \le i\text{.}\)</span>
 </div></li>
-<li id="li-4513"><div class="para" id="p-6625">
+<li id="li-4521"><div class="para" id="p-6659">
 <code class="code-inline tex2jax_ignore">numpy.linalg.qr()</code> will compute <span class="process-math">\(QR\)</span> factorizations for us.</div></li>
 </ul>
 </div></section><section class="exercises" id="exercises-28"><h3 class="heading hide-type">
 <span class="type">Exercises</span><span class="space"> </span><span class="codenumber">6.4.4</span><span class="space"> </span><span class="title">Exercises</span>
 </h3>
-<article class="exercise exercise-like" id="exercise-234"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6626">
+<article class="exercise exercise-like" id="exercise-235"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6660">
 <div class="para">Suppose that a subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^3\)</span> has a basis formed by</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1503,24 +1503,24 @@ print(sympy.Matrix(Aug).rref())
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-4514"><div class="para" id="p-6627">Find an orthogonal basis for <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4522"><div class="para" id="p-6661">Find an orthogonal basis for <span class="process-math">\(W\text{.}\)</span>
 </div></li>
-<li id="li-4515"><div class="para" id="p-6628">Find an orthonormal basis for <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4523"><div class="para" id="p-6662">Find an orthonormal basis for <span class="process-math">\(W\text{.}\)</span>
 </div></li>
-<li id="li-4516"><div class="para" id="p-6629">Find the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4524"><div class="para" id="p-6663">Find the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(W\text{.}\)</span>
 </div></li>
-<li id="li-4517"><div class="para" id="p-6630">Find the orthogonal projection of <span class="process-math">\(\threevec34{-2}\)</span> onto <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4525"><div class="para" id="p-6664">Find the orthogonal projection of <span class="process-math">\(\threevec34{-2}\)</span> onto <span class="process-math">\(W\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-235"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para" id="p-6641">Find the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A=\begin{bmatrix}
+</div></article><article class="exercise exercise-like" id="exercise-236"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para" id="p-6675">Find the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A=\begin{bmatrix}
 4 \amp 7 \\
 -2 \amp 4 \\
 4 \amp 4
 \end{bmatrix}
 \text{.}\)</span>
-</div></article><article class="exercise exercise-like" id="exercise-236"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6645">
+</div></article><article class="exercise exercise-like" id="exercise-237"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6679">
 <div class="para">Consider the basis of <span class="process-math">\(\real^3\)</span> given by the vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1529,27 +1529,27 @@ print(sympy.Matrix(Aug).rref())
 \vvec_3=\threevec{2}0{-5}.
 \end{equation*}
 </div>
-<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-206"><script type="text/x-sage">
+<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-208"><script type="text/x-sage">
 </script></pre></div>
 <ol class="lower-alpha">
-<li id="li-4526"><div class="para" id="p-6646">Apply the Gram-Schmit orthogonalization algorithm to find an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> <span class="process-math">\(\uvec_3\)</span> for <span class="process-math">\(\real^3\text{.}\)</span>
+<li id="li-4534"><div class="para" id="p-6680">Apply the Gram-Schmit orthogonalization algorithm to find an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> <span class="process-math">\(\uvec_3\)</span> for <span class="process-math">\(\real^3\text{.}\)</span>
 </div></li>
-<li id="li-4527"><div class="para" id="p-6647">If <span class="process-math">\(A\)</span> is the <span class="process-math">\(3\by3\)</span> whose columns are <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{,}\)</span> find the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>
+<li id="li-4535"><div class="para" id="p-6681">If <span class="process-math">\(A\)</span> is the <span class="process-math">\(3\by3\)</span> whose columns are <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{,}\)</span> find the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-4528"><div class="para logical" id="p-6648">
+<li id="li-4536"><div class="para logical" id="p-6682">
 <div class="para">Suppose that we want to solve the equation <span class="process-math">\(A\xvec=\bvec = \threevec{-9}17\text{,}\)</span> which we can rewrite as <span class="process-math">\(QR\xvec = \bvec\text{.}\)</span>
 </div>
 <ol class="decimal">
-<li id="li-4529"><div class="para" id="p-6649">If we set <span class="process-math">\(\yvec=R\xvec\text{,}\)</span> the equation <span class="process-math">\(QR\xvec=\bvec\)</span> becomes <span class="process-math">\(Q\yvec=\bvec\text{.}\)</span> Explain how to solve the equation <span class="process-math">\(Q\yvec=\bvec\)</span> in a computationally efficient manner.</div></li>
-<li id="li-4530"><div class="para" id="p-6650">Explain how to solve the equation <span class="process-math">\(R\xvec=\yvec\)</span> in a computationally efficient manner.</div></li>
-<li id="li-4531"><div class="para" id="p-6651">Find the solution <span class="process-math">\(\xvec\)</span> by first solving <span class="process-math">\(Q\yvec = \bvec\)</span> and then <span class="process-math">\(R\xvec =
+<li id="li-4537"><div class="para" id="p-6683">If we set <span class="process-math">\(\yvec=R\xvec\text{,}\)</span> the equation <span class="process-math">\(QR\xvec=\bvec\)</span> becomes <span class="process-math">\(Q\yvec=\bvec\text{.}\)</span> Explain how to solve the equation <span class="process-math">\(Q\yvec=\bvec\)</span> in a computationally efficient manner.</div></li>
+<li id="li-4538"><div class="para" id="p-6684">Explain how to solve the equation <span class="process-math">\(R\xvec=\yvec\)</span> in a computationally efficient manner.</div></li>
+<li id="li-4539"><div class="para" id="p-6685">Find the solution <span class="process-math">\(\xvec\)</span> by first solving <span class="process-math">\(Q\yvec = \bvec\)</span> and then <span class="process-math">\(R\xvec =
 \yvec\text{.}\)</span>
 </div></li>
 </ol>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-237"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6666">
+</div></article><article class="exercise exercise-like" id="exercise-238"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6700">
 <div class="para">Consider the vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1558,21 +1558,21 @@ print(sympy.Matrix(Aug).rref())
 \vvec_3=\fivevec5{-4}{-3}71
 \end{equation*}
 </div>
-<div class="para">and the subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^5\)</span> that they span. <pre class="ptx-sagecell sagecell-python" id="sage-207"><script type="text/x-sage">
+<div class="para">and the subspace <span class="process-math">\(W\)</span> of <span class="process-math">\(\real^5\)</span> that they span. <pre class="ptx-sagecell sagecell-python" id="sage-209"><script type="text/x-sage">
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-4544"><div class="para" id="p-6667">Find an orthonormal basis for <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4552"><div class="para" id="p-6701">Find an orthonormal basis for <span class="process-math">\(W\text{.}\)</span>
 </div></li>
-<li id="li-4545"><div class="para" id="p-6668">Find the <span class="process-math">\(5\by5\)</span> matrix that projects vectors orthogonally onto <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4553"><div class="para" id="p-6702">Find the <span class="process-math">\(5\by5\)</span> matrix that projects vectors orthogonally onto <span class="process-math">\(W\text{.}\)</span>
 </div></li>
-<li id="li-4546"><div class="para" id="p-6669">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec=\fivevec{-8}3{-12}8{-4}\)</span> onto <span class="process-math">\(W\text{.}\)</span>
+<li id="li-4554"><div class="para" id="p-6703">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec=\fivevec{-8}3{-12}8{-4}\)</span> onto <span class="process-math">\(W\text{.}\)</span>
 </div></li>
-<li id="li-4547"><div class="para" id="p-6670">Express <span class="process-math">\(\bhat\)</span> as a linear combination of <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{.}\)</span>
+<li id="li-4555"><div class="para" id="p-6704">Express <span class="process-math">\(\bhat\)</span> as a linear combination of <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-238"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6681">
+</div></article><article class="exercise exercise-like" id="exercise-239"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6715">
 <div class="para">Consider the set of vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1582,46 +1582,46 @@ print(sympy.Matrix(Aug).rref())
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-4556"><div class="para" id="p-6682">What happens when we apply the Gram-Schmit orthogonalization algorithm?</div></li>
-<li id="li-4557"><div class="para" id="p-6683">Why does the algorithm fail to produce an orthogonal basis for <span class="process-math">\(\real^3\text{?}\)</span>
+<li id="li-4564"><div class="para" id="p-6716">What happens when we apply the Gram-Schmit orthogonalization algorithm?</div></li>
+<li id="li-4565"><div class="para" id="p-6717">Why does the algorithm fail to produce an orthogonal basis for <span class="process-math">\(\real^3\text{?}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-239"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6690">
+</div></article><article class="exercise exercise-like" id="exercise-240"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6724">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> is a matrix with linearly independent columns and having the factorization <span class="process-math">\(A=QR\text{.}\)</span> Determine whether the following statements are true or false and explain your thinking.</div>
 <ol class="lower-alpha">
-<li id="li-4562"><div class="para" id="p-6691">It follows that <span class="process-math">\(R=Q^{\transpose}A\text{.}\)</span>
+<li id="li-4570"><div class="para" id="p-6725">It follows that <span class="process-math">\(R=Q^{\transpose}A\text{.}\)</span>
 </div></li>
-<li id="li-4563"><div class="para" id="p-6692">The matrix <span class="process-math">\(R\)</span> is invertible.</div></li>
-<li id="li-4564"><div class="para" id="p-6693">The product <span class="process-math">\(Q^{\transpose}Q\)</span> projects vectors orthogonally onto <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4571"><div class="para" id="p-6726">The matrix <span class="process-math">\(R\)</span> is invertible.</div></li>
+<li id="li-4572"><div class="para" id="p-6727">The product <span class="process-math">\(Q^{\transpose}Q\)</span> projects vectors orthogonally onto <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4565"><div class="para" id="p-6694">The columns of <span class="process-math">\(Q\)</span> are an orthogonal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-4573"><div class="para" id="p-6728">The columns of <span class="process-math">\(Q\)</span> are an orthogonal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-4566"><div class="para" id="p-6695">The orthogonal complement <span class="process-math">\(\col(A)^\perp =
+<li id="li-4574"><div class="para" id="p-6729">The orthogonal complement <span class="process-math">\(\col(A)^\perp =
 \nul(Q^{\transpose})\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-240"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6708">
+</div></article><article class="exercise exercise-like" id="exercise-241"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6742">
 <div class="para">Suppose we have the <span class="process-math">\(QR\)</span> factorization <span class="process-math">\(A=QR\text{,}\)</span> where <span class="process-math">\(A\)</span> is a <span class="process-math">\(7\by 4\)</span> matrix.</div>
 <ol class="lower-alpha">
-<li id="li-4577"><div class="para" id="p-6709">What is the shape of the product <span class="process-math">\(QQ^{\transpose}\text{?}\)</span>  Explain the significance of this product.</div></li>
-<li id="li-4578"><div class="para" id="p-6710">What is the shape of the product <span class="process-math">\(Q^{\transpose}Q\text{?}\)</span>  Explain the significance of this product.</div></li>
-<li id="li-4579"><div class="para" id="p-6711">What is the shape of the matrix <span class="process-math">\(R\text{?}\)</span>
+<li id="li-4585"><div class="para" id="p-6743">What is the shape of the product <span class="process-math">\(QQ^{\transpose}\text{?}\)</span>  Explain the significance of this product.</div></li>
+<li id="li-4586"><div class="para" id="p-6744">What is the shape of the product <span class="process-math">\(Q^{\transpose}Q\text{?}\)</span>  Explain the significance of this product.</div></li>
+<li id="li-4587"><div class="para" id="p-6745">What is the shape of the matrix <span class="process-math">\(R\text{?}\)</span>
 </div></li>
-<li id="li-4580"><div class="para" id="p-6712">If <span class="process-math">\(R\)</span> is a diagonal matrix, what can you say about the columns of <span class="process-math">\(A\text{?}\)</span>
+<li id="li-4588"><div class="para" id="p-6746">If <span class="process-math">\(R\)</span> is a diagonal matrix, what can you say about the columns of <span class="process-math">\(A\text{?}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-241"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
-<div class="para logical" id="p-6723">
+</div></article><article class="exercise exercise-like" id="exercise-242"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<div class="para logical" id="p-6757">
 <div class="para">Suppose we have the <span class="process-math">\(QR\)</span> factorization <span class="process-math">\(A=QR\)</span> where the columns of <span class="process-math">\(A\)</span> are <span class="process-math">\(\avec_1,\avec_2,\ldots,\avec_n\)</span> and the columns of <span class="process-math">\(R\)</span> are <span class="process-math">\(\rvec_1,\rvec_2,\ldots,\rvec_n\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-4589"><div class="para" id="p-6724">How can the matrix product <span class="process-math">\(A^{\transpose}A\)</span> be expressed in terms of dot products?</div></li>
-<li id="li-4590"><div class="para" id="p-6725">How can the matrix product <span class="process-math">\(R^{\transpose}R\)</span> be expressed in terms of dot products?</div></li>
-<li id="li-4591"><div class="para" id="p-6726">Explain why <span class="process-math">\(A^{\transpose}A=R^{\transpose}R\text{.}\)</span>
+<li id="li-4597"><div class="para" id="p-6758">How can the matrix product <span class="process-math">\(A^{\transpose}A\)</span> be expressed in terms of dot products?</div></li>
+<li id="li-4598"><div class="para" id="p-6759">How can the matrix product <span class="process-math">\(R^{\transpose}R\)</span> be expressed in terms of dot products?</div></li>
+<li id="li-4599"><div class="para" id="p-6760">Explain why <span class="process-math">\(A^{\transpose}A=R^{\transpose}R\text{.}\)</span>
 </div></li>
-<li id="li-4592"><div class="para" id="p-6727">Explain why the dot products <span class="process-math">\(\avec_i\cdot\avec_j =
+<li id="li-4600"><div class="para" id="p-6761">Explain why the dot products <span class="process-math">\(\avec_i\cdot\avec_j =
 \rvec_i\cdot\rvec_j\text{.}\)</span>
 </div></li>
 </ol>

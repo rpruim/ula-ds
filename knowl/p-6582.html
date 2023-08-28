@@ -9,29 +9,46 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para logical">
-<div class="para">
-<span class="process-math">\(\wvec_i = \len{\wvec_i}\uvec_i\)</span> so we have</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\wvec_1 = 2\uvec_1,\hspace{24pt}
-\wvec_1 = \sqrt{2}\uvec_2,\hspace{24pt}
-\wvec_1 = 2\uvec_3\text{.}
-\end{equation*}
-</div>
-<div class="para">This leads to</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\begin{aligned}
-\vvec_1 \amp = 2\uvec_1 \\
-\vvec_2 \amp = 4\uvec_1 + \sqrt{2}\uvec_2 \\
-\vvec_3 \amp = -4\uvec_1 - 2\sqrt{2}\uvec_2 + 2\uvec_3 \\
-\end{aligned}
-\end{equation*}
-</div>
+<div class="para">Python can automate these computations for us, and we’ll learn a standard numpy way of approaching this shortly. But first let’s see how we can code up the Gram-Schmidt process directly. The code below allows vectors to be given as 1-d arrays or as 1-column matrices. <code class="code-inline tex2jax_ignore">flatten()</code> is used to convert either to the 1-d representation. The basis is provided as a python list of vectors (in either representation).  <pre class="ptx-sagecell sagecell-python" id="sage-202"><script type="text/x-sage">import numpy as np
+
+def flatten(x):
+    return x.reshape((np.prod(x.shape), ))
+
+def projection(b, basis):
+    b = flatten(b)
+    basis = [flatten(x) for x in basis]
+    if len(basis) == 0: return np.zeros(b.shape[0])
+    return sum([ (b@v)/(v@v) * v for v in basis ])
+
+def unit(v):
+    return 1/np.linalg.norm(v) * v
+
+def gram_schmidt(basis):
+    new_basis = []
+    basis = [flatten(x) for x in basis]
+    for b in basis:
+        new_basis.append(unit(b - projection(b, new_basis)))
+    return new_basis
+
+B = [np.array([1,2,3]), np.array([1,1,1]), np.array([1,0,0])]
+print(gram_schmidt(B))
+</script></pre>
 </div>
 <span class="incontext"><a href="sec-gram-schmidt.html#p-6582" class="internal">in-context</a></span>
 </body>

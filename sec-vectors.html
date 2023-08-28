@@ -365,7 +365,7 @@ window.MathJax = {
 <li>
 <div class="toc-item"><a href="sec-tensors.html" class="internal"><span class="codenumber">1.5</span> <span class="title">Tensors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in Numpy</span></a></div></li>
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in NumPy</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-axes" class="internal"><span class="codenumber">1.5.2</span> <span class="title">Aggregation and Axes</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-ndarray-append" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Expanding an array</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-broadcasting" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Broadcasting</span></a></div></li>
@@ -729,13 +729,15 @@ window.MathJax = {
 <section class="introduction" id="introduction-1"><div class="para" id="p-31">Scalars, vectors, and matrices will play an inportant part in using linear algebra in data science, so it will be good for us to become acquainted with them and how to work with them in Python. This section will focus on scalars and vectors. Section <a href="sec-matrices.html" class="internal" title="Section 1.4: Matrices">Section 1.4</a> will focus on matrices.</div></section><section class="subsection" id="subsection-1"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">1.1.1</span><span class="space"> </span><span class="title">Three ways to think about vectors</span>
 </h3>
+<div class="para logical" id="p-32">
+<div class="para">There are three ways we can think about vectors, and each one will play a role in our study of linear algebra.</div>
 <ol class="decimal">
 <li id="li-11">
-<div class="para" id="p-32">The data/computer science perspective.</div>
-<div class="para" id="p-33">Probably the simplest way to think about a vector is as an ordered list of numbers. This is how we will usually represent vectors in the computer. This is also what allows us to connect linear algebra to data. Suppose we have selling prices of 100 homes, for example. We could put those 100 numbers into an ordered list and call it a vector of home prices. That allows us to think about all 100 home prices together as one unit -- the selling price of (these particular 100) homes. This kind of vector can be called a <dfn class="terminology">variable vector</dfn> since in contains all the information about one variable (in this case price). A richer data set could have many variables, each one stored as a vector. </div>
-<div class="para" id="p-34">Alternatively, we may consider a single home and record several different pieces of information about it (selling price, number of bedrooms, size of the lot, etc.). All the information about one home can be stored as a vector. This kind of variable can be called a <dfn class="terminology">sample vector</dfn> or a <dfn class="terminology">case vector</dfn>, since the vector represents one observational unit. A large data set will consist of many case vectors. </div>
-<div class="para" id="p-35">When working with data, our list of numbers might be very long. We could have hundreds, or thousands, or millions, or more cases or variables that we are keeping track of. The good news is that vectors behave the same way no matter how long the list of numbers. This means we can learn a lot from smaller examples, which are easier to work with (and visualize).</div>
-<div class="para" id="p-36">So let’s consider some smaller examples. <span class="process-math">\(\vvec = \left[
+<div class="para" id="p-33">The data/computer science perspective.</div>
+<div class="para" id="p-34">Probably the simplest way to think about a vector is as an ordered list of numbers. This is how we will usually represent vectors in the computer. This is also what allows us to connect linear algebra to data. Suppose we have selling prices of 100 homes, for example. We could put those 100 numbers into an ordered list and call it a vector of home prices. That allows us to think about all 100 home prices together as one unit -- the selling price of (these particular 100) homes. This kind of vector can be called a <dfn class="terminology">variable vector</dfn> since in contains all the information about one variable (in this case price). A richer data set could have many variables, each one stored as a vector. </div>
+<div class="para" id="p-35">Alternatively, we may consider a single home and record several different pieces of information about it (selling price, number of bedrooms, size of the lot, etc.). All the information about one home can be stored as a vector. This kind of variable can be called a <dfn class="terminology">sample vector</dfn> or a <dfn class="terminology">case vector</dfn>, since the vector represents one observational unit. A large data set will consist of many case vectors. </div>
+<div class="para" id="p-36">When working with data, our list of numbers might be very long. We could have hundreds, or thousands, or millions, or more cases or variables that we are keeping track of. The good news is that vectors behave the same way no matter how long the list of numbers. This means we can learn a lot from smaller examples, which are easier to work with (and visualize).</div>
+<div class="para" id="p-37">So let’s consider some smaller examples. <span class="process-math">\(\vvec = \left[
 \begin{array}{r}
 2 \\
 1 \\
@@ -748,41 +750,40 @@ window.MathJax = {
 2 \\
 \end{array}
 \right]\)</span> are both vectors. The entries in a vector are called its <dfn class="terminology">components</dfn> or <dfn class="terminology">entries</dfn>.  Since the vector <span class="process-math">\(\vvec\)</span> has two components, we say that it is a two-dimensional vector; in the same way, the vector <span class="process-math">\(\wvec\)</span> is a four-dimensional vector.</div>
-<div class="para" id="p-37">Because the numbers we are using are "real" numbers (numbers of any size that can be represented as fractions or decimals), we will denote the set of all <span class="process-math">\(m\)</span>-dimensional vectors by <span class="process-math">\(\real^m\text{.}\)</span> Consequently, if <span class="process-math">\(\uvec\)</span> is a 3-dimensional vector, we say that <span class="process-math">\(\uvec\)</span> is in <span class="process-math">\(\real^3\)</span> (written <span class="process-math">\(\uvec \in
+<div class="para" id="p-38">Because the numbers we are using are "real" numbers (numbers of any size that can be represented as fractions or decimals), we will denote the set of all <span class="process-math">\(m\)</span>-dimensional vectors by <span class="process-math">\(\real^m\text{.}\)</span> Consequently, if <span class="process-math">\(\uvec\)</span> is a 3-dimensional vector, we say that <span class="process-math">\(\uvec\)</span> is in <span class="process-math">\(\real^3\)</span> (written <span class="process-math">\(\uvec \in
 \real^3\)</span>). Note that this will require us to recode non-numeric data using numbers. </div>
 </li>
 <li id="li-12">
-<div class="para" id="p-38">The physics/geometry perspective.</div>
-<div class="para" id="p-39">This perpective helps us "see" linear algebra. From this perspective, a vector is something that has <dfn class="terminology">magnitude</dfn> (length) and <dfn class="terminology">direction</dfn>. In 2 or 3 dimensions (actually, in 1 dimension as well), vectors can eaily be visualized as arrows. Figure <a href="" class="xref" data-knowl="./knowl/fig-vector-0.html" title="Figure 1.1.1">Figure 1.1.1</a> shows an example in 2 dimensions. <figure class="figure figure-like" id="fig-vector-0"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/vector-u.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.1<span class="period">.</span></span><span class="space"> </span>A graphical representation of the vector in 2 dimensions.</figcaption></figure>
+<div class="para" id="p-39">The physics/geometry perspective.</div>
+<div class="para" id="p-40">This perpective helps us "see" linear algebra. From this perspective, a vector is something that has <dfn class="terminology">magnitude</dfn> (length) and <dfn class="terminology">direction</dfn>. In 2 or 3 dimensions (actually, in 1 dimension as well), vectors can eaily be visualized as arrows. Figure <a href="" class="xref" data-knowl="./knowl/fig-vector-0.html" title="Figure 1.1.1">Figure 1.1.1</a> shows an example in 2 dimensions.</div>
+<figure class="figure figure-like" id="fig-vector-0"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/vector-u.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.1<span class="period">.</span></span><span class="space"> </span>A graphical representation of the vector in 2 dimensions.</figcaption></figure><div class="para" id="p-41">If you are familar with this perspecitve -- perhaps from physics where it is used frequently to describe position, velocity, force, etc. -- note that in linear algebra it is almost always the case that all vectors (arrows) will begin at the same position, called the <dfn class="terminology">origin</dfn>. </div>
+<div class="para" id="p-42">The geometric and data prespectives are linked using <dfn class="terminology">Cartesian coordinates</dfn>. If you look back at Figure <a href="" class="xref" data-knowl="./knowl/fig-vector-0.html" title="Figure 1.1.1">Figure 1.1.1</a>, you can see that we have placed a grid in the background. This makes it easy to see that our vector stretches 2 units in the horizontal (or x) direction and 1 unit in the vertical (y) direction. So Figure <a href="" class="xref" data-knowl="./knowl/fig-vector-0.html" title="Figure 1.1.1">Figure 1.1.1</a> is a representation of the vector <span class="process-math">\(\vvec = \twovec 21\text{.}\)</span>
 </div>
-<div class="para" id="p-40">If you are familar with this perspecitve -- perhaps from physics where it is used frequently to describe position, velocity, force, etc. -- note that in linear algebra it is almost always the case that all vectors (arrows) will begin at the same position, called the <dfn class="terminology">origin</dfn>.</div>
-<div class="para" id="p-41">The geometric and data prespectives are linked using <dfn class="terminology">Cartesian coordinates</dfn>. If you look back at Figure <a href="" class="xref" data-knowl="./knowl/fig-vector-0.html" title="Figure 1.1.1">Figure 1.1.1</a>, you can see that we have placed a grid in the background. This makes it easy to see that our vector stretches 2 units in the horizontal (or x) direction and 1 unit in the vertical (y) direction. So Figure <a href="" class="xref" data-knowl="./knowl/fig-vector-0.html" title="Figure 1.1.1">Figure 1.1.1</a> is a representation of the vector <span class="process-math">\(\vvec = \twovec 21\text{.}\)</span>
-</div>
-<div class="para" id="p-42">Any vector in <span class="process-math">\(\real^1\text{,}\)</span> <span class="process-math">\(\real^2\text{,}\)</span> or <span class="process-math">\(\real^3\)</span> can be represented in a similar way. Vectors in <span class="process-math">\(\real^1\)</span> live on a line, vectors in <span class="process-math">\(\real^2\)</span> live on a plane, and vectors in <span class="process-math">\(\real^3\)</span> live in 3-d "space", which we can represent reasonably well with perspective drawings in the plane. Beyond three diminsions, its more difficult to visualize vectors, but we will use the intuitions we develop in low dimension to help us understand what is happening in higher dimensions.</div>
+<div class="para" id="p-43">Any vector in <span class="process-math">\(\real^1\text{,}\)</span> <span class="process-math">\(\real^2\text{,}\)</span> or <span class="process-math">\(\real^3\)</span> can be represented in a similar way. Vectors in <span class="process-math">\(\real^1\)</span> live on a line, vectors in <span class="process-math">\(\real^2\)</span> live on a plane, and vectors in <span class="process-math">\(\real^3\)</span> live in 3-d "space", which we can represent reasonably well with perspective drawings in the plane. Beyond three diminsions, its more difficult to visualize vectors, but we will use the intuitions we develop in low dimension to help us understand what is happening in higher dimensions.</div>
 </li>
 <li id="li-13">
-<div class="para" id="p-43">The mathematical perspective.</div>
-<div class="para" id="p-44">The mathematical perspetive is a little bit different again. From this perspective, what is important are the properties that vectors have, and anything sharing these properties (arrows, lists of numbers, or something else entirely) can be considered a vector. Actually, we don’t think about individual vectors so much as a collection of vectors, called a <dfn class="terminology">vector space</dfn>. For each positive integer <span class="process-math">\(m\text{,}\)</span> <span class="process-math">\(\real^m\)</span> is an example of a vector space. Indeed, those will be the vector spaces of primary concern in data science. But there are many other vector spaces. </div>
-<div class="para" id="p-45">Vector spaces allow for two important operations: <dfn class="terminology">scalar multiplication</dfn> and <dfn class="terminology">vector addition</dfn>, and these operations must satisfy a few basic properties for the vectors to be considered a vector space. "Scalar" is just a fancy word for a number. In scalar multiplication, we multiply a scalar (number) and a vector . The result is a vector (in the same vector space). For vector addition, we add two vectors and obtain another vector (in the same vector space).</div>
-<div class="para" id="p-46">Before enumerating the properties these operations must have, let’s define these operations using the data and geometric perspectives.</div>
+<div class="para" id="p-44">The mathematical perspective.</div>
+<div class="para" id="p-45">The mathematical perspetive is a little bit different again. From this perspective, what is important are the properties that vectors have, and anything sharing these properties (arrows, lists of numbers, or something else entirely) can be considered a vector. Actually, we don’t think about individual vectors so much as a collection of vectors, called a <dfn class="terminology">vector space</dfn>. For each positive integer <span class="process-math">\(m\text{,}\)</span> <span class="process-math">\(\real^m\)</span> is an example of a vector space. Indeed, those will be the vector spaces of primary concern in data science. But there are many other vector spaces. </div>
+<div class="para" id="p-46">Vector spaces allow for two important operations: <dfn class="terminology">scalar multiplication</dfn> and <dfn class="terminology">vector addition</dfn>, and these operations must satisfy a few basic properties for the vectors to be considered a vector space. "Scalar" is just a fancy word for a number. In scalar multiplication, we multiply a scalar (number) and a vector . The result is a vector (in the same vector space). For vector addition, we add two vectors and obtain another vector (in the same vector space). </div>
+<div class="para" id="p-47">Before enumerating the properties these operations must have, let’s define these operations using the data and geometric perspectives.</div>
 </li>
-</ol></section><section class="subsection" id="subsection-2"><h3 class="heading hide-type">
+</ol>
+</div></section><section class="subsection" id="subsection-2"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">1.1.2</span><span class="space"> </span><span class="title">Vector operations: scalar multiplication and vector addition.</span>
 </h3>
 <section class="subsubsection" id="subsubsec-scalar-multiplication"><h4 class="heading hide-type">
 <span class="type">Subsubsection</span><span class="space"> </span><span class="codenumber">1.1.2.1</span><span class="space"> </span><span class="title">Scalar Multiplication</span>
 </h4>
-<div class="para" id="p-47">Let’s begin with the data perspective. In this perspective a vector is just a list of numbers like <span class="process-math">\(\vvec = \twovec 21\text{.}\)</span> To multiply <span class="process-math">\(\vvec \)</span> by the scalar <span class="process-math">\(s = 3\text{,}\)</span> we simply multiply each component by 3. So <span class="process-math">\(3 \vvec = 3 \twovec 21 = \twovec{6}{3}\text{.}\)</span> The same thing works for any vector and any scalar -- we simply multiply each component of the vector by the scalar to get a new list of numbers.</div>
-<div class="para" id="p-48">Now consider what happens to the arrow representing <span class="process-math">\(\vvec = \twovec 21\)</span> when we multiply by the scalar <span class="process-math">\(s=3\text{.}\)</span> Each component of the vector will be three times as large, so the vector will stretch three times as far horizontally and also three times as far vertically. In other words, the vector will be three times as long, but still point in the same direction as <span class="process-math">\(\vvec\text{.}\)</span> See Figure <a href="" class="xref" data-knowl="./knowl/fig-scalar-mult-0.html" title="Figure 1.1.2">Figure 1.1.2</a>. This explains the name "scalar" multiplication: This type of multiplication rescales the vector. Note that if the scalar is negative, then the arrow will point in the oposite direction. <figure class="figure figure-like" id="fig-scalar-mult-0"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/scalar-mult.svg" role="img" class="contained"></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.2<span class="period">.</span></span><span class="space"> </span>Scalar multiplication "scales" a vector by stretching or shrinking it. If the scalar is positive, then the scalar product will point in the same direction as <span class="process-math">\(\vvec\text{.}\)</span> If the scalar is negative, then the scalar product will point in the opposite direction.</figcaption></figure>
-</div>
-<article class="remark remark-like" id="remark-1"><h5 class="heading">
+<div class="para" id="p-48">Let’s begin with the data perspective. In this perspective a vector is just a list of numbers like <span class="process-math">\(\vvec = \twovec 21\text{.}\)</span> To multiply <span class="process-math">\(\vvec \)</span> by the scalar <span class="process-math">\(s = 3\text{,}\)</span> we simply multiply each component by 3. So <span class="process-math">\(3 \vvec = 3 \twovec 21 = \twovec{6}{3}\text{.}\)</span> The same thing works for any vector and any scalar -- we simply multiply each component of the vector by the scalar to get a new list of numbers.</div>
+<div class="para" id="p-49">Now consider what happens to the arrow representing <span class="process-math">\(\vvec = \twovec 21\)</span> when we multiply by the scalar <span class="process-math">\(s=3\text{.}\)</span> Each component of the vector will be three times as large, so the vector will stretch three times as far horizontally and also three times as far vertically. In other words, the vector will be three times as long, but still point in the same direction as <span class="process-math">\(\vvec\text{.}\)</span> See Figure <a href="" class="xref" data-knowl="./knowl/fig-scalar-mult-0.html" title="Figure 1.1.2">Figure 1.1.2</a>. This explains the name "scalar" multiplication: This type of multiplication rescales the vector. Note that if the scalar is negative, then the arrow will point in the oposite direction.</div>
+<figure class="figure figure-like" id="fig-scalar-mult-0"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/scalar-mult.svg" role="img" class="contained"></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.2<span class="period">.</span></span><span class="space"> </span>Scalar multiplication "scales" a vector by stretching or shrinking it. If the scalar is positive, then the scalar product will point in the same direction as <span class="process-math">\(\vvec\text{.}\)</span> If the scalar is negative, then the scalar product will point in the opposite direction.</figcaption></figure><article class="remark remark-like" id="remark-1"><h5 class="heading">
 <span class="type">Remark</span><span class="space"> </span><span class="codenumber">1.1.3</span><span class="period">.</span><span class="space"> </span><span class="title">A note on notation.</span>
-</h5> <div class="para" id="p-49">It is important to be able to distinguish vectors from scalars. You may have noticed that we have been using bold (lower case) letters to represent vectors.  This will be our standard notation to help us distinguish vectors from scalars, which we will not put inbold.</div> <div class="para" id="p-50">You may have seen other notation for vectors, including notation that places a small arrow above variables representing vectors. That notation works poorly in statistical contexts where that space is often used for other things (e.g., <span class="process-math">\(\hat{\xvec}, \overline{\xvec}, \tilde{\xvec}, \dots\)</span>).</div> <div class="para" id="p-51">When writing by hand, bold is tricky.  We suggest placing a "wiggle" below letters that would be typeset in bold.</div></article></section><section class="subsubsection" id="subsubsec-vector-addition"><h4 class="heading hide-type">
+</h5> <div class="para" id="p-50">It is important to be able to distinguish vectors from scalars. You may have noticed that we have been using bold (lower case) letters to represent vectors.  This will be our standard notation to help us distinguish vectors from scalars, which we will not put inbold.</div> <div class="para" id="p-51">You may have seen other notation for vectors, including notation that places a small arrow above variables representing vectors. That notation works poorly in statistical contexts where that space is often used for other things (e.g., <span class="process-math">\(\hat{\xvec}, \overline{\xvec}, \tilde{\xvec}, \dots\)</span>).</div> <div class="para" id="p-52">When writing by hand, bold is tricky.  We suggest placing a "wiggle" below letters that would be typeset in bold.</div></article></section><section class="subsubsection" id="subsubsec-vector-addition"><h4 class="heading hide-type">
 <span class="type">Subsubsection</span><span class="space"> </span><span class="codenumber">1.1.2.2</span><span class="space"> </span><span class="title">Vector addition</span>
 </h4>
-<div class="para logical" id="p-52">
+<div class="para logical" id="p-53">
 <div class="para">From the data perspective, vector addition works <dfn class="terminology">componentwise</dfn>. That is, we obtain the sum by adding corresponding values in the two vectors. For example</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -798,17 +799,17 @@ window.MathJax = {
 <div class="para">For this operation to make sense, it is important that <em class="emphasis">both vectors have the same number of components</em> (i.e., that they live in the same vector space). In our example, the vectors are in <span class="process-math">\(\real^3\text{.}\)</span>
 </div>
 </div>
-<div class="para" id="p-53">To represent the sum <span class="process-math">\(\vvec + \wvec\)</span> geometrically, we imagine walking from the origin for distance and direction specified by <span class="process-math">\(\vvec\text{.}\)</span> From there, we continue our walk using the distance and direction prescribed by <span class="process-math">\(\wvec\text{,}\)</span> after which we arrive at the sum <span class="process-math">\(\vvec + \wvec\text{.}\)</span> This is illustrated on the left of <a href="" class="xref" data-knowl="./knowl/fig-vector-sum.html" title="Figure 1.1.4">Figure 1.1.4</a> where the tail of <span class="process-math">\(\wvec\)</span> is placed on the tip of <span class="process-math">\(\vvec\text{.}\)</span> <figure class="figure figure-like" id="fig-vector-sum"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
+<div class="para" id="p-54">To represent the sum <span class="process-math">\(\vvec + \wvec\)</span> geometrically, we imagine walking from the origin for distance and direction specified by <span class="process-math">\(\vvec\text{.}\)</span> From there, we continue our walk using the distance and direction prescribed by <span class="process-math">\(\wvec\text{,}\)</span> after which we arrive at the sum <span class="process-math">\(\vvec + \wvec\text{.}\)</span> This is illustrated on the left of <a href="" class="xref" data-knowl="./knowl/fig-vector-sum.html" title="Figure 1.1.4">Figure 1.1.4</a> where the tail of <span class="process-math">\(\wvec\)</span> is placed on the tip of <span class="process-math">\(\vvec\text{.}\)</span>
+</div>
+<figure class="figure figure-like" id="fig-vector-sum"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/vector-addition-a.svg" role="img" class="contained"></div>
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/vector-addition.svg" role="img" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.4<span class="period">.</span></span><span class="space"> </span>Vector addition as a simple walk in the plane is illustrated on the left. The vector sum is represented as the diagonal of a parallelogram on the right.</figcaption></figure>
-</div>
-<div class="para" id="p-54">Alternatively, we may construct the parallelogram with <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> as two sides. The sum is then the diagonal of the parallelogram, as illustrated on the right of <a href="" class="xref" data-knowl="./knowl/fig-vector-sum.html" title="Figure 1.1.4">Figure 1.1.4</a>. Just as was the case for the list of numbers approach, it doesn’t matter which vector comes first and which second, we end up in the same place either way. That is <span class="process-math">\(\vvec + \wvec = \wvec + \vvec\)</span> for any vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> that live in the same vector space. If you like fancy words, you can say that vector addition is <dfn class="terminology">commutative</dfn>.</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.4<span class="period">.</span></span><span class="space"> </span>Vector addition as a simple walk in the plane is illustrated on the left. The vector sum is represented as the diagonal of a parallelogram on the right.</figcaption></figure><div class="para" id="p-55"> Alternatively, we may construct the parallelogram with <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> as two sides. The sum is then the diagonal of the parallelogram, as illustrated on the right of <a href="" class="xref" data-knowl="./knowl/fig-vector-sum.html" title="Figure 1.1.4">Figure 1.1.4</a>. Just as was the case for the list of numbers approach, it doesn’t matter which vector comes first and which second, we end up in the same place either way. That is <span class="process-math">\(\vvec + \wvec = \wvec + \vvec\)</span> for any vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\)</span> that live in the same vector space. If you like fancy words, you can say that vector addition is <dfn class="terminology">commutative</dfn>.</div>
 <article class="exploration project-like" id="exploration-1"><h5 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">1.1.1</span><span class="period">.</span><span class="space"> </span><span class="title">Scalar Multiplication and Vector Addition.</span>
 </h5>
-<div class="para logical" id="p-55">
+<div class="para logical" id="p-56">
 <div class="para">Suppose that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -818,8 +819,9 @@ window.MathJax = {
 \right].
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-56"><ol class="lower-alpha">
-<li id="li-14"><div class="para logical" id="p-57">
+</div> <div class="para logical" id="p-57"><ol class="lower-alpha">
+<li id="li-14">
+<div class="para logical" id="p-58">
 <div class="para">Find expressions for the vectors</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/fig-activity-2-1-1.html">
 \begin{equation*}
@@ -829,19 +831,24 @@ window.MathJax = {
 \end{array}
 \end{equation*}
 </div>
-<div class="para">and sketch them using <a href="" class="xref" data-knowl="./knowl/fig-activity-2-1-1.html" title="Figure 1.1.5">Figure 1.1.5</a>. <figure class="figure figure-like" id="fig-activity-2-1-1"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.5<span class="period">.</span></span><span class="space"> </span>Sketch the vectors on this grid.</figcaption></figure>
+<div class="para">and sketch them using <a href="" class="xref" data-knowl="./knowl/fig-activity-2-1-1.html" title="Figure 1.1.5">Figure 1.1.5</a>.</div>
 </div>
-</div></li>
-<li id="li-15"><div class="para" id="p-58">What geometric effect does scalar multiplication have on a vector? Also, describe the effect that multiplying by a negative scalar has.</div></li>
-<li id="li-16"><div class="para" id="p-59">Sketch the vectors <span class="process-math">\(\vvec, \wvec, \vvec + \wvec\)</span> using <a href="" class="xref" data-knowl="./knowl/fig-activity-2-1-2.html" title="Figure 1.1.6">Figure 1.1.6</a>. <figure class="figure figure-like" id="fig-activity-2-1-2"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
+<figure class="figure figure-like" id="fig-activity-2-1-1"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.5<span class="period">.</span></span><span class="space"> </span>Sketch the vectors on this grid.</figcaption></figure>
+</li>
+<li id="li-15"><div class="para" id="p-59">What geometric effect does scalar multiplication have on a vector? Also, describe the effect that multiplying by a negative scalar has.</div></li>
+<li id="li-16">
+<div class="para" id="p-60">Sketch the vectors <span class="process-math">\(\vvec, \wvec, \vvec + \wvec\)</span> using <a href="" class="xref" data-knowl="./knowl/fig-activity-2-1-2.html" title="Figure 1.1.6">Figure 1.1.6</a>.</div>
+<figure class="figure figure-like" id="fig-activity-2-1-2"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.6<span class="period">.</span></span><span class="space"> </span>Sketch the vectors on this grid.</figcaption></figure>
-</div></li>
-<li id="li-17"><div class="para" id="p-60">Consider vectors that have the form <span class="process-math">\(\vvec +
-c\wvec\)</span> where <span class="process-math">\(a\)</span> is any scalar. Sketch a few of these vectors when, say, <span class="process-math">\(c = -2, -1, 0, 1, \)</span> and <span class="process-math">\(2\text{.}\)</span> Give a geometric description of this set of vectors. <figure class="figure figure-like" id="fig-activity-2-1-3"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
+</li>
+<li id="li-17">
+<div class="para" id="p-61">Consider vectors that have the form <span class="process-math">\(\vvec +
+c\wvec\)</span> where <span class="process-math">\(a\)</span> is any scalar. Sketch a few of these vectors when, say, <span class="process-math">\(c = -2, -1, 0, 1, \)</span> and <span class="process-math">\(2\text{.}\)</span> Give a geometric description of this set of vectors.</div>
+<figure class="figure figure-like" id="fig-activity-2-1-3"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.7<span class="period">.</span></span><span class="space"> </span>Sketch the vectors on this grid.</figcaption></figure>
-</div></li>
-<li id="li-18"><div class="para logical" id="p-61">
+</li>
+<li id="li-18"><div class="para logical" id="p-62">
 <div class="para">If <span class="process-math">\(c\)</span> and <span class="process-math">\(d\)</span> are two scalars, then the vector</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -850,58 +857,54 @@ c \vvec + d \wvec
 </div>
 <div class="para">is called a <dfn class="terminology">linear combination</dfn> of the vectors <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span> Find the vector that is the linear combination when <span class="process-math">\(c = -2\)</span> and <span class="process-math">\(d = 1\text{.}\)</span> </div>
 </div></li>
-<li id="li-19"><div class="para" id="p-62">Can the vector <span class="process-math">\(\left[\begin{array}{r} -31 \\ 37
+<li id="li-19"><div class="para" id="p-63">Can the vector <span class="process-math">\(\left[\begin{array}{r} -31 \\ 37
 \end{array}\right]\)</span> be represented as a linear combination of <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{?}\)</span> Asked differently, can we find scalars <span class="process-math">\(c\)</span> and <span class="process-math">\(d\)</span> such that <span class="process-math">\(c\vvec+d\wvec = \twovec{-31}{37}\text{.}\)</span>
 </div></li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-1" id="solution-1"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-1"><div class="solution solution-like"><div class="para" id="p-63">Solutions to this preview activity are given in the text below.</div></div></div>
-</div></article><div class="para" id="p-64">If you worked through the activty above, you should have discovered that the set of vectors having the form <span class="process-math">\(c\vvec\)</span> is a line through the origin. To form the set of vectors <span class="process-math">\(c\vvec+\wvec\text{,}\)</span> we can begin with the vector <span class="process-math">\(\wvec\)</span> and add multiples of <span class="process-math">\(\vvec\text{.}\)</span> Geometrically, this means that we begin from the tip of <span class="process-math">\(\wvec\)</span> and move in a direction parallel to <span class="process-math">\(\vvec\text{.}\)</span> The effect is to translate the line <span class="process-math">\(c\vvec\)</span> by the vector <span class="process-math">\(\wvec\text{,}\)</span> as shown in <a href="" class="xref" data-knowl="./knowl/fig-parametric-line.html" title="Figure 1.1.8">Figure 1.1.8</a>. <figure class="figure figure-like" id="fig-parametric-line"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/line-param.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.8<span class="period">.</span></span><span class="space"> </span>The set of vectors <span class="process-math">\(c\vvec + \wvec\)</span> form a line.</figcaption></figure>
-</div>
-<div class="para" id="p-65">At times, it will be useful for us to think of vectors and points interchangeably. That is, we may wish to think of the vector <span class="process-math">\(\left[\begin{array}{r} 2 \\ 1 \end{array}\right]\)</span> as describing the point <span class="process-math">\((2,1)\)</span> and vice-versa. When we say that the vectors having the form <span class="process-math">\(c\vvec + \wvec\)</span> form a line, we really mean that the tips of the vectors all lie on the line passing through <span class="process-math">\(\wvec\)</span> and parallel to <span class="process-math">\(\vvec\text{.}\)</span> When thinking about many (possibly infinitely many) vectors, it is often easier to visualize them as points rather than as arrows.</div></section><section class="subsubsection" id="subsubsec-vector-properties"><h4 class="heading hide-type">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-1" id="solution-1"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-1"><div class="solution solution-like"><div class="para" id="p-64">Solutions to this preview activity are given in the text below.</div></div></div>
+</div></article><div class="para" id="p-65">If you worked through the activty above, you should have discovered that the set of vectors having the form <span class="process-math">\(c\vvec\)</span> is a line through the origin. To form the set of vectors <span class="process-math">\(c\vvec+\wvec\text{,}\)</span> we can begin with the vector <span class="process-math">\(\wvec\)</span> and add multiples of <span class="process-math">\(\vvec\text{.}\)</span> Geometrically, this means that we begin from the tip of <span class="process-math">\(\wvec\)</span> and move in a direction parallel to <span class="process-math">\(\vvec\text{.}\)</span> The effect is to translate the line <span class="process-math">\(c\vvec\)</span> by the vector <span class="process-math">\(\wvec\text{,}\)</span> as shown in <a href="" class="xref" data-knowl="./knowl/fig-parametric-line.html" title="Figure 1.1.8">Figure 1.1.8</a>.</div>
+<figure class="figure figure-like" id="fig-parametric-line"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/line-param.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.8<span class="period">.</span></span><span class="space"> </span>The set of vectors <span class="process-math">\(c\vvec + \wvec\)</span> form a line.</figcaption></figure><div class="para" id="p-66">At times, it will be useful for us to think of vectors and points interchangeably. That is, we may wish to think of the vector <span class="process-math">\(\left[\begin{array}{r} 2 \\ 1 \end{array}\right]\)</span> as describing the point <span class="process-math">\((2,1)\)</span> and vice-versa. When we say that the vectors having the form <span class="process-math">\(c\vvec + \wvec\)</span> form a line, we really mean that the tips of the vectors all lie on the line passing through <span class="process-math">\(\wvec\)</span> and parallel to <span class="process-math">\(\vvec\text{.}\)</span> When thinking about many (possibly infinitely many) vectors, it is often easier to visualize them as points rather than as arrows.</div></section><section class="subsubsection" id="subsubsec-vector-properties"><h4 class="heading hide-type">
 <span class="type">Subsubsection</span><span class="space"> </span><span class="codenumber">1.1.2.3</span><span class="space"> </span><span class="title">Mathematical properties of vector operations</span>
 </h4>
 <article class="observation remark-like" id="observation-1"><h5 class="heading">
 <span class="type">Observation</span><span class="space"> </span><span class="codenumber">1.1.9</span><span class="period">.</span>
 </h5>
-<div class="para logical" id="p-66">
+<div class="para logical" id="p-67">
 <div class="para">Even though these vector operations are new, it is straightforward to check that the following 8 properties hold for all vectors <span class="process-math">\(\uvec, \vvec, \wvec \in \real^m\)</span> and all scalars <span class="process-math">\(a, b \in \real\text{.}\)</span>
 </div>
 <ol class="decimal">
 <li id="li-20">
-<span class="heading"><span class="title">Associativity.</span></span><div class="para" id="p-derived-li-20"> <span class="process-math">\(\uvec +(\vvec + \wvec) = (\uvec + \vvec) + \wvec \text{.}\)</span>
-</div>
+<span class="heading"><span class="title">Associativity.</span></span><div class="para" id="p-68"><span class="process-math">\(\uvec +(\vvec + \wvec) = (\uvec + \vvec) + \wvec \text{.}\)</span></div>
 </li>
 <li id="li-21">
-<span class="heading"><span class="title">Commutativity.</span></span><div class="para" id="p-67"><span class="process-math">\(\vvec + \wvec = \wvec + \vvec\text{.}\)</span></div>
+<span class="heading"><span class="title">Commutativity.</span></span><div class="para" id="p-69"><span class="process-math">\(\vvec + \wvec = \wvec + \vvec\text{.}\)</span></div>
 </li>
 <li id="li-22">
-<span class="heading"><span class="title">Distributivity 1.</span></span><div class="para" id="p-68"><span class="process-math">\(a(\vvec + \wvec) = a\vvec + a\wvec\text{.}\)</span></div>
+<span class="heading"><span class="title">Distributivity 1.</span></span><div class="para" id="p-70"><span class="process-math">\(a(\vvec + \wvec) = a\vvec + a\wvec\text{.}\)</span></div>
 </li>
 <li id="li-23">
-<span class="heading"><span class="title">Distributivity 2.</span></span><div class="para" id="p-69"><span class="process-math">\((a + b) \vvec = a\vvec + b\vvec\text{.}\)</span></div>
+<span class="heading"><span class="title">Distributivity 2.</span></span><div class="para" id="p-71"><span class="process-math">\((a + b) \vvec = a\vvec + b\vvec\text{.}\)</span></div>
 </li>
 <li id="li-24">
-<span class="heading"><span class="title">Zero vector.</span></span><div class="para" id="p-70">There is a vector (denoted <span class="process-math">\(\zerovec\)</span>) such that <span class="process-math">\(\zerovec + \vvec = \vvec\)</span> .</div>
+<span class="heading"><span class="title">Zero vector.</span></span><div class="para" id="p-72">There is a vector (denoted <span class="process-math">\(\zerovec\)</span>) such that <span class="process-math">\(\zerovec + \vvec = \vvec\)</span> .</div>
 </li>
 <li id="li-25">
-<span class="heading"><span class="title">Vector Inverse.</span></span><div class="para" id="p-derived-li-25"> For every vector <span class="process-math">\(\vvec\text{,}\)</span> there is an inverse vector <span class="process-math">\(-\vvec\)</span> such that <span class="process-math">\(\vvec + -\vvec = \zerovec\text{.}\)</span>
+<span class="heading"><span class="title">Vector Inverse.</span></span><div class="para" id="p-73">For every vector <span class="process-math">\(\vvec\text{,}\)</span> there is an inverse vector <span class="process-math">\(-\vvec\)</span> such that <span class="process-math">\(\vvec + -\vvec = \zerovec\text{.}\)</span>
 </div>
 </li>
 <li id="li-26">
-<span class="heading"><span class="title">Compatability of scalar operations.</span></span><div class="para" id="p-derived-li-26"> <span class="process-math">\(a(b\vvec) = (ab) \vvec\text{.}\)</span>
-</div>
+<span class="heading"><span class="title">Compatability of scalar operations.</span></span><div class="para" id="p-74"><span class="process-math">\(a(b\vvec) = (ab) \vvec\text{.}\)</span></div>
 </li>
 <li id="li-27">
-<span class="heading"><span class="title">Scalar Identity.</span></span><div class="para" id="p-derived-li-27"> <span class="process-math">\(1 \vvec = \vvec\text{.}\)</span>
-</div>
+<span class="heading"><span class="title">Scalar Identity.</span></span><div class="para" id="p-75"><span class="process-math">\(1 \vvec = \vvec\text{.}\)</span></div>
 </li>
 </ol>
-</div></article><div class="para" id="p-71">These are exactly the properties that define a vector space mathematically. For scalars we can use any <dfn class="terminology">field</dfn> (think: a number system where addition, subtraction, mulitiplication, and division are defined and have the properites you are familiar with from the real numbers). The vectors can be anything as long as the operations satisfy the eight properties listed above.</div></section></section><section class="subsection" id="subsection-3"><h3 class="heading hide-type">
+</div></article><div class="para" id="p-76">These are exactly the properties that define a vector space mathematically. For scalars we can use any <dfn class="terminology">field</dfn> (think: a number system where addition, subtraction, mulitiplication, and division are defined and have the properites you are familiar with from the real numbers). The vectors can be anything as long as the operations satisfy the eight properties listed above.</div></section></section><section class="subsection" id="subsection-3"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">1.1.3</span><span class="space"> </span><span class="title">The (Euclidean) length of a vector</span>
 </h3>
-<div class="para logical" id="p-72">
+<div class="para logical" id="p-77">
 <div class="para">The <dfn class="terminology">length</dfn>, also called the <dfn class="terminology">magnitude</dfn> or <dfn class="terminology">norm</dfn>, of a vector is denoted <span class="process-math">\(\len{\xvec}\text{.}\)</span> We can compute the length of a vector using using the Pythagorean Theorem.  For example, for a vector <span class="process-math">\(\xvec = \twovec{x_1}{x_2} \in \real^2\text{,}\)</span> we have</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/fig-pythagorean-length.html">
 \begin{equation*}
@@ -911,26 +914,25 @@ c \vvec + d \wvec
 <div class="para">as is illustrated in <a href="" class="xref" data-knowl="./knowl/fig-pythagorean-length.html" title="Figure 1.1.10">Figure 1.1.10</a>.</div>
 </div>
 <figure class="figure figure-like" id="fig-pythagorean-length"><div class="image-box" style="width: 100%; margin-left: 0%; margin-right: 0%;"><img src="external/images/pythagorean-length.svg" role="img" class="contained"></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.10<span class="period">.</span></span><span class="space"> </span>Calculating the length of a vector in <span class="process-math">\(\real^2\)</span> using the Pythagorean Theorem.</figcaption></figure><div class="para" id="p-73">More generally, we have <article class="definition definition-like" id="def-vector-length"><h4 class="heading">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">1.1.10<span class="period">.</span></span><span class="space"> </span>Calculating the length of a vector in <span class="process-math">\(\real^2\)</span> using the Pythagorean Theorem.</figcaption></figure><div class="para" id="p-78">More generally, we have</div>
+<article class="definition definition-like" id="def-vector-length"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">1.1.11</span><span class="period">.</span><span class="space"> </span><span class="title">Vector length.</span>
-</h4>  <div class="para logical" id="p-74">
+</h4>  <div class="para logical" id="p-79">
 <div class="para">The <dfn class="terminology">Euclidean length</dfn> of a vector <span class="process-math">\(\xvec \in \real^n\)</span> is given by</div>
 <div class="displaymath process-math">
 \begin{equation*}
 \len{\xvec} = \sqrt{\sum_{i = 1}^n x_i^2}
 \end{equation*}
 </div>
-</div></article>
-</div>
-<div class="para" id="p-75">We have emphasized that this is the <em class="emphasis">Euclidean</em> length.  That is likely the length you are most familiar with since it corresponds to our usual notions of geometry.  But there are other norms or lengths that have important applications as well.</div></section><section class="subsection" id="subsection-4"><h3 class="heading hide-type">
+</div></article><div class="para" id="p-80">We have emphasized that this is the <em class="emphasis">Euclidean</em> length.  That is likely the length you are most familiar with since it corresponds to our usual notions of geometry.  But there are other norms or lengths that have important applications as well.</div></section><section class="subsection" id="subsection-4"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">1.1.4</span><span class="space"> </span><span class="title">Summary</span>
 </h3>
-<ul class="disc">
-<li id="li-28"><div class="para" id="p-76">We can think of vectors in three different ways: (1) as a list of numbers (the data perspective); (2) as magnitude and direction, i.e., arrows (the geomtric perspective), or (3) as a set of objects with certain properties (the mathematical perspective). The ability to move betwen these three ways of thinking is one of the keys to understanding linear algebra.</div></li>
-<li id="li-29"><div class="para" id="p-77">We are primarily interested in <span class="process-math">\(\real^m\text{,}\)</span> the space of vectors consisting of <span class="process-math">\(m\)</span> real numbers in the data perspective. But there are many other vector spaces.</div></li>
-<li id="li-30"><div class="para" id="p-78">There are two operations we can perform with vectors: scalar multiplication and vector addition. Both of these operations are easily computed from a list of numbers but also have geometric meaning.</div></li>
-<li id="li-31"><div class="para" id="p-79">The Euclidean <dfn class="terminology">length</dfn> (or norm) of a vector can be computed using the Pythagorean. The square of length is the sum of the squares of the vector’s components.</div></li>
-</ul></section></section></div>
+<div class="para logical" id="p-81"><ul class="disc">
+<li id="li-28"><div class="para" id="p-82">We can think of vectors in three different ways: (1) as a list of numbers (the data perspective); (2) as magnitude and direction, i.e., arrows (the geomtric perspective), or (3) as a set of objects with certain properties (the mathematical perspective). The ability to move betwen these three ways of thinking is one of the keys to understanding linear algebra.</div></li>
+<li id="li-29"><div class="para" id="p-83">We are primarily interested in <span class="process-math">\(\real^m\text{,}\)</span> the space of vectors consisting of <span class="process-math">\(m\)</span> real numbers in the data perspective. But there are many other vector spaces.</div></li>
+<li id="li-30"><div class="para" id="p-84">There are two operations we can perform with vectors: scalar multiplication and vector addition. Both of these operations are easily computed from a list of numbers but also have geometric meaning.</div></li>
+<li id="li-31"><div class="para" id="p-85">The Euclidean <dfn class="terminology">length</dfn> (or norm) of a vector can be computed using the Pythagorean. The square of length is the sum of the squares of the vector’s components.</div></li>
+</ul></div></section></section></div>
 <div class="ptx-content-footer">
 <a class="previous-button button" href="chap1.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-vectors-in-python.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>

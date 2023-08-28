@@ -12,70 +12,108 @@
 </head>
 <body class="ignore-math">
 <div class="solution solution-like">
-<h3 class="heading">
-<span class="type">Solution</span><span class="space"> </span><span class="codenumber">4.7.1.1</span><span class="period">.</span>
-</h3>
+<h4 class="heading">
+<span class="type">Solution</span><span class="space"> </span><span class="codenumber">4.7.2.1</span><span class="period">.</span>
+</h4>
 <div class="para logical"><ol class="lower-alpha">
 <li><div class="para logical">
-<div class="para">We first multiply the first row by <span class="process-math">\(-1\)</span> and add to the second row.  This can be represented by multiplying <span class="process-math">\(E_1A=A_1\)</span> where</div>
+<div class="para">We may find this result by forming the augmented matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
-E_1=\left[\begin{array}{rrr}
-1 \amp 0 \amp 0 \\
--1 \amp 1 \amp 0 \\
-0 \amp 0 \amp 1 \\
-\end{array}\right],
-A_1=
-\left[\begin{array}{rrrr}
-1 \amp 2 \amp -1 \amp 2 \\
-0 \amp -2 \amp -1 \amp -1 \\
-3 \amp 2 \amp 1 \amp 0
-\end{array}\right]\text{.}
+\left[\begin{array}{rr|r}
+\frac1{10000} \amp 1 \amp 1 \\
+1 \amp 1 \amp 2 \\
+\end{array}\right]
 \end{equation*}
 </div>
+<div class="para">and row reducing.</div>
 </div></li>
-<li><div class="para">To undo the row operation, we multiply the first row by <span class="process-math">\(1\)</span> and add to the second row.  This shows that <span class="process-math">\(E_1^{-1} =
-\left[\begin{array}{rrr}
-1 \amp 0 \amp 0 \\
-1 \amp 1 \amp 0 \\
-0 \amp 0 \amp 1
-\end{array}\right]\text{.}\)</span>
+<li><div class="para">The solution would be rounded to <span class="process-math">\(x=1.00\)</span> and <span class="process-math">\(y=1.00\text{.}\)</span>
 </div></li>
 <li><div class="para logical">
-<div class="para">We have</div>
+<div class="para">We first multiply the first row by <span class="process-math">\(-10000\)</span> and add to the second row.  This gives</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\begin{array}{c}
-E_2 = \left[\begin{array}{rrr}
-1 \amp 0 \amp 0 \\
-0 \amp 1 \amp 0 \\
--3 \amp 0 \amp 1
-\end{array}\right],
-E_3=\left[\begin{array}{rrr}
-1 \amp 0 \amp 0 \\
-0 \amp 1 \amp 0 \\
-0 \amp -2 \amp 1
-\end{array}\right], \\
-A_3=\left[\begin{array}{rrrr}
-1 \amp 2 \amp -1 \amp 2 \\
-0 \amp -2 \amp -1 \amp -1 \\
-0 \amp 0 \amp 6 \amp -4
-\end{array}\right]\text{.}
+\begin{array}{l}
+\left[\begin{array}{rr|r}
+0.0001 \amp 1 \amp 1 \\
+0 \amp -9999 \amp -9998 \\
+\end{array}\right] \\
+\approx
+\left[\begin{array}{rr|r}
+0.0001 \amp 1 \amp 1 \\
+0 \amp -10000 \amp -10000 \\
+\end{array}\right] \\
+\sim 
+\left[\begin{array}{rr|r}
+0.0001 \amp 1 \amp 1 \\
+0 \amp 1 \amp 1 \\
+\end{array}\right] 
+\text{.}
 \end{array}
 \end{equation*}
 </div>
+<div class="para">This tells us that <span class="process-math">\(y\approx 1\text{.}\)</span>
+</div>
 </div></li>
-<li><div class="para">The matrix performing this scaling is <span class="process-math">\(\left[\begin{array}{rrr} 1 \amp 0 \amp 0 \\
-0 \amp -2 \amp 0 \\
-0 \amp 0 \amp 1 \\
-\end{array}\right]\text{.}\)</span>
-</div></li>
-<li><div class="para">The matrix performing this interchange is <span class="process-math">\(\left[\begin{array}{rrr}
-0 \amp 1 \amp 0 \\
+<li><div class="para logical">
+<div class="para">The next steps in the Gaussian elimination algorithm give us</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\left[\begin{array}{rr|r}
+0.0001 \amp 0 \amp 0 \\
+0 \amp 1 \amp 1 \\
+\end{array}\right]
+\sim
+\left[\begin{array}{rr|r}
 1 \amp 0 \amp 0 \\
-0 \amp 0 \amp 1 \\
-\end{array}\right]\text{.}\)</span>
+0 \amp 1 \amp 1 \\
+\end{array}\right]
+\end{equation*}
+</div>
+<div class="para">so have the approximation solution <span class="process-math">\(x=0.00\)</span> and <span class="process-math">\(y=1.00\text{.}\)</span>
+</div>
 </div></li>
+<li><div class="para">This compares to the actual solution, as represented in our computer, as <span class="process-math">\(x=1.00\)</span> and <span class="process-math">\(y=1.00\text{.}\)</span> Notice that the value of <span class="process-math">\(x\)</span> differs considerably.</div></li>
+<li><div class="para logical">
+<div class="para">Now we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{array}{rcl}
+\left[\begin{array}{rr|r}
+1 \amp 1 \amp 2 \\
+0.0001 \amp 1 \amp 1 \\
+\end{array}\right] \amp
+\sim \amp
+\left[\begin{array}{rr|r}
+1 \amp 1 \amp 2 \\
+0 \amp 0.9999 \amp 0.9998 \\
+\end{array}\right] \\
+\amp \approx \amp
+\left[\begin{array}{rr|r}
+1 \amp 1 \amp 2 \\
+0 \amp 1 \amp 1 \\
+\end{array}\right]\text{,}
+\end{array}
+\end{equation*}
+</div>
+<div class="para">which gives <span class="process-math">\(y=1.00\text{.}\)</span>
+</div>
+</div></li>
+<li><div class="para logical">
+<div class="para">Performing one more row operation gives us</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\left[\begin{array}{rr|r}
+1 \amp 0 \amp 1 \\
+0 \amp 1 \amp 1 \\
+\end{array}\right]\text{,}
+\end{equation*}
+</div>
+<div class="para">which shows the approximate solution as <span class="process-math">\(x=1.00\)</span> and <span class="process-math">\(y=1.00\text{.}\)</span>
+</div>
+</div></li>
+<li><div class="para">The second approach gives an approximate solution that is as accurate as possible given the computer’s limited ability to store digits.</div></li>
 </ol></div>
 </div>
 <span class="incontext"><a href="sec-gaussian-revisited.html#solution-186" class="internal">in-context</a></span>

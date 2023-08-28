@@ -9,28 +9,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-python",
+  "inputLocation": "pre.sagecell-sage",
   "linked": true,
-  "linkKey": "linked-python",
+  "linkKey": "linked-sage",
   "autoeval": false,
   "languages": [
-    "python"
+    "sage"
   ],
-  "evalButtonText": "Evaluate (Python)"
+  "evalButtonText": "Evaluate (Sage)"
 });
 </script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para">Suppose that we have a small dataset containing the points <span class="process-math">\((0,2)\text{,}\)</span> <span class="process-math">\((1,1)\text{,}\)</span> <span class="process-math">\((2,3)\text{,}\)</span> and <span class="process-math">\((3,3)\text{,}\)</span> such as appear when the following cell is evaluated. <pre class="ptx-sagecell sagecell-python" id="sage-217"><script type="text/x-sage">import numpy as np
-import seaborn.objects as so 
-small_data = np.array([[0, 2], [1, 1], [2, 3], [3, 3]])
-so.Plot(x=small_data[:,0], y = small_data[:, 1]).add(so.Dot())
-list_plot(data, color='blue', size=40)
-</script></pre>
+<div class="para logical">
+<div class="para">For instance, suppose we take 10 patients and measure their weight <span class="process-math">\(w\)</span> in pounds, height <span class="process-math">\(h\)</span> in inches, abdomen <span class="process-math">\(a\)</span> in centimeters, wrist circumference <span class="process-math">\(r\)</span> in centimeters, neck circumference <span class="process-math">\(n\)</span> in centimeters, and <span class="process-math">\(BFI\text{.}\)</span>  Evaluating the following cell loads and displays the data. <pre class="ptx-sagecell sagecell-sage" id="sage-216"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
+df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/bfi.csv')
+weight = vector(df['Weight'])
+height = vector(df['Height'])
+abdomen = vector(df['Abdomen'])
+wrist = vector(df['Wrist'])
+neck = vector(df['Neck'])
+BFI = vector(df['BFI'])
+print(df)
+</script></pre> In addition, that cell provides:</div>
+<ol class="lower-alpha">
+<li><div class="para">vectors <code class="code-inline tex2jax_ignore">weight</code>, <code class="code-inline tex2jax_ignore">height</code>, <code class="code-inline tex2jax_ignore">abdomen</code>, <code class="code-inline tex2jax_ignore">wrist</code>, <code class="code-inline tex2jax_ignore">neck</code>, and <code class="code-inline tex2jax_ignore">BFI</code> formed from the columns of the dataset.</div></li>
+<li><div class="para">the command <code class="code-inline tex2jax_ignore">onesvec(n)</code>, which returns an <span class="process-math">\(n\)</span>-dimensional vector whose entries are all one.</div></li>
+<li><div class="para">the command <code class="code-inline tex2jax_ignore">QR(A)</code> that returns the <span class="process-math">\(QR\)</span> factorization of <span class="process-math">\(A\)</span> as <code class="code-inline tex2jax_ignore">Q, R = QR(A)</code>.</div></li>
+<li><div class="para">the command <code class="code-inline tex2jax_ignore">demean(v)</code>, which returns the demeaned vector <span class="process-math">\(\widetilde{\vvec}\text{.}\)</span>
+</div></li>
+</ol>
 </div>
 <span class="incontext"><a href="sec-least-squares.html#p-6874" class="internal">in-context</a></span>
 </body>

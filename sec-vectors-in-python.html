@@ -404,7 +404,7 @@ sagecell.makeSagecell({
 <li>
 <div class="toc-item"><a href="sec-tensors.html" class="internal"><span class="codenumber">1.5</span> <span class="title">Tensors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in Numpy</span></a></div></li>
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in NumPy</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-axes" class="internal"><span class="codenumber">1.5.2</span> <span class="title">Aggregation and Axes</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-ndarray-append" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Expanding an array</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-broadcasting" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Broadcasting</span></a></div></li>
@@ -766,94 +766,103 @@ sagecell.makeSagecell({
 <section class="section" id="sec-vectors-in-python"><h2 class="heading hide-type">
 <span class="type">Section</span><span class="space"> </span><span class="codenumber">1.2</span><span class="space"> </span><span class="title">Vectors in Python</span>
 </h2>
-<section class="introduction" id="introduction-2"><div class="para" id="p-80">Now that we have been introduced to vectors, it’s time to learn how to work with vectors in Python.</div></section><section class="subsection" id="subsec-intro-to-python"><h3 class="heading hide-type">
+<section class="introduction" id="introduction-2"><div class="para" id="p-86">Now that we have been introduced to vectors, it’s time to learn how to work with vectors in Python.</div></section><section class="subsection" id="subsec-intro-to-python"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">1.2.1</span><span class="space"> </span><span class="title">Introduction to Python</span>
 </h3>
-<div class="para" id="p-81">SageMath is a free open-source mathematics software system licensed under the GPL. It builds on top of many existing open-source packages: NumPy, SciPy, matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined power through a common, Python-based language or directly via interfaces or wrappers. In this book we will use SageMath as a way to embed Python cells that you can edit and execute as you learn linear algebra.</div>
-<div class="para" id="p-82">Here is a Python cell containing a command that asks Python to multiply 5 and 3.  You may execute the command by pressing the <em class="emphasis">Evaluate</em> button. <pre class="ptx-sagecell sagecell-python" id="sage-1"><script type="text/x-sage">5 * 3
-</script></pre> Of course, you can run this sort of Python code in other Python environments as well, including in a Jupyter notebook, in an RMarkdown or Quarto document, in posit RStudio, in a Sage cell server, etc. The Python cells in this text provide a handy way to try things out as you are reading, but you should adopt one of these other platforms for saving work.</div>
-<div class="para" id="p-83">Throughout the text, we will introduce new Python commands that allow us to explore linear algebra concepts.  These commands are collected and summarized in the reference found in <a href="app-python-reference.html" class="internal" title="Appendix B: Python Reference">Appendix A</a>.</div>
+<div class="para" id="p-87">SageMath is a free open-source mathematics software system licensed under the GPL. It builds on top of many existing open-source packages: NumPy, SciPy, matplotlib, Sympy, Maxima, GAP, FLINT, R and many more. Access their combined power through a common, Python-based language or directly via interfaces or wrappers. In this book we will use SageMath as a way to embed Python cells that you can edit and execute as you learn linear algebra.</div>
+<div class="para" id="p-88">Here is a Python cell containing a command that asks Python to multiply 5 and 3.  You may execute the command by pressing the <em class="emphasis">Evaluate</em> button.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-1"><script type="text/x-sage">5 * 3
+</script></pre>
+<div class="para" id="p-89">Of course, you can run this sort of Python code in other Python environments as well, including in a Jupyter notebook, in an RMarkdown or Quarto document, in posit RStudio, in a Sage cell server, etc. The Python cells in this text provide a handy way to try things out as you are reading, but you should adopt one of these other platforms for saving work.</div>
+<div class="para" id="p-90">Throughout the text, we will introduce new Python commands that allow us to explore linear algebra concepts.  These commands are collected and summarized in the reference found in <a href="app-python-reference.html" class="internal" title="Appendix B: Python Reference">Appendix A</a>.</div>
 <article class="activity project-like" id="activity-1"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">1.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Basic Python commands.</span>
 </h4>
-<div class="para logical" id="p-84"><ol class="lower-alpha">
-<li id="li-32"><div class="para logical" id="p-85">
+<div class="para logical" id="p-91"><ol class="lower-alpha">
+<li id="li-32">
+<div class="para logical" id="p-92">
 <div class="para">Python uses the standard operators <code class="code-inline tex2jax_ignore">+</code>, <code class="code-inline tex2jax_ignore">-</code>, <code class="code-inline tex2jax_ignore">*</code>, and <code class="code-inline tex2jax_ignore">/</code> for the usual arithmetic operations.  <code class="code-inline tex2jax_ignore">**</code> is used for exponentiation. By entering text in the cell below, ask Python to evaluate</div>
 <div class="displaymath process-math">
 \begin{equation*}
 3 + 4(2^4 - 1)
 \end{equation*}
 </div>
-<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-2"><script type="text/x-sage">
-</script></pre></div>
-</div></li>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-2"><script type="text/x-sage">
+</script></pre>
+</li>
 <li id="li-33">
-<div class="para" id="p-86">Notice that we can create new lines by pressing <em class="emphasis">Enter</em> and entering additional commands on them. 	What happens when you evaluate this cell? <pre class="ptx-sagecell sagecell-python" id="sage-3"><script type="text/x-sage">5 * 3
+<div class="para" id="p-93">Notice that we can create new lines by pressing <em class="emphasis">Enter</em> and entering additional commands on them. 	What happens when you evaluate this cell?</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-3"><script type="text/x-sage">5 * 3
 10 - 4
 </script></pre>
-</div>
-<div class="para" id="p-87">Notice that we don’t see any output from the cell we just evaluated. In order to see the results, we use <code class="code-inline tex2jax_ignore">print()</code>: <pre class="ptx-sagecell sagecell-python" id="sage-4"><script type="text/x-sage">print(5 * 3)
+<div class="para" id="p-94">Notice that we don’t see any output from the cell we just evaluated. In order to see the results, we use <code class="code-inline tex2jax_ignore">print()</code>:</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-4"><script type="text/x-sage">print(5 * 3)
 print(10 - 4)
 </script></pre>
-</div>
 </li>
 <li id="li-34">
-<div class="para" id="p-88">We may give a name to the result of one command and refer to it in a later command. <pre class="ptx-sagecell sagecell-python" id="sage-5"><script type="text/x-sage">income = 1500 * 12
+<div class="para" id="p-95">We may give a name to the result of one command and refer to it in a later command.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-5"><script type="text/x-sage">income = 1500 * 12
 taxes = income * 0.15
 print(income - taxes)
 </script></pre>
-</div>
-<div class="para" id="p-89">Suppose you have three tests in your linear algebra class and your scores are 90, 100, and 98.  In the cell below, add your scores together and call the result <code class="code-inline tex2jax_ignore">total</code>.  On the next line, find the average of your test scores and print it. <pre class="ptx-sagecell sagecell-python" id="sage-6"><script type="text/x-sage">
+<div class="para" id="p-96">Suppose you have three tests in your linear algebra class and your scores are 90, 100, and 98.  In the cell below, add your scores together and call the result <code class="code-inline tex2jax_ignore">total</code>.  On the next line, find the average of your test scores and print it.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-6"><script type="text/x-sage">
 </script></pre>
-</div>
 </li>
-<li id="li-35"><div class="para" id="p-90">We can run other sorts of Python code in these Python cells as well. For example, you may be familiar with Python for loops: <pre class="ptx-sagecell sagecell-python" id="sage-7"><script type="text/x-sage">for i in range(10):
+<li id="li-35">
+<div class="para" id="p-97">We can run other sorts of Python code in these Python cells as well. For example, you may be familiar with Python for loops:</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-7"><script type="text/x-sage">for i in range(10):
     print(i)
 </script></pre>
-</div></li>
+</li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-1" id="answer-1"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-1"><div class="answer solution-like"><ol class="lower-alpha">
-<li id="li-40"><div class="para logical" id="p-95"><pre class="code-display tex2jax_ignore">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-1" id="answer-1"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-1"><div class="answer solution-like"><div class="para logical" id="p-103"><ol class="lower-alpha">
+<li id="li-40"><div class="para logical" id="p-104"><pre class="code-display tex2jax_ignore">
 3 + 4*(2**4 - 1)
 	      </pre></div></li>
-<li id="li-41"><div class="para" id="p-96">Only the results of the last line are displayed.</div></li>
-<li id="li-42"><div class="para logical" id="p-97"><pre class="code-display tex2jax_ignore">
+<li id="li-41"><div class="para" id="p-105">Only the results of the last line are displayed.</div></li>
+<li id="li-42"><div class="para logical" id="p-106"><pre class="code-display tex2jax_ignore">
 total = 90 + 100 + 98
 average = total / 3
 print(average)
 	      </pre></div></li>
-<li id="li-43"><div class="para" id="p-98">This cell prints the integers from 0 to 9.</div></li>
-</ol></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-2" id="solution-2"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-2"><div class="solution solution-like"><ol class="lower-alpha">
-<li id="li-36"><div class="para logical" id="p-91"><pre class="code-display tex2jax_ignore">
+<li id="li-43"><div class="para" id="p-107">This cell prints the integers from 0 to 9.</div></li>
+</ol></div></div></div>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-2" id="solution-2"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-2"><div class="solution solution-like"><div class="para logical" id="p-98"><ol class="lower-alpha">
+<li id="li-36"><div class="para logical" id="p-99"><pre class="code-display tex2jax_ignore">
 3 + 4*(2**4 - 1)
 	      </pre></div></li>
-<li id="li-37"><div class="para" id="p-92">Only the results of the last line are displayed.</div></li>
-<li id="li-38"><div class="para logical" id="p-93"><pre class="code-display tex2jax_ignore">
+<li id="li-37"><div class="para" id="p-100">Only the results of the last line are displayed.</div></li>
+<li id="li-38"><div class="para logical" id="p-101"><pre class="code-display tex2jax_ignore">
 total = 90 + 100 + 98
 average = total / 3
 print(average)
 	      </pre></div></li>
-<li id="li-39"><div class="para" id="p-94">This cell prints the integers from 0 to 9.</div></li>
-</ol></div></div>
+<li id="li-39"><div class="para" id="p-102">This cell prints the integers from 0 to 9.</div></li>
+</ol></div></div></div>
 </div></article></section><section class="subsection" id="subsec-numpy-vectors"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">1.2.2</span><span class="space"> </span><span class="title"><code class="code-inline tex2jax_ignore">numpy</code> vectors</span>
 </h3>
-<div class="para" id="p-99">Since a vector is just a list of numbers, if you know Python, you might expect that we will create vectors using Python lists. This is partially correct. But Python lists don’t know about our operations (scalar multiplication and vector addition).  In order to get vectors that know about these operations, we will convert our Python lists into <dfn class="terminology">ndarrays</dfn> (n-dimensional arrays) using the Python package <code class="code-inline tex2jax_ignore">numpy</code>.</div>
-<article class="assemblage assemblage-like" id="assemblage-1"><h4 class="heading"><span class="title">Importing Numpy.</span></h4>
-<div class="para" id="p-100">Numpy is a python module that is heavily used in data science. <code class="code-inline tex2jax_ignore">import numpy as np</code> In order to use Numpy, we must first import it like this: <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-8"><script type="text/x-sage">import numpy as np
-</script></pre> This loads this module and declares that we will refer to it as <code class="code-inline tex2jax_ignore">np</code> (the standard convention) in subsequent code. In an interactive environment, this cell will be auto-evaluated and Numpy will be available in all the cells in this section. In your own work, don’t forget to import Numpy (or any other packages you need).</div></article><div class="para" id="p-101">In <code class="code-inline tex2jax_ignore">numpy</code> parlance, a vector is a 1-dimensional array. Vectors are created using <code class="code-inline tex2jax_ignore">np.array()</code>, which is provided with a list of numbers. Python can perform scalar multiplication and vector addition. We define a vector using <code class="code-inline tex2jax_ignore">np.array()</code>; then <code class="code-inline tex2jax_ignore">*</code> and <code class="code-inline tex2jax_ignore">+</code> denote scalar multiplication and vector addition. <pre class="ptx-sagecell sagecell-python" id="sage-9"><script type="text/x-sage">v = np.array([3,1])
+<div class="para" id="p-108">Since a vector is just a list of numbers, if you know Python, you might expect that we will create vectors using Python lists. This is partially correct. But Python lists don’t know about our operations (scalar multiplication and vector addition).  In order to get vectors that know about these operations, we will convert our Python lists into <dfn class="terminology">ndarrays</dfn> (n-dimensional arrays) using the Python package <code class="code-inline tex2jax_ignore">numpy</code>.</div>
+<article class="note remark-like" id="note-1"><h4 class="heading">
+<span class="type">Note</span><span class="space"> </span><span class="codenumber">1.2.1</span><span class="period">.</span><span class="space"> </span><span class="title">Importing NumPy.</span>
+</h4> <div class="para" id="p-109">NumPy is a python module that is heavily used in data science. In order to use NumPy, we must first import it like this:</div> <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-8"><script type="text/x-sage">import numpy as np
+</script></pre> <div class="para" id="p-110">This loads <code class="code-inline tex2jax_ignore">numpy</code> and declares that we will refer to it as <code class="code-inline tex2jax_ignore">np</code> (the standard convention) in subsequent code.  In an interactive environment, this cell will be auto-evaluated and NumPy will be available in all the cells in this section. In your own work, don’t forget to import NumPy (or any other packages you need).</div></article><div class="para" id="p-111">In <code class="code-inline tex2jax_ignore">numpy</code> parlance, a vector is a 1-dimensional array. Vectors are created using <code class="code-inline tex2jax_ignore">np.array()</code>, which is provided with a list of numbers. Python can perform scalar multiplication and vector addition. We define a vector using <code class="code-inline tex2jax_ignore">np.array()</code>; then <code class="code-inline tex2jax_ignore">*</code> and <code class="code-inline tex2jax_ignore">+</code> denote scalar multiplication and vector addition.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-9"><script type="text/x-sage">v = np.array([3,1])
 w = np.array([-1,2])
 print(type(v))
-print (2*v)
-print (v + w)
+print(2*v)
+print(v + w)
 </script></pre>
-</div>
-<div class="para" id="p-102">Especially when we work with vectors with many components, we will often want to have Python tell us how many components there are. We can use <code class="code-inline tex2jax_ignore">.shape</code> to find out how many components are in one of our vectors. Give it a try. Type <code class="code-inline tex2jax_ignore">print(v.shape)</code> in the code block above and re-evaluate. </div>
-<article class="assemblage assemblage-like" id="assemblage-dim-v-dim"><h4 class="heading"><span class="title">Caution: Dimension vs Dimension.</span></h4>
-<div class="para" id="p-103">
-<code class="code-inline tex2jax_ignore">numpy</code> uses the term <em class="emphasis">dimension</em> differently from how we used that term in <a href="sec-vectors.html" class="internal" title="Section 1.1: Vectors">Section 1.1</a>. In Numpy parlance, all of the vectors we have seen are 1-dimensional arrays because there is just one column of numbers. This will make more sense when we see 2-dimensional arrays (matrices) and higher dimensional arrays (tensors). The number returned by <code class="code-inline tex2jax_ignore">.shape</code> is the other kind of dimension -- the number of components in the vector.</div></article><div class="para" id="p-104">For low dimensional vectors, manually typing in each component is reasonable.  But ofen we will work with vectors with many components.  So we will need some better ways to create these vectors. Here are some examples showing how to create structured or random vectors. <pre class="ptx-sagecell sagecell-python" id="sage-10"><script type="text/x-sage">v = np.arange(100)
+<div class="para" id="p-112">Especially when we work with vectors with many components, we will often want to have Python tell us how many components there are. We can use <code class="code-inline tex2jax_ignore">.shape</code> to find out how many components are in one of our vectors. Give it a try. Type <code class="code-inline tex2jax_ignore">print(v.shape)</code> in the code block above and re-evaluate. </div>
+<article class="warning remark-like" id="warning-dim-v-dim"><h4 class="heading">
+<span class="type">Warning</span><span class="space"> </span><span class="codenumber">1.2.2</span><span class="period">.</span><span class="space"> </span><span class="title">Caution: Dimension vs Dimension.</span>
+</h4>  <div class="para" id="p-113">
+<code class="code-inline tex2jax_ignore">numpy</code> uses the term <em class="emphasis">dimension</em> differently from how we used that term in <a href="sec-vectors.html" class="internal" title="Section 1.1: Vectors">Section 1.1</a>. In NumPy parlance, all of the vectors we have seen are 1-dimensional arrays because there is just one column of numbers. This will make more sense when we see 2-dimensional arrays (matrices) and higher dimensional arrays (tensors). The number returned by <code class="code-inline tex2jax_ignore">.shape</code> is the other kind of dimension -- the number of components in the vector.</div></article><div class="para" id="p-114">For low dimensional vectors, manually typing in each component is reasonable.  But ofen we will work with vectors with many components.  So we will need some better ways to create these vectors. Here are some examples showing how to create structured or random vectors. </div>
+<pre class="ptx-sagecell sagecell-python" id="sage-10"><script type="text/x-sage">v = np.arange(100)
 # 5 to 100 by 5's -- note the 101 here!
 w = np.arange(5, 101, 5)  
 print(v.shape)
@@ -862,9 +871,10 @@ print(w)
 r = np.random.normal(100, 10, 50)
 print(r.shape)
 print(r)
-</script></pre> </div>
-<div class="para" id="p-105">Indexing in Python is 0-based.  So the first component of the vector <code class="code-inline tex2jax_ignore">v</code> is <code class="code-inline tex2jax_ignore">v[0]</code>.  If <code class="code-inline tex2jax_ignore">v</code> has 100 components, then the last component is <code class="code-inline tex2jax_ignore">v[99]</code>.  We can also use <code class="code-inline tex2jax_ignore">v[-1]</code> to access the last component. More generally, <code class="code-inline tex2jax_ignore">v[-k]</code> is the same as <code class="code-inline tex2jax_ignore">v[v.shape - k]</code> when <code class="code-inline tex2jax_ignore">k</code> is positive (so <code class="code-inline tex2jax_ignore">-k</code> is negative). </div>
-<div class="para" id="p-106">Once we have an ndarray, we can compute various summaries of it. The sum, mean, and standard deviation are commonly used summaries. For output purposes, it is often useful to round output values. <pre class="ptx-sagecell sagecell-python" id="sage-11"><script type="text/x-sage">r = np.random.normal(100, 10, 50)
+</script></pre>
+<div class="para" id="p-115">Indexing in Python is 0-based.  So the first component of the vector <code class="code-inline tex2jax_ignore">v</code> is <code class="code-inline tex2jax_ignore">v[0]</code>.  If <code class="code-inline tex2jax_ignore">v</code> has 100 components, then the last component is <code class="code-inline tex2jax_ignore">v[99]</code>.  We can also use <code class="code-inline tex2jax_ignore">v[-1]</code> to access the last component. More generally, <code class="code-inline tex2jax_ignore">v[-k]</code> is the same as <code class="code-inline tex2jax_ignore">v[v.shape - k]</code> when <code class="code-inline tex2jax_ignore">k</code> is positive (so <code class="code-inline tex2jax_ignore">-k</code> is negative). </div>
+<div class="para" id="p-116">Once we have an ndarray, we can compute various summaries of it. The sum, mean, and standard deviation are commonly used summaries. For output purposes, it is often useful to round output values. </div>
+<pre class="ptx-sagecell sagecell-python" id="sage-11"><script type="text/x-sage">r = np.random.normal(100, 10, 50)
 print("shape:", r.shape, 
 	  "sum:", r.sum().round(2),
       "mean:", r.mean().round(2), 
@@ -874,35 +884,37 @@ print("shape:", r.shape,
 	  "sum:", np.round(np.sum(r),2),
       "mean:", np.round(np.mean(r),2), 
       "sd:", np.round(np.std(r),2))
-</script></pre> </div>
-<article class="assemblage assemblage-like" id="assemblage-3"><h4 class="heading"><span class="title">Linked Python cells.</span></h4>
-<div class="para" id="p-107">In interactive versions of this text, all the cells in a section are linked, so you can refer to objects created in one cell while working in another cell, provided you have already executed the code in the first cell.</div></article><article class="example example-like" id="example-linked-cells"><h4 class="heading">
-<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.1</span><span class="period">.</span>
-</h4>In the cell below, we can refer to the vector <code class="code-inline tex2jax_ignore">v</code> and <code class="code-inline tex2jax_ignore">w</code> from above -- if we have executed the cell where they were defined (and have not subsequently changed their values). <pre class="ptx-sagecell sagecell-sage" id="sage-12"><script type="text/x-sage">print(v)
+</script></pre>
+<article class="note remark-like" id="note-2"><h4 class="heading">
+<span class="type">Note</span><span class="space"> </span><span class="codenumber">1.2.3</span><span class="period">.</span><span class="space"> </span><span class="title">Linked Python cells.</span>
+</h4> <div class="para" id="p-117">In interactive versions of this text, all the cells in a section are linked, so you can refer to objects created in one cell while working in another cell, provided you have already executed the code in the first cell.</div></article><article class="example example-like" id="example-linked-cells"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.2.4</span><span class="period">.</span>
+</h4>
+<div class="para" id="p-118">In the cell below, we can refer to the vector <code class="code-inline tex2jax_ignore">v</code> and <code class="code-inline tex2jax_ignore">w</code> from above -- if we have executed the cell where they were defined (and have not subsequently changed their values).</div> <pre class="ptx-sagecell sagecell-sage" id="sage-12"><script type="text/x-sage">print(v)
 print(w)
 </script></pre></article></section><section class="subsection" id="subsec-vector-length-numpy"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">1.2.3</span><span class="space"> </span><span class="title">Vector length</span>
 </h3>
-<div class="para" id="p-108">We can compute the (Euclidean) length of a vector two ways.  The first takes advantage of python comprehension. The second uses the <code class="code-inline tex2jax_ignore">numpy.linalg.norm()</code> function.</div>
-<div class="para" id="p-109">List comprehension is a powerful feature of Python that lets us compute with lists, including numpy arrays.  Here is a simple exmaple that creates a new list that contains the squares of the elements in the original list. <pre class="ptx-sagecell sagecell-python" id="sage-13"><script type="text/x-sage">numbers = np.arange(5)
+<div class="para" id="p-119">We can compute the (Euclidean) length of a vector two ways.  The first takes advantage of python comprehension. The second uses the <code class="code-inline tex2jax_ignore">numpy.linalg.norm()</code> function.</div>
+<div class="para" id="p-120">List comprehension is a powerful feature of Python that lets us compute with lists, including numpy arrays.  Here is a simple exmaple that creates a new list that contains the squares of the elements in the original list.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-13"><script type="text/x-sage">numbers = np.arange(5)
 squares = [n**2 for n in numbers]
 print("numbers:", numbers, "squares:", squares)
 </script></pre>
-</div>
-<div class="para" id="p-110">Notice that the code above computes all the terms we need to add when computing the length of  a vector.  So we can combine with <code class="code-inline tex2jax_ignore">numpy.sum()</code> to get the square of the length.  Also notice that <code class="code-inline tex2jax_ignore">squares</code> is a Python list, not an numpy array.  We can see that from the way that <code class="code-inline tex2jax_ignore">numbers</code> and <code class="code-inline tex2jax_ignore">squares</code> are printed.  (The are no commas in the dispaly of <code class="code-inline tex2jax_ignore">numbers</code>.) You can confirm the types using <code class="code-inline tex2jax_ignore">type()</code>. <pre class="ptx-sagecell sagecell-sage" id="sage-14"><script type="text/x-sage">import math   # alternative: from math import sqrt
+<div class="para" id="p-121">Notice that the code above computes all the terms we need to add when computing the length of  a vector.  So we can combine with <code class="code-inline tex2jax_ignore">numpy.sum()</code> to get the square of the length.  Also notice that <code class="code-inline tex2jax_ignore">squares</code> is a Python list, not an numpy array.  We can see that from the way that <code class="code-inline tex2jax_ignore">numbers</code> and <code class="code-inline tex2jax_ignore">squares</code> are printed.  (The are no commas in the dispaly of <code class="code-inline tex2jax_ignore">numbers</code>.) You can confirm the types using <code class="code-inline tex2jax_ignore">type()</code>.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-14"><script type="text/x-sage">import math   # alternative: from math import sqrt
 a = np.ones(4)  # [1, 1, 1, 1]
 length_squared = np.sum([ c for c in a])
 print(math.sqrt(length_squared))
 </script></pre>
-</div>
-<div class="para" id="p-111">Computing the length of a vector is common enough that numpy includes a function for this: <code class="code-inline tex2jax_ignore">numpy.linalg.norm()</code>.  It can compute several different norms, but the default is the familiar Euclidean norm. <pre class="ptx-sagecell sagecell-sage" id="sage-15"><script type="text/x-sage">a = np.ones(4)
+<div class="para" id="p-122">Computing the length of a vector is common enough that numpy includes a function for this: <code class="code-inline tex2jax_ignore">numpy.linalg.norm()</code>.  It can compute several different norms, but the default is the familiar Euclidean norm.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-15"><script type="text/x-sage">a = np.ones(4)
 print(numpy.linalg.norm(a))
-</script></pre>
-</div></section><section class="subsection" id="subsection-8"><h3 class="heading hide-type">
+</script></pre></section><section class="subsection" id="subsection-8"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">1.2.4</span><span class="space"> </span><span class="title">Plotting vectors</span>
 </h3>
-<div class="para" id="p-112">We can use <code class="code-inline tex2jax_ignore">matplotlib.pyplot.quiver()</code> to visualize 2-d and 3-d vectors. Below are two examples showing the sum of two vectors.  For simplicity, we plot each vector as a separate command, but it is possible to plot multiple arrows all at once.  This explain the name <code class="code-inline tex2jax_ignore">quiver</code>.</div>
-<div class="para" id="p-113">The arguments to <code class="code-inline tex2jax_ignore">quiver</code> include the coordiantes of the starting point for the arrow and coordinates specifying the amount of change in each direction. This makes it easy to plot vectors originating at the origin or originating at some other place, as is useful to illustrating the sum. Notice the use of <code class="code-inline tex2jax_ignore">*</code> in these examples. <code class="code-inline tex2jax_ignore">*origin</code>, for example, is shorthand for <code class="code-inline tex2jax_ignore">origin[0], origin[1]</code> (in the 2-d case). By default, for the 2-d plots, Matplotlib will rescale the lengths of the vectors. Additional arugments are included here so that the vectors are plotted on their natural scale.</div>
+<div class="para" id="p-123">We can use <code class="code-inline tex2jax_ignore">matplotlib.pyplot.quiver()</code> to visualize 2-d and 3-d vectors. Below are two examples showing the sum of two vectors.  For simplicity, we plot each vector as a separate command, but it is possible to plot multiple arrows all at once.  This explain the name <code class="code-inline tex2jax_ignore">quiver</code>.</div>
+<div class="para" id="p-124">The arguments to <code class="code-inline tex2jax_ignore">quiver</code> include the coordiantes of the starting point for the arrow and coordinates specifying the amount of change in each direction. This makes it easy to plot vectors originating at the origin or originating at some other place, as is useful to illustrating the sum. Notice the use of <code class="code-inline tex2jax_ignore">*</code> in these examples. <code class="code-inline tex2jax_ignore">*origin</code>, for example, is shorthand for <code class="code-inline tex2jax_ignore">origin[0], origin[1]</code> (in the 2-d case). By default, for the 2-d plots, Matplotlib will rescale the lengths of the vectors. Additional arugments are included here so that the vectors are plotted on their natural scale.</div>
 <pre class="ptx-sagecell sagecell-python" id="sage-16"><script type="text/x-sage">import matplotlib.pyplot as plt
 
 v = np.array([1,2])
@@ -938,12 +950,12 @@ ax.set_ylim([-5,5])
 ax.set_zlim([-5,5])
 plt.show()
 </script></pre>
-<article class="assemblage assemblage-like" id="assemblage-numpy-help"><h4 class="heading"><span class="title">Numpy documentation.</span></h4>
-<div class="para" id="p-114">Official <code class="code-inline tex2jax_ignore">numpy</code> documentation can be found at <a class="external" href="https://numpy.org/doc/" target="_blank"><code class="code-inline tex2jax_ignore">numpy.org/doc</code></a>.  You may also find it handy to use <a class="external" href="https://devdocs.io/" target="_blank"><code class="code-inline tex2jax_ignore">devdocs.io</code></a> which provides documentation on many languages (including Python) and packages (including <code class="code-inline tex2jax_ignore">numpy</code>) and provides a powerful mechanism for searching within documentation.</div>
-<div class="para" id="p-115">A brief visual introduction to numpy can be found at <a class="external" href="https://jalammar.github.io/visual-numpy/" target="_blank"><code class="code-inline tex2jax_ignore">jalammar.github.io/visual-numpy/</code></a>.</div></article><article class="assemblage assemblage-like" id="assemblage-matplotlib-help"><h4 class="heading"><span class="title">Matplotlib documentation.</span></h4>
-<div class="para" id="p-116">Official <code class="code-inline tex2jax_ignore">matplotlib</code> documentation can be found at <a class="external" href="https://matplotlib.org/" target="_blank"><code class="code-inline tex2jax_ignore">matplotlib.org</code></a>.  Matplotlib documentation is also avilable via <a class="external" href="https://devdocs.io/" target="_blank"><code class="code-inline tex2jax_ignore">https://devdocs.io/</code></a>.</div></article><article class="note remark-like" id="note-1"><h4 class="heading">
-<span class="type">Note</span><span class="space"> </span><span class="codenumber">1.2.2</span><span class="period">.</span><span class="space"> </span><span class="title">Figures in this book.</span>
-</h4> <div class="para" id="p-117">The figures in this book were also created in Python using <a class="external" href="https://personal.math.ubc.ca/~cass/piscript/" target="_blank">PiScript</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-3" id="fn-3"><sup> 1 </sup></a>, a system for creating mathematical diagrams created by Bill Casselman.</div></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-3"><div class="fn"><code class="code-inline tex2jax_ignore">personal.math.ubc.ca/~cass/piscript/</code></div></div>
+<article class="assemblage assemblage-like" id="assemblage-numpy-help"><h4 class="heading"><span class="title">NumPy documentation.</span></h4>
+<div class="para" id="p-125">Official <code class="code-inline tex2jax_ignore">numpy</code> documentation can be found at <a class="external" href="https://numpy.org/doc/" target="_blank"><code class="code-inline tex2jax_ignore">numpy.org/doc</code></a>.  You may also find it handy to use <a class="external" href="https://devdocs.io/" target="_blank"><code class="code-inline tex2jax_ignore">devdocs.io</code></a> which provides documentation on many languages (including Python) and packages (including <code class="code-inline tex2jax_ignore">numpy</code>) and provides a powerful mechanism for searching within documentation.</div>
+<div class="para" id="p-126">A brief visual introduction to numpy can be found at <a class="external" href="https://jalammar.github.io/visual-numpy/" target="_blank"><code class="code-inline tex2jax_ignore">jalammar.github.io/visual-numpy/</code></a>.</div></article><article class="assemblage assemblage-like" id="assemblage-matplotlib-help"><h4 class="heading"><span class="title">Matplotlib documentation.</span></h4>
+<div class="para" id="p-127">Official <code class="code-inline tex2jax_ignore">matplotlib</code> documentation can be found at <a class="external" href="https://matplotlib.org/" target="_blank"><code class="code-inline tex2jax_ignore">matplotlib.org</code></a>.  Matplotlib documentation is also avilable via <a class="external" href="https://devdocs.io/" target="_blank"><code class="code-inline tex2jax_ignore">https://devdocs.io/</code></a>.</div></article><article class="note remark-like" id="note-3"><h4 class="heading">
+<span class="type">Note</span><span class="space"> </span><span class="codenumber">1.2.5</span><span class="period">.</span><span class="space"> </span><span class="title">Figures in this book.</span>
+</h4> <div class="para" id="p-128">The figures in this book were also created in Python using <a class="external" href="https://personal.math.ubc.ca/~cass/piscript/" target="_blank">PiScript</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-3" id="fn-3"><sup> 1 </sup></a>, a system for creating mathematical diagrams created by Bill Casselman.</div></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-3"><div class="fn"><code class="code-inline tex2jax_ignore">personal.math.ubc.ca/~cass/piscript/</code></div></div>
 </div>
 <div class="ptx-content-footer">
 <a class="previous-button button" href="sec-vectors.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-linear-combos-of-vectors.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>

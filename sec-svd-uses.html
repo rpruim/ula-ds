@@ -389,7 +389,7 @@ sagecell.makeSagecell({
 <li>
 <div class="toc-item"><a href="sec-tensors.html" class="internal"><span class="codenumber">1.5</span> <span class="title">Tensors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in Numpy</span></a></div></li>
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in NumPy</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-axes" class="internal"><span class="codenumber">1.5.2</span> <span class="title">Aggregation and Axes</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-ndarray-append" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Expanding an array</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-broadcasting" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Broadcasting</span></a></div></li>
@@ -751,10 +751,10 @@ sagecell.makeSagecell({
 <section class="section" id="sec-svd-uses"><h2 class="heading hide-type">
 <span class="type">Section</span><span class="space"> </span><span class="codenumber">7.5</span><span class="space"> </span><span class="title">Using Singular Value Decompositions</span>
 </h2>
-<section class="introduction" id="introduction-42"><div class="para" id="p-8337">We’ve now seen what singular value decompositions are, how to construct them, and how they provide important information about a matrix such as orthonormal bases for the four fundamental subspaces.  This puts us in a good position to begin using singular value decompositions to solve a wide variety of problems.</div> <div class="para" id="p-8338">Given the fact that singular value decompositions so immediately convey fundamental data about a matrix, it seems natural that some of our previous work can be reinterpreted in terms of singular value decompositions.  Therefore, we’ll take some time in this section to revisit some familiar issues, such as least squares problems and principal component analysis, while also looking at some new applications.</div> <article class="exploration project-like" id="exploration-29"><h3 class="heading">
+<section class="introduction" id="introduction-41"><div class="para" id="p-8371">We’ve now seen what singular value decompositions are, how to construct them, and how they provide important information about a matrix such as orthonormal bases for the four fundamental subspaces.  This puts us in a good position to begin using singular value decompositions to solve a wide variety of problems.</div> <div class="para" id="p-8372">Given the fact that singular value decompositions so immediately convey fundamental data about a matrix, it seems natural that some of our previous work can be reinterpreted in terms of singular value decompositions.  Therefore, we’ll take some time in this section to revisit some familiar issues, such as least squares problems and principal component analysis, while also looking at some new applications.</div> <article class="exploration project-like" id="exploration-29"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">7.5.1</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-8339">
+<div class="para logical" id="p-8373">
 <div class="para">Suppose that <span class="process-math">\(A = U\Sigma V^{\transpose}\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -770,44 +770,44 @@ sagecell.makeSagecell({
 <div class="para">vectors <span class="process-math">\(\uvec_j\)</span> form the columns of <span class="process-math">\(U\text{,}\)</span> and vectors <span class="process-math">\(\vvec_j\)</span> form the columns of <span class="process-math">\(V\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-5728"><div class="para" id="p-8340">What are the shapes of the matrices <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(U\text{,}\)</span> and <span class="process-math">\(V\text{?}\)</span>
+<li id="li-5736"><div class="para" id="p-8374">What are the shapes of the matrices <span class="process-math">\(A\text{,}\)</span> <span class="process-math">\(U\text{,}\)</span> and <span class="process-math">\(V\text{?}\)</span>
 </div></li>
-<li id="li-5729"><div class="para" id="p-8341">What is the rank of <span class="process-math">\(A\text{?}\)</span>
+<li id="li-5737"><div class="para" id="p-8375">What is the rank of <span class="process-math">\(A\text{?}\)</span>
 </div></li>
-<li id="li-5730"><div class="para" id="p-8342">Describe how to find an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-5738"><div class="para" id="p-8376">Describe how to find an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-5731"><div class="para" id="p-8343">Describe how to find an orthonormal basis for <span class="process-math">\(\nul(A)\text{.}\)</span>
+<li id="li-5739"><div class="para" id="p-8377">Describe how to find an orthonormal basis for <span class="process-math">\(\nul(A)\text{.}\)</span>
 </div></li>
-<li id="li-5732"><div class="para" id="p-8344">If the columns of <span class="process-math">\(Q\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{,}\)</span> what is <span class="process-math">\(Q^{\transpose}Q\text{?}\)</span>
+<li id="li-5740"><div class="para" id="p-8378">If the columns of <span class="process-math">\(Q\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{,}\)</span> what is <span class="process-math">\(Q^{\transpose}Q\text{?}\)</span>
 </div></li>
-<li id="li-5733"><div class="para" id="p-8345">How would you form a matrix that projects vectors orthogonally onto <span class="process-math">\(\col(A)\text{?}\)</span>
+<li id="li-5741"><div class="para" id="p-8379">How would you form a matrix that projects vectors orthogonally onto <span class="process-math">\(\col(A)\text{?}\)</span>
 </div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-421" id="solution-421"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-421"><div class="solution solution-like"><div class="para logical" id="p-8346"><ol class="lower-alpha">
-<li id="li-5734"><div class="para" id="p-8347">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-420" id="solution-420"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-420"><div class="solution solution-like"><div class="para logical" id="p-8380"><ol class="lower-alpha">
+<li id="li-5742"><div class="para" id="p-8381">
 <span class="process-math">\(A\)</span> is <span class="process-math">\(5\by4\text{,}\)</span> <span class="process-math">\(U\)</span> is <span class="process-math">\(5\by5\text{,}\)</span> and <span class="process-math">\(V\)</span> is <span class="process-math">\(4\by4\text{.}\)</span>
 </div></li>
-<li id="li-5735"><div class="para" id="p-8348">
+<li id="li-5743"><div class="para" id="p-8382">
 <span class="process-math">\(\rank(A)=3\)</span> since there are three nonzero singular values.</div></li>
-<li id="li-5736"><div class="para" id="p-8349">The first three columns, <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\text{,}\)</span> of <span class="process-math">\(U\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-5744"><div class="para" id="p-8383">The first three columns, <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> and <span class="process-math">\(\uvec_3\text{,}\)</span> of <span class="process-math">\(U\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-5737"><div class="para" id="p-8350">The last column <span class="process-math">\(\vvec_4\)</span> of <span class="process-math">\(V\)</span> is a basis for <span class="process-math">\(\nul(A)\text{.}\)</span>
+<li id="li-5745"><div class="para" id="p-8384">The last column <span class="process-math">\(\vvec_4\)</span> of <span class="process-math">\(V\)</span> is a basis for <span class="process-math">\(\nul(A)\text{.}\)</span>
 </div></li>
-<li id="li-5738"><div class="para" id="p-8351">
+<li id="li-5746"><div class="para" id="p-8385">
 <span class="process-math">\(Q^{\transpose}Q=I\)</span> since each entry is a dot product of two vectors in an orthonormal set.</div></li>
-<li id="li-5739"><div class="para" id="p-8352">
+<li id="li-5747"><div class="para" id="p-8386">
 <span class="process-math">\(QQ^{\transpose}\)</span> projects vectors orthogonally onto <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
 </div></article></section><section class="subsection" id="subsection-132"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.5.1</span><span class="space"> </span><span class="title">Least squares problems</span>
 </h3>
-<div class="para" id="p-8353">Least squares problems, which we explored in <a href="sec-least-squares.html" class="internal" title="Section 6.5: Least squares methods">Section 6.5</a>, arise when we are confronted with an inconsistent linear system <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>  Since there is no solution to the system, we instead find the vector <span class="process-math">\(\xvec\)</span> minimizing the distance between <span class="process-math">\(\bvec\)</span> and <span class="process-math">\(A\xvec\text{.}\)</span> That is, we find the vector <span class="process-math">\(\xhat\text{,}\)</span> the least squares approximate solution, by solving <span class="process-math">\(A\xhat=\bhat\)</span> where <span class="process-math">\(\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto the column space of <span class="process-math">\(A\text{.}\)</span>
+<div class="para" id="p-8387">Least squares problems, which we explored in <a href="sec-least-squares.html" class="internal" title="Section 6.5: Least squares methods">Section 6.5</a>, arise when we are confronted with an inconsistent linear system <span class="process-math">\(A\xvec=\bvec\text{.}\)</span>  Since there is no solution to the system, we instead find the vector <span class="process-math">\(\xvec\)</span> minimizing the distance between <span class="process-math">\(\bvec\)</span> and <span class="process-math">\(A\xvec\text{.}\)</span> That is, we find the vector <span class="process-math">\(\xhat\text{,}\)</span> the least squares approximate solution, by solving <span class="process-math">\(A\xhat=\bhat\)</span> where <span class="process-math">\(\bhat\)</span> is the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto the column space of <span class="process-math">\(A\text{.}\)</span>
 </div>
-<div class="para" id="p-8354">If we have a singular value decomposition <span class="process-math">\(A=U\Sigma V^{\transpose}\text{,}\)</span> then the number of nonzero singular values <span class="process-math">\(r\)</span> tells us the rank of <span class="process-math">\(A\text{,}\)</span> and the first <span class="process-math">\(r\)</span> columns of <span class="process-math">\(U\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>  This basis may be used to project vectors onto <span class="process-math">\(\col(A)\)</span> and hence to solve least squares problems.</div>
-<div class="para" id="p-8355">Before exploring this connection further, we will introduce Sage as a tool for automating the construction of singular value decompositions.  One new feature is that we need to declare our matrix to consist of floating point entries.  We do this by including <code class="code-inline tex2jax_ignore">RDF</code> inside the matrix definition, as illustrated in the following cell. <pre class="ptx-sagecell sagecell-python" id="sage-277"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-8388">If we have a singular value decomposition <span class="process-math">\(A=U\Sigma V^{\transpose}\text{,}\)</span> then the number of nonzero singular values <span class="process-math">\(r\)</span> tells us the rank of <span class="process-math">\(A\text{,}\)</span> and the first <span class="process-math">\(r\)</span> columns of <span class="process-math">\(U\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>  This basis may be used to project vectors onto <span class="process-math">\(\col(A)\)</span> and hence to solve least squares problems.</div>
+<div class="para" id="p-8389">Before exploring this connection further, we will introduce Sage as a tool for automating the construction of singular value decompositions.  One new feature is that we need to declare our matrix to consist of floating point entries.  We do this by including <code class="code-inline tex2jax_ignore">RDF</code> inside the matrix definition, as illustrated in the following cell. <pre class="ptx-sagecell sagecell-python" id="sage-279"><script type="text/x-sage">import numpy as np
 A = np.array(
 	[[1.0, 0, -1],
      [1, 1, 1]])
@@ -822,7 +822,7 @@ print(V)
 <article class="activity project-like" id="activity-105"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.5.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-8356">
+<div class="para logical" id="p-8390">
 <div class="para">Consider the equation <span class="process-math">\(A\xvec=\bvec\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -835,21 +835,21 @@ print(V)
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-5740"><div class="para" id="p-8357">Find a singular value decomposition for <span class="process-math">\(A\)</span> using the Python cell below.  What are singular values of <span class="process-math">\(A\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-278"><script type="text/x-sage">
+<li id="li-5748"><div class="para" id="p-8391">Find a singular value decomposition for <span class="process-math">\(A\)</span> using the Python cell below.  What are singular values of <span class="process-math">\(A\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-280"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5741"><div class="para" id="p-8358">What is <span class="process-math">\(r\text{,}\)</span> the rank of <span class="process-math">\(A\text{?}\)</span>  How can we identify an orthonormal basis for <span class="process-math">\(\col(A)\text{?}\)</span>
+<li id="li-5749"><div class="para" id="p-8392">What is <span class="process-math">\(r\text{,}\)</span> the rank of <span class="process-math">\(A\text{?}\)</span>  How can we identify an orthonormal basis for <span class="process-math">\(\col(A)\text{?}\)</span>
 </div></li>
-<li id="li-5742">
-<div class="para" id="p-8359">Form the reduced singular value decomposition <span class="process-math">\(U_r\Sigma_rV_r^{\transpose}\)</span> by constructing the matrix <span class="process-math">\(U_r\text{,}\)</span> consisting of the first <span class="process-math">\(r\)</span> columns of <span class="process-math">\(U\text{,}\)</span> the matrix <span class="process-math">\(V_r\text{,}\)</span> consisting of the first <span class="process-math">\(r\)</span> columns of <span class="process-math">\(V\text{,}\)</span> and <span class="process-math">\(\Sigma_r\text{,}\)</span> a square <span class="process-math">\(r\by r\)</span> diagonal matrix.  Verify that <span class="process-math">\(A=U_r\Sigma_r V_r^{\transpose}\text{.}\)</span>
+<li id="li-5750">
+<div class="para" id="p-8393">Form the reduced singular value decomposition <span class="process-math">\(U_r\Sigma_rV_r^{\transpose}\)</span> by constructing the matrix <span class="process-math">\(U_r\text{,}\)</span> consisting of the first <span class="process-math">\(r\)</span> columns of <span class="process-math">\(U\text{,}\)</span> the matrix <span class="process-math">\(V_r\text{,}\)</span> consisting of the first <span class="process-math">\(r\)</span> columns of <span class="process-math">\(V\text{,}\)</span> and <span class="process-math">\(\Sigma_r\text{,}\)</span> a square <span class="process-math">\(r\by r\)</span> diagonal matrix.  Verify that <span class="process-math">\(A=U_r\Sigma_r V_r^{\transpose}\text{.}\)</span>
 </div>
-<div class="para" id="p-8360">You may find it convenient to remember that if <code class="code-inline tex2jax_ignore">B</code> is a matrix defined in Python, then <code class="code-inline tex2jax_ignore">B[:, slice]</code> and <code class="code-inline tex2jax_ignore">B[slice, :]</code> can be used to extract columns or rows from <code class="code-inline tex2jax_ignore">B</code> where <code class="code-inline tex2jax_ignore">slice</code> enumerates the desired columns or rows.  For instance, <code class="code-inline tex2jax_ignore">B[0:2, :])</code> provides a matrix formed from the first three rows of <code class="code-inline tex2jax_ignore">B</code>. <pre class="ptx-sagecell sagecell-python" id="sage-279"><script type="text/x-sage">
+<div class="para" id="p-8394">You may find it convenient to remember that if <code class="code-inline tex2jax_ignore">B</code> is a matrix defined in Python, then <code class="code-inline tex2jax_ignore">B[:, slice]</code> and <code class="code-inline tex2jax_ignore">B[slice, :]</code> can be used to extract columns or rows from <code class="code-inline tex2jax_ignore">B</code> where <code class="code-inline tex2jax_ignore">slice</code> enumerates the desired columns or rows.  For instance, <code class="code-inline tex2jax_ignore">B[0:2, :])</code> provides a matrix formed from the first three rows of <code class="code-inline tex2jax_ignore">B</code>. <pre class="ptx-sagecell sagecell-python" id="sage-281"><script type="text/x-sage">
 </script></pre>
 </div>
 </li>
-<li id="li-5743"><div class="para" id="p-8361">How does the reduced singular value decomposition provide a matrix whose columns are an orthonormal basis for <span class="process-math">\(\col(A)\text{?}\)</span>
+<li id="li-5751"><div class="para" id="p-8395">How does the reduced singular value decomposition provide a matrix whose columns are an orthonormal basis for <span class="process-math">\(\col(A)\text{?}\)</span>
 </div></li>
-<li id="li-5744"><div class="para logical" id="p-8362">
+<li id="li-5752"><div class="para logical" id="p-8396">
 <div class="para">Explain why a least squares approximate solution <span class="process-math">\(\xhat\)</span> satisfies</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -857,29 +857,29 @@ A\xhat = U_rU_r^{\transpose}\bvec.
 \end{equation*}
 </div>
 </div></li>
-<li id="li-5745"><div class="para" id="p-8363">What is the product <span class="process-math">\(V_r^{\transpose}V_r\)</span> and why does it have this form?</div></li>
-<li id="li-5746"><div class="para logical" id="p-8364">
+<li id="li-5753"><div class="para" id="p-8397">What is the product <span class="process-math">\(V_r^{\transpose}V_r\)</span> and why does it have this form?</div></li>
+<li id="li-5754"><div class="para logical" id="p-8398">
 <div class="para">Explain why</div>
 <div class="displaymath process-math">
 \begin{equation*}
 \xhat = V_r\Sigma_r^{-1}U_r^{\transpose}\bvec
 \end{equation*}
 </div>
-<div class="para">is the least squares approximate solution, and use this expression to find <span class="process-math">\(\xhat\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-280"><script type="text/x-sage">
+<div class="para">is the least squares approximate solution, and use this expression to find <span class="process-math">\(\xhat\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-282"><script type="text/x-sage">
 </script></pre>
 </div>
 </div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-340" id="answer-340"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-340"><div class="answer solution-like"><div class="para logical" id="p-8373"><ol class="lower-alpha">
-<li id="li-5754"><div class="para" id="p-8374">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-340" id="answer-340"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-340"><div class="answer solution-like"><div class="para logical" id="p-8407"><ol class="lower-alpha">
+<li id="li-5762"><div class="para" id="p-8408">
 <span class="process-math">\(\sigma_1 = 2.67\)</span> and <span class="process-math">\(\sigma_2 = 0.92\text{.}\)</span>
 </div></li>
-<li id="li-5755"><div class="para" id="p-8375">
+<li id="li-5763"><div class="para" id="p-8409">
 <span class="process-math">\(\rank(A) = 2\)</span> and the first two columns of <span class="process-math">\(U\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-5756"><div class="para logical" id="p-8376">
+<li id="li-5764"><div class="para logical" id="p-8410">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -899,19 +899,19 @@ V_r = \begin{bmatrix}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-5757"><div class="para" id="p-8377">The columns of <span class="process-math">\(U_r\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-5765"><div class="para" id="p-8411">The columns of <span class="process-math">\(U_r\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-5758"><div class="para" id="p-8378"><span class="process-math">\(\displaystyle \bhat=U_rU_r^{\transpose}\bvec\)</span></div></li>
-<li id="li-5759"><div class="para" id="p-8379"><span class="process-math">\(\displaystyle V_r^{\transpose}V_r = I\)</span></div></li>
-<li id="li-5760"><div class="para" id="p-8380"><span class="process-math">\(\displaystyle \xhat=\twovec{-0.83}{3.50}\)</span></div></li>
+<li id="li-5766"><div class="para" id="p-8412"><span class="process-math">\(\displaystyle \bhat=U_rU_r^{\transpose}\bvec\)</span></div></li>
+<li id="li-5767"><div class="para" id="p-8413"><span class="process-math">\(\displaystyle V_r^{\transpose}V_r = I\)</span></div></li>
+<li id="li-5768"><div class="para" id="p-8414"><span class="process-math">\(\displaystyle \xhat=\twovec{-0.83}{3.50}\)</span></div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-422" id="solution-422"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-422"><div class="solution solution-like"><div class="para logical" id="p-8365"><ol class="lower-alpha">
-<li id="li-5747"><div class="para" id="p-8366">The singular values are <span class="process-math">\(\sigma_1 = 2.67\)</span> and <span class="process-math">\(\sigma_2 = 0.92\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-421" id="solution-421"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-421"><div class="solution solution-like"><div class="para logical" id="p-8399"><ol class="lower-alpha">
+<li id="li-5755"><div class="para" id="p-8400">The singular values are <span class="process-math">\(\sigma_1 = 2.67\)</span> and <span class="process-math">\(\sigma_2 = 0.92\text{.}\)</span>
 </div></li>
-<li id="li-5748"><div class="para" id="p-8367">There are two nonzero singular values so <span class="process-math">\(\rank(A) =
+<li id="li-5756"><div class="para" id="p-8401">There are two nonzero singular values so <span class="process-math">\(\rank(A) =
 2\text{.}\)</span>  The first two columns of <span class="process-math">\(U\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-5749"><div class="para logical" id="p-8368">
+<li id="li-5757"><div class="para logical" id="p-8402">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -931,13 +931,13 @@ V_r = \begin{bmatrix}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-5750"><div class="para" id="p-8369">The columns of <span class="process-math">\(U_r\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-5758"><div class="para" id="p-8403">The columns of <span class="process-math">\(U_r\)</span> form an orthonormal basis for <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-5751"><div class="para" id="p-8370">Since <span class="process-math">\(\bhat=U_rU_r^{\transpose}\bvec\text{,}\)</span> we obtain the equation <span class="process-math">\(A\xhat = U_rU_r^{\transpose}\bvec\text{.}\)</span>
+<li id="li-5759"><div class="para" id="p-8404">Since <span class="process-math">\(\bhat=U_rU_r^{\transpose}\bvec\text{,}\)</span> we obtain the equation <span class="process-math">\(A\xhat = U_rU_r^{\transpose}\bvec\text{.}\)</span>
 </div></li>
-<li id="li-5752"><div class="para" id="p-8371">
+<li id="li-5760"><div class="para" id="p-8405">
 <span class="process-math">\(V_r^{\transpose}V_r = I\)</span> since this product computes the dot products of the columns.</div></li>
-<li id="li-5753"><div class="para logical" id="p-8372">
+<li id="li-5761"><div class="para logical" id="p-8406">
 <div class="para">We have the equation <span class="process-math">\(A\xhat = U_rU_r^{\transpose}\bvec\text{,}\)</span> which gives</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -952,25 +952,25 @@ V_r^{\transpose}\xhat \amp = \Sigma_r^{-1}U_r^{\transpose}\bvec \\
 </div>
 </div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-8381">This activity demonstrates the power of a singular value decomposition to find a least squares approximate solution for an equation <span class="process-math">\(A\xvec = \bvec\text{.}\)</span>  Because it immediately provides an orthonormal basis for <span class="process-math">\(\col(A)\text{,}\)</span> something that we’ve had to construct using the Gram-Schmidt process in the past, we can easily project <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{,}\)</span> which results in a simple expression for <span class="process-math">\(\xhat\text{.}\)</span>
+</div></article><div class="para" id="p-8415">This activity demonstrates the power of a singular value decomposition to find a least squares approximate solution for an equation <span class="process-math">\(A\xvec = \bvec\text{.}\)</span>  Because it immediately provides an orthonormal basis for <span class="process-math">\(\col(A)\text{,}\)</span> something that we’ve had to construct using the Gram-Schmidt process in the past, we can easily project <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{,}\)</span> which results in a simple expression for <span class="process-math">\(\xhat\text{.}\)</span>
 </div>
 <article class="proposition theorem-like" id="prop-svd-ols"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">7.5.1</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-8382">
+<div class="para logical" id="p-8416">
 <div class="para">If <span class="process-math">\(A=U_r\Sigma_r V_r^{\transpose}\)</span> is a reduced singular value decomposition of <span class="process-math">\(A\text{,}\)</span> then a least squares approximate solution to <span class="process-math">\(A\xvec=\bvec\)</span> is given by</div>
 <div class="displaymath process-math">
 \begin{equation*}
 \xhat = V_r\Sigma_r^{-1}U_r^{\transpose}\bvec.
 \end{equation*}
 </div>
-</div></article><div class="para" id="p-8383">If the columns of <span class="process-math">\(A\)</span> are linearly independent, then the equation <span class="process-math">\(A\xhat = \bhat\)</span> has only one solution so there is a unique least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span> Otherwise, the expression in <a href="" class="xref" data-knowl="./knowl/prop-svd-ols.html" title="Proposition 7.5.1">Proposition 7.5.1</a> produces the solution to <span class="process-math">\(A\xhat=\bhat\)</span> having the shortest length.</div>
-<div class="para" id="p-8384"> The matrix <span class="process-math">\(A^+ = V_r\Sigma_r^{-1}U_r^{\transpose}\)</span> is known as the <em class="emphasis">Moore-Penrose psuedoinverse</em> of <span class="process-math">\(A\text{.}\)</span>  When <span class="process-math">\(A\)</span> is invertible, <span class="process-math">\(A^{-1} = A^+\text{.}\)</span>
+</div></article><div class="para" id="p-8417">If the columns of <span class="process-math">\(A\)</span> are linearly independent, then the equation <span class="process-math">\(A\xhat = \bhat\)</span> has only one solution so there is a unique least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span> Otherwise, the expression in <a href="" class="xref" data-knowl="./knowl/prop-svd-ols.html" title="Proposition 7.5.1">Proposition 7.5.1</a> produces the solution to <span class="process-math">\(A\xhat=\bhat\)</span> having the shortest length.</div>
+<div class="para" id="p-8418"> The matrix <span class="process-math">\(A^+ = V_r\Sigma_r^{-1}U_r^{\transpose}\)</span> is known as the <em class="emphasis">Moore-Penrose psuedoinverse</em> of <span class="process-math">\(A\text{.}\)</span>  When <span class="process-math">\(A\)</span> is invertible, <span class="process-math">\(A^{-1} = A^+\text{.}\)</span>
 </div></section><section class="subsection" id="subsection-133"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.5.2</span><span class="space"> </span><span class="title">Rank <span class="process-math">\(k\)</span> approximations</span>
 </h3>
-<div class="para" id="p-8385">If we have a singular value decomposition for a matrix <span class="process-math">\(A\text{,}\)</span> we can form a sequence of matrices <span class="process-math">\(A_k\)</span> that approximate <span class="process-math">\(A\)</span> with increasing accuracy.  This may feel familiar to calculus students who have seen the way in which a function <span class="process-math">\(f(x)\)</span> can be approximated by a linear function, a quadratic function, and so forth with increasing accuracy.</div>
-<div class="para logical" id="p-8386">
+<div class="para" id="p-8419">If we have a singular value decomposition for a matrix <span class="process-math">\(A\text{,}\)</span> we can form a sequence of matrices <span class="process-math">\(A_k\)</span> that approximate <span class="process-math">\(A\)</span> with increasing accuracy.  This may feel familiar to calculus students who have seen the way in which a function <span class="process-math">\(f(x)\)</span> can be approximated by a linear function, a quadratic function, and so forth with increasing accuracy.</div>
+<div class="para logical" id="p-8420">
 <div class="para">We’ll begin with a singular value decomposition of a rank <span class="process-math">\(r\)</span> matrix <span class="process-math">\(A\)</span> so that <span class="process-math">\(A=U\Sigma V^{\transpose}\text{.}\)</span>  To create the approximating matrix <span class="process-math">\(A_k\text{,}\)</span> we keep the first <span class="process-math">\(k\)</span> singular values and set the others to zero.  For instance, if <span class="process-math">\(\Sigma = \begin{bmatrix}
 22 \amp 0 \amp 0 \amp 0 \amp 0 \\
 0 \amp 14 \amp 0 \amp 0 \amp 0 \\
@@ -1000,7 +1000,7 @@ U\Sigma^{(2)}V^{\transpose}\text{.}\)</span>  Because <span class="process-math"
 <article class="activity project-like" id="activity-106"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.5.3</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-8387">
+<div class="para logical" id="p-8421">
 <div class="para">Let’s consider a matrix <span class="process-math">\(A=U\Sigma V^{\transpose}\)</span> where</div>
 <div class="displaymath process-math" id="md-49">
 \begin{align*}
@@ -1024,54 +1024,54 @@ U\Sigma^{(2)}V^{\transpose}\text{.}\)</span>  Because <span class="process-math"
 \end{bmatrix}
 \end{align*}
 </div>
-<div class="para">Evaluating the following cell will create the matrices <code class="code-inline tex2jax_ignore">U</code>, <code class="code-inline tex2jax_ignore">V</code>, and <code class="code-inline tex2jax_ignore">Sigma</code>.  Notice how the <code class="code-inline tex2jax_ignore">diagonal_matrix</code> command provides a convenient way to form the diagonal matrix <span class="process-math">\(\Sigma\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-281"><script type="text/x-sage">h = 1/2
+<div class="para">Evaluating the following cell will create the matrices <code class="code-inline tex2jax_ignore">U</code>, <code class="code-inline tex2jax_ignore">V</code>, and <code class="code-inline tex2jax_ignore">Sigma</code>.  Notice how the <code class="code-inline tex2jax_ignore">diagonal_matrix</code> command provides a convenient way to form the diagonal matrix <span class="process-math">\(\Sigma\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-283"><script type="text/x-sage">h = 1/2
 U = matrix([[h,h,h,h],  [h,h,-h,-h],  [h,-h,h,-h],  [h,-h,-h,h]])	    
 V = matrix([[h,h,h,h],  [h,-h,-h,h],  [-h,-h,h,h],  [-h,h,-h,h]])
 Sigma = np.diag([500, 100, 20, 4])
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-5761"><div class="para" id="p-8388">Form the matrix <span class="process-math">\(A=U\Sigma V^{\transpose}\text{.}\)</span>  What is <span class="process-math">\(\rank(A)\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-282"><script type="text/x-sage">
+<li id="li-5769"><div class="para" id="p-8422">Form the matrix <span class="process-math">\(A=U\Sigma V^{\transpose}\text{.}\)</span>  What is <span class="process-math">\(\rank(A)\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-284"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5762"><div class="para" id="p-8389">Now form the approximating matrix <span class="process-math">\(A_1=U\Sigma^{(1)}
-V^{\transpose}\text{.}\)</span>  What is <span class="process-math">\(\rank(A_1)\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-283"><script type="text/x-sage">
+<li id="li-5770"><div class="para" id="p-8423">Now form the approximating matrix <span class="process-math">\(A_1=U\Sigma^{(1)}
+V^{\transpose}\text{.}\)</span>  What is <span class="process-math">\(\rank(A_1)\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-285"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5763"><div class="para" id="p-8390">Find the error in the approximation <span class="process-math">\(A\approx
+<li id="li-5771"><div class="para" id="p-8424">Find the error in the approximation <span class="process-math">\(A\approx
 A_1\)</span> by finding <span class="process-math">\(A-A_1\text{.}\)</span>
 </div></li>
-<li id="li-5764"><div class="para" id="p-8391">Now find <span class="process-math">\(A_2 = U\Sigma^{(2)} V^{\transpose}\)</span> and the error <span class="process-math">\(A-A_2\text{.}\)</span>  What is <span class="process-math">\(\rank(A_2)\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-284"><script type="text/x-sage">
+<li id="li-5772"><div class="para" id="p-8425">Now find <span class="process-math">\(A_2 = U\Sigma^{(2)} V^{\transpose}\)</span> and the error <span class="process-math">\(A-A_2\text{.}\)</span>  What is <span class="process-math">\(\rank(A_2)\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-286"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5765"><div class="para" id="p-8392">Find <span class="process-math">\(A_3 = U\Sigma^{(3)} V^{\transpose}\)</span> and the error <span class="process-math">\(A-A_3\text{.}\)</span>  What is <span class="process-math">\(\rank(A_3)\text{?}\)</span>
+<li id="li-5773"><div class="para" id="p-8426">Find <span class="process-math">\(A_3 = U\Sigma^{(3)} V^{\transpose}\)</span> and the error <span class="process-math">\(A-A_3\text{.}\)</span>  What is <span class="process-math">\(\rank(A_3)\text{?}\)</span>
 </div></li>
-<li id="li-5766"><div class="para" id="p-8393">What would happen if we were to compute <span class="process-math">\(A_4\text{?}\)</span>
+<li id="li-5774"><div class="para" id="p-8427">What would happen if we were to compute <span class="process-math">\(A_4\text{?}\)</span>
 </div></li>
-<li id="li-5767"><div class="para" id="p-8394">What do you notice about the error <span class="process-math">\(A-A_k\)</span> as <span class="process-math">\(k\)</span> increases?</div></li>
+<li id="li-5775"><div class="para" id="p-8428">What do you notice about the error <span class="process-math">\(A-A_k\)</span> as <span class="process-math">\(k\)</span> increases?</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-341" id="answer-341"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-341"><div class="answer solution-like"><div class="para logical" id="p-8403"><ol class="lower-alpha">
-<li id="li-5775"><div class="para" id="p-8404"><span class="process-math">\(A = \begin{bmatrix}
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-341" id="answer-341"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-341"><div class="answer solution-like"><div class="para logical" id="p-8437"><ol class="lower-alpha">
+<li id="li-5783"><div class="para" id="p-8438"><span class="process-math">\(A = \begin{bmatrix}
 156 \amp 96 \amp -144 \amp -104 \\
 144 \amp 104 \amp -156 \amp -96 \\
 104 \amp 144 \amp -96 \amp -156 \\
 96 \amp 156 \amp -104 \amp -144
 \end{bmatrix}\text{.}\)</span></div></li>
-<li id="li-5776"><div class="para" id="p-8405"><span class="process-math">\(A_1=\begin{bmatrix}
+<li id="li-5784"><div class="para" id="p-8439"><span class="process-math">\(A_1=\begin{bmatrix}
 125 \amp 125 \amp -125 \amp -125 \\
 125 \amp 125 \amp -125 \amp -125 \\
 125 \amp 125 \amp -125 \amp -125 \\
 125 \amp 125 \amp -125 \amp -125
 \end{bmatrix}\text{.}\)</span></div></li>
-<li id="li-5777"><div class="para" id="p-8406"><span class="process-math">\(\displaystyle A-A_1 = \begin{bmatrix}
+<li id="li-5785"><div class="para" id="p-8440"><span class="process-math">\(\displaystyle A-A_1 = \begin{bmatrix}
 31 \amp -29 \amp -19 \amp 21 \\
 19 \amp -21 \amp -31 \amp 29 \\
 -21 \amp 19 \amp 29 \amp -31 \\
 -29 \amp 31 \amp 21 \amp -19
 \end{bmatrix}\)</span></div></li>
-<li id="li-5778"><div class="para" id="p-8407">
+<li id="li-5786"><div class="para" id="p-8441">
 <span class="process-math">\(A_2 = \begin{bmatrix}
 150 \amp 100 \amp -150 \amp -100 \\
 150 \amp 100 \amp -150 \amp -100 \\
@@ -1084,7 +1084,7 @@ A_1\)</span> by finding <span class="process-math">\(A-A_1\text{.}\)</span>
 -4 \amp 6 \amp -4 \amp 6
 \end{bmatrix}\text{.}\)</span>
 </div></li>
-<li id="li-5779"><div class="para" id="p-8408">
+<li id="li-5787"><div class="para" id="p-8442">
 <span class="process-math">\(A_3 = \begin{bmatrix}
 155 \amp 95 \amp -145 \amp -105 \\
 145 \amp 105 \amp -155 \amp -95 \\
@@ -1097,32 +1097,32 @@ A_1\)</span> by finding <span class="process-math">\(A-A_1\text{.}\)</span>
 1 \amp 1 \amp 1 \amp 1
 \end{bmatrix}\text{.}\)</span>
 </div></li>
-<li id="li-5780"><div class="para" id="p-8409"><span class="process-math">\(\displaystyle A_4=A\)</span></div></li>
-<li id="li-5781"><div class="para" id="p-8410">The entries get closer to <span class="process-math">\(0\text{.}\)</span>
+<li id="li-5788"><div class="para" id="p-8443"><span class="process-math">\(\displaystyle A_4=A\)</span></div></li>
+<li id="li-5789"><div class="para" id="p-8444">The entries get closer to <span class="process-math">\(0\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-423" id="solution-423"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-423"><div class="solution solution-like"><div class="para logical" id="p-8395"><ol class="lower-alpha">
-<li id="li-5768"><div class="para" id="p-8396">We find that <span class="process-math">\(A\)</span> is the rank <span class="process-math">\(4\)</span> matrix: <span class="process-math">\(\begin{bmatrix}
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-422" id="solution-422"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-422"><div class="solution solution-like"><div class="para logical" id="p-8429"><ol class="lower-alpha">
+<li id="li-5776"><div class="para" id="p-8430">We find that <span class="process-math">\(A\)</span> is the rank <span class="process-math">\(4\)</span> matrix: <span class="process-math">\(\begin{bmatrix}
 156 \amp 96 \amp -144 \amp -104 \\
 144 \amp 104 \amp -156 \amp -96 \\
 104 \amp 144 \amp -96 \amp -156 \\
 96 \amp 156 \amp -104 \amp -144
 \end{bmatrix}\text{.}\)</span>
 </div></li>
-<li id="li-5769"><div class="para" id="p-8397">Because it has one nonzero singular value, <span class="process-math">\(A_1\)</span> has rank <span class="process-math">\(1\)</span> and has the form: <span class="process-math">\(A_1=\begin{bmatrix}
+<li id="li-5777"><div class="para" id="p-8431">Because it has one nonzero singular value, <span class="process-math">\(A_1\)</span> has rank <span class="process-math">\(1\)</span> and has the form: <span class="process-math">\(A_1=\begin{bmatrix}
 125 \amp 125 \amp -125 \amp -125 \\
 125 \amp 125 \amp -125 \amp -125 \\
 125 \amp 125 \amp -125 \amp -125 \\
 125 \amp 125 \amp -125 \amp -125
 \end{bmatrix}\text{.}\)</span>
 </div></li>
-<li id="li-5770"><div class="para" id="p-8398"><span class="process-math">\(\displaystyle A-A_1 = \begin{bmatrix}
+<li id="li-5778"><div class="para" id="p-8432"><span class="process-math">\(\displaystyle A-A_1 = \begin{bmatrix}
 31 \amp -29 \amp -19 \amp 21 \\
 19 \amp -21 \amp -31 \amp 29 \\
 -21 \amp 19 \amp 29 \amp -31 \\
 -29 \amp 31 \amp 21 \amp -19
 \end{bmatrix}\)</span></div></li>
-<li id="li-5771"><div class="para" id="p-8399">
+<li id="li-5779"><div class="para" id="p-8433">
 <span class="process-math">\(A_2\)</span> is the rank <span class="process-math">\(2\)</span> matrix <span class="process-math">\(\begin{bmatrix}
 150 \amp 100 \amp -150 \amp -100 \\
 150 \amp 100 \amp -150 \amp -100 \\
@@ -1135,7 +1135,7 @@ A_1\)</span> by finding <span class="process-math">\(A-A_1\text{.}\)</span>
 -4 \amp 6 \amp -4 \amp 6
 \end{bmatrix}\text{.}\)</span>
 </div></li>
-<li id="li-5772"><div class="para" id="p-8400">
+<li id="li-5780"><div class="para" id="p-8434">
 <span class="process-math">\(A_3\)</span> is the rank <span class="process-math">\(3\)</span> matrix <span class="process-math">\(\begin{bmatrix}
 155 \amp 95 \amp -145 \amp -105 \\
 145 \amp 105 \amp -155 \amp -95 \\
@@ -1148,12 +1148,12 @@ A_1\)</span> by finding <span class="process-math">\(A-A_1\text{.}\)</span>
 1 \amp 1 \amp 1 \amp 1
 \end{bmatrix}\text{.}\)</span>
 </div></li>
-<li id="li-5773"><div class="para" id="p-8401">
+<li id="li-5781"><div class="para" id="p-8435">
 <span class="process-math">\(A_4=A\)</span> since <span class="process-math">\(A\)</span> is a rank <span class="process-math">\(4\)</span> matrix.</div></li>
-<li id="li-5774"><div class="para" id="p-8402">As <span class="process-math">\(k\)</span> increases, the entries in the <span class="process-math">\(A-A_k\)</span> get closer to <span class="process-math">\(0\text{.}\)</span>  This means that our approximations <span class="process-math">\(A\approx A_k\)</span> are improving.</div></li>
+<li id="li-5782"><div class="para" id="p-8436">As <span class="process-math">\(k\)</span> increases, the entries in the <span class="process-math">\(A-A_k\)</span> get closer to <span class="process-math">\(0\text{.}\)</span>  This means that our approximations <span class="process-math">\(A\approx A_k\)</span> are improving.</div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-8411">In this activity, the approximating matrix <span class="process-math">\(A_k\)</span> has rank <span class="process-math">\(k\)</span> because its singular value decomposition has <span class="process-math">\(k\)</span> nonzero singular values.  We then saw how the difference between <span class="process-math">\(A\)</span> and the approximations <span class="process-math">\(A_k\)</span> decreases as <span class="process-math">\(k\)</span> increases, which means that the sequence <span class="process-math">\(A_k\)</span> forms better approximations as <span class="process-math">\(k\)</span> increases.</div>
-<div class="para logical" id="p-8412">
+</div></article><div class="para" id="p-8445">In this activity, the approximating matrix <span class="process-math">\(A_k\)</span> has rank <span class="process-math">\(k\)</span> because its singular value decomposition has <span class="process-math">\(k\)</span> nonzero singular values.  We then saw how the difference between <span class="process-math">\(A\)</span> and the approximations <span class="process-math">\(A_k\)</span> decreases as <span class="process-math">\(k\)</span> increases, which means that the sequence <span class="process-math">\(A_k\)</span> forms better approximations as <span class="process-math">\(k\)</span> increases.</div>
+<div class="para logical" id="p-8446">
 <div class="para">Another way to represent <span class="process-math">\(A_k\)</span> is with a reduced singular value decomposition so that <span class="process-math">\(A_k = U_k\Sigma_kV_k^{\transpose}\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1190,12 +1190,12 @@ A = A_r \amp = \sigma_1\uvec_1\vvec_1^{\transpose} +
 \end{align*}
 </div>
 </div>
-<div class="para" id="p-8413">Given two vectors <span class="process-math">\(\uvec\)</span> and <span class="process-math">\(\vvec\text{,}\)</span> the matrix <span class="process-math">\(\uvec~\vvec^{\transpose}\)</span> is called the <em class="emphasis">outer product</em> of <span class="process-math">\(\uvec\)</span> and <span class="process-math">\(\vvec\text{.}\)</span>  (The dot product <span class="process-math">\(\uvec\cdot\vvec=\uvec^{\transpose}\vvec\)</span> is sometimes called the <em class="emphasis">inner product</em>.)  An outer product will always be a rank <span class="process-math">\(1\)</span> matrix so we see above how <span class="process-math">\(A_k\)</span> is obtained by adding together <span class="process-math">\(k\)</span> rank <span class="process-math">\(1\)</span> matrices, each of which gets us one step closer to the original matrix <span class="process-math">\(A\text{.}\)</span>
+<div class="para" id="p-8447">Given two vectors <span class="process-math">\(\uvec\)</span> and <span class="process-math">\(\vvec\text{,}\)</span> the matrix <span class="process-math">\(\uvec~\vvec^{\transpose}\)</span> is called the <em class="emphasis">outer product</em> of <span class="process-math">\(\uvec\)</span> and <span class="process-math">\(\vvec\text{.}\)</span>  (The dot product <span class="process-math">\(\uvec\cdot\vvec=\uvec^{\transpose}\vvec\)</span> is sometimes called the <em class="emphasis">inner product</em>.)  An outer product will always be a rank <span class="process-math">\(1\)</span> matrix so we see above how <span class="process-math">\(A_k\)</span> is obtained by adding together <span class="process-math">\(k\)</span> rank <span class="process-math">\(1\)</span> matrices, each of which gets us one step closer to the original matrix <span class="process-math">\(A\text{.}\)</span>
 </div></section><section class="subsection" id="subsection-134"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.5.3</span><span class="space"> </span><span class="title">Principal component analysis</span>
 </h3>
-<div class="para" id="p-8414">In <a href="sec-pca.html" class="internal" title="Section 7.3: Principal Component Analysis">Section 7.3</a>, we explored principal component analysis as a technique to reduce the dimension of a dataset. In particular, we constructed the covariance matrix <span class="process-math">\(C\)</span> from a demeaned data matrix and saw that the eigenvalues and eigenvectors of <span class="process-math">\(C\)</span> tell us about the variance of the dataset in different directions.  We referred to the eigenvectors of <span class="process-math">\(C\)</span> as <em class="emphasis">principal components</em> and found that projecting the data onto a subspace defined by the first few principal components frequently gave us a way to visualize the dataset.  As we added more principal components, we retained more information about the original dataset.  This feels similar to the rank <span class="process-math">\(k\)</span> approximations we have just seen so let’s explore the connection.</div>
-<div class="para logical" id="p-8415">
+<div class="para" id="p-8448">In <a href="sec-pca.html" class="internal" title="Section 7.3: Principal Component Analysis">Section 7.3</a>, we explored principal component analysis as a technique to reduce the dimension of a dataset. In particular, we constructed the covariance matrix <span class="process-math">\(C\)</span> from a demeaned data matrix and saw that the eigenvalues and eigenvectors of <span class="process-math">\(C\)</span> tell us about the variance of the dataset in different directions.  We referred to the eigenvectors of <span class="process-math">\(C\)</span> as <em class="emphasis">principal components</em> and found that projecting the data onto a subspace defined by the first few principal components frequently gave us a way to visualize the dataset.  As we added more principal components, we retained more information about the original dataset.  This feels similar to the rank <span class="process-math">\(k\)</span> approximations we have just seen so let’s explore the connection.</div>
+<div class="para logical" id="p-8449">
 <div class="para">Suppose that we have a dataset with <span class="process-math">\(N\)</span> points, that <span class="process-math">\(A\)</span> represents the demeaned data matrix, that <span class="process-math">\(A = U\Sigma V^{\transpose}\)</span> is a singular value decomposition, and that the singular values are <span class="process-math">\(A\)</span> are denoted as <span class="process-math">\(\sigma_i\text{.}\)</span> It follows that the covariance matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1212,8 +1212,8 @@ U\left(\frac1N \Sigma \Sigma^{\transpose}\right) U^{\transpose}
 </div>
 <div class="para">is an orthgonal diagonalization of <span class="process-math">\(C\)</span> showing that</div>
 <ul class="disc">
-<li id="li-5782"><div class="para" id="p-8416">the principal components of the dataset, which are the eigenvectors of <span class="process-math">\(C\text{,}\)</span> are given by the columns of <span class="process-math">\(U\text{.}\)</span>  In other words, the left singular vectors of <span class="process-math">\(A\)</span> are the principal components of the dataset.</div></li>
-<li id="li-5783"><div class="para logical" id="p-8417">
+<li id="li-5790"><div class="para" id="p-8450">the principal components of the dataset, which are the eigenvectors of <span class="process-math">\(C\text{,}\)</span> are given by the columns of <span class="process-math">\(U\text{.}\)</span>  In other words, the left singular vectors of <span class="process-math">\(A\)</span> are the principal components of the dataset.</div></li>
+<li id="li-5791"><div class="para logical" id="p-8451">
 <div class="para">the variance in the direction of a principal component is the associated eigenvalue of <span class="process-math">\(C\)</span> and therefore</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1226,8 +1226,8 @@ V_{\uvec_i} = \frac1N\sigma_i^2.
 <article class="activity project-like" id="activity-107"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.5.4</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-8418">Let’s revisit the iris data set that we studied in <a href="sec-pca.html" class="internal" title="Section 7.3: Principal Component Analysis">Section 7.3</a>.  Remember that there are four measurements given for each of 150 irises and that each iris belongs to one of three species.</div> <div class="para logical" id="p-8419">
-<div class="para">Evaluating the following cell will load the dataset and define the demeaned data matrix <span class="process-math">\(A\)</span> whose shape is <span class="process-math">\(150\by4\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-285"><script type="text/x-sage">from sklearn import datasets 
+<div class="para" id="p-8452">Let’s revisit the iris data set that we studied in <a href="sec-pca.html" class="internal" title="Section 7.3: Principal Component Analysis">Section 7.3</a>.  Remember that there are four measurements given for each of 150 irises and that each iris belongs to one of three species.</div> <div class="para logical" id="p-8453">
+<div class="para">Evaluating the following cell will load the dataset and define the demeaned data matrix <span class="process-math">\(A\)</span> whose shape is <span class="process-math">\(150\by4\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-287"><script type="text/x-sage">from sklearn import datasets 
 iris = datasets.load_iris()
 X_iris = iris.data 
 y_iris = iris.target
@@ -1240,10 +1240,10 @@ print(A_iris.shape)
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-5784"><div class="para" id="p-8420">Find the singular values of <span class="process-math">\(A\)</span> using the command <code class="code-inline tex2jax_ignore">np.linalg.svd()</code> and use them to determine the variance <span class="process-math">\(V_{\uvec_j}\)</span> in the direction of each of the four principal components.  What is the fraction of variance retained by the first two principal components? <pre class="ptx-sagecell sagecell-python" id="sage-286"><script type="text/x-sage">
+<li id="li-5792"><div class="para" id="p-8454">Find the singular values of <span class="process-math">\(A\)</span> using the command <code class="code-inline tex2jax_ignore">np.linalg.svd()</code> and use them to determine the variance <span class="process-math">\(V_{\uvec_j}\)</span> in the direction of each of the four principal components.  What is the fraction of variance retained by the first two principal components? <pre class="ptx-sagecell sagecell-python" id="sage-288"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5785"><div class="para logical" id="p-8421">
+<li id="li-5793"><div class="para logical" id="p-8455">
 <div class="para">We will now write the matrix <span class="process-math">\(\Gamma = \Sigma
 V^{\transpose}\)</span> so that <span class="process-math">\(X = U\Gamma\text{.}\)</span> Suppose that a demeaned data point, say, the 100th column of <span class="process-math">\(X\text{,}\)</span> is written as a linear combination of principal components:</div>
 <div class="displaymath process-math">
@@ -1254,13 +1254,13 @@ V^{\transpose}\)</span> so that <span class="process-math">\(X = U\Gamma\text{.}
 <div class="para">Explain why <span class="process-math">\(\fourvec{c_1}{c_2}{c_3}{c_4}\text{,}\)</span> the vector of coordinates of <span class="process-math">\(\xvec\)</span> in the basis of principal components, appears as 100th column of <span class="process-math">\(\Gamma\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-5786"><div class="para" id="p-8422">Suppose that we now project this demeaned data point <span class="process-math">\(\xvec\)</span> orthogonally onto the subspace spanned by the first two principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  What are the coordinates of the projected point in this basis and how can we find them in the matrix <span class="process-math">\(\Gamma\text{?}\)</span>
+<li id="li-5794"><div class="para" id="p-8456">Suppose that we now project this demeaned data point <span class="process-math">\(\xvec\)</span> orthogonally onto the subspace spanned by the first two principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  What are the coordinates of the projected point in this basis and how can we find them in the matrix <span class="process-math">\(\Gamma\text{?}\)</span>
 </div></li>
-<li id="li-5787"><div class="para" id="p-8423">Alternatively, consider the approximation <span class="process-math">\(A_2=U_2\Sigma_2V_2^{\transpose}\)</span> of the demeaned data matrix <span class="process-math">\(A\text{.}\)</span> Explain why the 100th column of <span class="process-math">\(A_2\)</span> represents the projection of <span class="process-math">\(\xvec\)</span> onto the two-dimensional subspace spanned by the first two principal components, <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  Then explain why the coefficients in that projection, <span class="process-math">\(c_1\uvec_1 + c_2\uvec_2\text{,}\)</span> form the two-dimensional vector <span class="process-math">\(\twovec{c_1}{c_2}\)</span> that is the 100th column of <span class="process-math">\(\Gamma_2=\Sigma_2
+<li id="li-5795"><div class="para" id="p-8457">Alternatively, consider the approximation <span class="process-math">\(A_2=U_2\Sigma_2V_2^{\transpose}\)</span> of the demeaned data matrix <span class="process-math">\(A\text{.}\)</span> Explain why the 100th column of <span class="process-math">\(A_2\)</span> represents the projection of <span class="process-math">\(\xvec\)</span> onto the two-dimensional subspace spanned by the first two principal components, <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  Then explain why the coefficients in that projection, <span class="process-math">\(c_1\uvec_1 + c_2\uvec_2\text{,}\)</span> form the two-dimensional vector <span class="process-math">\(\twovec{c_1}{c_2}\)</span> that is the 100th column of <span class="process-math">\(\Gamma_2=\Sigma_2
 V_2^{\transpose}\text{.}\)</span>
 </div></li>
-<li id="li-5788"><div class="para" id="p-8424">Now we’ve seen that the columns of <span class="process-math">\(\Gamma_2 =
-\Sigma_2 V_2^{\transpose}\)</span> form the coordinates of the demeaned data points projected on to the two-dimensional subspace spanned by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span> In the cell below, find a singular value decomposition of <span class="process-math">\(A\)</span> and use it to form the matrix <code class="code-inline tex2jax_ignore">Gamma2</code>.  When you evaluate this cell, you will see a plot of the projected demeaned data plots, similar to the one we created in <a href="sec-pca.html" class="internal" title="Section 7.3: Principal Component Analysis">Section 7.3</a>. <pre class="ptx-sagecell sagecell-python" id="sage-287"><script type="text/x-sage"># Form the SVD of A and use it to form Gamma2
+<li id="li-5796"><div class="para" id="p-8458">Now we’ve seen that the columns of <span class="process-math">\(\Gamma_2 =
+\Sigma_2 V_2^{\transpose}\)</span> form the coordinates of the demeaned data points projected on to the two-dimensional subspace spanned by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span> In the cell below, find a singular value decomposition of <span class="process-math">\(A\)</span> and use it to form the matrix <code class="code-inline tex2jax_ignore">Gamma2</code>.  When you evaluate this cell, you will see a plot of the projected demeaned data plots, similar to the one we created in <a href="sec-pca.html" class="internal" title="Section 7.3: Principal Component Analysis">Section 7.3</a>. <pre class="ptx-sagecell sagecell-python" id="sage-289"><script type="text/x-sage"># Form the SVD of A and use it to form Gamma2
 
 		    
 Gamma2 = 
@@ -1275,71 +1275,71 @@ data = Gamma2.columns()
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-342" id="answer-342"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-342"><div class="answer solution-like"><div class="para logical" id="p-8431"><ol class="lower-alpha">
-<li id="li-5794"><div class="para" id="p-8432">The fraction of the total variance represented by the first two principal components is <span class="process-math">\(97.8\%\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-342" id="answer-342"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-342"><div class="answer solution-like"><div class="para logical" id="p-8465"><ol class="lower-alpha">
+<li id="li-5802"><div class="para" id="p-8466">The fraction of the total variance represented by the first two principal components is <span class="process-math">\(97.8\%\text{.}\)</span>
 </div></li>
-<li id="li-5795"><div class="para" id="p-8433">If <span class="process-math">\(\xvec =
+<li id="li-5803"><div class="para" id="p-8467">If <span class="process-math">\(\xvec =
 c_1\uvec_1+c_2\uvec_2+c_3\uvec_3+c_4\uvec_4\text{,}\)</span> then <span class="process-math">\(\fourvec{c_1}{c_2}{c_3}{c_4}\)</span> is the corresponding column of <span class="process-math">\(U^{\transpose}A\text{.}\)</span>
 </div></li>
-<li id="li-5796"><div class="para" id="p-8434">We just need the first two components of the corresponding column of <span class="process-math">\(\Gamma\text{.}\)</span>
+<li id="li-5804"><div class="para" id="p-8468">We just need the first two components of the corresponding column of <span class="process-math">\(\Gamma\text{.}\)</span>
 </div></li>
-<li id="li-5797"><div class="para" id="p-8435">
+<li id="li-5805"><div class="para" id="p-8469">
 <span class="process-math">\(\twovec{c_1}{c_2}\)</span> is the corresponding column of <span class="process-math">\(U_2^{\transpose}A\text{.}\)</span>
 </div></li>
-<li id="li-5798"><div class="para" id="p-8436">We can construct <span class="process-math">\(\Gamma_2=\Sigma_2 V_2^{\transpose}\)</span> or just pull out the first two rows of <span class="process-math">\(\Gamma=\Sigma
+<li id="li-5806"><div class="para" id="p-8470">We can construct <span class="process-math">\(\Gamma_2=\Sigma_2 V_2^{\transpose}\)</span> or just pull out the first two rows of <span class="process-math">\(\Gamma=\Sigma
 V^{\transpose}\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-424" id="solution-424"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-424"><div class="solution solution-like"><div class="para logical" id="p-8425"><ol class="lower-alpha">
-<li id="li-5789"><div class="para" id="p-8426">The singular values are <span class="process-math">\(\sigma_1=25.1\text{,}\)</span> <span class="process-math">\(\sigma_2 = 6.0\text{,}\)</span> <span class="process-math">\(\sigma_3=3.4\)</span> and <span class="process-math">\(\sigma_4 = 1.9\text{.}\)</span>  Since <span class="process-math">\(V_{\uvec_i} =
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-423" id="solution-423"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-423"><div class="solution solution-like"><div class="para logical" id="p-8459"><ol class="lower-alpha">
+<li id="li-5797"><div class="para" id="p-8460">The singular values are <span class="process-math">\(\sigma_1=25.1\text{,}\)</span> <span class="process-math">\(\sigma_2 = 6.0\text{,}\)</span> <span class="process-math">\(\sigma_3=3.4\)</span> and <span class="process-math">\(\sigma_4 = 1.9\text{.}\)</span>  Since <span class="process-math">\(V_{\uvec_i} =
 \frac{1}{150} \sigma_i^2\text{,}\)</span> the variances are <span class="process-math">\(4.20\text{,}\)</span> <span class="process-math">\(0.24\text{,}\)</span> <span class="process-math">\(0.08\text{,}\)</span> and <span class="process-math">\(0.02\text{.}\)</span>  The fraction of the total variance represented by the first two principal components is <span class="process-math">\(97.8\%\text{.}\)</span>
 </div></li>
-<li id="li-5790"><div class="para" id="p-8427">If <span class="process-math">\(\xvec\)</span> is the <span class="process-math">\(100^{th}\)</span> column of <span class="process-math">\(A\text{,}\)</span> then <span class="process-math">\(\fourvec{c_1}{c_2}{c_3}{c_4}\)</span> is the <span class="process-math">\(100^{th}\)</span> column of <span class="process-math">\(U^{\transpose}A = U^{\transpose}(U\Sigma
+<li id="li-5798"><div class="para" id="p-8461">If <span class="process-math">\(\xvec\)</span> is the <span class="process-math">\(100^{th}\)</span> column of <span class="process-math">\(A\text{,}\)</span> then <span class="process-math">\(\fourvec{c_1}{c_2}{c_3}{c_4}\)</span> is the <span class="process-math">\(100^{th}\)</span> column of <span class="process-math">\(U^{\transpose}A = U^{\transpose}(U\Sigma
 V^{\transpose}) = \Sigma V^{\transpose} = \Gamma\text{.}\)</span>
 </div></li>
-<li id="li-5791"><div class="para" id="p-8428">The projected data point is <span class="process-math">\(\xhat = c_1\uvec_1 +
+<li id="li-5799"><div class="para" id="p-8462">The projected data point is <span class="process-math">\(\xhat = c_1\uvec_1 +
 c_2\uvec_2\)</span> since <span class="process-math">\(c_3\uvec_3+c_4\uvec_4\)</span> is orthogonal to the subspace spanned by the first two principal components.  Therefore, the coordinates of the projected data point are the first two components of the corresponding column of <span class="process-math">\(\Gamma\text{.}\)</span>  The coordinates of all the projected data points are given by the first two rows of <span class="process-math">\(\Gamma\text{.}\)</span>
 </div></li>
-<li id="li-5792"><div class="para" id="p-8429">Once again, suppose that <span class="process-math">\(\xvec=c_1\uvec_1+c_2\uvec_2+c_3\uvec_3+c_4\uvec_4\)</span> is a column of <span class="process-math">\(A\)</span> and that <span class="process-math">\(U_2 = \begin{bmatrix}\uvec_1 \amp \uvec_2
+<li id="li-5800"><div class="para" id="p-8463">Once again, suppose that <span class="process-math">\(\xvec=c_1\uvec_1+c_2\uvec_2+c_3\uvec_3+c_4\uvec_4\)</span> is a column of <span class="process-math">\(A\)</span> and that <span class="process-math">\(U_2 = \begin{bmatrix}\uvec_1 \amp \uvec_2
 \end{bmatrix}\text{.}\)</span>  Then <span class="process-math">\(\twovec{c_1}{c_2}\)</span> is the corresponding column of <span class="process-math">\(U_2^{\transpose}A = U_2(U\Sigma
 V^{\transpose}) = \begin{bmatrix}
 1 \amp 0 \amp 0 \amp 0 \\
 0 \amp 1 \amp 0 \amp 0 \\
 \end{bmatrix}\Sigma V^{\transpose} = \Sigma_2 V_2^{\transpose}=\Gamma_2\text{.}\)</span>
 </div></li>
-<li id="li-5793"><div class="para" id="p-8430">We can construct <span class="process-math">\(\Gamma_2=\Sigma_2 V_2^{\transpose}\)</span> or just pull out the first two rows of <span class="process-math">\(\Gamma=\Sigma
+<li id="li-5801"><div class="para" id="p-8464">We can construct <span class="process-math">\(\Gamma_2=\Sigma_2 V_2^{\transpose}\)</span> or just pull out the first two rows of <span class="process-math">\(\Gamma=\Sigma
 V^{\transpose}\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-8437">In our first encounter with principal component analysis, we began with a demeaned data matrix <span class="process-math">\(A\text{,}\)</span> formed the covariance matrix <span class="process-math">\(C\text{,}\)</span> and used the eigenvalues and eigenvectors of <span class="process-math">\(C\)</span> to project the demeaned data onto a smaller dimensional subspace.  In this section, we have seen that a singular value decomposition of <span class="process-math">\(A\)</span> provides a more direct route: the left singular vectors of <span class="process-math">\(A\)</span> form the principal components and the approximating matrix <span class="process-math">\(A_k\)</span> represents the data points projected onto the subspace spanned by the first <span class="process-math">\(k\)</span> principal components.  The coordinates of a projected demeaned data point are given by the columns of <span class="process-math">\(\Gamma_k =
+</div></article><div class="para" id="p-8471">In our first encounter with principal component analysis, we began with a demeaned data matrix <span class="process-math">\(A\text{,}\)</span> formed the covariance matrix <span class="process-math">\(C\text{,}\)</span> and used the eigenvalues and eigenvectors of <span class="process-math">\(C\)</span> to project the demeaned data onto a smaller dimensional subspace.  In this section, we have seen that a singular value decomposition of <span class="process-math">\(A\)</span> provides a more direct route: the left singular vectors of <span class="process-math">\(A\)</span> form the principal components and the approximating matrix <span class="process-math">\(A_k\)</span> represents the data points projected onto the subspace spanned by the first <span class="process-math">\(k\)</span> principal components.  The coordinates of a projected demeaned data point are given by the columns of <span class="process-math">\(\Gamma_k =
 \Sigma_kV_k^{\transpose}\text{.}\)</span>
 </div></section><section class="subsection" id="subsection-135"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.5.4</span><span class="space"> </span><span class="title">Image compressing and denoising</span>
 </h3>
-<div class="para" id="p-8438">In addition to principal component analysis, the approximations <span class="process-math">\(A_k\)</span> of a matrix <span class="process-math">\(A\)</span> obtained from a singular value decomposition can be used in image processing. Remember that we studied the JPEG compression algorithm, whose foundation is the change of basis defined by the Discrete Cosine Transform, in <a href="sec-jpeg.html" class="internal" title="Section 4.4: Image compression">Section 4.4</a>. We will now see how a singular value decomposition provides another tool for both compressing images and removing noise in them.</div>
+<div class="para" id="p-8472">In addition to principal component analysis, the approximations <span class="process-math">\(A_k\)</span> of a matrix <span class="process-math">\(A\)</span> obtained from a singular value decomposition can be used in image processing. Remember that we studied the JPEG compression algorithm, whose foundation is the change of basis defined by the Discrete Cosine Transform, in <a href="sec-jpeg.html" class="internal" title="Section 4.4: Image compression">Section 4.4</a>. We will now see how a singular value decomposition provides another tool for both compressing images and removing noise in them.</div>
 <article class="activity project-like" id="activity-108"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.5.5</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-8439">
-<div class="para">Evaluating the following cell loads some data that we’ll use in this activity.  To begin, it defines and displays a <span class="process-math">\(25\by15\)</span> matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-288"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_compress.py', globals())
+<div class="para logical" id="p-8473">
+<div class="para">Evaluating the following cell loads some data that we’ll use in this activity.  To begin, it defines and displays a <span class="process-math">\(25\by15\)</span> matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-290"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_compress.py', globals())
 print(A)
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-5799"><div class="para logical" id="p-8440">
-<div class="para">If we interpret 0 as black and 1 as white, this matrix represents an image as shown below. <pre class="ptx-sagecell sagecell-python" id="sage-289"><script type="text/x-sage">display_matrix(A)
+<li id="li-5807"><div class="para logical" id="p-8474">
+<div class="para">If we interpret 0 as black and 1 as white, this matrix represents an image as shown below. <pre class="ptx-sagecell sagecell-python" id="sage-291"><script type="text/x-sage">display_matrix(A)
 </script></pre> We will explore how the singular value decomposition helps us to compress this image.</div>
 <ol class="decimal">
-<li id="li-5800"><div class="para" id="p-8441">By inspecting the image represented by <span class="process-math">\(A\text{,}\)</span> identify a basis for <span class="process-math">\(\col(A)\)</span> and determine <span class="process-math">\(\rank(A)\text{.}\)</span>
+<li id="li-5808"><div class="para" id="p-8475">By inspecting the image represented by <span class="process-math">\(A\text{,}\)</span> identify a basis for <span class="process-math">\(\col(A)\)</span> and determine <span class="process-math">\(\rank(A)\text{.}\)</span>
 </div></li>
-<li id="li-5801"><div class="para" id="p-8442">The following cell plots the singular values of <span class="process-math">\(A\text{.}\)</span>  Explain how this plot verifies that the rank is what you found in the previous part. <pre class="ptx-sagecell sagecell-python" id="sage-290"><script type="text/x-sage">plot_sv(A)
+<li id="li-5809"><div class="para" id="p-8476">The following cell plots the singular values of <span class="process-math">\(A\text{.}\)</span>  Explain how this plot verifies that the rank is what you found in the previous part. <pre class="ptx-sagecell sagecell-python" id="sage-292"><script type="text/x-sage">plot_sv(A)
 </script></pre>
 </div></li>
-<li id="li-5802"><div class="para" id="p-8443">There is a command <code class="code-inline tex2jax_ignore">approximate(A, k)</code> that creates the approximation <span class="process-math">\(A_k\text{.}\)</span>  Use the cell below to define <span class="process-math">\(k\)</span> and look at the images represented by the first few approximations.  What is the smallest value of <span class="process-math">\(k\)</span> for which <span class="process-math">\(A=A_k\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-291"><script type="text/x-sage">k = 
+<li id="li-5810"><div class="para" id="p-8477">There is a command <code class="code-inline tex2jax_ignore">approximate(A, k)</code> that creates the approximation <span class="process-math">\(A_k\text{.}\)</span>  Use the cell below to define <span class="process-math">\(k\)</span> and look at the images represented by the first few approximations.  What is the smallest value of <span class="process-math">\(k\)</span> for which <span class="process-math">\(A=A_k\text{?}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-293"><script type="text/x-sage">k = 
 display_matrix(approximate(A, k))
 </script></pre>
 </div></li>
-<li id="li-5803"><div class="para logical" id="p-8444">
+<li id="li-5811"><div class="para logical" id="p-8478">
 <div class="para">Now we can see how the singular value decomposition allows us to compress images. Since this is a <span class="process-math">\(25\by15\)</span> matrix, we need <span class="process-math">\(25\cdot15=375\)</span> numbers to represent the image.  However, we can also reconstruct the image using a small number of singular values and vectors:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1350,38 +1350,38 @@ A = A_k = \sigma_1\uvec_1\vvec_1^{\transpose} +
 </div>
 <div class="para">What are the dimensions of the singular vectors <span class="process-math">\(\uvec_i\)</span> and <span class="process-math">\(\vvec_i\text{?}\)</span>  Between the singular vectors and singular values, how many numbers do we need to reconstruct <span class="process-math">\(A_k\)</span> for the smallest <span class="process-math">\(k\)</span> for which <span class="process-math">\(A=A_k\text{?}\)</span>  This is the compressed size of the image.</div>
 </div></li>
-<li id="li-5804"><div class="para" id="p-8445">The <em class="emphasis">compression ratio</em> is the ratio of the uncompressed size to the compressed size.  What compression ratio does this represent?</div></li>
+<li id="li-5812"><div class="para" id="p-8479">The <em class="emphasis">compression ratio</em> is the ratio of the uncompressed size to the compressed size.  What compression ratio does this represent?</div></li>
 </ol>
 </div></li>
-<li id="li-5805"><div class="para logical" id="p-8446">
+<li id="li-5813"><div class="para logical" id="p-8480">
 <div class="para">Next we’ll explore an example based on a photograph.</div>
 <ol class="decimal">
-<li id="li-5806">
-<div class="para" id="p-8447">Consider the following image consisting of an array of <span class="process-math">\(316\by310\)</span> pixels stored in the matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-292"><script type="text/x-sage">A = matrix(RDF, image)
+<li id="li-5814">
+<div class="para" id="p-8481">Consider the following image consisting of an array of <span class="process-math">\(316\by310\)</span> pixels stored in the matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-294"><script type="text/x-sage">A = matrix(RDF, image)
 display_image(A)
 </script></pre>
 </div>
-<div class="para" id="p-8448">Plot the singular values of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-293"><script type="text/x-sage">plot_sv(A)
+<div class="para" id="p-8482">Plot the singular values of <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-295"><script type="text/x-sage">plot_sv(A)
 </script></pre>
 </div>
 </li>
-<li id="li-5807">
-<div class="para" id="p-8449">Use the cell below to study the approximations <span class="process-math">\(A_k\)</span> for <span class="process-math">\(k=1, 10, 20, 50, 100\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-294"><script type="text/x-sage">k = 1
+<li id="li-5815">
+<div class="para" id="p-8483">Use the cell below to study the approximations <span class="process-math">\(A_k\)</span> for <span class="process-math">\(k=1, 10, 20, 50, 100\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-296"><script type="text/x-sage">k = 1
 display_image(approximate(A, k))
 </script></pre> Notice how the approximating image <span class="process-math">\(A_k\)</span> more closely approximates the original image <span class="process-math">\(A\)</span> as <span class="process-math">\(k\)</span> increases.</div>
-<div class="para" id="p-8450">What is the compression ratio when <span class="process-math">\(k=50\text{?}\)</span> What is the compression ratio when <span class="process-math">\(k=100\text{?}\)</span> Notice how a higher compression ratio leads to a lower quality reconstruction of the image.</div>
+<div class="para" id="p-8484">What is the compression ratio when <span class="process-math">\(k=50\text{?}\)</span> What is the compression ratio when <span class="process-math">\(k=100\text{?}\)</span> Notice how a higher compression ratio leads to a lower quality reconstruction of the image.</div>
 </li>
 </ol>
 </div></li>
-<li id="li-5808"><div class="para logical" id="p-8451">
-<div class="para">A second, related application of the singular value decomposition to image processing is called <em class="emphasis">denoising</em>.  For example, consider the image represented by the matrix <span class="process-math">\(A\)</span> below. <pre class="ptx-sagecell sagecell-python" id="sage-295"><script type="text/x-sage">A = matrix(RDF, noise.values)		    
+<li id="li-5816"><div class="para logical" id="p-8485">
+<div class="para">A second, related application of the singular value decomposition to image processing is called <em class="emphasis">denoising</em>.  For example, consider the image represented by the matrix <span class="process-math">\(A\)</span> below. <pre class="ptx-sagecell sagecell-python" id="sage-297"><script type="text/x-sage">A = matrix(RDF, noise.values)		    
 display_matrix(A)
 </script></pre> This image is similar to the image of the letter "O" we first studied in this activity, but there are splotchy regions in the background that result, perhaps, from scanning the image.  We think of the splotchy regions as noise, and our goal is to improve the quality of the image by reducing the noise.</div>
 <ol class="decimal">
-<li id="li-5809"><div class="para" id="p-8452">Plot the singular values below.  How are the singular values of this matrix similar to those represented by the clean image that we considered earlier and how are they different? <pre class="ptx-sagecell sagecell-python" id="sage-296"><script type="text/x-sage">plot_sv(A)
+<li id="li-5817"><div class="para" id="p-8486">Plot the singular values below.  How are the singular values of this matrix similar to those represented by the clean image that we considered earlier and how are they different? <pre class="ptx-sagecell sagecell-python" id="sage-298"><script type="text/x-sage">plot_sv(A)
 </script></pre>
 </div></li>
-<li id="li-5810"><div class="para" id="p-8453">There is a natural point where the singular values dramatically decrease so it makes sense to think of the noise as being formed by the small singular values.  To denoise the image, we will therefore replace <span class="process-math">\(A\)</span> by its approximation <span class="process-math">\(A_k\text{,}\)</span> where <span class="process-math">\(k\)</span> is the point at which the singular values drop off. This has the effect of setting the small singular values to zero and hence eliminating the noise.  Choose an appropriate value of <span class="process-math">\(k\)</span> below and notice that the new image appears to be somewhat cleaned up as a result of removing the noise. <pre class="ptx-sagecell sagecell-python" id="sage-297"><script type="text/x-sage">k = 
+<li id="li-5818"><div class="para" id="p-8487">There is a natural point where the singular values dramatically decrease so it makes sense to think of the noise as being formed by the small singular values.  To denoise the image, we will therefore replace <span class="process-math">\(A\)</span> by its approximation <span class="process-math">\(A_k\text{,}\)</span> where <span class="process-math">\(k\)</span> is the point at which the singular values drop off. This has the effect of setting the small singular values to zero and hence eliminating the noise.  Choose an appropriate value of <span class="process-math">\(k\)</span> below and notice that the new image appears to be somewhat cleaned up as a result of removing the noise. <pre class="ptx-sagecell sagecell-python" id="sage-299"><script type="text/x-sage">k = 
 display_matrix(approximate(A, k))
 </script></pre>
 </div></li>
@@ -1390,107 +1390,107 @@ display_matrix(approximate(A, k))
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-343" id="answer-343"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-343"><div class="answer solution-like"><div class="para logical" id="p-8467"><ol class="lower-alpha">
-<li id="li-5823"><div class="para logical" id="p-8468"><ol class="decimal">
-<li id="li-5824"><div class="para" id="p-8469"><span class="process-math">\(\displaystyle \rank(A) = 3\)</span></div></li>
-<li id="li-5825"><div class="para" id="p-8470"><span class="process-math">\(\displaystyle \rank(A) = 3\)</span></div></li>
-<li id="li-5826"><div class="para" id="p-8471"><span class="process-math">\(\displaystyle k=3\)</span></div></li>
-<li id="li-5827"><div class="para" id="p-8472"><span class="process-math">\(\displaystyle 123\)</span></div></li>
-<li id="li-5828"><div class="para" id="p-8473">The compression ratio is <span class="process-math">\(375/123=3.0\)</span>
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-343" id="answer-343"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-343"><div class="answer solution-like"><div class="para logical" id="p-8501"><ol class="lower-alpha">
+<li id="li-5831"><div class="para logical" id="p-8502"><ol class="decimal">
+<li id="li-5832"><div class="para" id="p-8503"><span class="process-math">\(\displaystyle \rank(A) = 3\)</span></div></li>
+<li id="li-5833"><div class="para" id="p-8504"><span class="process-math">\(\displaystyle \rank(A) = 3\)</span></div></li>
+<li id="li-5834"><div class="para" id="p-8505"><span class="process-math">\(\displaystyle k=3\)</span></div></li>
+<li id="li-5835"><div class="para" id="p-8506"><span class="process-math">\(\displaystyle 123\)</span></div></li>
+<li id="li-5836"><div class="para" id="p-8507">The compression ratio is <span class="process-math">\(375/123=3.0\)</span>
 </div></li>
 </ol></div></li>
-<li id="li-5829"><div class="para logical" id="p-8474"><ol class="decimal">
-<li id="li-5830"><div class="para" id="p-8475">The singular values fall off steeply but never reach <span class="process-math">\(0\text{.}\)</span>
+<li id="li-5837"><div class="para logical" id="p-8508"><ol class="decimal">
+<li id="li-5838"><div class="para" id="p-8509">The singular values fall off steeply but never reach <span class="process-math">\(0\text{.}\)</span>
 </div></li>
-<li id="li-5831"><div class="para" id="p-8476">When <span class="process-math">\(k=50\text{,}\)</span> the compression ratio is about <span class="process-math">\(3.1\text{.}\)</span>  When <span class="process-math">\(k=100\text{,}\)</span> the compression ratio is about <span class="process-math">\(1.6\text{.}\)</span>
+<li id="li-5839"><div class="para" id="p-8510">When <span class="process-math">\(k=50\text{,}\)</span> the compression ratio is about <span class="process-math">\(3.1\text{.}\)</span>  When <span class="process-math">\(k=100\text{,}\)</span> the compression ratio is about <span class="process-math">\(1.6\text{.}\)</span>
 </div></li>
 </ol></div></li>
-<li id="li-5832"><div class="para logical" id="p-8477"><ol class="decimal">
-<li id="li-5833"><div class="para" id="p-8478">The singular values are similar, but they never reach <span class="process-math">\(0\text{.}\)</span>
+<li id="li-5840"><div class="para logical" id="p-8511"><ol class="decimal">
+<li id="li-5841"><div class="para" id="p-8512">The singular values are similar, but they never reach <span class="process-math">\(0\text{.}\)</span>
 </div></li>
-<li id="li-5834"><div class="para" id="p-8479">
+<li id="li-5842"><div class="para" id="p-8513">
 <span class="process-math">\(k=3\)</span> seems like a natural approximation</div></li>
 </ol></div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-425" id="solution-425"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-425"><div class="solution solution-like"><div class="para logical" id="p-8454"><ol class="lower-alpha">
-<li id="li-5811"><div class="para logical" id="p-8455"><ol class="decimal">
-<li id="li-5812"><div class="para" id="p-8456">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-424" id="solution-424"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-424"><div class="solution solution-like"><div class="para logical" id="p-8488"><ol class="lower-alpha">
+<li id="li-5819"><div class="para logical" id="p-8489"><ol class="decimal">
+<li id="li-5820"><div class="para" id="p-8490">
 <span class="process-math">\(\rank(A) = 3\)</span> because there are three distinct columns represented by the first, third, and sixth columns.</div></li>
-<li id="li-5813"><div class="para" id="p-8457">There are three nonzero singular values so <span class="process-math">\(\rank(A) =3\)</span> as we suspected.</div></li>
-<li id="li-5814"><div class="para" id="p-8458">The smallest value is <span class="process-math">\(k=3\)</span> since <span class="process-math">\(\rank(A)
+<li id="li-5821"><div class="para" id="p-8491">There are three nonzero singular values so <span class="process-math">\(\rank(A) =3\)</span> as we suspected.</div></li>
+<li id="li-5822"><div class="para" id="p-8492">The smallest value is <span class="process-math">\(k=3\)</span> since <span class="process-math">\(\rank(A)
 = 3\text{.}\)</span>
 </div></li>
-<li id="li-5815"><div class="para" id="p-8459">The left singular vectors are <span class="process-math">\(25\)</span>-dimensional and the right singular vectors are <span class="process-math">\(15\)</span>-dimensional.  If we keep three singular values, left singular vectors, and right singular vectors, we have <span class="process-math">\(3(1+25+15) =
+<li id="li-5823"><div class="para" id="p-8493">The left singular vectors are <span class="process-math">\(25\)</span>-dimensional and the right singular vectors are <span class="process-math">\(15\)</span>-dimensional.  If we keep three singular values, left singular vectors, and right singular vectors, we have <span class="process-math">\(3(1+25+15) =
 123\text{.}\)</span>
 </div></li>
-<li id="li-5816"><div class="para" id="p-8460">The compression ratio is <span class="process-math">\(375/123=3.0\)</span> so the data is compressed by a factor of <span class="process-math">\(3\text{.}\)</span>
+<li id="li-5824"><div class="para" id="p-8494">The compression ratio is <span class="process-math">\(375/123=3.0\)</span> so the data is compressed by a factor of <span class="process-math">\(3\text{.}\)</span>
 </div></li>
 </ol></div></li>
-<li id="li-5817"><div class="para logical" id="p-8461"><ol class="decimal">
-<li id="li-5818"><div class="para" id="p-8462">The singular values fall off steeply but never reach <span class="process-math">\(0\text{.}\)</span>
+<li id="li-5825"><div class="para logical" id="p-8495"><ol class="decimal">
+<li id="li-5826"><div class="para" id="p-8496">The singular values fall off steeply but never reach <span class="process-math">\(0\text{.}\)</span>
 </div></li>
-<li id="li-5819"><div class="para" id="p-8463">When <span class="process-math">\(k=50\text{,}\)</span> the compression ratio is about <span class="process-math">\(3.1\text{.}\)</span>  When <span class="process-math">\(k=100\text{,}\)</span> the compression ratio is about <span class="process-math">\(1.6\text{.}\)</span>
+<li id="li-5827"><div class="para" id="p-8497">When <span class="process-math">\(k=50\text{,}\)</span> the compression ratio is about <span class="process-math">\(3.1\text{.}\)</span>  When <span class="process-math">\(k=100\text{,}\)</span> the compression ratio is about <span class="process-math">\(1.6\text{.}\)</span>
 </div></li>
 </ol></div></li>
-<li id="li-5820"><div class="para logical" id="p-8464"><ol class="decimal">
-<li id="li-5821"><div class="para" id="p-8465">The singular values are similar, but they never reach <span class="process-math">\(0\text{.}\)</span>
+<li id="li-5828"><div class="para logical" id="p-8498"><ol class="decimal">
+<li id="li-5829"><div class="para" id="p-8499">The singular values are similar, but they never reach <span class="process-math">\(0\text{.}\)</span>
 </div></li>
-<li id="li-5822"><div class="para" id="p-8466">
+<li id="li-5830"><div class="para" id="p-8500">
 <span class="process-math">\(k=3\)</span> seems like a natural approximation since that’s the place where the singular values become almost <span class="process-math">\(0\text{.}\)</span>
 </div></li>
 </ol></div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-8480">Several examples illustrating how the singular value decomposition compresses images are available at this page from <a class="external" href="http://timbaumann.info/svd-image-compression-demo/" target="_blank">Tim Baumann.</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-9" id="fn-9"><sup> 1 </sup></a>
+</div></article><div class="para" id="p-8514">Several examples illustrating how the singular value decomposition compresses images are available at this page from <a class="external" href="http://timbaumann.info/svd-image-compression-demo/" target="_blank">Tim Baumann.</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-9" id="fn-9"><sup> 1 </sup></a>
 </div></section><section class="subsection" id="subsection-136"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.5.5</span><span class="space"> </span><span class="title">Analyzing Supreme Court cases</span>
 </h3>
-<div class="para" id="p-8481">As we’ve seen, a singular value decomposition concentrates the most important features of a matrix into the first singular values and singular vectors.  We will now use this observation to extract meaning from a large dataset giving the voting records of Supreme Court justices.  A similar analysis appears in the paper <a class="external" href="https://www.pnas.org/content/100/13/7432" target="_blank">A pattern analysis of the second Rehnquist U.S. Supreme Court</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-10" id="fn-10"><sup> 2 </sup></a> by Lawrence Sirovich.</div>
-<div class="para logical" id="p-8482">
+<div class="para" id="p-8515">As we’ve seen, a singular value decomposition concentrates the most important features of a matrix into the first singular values and singular vectors.  We will now use this observation to extract meaning from a large dataset giving the voting records of Supreme Court justices.  A similar analysis appears in the paper <a class="external" href="https://www.pnas.org/content/100/13/7432" target="_blank">A pattern analysis of the second Rehnquist U.S. Supreme Court</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-10" id="fn-10"><sup> 2 </sup></a> by Lawrence Sirovich.</div>
+<div class="para logical" id="p-8516">
 <div class="para">The makeup of the Supreme Court was unusually stable during a period from 1994-2005 when it was led by Chief Justice William Rehnquist.  This is sometimes called the <em class="emphasis">second Rehnquist court</em>.  The justices during this period were:</div>
 <ul class="disc">
-<li id="li-5835"><div class="para" id="p-8483">William Rehnquist</div></li>
-<li id="li-5836"><div class="para" id="p-8484">Antonin Scalia</div></li>
-<li id="li-5837"><div class="para" id="p-8485">Clarence Thomas</div></li>
-<li id="li-5838"><div class="para" id="p-8486">Anthony Kennedy</div></li>
-<li id="li-5839"><div class="para" id="p-8487">Sandra Day O’Connor</div></li>
-<li id="li-5840"><div class="para" id="p-8488">John Paul Stevens</div></li>
-<li id="li-5841"><div class="para" id="p-8489">David Souter</div></li>
-<li id="li-5842"><div class="para" id="p-8490">Ruth Bader Ginsburg</div></li>
-<li id="li-5843"><div class="para" id="p-8491">Stephen Breyer</div></li>
+<li id="li-5843"><div class="para" id="p-8517">William Rehnquist</div></li>
+<li id="li-5844"><div class="para" id="p-8518">Antonin Scalia</div></li>
+<li id="li-5845"><div class="para" id="p-8519">Clarence Thomas</div></li>
+<li id="li-5846"><div class="para" id="p-8520">Anthony Kennedy</div></li>
+<li id="li-5847"><div class="para" id="p-8521">Sandra Day O’Connor</div></li>
+<li id="li-5848"><div class="para" id="p-8522">John Paul Stevens</div></li>
+<li id="li-5849"><div class="para" id="p-8523">David Souter</div></li>
+<li id="li-5850"><div class="para" id="p-8524">Ruth Bader Ginsburg</div></li>
+<li id="li-5851"><div class="para" id="p-8525">Stephen Breyer</div></li>
 </ul>
 </div>
-<div class="para" id="p-8492">During this time, there were 911 cases in which all nine judges voted.  We would like to understand patterns in their voting.</div>
+<div class="para" id="p-8526">During this time, there were 911 cases in which all nine judges voted.  We would like to understand patterns in their voting.</div>
 <article class="activity project-like" id="activity-109"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.5.6</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-8493">Evaluating the following cell loads and displays a dataset describing the votes of each justice in these 911 cases. More specifically, an entry of +1 means that the justice represented by the row voted with the majority in the case represented by the column.  An entry of -1 means that justice was in the minority.  This information is also stored in the <span class="process-math">\(9\by911\)</span> matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-298"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
+<div class="para" id="p-8527">Evaluating the following cell loads and displays a dataset describing the votes of each justice in these 911 cases. More specifically, an entry of +1 means that the justice represented by the row voted with the majority in the case represented by the column.  An entry of -1 means that justice was in the minority.  This information is also stored in the <span class="process-math">\(9\by911\)</span> matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-300"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
 A = matrix(RDF, cases.values)
 cases
-</script></pre> The justices are listed, very roughly, in order from more conservative to more progressive.</div> <div class="para logical" id="p-8494">
-<div class="para">In this activity, it will be helpful to visualize the entries in various matrices and vectors.  The next cell displays the first 50 columns of the matrix <span class="process-math">\(A\)</span> with white representing an entry of +1, red representing -1, and black representing 0. <pre class="ptx-sagecell sagecell-python" id="sage-299"><script type="text/x-sage">display_matrix(A.matrix_from_columns(range(50)))
+</script></pre> The justices are listed, very roughly, in order from more conservative to more progressive.</div> <div class="para logical" id="p-8528">
+<div class="para">In this activity, it will be helpful to visualize the entries in various matrices and vectors.  The next cell displays the first 50 columns of the matrix <span class="process-math">\(A\)</span> with white representing an entry of +1, red representing -1, and black representing 0. <pre class="ptx-sagecell sagecell-python" id="sage-301"><script type="text/x-sage">display_matrix(A.matrix_from_columns(range(50)))
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-5844"><div class="para" id="p-8495">Plot the singular values of <span class="process-math">\(A\)</span> below.  Describe the significance of this plot, including the relative contributions from the singular values <span class="process-math">\(\sigma_k\)</span> as <span class="process-math">\(k\)</span> increases. <pre class="ptx-sagecell sagecell-python" id="sage-300"><script type="text/x-sage">plot_sv(A)
+<li id="li-5852"><div class="para" id="p-8529">Plot the singular values of <span class="process-math">\(A\)</span> below.  Describe the significance of this plot, including the relative contributions from the singular values <span class="process-math">\(\sigma_k\)</span> as <span class="process-math">\(k\)</span> increases. <pre class="ptx-sagecell sagecell-python" id="sage-302"><script type="text/x-sage">plot_sv(A)
 </script></pre>
 </div></li>
-<li id="li-5845"><div class="para" id="p-8496">Form the singular value decomposition <span class="process-math">\(A=U\Sigma
-V^{\transpose}\)</span> and the matrix of coefficients <span class="process-math">\(\Gamma\)</span> so that <span class="process-math">\(A=U\Gamma\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-301"><script type="text/x-sage">
+<li id="li-5853"><div class="para" id="p-8530">Form the singular value decomposition <span class="process-math">\(A=U\Sigma
+V^{\transpose}\)</span> and the matrix of coefficients <span class="process-math">\(\Gamma\)</span> so that <span class="process-math">\(A=U\Gamma\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-303"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5846"><div class="para" id="p-8497">We will now study a particular case, the second case which appears as the column of <span class="process-math">\(A\)</span> indexed by <code class="code-inline tex2jax_ignore">1</code>. There is a command <code class="code-inline tex2jax_ignore">display_column(A, k)</code> that provides a visual display of the <span class="process-math">\(k^{th}\)</span> column of a matrix <span class="process-math">\(A\text{.}\)</span>  Describe the justices’ votes in the second case. <pre class="ptx-sagecell sagecell-python" id="sage-302"><script type="text/x-sage">
+<li id="li-5854"><div class="para" id="p-8531">We will now study a particular case, the second case which appears as the column of <span class="process-math">\(A\)</span> indexed by <code class="code-inline tex2jax_ignore">1</code>. There is a command <code class="code-inline tex2jax_ignore">display_column(A, k)</code> that provides a visual display of the <span class="process-math">\(k^{th}\)</span> column of a matrix <span class="process-math">\(A\text{.}\)</span>  Describe the justices’ votes in the second case. <pre class="ptx-sagecell sagecell-python" id="sage-304"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5847"><div class="para" id="p-8498">Also, display the first left singular vector <span class="process-math">\(\uvec_1\text{,}\)</span> the column of <span class="process-math">\(U\)</span> indexed by <span class="process-math">\(0\text{,}\)</span> and the column of <span class="process-math">\(\Gamma\)</span> holding the coefficients that express the second case as a linear combination of left singular vectors. <pre class="ptx-sagecell sagecell-python" id="sage-303"><script type="text/x-sage">
+<li id="li-5855"><div class="para" id="p-8532">Also, display the first left singular vector <span class="process-math">\(\uvec_1\text{,}\)</span> the column of <span class="process-math">\(U\)</span> indexed by <span class="process-math">\(0\text{,}\)</span> and the column of <span class="process-math">\(\Gamma\)</span> holding the coefficients that express the second case as a linear combination of left singular vectors. <pre class="ptx-sagecell sagecell-python" id="sage-305"><script type="text/x-sage">
 </script></pre> What does this tell us about how the second case is constructed as a linear combination of left singular vectors?  What is the significance of the first left singular vector <span class="process-math">\(\uvec_1\text{?}\)</span>
 </div></li>
-<li id="li-5848"><div class="para" id="p-8499">Let’s now study the <span class="process-math">\(48^{th}\)</span> case, which is represented by the column of <span class="process-math">\(A\)</span> indexed by <code class="code-inline tex2jax_ignore">47</code>.  Describe the voting pattern in this case. <pre class="ptx-sagecell sagecell-python" id="sage-304"><script type="text/x-sage">
+<li id="li-5856"><div class="para" id="p-8533">Let’s now study the <span class="process-math">\(48^{th}\)</span> case, which is represented by the column of <span class="process-math">\(A\)</span> indexed by <code class="code-inline tex2jax_ignore">47</code>.  Describe the voting pattern in this case. <pre class="ptx-sagecell sagecell-python" id="sage-306"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5849"><div class="para" id="p-8500">Display the second left singular vector <span class="process-math">\(\uvec_2\)</span> and the vector of coefficients that express the <span class="process-math">\(48^{th}\)</span> case as a linear combination of left singular vectors. <pre class="ptx-sagecell sagecell-python" id="sage-305"><script type="text/x-sage">
+<li id="li-5857"><div class="para" id="p-8534">Display the second left singular vector <span class="process-math">\(\uvec_2\)</span> and the vector of coefficients that express the <span class="process-math">\(48^{th}\)</span> case as a linear combination of left singular vectors. <pre class="ptx-sagecell sagecell-python" id="sage-307"><script type="text/x-sage">
 </script></pre> Describe how this case is constructed as a linear combination of singular vectors.  What is the significance of the second left singular vector <span class="process-math">\(\uvec_2\text{?}\)</span>
 </div></li>
-<li id="li-5850"><div class="para" id="p-8501">The data in <a href="" class="xref" data-knowl="./knowl/table-supreme-cases.html" title="Table 7.5.2: Number of cases by vote count">Table 7.5.2</a> describes the number of cases decided by each possible vote count. <figure class="table table-like" id="table-supreme-cases"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">7.5.2<span class="period">.</span></span><span class="space"> </span>Number of cases by vote count</figcaption><div class="tabular-box natural-width"><table class="tabular">
+<li id="li-5858"><div class="para" id="p-8535">The data in <a href="" class="xref" data-knowl="./knowl/table-supreme-cases.html" title="Table 7.5.2: Number of cases by vote count">Table 7.5.2</a> describes the number of cases decided by each possible vote count. <figure class="table table-like" id="table-supreme-cases"><figcaption><span class="type">Table</span><span class="space"> </span><span class="codenumber">7.5.2<span class="period">.</span></span><span class="space"> </span>Number of cases by vote count</figcaption><div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="c m b1 r0 l0 t0 lines">Vote count</td>
 <td class="c m b1 r0 l0 t0 lines"># of cases</td>
@@ -1516,54 +1516,54 @@ V^{\transpose}\)</span> and the matrix of coefficients <span class="process-math
 <td class="c m b0 r0 l0 t0 lines">188</td>
 </tr>
 </table></div></figure> How do the singular vectors <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> reflect this data?  Would you characterize the court as leaning toward the conservatives or progressives?  Use these singular vectors to explain your response.</div></li>
-<li id="li-5851"><div class="para" id="p-8502">Cases decided by a 5-4 vote are often the most impactful as they represent a sharp divide among the justices and, often, society at large.  For that reason, we will now focus on the 5-4 decisions. Evaluating the next cell forms the <span class="process-math">\(9\by188\)</span> matrix <span class="process-math">\(B\)</span> consisting of 5-4 decisions. <pre class="ptx-sagecell sagecell-python" id="sage-306"><script type="text/x-sage">B = matrix(RDF, fivefour.values)
+<li id="li-5859"><div class="para" id="p-8536">Cases decided by a 5-4 vote are often the most impactful as they represent a sharp divide among the justices and, often, society at large.  For that reason, we will now focus on the 5-4 decisions. Evaluating the next cell forms the <span class="process-math">\(9\by188\)</span> matrix <span class="process-math">\(B\)</span> consisting of 5-4 decisions. <pre class="ptx-sagecell sagecell-python" id="sage-308"><script type="text/x-sage">B = matrix(RDF, fivefour.values)
 display_matrix(B.matrix_from_columns(range(50)))
 </script></pre> Form the singular value decomposition of <span class="process-math">\(B=U\Sigma
-V^{\transpose}\)</span> along with the matrix <span class="process-math">\(\Gamma\)</span> of coefficients so that <span class="process-math">\(B=U\Gamma\)</span> and display the first left singular vector <span class="process-math">\(\uvec_1\text{.}\)</span>  Study how the <span class="process-math">\(7^{th}\)</span> case, indexed by <code class="code-inline tex2jax_ignore">6</code>, is constructed as a linear combination of left singular vectors. <pre class="ptx-sagecell sagecell-python" id="sage-307"><script type="text/x-sage">
+V^{\transpose}\)</span> along with the matrix <span class="process-math">\(\Gamma\)</span> of coefficients so that <span class="process-math">\(B=U\Gamma\)</span> and display the first left singular vector <span class="process-math">\(\uvec_1\text{.}\)</span>  Study how the <span class="process-math">\(7^{th}\)</span> case, indexed by <code class="code-inline tex2jax_ignore">6</code>, is constructed as a linear combination of left singular vectors. <pre class="ptx-sagecell sagecell-python" id="sage-309"><script type="text/x-sage">
 </script></pre> What does this singular vector tell us about the make up of the court and whether it leans towards the conservatives or progressives?</div></li>
-<li id="li-5852"><div class="para" id="p-8503">Display the second left singular vector <span class="process-math">\(\uvec_2\)</span> and study how the <span class="process-math">\(6^{th}\)</span> case, indexed by <code class="code-inline tex2jax_ignore">5</code>, is constructed as a linear combination of left singular vectors. <pre class="ptx-sagecell sagecell-python" id="sage-308"><script type="text/x-sage">
+<li id="li-5860"><div class="para" id="p-8537">Display the second left singular vector <span class="process-math">\(\uvec_2\)</span> and study how the <span class="process-math">\(6^{th}\)</span> case, indexed by <code class="code-inline tex2jax_ignore">5</code>, is constructed as a linear combination of left singular vectors. <pre class="ptx-sagecell sagecell-python" id="sage-310"><script type="text/x-sage">
 </script></pre> What does <span class="process-math">\(\uvec_2\)</span> tell us about the relative importance of the justices’ voting records?</div></li>
-<li id="li-5853"><div class="para" id="p-8504">By a <em class="emphasis">swing vote</em>, we mean a justice who is less inclined to vote with a particular bloc of justices but instead swings from one bloc to another with the potential to sway close decisions. What do the singular vectors <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> tell us about the presence of voting blocs on the court and the presence of a swing vote? Which justice represents the swing vote?</div></li>
+<li id="li-5861"><div class="para" id="p-8538">By a <em class="emphasis">swing vote</em>, we mean a justice who is less inclined to vote with a particular bloc of justices but instead swings from one bloc to another with the potential to sway close decisions. What do the singular vectors <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> tell us about the presence of voting blocs on the court and the presence of a swing vote? Which justice represents the swing vote?</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-344" id="answer-344"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-344"><div class="answer solution-like"><div class="para logical" id="p-8516"><ol class="lower-alpha">
-<li id="li-5864"><div class="para" id="p-8517">The first two singular values contribute most significantly.</div></li>
-<li id="li-5865"><div class="para" id="p-8518">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-344" id="answer-344"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-344"><div class="answer solution-like"><div class="para logical" id="p-8550"><ol class="lower-alpha">
+<li id="li-5872"><div class="para" id="p-8551">The first two singular values contribute most significantly.</div></li>
+<li id="li-5873"><div class="para" id="p-8552">
 <span class="process-math">\(\Gamma\)</span> is a <span class="process-math">\(9\by911\)</span> matrix that expresses the cases as linear combinations of the left singular vectors.</div></li>
-<li id="li-5866"><div class="para" id="p-8519">This is a unanimous decision.</div></li>
-<li id="li-5867"><div class="para" id="p-8520">
+<li id="li-5874"><div class="para" id="p-8553">This is a unanimous decision.</div></li>
+<li id="li-5875"><div class="para" id="p-8554">
 <span class="process-math">\(\uvec_1\)</span> represents a unanimous decision.</div></li>
-<li id="li-5868"><div class="para" id="p-8521">This is a 5-4 decision with the 5 conservative justices voting in the majority.</div></li>
-<li id="li-5869"><div class="para" id="p-8522">
+<li id="li-5876"><div class="para" id="p-8555">This is a 5-4 decision with the 5 conservative justices voting in the majority.</div></li>
+<li id="li-5877"><div class="para" id="p-8556">
 <span class="process-math">\(\uvec_2\)</span> represents a 5-4 decision.</div></li>
-<li id="li-5870"><div class="para" id="p-8523">The most frequently occurring decisions are unanimous and the second most frequently occurring are 5-4.</div></li>
-<li id="li-5871"><div class="para" id="p-8524">
+<li id="li-5878"><div class="para" id="p-8557">The most frequently occurring decisions are unanimous and the second most frequently occurring are 5-4.</div></li>
+<li id="li-5879"><div class="para" id="p-8558">
 <span class="process-math">\(\uvec_1\)</span> represents a case where the five conservative justices are voting together.</div></li>
-<li id="li-5872"><div class="para" id="p-8525">The second left singular vector <span class="process-math">\(\uvec_2\)</span> essentially records the vote of Sandra Day O’Connor.</div></li>
-<li id="li-5873"><div class="para" id="p-8526">Sandra Day O’Connor</div></li>
+<li id="li-5880"><div class="para" id="p-8559">The second left singular vector <span class="process-math">\(\uvec_2\)</span> essentially records the vote of Sandra Day O’Connor.</div></li>
+<li id="li-5881"><div class="para" id="p-8560">Sandra Day O’Connor</div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-426" id="solution-426"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-426"><div class="solution solution-like"><div class="para logical" id="p-8505"><ol class="lower-alpha">
-<li id="li-5854"><div class="para" id="p-8506">The first two singular values contribute most significantly.</div></li>
-<li id="li-5855"><div class="para" id="p-8507">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-425" id="solution-425"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-425"><div class="solution solution-like"><div class="para logical" id="p-8539"><ol class="lower-alpha">
+<li id="li-5862"><div class="para" id="p-8540">The first two singular values contribute most significantly.</div></li>
+<li id="li-5863"><div class="para" id="p-8541">
 <span class="process-math">\(\Gamma\)</span> is a <span class="process-math">\(9\by911\)</span> matrix that expresses the cases as linear combinations of the left singular vectors.</div></li>
-<li id="li-5856"><div class="para" id="p-8508">This is a unanimous decision.</div></li>
-<li id="li-5857"><div class="para" id="p-8509">The unanimous decision is essentially represented as <span class="process-math">\(-\uvec_1\)</span> so <span class="process-math">\(\uvec_1\)</span> represents a unanimous decision.</div></li>
-<li id="li-5858"><div class="para" id="p-8510">This is a 5-4 decision with the 5 conservative justices voting in the majority.</div></li>
-<li id="li-5859"><div class="para" id="p-8511">This 5-4 decision is essentially represented as <span class="process-math">\(\uvec_2\text{,}\)</span> the second most important left singular vector.</div></li>
-<li id="li-5860"><div class="para" id="p-8512">We see that the most decisions are unanimous, which is why <span class="process-math">\(\uvec_1\)</span> represents unanimous decisions. The second most frequently occurring decisions is a 5-4 decision, which is why <span class="process-math">\(\uvec_2\)</span> represents a 5-4 decision that leans to the conservative justices.</div></li>
-<li id="li-5861"><div class="para" id="p-8513">The first singular vector <span class="process-math">\(\uvec_1\)</span> represents a case where the five conservative justices are voting together.  From this we conclude that the court leans toward the conservatives.</div></li>
-<li id="li-5862"><div class="para" id="p-8514">The second left singular vector <span class="process-math">\(\uvec_2\)</span> essentially records the vote of Sandra Day O’Connor and shows how her vote has the power to swing a 5-4 decision from a conservative majority to a progressive majority.</div></li>
-<li id="li-5863"><div class="para" id="p-8515">Sandra Day O’Connor would be the swing vote.</div></li>
+<li id="li-5864"><div class="para" id="p-8542">This is a unanimous decision.</div></li>
+<li id="li-5865"><div class="para" id="p-8543">The unanimous decision is essentially represented as <span class="process-math">\(-\uvec_1\)</span> so <span class="process-math">\(\uvec_1\)</span> represents a unanimous decision.</div></li>
+<li id="li-5866"><div class="para" id="p-8544">This is a 5-4 decision with the 5 conservative justices voting in the majority.</div></li>
+<li id="li-5867"><div class="para" id="p-8545">This 5-4 decision is essentially represented as <span class="process-math">\(\uvec_2\text{,}\)</span> the second most important left singular vector.</div></li>
+<li id="li-5868"><div class="para" id="p-8546">We see that the most decisions are unanimous, which is why <span class="process-math">\(\uvec_1\)</span> represents unanimous decisions. The second most frequently occurring decisions is a 5-4 decision, which is why <span class="process-math">\(\uvec_2\)</span> represents a 5-4 decision that leans to the conservative justices.</div></li>
+<li id="li-5869"><div class="para" id="p-8547">The first singular vector <span class="process-math">\(\uvec_1\)</span> represents a case where the five conservative justices are voting together.  From this we conclude that the court leans toward the conservatives.</div></li>
+<li id="li-5870"><div class="para" id="p-8548">The second left singular vector <span class="process-math">\(\uvec_2\)</span> essentially records the vote of Sandra Day O’Connor and shows how her vote has the power to swing a 5-4 decision from a conservative majority to a progressive majority.</div></li>
+<li id="li-5871"><div class="para" id="p-8549">Sandra Day O’Connor would be the swing vote.</div></li>
 </ol></div></div></div>
 </div></article></section><section class="subsection" id="subsection-137"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.5.6</span><span class="space"> </span><span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-8527">
+<div class="para logical" id="p-8561">
 <div class="para">This section has demonstrated some uses of the singular value decomposition.  Because the singular values appear in decreasing order, the decomposition has the effect of concentrating the most important features of the matrix into the first singular values and singular vectors.</div>
 <ul class="disc">
-<li id="li-5874"><div class="para" id="p-8528">Because the first left singular vectors form an orthonormal basis for <span class="process-math">\(\col(A)\text{,}\)</span> a singular value decomposition provides a convenient way to project vectors onto <span class="process-math">\(\col(A)\)</span> and therefore to solve least squares problems.</div></li>
-<li id="li-5875"><div class="para logical" id="p-8529">
+<li id="li-5882"><div class="para" id="p-8562">Because the first left singular vectors form an orthonormal basis for <span class="process-math">\(\col(A)\text{,}\)</span> a singular value decomposition provides a convenient way to project vectors onto <span class="process-math">\(\col(A)\)</span> and therefore to solve least squares problems.</div></li>
+<li id="li-5883"><div class="para logical" id="p-8563">
 <div class="para">A singular value decomposition of a rank <span class="process-math">\(r\)</span> matrix <span class="process-math">\(A\)</span> leads to a series of approximations <span class="process-math">\(A_k\)</span> of <span class="process-math">\(A\)</span> where</div>
 <div class="displaymath process-math" id="md-51">
 \begin{align*}
@@ -1584,15 +1584,15 @@ A = A_r \amp = \sigma_1\uvec_1\vvec_1^{\transpose} +
 <div class="para">In each case, <span class="process-math">\(A_k\)</span> is the rank <span class="process-math">\(k\)</span> matrix that is closest to <span class="process-math">\(A\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-5876"><div class="para" id="p-8530">If <span class="process-math">\(A\)</span> is a demeaned data matrix, the left singular vectors give the principal components of <span class="process-math">\(A\)</span> and the variance in the direction of a principal component can be simply expressed in terms of the corresponding singular value.</div></li>
-<li id="li-5877"><div class="para" id="p-8531">The singular value decomposition has many applications. In this section, we looked at how the decomposition is used in image processing through the techniques of compression and denoising.</div></li>
-<li id="li-5878"><div class="para" id="p-8532">Because the first few left singular vectors contain the most important features of a matrix, we can use a singular value decomposition to extract meaning from a large dataset as we did when analyzing the voting patterns of the second Rehnquist court.</div></li>
+<li id="li-5884"><div class="para" id="p-8564">If <span class="process-math">\(A\)</span> is a demeaned data matrix, the left singular vectors give the principal components of <span class="process-math">\(A\)</span> and the variance in the direction of a principal component can be simply expressed in terms of the corresponding singular value.</div></li>
+<li id="li-5885"><div class="para" id="p-8565">The singular value decomposition has many applications. In this section, we looked at how the decomposition is used in image processing through the techniques of compression and denoising.</div></li>
+<li id="li-5886"><div class="para" id="p-8566">Because the first few left singular vectors contain the most important features of a matrix, we can use a singular value decomposition to extract meaning from a large dataset as we did when analyzing the voting patterns of the second Rehnquist court.</div></li>
 </ul>
 </div></section><section class="exercises" id="exercises-34"><h3 class="heading hide-type">
 <span class="type">Exercises</span><span class="space"> </span><span class="codenumber">7.5.7</span><span class="space"> </span><span class="title">Exercises</span>
 </h3>
-<article class="exercise exercise-like" id="exercise-291"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-8533">
+<article class="exercise exercise-like" id="exercise-292"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para logical" id="p-8567">
 <div class="para">Suppose that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1604,16 +1604,16 @@ A = \begin{bmatrix}
 \end{bmatrix}.
 \end{equation*}
 </div>
-<div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-309"><script type="text/x-sage">
+<div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-311"><script type="text/x-sage">
 </script></pre></div>
 <ol class="lower-alpha">
-<li id="li-5879"><div class="para" id="p-8534">Find the singular values of <span class="process-math">\(A\text{.}\)</span>  What is <span class="process-math">\(\rank(A)\text{?}\)</span>
+<li id="li-5887"><div class="para" id="p-8568">Find the singular values of <span class="process-math">\(A\text{.}\)</span>  What is <span class="process-math">\(\rank(A)\text{?}\)</span>
 </div></li>
-<li id="li-5880"><div class="para" id="p-8535">Find the sequence of matrices <span class="process-math">\(A_1\text{,}\)</span> <span class="process-math">\(A_2\text{,}\)</span> <span class="process-math">\(A_3\text{,}\)</span> and <span class="process-math">\(A_4\)</span> where <span class="process-math">\(A_k\)</span> is the rank <span class="process-math">\(k\)</span> approximation of <span class="process-math">\(A\text{.}\)</span>
+<li id="li-5888"><div class="para" id="p-8569">Find the sequence of matrices <span class="process-math">\(A_1\text{,}\)</span> <span class="process-math">\(A_2\text{,}\)</span> <span class="process-math">\(A_3\text{,}\)</span> and <span class="process-math">\(A_4\)</span> where <span class="process-math">\(A_k\)</span> is the rank <span class="process-math">\(k\)</span> approximation of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-292"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para logical" id="p-8544">
+</div></article><article class="exercise exercise-like" id="exercise-293"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para logical" id="p-8578">
 <div class="para">Suppose we would like to find the best quadratic function</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1626,35 +1626,35 @@ A = \begin{bmatrix}
 (0,1), (1,0), (2,1.5), (3,4), (4,8).
 \end{equation*}
 </div>
-<div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-310"><script type="text/x-sage">
+<div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-312"><script type="text/x-sage">
 </script></pre></div>
 <ol class="lower-alpha">
-<li id="li-5885"><div class="para" id="p-8545">Set up a linear system <span class="process-math">\(A\xvec = \bvec\)</span> describing the coefficients <span class="process-math">\(\xvec =
+<li id="li-5893"><div class="para" id="p-8579">Set up a linear system <span class="process-math">\(A\xvec = \bvec\)</span> describing the coefficients <span class="process-math">\(\xvec =
 \threevec{\beta_0}{\beta_1}{\beta_2}\text{.}\)</span>
 </div></li>
-<li id="li-5886"><div class="para" id="p-8546">Find the singular value decomposition of <span class="process-math">\(A\text{.}\)</span>
+<li id="li-5894"><div class="para" id="p-8580">Find the singular value decomposition of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-5887"><div class="para" id="p-8547">Use the singular value decomposition to find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
+<li id="li-5895"><div class="para" id="p-8581">Use the singular value decomposition to find the least squares approximate solution <span class="process-math">\(\xhat\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-293"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-8556">
+</div></article><article class="exercise exercise-like" id="exercise-294"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<div class="para logical" id="p-8590">
 <div class="para">Remember that the outer product of two vector <span class="process-math">\(\uvec\)</span> and <span class="process-math">\(\vvec\)</span> is the matrix <span class="process-math">\(\uvec~\vvec^{\transpose}\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-5894">
-<div class="para" id="p-8557">Suppose that <span class="process-math">\(\uvec = \twovec{2}{-3}\)</span> and <span class="process-math">\(\vvec=\threevec201\text{.}\)</span>  Evaluate the outer product <span class="process-math">\(\uvec~\vvec^{\transpose}\text{.}\)</span>  To get a clearer sense of how this works, perform this operation without using technology.</div>
-<div class="para" id="p-8558">How is each of the columns of <span class="process-math">\(\uvec~\vvec^{\transpose}\)</span> related to <span class="process-math">\(\uvec\text{?}\)</span>
+<li id="li-5902">
+<div class="para" id="p-8591">Suppose that <span class="process-math">\(\uvec = \twovec{2}{-3}\)</span> and <span class="process-math">\(\vvec=\threevec201\text{.}\)</span>  Evaluate the outer product <span class="process-math">\(\uvec~\vvec^{\transpose}\text{.}\)</span>  To get a clearer sense of how this works, perform this operation without using technology.</div>
+<div class="para" id="p-8592">How is each of the columns of <span class="process-math">\(\uvec~\vvec^{\transpose}\)</span> related to <span class="process-math">\(\uvec\text{?}\)</span>
 </div>
 </li>
-<li id="li-5895"><div class="para" id="p-8559">Suppose <span class="process-math">\(\uvec\)</span> and <span class="process-math">\(\vvec\)</span> are general vectors.  What is <span class="process-math">\(\rank(\uvec~\vvec^{\transpose})\)</span> and what is a basis for its column space <span class="process-math">\(\col(\uvec~\vvec^{\transpose})\text{?}\)</span>
+<li id="li-5903"><div class="para" id="p-8593">Suppose <span class="process-math">\(\uvec\)</span> and <span class="process-math">\(\vvec\)</span> are general vectors.  What is <span class="process-math">\(\rank(\uvec~\vvec^{\transpose})\)</span> and what is a basis for its column space <span class="process-math">\(\col(\uvec~\vvec^{\transpose})\text{?}\)</span>
 </div></li>
-<li id="li-5896"><div class="para" id="p-8560">Suppose that <span class="process-math">\(\uvec\)</span> is a unit vector.  What is the effect of multiplying a vector by the matrix <span class="process-math">\(\uvec~\uvec^{\transpose}\text{?}\)</span>
+<li id="li-5904"><div class="para" id="p-8594">Suppose that <span class="process-math">\(\uvec\)</span> is a unit vector.  What is the effect of multiplying a vector by the matrix <span class="process-math">\(\uvec~\uvec^{\transpose}\text{?}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-294"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-8569">
-<div class="para">Evaluating the following cell loads in a dataset recording some features of 1057 houses.  Notice how the lot size varies over a relatively small range compared to the other features. For this reason, in addition to demeaning the data, we’ll scale each feature by dividing by its standard deviation so that the range of values is similar for each feature.  The matrix <span class="process-math">\(A\)</span> holds the result. <pre class="ptx-sagecell sagecell-sage" id="sage-311"><script type="text/x-sage">import pandas as pd
+</div></article><article class="exercise exercise-like" id="exercise-295"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<div class="para logical" id="p-8603">
+<div class="para">Evaluating the following cell loads in a dataset recording some features of 1057 houses.  Notice how the lot size varies over a relatively small range compared to the other features. For this reason, in addition to demeaning the data, we’ll scale each feature by dividing by its standard deviation so that the range of values is similar for each feature.  The matrix <span class="process-math">\(A\)</span> holds the result. <pre class="ptx-sagecell sagecell-sage" id="sage-313"><script type="text/x-sage">import pandas as pd
 df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/housing.csv', index_col=0)
 df = df.fillna(df.mean())
 std = (df-df.mean())/df.std()
@@ -1663,70 +1663,70 @@ df.T
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-5903"><div class="para" id="p-8570">Find the singular values of <span class="process-math">\(A\)</span> and use them to determine the variance in the direction of the principal components. <pre class="ptx-sagecell sagecell-sage" id="sage-312"><script type="text/x-sage">
+<li id="li-5911"><div class="para" id="p-8604">Find the singular values of <span class="process-math">\(A\)</span> and use them to determine the variance in the direction of the principal components. <pre class="ptx-sagecell sagecell-sage" id="sage-314"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5904"><div class="para" id="p-8571">For what fraction of the variance do the first two principal components account?</div></li>
-<li id="li-5905"><div class="para" id="p-8572">Find a singular value decomposition of <span class="process-math">\(A\)</span> and construct the <span class="process-math">\(2\by1057\)</span> matrix <span class="process-math">\(B\)</span> whose entries are the coordinates of the demeaned data points projected on to the two-dimensional subspace spanned by the first two principal components.  You can plot the projected data points using <code class="code-inline tex2jax_ignore">list_plot(B.columns())</code>. <pre class="ptx-sagecell sagecell-sage" id="sage-313"><script type="text/x-sage">
+<li id="li-5912"><div class="para" id="p-8605">For what fraction of the variance do the first two principal components account?</div></li>
+<li id="li-5913"><div class="para" id="p-8606">Find a singular value decomposition of <span class="process-math">\(A\)</span> and construct the <span class="process-math">\(2\by1057\)</span> matrix <span class="process-math">\(B\)</span> whose entries are the coordinates of the demeaned data points projected on to the two-dimensional subspace spanned by the first two principal components.  You can plot the projected data points using <code class="code-inline tex2jax_ignore">list_plot(B.columns())</code>. <pre class="ptx-sagecell sagecell-sage" id="sage-315"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5906"><div class="para" id="p-8573">Study the entries in the first two principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  Would a more expensive house lie on the left, right, top, or bottom of the plot you constructed?</div></li>
-<li id="li-5907"><div class="para" id="p-8574">In what ways does a house that lies on the far left of the plot you constructed differ from an average house? In what ways does a house that lies near the top of the plot you constructed differ from an average house?</div></li>
+<li id="li-5914"><div class="para" id="p-8607">Study the entries in the first two principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  Would a more expensive house lie on the left, right, top, or bottom of the plot you constructed?</div></li>
+<li id="li-5915"><div class="para" id="p-8608">In what ways does a house that lies on the far left of the plot you constructed differ from an average house? In what ways does a house that lies near the top of the plot you constructed differ from an average house?</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-295"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para logical" id="p-8588">
-<div class="para">Let’s revisit the voting records of justices on the second Rehnquist court.  Evaluating the following cell will load the voting records of the justices in the 188 cases decided by a 5-4 vote and store them in the matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-314"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
+</div></article><article class="exercise exercise-like" id="exercise-296"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<div class="para logical" id="p-8622">
+<div class="para">Let’s revisit the voting records of justices on the second Rehnquist court.  Evaluating the following cell will load the voting records of the justices in the 188 cases decided by a 5-4 vote and store them in the matrix <span class="process-math">\(A\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-316"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
 A = matrix(RDF, fivefour.values)
 v = vector(188*[1])
 fivefour
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-5918"><div class="para" id="p-8589">The cell above also defined the 188-dimensional vector <span class="process-math">\(\vvec\)</span> whose entries are all 1.  What does the product <span class="process-math">\(A\vvec\)</span> represent?  Use the following cell to evaluate this product. <pre class="ptx-sagecell sagecell-sage" id="sage-315"><script type="text/x-sage">
+<li id="li-5926"><div class="para" id="p-8623">The cell above also defined the 188-dimensional vector <span class="process-math">\(\vvec\)</span> whose entries are all 1.  What does the product <span class="process-math">\(A\vvec\)</span> represent?  Use the following cell to evaluate this product. <pre class="ptx-sagecell sagecell-sage" id="sage-317"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5919"><div class="para" id="p-8590">How does the product <span class="process-math">\(A\vvec\)</span> tell us which justice voted in the majority most frequently?  What does this say about the presence of a swing vote on the court?</div></li>
-<li id="li-5920"><div class="para" id="p-8591">How does this product tell us whether we should characterize this court as leaning conservative or progressive?</div></li>
-<li id="li-5921"><div class="para" id="p-8592">How does this product tell us about the presence of a second swing vote on the court?</div></li>
-<li id="li-5922"><div class="para" id="p-8593">Study the left singular vector <span class="process-math">\(\uvec_3\)</span> and describe how it reinforces the fact that there was a second swing vote.  Who was this second swing vote?</div></li>
+<li id="li-5927"><div class="para" id="p-8624">How does the product <span class="process-math">\(A\vvec\)</span> tell us which justice voted in the majority most frequently?  What does this say about the presence of a swing vote on the court?</div></li>
+<li id="li-5928"><div class="para" id="p-8625">How does this product tell us whether we should characterize this court as leaning conservative or progressive?</div></li>
+<li id="li-5929"><div class="para" id="p-8626">How does this product tell us about the presence of a second swing vote on the court?</div></li>
+<li id="li-5930"><div class="para" id="p-8627">Study the left singular vector <span class="process-math">\(\uvec_3\)</span> and describe how it reinforces the fact that there was a second swing vote.  Who was this second swing vote?</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-296"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
-<div class="para logical" id="p-8606">
-<div class="para">The following cell loads a dataset that describes the percentages with which justices on the second Rehnquist court agreed with one another.  For instance, the entry in the first row and second column is 72.78, which means that Justices Rehnquist and Scalia agreed with each other in 72.78% of the cases. <pre class="ptx-sagecell sagecell-sage" id="sage-316"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
+</div></article><article class="exercise exercise-like" id="exercise-297"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
+<div class="para logical" id="p-8640">
+<div class="para">The following cell loads a dataset that describes the percentages with which justices on the second Rehnquist court agreed with one another.  For instance, the entry in the first row and second column is 72.78, which means that Justices Rehnquist and Scalia agreed with each other in 72.78% of the cases. <pre class="ptx-sagecell sagecell-sage" id="sage-318"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
 A = 1/100*matrix(RDF, agreement.values)
 agreement
 </script></pre>
 </div>
 <ol class="lower-alpha">
-<li id="li-5933"><div class="para" id="p-8607">Examine the matrix <span class="process-math">\(A\text{.}\)</span>  What special structure does this matrix have and why should we expect it to have this structure?</div></li>
-<li id="li-5934"><div class="para" id="p-8608">Plot the singular values of <span class="process-math">\(A\)</span> below.  For what value of <span class="process-math">\(k\)</span> would the approximation <span class="process-math">\(A_k\)</span> be a reasonable approximation of <span class="process-math">\(A\text{?}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-317"><script type="text/x-sage">plot_sv(A)
+<li id="li-5941"><div class="para" id="p-8641">Examine the matrix <span class="process-math">\(A\text{.}\)</span>  What special structure does this matrix have and why should we expect it to have this structure?</div></li>
+<li id="li-5942"><div class="para" id="p-8642">Plot the singular values of <span class="process-math">\(A\)</span> below.  For what value of <span class="process-math">\(k\)</span> would the approximation <span class="process-math">\(A_k\)</span> be a reasonable approximation of <span class="process-math">\(A\text{?}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-319"><script type="text/x-sage">plot_sv(A)
 </script></pre>
 </div></li>
-<li id="li-5935"><div class="para" id="p-8609">Find a singular value decomposition <span class="process-math">\(A=U\Sigma V^{\transpose}\)</span> and examine the matrices <span class="process-math">\(U\)</span> and <span class="process-math">\(V\)</span> using, for instance, <code class="code-inline tex2jax_ignore">n(U, 3)</code>.  What do you notice about the relationship between <span class="process-math">\(U\)</span> and <span class="process-math">\(V\)</span> and why should we expect this relationship to hold? <pre class="ptx-sagecell sagecell-sage" id="sage-318"><script type="text/x-sage">
+<li id="li-5943"><div class="para" id="p-8643">Find a singular value decomposition <span class="process-math">\(A=U\Sigma V^{\transpose}\)</span> and examine the matrices <span class="process-math">\(U\)</span> and <span class="process-math">\(V\)</span> using, for instance, <code class="code-inline tex2jax_ignore">n(U, 3)</code>.  What do you notice about the relationship between <span class="process-math">\(U\)</span> and <span class="process-math">\(V\)</span> and why should we expect this relationship to hold? <pre class="ptx-sagecell sagecell-sage" id="sage-320"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5936"><div class="para" id="p-8610">The command <code class="code-inline tex2jax_ignore">approximate(A, k)</code> will form the approximating matrix <span class="process-math">\(A_k\text{.}\)</span>  Study the matrix <span class="process-math">\(A_1\)</span> using the <code class="code-inline tex2jax_ignore">display_matrix</code> command. Which justice or justices seem to be most agreeable, that is, most likely to agree with other justices? Which justice is least agreeable? <pre class="ptx-sagecell sagecell-sage" id="sage-319"><script type="text/x-sage">
+<li id="li-5944"><div class="para" id="p-8644">The command <code class="code-inline tex2jax_ignore">approximate(A, k)</code> will form the approximating matrix <span class="process-math">\(A_k\text{.}\)</span>  Study the matrix <span class="process-math">\(A_1\)</span> using the <code class="code-inline tex2jax_ignore">display_matrix</code> command. Which justice or justices seem to be most agreeable, that is, most likely to agree with other justices? Which justice is least agreeable? <pre class="ptx-sagecell sagecell-sage" id="sage-321"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5937"><div class="para" id="p-8611">Examine the difference <span class="process-math">\(A_2-A_1\)</span> and describe how this tells us about the presence of voting blocs and swing votes on the court. <pre class="ptx-sagecell sagecell-sage" id="sage-320"><script type="text/x-sage">
+<li id="li-5945"><div class="para" id="p-8645">Examine the difference <span class="process-math">\(A_2-A_1\)</span> and describe how this tells us about the presence of voting blocs and swing votes on the court. <pre class="ptx-sagecell sagecell-sage" id="sage-322"><script type="text/x-sage">
 </script></pre>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-297"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
-<div class="para logical" id="p-8624">
+</div></article><article class="exercise exercise-like" id="exercise-298"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
+<div class="para logical" id="p-8658">
 <div class="para">Suppose that <span class="process-math">\(A=U_r\Sigma_rV_r^{\transpose}\)</span> is a reduced singular value decomposition of the <span class="process-math">\(m\by n\)</span> matrix <span class="process-math">\(A\text{.}\)</span> The matrix <span class="process-math">\(A^+ = V_r\Sigma_r^{-1}U_r^{\transpose}\)</span> is called the <em class="emphasis">Moore-Penrose inverse</em> of <span class="process-math">\(A\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-5948"><div class="para" id="p-8625">Explain why <span class="process-math">\(A^+\)</span> is an <span class="process-math">\(n\by m\)</span> matrix.</div></li>
-<li id="li-5949"><div class="para" id="p-8626">If <span class="process-math">\(A\)</span> is an invertible, square matrix, explain why <span class="process-math">\(A^+=A^{-1}\text{.}\)</span>
+<li id="li-5956"><div class="para" id="p-8659">Explain why <span class="process-math">\(A^+\)</span> is an <span class="process-math">\(n\by m\)</span> matrix.</div></li>
+<li id="li-5957"><div class="para" id="p-8660">If <span class="process-math">\(A\)</span> is an invertible, square matrix, explain why <span class="process-math">\(A^+=A^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-5950"><div class="para" id="p-8627">Explain why <span class="process-math">\(AA^+\bvec=\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
+<li id="li-5958"><div class="para" id="p-8661">Explain why <span class="process-math">\(AA^+\bvec=\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec\)</span> onto <span class="process-math">\(\col(A)\text{.}\)</span>
 </div></li>
-<li id="li-5951"><div class="para" id="p-8628">Explain why <span class="process-math">\(A^+A\xvec=\xhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\xvec\)</span> onto <span class="process-math">\(\col(A^{\transpose})\text{.}\)</span>
+<li id="li-5959"><div class="para" id="p-8662">Explain why <span class="process-math">\(A^+A\xvec=\xhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\xvec\)</span> onto <span class="process-math">\(\col(A^{\transpose})\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-298"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
-<div class="para" id="p-8639">In <a href="sec-gaussian-revisited.html#subsec-partial-pivot" class="internal" title="Subsection 4.7.1: Partial pivoting">Subsection 4.7.1</a>, we saw how some linear algebraic computations are sensitive to round off error made by a computer.  A singular value decomposition can help us understand when this situation can occur.</div> <div class="para logical" id="p-8640">
+</div></article><article class="exercise exercise-like" id="exercise-299"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
+<div class="para" id="p-8673">In <a href="sec-gaussian-revisited.html#subsec-partial-pivot" class="internal" title="Subsection 4.7.1: Partial pivoting">Subsection 4.7.1</a>, we saw how some linear algebraic computations are sensitive to round off error made by a computer.  A singular value decomposition can help us understand when this situation can occur.</div> <div class="para logical" id="p-8674">
 <div class="para">For instance, consider the matrices</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1742,28 +1742,28 @@ B = \begin{bmatrix}
 </div>
 <div class="para">The entries in these matrices are quite close to one another, but <span class="process-math">\(A\)</span> is invertible while <span class="process-math">\(B\)</span> is not.  It seems like <span class="process-math">\(A\)</span> is <em class="emphasis">almost</em> singular. In fact, we can measure how close a matrix is to being singular by forming the <em class="emphasis">condition number</em>, <span class="process-math">\(\sigma_1/\sigma_n\text{,}\)</span> the ratio of the largest to smallest singular value.  If <span class="process-math">\(A\)</span> were singular, the condition number would be undefined because the singular value <span class="process-math">\(\sigma_n=0\text{.}\)</span>  Therefore, we will think of matrices with large condition numbers as being close to singular.</div>
 <ol class="lower-alpha">
-<li id="li-5960"><div class="para" id="p-8641">Define the matrix <span class="process-math">\(A\)</span> and find a singular value decomposition.  What is the condition number of <span class="process-math">\(A\text{?}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-321"><script type="text/x-sage">
+<li id="li-5968"><div class="para" id="p-8675">Define the matrix <span class="process-math">\(A\)</span> and find a singular value decomposition.  What is the condition number of <span class="process-math">\(A\text{?}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-323"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-5961"><div class="para logical" id="p-8642">
+<li id="li-5969"><div class="para logical" id="p-8676">
 <div class="para">Define the left singular vectors <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  Compare the results <span class="process-math">\(A^{-1}\bvec\)</span> when</div>
 <ol class="decimal">
-<li id="li-5962"><div class="para" id="p-8643"><span class="process-math">\(\bvec=\uvec_1+\uvec_2\text{.}\)</span></div></li>
-<li id="li-5963"><div class="para" id="p-8644"><span class="process-math">\(\bvec=2\uvec_1+\uvec_2\text{.}\)</span></div></li>
+<li id="li-5970"><div class="para" id="p-8677"><span class="process-math">\(\bvec=\uvec_1+\uvec_2\text{.}\)</span></div></li>
+<li id="li-5971"><div class="para" id="p-8678"><span class="process-math">\(\bvec=2\uvec_1+\uvec_2\text{.}\)</span></div></li>
 </ol>
 <div class="para">Notice how a small change in the vector <span class="process-math">\(\bvec\)</span> leads to a small change in <span class="process-math">\(A^{-1}\bvec\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-5964"><div class="para logical" id="p-8645">
+<li id="li-5972"><div class="para logical" id="p-8679">
 <div class="para">Now compare the results <span class="process-math">\(A^{-1}\bvec\)</span> when</div>
 <ol class="decimal">
-<li id="li-5965"><div class="para" id="p-8646"><span class="process-math">\(\bvec=\uvec_1+\uvec_2\text{.}\)</span></div></li>
-<li id="li-5966"><div class="para" id="p-8647"><span class="process-math">\(\bvec=\uvec_1+2\uvec_2\text{.}\)</span></div></li>
+<li id="li-5973"><div class="para" id="p-8680"><span class="process-math">\(\bvec=\uvec_1+\uvec_2\text{.}\)</span></div></li>
+<li id="li-5974"><div class="para" id="p-8681"><span class="process-math">\(\bvec=\uvec_1+2\uvec_2\text{.}\)</span></div></li>
 </ol>
 <div class="para">Notice now how a small change in <span class="process-math">\(\bvec\)</span> leads to a large change in <span class="process-math">\(A^{-1}\bvec\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-5967"><div class="para logical" id="p-8648">
+<li id="li-5975"><div class="para logical" id="p-8682">
 <div class="para">Previously, we saw that, if we write <span class="process-math">\(\xvec\)</span> in terms of left singular vectors <span class="process-math">\(\xvec=c_1\vvec_1+c_2\vvec_2\text{,}\)</span> then we have</div>
 <div class="displaymath process-math">
 \begin{equation*}

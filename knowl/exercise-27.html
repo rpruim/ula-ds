@@ -9,19 +9,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-sage",
-  "linked": true,
-  "linkKey": "linked-sage",
-  "autoeval": false,
-  "languages": [
-    "sage"
-  ],
-  "evalButtonText": "Evaluate (Sage)"
-});
-</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
   "inputLocation": "pre.sagecell-python",
@@ -37,82 +25,47 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <article class="exercise exercise-like"><h4 class="heading">
-<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">10<span class="period">.</span></span>
+<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">9<span class="period">.</span></span>
 </h4>
-<div class="para">We began this section by stating that increasing computational power has helped linear algebra assume a prominent role as a scientific tool.  Later, we looked at one computational limitation:  once a matrix gets to be too big, it is not reasonable to apply Gaussian elimination to find its reduced row echelon form.</div> <div class="para logical">
-<div class="para">In this exercise, we will see another limitation: computer arithmetic with real numbers is only an approximation because computers represent real numbers with only a finite number of bits.  For instance, the number pi</div>
-<div class="displaymath process-math" data-contains-math-knowls="./knowl/sec-gaussian-revisited.html">
-\begin{equation*}
-\pi =
-3.141592653589793238462643383279502884197169399\ldots
-\end{equation*}
-</div>
-<div class="para">would be approximated inside a computer by, say,</div>
-<div class="displaymath process-math" data-contains-math-knowls="./knowl/sec-gaussian-revisited.html">
-\begin{equation*}
-\pi\approx 3.141592653589793
-\end{equation*}
-</div>
-<div class="para">Most of the time, this is not a problem.  However, when we perform millions or even billions of arithmetic operations, the error in these approximations starts to accumulate and can lead to results that are wildly inaccurate.  Here are two examples demonstrating this.</div>
+<div class="para logical">
+<div class="para">This exercise is about balancing chemical reactions.</div>
 <ol class="lower-alpha">
 <li>
 <div class="para logical">
-<div class="para">Let’s first see an example showing that computer arithmetic really is an approximation.  Consider the linear system</div>
+<div class="para">Chemists denote a molecule of water as <span class="process-math">\(\text{H}_2\text{O}\text{,}\)</span> which means it is composed of two atoms of hydrogen (H) and one atom of oxygen (O). The process by which hydrogen burns is described by the chemical reaction</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\begin{alignedat}{4}
-x \amp {}+{} \amp \frac12y \amp {}+{} \amp \frac13z \amp
-{}={} \amp 1 \\
-\frac12x \amp {}+{} \amp \frac13y \amp {}+{} \amp \frac14z \amp
-{}={} \amp 0 \\
-\frac13x \amp {}+{} \amp \frac14y \amp {}+{} \amp \frac15z \amp
-{}={} \amp 0 \\
-\end{alignedat}
+x\thinspace \text{H}_2 + y\thinspace\text{O}_2 \to
+z\thinspace \text{H}_2\text{O}
 \end{equation*}
 </div>
-<div class="para">Let’s solve this three ways, taking advantage of some features of <code class="code-inline tex2jax_ignore">sympy</code>. As the name suggests, <code class="code-inline tex2jax_ignore">sympy</code> is capable of doing symbolic mathematics as well as numerical mathematics. In particular, <code class="code-inline tex2jax_ignore">sympy</code> can work with rational numbers (fractions) and do exact arithmetic with them.  Consider these three ways to represent <span class="process-math">\(\frac13\text{:}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-60"><script type="text/x-sage">print(1/3, s.Rational(1/3), s.Rational(1,3))
-</script></pre> The first is our usual floating point approximation.  The second attempts to approximate that approximation with a rational number. (Sometimes this works better; try <code class="code-inline tex2jax_ignore">s.Rational(1/2)</code>, for example.) The third represents <span class="process-math">\(\frac13\)</span> <em class="emphasis">exactly</em> by storing the numerator and denominator.</div>
+<div class="para">This means that <span class="process-math">\(x\)</span> molecules of hydrogen <span class="process-math">\(\text{H}_2\)</span> combine with <span class="process-math">\(y\)</span> molecules of oxygen <span class="process-math">\(\text{O}_2\)</span> to produce <span class="process-math">\(z\)</span> water molecules. The number of hydrogen atoms is the same before and after the reaction;  the same is true of the oxygen atoms.</div>
 </div>
-<div class="para">Create the augmented matrix for this linear system in the three corresponding ways. Call them <code class="code-inline tex2jax_ignore">A</code>, <code class="code-inline tex2jax_ignore">B</code>, and <code class="code-inline tex2jax_ignore">C</code>. With each, have <code class="code-inline tex2jax_ignore">sympy</code> compute the reduce row echelon form and use it to find the solutoin the original linear system. <pre class="ptx-sagecell sagecell-python" id="sage-61"><script type="text/x-sage">A = s.Matrix([[1,1/2,1/3,1] , [1/2, 1/3, 1/4, 0], [1/3, 1/4, 1/5, 0]])
-B = s.Matrix()
-C = s.Matrix()
+<div class="para logical"><ol class="decimal">
+<li><div class="para">In terms of <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\text{,}\)</span> how many hydrogen atoms are there before the reaction?  How many hydrogen atoms are there after the reaction?  Find a linear equation in <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> by equating these quantities.</div></li>
+<li><div class="para">Find a second linear equation in <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> by equating the number of oxygen atoms before and after the reaction.</div></li>
+<li><div class="para">Find the solutions of this linear system. Why are there infinitely many solutions? <pre class="ptx-sagecell sagecell-python" id="sage-60"><script type="text/x-sage">
 </script></pre>
-</div>
-<div class="para">Most computers do arithmetic using either 32 or 64 bits.  We can exagerate the effect by rounding the matrix more heavily. Solve the linear system again using <pre class="ptx-sagecell sagecell-python" id="sage-62"><script type="text/x-sage"># evalf() is sympy's version of round()
-A3 = A.evalf(3)
-</script></pre> What does Python give for the solution now? Compare this to the exact solution that you found previously.</div>
+</div></li>
+<li><div class="para">In this chemical setting, <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> should be positive integers.  Find the solution where <span class="process-math">\(x\text{,}\)</span> <span class="process-math">\(y\text{,}\)</span> and <span class="process-math">\(z\)</span> are the smallest possible positive integers.</div></li>
+</ol></div>
 </li>
-<li>
-<div class="para logical">
-<div class="para">Some types of linear systems are particularly sensitive to errors resulting from computers’ approximate arithmetic. For instance, suppose we are interested in the linear system</div>
+<li><div class="para logical">
+<div class="para">Now consider the reaction where potassium permanganate and manganese sulfate combine with water to produce manganese dioxide, potassium sulfate, and sulfuric acid:</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\begin{alignedat}{3}
-x \amp {}+{} \amp y \amp {}={} \amp 2 \\
-x \amp {}+{} 1.001\amp y \amp {}={} \amp 2 \\
-\end{alignedat}
+x_1\thinspace \text{K}\text{Mn}\text{O}_4 + 
+x_2\thinspace \text{Mn}\text{S}\text{O}_4 + 
+x_3\thinspace \text{H}_2\text{O} \to
+x_4\thinspace \text{Mn}\text{O}_2 + 
+x_5\thinspace \text{K}_2\text{S}\text{O}_4 + 
+x_6\thinspace \text{H}_2\text{S}\text{O}_4.
 \end{equation*}
 </div>
-<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-python" id="sage-63"><script type="text/x-sage">
+<div class="para">As in the previous exercise, find the appropriate values for <span class="process-math">\(x_1, x_2, \ldots, x_6\)</span> to balance the chemical reaction. <pre class="ptx-sagecell sagecell-python" id="sage-61"><script type="text/x-sage">
 </script></pre>
 </div>
-</div>
-<div class="para logical">
-<div class="para">Suppose now that the computer has accumulated some error in one of the entries of this system so that it incorrectly stores the system as</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\begin{alignedat}{3}
-x \amp {}+{} \amp y \amp {}={} \amp 2 \\
-x \amp {}+{} 1.001\amp y \amp {}={} \amp 2.001 \\
-\end{alignedat}
-\end{equation*}
-</div>
-<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-python" id="sage-64"><script type="text/x-sage">
-</script></pre>
-</div>
-</div>
-<div class="para">Notice how a small error in one of the entries in the linear system leads to a solution that has a dramatically large error.  Fortunately, this is an issue that has been well studied, and there are techniques that mitigate this type of behavior.  (See <a href="sec-gaussian-revisited.html" class="internal" title="Section 4.7: Partial pivoting and LU factorizations">Section 4.7</a>.)</div>
-</li>
+</div></li>
 </ol>
 </div></article><span class="incontext"><a href="sec-python-introduction.html#exercise-27" class="internal">in-context</a></span>
 </body>

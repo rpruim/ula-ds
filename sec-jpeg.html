@@ -389,7 +389,7 @@ sagecell.makeSagecell({
 <li>
 <div class="toc-item"><a href="sec-tensors.html" class="internal"><span class="codenumber">1.5</span> <span class="title">Tensors</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in Numpy</span></a></div></li>
+<li><div class="toc-item"><a href="sec-tensors.html#subsec-numpy-tensors" class="internal"><span class="codenumber">1.5.1</span> <span class="title">Tensors in NumPy</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-axes" class="internal"><span class="codenumber">1.5.2</span> <span class="title">Aggregation and Axes</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-ndarray-append" class="internal"><span class="codenumber">1.5.3</span> <span class="title">Expanding an array</span></a></div></li>
 <li><div class="toc-item"><a href="sec-tensors.html#subsec-broadcasting" class="internal"><span class="codenumber">1.5.4</span> <span class="title">Broadcasting</span></a></div></li>
@@ -750,62 +750,62 @@ sagecell.makeSagecell({
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-jpeg"><h2 class="heading hide-type">
 <span class="type">Section</span><span class="space"> </span><span class="codenumber">4.4</span><span class="space"> </span><span class="title">Image compression</span>
 </h2>
-<section class="introduction" id="introduction-20"><div class="para" id="p-2997">Digital images, such as the photographs taken on your phone, are displayed as a rectangular array of pixels.  For example, the photograph in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-orig.html" title="Figure 4.4.1">Figure 4.4.1</a> is 1440 pixels wide and 1468 pixels high.  If we were to zoom in on the photograph, we would be able to see individual pixels, such as those shown on the right.</div> <figure class="figure figure-like" id="fig-jpeg-orig"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
+<section class="introduction" id="introduction-19"><div class="para" id="p-3031">Digital images, such as the photographs taken on your phone, are displayed as a rectangular array of pixels.  For example, the photograph in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-orig.html" title="Figure 4.4.1">Figure 4.4.1</a> is 1440 pixels wide and 1468 pixels high.  If we were to zoom in on the photograph, we would be able to see individual pixels, such as those shown on the right.</div> <figure class="figure figure-like" id="fig-jpeg-orig"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/spring-canyon-cropped.jpg" class="contained"></div>
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/jpeg-orig-block.svg" role="img" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.1<span class="period">.</span></span><span class="space"> </span>An image stored as a <span class="process-math">\(1440\by1468\)</span> array of pixels along with a close-up of a smaller <span class="process-math">\(8\by8\)</span> array.</figcaption></figure> <div class="para" id="p-2998">A lot of data is required to display this image.  A quantity of digital data is frequently measured in bytes, where one byte is the amount of storage needed to record an integer between 0 and 255.  As we will see shortly, each pixel requires three bytes to record that pixel’s color.  This means the amount of data required to display this image is <span class="process-math">\(3\by1440\by1468 = 6,341,760\)</span> bytes or about 6.3 megabytes.</div> <div class="para" id="p-2999">Of course, we would like to store this image on a phone or computer and perhaps transmit it through our data plan to share it with others.  If possible, we would like to find a way to represent this image using a smaller amount of data so that we don’t run out of memory on our phone and quickly exhaust our data plan.</div> <div class="para" id="p-3000">As we will see in this section, the JPEG compression algorithm provides a means for doing just that.  This image, when stored in the JPEG format, requires only 467,359 bytes of data, which is about 7% of the 6.3 megabytes required to display the image.  That is, when we display this image, we are reconstructing it from only 7% of the original data.  This isn’t too surprising since there is quite a bit of redundancy in the image; the left half of the image is almost uniformly blue.  The JPEG algorithm detects this redundancy by representing the data using bases that are well-suited to the task.</div> <article class="exploration project-like" id="exploration-11"><h3 class="heading">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.1<span class="period">.</span></span><span class="space"> </span>An image stored as a <span class="process-math">\(1440\by1468\)</span> array of pixels along with a close-up of a smaller <span class="process-math">\(8\by8\)</span> array.</figcaption></figure> <div class="para" id="p-3032">A lot of data is required to display this image.  A quantity of digital data is frequently measured in bytes, where one byte is the amount of storage needed to record an integer between 0 and 255.  As we will see shortly, each pixel requires three bytes to record that pixel’s color.  This means the amount of data required to display this image is <span class="process-math">\(3\by1440\by1468 = 6,341,760\)</span> bytes or about 6.3 megabytes.</div> <div class="para" id="p-3033">Of course, we would like to store this image on a phone or computer and perhaps transmit it through our data plan to share it with others.  If possible, we would like to find a way to represent this image using a smaller amount of data so that we don’t run out of memory on our phone and quickly exhaust our data plan.</div> <div class="para" id="p-3034">As we will see in this section, the JPEG compression algorithm provides a means for doing just that.  This image, when stored in the JPEG format, requires only 467,359 bytes of data, which is about 7% of the 6.3 megabytes required to display the image.  That is, when we display this image, we are reconstructing it from only 7% of the original data.  This isn’t too surprising since there is quite a bit of redundancy in the image; the left half of the image is almost uniformly blue.  The JPEG algorithm detects this redundancy by representing the data using bases that are well-suited to the task.</div> <article class="exploration project-like" id="exploration-11"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">4.4.1</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-3001">
+<div class="para logical" id="p-3035">
 <div class="para">Since we will be using various bases and the coordinate systems they define, let’s review how to translate between coordinate systems.</div>
 <ol class="lower-alpha">
-<li id="li-2011"><div class="para" id="p-3002">Suppose that we have a basis <span class="process-math">\(\bcal=\{\vvec_1,\vvec_2,\ldots,\vvec_m\}\)</span> for <span class="process-math">\(\real^m\text{.}\)</span>  Explain what we mean by the representation <span class="process-math">\(\coords{\xvec}{\bcal}\)</span> of a vector <span class="process-math">\(\xvec\)</span> in the coordinate system defined by <span class="process-math">\(\bcal\text{.}\)</span>
+<li id="li-2019"><div class="para" id="p-3036">Suppose that we have a basis <span class="process-math">\(\bcal=\{\vvec_1,\vvec_2,\ldots,\vvec_m\}\)</span> for <span class="process-math">\(\real^m\text{.}\)</span>  Explain what we mean by the representation <span class="process-math">\(\coords{\xvec}{\bcal}\)</span> of a vector <span class="process-math">\(\xvec\)</span> in the coordinate system defined by <span class="process-math">\(\bcal\text{.}\)</span>
 </div></li>
-<li id="li-2012"><div class="para" id="p-3003">If we are given the representation <span class="process-math">\(\coords{\xvec}{\bcal}\text{,}\)</span> how can we recover the vector <span class="process-math">\(\xvec\text{?}\)</span>
+<li id="li-2020"><div class="para" id="p-3037">If we are given the representation <span class="process-math">\(\coords{\xvec}{\bcal}\text{,}\)</span> how can we recover the vector <span class="process-math">\(\xvec\text{?}\)</span>
 </div></li>
-<li id="li-2013"><div class="para" id="p-3004">If we are given the vector <span class="process-math">\(\xvec\text{,}\)</span> how can we find <span class="process-math">\(\coords{\xvec}{\bcal}\text{?}\)</span>
+<li id="li-2021"><div class="para" id="p-3038">If we are given the vector <span class="process-math">\(\xvec\text{,}\)</span> how can we find <span class="process-math">\(\coords{\xvec}{\bcal}\text{?}\)</span>
 </div></li>
-<li id="li-2014"><div class="para logical" id="p-3005">
+<li id="li-2022"><div class="para logical" id="p-3039">
 <div class="para">Suppose that</div>
 <div class="displaymath process-math">
 \begin{equation*}
 \bcal=\left\{\twovec{1}{3},\twovec{1}{1}\right\}
 \end{equation*}
 </div>
-<div class="para">is a basis for <span class="process-math">\(\real^2\text{.}\)</span>  If <span class="process-math">\(\coords{\xvec}{\bcal} = \twovec{1}{-2}\text{,}\)</span> find the vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-118"><script type="text/x-sage">
+<div class="para">is a basis for <span class="process-math">\(\real^2\text{.}\)</span>  If <span class="process-math">\(\coords{\xvec}{\bcal} = \twovec{1}{-2}\text{,}\)</span> find the vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-120"><script type="text/x-sage">
 </script></pre>
 </div>
 </div></li>
-<li id="li-2015"><div class="para" id="p-3006">If <span class="process-math">\(\xvec=\twovec{2}{-4}\text{,}\)</span> find <span class="process-math">\(\coords{\xvec}{\bcal}\text{.}\)</span>
+<li id="li-2023"><div class="para" id="p-3040">If <span class="process-math">\(\xvec=\twovec{2}{-4}\text{,}\)</span> find <span class="process-math">\(\coords{\xvec}{\bcal}\text{.}\)</span>
 </div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-147" id="solution-147"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-147"><div class="solution solution-like"><div class="para logical" id="p-3007"><ol class="lower-alpha">
-<li id="li-2016"><div class="para" id="p-3008">The components of the vector <span class="process-math">\(\coords{\xvec}{\bcal}\)</span> are the weights that express <span class="process-math">\(\xvec\)</span> as a linear combination of the basis vectors;  that is, <span class="process-math">\(\coords{\xvec}{\bcal} =
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-146" id="solution-146"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-146"><div class="solution solution-like"><div class="para logical" id="p-3041"><ol class="lower-alpha">
+<li id="li-2024"><div class="para" id="p-3042">The components of the vector <span class="process-math">\(\coords{\xvec}{\bcal}\)</span> are the weights that express <span class="process-math">\(\xvec\)</span> as a linear combination of the basis vectors;  that is, <span class="process-math">\(\coords{\xvec}{\bcal} =
 \cfourvec{c_1}{c_2}{\vdots}{c_m}\)</span> if <span class="process-math">\(\xvec=c_1\vvec_1+c_2\vvec_2+\ldots+c_m\vvec_m\text{.}\)</span>
 </div></li>
-<li id="li-2017"><div class="para" id="p-3009">If we form the matrix <span class="process-math">\(P_{\bcal} =
+<li id="li-2025"><div class="para" id="p-3043">If we form the matrix <span class="process-math">\(P_{\bcal} =
 \left[\begin{array}{rrrr}
 \vvec_1 \amp \vvec_2 \amp \ldots \amp \vvec_m
 \end{array}\right]\text{,}\)</span> then <span class="process-math">\(\xvec=P_{\bcal}\coords{\xvec}{\bcal}\text{.}\)</span>
 </div></li>
-<li id="li-2018"><div class="para" id="p-3010">As before, <span class="process-math">\(\coords{\xvec}{\bcal}=P_{\bcal}^{-1}\xvec\text{.}\)</span>
+<li id="li-2026"><div class="para" id="p-3044">As before, <span class="process-math">\(\coords{\xvec}{\bcal}=P_{\bcal}^{-1}\xvec\text{.}\)</span>
 </div></li>
-<li id="li-2019"><div class="para" id="p-3011">We find <span class="process-math">\(\xvec=P_{\bcal}\coords{\xvec}{\bcal} =
+<li id="li-2027"><div class="para" id="p-3045">We find <span class="process-math">\(\xvec=P_{\bcal}\coords{\xvec}{\bcal} =
 \twovec{-1}{1}\text{.}\)</span>
 </div></li>
-<li id="li-2020"><div class="para" id="p-3012">We find <span class="process-math">\(\coords{\xvec}{\bcal}=P_{\bcal}^{-1}\xvec =
+<li id="li-2028"><div class="para" id="p-3046">We find <span class="process-math">\(\coords{\xvec}{\bcal}=P_{\bcal}^{-1}\xvec =
 \twovec{-3}{5}\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
 </div></article></section><section class="subsection" id="subsection-61"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.4.1</span><span class="space"> </span><span class="title">Color models</span>
 </h3>
-<div class="para" id="p-3013">A color is represented digitally by a vector in <span class="process-math">\(\real^3\text{.}\)</span>  There are different ways in which we can represent colors, however, depending on whether a computer or a human will be processing the color.  We will describe two of these representations, called <dfn class="terminology">color models</dfn>, and demonstrate how they are used in the JPEG compression algorithm. </div>
-<div class="para" id="p-3014">Digital displays typically create colors by blending together various amounts of red, green, and blue.  We can therefore describe a color by putting its constituent amounts of red, green, and blue into a vector <span class="process-math">\(\threevec{R}{G}{B}\text{.}\)</span>  The quantities <span class="process-math">\(R\text{,}\)</span> <span class="process-math">\(G\text{,}\)</span> and <span class="process-math">\(B\)</span> are stored with one byte of information so they are integers between 0 and 255.  This is called the <dfn class="terminology">RGB color model</dfn>. </div>
-<div class="para logical" id="p-3015">
+<div class="para" id="p-3047">A color is represented digitally by a vector in <span class="process-math">\(\real^3\text{.}\)</span>  There are different ways in which we can represent colors, however, depending on whether a computer or a human will be processing the color.  We will describe two of these representations, called <dfn class="terminology">color models</dfn>, and demonstrate how they are used in the JPEG compression algorithm. </div>
+<div class="para" id="p-3048">Digital displays typically create colors by blending together various amounts of red, green, and blue.  We can therefore describe a color by putting its constituent amounts of red, green, and blue into a vector <span class="process-math">\(\threevec{R}{G}{B}\text{.}\)</span>  The quantities <span class="process-math">\(R\text{,}\)</span> <span class="process-math">\(G\text{,}\)</span> and <span class="process-math">\(B\)</span> are stored with one byte of information so they are integers between 0 and 255.  This is called the <dfn class="terminology">RGB color model</dfn>. </div>
+<div class="para logical" id="p-3049">
 <div class="para">We define a basis <span class="process-math">\(\bcal=\{\vvec_1,\vvec_2,\vvec_3\}\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -828,109 +828,109 @@ sagecell.makeSagecell({
 <article class="activity project-like" id="activity-33"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.4.2</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-3016">This activity investigates these two color models, which we view as coordinate systems for describing colors.</div> <div class="para logical" id="p-3017"><ol class="lower-alpha">
-<li id="li-2021">
-<div class="para" id="p-3018">First, we will explore the <span class="process-math">\(RGB\)</span> color model.</div>
+<div class="para" id="p-3050">This activity investigates these two color models, which we view as coordinate systems for describing colors.</div> <div class="para logical" id="p-3051"><ol class="lower-alpha">
+<li id="li-2029">
+<div class="para" id="p-3052">First, we will explore the <span class="process-math">\(RGB\)</span> color model.</div>
 <figure class="figure figure-like" id="js-rgb"><iframe id="interactive-rgb" width="600" height="71" src="interactive-rgb-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-6" id="instructions-6"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-6"><div class="solution-like"><div class="para" id="p-3019">Create colors using various amounts of red, green, and blue. For each of these three quantities, the slider varies between 0 and 255.</div></div></div>
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-6" id="instructions-6"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-6"><div class="solution-like"><div class="para" id="p-3053">Create colors using various amounts of red, green, and blue. For each of these three quantities, the slider varies between 0 and 255.</div></div></div>
 </div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.2<span class="period">.</span></span><span class="space"> </span>The <span class="process-math">\(RGB\)</span> color model.</figcaption></figure><div class="para logical" id="p-3021"><ol class="decimal">
-<li id="li-2022"><div class="para" id="p-3022">What happens when <span class="process-math">\(G=0\text{,}\)</span> <span class="process-math">\(B=0\)</span> (pushed all the way to the left), and <span class="process-math">\(R\)</span> is allowed to vary?</div></li>
-<li id="li-2023"><div class="para" id="p-3023">What happens when <span class="process-math">\(R=0\text{,}\)</span> <span class="process-math">\(G=0\text{,}\)</span> and <span class="process-math">\(B\)</span> is allowed to vary?</div></li>
-<li id="li-2024"><div class="para" id="p-3024">How can you create black in this color model?</div></li>
-<li id="li-2025"><div class="para" id="p-3025">How can you create white?</div></li>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.2<span class="period">.</span></span><span class="space"> </span>The <span class="process-math">\(RGB\)</span> color model.</figcaption></figure><div class="para logical" id="p-3055"><ol class="decimal">
+<li id="li-2030"><div class="para" id="p-3056">What happens when <span class="process-math">\(G=0\text{,}\)</span> <span class="process-math">\(B=0\)</span> (pushed all the way to the left), and <span class="process-math">\(R\)</span> is allowed to vary?</div></li>
+<li id="li-2031"><div class="para" id="p-3057">What happens when <span class="process-math">\(R=0\text{,}\)</span> <span class="process-math">\(G=0\text{,}\)</span> and <span class="process-math">\(B\)</span> is allowed to vary?</div></li>
+<li id="li-2032"><div class="para" id="p-3058">How can you create black in this color model?</div></li>
+<li id="li-2033"><div class="para" id="p-3059">How can you create white?</div></li>
 </ol></div>
 </li>
-<li id="li-2026">
-<div class="para" id="p-3026">Next, we will explore the <span class="process-math">\(YC_bC_r\)</span> color model.</div>
+<li id="li-2034">
+<div class="para" id="p-3060">Next, we will explore the <span class="process-math">\(YC_bC_r\)</span> color model.</div>
 <figure class="figure figure-like" id="js-ycbcr"><iframe id="interactive-ycbcr" width="600" height="71" src="interactive-ycbcr-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-7" id="instructions-7"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-7"><div class="solution-like"><div class="para" id="p-3027">Create colors using various amounts of luminance <span class="process-math">\(Y\text{,}\)</span> blue chrominance <span class="process-math">\(C_b\text{,}\)</span> and red chrominance <span class="process-math">\(C_r\text{.}\)</span>  The luminance slider moves between 0 and 255 while the chrominance sliders move between -127.5 and 127.5.</div></div></div>
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-7" id="instructions-7"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-7"><div class="solution-like"><div class="para" id="p-3061">Create colors using various amounts of luminance <span class="process-math">\(Y\text{,}\)</span> blue chrominance <span class="process-math">\(C_b\text{,}\)</span> and red chrominance <span class="process-math">\(C_r\text{.}\)</span>  The luminance slider moves between 0 and 255 while the chrominance sliders move between -127.5 and 127.5.</div></div></div>
 </div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.3<span class="period">.</span></span><span class="space"> </span>The <span class="process-math">\(YC_bC_r\)</span> color model.</figcaption></figure><div class="para logical" id="p-3029"><ol class="decimal">
-<li id="li-2027"><div class="para" id="p-3030">What happens when <span class="process-math">\(C_b=0\)</span> and <span class="process-math">\(C_r=0\)</span> (kept in the center) and <span class="process-math">\(Y\)</span> is allowed to vary?</div></li>
-<li id="li-2028"><div class="para" id="p-3031">What happens when <span class="process-math">\(Y=0\)</span> (pushed to the left), <span class="process-math">\(C_r=0\)</span> (kept in the center), and <span class="process-math">\(C_b\)</span> is allowed to increase between 0 and 127.5?</div></li>
-<li id="li-2029"><div class="para" id="p-3032">What happens when <span class="process-math">\(Y=0\text{,}\)</span> <span class="process-math">\(C_b=0\text{,}\)</span> and <span class="process-math">\(C_r\)</span> is allowed to increase between 0 and 127.5?</div></li>
-<li id="li-2030"><div class="para" id="p-3033">How can you create black in this color model?</div></li>
-<li id="li-2031"><div class="para" id="p-3034">How can you create white?</div></li>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.3<span class="period">.</span></span><span class="space"> </span>The <span class="process-math">\(YC_bC_r\)</span> color model.</figcaption></figure><div class="para logical" id="p-3063"><ol class="decimal">
+<li id="li-2035"><div class="para" id="p-3064">What happens when <span class="process-math">\(C_b=0\)</span> and <span class="process-math">\(C_r=0\)</span> (kept in the center) and <span class="process-math">\(Y\)</span> is allowed to vary?</div></li>
+<li id="li-2036"><div class="para" id="p-3065">What happens when <span class="process-math">\(Y=0\)</span> (pushed to the left), <span class="process-math">\(C_r=0\)</span> (kept in the center), and <span class="process-math">\(C_b\)</span> is allowed to increase between 0 and 127.5?</div></li>
+<li id="li-2037"><div class="para" id="p-3066">What happens when <span class="process-math">\(Y=0\text{,}\)</span> <span class="process-math">\(C_b=0\text{,}\)</span> and <span class="process-math">\(C_r\)</span> is allowed to increase between 0 and 127.5?</div></li>
+<li id="li-2038"><div class="para" id="p-3067">How can you create black in this color model?</div></li>
+<li id="li-2039"><div class="para" id="p-3068">How can you create white?</div></li>
 </ol></div>
 </li>
-<li id="li-2032"><div class="para" id="p-3035">Verify that <span class="process-math">\(\bcal\)</span> is a basis for <span class="process-math">\(\real^3\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-119"><script type="text/x-sage">
+<li id="li-2040"><div class="para" id="p-3069">Verify that <span class="process-math">\(\bcal\)</span> is a basis for <span class="process-math">\(\real^3\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-121"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-2033"><div class="para" id="p-3036">Find the matrix <span class="process-math">\(P_{\bcal}\)</span> that converts from <span class="process-math">\(\threevec{Y}{C_b}{C_r}\)</span> coordinates into <span class="process-math">\(\threevec{R}{G}{B}\)</span> coordinates.  Then find the matrix <span class="process-math">\(P_{\bcal}^{-1}\)</span> that converts from <span class="process-math">\(\threevec{R}{G}{B}\)</span> coordinates back into <span class="process-math">\(\threevec{Y}{C_b}{C_r}\)</span> coordinates.</div></li>
-<li id="li-2034"><div class="para logical" id="p-3037">
+<li id="li-2041"><div class="para" id="p-3070">Find the matrix <span class="process-math">\(P_{\bcal}\)</span> that converts from <span class="process-math">\(\threevec{Y}{C_b}{C_r}\)</span> coordinates into <span class="process-math">\(\threevec{R}{G}{B}\)</span> coordinates.  Then find the matrix <span class="process-math">\(P_{\bcal}^{-1}\)</span> that converts from <span class="process-math">\(\threevec{R}{G}{B}\)</span> coordinates back into <span class="process-math">\(\threevec{Y}{C_b}{C_r}\)</span> coordinates.</div></li>
+<li id="li-2042"><div class="para logical" id="p-3071">
 <div class="para">Find the <span class="process-math">\(\threevec{Y}{C_b}{C_r}\)</span> coordinates for the following colors and check, using the diagrams above, that the two representations agree.</div>
 <ol class="decimal">
-<li id="li-2035"><div class="para" id="p-3038">Pure red is <span class="process-math">\(\threevec{R}{G}{B}=
+<li id="li-2043"><div class="para" id="p-3072">Pure red is <span class="process-math">\(\threevec{R}{G}{B}=
 \threevec{255}{0}{0}\text{.}\)</span>
 </div></li>
-<li id="li-2036"><div class="para" id="p-3039">Pure blue is <span class="process-math">\(\threevec{R}{G}{B}=
+<li id="li-2044"><div class="para" id="p-3073">Pure blue is <span class="process-math">\(\threevec{R}{G}{B}=
 \threevec{0}{0}{255}\text{.}\)</span>
 </div></li>
-<li id="li-2037"><div class="para" id="p-3040">Pure white is <span class="process-math">\(\threevec{R}{G}{B}=
+<li id="li-2045"><div class="para" id="p-3074">Pure white is <span class="process-math">\(\threevec{R}{G}{B}=
 \threevec{255}{255}{255}\text{.}\)</span>
 </div></li>
-<li id="li-2038"><div class="para" id="p-3041">Pure black is <span class="process-math">\(\threevec{R}{G}{B}=
+<li id="li-2046"><div class="para" id="p-3075">Pure black is <span class="process-math">\(\threevec{R}{G}{B}=
 \threevec{0}{0}{0}\text{.}\)</span>
 </div></li>
 </ol>
 </div></li>
-<li id="li-2039"><div class="para logical" id="p-3042">
+<li id="li-2047"><div class="para logical" id="p-3076">
 <div class="para">Find the <span class="process-math">\(\threevec{R}{G}{B}\)</span> coordinates for the following colors and check, using the diagrams above, that the two representations agree.</div>
 <ol class="decimal">
-<li id="li-2040"><div class="para" id="p-3043"><span class="process-math">\(\threevec{Y}{C_b}{C_r}=\threevec{128}{0}{0}\text{.}\)</span></div></li>
-<li id="li-2041"><div class="para" id="p-3044"><span class="process-math">\(\threevec{Y}{C_b}{C_r}=\threevec{128}{60}{0}\text{.}\)</span></div></li>
-<li id="li-2042"><div class="para" id="p-3045"><span class="process-math">\(\threevec{Y}{C_b}{C_r}=\threevec{128}{0}{60}\text{.}\)</span></div></li>
+<li id="li-2048"><div class="para" id="p-3077"><span class="process-math">\(\threevec{Y}{C_b}{C_r}=\threevec{128}{0}{0}\text{.}\)</span></div></li>
+<li id="li-2049"><div class="para" id="p-3078"><span class="process-math">\(\threevec{Y}{C_b}{C_r}=\threevec{128}{60}{0}\text{.}\)</span></div></li>
+<li id="li-2050"><div class="para" id="p-3079"><span class="process-math">\(\threevec{Y}{C_b}{C_r}=\threevec{128}{0}{60}\text{.}\)</span></div></li>
 </ol>
 </div></li>
-<li id="li-2043">
-<div class="para logical" id="p-3046">
+<li id="li-2051">
+<div class="para logical" id="p-3080">
 <div class="para">Write an expression for</div>
 <ol class="decimal">
-<li id="li-2044"><div class="para" id="p-3047">The luminance <span class="process-math">\(Y\)</span> as it depends on <span class="process-math">\(R\text{,}\)</span> <span class="process-math">\(G\text{,}\)</span> and <span class="process-math">\(B\text{.}\)</span>
+<li id="li-2052"><div class="para" id="p-3081">The luminance <span class="process-math">\(Y\)</span> as it depends on <span class="process-math">\(R\text{,}\)</span> <span class="process-math">\(G\text{,}\)</span> and <span class="process-math">\(B\text{.}\)</span>
 </div></li>
-<li id="li-2045"><div class="para" id="p-3048">The blue chrominance <span class="process-math">\(C_b\)</span> as it depends on <span class="process-math">\(R\text{,}\)</span> <span class="process-math">\(G\text{,}\)</span> and <span class="process-math">\(B\text{.}\)</span>
+<li id="li-2053"><div class="para" id="p-3082">The blue chrominance <span class="process-math">\(C_b\)</span> as it depends on <span class="process-math">\(R\text{,}\)</span> <span class="process-math">\(G\text{,}\)</span> and <span class="process-math">\(B\text{.}\)</span>
 </div></li>
-<li id="li-2046"><div class="para" id="p-3049">The red chrominance <span class="process-math">\(C_r\)</span> as it depends on <span class="process-math">\(R\text{,}\)</span> <span class="process-math">\(G\text{,}\)</span> and <span class="process-math">\(B\text{.}\)</span>
+<li id="li-2054"><div class="para" id="p-3083">The red chrominance <span class="process-math">\(C_r\)</span> as it depends on <span class="process-math">\(R\text{,}\)</span> <span class="process-math">\(G\text{,}\)</span> and <span class="process-math">\(B\text{.}\)</span>
 </div></li>
 </ol>
 </div>
-<div class="para logical" id="p-3050">
+<div class="para logical" id="p-3084">
 <div class="para">Explain how these quantities can be roughly interpreted by stating that</div>
 <ol class="decimal">
-<li id="li-2047"><div class="para" id="p-3051">the luminance represents the brightness of the color.</div></li>
-<li id="li-2048"><div class="para" id="p-3052">the blue chrominance measures the amount of blue in the color.</div></li>
-<li id="li-2049"><div class="para" id="p-3053">the red chrominance measures the amount of red in the color.</div></li>
+<li id="li-2055"><div class="para" id="p-3085">the luminance represents the brightness of the color.</div></li>
+<li id="li-2056"><div class="para" id="p-3086">the blue chrominance measures the amount of blue in the color.</div></li>
+<li id="li-2057"><div class="para" id="p-3087">the red chrominance measures the amount of red in the color.</div></li>
 </ol>
 </div>
 </li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-148" id="solution-148"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-148"><div class="solution solution-like"><div class="para logical" id="p-3054"><ol class="lower-alpha">
-<li id="li-2050"><div class="para logical" id="p-3055">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-147" id="solution-147"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-147"><div class="solution solution-like"><div class="para logical" id="p-3088"><ol class="lower-alpha">
+<li id="li-2058"><div class="para logical" id="p-3089">
 <div class="para">Working with the <span class="process-math">\(RGB\)</span> color model, we find that</div>
 <ol class="decimal">
-<li id="li-2051"><div class="para" id="p-3056">we produce red with varying degrees of brightness.</div></li>
-<li id="li-2052"><div class="para" id="p-3057">we produce blue with varying degrees of brightness.</div></li>
-<li id="li-2053"><div class="para" id="p-3058"><span class="process-math">\(R=G=B=0\text{.}\)</span></div></li>
-<li id="li-2054"><div class="para" id="p-3059"><span class="process-math">\(R=G=B=255\text{.}\)</span></div></li>
+<li id="li-2059"><div class="para" id="p-3090">we produce red with varying degrees of brightness.</div></li>
+<li id="li-2060"><div class="para" id="p-3091">we produce blue with varying degrees of brightness.</div></li>
+<li id="li-2061"><div class="para" id="p-3092"><span class="process-math">\(R=G=B=0\text{.}\)</span></div></li>
+<li id="li-2062"><div class="para" id="p-3093"><span class="process-math">\(R=G=B=255\text{.}\)</span></div></li>
 </ol>
 </div></li>
-<li id="li-2055"><div class="para logical" id="p-3060">
+<li id="li-2063"><div class="para logical" id="p-3094">
 <div class="para">Working with the <span class="process-math">\(YC_bC_r\)</span> color model, we find that</div>
 <ol class="decimal">
-<li id="li-2056"><div class="para" id="p-3061">we produce gray with varying degrees of brightness.</div></li>
-<li id="li-2057"><div class="para" id="p-3062">we produce blue with varying degrees of brightness.</div></li>
-<li id="li-2058"><div class="para" id="p-3063">we produce red with varying degrees of brightness.</div></li>
-<li id="li-2059"><div class="para" id="p-3064"><span class="process-math">\(Y=C_b=C_r = 0\text{.}\)</span></div></li>
-<li id="li-2060"><div class="para" id="p-3065">
+<li id="li-2064"><div class="para" id="p-3095">we produce gray with varying degrees of brightness.</div></li>
+<li id="li-2065"><div class="para" id="p-3096">we produce blue with varying degrees of brightness.</div></li>
+<li id="li-2066"><div class="para" id="p-3097">we produce red with varying degrees of brightness.</div></li>
+<li id="li-2067"><div class="para" id="p-3098"><span class="process-math">\(Y=C_b=C_r = 0\text{.}\)</span></div></li>
+<li id="li-2068"><div class="para" id="p-3099">
 <span class="process-math">\(Y=255\)</span> with <span class="process-math">\(C_b=C_r=0\text{.}\)</span>
 </div></li>
 </ol>
 </div></li>
-<li id="li-2061"><div class="para" id="p-3066">If we row reduce the matrix whose columns are the vectors in <span class="process-math">\(\bcal\text{,}\)</span> we obtain the identity matrix, which means that the vectors are linearly independent and span <span class="process-math">\(\real^3\text{.}\)</span>
+<li id="li-2069"><div class="para" id="p-3100">If we row reduce the matrix whose columns are the vectors in <span class="process-math">\(\bcal\text{,}\)</span> we obtain the identity matrix, which means that the vectors are linearly independent and span <span class="process-math">\(\real^3\text{.}\)</span>
 </div></li>
-<li id="li-2062"><div class="para logical" id="p-3067">
+<li id="li-2070"><div class="para logical" id="p-3101">
 <div class="para">The matrices are</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -954,28 +954,28 @@ P_{\bcal}^{-1} =
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2063"><div class="para logical" id="p-3068">
+<li id="li-2071"><div class="para logical" id="p-3102">
 <div class="para">To convert from <span class="process-math">\(RGB\)</span> to <span class="process-math">\(YC_bC_r\text{,}\)</span> we multiply by <span class="process-math">\(P_{\bcal}^{-1}\)</span> so that</div>
 <ol class="decimal">
-<li id="li-2064"><div class="para" id="p-3069"><span class="process-math">\(\displaystyle \threevec{Y}{C_b}{C_r} =
+<li id="li-2072"><div class="para" id="p-3103"><span class="process-math">\(\displaystyle \threevec{Y}{C_b}{C_r} =
 \threevec{76.2}{-43.0}{127.5}\)</span></div></li>
-<li id="li-2065"><div class="para" id="p-3070"><span class="process-math">\(\displaystyle \threevec{Y}{C_b}{C_r} =
+<li id="li-2073"><div class="para" id="p-3104"><span class="process-math">\(\displaystyle \threevec{Y}{C_b}{C_r} =
 \threevec{29.1}{127.5}{-20.7}\)</span></div></li>
-<li id="li-2066"><div class="para" id="p-3071"><span class="process-math">\(\displaystyle \threevec{Y}{C_b}{C_r} =
+<li id="li-2074"><div class="para" id="p-3105"><span class="process-math">\(\displaystyle \threevec{Y}{C_b}{C_r} =
 \threevec{255}{0}{0}\)</span></div></li>
-<li id="li-2067"><div class="para" id="p-3072"><span class="process-math">\(\displaystyle \threevec{Y}{C_b}{C_r} =
+<li id="li-2075"><div class="para" id="p-3106"><span class="process-math">\(\displaystyle \threevec{Y}{C_b}{C_r} =
 \threevec{0}{0}{0}\)</span></div></li>
 </ol>
 </div></li>
-<li id="li-2068"><div class="para logical" id="p-3073">
+<li id="li-2076"><div class="para logical" id="p-3107">
 <div class="para">To convert from <span class="process-math">\(YC_bC_r\)</span> to <span class="process-math">\(RGB\text{,}\)</span> we multiply by <span class="process-math">\(P_{\bcal}\)</span> so that</div>
 <ol class="lower-roman">
-<li id="li-2069"><div class="para" id="p-3074"><span class="process-math">\(\displaystyle \threevec{R}{G}{B} = \threevec{128}{128}{128}\)</span></div></li>
-<li id="li-2070"><div class="para" id="p-3075"><span class="process-math">\(\displaystyle \threevec{R}{G}{B} = \threevec{128}{107.4}{234.3}\)</span></div></li>
-<li id="li-2071"><div class="para" id="p-3076"><span class="process-math">\(\displaystyle \threevec{R}{G}{B} = \threevec{212.1}{85.1}{128}\)</span></div></li>
+<li id="li-2077"><div class="para" id="p-3108"><span class="process-math">\(\displaystyle \threevec{R}{G}{B} = \threevec{128}{128}{128}\)</span></div></li>
+<li id="li-2078"><div class="para" id="p-3109"><span class="process-math">\(\displaystyle \threevec{R}{G}{B} = \threevec{128}{107.4}{234.3}\)</span></div></li>
+<li id="li-2079"><div class="para" id="p-3110"><span class="process-math">\(\displaystyle \threevec{R}{G}{B} = \threevec{212.1}{85.1}{128}\)</span></div></li>
 </ol>
 </div></li>
-<li id="li-2072"><div class="para logical" id="p-3077">
+<li id="li-2080"><div class="para logical" id="p-3111">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -992,38 +992,38 @@ C_r \amp {}={} \amp 0.500R \amp {}-{} \amp 0.419G \amp {}-{}
 <div class="para">The expression for <span class="process-math">\(Y\)</span> is a weighted average of the <span class="process-math">\(R\text{,}\)</span> <span class="process-math">\(G\text{,}\)</span> and <span class="process-math">\(B\)</span> values.  The expression for <span class="process-math">\(C_b\)</span> takes half the amount of <span class="process-math">\(B\)</span> and subtracts the amounts of red and green.  Likewise, the expression for <span class="process-math">\(C_r\)</span> takes half the amount of <span class="process-math">\(R\)</span> and subtracts the amounts of green and blue.</div>
 </div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-3078">These two color models provide us with two ways to represent colors, each of which is useful in a certain context.  Digital displays, such as those in phones and computer monitors, create colors by combining various amounts of red, green, and blue. The <span class="process-math">\(RGB\)</span> model is therefore most relevant in digital applications.</div>
-<div class="para" id="p-3079">By contrast, the <span class="process-math">\(YC_bC_r\)</span> color model was created based on research into human vision and aims to concentrate the most visually important data into a single coordinate, the luminance, to which our eyes are most sensitive.  Of course, any basis of <span class="process-math">\(\real^3\)</span> must have three vectors so we need two more coordinates, blue and red chrominance, if we want to represent all colors.</div>
-<div class="para" id="p-3080">To see this explicitly, shown in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-luminance.html" title="Figure 4.4.4">Figure 4.4.4</a> is the original image and the image as rendered with only the luminance.  That is, on the right, the color of each pixel is represented by only one byte, which is the luminance. This image essentially looks like a grayscale version of the original image with all its visual detail.  In fact, before digital television became the standard, television signals were broadcast using the <span class="process-math">\(YC_bC_r\)</span> color model.  When a signal was displayed on a black-and-white television, the luminance was displayed and the two chrominance values simply ignored.</div>
+</div></article><div class="para" id="p-3112">These two color models provide us with two ways to represent colors, each of which is useful in a certain context.  Digital displays, such as those in phones and computer monitors, create colors by combining various amounts of red, green, and blue. The <span class="process-math">\(RGB\)</span> model is therefore most relevant in digital applications.</div>
+<div class="para" id="p-3113">By contrast, the <span class="process-math">\(YC_bC_r\)</span> color model was created based on research into human vision and aims to concentrate the most visually important data into a single coordinate, the luminance, to which our eyes are most sensitive.  Of course, any basis of <span class="process-math">\(\real^3\)</span> must have three vectors so we need two more coordinates, blue and red chrominance, if we want to represent all colors.</div>
+<div class="para" id="p-3114">To see this explicitly, shown in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-luminance.html" title="Figure 4.4.4">Figure 4.4.4</a> is the original image and the image as rendered with only the luminance.  That is, on the right, the color of each pixel is represented by only one byte, which is the luminance. This image essentially looks like a grayscale version of the original image with all its visual detail.  In fact, before digital television became the standard, television signals were broadcast using the <span class="process-math">\(YC_bC_r\)</span> color model.  When a signal was displayed on a black-and-white television, the luminance was displayed and the two chrominance values simply ignored.</div>
 <figure class="figure figure-like" id="fig-jpeg-luminance"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/spring-canyon-cropped.jpg" class="contained"></div>
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/spring-canyon-luminance.jpg" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.4<span class="period">.</span></span><span class="space"> </span>The original image rendered with only the luminance values.</figcaption></figure><div class="para" id="p-3081">For comparison, shown in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-chrominance.html" title="Figure 4.4.5">Figure 4.4.5</a> are the corresponding images created using only the blue chrominance and the red chrominance.  Notice that the amount of visual detail is considerably less in these images.</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.4<span class="period">.</span></span><span class="space"> </span>The original image rendered with only the luminance values.</figcaption></figure><div class="para" id="p-3115">For comparison, shown in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-chrominance.html" title="Figure 4.4.5">Figure 4.4.5</a> are the corresponding images created using only the blue chrominance and the red chrominance.  Notice that the amount of visual detail is considerably less in these images.</div>
 <figure class="figure figure-like" id="fig-jpeg-chrominance"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/spring-canyon-blue-chrominance.jpg" class="contained"></div>
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/spring-canyon-red-chrominance.jpg" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.5<span class="period">.</span></span><span class="space"> </span>The original image rendered, on the left, with only blue chrominance and, on the right, with only red chrominance.</figcaption></figure><div class="para" id="p-3082">The aim of the JPEG compression algorithm is to represent an image using the smallest amount of data possible.  By converting from the <span class="process-math">\(RGB\)</span> color model to the <span class="process-math">\(YC_bC_r\)</span> color model, we are concentrating the most visually important data into the luminance values.  This is helpful because we can safely ignore some of the data in the chrominance values since that data is not as visually important.</div></section><section class="subsection" id="subsection-62"><h3 class="heading hide-type">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.5<span class="period">.</span></span><span class="space"> </span>The original image rendered, on the left, with only blue chrominance and, on the right, with only red chrominance.</figcaption></figure><div class="para" id="p-3116">The aim of the JPEG compression algorithm is to represent an image using the smallest amount of data possible.  By converting from the <span class="process-math">\(RGB\)</span> color model to the <span class="process-math">\(YC_bC_r\)</span> color model, we are concentrating the most visually important data into the luminance values.  This is helpful because we can safely ignore some of the data in the chrominance values since that data is not as visually important.</div></section><section class="subsection" id="subsection-62"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.4.2</span><span class="space"> </span><span class="title">The JPEG compression algorithm</span>
 </h3>
-<div class="para" id="p-3083">The key to representing the image using a smaller amount of data is to detect redundancies in the data.  To begin, we first break the image, which is composed of <span class="process-math">\(1440\by 1468\)</span> pixels, into small <span class="process-math">\(8\by8\)</span> blocks of pixels.  For example, we will consider the <span class="process-math">\(8\by8\)</span> block of pixels outlined in green in the original image, shown on the left of <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block.html" title="Figure 4.4.6">Figure 4.4.6</a>.  The image on the right zooms in on the block.</div>
+<div class="para" id="p-3117">The key to representing the image using a smaller amount of data is to detect redundancies in the data.  To begin, we first break the image, which is composed of <span class="process-math">\(1440\by 1468\)</span> pixels, into small <span class="process-math">\(8\by8\)</span> blocks of pixels.  For example, we will consider the <span class="process-math">\(8\by8\)</span> block of pixels outlined in green in the original image, shown on the left of <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block.html" title="Figure 4.4.6">Figure 4.4.6</a>.  The image on the right zooms in on the block.</div>
 <figure class="figure figure-like" id="fig-jpeg-block"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/jpeg-block.jpg" class="contained"></div>
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/jpeg-block-zoom.jpg" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.6<span class="period">.</span></span><span class="space"> </span>An <span class="process-math">\(8\by8\)</span> block of pixels outlined in green in the original image on the left.  We see the same block on a smaller scale on the right.</figcaption></figure><div class="para" id="p-3084">Notice that this block, as seen in the original image, is very small.  If we were to change some of the colors in this block slightly, our eyes would probably not notice.</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.6<span class="period">.</span></span><span class="space"> </span>An <span class="process-math">\(8\by8\)</span> block of pixels outlined in green in the original image on the left.  We see the same block on a smaller scale on the right.</figcaption></figure><div class="para" id="p-3118">Notice that this block, as seen in the original image, is very small.  If we were to change some of the colors in this block slightly, our eyes would probably not notice.</div>
 <figure class="figure figure-like" id="fig-jpeg-block-zoom"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
-<div class="sbspanel top" style="width:47.3684210526316%;"><div class="para" id="p-3085">Here we see a close-up of the block.  The important point here is that the colors do not change too much over this block.  In fact, we expect this to be true for most of the blocks.  There will, of course, be some blocks that contain dramatic changes, such as where the sky and rock intersect, but they will be the exception.</div></div>
+<div class="sbspanel top" style="width:47.3684210526316%;"><div class="para" id="p-3119">Here we see a close-up of the block.  The important point here is that the colors do not change too much over this block.  In fact, we expect this to be true for most of the blocks.  There will, of course, be some blocks that contain dramatic changes, such as where the sky and rock intersect, but they will be the exception.</div></div>
 <div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/jpeg-orig-block.svg" role="img" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.7<span class="period">.</span></span><span class="space"> </span>The <span class="process-math">\(8\by8\)</span> block under consideration.</figcaption></figure><div class="para" id="p-3086">Following our earlier work, we will change the representation of colors from the <span class="process-math">\(RGB\)</span> color model to the <span class="process-math">\(YC_bC_r\)</span> model.  This separates the colors into luminance and chrominance values that we will consider separately. In <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block-luminance.html" title="Figure 4.4.8">Figure 4.4.8</a>, we see the luminance values of this block.  Again, notice how these values do not vary significantly over the block.</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.7<span class="period">.</span></span><span class="space"> </span>The <span class="process-math">\(8\by8\)</span> block under consideration.</figcaption></figure><div class="para" id="p-3120">Following our earlier work, we will change the representation of colors from the <span class="process-math">\(RGB\)</span> color model to the <span class="process-math">\(YC_bC_r\)</span> model.  This separates the colors into luminance and chrominance values that we will consider separately. In <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block-luminance.html" title="Figure 4.4.8">Figure 4.4.8</a>, we see the luminance values of this block.  Again, notice how these values do not vary significantly over the block.</div>
 <figure class="figure figure-like" id="fig-jpeg-block-luminance"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/jpeg-block-luminance.svg" role="img" class="contained"></div>
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/jpeg-block-luminance-values.svg" role="img" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.8<span class="period">.</span></span><span class="space"> </span>The luminance values in this block.</figcaption></figure><div class="para" id="p-3087">Our strategy in the compression algorithm is to perform a change of basis to take advantage of the fact that the luminance values do not change significantly over the block.  Rather than recording the luminance of each of the pixels, this change of basis will allow us to record the average luminance along with some information about how the individual colors vary from the average.</div>
-<div class="para logical" id="p-3088">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.8<span class="period">.</span></span><span class="space"> </span>The luminance values in this block.</figcaption></figure><div class="para" id="p-3121">Our strategy in the compression algorithm is to perform a change of basis to take advantage of the fact that the luminance values do not change significantly over the block.  Rather than recording the luminance of each of the pixels, this change of basis will allow us to record the average luminance along with some information about how the individual colors vary from the average.</div>
+<div class="para logical" id="p-3122">
 <div class="para">Let’s look at the first column of luminance values, which is a vector in <span class="process-math">\(\real^8\text{:}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -1035,7 +1035,7 @@ C_r \amp {}={} \amp 0.500R \amp {}-{} \amp 0.419G \amp {}-{}
 </div>
 <div class="para">We will perform a change of basis and describe this vector by the average of the luminance values and information about variations from the average.</div>
 </div>
-<div class="para logical" id="p-3089">
+<div class="para logical" id="p-3123">
 <div class="para"> The JPEG compression algorithm uses the <dfn class="terminology">Discrete Fourier Transform</dfn>, which is defined using the basis <span class="process-math">\(\bcal\)</span> whose basis vectors are</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1073,10 +1073,10 @@ C_r \amp {}={} \amp 0.500R \amp {}-{} \amp 0.419G \amp {}-{}
 \end{equation*}
 </div>
 </div>
-<div class="para" id="p-3090">On first glance, this probably looks intimidating, but we can make sense of it by looking at these vectors graphically.  Shown in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-fourier-basis.html" title="Figure 4.4.9">Figure 4.4.9</a> are four of these basis vectors.  Notice that <span class="process-math">\(\vvec_0\)</span> is constantly 1, <span class="process-math">\(\vvec_1\)</span> varies relatively slowly, <span class="process-math">\(\vvec_2\)</span> varies a little more rapidly, and <span class="process-math">\(\vvec_7\)</span> varies quite rapidly. The main thing to notice is that the basis vectors vary at different rates with the first vectors varying relatively slowly and the later vectors varying more rapidly.</div>
+<div class="para" id="p-3124">On first glance, this probably looks intimidating, but we can make sense of it by looking at these vectors graphically.  Shown in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-fourier-basis.html" title="Figure 4.4.9">Figure 4.4.9</a> are four of these basis vectors.  Notice that <span class="process-math">\(\vvec_0\)</span> is constantly 1, <span class="process-math">\(\vvec_1\)</span> varies relatively slowly, <span class="process-math">\(\vvec_2\)</span> varies a little more rapidly, and <span class="process-math">\(\vvec_7\)</span> varies quite rapidly. The main thing to notice is that the basis vectors vary at different rates with the first vectors varying relatively slowly and the later vectors varying more rapidly.</div>
 <figure class="figure figure-like" id="fig-jpeg-fourier-basis"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/jpeg-fourier-basis.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.9<span class="period">.</span></span><span class="space"> </span>Four of the basis vectors <span class="process-math">\(\vvec_0\text{,}\)</span> <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_7\text{.}\)</span></figcaption></figure><div class="sidebyside"><div class="sbsrow" style="margin-left:1.25%;margin-right:1.25%;">
-<div class="sbspanel top" style="width:46.1538461538462%;"><div class="para logical" id="p-3091">
+<div class="sbspanel top" style="width:46.1538461538462%;"><div class="para logical" id="p-3125">
 <div class="para">These vectors form the basis <span class="process-math">\(\bcal\)</span> for <span class="process-math">\(\real^8\text{.}\)</span> Remember that <span class="process-math">\(\xvec\)</span> is the vector of luminance values in the first column as seen on the right.  We will write <span class="process-math">\(\xvec\)</span> in the new coordinates</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1093,40 +1093,40 @@ F_0 \\ F_1 \\ F_2 \\ \vdots \\ F_7
 <article class="activity project-like" id="activity-34"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.4.3</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-3092">
+<div class="para logical" id="p-3126">
 <div class="para">We will explore the influence that the Fourier coefficients have on the vector <span class="process-math">\(\xvec\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-2073">
-<div class="para" id="p-3093">To begin, we’ll look at the Fourier coefficient <span class="process-math">\(F_0\text{.}\)</span>
+<li id="li-2081">
+<div class="para" id="p-3127">To begin, we’ll look at the Fourier coefficient <span class="process-math">\(F_0\text{.}\)</span>
 </div>
 <figure class="figure figure-like" id="js-fourier-0"><iframe id="interactive-fourier-0" width="600" height="210" src="interactive-fourier-0-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-8" id="instructions-8"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-8"><div class="solution-like"><div class="para" id="p-3094">Use the slider below to explore how the Fourier coefficient <span class="process-math">\(F_0\)</span> influences the vector <span class="process-math">\(\xvec\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-8" id="instructions-8"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-8"><div class="solution-like"><div class="para" id="p-3128">Use the slider below to explore how the Fourier coefficient <span class="process-math">\(F_0\)</span> influences the vector <span class="process-math">\(\xvec\text{.}\)</span>
 </div></div></div>
 </div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.10<span class="period">.</span></span><span class="space"> </span>The effect of the Fourier coefficient <span class="process-math">\(F_0\)</span> on the vector <span class="process-math">\(\xvec = F_0\vvec_0\text{.}\)</span></figcaption></figure><div class="para" id="p-3096">Describe the effect that <span class="process-math">\(F_0\)</span> has on the vector <span class="process-math">\(\xvec\text{.}\)</span>  Would you describe the components in <span class="process-math">\(\xvec\)</span> as constant, slowly varying, or rapidly varying?</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.10<span class="period">.</span></span><span class="space"> </span>The effect of the Fourier coefficient <span class="process-math">\(F_0\)</span> on the vector <span class="process-math">\(\xvec = F_0\vvec_0\text{.}\)</span></figcaption></figure><div class="para" id="p-3130">Describe the effect that <span class="process-math">\(F_0\)</span> has on the vector <span class="process-math">\(\xvec\text{.}\)</span>  Would you describe the components in <span class="process-math">\(\xvec\)</span> as constant, slowly varying, or rapidly varying?</div>
 </li>
-<li id="li-2074">
-<div class="para" id="p-3097">By comparison, let’s see how the Fourier coefficient <span class="process-math">\(F_3\)</span> influences <span class="process-math">\(\xvec\text{.}\)</span>
+<li id="li-2082">
+<div class="para" id="p-3131">By comparison, let’s see how the Fourier coefficient <span class="process-math">\(F_3\)</span> influences <span class="process-math">\(\xvec\text{.}\)</span>
 </div>
 <figure class="figure figure-like" id="js-fourier-3"><iframe id="interactive-fourier-3" width="600" height="210" src="interactive-fourier-3-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-9" id="instructions-9"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-9"><div class="solution-like"><div class="para" id="p-3098">Use the slider below to explore how the Fourier coefficient <span class="process-math">\(F_3\)</span> influences the vector <span class="process-math">\(\xvec\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-9" id="instructions-9"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-9"><div class="solution-like"><div class="para" id="p-3132">Use the slider below to explore how the Fourier coefficient <span class="process-math">\(F_3\)</span> influences the vector <span class="process-math">\(\xvec\text{.}\)</span>
 </div></div></div>
 </div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.11<span class="period">.</span></span><span class="space"> </span>The effect of the Fourier coefficient <span class="process-math">\(F_3\)</span> on the vector <span class="process-math">\(\xvec = F_3\vvec_3\text{.}\)</span></figcaption></figure><div class="para" id="p-3100">Describe the effect that <span class="process-math">\(F_3\)</span> has on the vector <span class="process-math">\(\xvec\text{.}\)</span>  Would you describe the components in <span class="process-math">\(\xvec\)</span> as constant, slowly varying, or rapidly varying?</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.11<span class="period">.</span></span><span class="space"> </span>The effect of the Fourier coefficient <span class="process-math">\(F_3\)</span> on the vector <span class="process-math">\(\xvec = F_3\vvec_3\text{.}\)</span></figcaption></figure><div class="para" id="p-3134">Describe the effect that <span class="process-math">\(F_3\)</span> has on the vector <span class="process-math">\(\xvec\text{.}\)</span>  Would you describe the components in <span class="process-math">\(\xvec\)</span> as constant, slowly varying, or rapidly varying?</div>
 </li>
-<li id="li-2075">
-<div class="para" id="p-3101">Let’s now investigate how the Fourier coefficient <span class="process-math">\(F_7\)</span> influences the vector <span class="process-math">\(\xvec\text{.}\)</span>
+<li id="li-2083">
+<div class="para" id="p-3135">Let’s now investigate how the Fourier coefficient <span class="process-math">\(F_7\)</span> influences the vector <span class="process-math">\(\xvec\text{.}\)</span>
 </div>
 <figure class="figure figure-like" id="js-fourier-7"><iframe id="interactive-fourier-7" width="600" height="210" src="interactive-fourier-7-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-10" id="instructions-10"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-10"><div class="solution-like"><div class="para" id="p-3102">Use the slider below to explore how the Fourier coefficient <span class="process-math">\(F_7\)</span> influences the vector <span class="process-math">\(\xvec\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-10" id="instructions-10"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-10"><div class="solution-like"><div class="para" id="p-3136">Use the slider below to explore how the Fourier coefficient <span class="process-math">\(F_7\)</span> influences the vector <span class="process-math">\(\xvec\text{.}\)</span>
 </div></div></div>
 </div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.12<span class="period">.</span></span><span class="space"> </span>The effect of the Fourier coefficient <span class="process-math">\(F_0\)</span> on the vector <span class="process-math">\(\xvec = F_7\vvec_7\text{.}\)</span></figcaption></figure><div class="para" id="p-3104">Describe the effect that <span class="process-math">\(F_7\)</span> has on the vector <span class="process-math">\(\xvec\text{.}\)</span>  Would you describe the components in <span class="process-math">\(\xvec\)</span> as constant, slowly varying, or rapidly varying?</div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.12<span class="period">.</span></span><span class="space"> </span>The effect of the Fourier coefficient <span class="process-math">\(F_0\)</span> on the vector <span class="process-math">\(\xvec = F_7\vvec_7\text{.}\)</span></figcaption></figure><div class="para" id="p-3138">Describe the effect that <span class="process-math">\(F_7\)</span> has on the vector <span class="process-math">\(\xvec\text{.}\)</span>  Would you describe the components in <span class="process-math">\(\xvec\)</span> as constant, slowly varying, or rapidly varying?</div>
 </li>
-<li id="li-2076"><div class="para" id="p-3105">If the components of <span class="process-math">\(\xvec\)</span> vary relatively slowly, what would you expect to be true of the Fourier coefficients <span class="process-math">\(F_j\text{?}\)</span>
+<li id="li-2084"><div class="para" id="p-3139">If the components of <span class="process-math">\(\xvec\)</span> vary relatively slowly, what would you expect to be true of the Fourier coefficients <span class="process-math">\(F_j\text{?}\)</span>
 </div></li>
-<li id="li-2077"><div class="para" id="p-3106">The Python cell below will construct the vector <span class="process-math">\(P_{\bcal}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">P</code>, and its inverse <span class="process-math">\(P_{\bcal}^{-1}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">Pinv</code>.  Evaluate this Python cell and notice that it prints the matrix <span class="process-math">\(P_{\bcal}^{-1}\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-dct-def"><script type="text/x-sage">import numpy as np
+<li id="li-2085"><div class="para" id="p-3140">The Python cell below will construct the vector <span class="process-math">\(P_{\bcal}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">P</code>, and its inverse <span class="process-math">\(P_{\bcal}^{-1}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">Pinv</code>.  Evaluate this Python cell and notice that it prints the matrix <span class="process-math">\(P_{\bcal}^{-1}\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-dct-def"><script type="text/x-sage">import numpy as np
 mat = [[math.cos((2*i+1)*j*pi/16) for j in range(8)] for i in range(8)]
 P = np.array(mat)
 print(P.dtype)
@@ -1136,13 +1136,13 @@ Pinv = np.linalg.inv(P)
 print (Pinv.round(3))
 </script></pre> Now look at the form of <span class="process-math">\(P_{\bcal}^{-1}\)</span> and explain why <span class="process-math">\(F_0\)</span> is the average of the luminance values in the vector <span class="process-math">\(\xvec\text{.}\)</span>
 </div></li>
-<li id="li-2078"><div class="para" id="p-3107">The Python cell below defines the vector <span class="process-math">\(\xvec\text{,}\)</span> which is the vector of luminance values in the first column, as seen in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block-luminance.html" title="Figure 4.4.8">Figure 4.4.8</a>. Use the cell below to find the vector <span class="process-math">\(\fvec\)</span> of Fourier coefficients <span class="process-math">\(F_0,F_1,\ldots,F_7\text{.}\)</span>  If you have evaluated the cell above, you will still be able to refer to <code class="code-inline tex2jax_ignore">P</code> and <code class="code-inline tex2jax_ignore">Pinv</code> in this cell. <pre class="ptx-sagecell sagecell-python" id="sage-121"><script type="text/x-sage">import numpy as np
+<li id="li-2086"><div class="para" id="p-3141">The Python cell below defines the vector <span class="process-math">\(\xvec\text{,}\)</span> which is the vector of luminance values in the first column, as seen in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block-luminance.html" title="Figure 4.4.8">Figure 4.4.8</a>. Use the cell below to find the vector <span class="process-math">\(\fvec\)</span> of Fourier coefficients <span class="process-math">\(F_0,F_1,\ldots,F_7\text{.}\)</span>  If you have evaluated the cell above, you will still be able to refer to <code class="code-inline tex2jax_ignore">P</code> and <code class="code-inline tex2jax_ignore">Pinv</code> in this cell. <pre class="ptx-sagecell sagecell-python" id="sage-123"><script type="text/x-sage">import numpy as np
 x = np.array([176,181,165,139,131,131,140,150])
 #  find the vector of Fourier coefficients f below
 f =
 print (f.round(4))
 </script></pre> Write the Fourier coefficients and discuss the relative sizes of the coefficients.</div></li>
-<li id="li-2079"><div class="para" id="p-3108">Let’s see what happens when we simply ignore the coefficients <span class="process-math">\(F_6\)</span> and <span class="process-math">\(F_7\text{.}\)</span>  Form a new vector of Fourier coefficients by rounding the coefficients to the nearest integer and setting <span class="process-math">\(F_6\)</span> and <span class="process-math">\(F_7\)</span> to zero. This is an approximation to <span class="process-math">\(\fvec\text{,}\)</span> the vector of Fourier coefficients.  Use the approximation to <span class="process-math">\(\fvec\)</span> to form an approximation of the vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-122"><script type="text/x-sage"># define fapprox below and then find xapprox
+<li id="li-2087"><div class="para" id="p-3142">Let’s see what happens when we simply ignore the coefficients <span class="process-math">\(F_6\)</span> and <span class="process-math">\(F_7\text{.}\)</span>  Form a new vector of Fourier coefficients by rounding the coefficients to the nearest integer and setting <span class="process-math">\(F_6\)</span> and <span class="process-math">\(F_7\)</span> to zero. This is an approximation to <span class="process-math">\(\fvec\text{,}\)</span> the vector of Fourier coefficients.  Use the approximation to <span class="process-math">\(\fvec\)</span> to form an approximation of the vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-124"><script type="text/x-sage"># define fapprox below and then find xapprox
 fapprox = 
 print(np.vstack((f, fapprox)))
 xapprox = 
@@ -1154,9 +1154,9 @@ print("x - xapprox: ")
 print((x - xapprox).round(0))
 </script></pre>  How much does your approximation differ from the actual vector <span class="process-math">\(\xvec\text{?}\)</span>
 </div></li>
-<li id="li-2080">
-<div class="para" id="p-3109">When we ignore the Fourier coefficients corresponding to rapidly varying basis elements, we see that the vector <span class="process-math">\(\xvec\)</span> that we reconstruct is very close to the original one.  In fact, the luminance values in the approximation differ by at most one or two from the actual luminance values. Our eyes are not sensitive enough to detect this difference.</div>
-<div class="para" id="p-3110">So far, we have concentrated on only one column in our <span class="process-math">\(8\by8\)</span> block of luminance values.  Let’s now consider all of the columns. The following Python cell defines a matrix called <code class="code-inline tex2jax_ignore">luminance</code>, which is the <span class="process-math">\(8\by8\)</span> matrix of luminance values.  Find the <span class="process-math">\(8\by8\)</span> matrix <span class="process-math">\(F\)</span> whose columns are the Fourier coefficients of the columns of luminance values. <pre class="ptx-sagecell sagecell-python" id="sage-123"><script type="text/x-sage">luminance = np.array([176, 170, 170, 169, 162, 160, 155, 150, 181,
+<li id="li-2088">
+<div class="para" id="p-3143">When we ignore the Fourier coefficients corresponding to rapidly varying basis elements, we see that the vector <span class="process-math">\(\xvec\)</span> that we reconstruct is very close to the original one.  In fact, the luminance values in the approximation differ by at most one or two from the actual luminance values. Our eyes are not sensitive enough to detect this difference.</div>
+<div class="para" id="p-3144">So far, we have concentrated on only one column in our <span class="process-math">\(8\by8\)</span> block of luminance values.  Let’s now consider all of the columns. The following Python cell defines a matrix called <code class="code-inline tex2jax_ignore">luminance</code>, which is the <span class="process-math">\(8\by8\)</span> matrix of luminance values.  Find the <span class="process-math">\(8\by8\)</span> matrix <span class="process-math">\(F\)</span> whose columns are the Fourier coefficients of the columns of luminance values. <pre class="ptx-sagecell sagecell-python" id="sage-125"><script type="text/x-sage">luminance = np.array([176, 170, 170, 169, 162, 160, 155, 150, 181,
 179, 175, 167, 162, 160, 154, 149, 165, 170, 169, 161, 162, 161, 160,
 158, 139, 150, 164, 166, 159, 160, 162, 163, 131, 137, 157, 165, 163,
 163, 164, 164, 131, 132, 153, 161, 167, 167, 167, 169, 140, 142, 157,
@@ -1168,7 +1168,7 @@ print (F.round(3))
 </script></pre>
 </div>
 </li>
-<li id="li-2081"><div class="para" id="p-3111">Notice that the first row of this matrix consists of the Fourier coefficient <span class="process-math">\(F_0\)</span> for each of the columns.  Just as we saw before, the entries in this row do not change significantly as we move across the row.  In the Sage cell below, write these entries in the vector <span class="process-math">\(\yvec\)</span> and find the corresponding Fourier coefficients. <pre class="ptx-sagecell sagecell-python" id="sage-124"><script type="text/x-sage"># define the vector y as the entries in the first row of F	    
+<li id="li-2089"><div class="para" id="p-3145">Notice that the first row of this matrix consists of the Fourier coefficient <span class="process-math">\(F_0\)</span> for each of the columns.  Just as we saw before, the entries in this row do not change significantly as we move across the row.  In the Sage cell below, write these entries in the vector <span class="process-math">\(\yvec\)</span> and find the corresponding Fourier coefficients. <pre class="ptx-sagecell sagecell-python" id="sage-126"><script type="text/x-sage"># define the vector y as the entries in the first row of F	    
 y = 
 y_fourier =
 print (y_fourier.round(digits=3))
@@ -1177,15 +1177,15 @@ print (y_fourier.round(digits=3))
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-149" id="solution-149"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-149"><div class="solution solution-like"><div class="para logical" id="p-3112"><ol class="lower-alpha">
-<li id="li-2082"><div class="para" id="p-3113">Changing <span class="process-math">\(F_0\)</span> has the effect of adding a constant to the components of <span class="process-math">\(\xvec\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-148" id="solution-148"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-148"><div class="solution solution-like"><div class="para logical" id="p-3146"><ol class="lower-alpha">
+<li id="li-2090"><div class="para" id="p-3147">Changing <span class="process-math">\(F_0\)</span> has the effect of adding a constant to the components of <span class="process-math">\(\xvec\text{.}\)</span>
 </div></li>
-<li id="li-2083"><div class="para" id="p-3114">The coefficient <span class="process-math">\(F_3\)</span> introduces a slow variation into the components of <span class="process-math">\(\xvec\text{.}\)</span>
+<li id="li-2091"><div class="para" id="p-3148">The coefficient <span class="process-math">\(F_3\)</span> introduces a slow variation into the components of <span class="process-math">\(\xvec\text{.}\)</span>
 </div></li>
-<li id="li-2084"><div class="para" id="p-3115">The coefficient <span class="process-math">\(F_7\)</span> introduces a rapid variation into the components of <span class="process-math">\(\xvec\text{.}\)</span>
+<li id="li-2092"><div class="para" id="p-3149">The coefficient <span class="process-math">\(F_7\)</span> introduces a rapid variation into the components of <span class="process-math">\(\xvec\text{.}\)</span>
 </div></li>
-<li id="li-2085"><div class="para" id="p-3116">The coefficients <span class="process-math">\(F_j\)</span> with larger values of <span class="process-math">\(j\)</span> will be small.</div></li>
-<li id="li-2086"><div class="para logical" id="p-3117">
+<li id="li-2093"><div class="para" id="p-3150">The coefficients <span class="process-math">\(F_j\)</span> with larger values of <span class="process-math">\(j\)</span> will be small.</div></li>
+<li id="li-2094"><div class="para logical" id="p-3151">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1213,7 +1213,7 @@ P_{\bcal}^{-1} =
 <div class="para">From the top row of this matrix, we see that <span class="process-math">\(F_0=\frac18(x_0+x_1+\ldots+x_7)\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-2087"><div class="para logical" id="p-3118">
+<li id="li-2095"><div class="para logical" id="p-3152">
 <div class="para">We find that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1231,7 +1231,7 @@ P_{\bcal}^{-1} =
 </div>
 <div class="para">Notice that the largest Fourier coefficient is <span class="process-math">\(F_0=151.6\)</span> and that the coefficients <span class="process-math">\(F_4\text{,}\)</span> <span class="process-math">\(F_5\text{,}\)</span> <span class="process-math">\(F_6\text{,}\)</span> and <span class="process-math">\(F_7\)</span> are relatively small.  This reflects the fact that the luminance does not vary rapidly.</div>
 </div></li>
-<li id="li-2088"><div class="para logical" id="p-3119">
+<li id="li-2096"><div class="para logical" id="p-3153">
 <div class="para">Notice that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1247,7 +1247,7 @@ P_{\bcal}^{-1} =
 </div>
 <div class="para">showing that the approximation is quite good.</div>
 </div></li>
-<li id="li-2089"><div class="para logical" id="p-3120">
+<li id="li-2097"><div class="para logical" id="p-3154">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1265,12 +1265,12 @@ F =
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2090"><div class="para" id="p-3121">We see that the Fourier coefficients of these Fourier coefficients is <span class="process-math">\(\left[\begin{array}{c}
+<li id="li-2098"><div class="para" id="p-3155">We see that the Fourier coefficients of these Fourier coefficients is <span class="process-math">\(\left[\begin{array}{c}
 161 \\ -3.8 \\ -4.7 \\ -1.6 \\ 0 \\ 0.9 \\ 0.8 \\ 0.4
 \end{array}\right]
 \text{.}\)</span> Once again, we see that <span class="process-math">\(F_0\)</span> is the largest Fourier coefficient and the coefficients corresponding to rapid variations are small.</div></li>
 </ol></div></div></div>
-</div></article><div class="para logical" id="p-3122">
+</div></article><div class="para logical" id="p-3156">
 <div class="para">Up to this point, we have been working with the luminance values in one <span class="process-math">\(8\by8\)</span> block of our image.  We formed the Fourier coefficients for each of the columns of this block.  Once we notice that the Fourier coefficients across a row are relatively constant, it seems reasonable to find the Fourier coefficients of the <em class="emphasis">rows</em> of the matrix of Fourier coefficients.  Doing so leads to the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1289,7 +1289,7 @@ F =
 \end{equation*}
 </div>
 </div>
-<div class="para logical" id="p-3123">
+<div class="para logical" id="p-3157">
 <div class="para">If we were to look inside a JPEG image file, we would see lots of matrices like this.  For each <span class="process-math">\(8\by 8\)</span> block, there would be three matrices of Fourier coefficients of the rows of Fourier coefficients, one matrix for each of the luminance, blue chrominance, and red chrominance values.  However, we store these Fourier coefficients as integers inside the JPEG file so we need to round off the coefficients to the nearest integer, as shown here:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1306,10 +1306,10 @@ F =
 \end{equation*}
 </div>
 </div>
-<div class="para" id="p-3124">There are many zeroes in this matrix, and we can save space in a JPEG image file by only recording the <em class="emphasis">nonzero</em> Fourier coefficients.</div>
-<div class="para" id="p-3125">In fact, when a JPEG file is created, there is a “quality” parameter that can be set, such as that shown in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-quality.html" title="Figure 4.4.13">Figure 4.4.13</a>.  When the quality parameter is high, we will store many of the Fourier coefficients; when it is low, we will ignore more of them.</div>
+<div class="para" id="p-3158">There are many zeroes in this matrix, and we can save space in a JPEG image file by only recording the <em class="emphasis">nonzero</em> Fourier coefficients.</div>
+<div class="para" id="p-3159">In fact, when a JPEG file is created, there is a “quality” parameter that can be set, such as that shown in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-quality.html" title="Figure 4.4.13">Figure 4.4.13</a>.  When the quality parameter is high, we will store many of the Fourier coefficients; when it is low, we will ignore more of them.</div>
 <figure class="figure figure-like" id="fig-jpeg-quality"><div class="sidebyside"><div class="sbsrow" style="margin-left:30%;margin-right:30%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/quality.jpg" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.13<span class="period">.</span></span><span class="space"> </span>When creating a JPEG file, we choose a value of the “quality” parameter.</figcaption></figure><div class="para logical" id="p-3126">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.13<span class="period">.</span></span><span class="space"> </span>When creating a JPEG file, we choose a value of the “quality” parameter.</figcaption></figure><div class="para logical" id="p-3160">
 <div class="para">To see how this works, suppose the quality setting is relatively high.  After rounding off the Fourier coefficients, we will set all of the coefficients whose absolute value is less than 2 to zero, which creates the matrix:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1326,7 +1326,7 @@ F =
 <div class="para">Notice that there are 12 nonzero Fourier coefficients, out of 64, that we need to record.  Consequently, we only save <span class="process-math">\(12/64 \approx
 19\%\)</span> of the data.</div>
 </div>
-<div class="para logical" id="p-3127">
+<div class="para logical" id="p-3161">
 <div class="para">If instead, the quality setting is relatively low, we set all of the Fourier coefficients whose absolute value is less than 4 to zero, creating the matrix:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1344,7 +1344,7 @@ F =
 </div>
 <div class="para">Notice that there are only 5 nonzero Fourier coefficients that we need to record now, meaning we save only <span class="process-math">\(5/64\approx 8\%\)</span> of the data.  This will result in a smaller JPEG file describing the image.</div>
 </div>
-<div class="para logical" id="p-3128">
+<div class="para logical" id="p-3162">
 <div class="para">With a lower quality setting, we have thrown away more information about the Fourier coefficients so the image will not be reconstructed as accurately. To see this, we can reconstruct the luminance values from the Fourier coefficients by converting back into the standard coordinate system.  Rather than showing the luminance values themselves, we will show the difference in the original luminance values and the reconstructed luminance values.  When the quality setting was high and we stored 12 Fourier coefficients, we find this difference to be</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1376,57 +1376,57 @@ F =
 \end{equation*}
 </div>
 </div>
-<div class="para" id="p-3129">This demonstrates the trade off.  With a high quality setting, we require more storage to save more of the data, but the reconstructed image is closer to the original.  With the lower quality setting, we require less storage, but the reconstructed image differs more from the original.</div>
-<div class="para" id="p-3130">If we remember that the visual information stored by the blue and red chrominance values is not as important as that contained in the luminance values, we feel safer in discarding more of the Fourier coefficients for the chrominance values resulting in an even greater savings.</div>
-<div class="para" id="p-3131">Shown in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-image-low.html" title="Figure 4.4.14">Figure 4.4.14</a> is the original image compared to a version stored with a very low quality setting.  If you look carefully, you can individual <span class="process-math">\(8\by8\)</span> blocks.</div>
+<div class="para" id="p-3163">This demonstrates the trade off.  With a high quality setting, we require more storage to save more of the data, but the reconstructed image is closer to the original.  With the lower quality setting, we require less storage, but the reconstructed image differs more from the original.</div>
+<div class="para" id="p-3164">If we remember that the visual information stored by the blue and red chrominance values is not as important as that contained in the luminance values, we feel safer in discarding more of the Fourier coefficients for the chrominance values resulting in an even greater savings.</div>
+<div class="para" id="p-3165">Shown in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-image-low.html" title="Figure 4.4.14">Figure 4.4.14</a> is the original image compared to a version stored with a very low quality setting.  If you look carefully, you can individual <span class="process-math">\(8\by8\)</span> blocks.</div>
 <figure class="figure figure-like" id="fig-jpeg-image-low"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/spring-canyon-cropped.jpg" class="contained"></div>
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/spring-canyon-low.jpg" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.14<span class="period">.</span></span><span class="space"> </span>The original image and the result of storing the image with a low quality setting.</figcaption></figure><div class="para" id="p-3132">This discussion of the JPEG compression algorithm is meant to explore the ideas that underlie its construction and demonstrate the importance of a choice of basis and its accompanying coordinate system.  There are a few details, most notably about the rounding of the Fourier coefficients, that are not strictly accurate.  The actual implementation is a little more complicated, but the presentation here conveys the spirit of the algorithm.</div>
-<div class="para" id="p-3133">The JPEG compression algorithm allows us to store image files using only a fraction of the data. Similar ideas are used to efficiently store digital music and video files.</div></section><section class="subsection" id="subsection-63"><h3 class="heading hide-type">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.14<span class="period">.</span></span><span class="space"> </span>The original image and the result of storing the image with a low quality setting.</figcaption></figure><div class="para" id="p-3166">This discussion of the JPEG compression algorithm is meant to explore the ideas that underlie its construction and demonstrate the importance of a choice of basis and its accompanying coordinate system.  There are a few details, most notably about the rounding of the Fourier coefficients, that are not strictly accurate.  The actual implementation is a little more complicated, but the presentation here conveys the spirit of the algorithm.</div>
+<div class="para" id="p-3167">The JPEG compression algorithm allows us to store image files using only a fraction of the data. Similar ideas are used to efficiently store digital music and video files.</div></section><section class="subsection" id="subsection-63"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.4.3</span><span class="space"> </span><span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-3134">
+<div class="para logical" id="p-3168">
 <div class="para">This section has explored how appropriate changes in bases help us reconstruct an image using only a fraction of its data. This is known as image compression.</div>
 <ul class="disc">
-<li id="li-2091"><div class="para" id="p-3135">There are several ways of representing colors, all of which use vectors in <span class="process-math">\(\real^3\text{.}\)</span>  We explored the <span class="process-math">\(RGB\)</span> color model, which is appropriate in digital applications, and the <span class="process-math">\(YC_bC_r\)</span> model, in which the most important visual information is conveyed by the <span class="process-math">\(Y\)</span> component, known as luminance.</div></li>
-<li id="li-2092"><div class="para" id="p-3136">We also explored a change of basis called the Discrete Fourier Transform.  In the coordinate system that results, the first coefficient measures the average of the components of a vector.  Other coefficients measure variations in the components away from the average.</div></li>
-<li id="li-2093"><div class="para" id="p-3137">We put both of these ideas to use in demonstrating the JPEG compression algorithm.  An image is broken into <span class="process-math">\(8\by8\)</span> blocks, and the colors into luminance, blue chrominance, and red chrominance.  Applying the Discrete Fourier Transform allows us to reconstruct a good approximation of the image using only a fraction of the original data.</div></li>
+<li id="li-2099"><div class="para" id="p-3169">There are several ways of representing colors, all of which use vectors in <span class="process-math">\(\real^3\text{.}\)</span>  We explored the <span class="process-math">\(RGB\)</span> color model, which is appropriate in digital applications, and the <span class="process-math">\(YC_bC_r\)</span> model, in which the most important visual information is conveyed by the <span class="process-math">\(Y\)</span> component, known as luminance.</div></li>
+<li id="li-2100"><div class="para" id="p-3170">We also explored a change of basis called the Discrete Fourier Transform.  In the coordinate system that results, the first coefficient measures the average of the components of a vector.  Other coefficients measure variations in the components away from the average.</div></li>
+<li id="li-2101"><div class="para" id="p-3171">We put both of these ideas to use in demonstrating the JPEG compression algorithm.  An image is broken into <span class="process-math">\(8\by8\)</span> blocks, and the colors into luminance, blue chrominance, and red chrominance.  Applying the Discrete Fourier Transform allows us to reconstruct a good approximation of the image using only a fraction of the original data.</div></li>
 </ul>
 </div></section><section class="exercises" id="exercises-15"><h3 class="heading hide-type">
 <span class="type">Exercises</span><span class="space"> </span><span class="codenumber">4.4.4</span><span class="space"> </span><span class="title">Exercises</span>
 </h3>
-<article class="exercise exercise-like" id="exercise-107"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3138">
+<article class="exercise exercise-like" id="exercise-108"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3172">
 <div class="para">Consider the vector <span class="process-math">\(\xvec=\left[\begin{array}{r}
 103 \\ 94 \\ 91 \\ 92 \\ 103 \\ 105 \\ 105 \\ 108
 \end{array}\right]
 \text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-2094"><div class="para" id="p-3139">In the Sage cell below is a copy of the change of basis matrices that define the Fourier transform.  Find the Fourier coefficients of <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-125"><script type="text/x-sage">mat = [[cos((2*i+1)*j*pi/16) for j in range(8)] for i in range(8)]
+<li id="li-2102"><div class="para" id="p-3173">In the Sage cell below is a copy of the change of basis matrices that define the Fourier transform.  Find the Fourier coefficients of <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-127"><script type="text/x-sage">mat = [[cos((2*i+1)*j*pi/16) for j in range(8)] for i in range(8)]
 P = matrix(mat).numerical_approx()
 Pinv = P.inverse()	
 print (Pinv.numerical_approx(digits=3))
 </script></pre>
 </div></li>
-<li id="li-2095"><div class="para" id="p-3140">We will now form the vector <span class="process-math">\(\yvec\text{,}\)</span> which is an approximation of <span class="process-math">\(\xvec\)</span> by rounding all the Fourier coefficients of <span class="process-math">\(\xvec\)</span> to the nearest integer to obtain <span class="process-math">\(\coords{\yvec}{\ccal}\text{.}\)</span>  Now find the vector <span class="process-math">\(\yvec\)</span> and compare this approximation to <span class="process-math">\(\xvec\text{.}\)</span>  What is the error in this approximation?</div></li>
-<li id="li-2096"><div class="para" id="p-3141">Repeat the last part of this problem, but set the rounded Fourier coefficients to zero if they have an absolute value less than five.  Use it to create a second approximation of <span class="process-math">\(\xvec\text{.}\)</span>  What is the error in this approximation?</div></li>
-<li id="li-2097"><div class="para" id="p-3142">Compare the number of nonzero Fourier coefficients that you have in the two approximations and compare the accuracy of the approximations.  Using a few sentences, discuss the comparisons that you find.</div></li>
+<li id="li-2103"><div class="para" id="p-3174">We will now form the vector <span class="process-math">\(\yvec\text{,}\)</span> which is an approximation of <span class="process-math">\(\xvec\)</span> by rounding all the Fourier coefficients of <span class="process-math">\(\xvec\)</span> to the nearest integer to obtain <span class="process-math">\(\coords{\yvec}{\ccal}\text{.}\)</span>  Now find the vector <span class="process-math">\(\yvec\)</span> and compare this approximation to <span class="process-math">\(\xvec\text{.}\)</span>  What is the error in this approximation?</div></li>
+<li id="li-2104"><div class="para" id="p-3175">Repeat the last part of this problem, but set the rounded Fourier coefficients to zero if they have an absolute value less than five.  Use it to create a second approximation of <span class="process-math">\(\xvec\text{.}\)</span>  What is the error in this approximation?</div></li>
+<li id="li-2105"><div class="para" id="p-3176">Compare the number of nonzero Fourier coefficients that you have in the two approximations and compare the accuracy of the approximations.  Using a few sentences, discuss the comparisons that you find.</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-108"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3153">
+</div></article><article class="exercise exercise-like" id="exercise-109"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3187">
 <div class="para">There are several steps to the JPEG compression algorithm. The following questions examine the motivation behind some of them.</div>
 <ol class="lower-alpha">
-<li id="li-2106"><div class="para" id="p-3154">What is the overall goal of the JPEG compression algorithm?</div></li>
-<li id="li-2107"><div class="para" id="p-3155">Why do we convert colors from the the <span class="process-math">\(RGB\)</span> color model to the <span class="process-math">\(YC_bC_r\)</span> model?</div></li>
-<li id="li-2108"><div class="para" id="p-3156">Why do we decompose the image into a collection of <span class="process-math">\(8\by8\)</span> arrays of pixels?</div></li>
-<li id="li-2109"><div class="para" id="p-3157">What role does the Discrete Fourier Transform play in the JPEG compression algorithm?</div></li>
-<li id="li-2110"><div class="para" id="p-3158">Why is the information conveyed by the rapid-variation Fourier coefficients, generally speaking, less important than the slow-variation coefficients?</div></li>
+<li id="li-2114"><div class="para" id="p-3188">What is the overall goal of the JPEG compression algorithm?</div></li>
+<li id="li-2115"><div class="para" id="p-3189">Why do we convert colors from the the <span class="process-math">\(RGB\)</span> color model to the <span class="process-math">\(YC_bC_r\)</span> model?</div></li>
+<li id="li-2116"><div class="para" id="p-3190">Why do we decompose the image into a collection of <span class="process-math">\(8\by8\)</span> arrays of pixels?</div></li>
+<li id="li-2117"><div class="para" id="p-3191">What role does the Discrete Fourier Transform play in the JPEG compression algorithm?</div></li>
+<li id="li-2118"><div class="para" id="p-3192">Why is the information conveyed by the rapid-variation Fourier coefficients, generally speaking, less important than the slow-variation coefficients?</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-109"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3171">
+</div></article><article class="exercise exercise-like" id="exercise-110"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3205">
 <div class="para">The Fourier transform that we used in this section is often called the Discrete Fourier Cosine Transform because it is defined using a basis <span class="process-math">\(\ccal\)</span> consisting of cosine functions.  There is also a Fourier Sine Transform defined using a basis <span class="process-math">\(\scal\)</span> consisting of sine functions.  For instance, in <span class="process-math">\(\real^4\text{,}\)</span> the basis vectors of <span class="process-math">\(\scal\)</span> are</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/fig-fourier-sine-basis.html">
 \begin{equation*}
@@ -1461,24 +1461,24 @@ print (Pinv.numerical_approx(digits=3))
 </div>
 <div class="para">We can think of these vectors graphically, as shown in <a href="" class="xref" data-knowl="./knowl/fig-fourier-sine-basis.html" title="Figure 4.4.15">Figure 4.4.15</a>.</div>
 </div> <figure class="figure figure-like" id="fig-fourier-sine-basis"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/fourier-sine-basis.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.15<span class="period">.</span></span><span class="space"> </span>The vectors <span class="process-math">\(\vvec_1,\vvec_2,\vvec_3,\vvec_4\)</span> that form the basis <span class="process-math">\(\scal\text{.}\)</span></figcaption></figure> <div class="para logical" id="p-3172"><ol class="lower-alpha">
-<li id="li-2121">
-<div class="para" id="p-3173">The Sage cell below defines the matrix <code class="code-inline tex2jax_ignore">S</code> whose columns are the vectors in the basis <span class="process-math">\(\scal\)</span> as well as the matrix <code class="code-inline tex2jax_ignore">C</code> whose columns form the basis <span class="process-math">\(\ccal\)</span> used in the Fourier Cosine Transform.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-126"><script type="text/x-sage">sinmat = [[sin((2*i+1)*j*pi/8) for j in range(1,5)] for i in range(4)]
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.15<span class="period">.</span></span><span class="space"> </span>The vectors <span class="process-math">\(\vvec_1,\vvec_2,\vvec_3,\vvec_4\)</span> that form the basis <span class="process-math">\(\scal\text{.}\)</span></figcaption></figure> <div class="para logical" id="p-3206"><ol class="lower-alpha">
+<li id="li-2129">
+<div class="para" id="p-3207">The Sage cell below defines the matrix <code class="code-inline tex2jax_ignore">S</code> whose columns are the vectors in the basis <span class="process-math">\(\scal\)</span> as well as the matrix <code class="code-inline tex2jax_ignore">C</code> whose columns form the basis <span class="process-math">\(\ccal\)</span> used in the Fourier Cosine Transform.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-128"><script type="text/x-sage">sinmat = [[sin((2*i+1)*j*pi/8) for j in range(1,5)] for i in range(4)]
 cosmat = [[cos((2*i+1)*j*pi/8) for j in range(4)] for i in range(4)]
 S = matrix(sinmat).numerical_approx()    
 C = matrix(cosmat).numerical_approx()
 </script></pre>
-<div class="para" id="p-3174">In the <span class="process-math">\(8\by8\)</span> block of luminance values we considered in this section, the first column begins with the four entries 176, 181, 165, and 139, as seen in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block-luminance.html" title="Figure 4.4.8">Figure 4.4.8</a>.  These form the vector <span class="process-math">\(\xvec=\fourvec{176}{181}{165}{139}\text{.}\)</span>  Find both <span class="process-math">\(\coords{\xvec}{\scal}\)</span> and <span class="process-math">\(\coords{\xvec}{\ccal}\text{.}\)</span>
+<div class="para" id="p-3208">In the <span class="process-math">\(8\by8\)</span> block of luminance values we considered in this section, the first column begins with the four entries 176, 181, 165, and 139, as seen in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block-luminance.html" title="Figure 4.4.8">Figure 4.4.8</a>.  These form the vector <span class="process-math">\(\xvec=\fourvec{176}{181}{165}{139}\text{.}\)</span>  Find both <span class="process-math">\(\coords{\xvec}{\scal}\)</span> and <span class="process-math">\(\coords{\xvec}{\ccal}\text{.}\)</span>
 </div>
 </li>
-<li id="li-2122"><div class="para" id="p-3175">Write a sentence or two comparing the values for the Fourier Sine coefficients <span class="process-math">\(\coords{\xvec}{\scal}\)</span> and the Fourier Cosine coefficients <span class="process-math">\(\coords{\xvec}{\ccal}\text{.}\)</span>
+<li id="li-2130"><div class="para" id="p-3209">Write a sentence or two comparing the values for the Fourier Sine coefficients <span class="process-math">\(\coords{\xvec}{\scal}\)</span> and the Fourier Cosine coefficients <span class="process-math">\(\coords{\xvec}{\ccal}\text{.}\)</span>
 </div></li>
-<li id="li-2123"><div class="para" id="p-3176">Suppose now that <span class="process-math">\(\xvec=\fourvec{100}{100}{100}{100}\text{.}\)</span> Find the Fourier Sine coefficients <span class="process-math">\(\coords{\xvec}{\scal}\)</span> and the Fourier Cosine coefficients <span class="process-math">\(\coords{\xvec}{\ccal}\text{.}\)</span>
+<li id="li-2131"><div class="para" id="p-3210">Suppose now that <span class="process-math">\(\xvec=\fourvec{100}{100}{100}{100}\text{.}\)</span> Find the Fourier Sine coefficients <span class="process-math">\(\coords{\xvec}{\scal}\)</span> and the Fourier Cosine coefficients <span class="process-math">\(\coords{\xvec}{\ccal}\text{.}\)</span>
 </div></li>
-<li id="li-2124"><div class="para" id="p-3177">Write a few sentences explaining why we use the Fourier Cosine Transform in the JPEG compression algorithm rather than the Fourier Sine Transform.</div></li>
-</ol></div></article><article class="exercise exercise-like" id="exercise-110"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3188">
+<li id="li-2132"><div class="para" id="p-3211">Write a few sentences explaining why we use the Fourier Cosine Transform in the JPEG compression algorithm rather than the Fourier Sine Transform.</div></li>
+</ol></div></article><article class="exercise exercise-like" id="exercise-111"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3222">
 <div class="para">In <a href="" class="xref" data-knowl="./knowl/example-wavelet-basis.html" title="Example 4.3.9">Example 4.3.9</a>, we looked at a basis for <span class="process-math">\(\real^4\)</span> that we called the Haar wavelet basis. The basis vectors are</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/example-wavelet-basis.html ./knowl/fig-haar-wavelet-basis.html">
 \begin{equation*}
@@ -1491,7 +1491,7 @@ C = matrix(cosmat).numerical_approx()
 <div class="para">which may be understood graphically as in <a href="" class="xref" data-knowl="./knowl/fig-haar-wavelet-basis.html" title="Figure 4.4.16">Figure 4.4.16</a>. We will denote this basis by <span class="process-math">\(\wcal\text{.}\)</span>
 </div>
 </div> <figure class="figure figure-like" id="fig-haar-wavelet-basis"><div class="sidebyside"><div class="sbsrow" style="margin-left:12.5%;margin-right:12.5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/basis-revenue-elements.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.16<span class="period">.</span></span><span class="space"> </span>The Haar wavelet basis represented graphically.</figcaption></figure> <div class="para logical" id="p-3189">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.16<span class="period">.</span></span><span class="space"> </span>The Haar wavelet basis represented graphically.</figcaption></figure> <div class="para logical" id="p-3223">
 <div class="para">The change of coordinates from a vector <span class="process-math">\(\xvec\)</span> in <span class="process-math">\(\real^4\)</span> to <span class="process-math">\(\coords{\xvec}{\wcal}\)</span> is called the Haar <em class="emphasis">wavelet transform</em> and we write</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1499,7 +1499,7 @@ C = matrix(cosmat).numerical_approx()
 \end{equation*}
 </div>
 <div class="para">The coefficients <span class="process-math">\(H_1,H_2,H_3,H_4\)</span> are called wavelet coefficients.</div>
-</div> <div class="para logical" id="p-3190">
+</div> <div class="para logical" id="p-3224">
 <div class="para">Let’s work with the <span class="process-math">\(4\by4\)</span> block of luminance values in the upper left corner of our larger <span class="process-math">\(8\by8\)</span> block:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1511,46 +1511,46 @@ C = matrix(cosmat).numerical_approx()
 \end{array}\right]\text{.}
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-3191"><ol class="lower-alpha">
-<li id="li-2133"><div class="para" id="p-3192">The following Sage cell defines the matrix <code class="code-inline tex2jax_ignore">W</code> whose columns are the basis vectors in <span class="process-math">\(\wcal\text{.}\)</span>  If <span class="process-math">\(\xvec\)</span> is the first column of luminance values in the <span class="process-math">\(4\by4\)</span> block above, find the wavelet coefficients <span class="process-math">\(\coords{\xvec}{\wcal}\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-127"><script type="text/x-sage">W = matrix(4,4,[1,1,1,0,1,1,-1,0,1,-1,0,1,1,-1,0,-1])
+</div> <div class="para logical" id="p-3225"><ol class="lower-alpha">
+<li id="li-2141"><div class="para" id="p-3226">The following Sage cell defines the matrix <code class="code-inline tex2jax_ignore">W</code> whose columns are the basis vectors in <span class="process-math">\(\wcal\text{.}\)</span>  If <span class="process-math">\(\xvec\)</span> is the first column of luminance values in the <span class="process-math">\(4\by4\)</span> block above, find the wavelet coefficients <span class="process-math">\(\coords{\xvec}{\wcal}\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-129"><script type="text/x-sage">W = matrix(4,4,[1,1,1,0,1,1,-1,0,1,-1,0,1,1,-1,0,-1])
 </script></pre>
 </div></li>
-<li id="li-2134">
-<div class="para" id="p-3193">Notice that <span class="process-math">\(H_1\)</span> gives the average value of the components of <span class="process-math">\(\xvec\)</span> and <span class="process-math">\(H_2\)</span> describes how the averages of the first two and last two components differ from the overall average.  The coefficients <span class="process-math">\(H_3\)</span> and <span class="process-math">\(H_4\)</span> describe small-scale variations between the first two components and last two components, respectively.</div>
-<div class="para" id="p-3194">If we set the last wavelet coefficients <span class="process-math">\(H_3=0\)</span> and <span class="process-math">\(H_4=0\text{,}\)</span> we obtain the wavelet coefficients <span class="process-math">\(\coords{\yvec}{\wcal}\)</span> for a vector <span class="process-math">\(\yvec\)</span> that approximates <span class="process-math">\(\xvec\text{.}\)</span>  Find the vector <span class="process-math">\(\yvec\)</span> and compare it to the original vector <span class="process-math">\(\xvec\text{.}\)</span>
+<li id="li-2142">
+<div class="para" id="p-3227">Notice that <span class="process-math">\(H_1\)</span> gives the average value of the components of <span class="process-math">\(\xvec\)</span> and <span class="process-math">\(H_2\)</span> describes how the averages of the first two and last two components differ from the overall average.  The coefficients <span class="process-math">\(H_3\)</span> and <span class="process-math">\(H_4\)</span> describe small-scale variations between the first two components and last two components, respectively.</div>
+<div class="para" id="p-3228">If we set the last wavelet coefficients <span class="process-math">\(H_3=0\)</span> and <span class="process-math">\(H_4=0\text{,}\)</span> we obtain the wavelet coefficients <span class="process-math">\(\coords{\yvec}{\wcal}\)</span> for a vector <span class="process-math">\(\yvec\)</span> that approximates <span class="process-math">\(\xvec\text{.}\)</span>  Find the vector <span class="process-math">\(\yvec\)</span> and compare it to the original vector <span class="process-math">\(\xvec\text{.}\)</span>
 </div>
 </li>
-<li id="li-2135"><div class="para" id="p-3195">What impact does the fact that <span class="process-math">\(H_3=0\)</span> and <span class="process-math">\(H_4=0\)</span> have on the form of the vector <span class="process-math">\(\yvec\text{?}\)</span>  Explain how setting these coefficients to zero ignores the behavior of <span class="process-math">\(\xvec\)</span> on a small scale.</div></li>
-<li id="li-2136"><div class="para" id="p-3196">In the JPEG compression algorithm, we looked at the Fourier coefficients of all the columns of luminance values and then performed a Fourier transform on the rows.  The Sage cell below will perform the same operation using the wavelet transform;  that is, it will first find the wavelet coefficients of each of the columns and then perform the wavelet transform on the rows.  You only need to evaluate the cell to find the wavelet coefficients obtained in this way. <pre class="ptx-sagecell sagecell-sage" id="sage-128"><script type="text/x-sage">luminance = matrix(4,4,[176, 170, 170, 169, 181, 179, 175, 167, 165,
+<li id="li-2143"><div class="para" id="p-3229">What impact does the fact that <span class="process-math">\(H_3=0\)</span> and <span class="process-math">\(H_4=0\)</span> have on the form of the vector <span class="process-math">\(\yvec\text{?}\)</span>  Explain how setting these coefficients to zero ignores the behavior of <span class="process-math">\(\xvec\)</span> on a small scale.</div></li>
+<li id="li-2144"><div class="para" id="p-3230">In the JPEG compression algorithm, we looked at the Fourier coefficients of all the columns of luminance values and then performed a Fourier transform on the rows.  The Sage cell below will perform the same operation using the wavelet transform;  that is, it will first find the wavelet coefficients of each of the columns and then perform the wavelet transform on the rows.  You only need to evaluate the cell to find the wavelet coefficients obtained in this way. <pre class="ptx-sagecell sagecell-sage" id="sage-130"><script type="text/x-sage">luminance = matrix(4,4,[176, 170, 170, 169, 181, 179, 175, 167, 165,
 170, 169, 161, 139, 150,  164, 166])
 Winv = W.inverse()
 wavelet_transform = (Winv*(Winv*luminance).transpose()).transpose()
 print (wavelet_transform.numerical_approx(digits=3))
 </script></pre>
 </div></li>
-<li id="li-2137"><div class="para" id="p-3197">Now set all the wavelet coefficients equal to zero except those in the upper left <span class="process-math">\(2\by2\)</span> block and use them to define the matrix <code class="code-inline tex2jax_ignore">coeffs</code> in the Sage cell below.  This has the effect of ignoring all of the small-scale differences.  Evaluating this cell will recover the approximate luminance values. <pre class="ptx-sagecell sagecell-sage" id="sage-129"><script type="text/x-sage"># define the matrix of coefficients below
+<li id="li-2145"><div class="para" id="p-3231">Now set all the wavelet coefficients equal to zero except those in the upper left <span class="process-math">\(2\by2\)</span> block and use them to define the matrix <code class="code-inline tex2jax_ignore">coeffs</code> in the Sage cell below.  This has the effect of ignoring all of the small-scale differences.  Evaluating this cell will recover the approximate luminance values. <pre class="ptx-sagecell sagecell-sage" id="sage-131"><script type="text/x-sage"># define the matrix of coefficients below
 coeffs = 
 # this code will undo the wavelet transform
 approx_luminance = W*((W*(coeffs.transpose())).transpose())
 print (approx_luminance.numerical_approx(digits=3))
 </script></pre>
 </div></li>
-<li id="li-2138"><div class="para" id="p-3198">Explain how the wavelet transform and this approximation can be used to create a lower resolution version of the image.</div></li>
-</ol></div> <div class="para" id="p-3199">This kind of wavelet transform is the basis of the JPEG 2000 compression algorithm, which is an alternative to the usual JPEG algorithm.</div></article><article class="exercise exercise-like" id="exercise-111"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para" id="p-3214">In this section, we looked at the <span class="process-math">\(RGB\)</span> and <span class="process-math">\(YC_bC_r\)</span> color models.  In this exercise, we will look at the <span class="process-math">\(HSV\)</span> color model where <span class="process-math">\(H\)</span> is the hue, <span class="process-math">\(S\)</span> is the saturation, and <span class="process-math">\(V\)</span> is the value of the color.  All three quantities vary between 0 and 255.</div> <figure class="figure figure-like" id="js-hsv"><iframe id="interactive-hsv" width="600" height="71" src="interactive-hsv-if.html"></iframe><div class="instructions">
-<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-11" id="instructions-11"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-11"><div class="solution-like"><div class="para" id="p-3215">The diagram below enables you to vary the three parameters <span class="process-math">\(H\text{,}\)</span> <span class="process-math">\(S\text{,}\)</span> and <span class="process-math">\(V\)</span> in the <span class="process-math">\(HSV\)</span> color model.</div></div></div>
+<li id="li-2146"><div class="para" id="p-3232">Explain how the wavelet transform and this approximation can be used to create a lower resolution version of the image.</div></li>
+</ol></div> <div class="para" id="p-3233">This kind of wavelet transform is the basis of the JPEG 2000 compression algorithm, which is an alternative to the usual JPEG algorithm.</div></article><article class="exercise exercise-like" id="exercise-112"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<div class="para" id="p-3248">In this section, we looked at the <span class="process-math">\(RGB\)</span> and <span class="process-math">\(YC_bC_r\)</span> color models.  In this exercise, we will look at the <span class="process-math">\(HSV\)</span> color model where <span class="process-math">\(H\)</span> is the hue, <span class="process-math">\(S\)</span> is the saturation, and <span class="process-math">\(V\)</span> is the value of the color.  All three quantities vary between 0 and 255.</div> <figure class="figure figure-like" id="js-hsv"><iframe id="interactive-hsv" width="600" height="71" src="interactive-hsv-if.html"></iframe><div class="instructions">
+<a href="" data-knowl="" class="id-ref instructions-knowl original" data-refid="hk-instructions-11" id="instructions-11"><h5 class="heading"><span class="type">Instructions<span class="period">.</span></span></h5></a><div class="hidden-content tex2jax_ignore" id="hk-instructions-11"><div class="solution-like"><div class="para" id="p-3249">The diagram below enables you to vary the three parameters <span class="process-math">\(H\text{,}\)</span> <span class="process-math">\(S\text{,}\)</span> and <span class="process-math">\(V\)</span> in the <span class="process-math">\(HSV\)</span> color model.</div></div></div>
 </div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.17<span class="period">.</span></span><span class="space"> </span>The <span class="process-math">\(HSV\)</span> color model.</figcaption></figure> <div class="para logical" id="p-3217"><ol class="lower-alpha">
-<li id="li-2151"><div class="para" id="p-3218">If you leave <span class="process-math">\(S\)</span> and <span class="process-math">\(V\)</span> at some fixed values, what happens when you change the value of <span class="process-math">\(H\text{?}\)</span>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">4.4.17<span class="period">.</span></span><span class="space"> </span>The <span class="process-math">\(HSV\)</span> color model.</figcaption></figure> <div class="para logical" id="p-3251"><ol class="lower-alpha">
+<li id="li-2159"><div class="para" id="p-3252">If you leave <span class="process-math">\(S\)</span> and <span class="process-math">\(V\)</span> at some fixed values, what happens when you change the value of <span class="process-math">\(H\text{?}\)</span>
 </div></li>
-<li id="li-2152"><div class="para" id="p-3219">Increase the value <span class="process-math">\(V\)</span> to 255, which is on the far right.  Describe what happens when you vary the saturation <span class="process-math">\(S\)</span> using a fixed hue <span class="process-math">\(H\)</span> and value <span class="process-math">\(V\text{.}\)</span>
+<li id="li-2160"><div class="para" id="p-3253">Increase the value <span class="process-math">\(V\)</span> to 255, which is on the far right.  Describe what happens when you vary the saturation <span class="process-math">\(S\)</span> using a fixed hue <span class="process-math">\(H\)</span> and value <span class="process-math">\(V\text{.}\)</span>
 </div></li>
-<li id="li-2153"><div class="para" id="p-3220">Describe what happens when <span class="process-math">\(H\)</span> and <span class="process-math">\(S\)</span> are fixed and <span class="process-math">\(V\)</span> varies.</div></li>
-<li id="li-2154"><div class="para" id="p-3221">How can you create white in this color model?</div></li>
-<li id="li-2155"><div class="para" id="p-3222">How can you create black in this color model?</div></li>
-<li id="li-2156"><div class="para" id="p-3223">Find an approximate range of hues that correspond to blue.</div></li>
-<li id="li-2157"><div class="para" id="p-3224">Find an approximate range of hues that correspond to green.</div></li>
-</ol></div> <div class="para" id="p-3225">The <span class="process-math">\(YC_bC_r\)</span> color model concentrates the most important visual information in the luminance coordinate, which roughly measures the brightness of the color.  The other two coordinates describe the hue of the color.  By contrast, the <span class="process-math">\(HSV\)</span> color model concentrates all the information about the hue in the <span class="process-math">\(H\)</span> coordinate.</div> <div class="para" id="p-3226">This is useful in computer vision applications.  For instance, if we want a robot to detect a blue ball in its field of vision, we can specify a range of hue values to search for. If the lighting changes in the room, the saturation and value may change, but the hue will not.  This increases the likelihood that the robot will still detect the blue ball across a wide range of lighting conditions.</div></article></section></section></div>
+<li id="li-2161"><div class="para" id="p-3254">Describe what happens when <span class="process-math">\(H\)</span> and <span class="process-math">\(S\)</span> are fixed and <span class="process-math">\(V\)</span> varies.</div></li>
+<li id="li-2162"><div class="para" id="p-3255">How can you create white in this color model?</div></li>
+<li id="li-2163"><div class="para" id="p-3256">How can you create black in this color model?</div></li>
+<li id="li-2164"><div class="para" id="p-3257">Find an approximate range of hues that correspond to blue.</div></li>
+<li id="li-2165"><div class="para" id="p-3258">Find an approximate range of hues that correspond to green.</div></li>
+</ol></div> <div class="para" id="p-3259">The <span class="process-math">\(YC_bC_r\)</span> color model concentrates the most important visual information in the luminance coordinate, which roughly measures the brightness of the color.  The other two coordinates describe the hue of the color.  By contrast, the <span class="process-math">\(HSV\)</span> color model concentrates all the information about the hue in the <span class="process-math">\(H\)</span> coordinate.</div> <div class="para" id="p-3260">This is useful in computer vision applications.  For instance, if we want a robot to detect a blue ball in its field of vision, we can specify a range of hue values to search for. If the lighting changes in the room, the saturation and value may change, but the hue will not.  This increases the likelihood that the robot will still detect the blue ball across a wide range of lighting conditions.</div></article></section></section></div>
 <div class="ptx-content-footer">
 <a class="previous-button button" href="sec-bases.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-determinants.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>
