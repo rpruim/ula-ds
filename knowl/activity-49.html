@@ -67,7 +67,7 @@ print(sympy.factor(p.as_expr()))
 </script></pre>
 </li>
 <li>
-<div class="para">If we only want the eigenvalues, we can use <code class="code-inline tex2jax_ignore">numpy.linalg.eigvals()</code> or <code class="code-inline tex2jax_ignore">scipy.linalg.eigvals()</code>.</div>
+<div class="para">If we only want the eigenvalues, we can use <code class="code-inline tex2jax_ignore">numpy.linalg.eigvals()</code> or <code class="code-inline tex2jax_ignore">scipy.linalg.eigvals()</code>. </div>
 <pre class="ptx-sagecell sagecell-python" id="sage-146"><script type="text/x-sage">import numpy as np
 A = np.array([[-3, 1], [0, -3]])
 print(np.linalg.eigvals(A))
@@ -76,9 +76,8 @@ print(np.linalg.eigvals(A))
 </li>
 <li>
 <div class="para">Finally, we can find both eigenvalues and (right) eigenvectors using <code class="code-inline tex2jax_ignore">numpy.linalg.eig(A)</code> or <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A)</code>. </div>
-<article class="note remark-like"><h5 class="heading">
-<span class="type">Note</span><span class="space"> </span><span class="codenumber">5.2.16</span><span class="period">.</span><span class="space"> </span><span class="title">Left and right eigenvectors.</span>
-</h5> <div class="para">Technically, we are finding <dfn class="terminology">right eigenvectors</dfn> since the vector <span class="process-math">\(\vvec\)</span> appears to the right of <span class="process-math">\(A\)</span> in the definition <span class="process-math">\(A\vvec=\lambda \vvec\text{.}\)</span> That’s most often what we want.  But we can also get <dfn class="terminology">left eigenvectors</dfn> with <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A, left = True)</code>. Feel free to try it in the code chunk below. NumPy does not provide this option.</div></article><pre class="ptx-sagecell sagecell-python" id="sage-147"><script type="text/x-sage">import numpy as np
+<aside class="aside aside-like"><h5 class="heading"><span class="title">Left and right eigenvectors.</span></h5>
+<div class="para">Technically, we are finding <dfn class="terminology">right eigenvectors</dfn> since the vector <span class="process-math">\(\vvec\)</span> appears to the right of <span class="process-math">\(A\)</span> in the definition <span class="process-math">\(A\vvec=\lambda \vvec\text{.}\)</span> That’s most often what we want.  But we can also get <dfn class="terminology">left eigenvectors</dfn> with <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A, left = True)</code>. Feel free to try it in the code chunk below. NumPy does not provide this option.</div></aside><pre class="ptx-sagecell sagecell-python" id="sage-147"><script type="text/x-sage">import numpy as np
 import scipy
 A = np.array([[-3, 1], [0, -3]])
 evals, evecs = scipy.linalg.eig(A) 
@@ -108,17 +107,25 @@ print((A - sympy.eye(2)).rref())   # use sympy.eye() to get a sympy.Matrix
 </script></pre>
 <div class="para">What result does Python report for the reduced row echelon form?  Why is this result not correct? (Hint: compute row and column sums.)</div>
 </li>
-<li><div class="para">Despite the error in finding the reduce row echelon form, NumPy and SciPy <em class="emphasis">can</em> compute these eigenvalues and eigenvectors for us. <pre class="ptx-sagecell sagecell-python" id="sage-149"><script type="text/x-sage">import numpy as np  
+<li>
+<div class="para">Despite the error in finding the reduce row echelon form, NumPy and SciPy <em class="emphasis">can</em> compute these eigenvalues and eigenvectors for us.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-149"><script type="text/x-sage">import numpy as np  
 A = np.array([[0.4, 0.3],[0.6,0.7]])
 print(np.linalg.eig(A))
-</script></pre> As you might expect, this implies that the method being used does not rely on using RREF along the way. RREF is not numerically stable, this is why it is not included in numpy and scipy.</div></li>
-<li><div class="para">If we provide sympy with rational values instead of floating point, then it can compute the RREF of our matrix exactly and the error from above goes away. <pre class="ptx-sagecell sagecell-python" id="sage-150"><script type="text/x-sage">import numpy as np  
+</script></pre>
+<div class="para">As you might expect, this implies that the method being used does not rely on using RREF along the way. RREF is not numerically stable, this is why it is not included in numpy and scipy.</div>
+</li>
+<li>
+<div class="para">If we provide sympy with rational values instead of floating point, then it can compute the RREF of our matrix exactly and the error from above goes away.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-150"><script type="text/x-sage">import numpy as np  
 import sympy 
 from sympy import Rational as r
 A = sympy.Matrix([[r(4,10),r(3,10)],[r(6,10),r(7,10)]])
 print(A)
 print(A.eigenvals())
-</script></pre> In <a href="chap6.html" class="internal" title="Chapter 6: Orthogonality and Least Squares">Chapter 6</a> we will see other methods for computing eigevectors that do not rely on RREF.</div></li>
+</script></pre>
+<div class="para">In <a href="chap6.html" class="internal" title="Chapter 6: Orthogonality and Least Squares">Chapter 6</a> we will see other methods for computing eigevectors that do not rely on RREF.</div>
+</li>
 </ol>
 </div></li>
 </ol>

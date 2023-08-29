@@ -26,6 +26,69 @@ sagecell.makeSagecell({
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
 <div class="para logical">
+<div class="para">In this exercise, we will see another limitation: computer arithmetic with real numbers is only an approximation because computers represent real numbers with only a finite number of bits.  For instance, the number pi</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/sec-gaussian-revisited.html">
+\begin{equation*}
+\pi =
+3.141592653589793238462643383279502884197169399\ldots
+\end{equation*}
+</div>
+<div class="para">would be approximated inside a computer by, say,</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/sec-gaussian-revisited.html">
+\begin{equation*}
+\pi\approx 3.141592653589793
+\end{equation*}
+</div>
+<div class="para">Most of the time, this is not a problem.  However, when we perform millions or even billions of arithmetic operations, the error in these approximations starts to accumulate and can lead to results that are wildly inaccurate.  Here are two examples demonstrating this.</div>
+<ol class="lower-alpha">
+<li>
+<div class="para logical">
+<div class="para">Let’s first see an example showing that computer arithmetic really is an approximation.  Consider the linear system</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{4}
+x \amp {}+{} \amp \frac12y \amp {}+{} \amp \frac13z \amp
+{}={} \amp 1 \\
+\frac12x \amp {}+{} \amp \frac13y \amp {}+{} \amp \frac14z \amp
+{}={} \amp 0 \\
+\frac13x \amp {}+{} \amp \frac14y \amp {}+{} \amp \frac15z \amp
+{}={} \amp 0 \\
+\end{alignedat}
+\end{equation*}
+</div>
+<div class="para">Let’s solve this three ways, taking advantage of some features of <code class="code-inline tex2jax_ignore">sympy</code>. As the name suggests, <code class="code-inline tex2jax_ignore">sympy</code> is capable of doing symbolic mathematics as well as numerical mathematics. In particular, <code class="code-inline tex2jax_ignore">sympy</code> can work with rational numbers (fractions) and do exact arithmetic with them.  Consider these three ways to represent <span class="process-math">\(\frac13\text{:}\)</span>
+</div>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-62"><script type="text/x-sage">print(1/3, s.Rational(1/3), s.Rational(1,3))
+</script></pre>
+<div class="para">The first is our usual floating point approximation.  The second attempts to approximate that approximation with a rational number. (Sometimes this works better; try <code class="code-inline tex2jax_ignore">s.Rational(1/2)</code>, for example.) The third represents <span class="process-math">\(\frac13\)</span> <em class="emphasis">exactly</em> by storing the numerator and denominator.</div>
+<div class="para">Create the augmented matrix for this linear system in the three corresponding ways. Call them <code class="code-inline tex2jax_ignore">A</code>, <code class="code-inline tex2jax_ignore">B</code>, and <code class="code-inline tex2jax_ignore">C</code>. With each, have <code class="code-inline tex2jax_ignore">sympy</code> compute the reduce row echelon form and use it to find the solutoin the original linear system.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-63"><script type="text/x-sage">A = s.Matrix([[1,1/2,1/3,1] , [1/2, 1/3, 1/4, 0], [1/3, 1/4, 1/5, 0]])
+B = s.Matrix()
+C = s.Matrix()
+</script></pre>
+<div class="para">Most computers do arithmetic using either 32 or 64 bits.  We can exagerate the effect by rounding the matrix more heavily. Solve the linear system again using</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-64"><script type="text/x-sage"># evalf() is sympy's version of round()
+A3 = A.evalf(3)
+</script></pre>
+<div class="para">What does Python give for the solution now? Compare this to the exact solution that you found previously.</div>
+</li>
+<li>
+<div class="para logical">
+<div class="para">Some types of linear systems are particularly sensitive to errors resulting from computers’ approximate arithmetic. For instance, suppose we are interested in the linear system</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{alignedat}{3}
+x \amp {}+{} \amp y \amp {}={} \amp 2 \\
+x \amp {}+{} 1.001\amp y \amp {}={} \amp 2 \\
+\end{alignedat}
+\end{equation*}
+</div>
+<div class="para">Find the solution to this linear system.</div>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-65"><script type="text/x-sage">
+</script></pre>
+<div class="para logical">
 <div class="para">Suppose now that the computer has accumulated some error in one of the entries of this system so that it incorrectly stores the system as</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -35,9 +98,13 @@ x \amp {}+{} 1.001\amp y \amp {}={} \amp 2.001 \\
 \end{alignedat}
 \end{equation*}
 </div>
-<div class="para">Find the solution to this linear system. <pre class="ptx-sagecell sagecell-python" id="sage-66"><script type="text/x-sage">
-</script></pre>
+<div class="para">Find the solution to this linear system.</div>
 </div>
+<pre class="ptx-sagecell sagecell-python" id="sage-66"><script type="text/x-sage">
+</script></pre>
+<div class="para">Notice how a small error in one of the entries in the linear system leads to a solution that has a dramatically large error.  Fortunately, this is an issue that has been well studied, and there are techniques that mitigate this type of behavior.  (See <a href="sec-gaussian-revisited.html" class="internal" title="Section 4.7: Partial pivoting and LU factorizations">Section 4.7</a>.)</div>
+</li>
+</ol>
 </div>
 <span class="incontext"><a href="sec-python-introduction.html#p-999" class="internal">in-context</a></span>
 </body>

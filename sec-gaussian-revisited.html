@@ -750,10 +750,10 @@ sagecell.makeSagecell({
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-gaussian-revisited"><h2 class="heading hide-type">
 <span class="type">Section</span><span class="space"> </span><span class="codenumber">4.7</span><span class="space"> </span><span class="title">Partial pivoting and LU factorizations</span>
 </h2>
-<section class="introduction" id="introduction-22"><div class="para" id="p-3808">Our principal tool for finding solutions to linear systems has been Gaussian elimination, which we first met back in <a href="sec-finding-solutions.html" class="internal" title="Section 2.2: Finding solutions to linear systems">Section 2.2</a>.  When presented with a linear system, this method finds the reduced row echelon form of the system’s augmented matrix and uses it to read off the solution (with the help of a little back substitution).</div> <div class="para" id="p-3809">While this is a convenient approach for learning linear algebra, people rarely use the reduced row echelon form of a matrix.  In fact, many linear algebra software packages (including <code class="code-inline tex2jax_ignore">numpy</code> and <code class="code-inline tex2jax_ignore">scipy</code>) do not include functions for finding the reduced row echelon form.</div> <div class="para" id="p-3810">In this section, we will describe why this is the case and then explore some alternatives.  The intent of this section is to demonstrate how linear algebraic computations are handled in practice and to introduce the important idea of <dfn class="terminology">matrix factorization</dfn>, writing a matrix as the product of matrices, each of which has a specified form. </div>  <article class="exploration project-like" id="exploration-14"><h3 class="heading">
+<section class="introduction" id="introduction-22"><div class="para" id="p-3816">Our principal tool for finding solutions to linear systems has been Gaussian elimination, which we first met back in <a href="sec-finding-solutions.html" class="internal" title="Section 2.2: Finding solutions to linear systems">Section 2.2</a>.  When presented with a linear system, this method finds the reduced row echelon form of the system’s augmented matrix and uses it to read off the solution (with the help of a little back substitution).</div> <div class="para" id="p-3817">While this is a convenient approach for learning linear algebra, people rarely use the reduced row echelon form of a matrix.  In fact, many linear algebra software packages (including <code class="code-inline tex2jax_ignore">numpy</code> and <code class="code-inline tex2jax_ignore">scipy</code>) do not include functions for finding the reduced row echelon form.</div> <div class="para" id="p-3818">In this section, we will describe why this is the case and then explore some alternatives.  The intent of this section is to demonstrate how linear algebraic computations are handled in practice and to introduce the important idea of <dfn class="terminology">matrix factorization</dfn>, writing a matrix as the product of matrices, each of which has a specified form. </div>  <article class="exploration project-like" id="exploration-14"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">4.7.1</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-3811">
+<div class="para logical" id="p-3819">
 <div class="para">To begin, let’s recall how we implemented Gaussian elimination by considering the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -765,11 +765,11 @@ A = \left[\begin{array}{rrrr}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2529"><div class="para" id="p-3812">What is the first row operation we perform? If the resulting matrix is <span class="process-math">\(A_1\text{,}\)</span> find a matrix <span class="process-math">\(E_1\)</span> such that <span class="process-math">\(E_1A =
+<li id="li-2529"><div class="para" id="p-3820">What is the first row operation we perform? If the resulting matrix is <span class="process-math">\(A_1\text{,}\)</span> find a matrix <span class="process-math">\(E_1\)</span> such that <span class="process-math">\(E_1A =
 A_1\text{.}\)</span>
 </div></li>
-<li id="li-2530"><div class="para" id="p-3813">What is the matrix inverse <span class="process-math">\(E_1^{-1}\text{?}\)</span>  You can find this using your favorite technique for finding a matrix inverse.  However, it may be easier to think about the effect that the row operation has and how it can be undone.</div></li>
-<li id="li-2531"><div class="para logical" id="p-3814">
+<li id="li-2530"><div class="para" id="p-3821">What is the matrix inverse <span class="process-math">\(E_1^{-1}\text{?}\)</span>  You can find this using your favorite technique for finding a matrix inverse.  However, it may be easier to think about the effect that the row operation has and how it can be undone.</div></li>
+<li id="li-2531"><div class="para logical" id="p-3822">
 <div class="para">Perform the next two steps in the Gaussian elimination algorithm to obtain <span class="process-math">\(A_3\text{.}\)</span>  Represent these steps using multiplication by matrices <span class="process-math">\(E_2\)</span> and <span class="process-math">\(E_3\)</span> so that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -777,13 +777,13 @@ E_3E_2E_1A = A_3\text{.}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2532"><div class="para" id="p-3815">Suppose we need to scale the second row by <span class="process-math">\(-2\text{.}\)</span> What is the <span class="process-math">\(3\by3\)</span> matrix that perfoms this row operation by left multiplication?</div></li>
-<li id="li-2533"><div class="para" id="p-3816">Suppose that we need to interchange the first and second rows.  What is the <span class="process-math">\(3\by3\)</span> matrix that performs this row operation by left multiplication?</div></li>
+<li id="li-2532"><div class="para" id="p-3823">Suppose we need to scale the second row by <span class="process-math">\(-2\text{.}\)</span> What is the <span class="process-math">\(3\by3\)</span> matrix that perfoms this row operation by left multiplication?</div></li>
+<li id="li-2533"><div class="para" id="p-3824">Suppose that we need to interchange the first and second rows.  What is the <span class="process-math">\(3\by3\)</span> matrix that performs this row operation by left multiplication?</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-184" id="solution-184"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-184"><div class="solution solution-like"><div class="para logical" id="p-3817"><ol class="lower-alpha">
-<li id="li-2534"><div class="para logical" id="p-3818">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-184" id="solution-184"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-184"><div class="solution solution-like"><div class="para logical" id="p-3825"><ol class="lower-alpha">
+<li id="li-2534"><div class="para logical" id="p-3826">
 <div class="para">We first multiply the first row by <span class="process-math">\(-1\)</span> and add to the second row.  This can be represented by multiplying <span class="process-math">\(E_1A=A_1\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -801,14 +801,14 @@ A_1=
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2535"><div class="para" id="p-3819">To undo the row operation, we multiply the first row by <span class="process-math">\(1\)</span> and add to the second row.  This shows that <span class="process-math">\(E_1^{-1} =
+<li id="li-2535"><div class="para" id="p-3827">To undo the row operation, we multiply the first row by <span class="process-math">\(1\)</span> and add to the second row.  This shows that <span class="process-math">\(E_1^{-1} =
 \left[\begin{array}{rrr}
 1 \amp 0 \amp 0 \\
 1 \amp 1 \amp 0 \\
 0 \amp 0 \amp 1
 \end{array}\right]\text{.}\)</span>
 </div></li>
-<li id="li-2536"><div class="para logical" id="p-3820">
+<li id="li-2536"><div class="para logical" id="p-3828">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -832,12 +832,12 @@ A_3=\left[\begin{array}{rrrr}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2537"><div class="para" id="p-3821">The matrix performing this scaling is <span class="process-math">\(\left[\begin{array}{rrr} 1 \amp 0 \amp 0 \\
+<li id="li-2537"><div class="para" id="p-3829">The matrix performing this scaling is <span class="process-math">\(\left[\begin{array}{rrr} 1 \amp 0 \amp 0 \\
 0 \amp -2 \amp 0 \\
 0 \amp 0 \amp 1 \\
 \end{array}\right]\text{.}\)</span>
 </div></li>
-<li id="li-2538"><div class="para" id="p-3822">The matrix performing this interchange is <span class="process-math">\(\left[\begin{array}{rrr}
+<li id="li-2538"><div class="para" id="p-3830">The matrix performing this interchange is <span class="process-math">\(\left[\begin{array}{rrr}
 0 \amp 1 \amp 0 \\
 1 \amp 0 \amp 0 \\
 0 \amp 0 \amp 1 \\
@@ -847,10 +847,10 @@ A_3=\left[\begin{array}{rrrr}
 </div></article></section><section class="subsection" id="subsec-partial-pivot"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.7.1</span><span class="space"> </span><span class="title">Partial pivoting</span>
 </h3>
-<div class="para" id="p-3823">The first issue that we will address is the fact that computers do not perform arithemtic operations exactly.  For instance, if we ask Python to evaluate <code class="code-inline tex2jax_ignore">0.1 + 0.2</code>, it reports <code class="code-inline tex2jax_ignore">0.30000000000000004</code> though we know that the true value is 0.3. <pre class="ptx-sagecell sagecell-sage" id="sage-135"><script type="text/x-sage">print(0.1 + 0.2)
+<div class="para" id="p-3831">The first issue that we will address is the fact that computers do not perform arithemtic operations exactly.  For instance, if we ask Python to evaluate <code class="code-inline tex2jax_ignore">0.1 + 0.2</code>, it reports <code class="code-inline tex2jax_ignore">0.30000000000000004</code> though we know that the true value is 0.3.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-135"><script type="text/x-sage">print(0.1 + 0.2)
 </script></pre>
-</div>
-<div class="para logical" id="p-3824">
+<div class="para logical" id="p-3832">
 <div class="para">There are a couple of reasons for this. First, computers perform arithmetic using base 2 numbers, which means that numbers we enter in decimal form, such as <span class="process-math">\(0.1\text{,}\)</span> must be converted to base 2.  Even though 0.1 has a simple decimal form, its representation in base 2 is the repeating decimal</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -859,13 +859,13 @@ A_3=\left[\begin{array}{rrrr}
 </div>
 <div class="para">To accurately represent this number inside a computer would require infinitely many digits.  Since a computer can only hold a finite number of digits, we are necessarily using an approximation just by representing this number in a computer.</div>
 </div>
-<div class="para" id="p-3825">In addition, arithmetic operations, such as addition, are prone to error.  To keep things simple, suppose we have a computer that represents numbers using only three decimal digits.  For instance, the number 1.023 would be represented as <code class="code-inline tex2jax_ignore">1.02</code> while 0.023421 would be <code class="code-inline tex2jax_ignore">0.0234</code>.  If we add these numbers, we have 1.023 + 0.023421 = 1.046421;  the computer reports this sum as <code class="code-inline tex2jax_ignore"> 1.02 + 0.0234 = 1.04</code>, whose last digit is not correctly rounded.  Generally speaking, we will see this problem, which is called <dfn class="terminology">round off error</dfn>, whenever we add numbers of signficantly different magnitudes. </div>
-<div class="para" id="p-3826">Remember that Gaussian elimination, when applied to an <span class="process-math">\(n\by n\)</span> matrix, requires approximately <span class="process-math">\(\frac 23
+<div class="para" id="p-3833">In addition, arithmetic operations, such as addition, are prone to error.  To keep things simple, suppose we have a computer that represents numbers using only three decimal digits.  For instance, the number 1.023 would be represented as <code class="code-inline tex2jax_ignore">1.02</code> while 0.023421 would be <code class="code-inline tex2jax_ignore">0.0234</code>.  If we add these numbers, we have 1.023 + 0.023421 = 1.046421;  the computer reports this sum as <code class="code-inline tex2jax_ignore"> 1.02 + 0.0234 = 1.04</code>, whose last digit is not correctly rounded.  Generally speaking, we will see this problem, which is called <dfn class="terminology">round off error</dfn>, whenever we add numbers of signficantly different magnitudes. </div>
+<div class="para" id="p-3834">Remember that Gaussian elimination, when applied to an <span class="process-math">\(n\by n\)</span> matrix, requires approximately <span class="process-math">\(\frac 23
 n^3\)</span> operations.  If we have a <span class="process-math">\(1000\by1000\)</span> matrix, performing Gaussian elimination requires roughly a billion operations, and the errors introduced in each operation could accumulate.  How can we have confidence in the final result?  We can never completely avoid these errors, but we can take steps to mitigate them.  The next activity will introduce one such technique.</div>
 <article class="activity project-like" id="activity-41"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.7.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-3827">
+<div class="para logical" id="p-3835">
 <div class="para">Suppose we have a hypothetical computer that represents numbers using only three decimal digits. We will consider the linear system</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -876,7 +876,7 @@ x \amp  {}+{}  \amp y \amp  {}={}  \amp 2\text{.} \\
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2539"><div class="para logical" id="p-3828">
+<li id="li-2539"><div class="para logical" id="p-3836">
 <div class="para">Show that this system has the unique solution</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -887,13 +887,13 @@ y \amp {}={} \frac{9998}{9999} =  0.99989998\ldots\text{.}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2540"><div class="para" id="p-3829">If we represent this solution inside our computer that only holds 3 decimal digits, what do we find for the solution? This is the best that we can hope to find using our computer.</div></li>
-<li id="li-2541"><div class="para" id="p-3830">Let’s imagine that we use our computer to find the solution using Gaussian elimination; that is, after every arithmetic operation, we keep only three decimal digits.  Our first step is to multiply the first equation by 10000 and subtract it from the second equation.  If we represent numbers using only three decimal digits, what does this give for the value of <span class="process-math">\(y\text{?}\)</span>
+<li id="li-2540"><div class="para" id="p-3837">If we represent this solution inside our computer that only holds 3 decimal digits, what do we find for the solution? This is the best that we can hope to find using our computer.</div></li>
+<li id="li-2541"><div class="para" id="p-3838">Let’s imagine that we use our computer to find the solution using Gaussian elimination; that is, after every arithmetic operation, we keep only three decimal digits.  Our first step is to multiply the first equation by 10000 and subtract it from the second equation.  If we represent numbers using only three decimal digits, what does this give for the value of <span class="process-math">\(y\text{?}\)</span>
 </div></li>
-<li id="li-2542"><div class="para" id="p-3831">By substituting our value for <span class="process-math">\(y\)</span> into the first equation, what do we find for <span class="process-math">\(x\text{?}\)</span>
+<li id="li-2542"><div class="para" id="p-3839">By substituting our value for <span class="process-math">\(y\)</span> into the first equation, what do we find for <span class="process-math">\(x\text{?}\)</span>
 </div></li>
-<li id="li-2543"><div class="para" id="p-3832">Compare the solution we find on our computer with the actual solution and assess the quality of the approximation.</div></li>
-<li id="li-2544"><div class="para logical" id="p-3833">
+<li id="li-2543"><div class="para" id="p-3840">Compare the solution we find on our computer with the actual solution and assess the quality of the approximation.</div></li>
+<li id="li-2544"><div class="para logical" id="p-3841">
 <div class="para">Let’s now modify the linear system by simplying interchanging the equations:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -905,13 +905,13 @@ x \amp  {}+{}  \amp y \amp  {}={}  \amp 2 \\
 </div>
 <div class="para">Of course, this doesn’t change the actual solution.  Let’s imagine we use our computer to find the solution using Gaussian elimination.  Perform the first step where we multiply the first equation by 0.0001 and subtract from the second equation.  What does this give for <span class="process-math">\(y\)</span> if we represent numbers using only three decimal digits?</div>
 </div></li>
-<li id="li-2545"><div class="para" id="p-3834">Substitute the value you found for <span class="process-math">\(y\)</span> into the first equation and solve for <span class="process-math">\(x\text{.}\)</span>  Then compare the approximate solution found with our hypothetical computer to the exact solution.</div></li>
-<li id="li-2546"><div class="para" id="p-3835">Which approach produces the most accurate approximation?</div></li>
+<li id="li-2545"><div class="para" id="p-3842">Substitute the value you found for <span class="process-math">\(y\)</span> into the first equation and solve for <span class="process-math">\(x\text{.}\)</span>  Then compare the approximate solution found with our hypothetical computer to the exact solution.</div></li>
+<li id="li-2546"><div class="para" id="p-3843">Which approach produces the most accurate approximation?</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-185" id="solution-185"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-185"><div class="solution solution-like"><div class="para logical" id="p-3836"><ol class="lower-alpha">
-<li id="li-2547"><div class="para logical" id="p-3837">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-185" id="solution-185"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-185"><div class="solution solution-like"><div class="para logical" id="p-3844"><ol class="lower-alpha">
+<li id="li-2547"><div class="para logical" id="p-3845">
 <div class="para">We may find this result by forming the augmented matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -923,9 +923,9 @@ x \amp  {}+{}  \amp y \amp  {}={}  \amp 2 \\
 </div>
 <div class="para">and row reducing.</div>
 </div></li>
-<li id="li-2548"><div class="para" id="p-3838">The solution would be rounded to <span class="process-math">\(x=1.00\)</span> and <span class="process-math">\(y=1.00\text{.}\)</span>
+<li id="li-2548"><div class="para" id="p-3846">The solution would be rounded to <span class="process-math">\(x=1.00\)</span> and <span class="process-math">\(y=1.00\text{.}\)</span>
 </div></li>
-<li id="li-2549"><div class="para logical" id="p-3839">
+<li id="li-2549"><div class="para logical" id="p-3847">
 <div class="para">We first multiply the first row by <span class="process-math">\(-10000\)</span> and add to the second row.  This gives</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -951,7 +951,7 @@ x \amp  {}+{}  \amp y \amp  {}={}  \amp 2 \\
 <div class="para">This tells us that <span class="process-math">\(y\approx 1\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-2550"><div class="para logical" id="p-3840">
+<li id="li-2550"><div class="para logical" id="p-3848">
 <div class="para">The next steps in the Gaussian elimination algorithm give us</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -969,8 +969,8 @@ x \amp  {}+{}  \amp y \amp  {}={}  \amp 2 \\
 <div class="para">so have the approximation solution <span class="process-math">\(x=0.00\)</span> and <span class="process-math">\(y=1.00\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-2551"><div class="para" id="p-3841">This compares to the actual solution, as represented in our computer, as <span class="process-math">\(x=1.00\)</span> and <span class="process-math">\(y=1.00\text{.}\)</span> Notice that the value of <span class="process-math">\(x\)</span> differs considerably.</div></li>
-<li id="li-2552"><div class="para logical" id="p-3842">
+<li id="li-2551"><div class="para" id="p-3849">This compares to the actual solution, as represented in our computer, as <span class="process-math">\(x=1.00\)</span> and <span class="process-math">\(y=1.00\text{.}\)</span> Notice that the value of <span class="process-math">\(x\)</span> differs considerably.</div></li>
+<li id="li-2552"><div class="para logical" id="p-3850">
 <div class="para">Now we have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -995,7 +995,7 @@ x \amp  {}+{}  \amp y \amp  {}={}  \amp 2 \\
 <div class="para">which gives <span class="process-math">\(y=1.00\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-2553"><div class="para logical" id="p-3843">
+<li id="li-2553"><div class="para logical" id="p-3851">
 <div class="para">Performing one more row operation gives us</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1008,10 +1008,10 @@ x \amp  {}+{}  \amp y \amp  {}={}  \amp 2 \\
 <div class="para">which shows the approximate solution as <span class="process-math">\(x=1.00\)</span> and <span class="process-math">\(y=1.00\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-2554"><div class="para" id="p-3844">The second approach gives an approximate solution that is as accurate as possible given the computer’s limited ability to store digits.</div></li>
+<li id="li-2554"><div class="para" id="p-3852">The second approach gives an approximate solution that is as accurate as possible given the computer’s limited ability to store digits.</div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-3845">This activity demonstrates how the practical aspects of computing differ from the theoretical.  We know that the order in which we write the equations has no effect on the solution space; row interchange is one of our three allowed row operations in the Gaussian elimination algorithm.  However, when we are only able to perform arithmetic operations approximately, applying row interchanges can dramatically improve the accuracy of our approximations.</div>
-<div class="para logical" id="p-3846">
+</div></article><div class="para" id="p-3853">This activity demonstrates how the practical aspects of computing differ from the theoretical.  We know that the order in which we write the equations has no effect on the solution space; row interchange is one of our three allowed row operations in the Gaussian elimination algorithm.  However, when we are only able to perform arithmetic operations approximately, applying row interchanges can dramatically improve the accuracy of our approximations.</div>
+<div class="para logical" id="p-3854">
 <div class="para">If we could compute the solution exactly, we find</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1027,7 +1027,7 @@ x \approx 1.00, \qquad y \approx 1.00.
 </div>
 <div class="para">This is the best we can hope to do with our computer since it is impossible to represent the solution exactly.</div>
 </div>
-<div class="para logical" id="p-3847">
+<div class="para logical" id="p-3855">
 <div class="para">When the equations are written in their original order and we multiply the first equation by 10000 and subtract from the second, we find</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1040,7 +1040,7 @@ y \amp {}\approx{} 1.00\text{.} \\
 \end{equation*}
 </div>
 </div>
-<div class="para logical" id="p-3848">
+<div class="para logical" id="p-3856">
 <div class="para">In fact, we find the same value for <span class="process-math">\(y\)</span> when we interchange the equations.  Here we multiply the first equation by 0.0001 and subtract from the second equation.  We then find</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1053,7 +1053,7 @@ y \amp {}\approx{} 1.00\text{.} \\
 \end{equation*}
 </div>
 </div>
-<div class="para logical" id="p-3849">
+<div class="para logical" id="p-3857">
 <div class="para">The difference occurs when we substitute <span class="process-math">\(y\approx 1\)</span> into the first equation.  When the equations are written in their original order, we have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1067,7 +1067,7 @@ x \amp {}\approx{} 0.00\text{.} \\
 <div class="para">When the equations are written in their original order, we find the solution <span class="process-math">\(x\approx 0.00, y \approx 1.00\text{.}\)</span>
 </div>
 </div>
-<div class="para logical" id="p-3850">
+<div class="para logical" id="p-3858">
 <div class="para">When we write the equation in the opposite order, however, substituting <span class="process-math">\(y\approx 1\)</span> into the first equation gives</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1081,14 +1081,14 @@ x \amp {}\approx{} 1.00\text{.} \\
 y\approx1.00\text{,}\)</span> which is the most accurate solution that our hypothetical computer can find.  Simply interchanging the order of the equation produces a much more accurate solution.</div>
 </div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel top" style="width:60%;"><div class="para" id="p-3851">We can understand why this works graphically.  Each equation represents a line in the plane, and the solution is the intersection point.  Notice that the slopes of these lines differ considerably.</div></div>
+<div class="sbspanel top" style="width:60%;"><div class="para" id="p-3859">We can understand why this works graphically.  Each equation represents a line in the plane, and the solution is the intersection point.  Notice that the slopes of these lines differ considerably.</div></div>
 <div class="sbspanel top" style="width:40%;"><img src="external/images/partial-pivot-ex.svg" role="img" class="contained"></div>
 </div></div>
-<div class="para" id="p-3852">When the equations are written in their original order, we substitute <span class="process-math">\(y\approx1\)</span> into the equation <span class="process-math">\(0.00001x + y = 1\text{,}\)</span> which is a nearly horizontal line.  Along this line, a small change in <span class="process-math">\(y\)</span> leads to a large change in <span class="process-math">\(x\text{.}\)</span>  The slight difference in our approximation <span class="process-math">\(y\approx
+<div class="para" id="p-3860">When the equations are written in their original order, we substitute <span class="process-math">\(y\approx1\)</span> into the equation <span class="process-math">\(0.00001x + y = 1\text{,}\)</span> which is a nearly horizontal line.  Along this line, a small change in <span class="process-math">\(y\)</span> leads to a large change in <span class="process-math">\(x\text{.}\)</span>  The slight difference in our approximation <span class="process-math">\(y\approx
 1\)</span> from the exact value <span class="process-math">\(y=0.9998999\ldots\)</span> leads to a large difference in the approximation <span class="process-math">\(x\approx0\)</span> from the exact value <span class="process-math">\(x=1.00010001\ldots\text{.}\)</span>
 </div>
-<div class="para" id="p-3853">If we exchange the order in which the equations are written, we substitute our approximation <span class="process-math">\(y\approx 1\)</span> into the equation <span class="process-math">\(x+y=2\text{.}\)</span>  Notice that the slope of the associated line is <span class="process-math">\(-1\text{.}\)</span>  On this line, a small change in <span class="process-math">\(y\)</span> leads to a relatively small change in <span class="process-math">\(x\)</span> as well.  Therefore, the difference in our approximation <span class="process-math">\(y\approx1\)</span> from the exact value leads to only a small difference in the approximation <span class="process-math">\(x\approx1\)</span> from the exact value.</div>
-<div class="para logical" id="p-3854">
+<div class="para" id="p-3861">If we exchange the order in which the equations are written, we substitute our approximation <span class="process-math">\(y\approx 1\)</span> into the equation <span class="process-math">\(x+y=2\text{.}\)</span>  Notice that the slope of the associated line is <span class="process-math">\(-1\text{.}\)</span>  On this line, a small change in <span class="process-math">\(y\)</span> leads to a relatively small change in <span class="process-math">\(x\)</span> as well.  Therefore, the difference in our approximation <span class="process-math">\(y\approx1\)</span> from the exact value leads to only a small difference in the approximation <span class="process-math">\(x\approx1\)</span> from the exact value.</div>
+<div class="para logical" id="p-3862">
 <div class="para">This example motivates the technique that computers usually use to perform Gaussian elimation.  We only need to perform a row interchange when a zero occurs in a pivot position, such as</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1119,12 +1119,12 @@ y\approx1.00\text{,}\)</span> which is the most accurate solution that our hypot
 </div></section><section class="subsection" id="subsection-73"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.7.2</span><span class="space"> </span><span class="title"><span class="process-math">\(LU\)</span> factorizations</span>
 </h3>
-<div class="para" id="p-3855">In <a href="sec-python-introduction.html#subsec-compute-effort" class="internal" title="Subsection 2.3.3: Computational effort">Subsection 2.3.3</a>, we saw that the number of arithmetic operations needed to perform Gaussian elimination on an <span class="process-math">\(n\by n\)</span> matrix is about <span class="process-math">\(\frac23 n^3\text{.}\)</span>  This means that a <span class="process-math">\(1000\by1000\)</span> matrix, requires about two thirds of a billion operations.</div>
-<div class="para" id="p-3856">Suppose that we have two equations, <span class="process-math">\(A\xvec = \bvec_1\)</span> and <span class="process-math">\(A\xvec = \bvec_2\text{,}\)</span> that we would like to solve.  Usually, we would form augmented matrices <span class="process-math">\(\left[\begin{array}{c|c} A \amp \bvec_1 \\ \end{array}\right]\)</span> and <span class="process-math">\(\left[\begin{array}{c|c} A \amp \bvec_2 \\ \end{array}\right]\)</span> and apply Gaussian elimination.  Of course, the steps we perform in these two computations are nearly identical.  Is there a way to store some of the computation we perform in reducing <span class="process-math">\(\left[\begin{array}{c|c} A \amp \bvec_1 \\ \end{array}\right]\)</span> and reuse it in solving subsequent equations?  The next activity will point us in the right direction.</div>
+<div class="para" id="p-3863">In <a href="sec-python-introduction.html#subsec-compute-effort" class="internal" title="Subsection 2.3.3: Computational effort">Subsection 2.3.3</a>, we saw that the number of arithmetic operations needed to perform Gaussian elimination on an <span class="process-math">\(n\by n\)</span> matrix is about <span class="process-math">\(\frac23 n^3\text{.}\)</span>  This means that a <span class="process-math">\(1000\by1000\)</span> matrix, requires about two thirds of a billion operations.</div>
+<div class="para" id="p-3864">Suppose that we have two equations, <span class="process-math">\(A\xvec = \bvec_1\)</span> and <span class="process-math">\(A\xvec = \bvec_2\text{,}\)</span> that we would like to solve.  Usually, we would form augmented matrices <span class="process-math">\(\left[\begin{array}{c|c} A \amp \bvec_1 \\ \end{array}\right]\)</span> and <span class="process-math">\(\left[\begin{array}{c|c} A \amp \bvec_2 \\ \end{array}\right]\)</span> and apply Gaussian elimination.  Of course, the steps we perform in these two computations are nearly identical.  Is there a way to store some of the computation we perform in reducing <span class="process-math">\(\left[\begin{array}{c|c} A \amp \bvec_1 \\ \end{array}\right]\)</span> and reuse it in solving subsequent equations?  The next activity will point us in the right direction.</div>
 <article class="activity project-like" id="activity-42"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.7.3</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-3857">
+<div class="para logical" id="p-3865">
 <div class="para">We will consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1137,7 +1137,7 @@ A = \left[\begin{array}{rrr}
 </div>
 <div class="para">and begin performing Gaussian elimination without using partial pivoting.</div>
 <ol class="lower-alpha">
-<li id="li-2555"><div class="para logical" id="p-3858">
+<li id="li-2555"><div class="para logical" id="p-3866">
 <div class="para">Perform two row replacement operations to find the row equivalent matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1151,7 +1151,7 @@ A' = \left[\begin{array}{rrr}
 <div class="para">Find elementary matrices <span class="process-math">\(E_1\)</span> and <span class="process-math">\(E_2\)</span> that perform these two operations so that <span class="process-math">\(E_2E_1 A = A'\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-2556"><div class="para logical" id="p-3859">
+<li id="li-2556"><div class="para logical" id="p-3867">
 <div class="para">Perform a third row replacement to find the upper triangular matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1166,10 +1166,13 @@ U = \left[\begin{array}{rrr}
 = U\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-2557"><div class="para" id="p-3860">We can write <span class="process-math">\(A=E_1^{-1}E_2^{-1}E_3^{-1} U\text{.}\)</span> Find the inverse matrices <span class="process-math">\(E_1^{-1}\text{,}\)</span> <span class="process-math">\(E_2^{-1}\text{,}\)</span> and <span class="process-math">\(E_3^{-1}\)</span> and the product <span class="process-math">\(L = E_1^{-1}E_2^{-1}E_3^{-1}\text{.}\)</span>  Then verify that <span class="process-math">\(A=LU\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-136"><script type="text/x-sage">
+<li id="li-2557">
+<div class="para" id="p-3868">We can write <span class="process-math">\(A=E_1^{-1}E_2^{-1}E_3^{-1} U\text{.}\)</span> Find the inverse matrices <span class="process-math">\(E_1^{-1}\text{,}\)</span> <span class="process-math">\(E_2^{-1}\text{,}\)</span> and <span class="process-math">\(E_3^{-1}\)</span> and the product <span class="process-math">\(L = E_1^{-1}E_2^{-1}E_3^{-1}\text{.}\)</span>  Then verify that <span class="process-math">\(A=LU\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-136"><script type="text/x-sage">
 </script></pre>
-</div></li>
-<li id="li-2558"><div class="para logical" id="p-3861">
+</li>
+<li id="li-2558"><div class="para logical" id="p-3869">
 <div class="para">Suppose that we want to solve the equation <span class="process-math">\(A\xvec = \bvec = \threevec4{-7}{12}\text{.}\)</span>  We will write</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1178,15 +1181,15 @@ A\xvec = LU\xvec = L(U\xvec) = \bvec
 </div>
 <div class="para">and introduce an unknown vector <span class="process-math">\(\cvec\)</span> such that <span class="process-math">\(U\xvec = \cvec\text{.}\)</span>  Find <span class="process-math">\(\cvec\)</span> by noting that <span class="process-math">\(L\cvec = \bvec\)</span> and solving this equation.</div>
 </div></li>
-<li id="li-2559"><div class="para" id="p-3862">Now that we have found <span class="process-math">\(\cvec\text{,}\)</span> find <span class="process-math">\(\xvec\)</span> by solving <span class="process-math">\(U\xvec = \cvec\text{.}\)</span>
+<li id="li-2559"><div class="para" id="p-3870">Now that we have found <span class="process-math">\(\cvec\text{,}\)</span> find <span class="process-math">\(\xvec\)</span> by solving <span class="process-math">\(U\xvec = \cvec\text{.}\)</span>
 </div></li>
-<li id="li-2560"><div class="para" id="p-3863">Using the factorization <span class="process-math">\(A=LU\)</span> and this two-step process, solve the equation <span class="process-math">\(A\xvec = \threevec{2}{-2}{7}\text{.}\)</span>
+<li id="li-2560"><div class="para" id="p-3871">Using the factorization <span class="process-math">\(A=LU\)</span> and this two-step process, solve the equation <span class="process-math">\(A\xvec = \threevec{2}{-2}{7}\text{.}\)</span>
 </div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-186" id="solution-186"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-186"><div class="solution solution-like"><div class="para logical" id="p-3864"><ol class="lower-alpha">
-<li id="li-2561"><div class="para logical" id="p-3865">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-186" id="solution-186"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-186"><div class="solution solution-like"><div class="para logical" id="p-3872"><ol class="lower-alpha">
+<li id="li-2561"><div class="para logical" id="p-3873">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1204,7 +1207,7 @@ E_2 = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2562"><div class="para logical" id="p-3866">
+<li id="li-2562"><div class="para logical" id="p-3874">
 <div class="para">The third row replacement is performed by</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1216,7 +1219,7 @@ E_3 = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2563"><div class="para logical" id="p-3867">
+<li id="li-2563"><div class="para logical" id="p-3875">
 <div class="para">The inverse matrices are found to be</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1248,18 +1251,18 @@ E_3^{-1}=
 \end{array}\right]\)</span> so that <span class="process-math">\(A = LU\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-2564"><div class="para" id="p-3868">Noting that <span class="process-math">\(L\cvec=\bvec\text{,}\)</span> we find <span class="process-math">\(\cvec=\threevec41{-1}\text{.}\)</span>
+<li id="li-2564"><div class="para" id="p-3876">Noting that <span class="process-math">\(L\cvec=\bvec\text{,}\)</span> we find <span class="process-math">\(\cvec=\threevec41{-1}\text{.}\)</span>
 </div></li>
-<li id="li-2565"><div class="para" id="p-3869">To find <span class="process-math">\(\xvec\text{,}\)</span> we solve the equation <span class="process-math">\(U\xvec=\cvec\)</span> to obtain <span class="process-math">\(\xvec=\threevec31{-1}\text{.}\)</span>
+<li id="li-2565"><div class="para" id="p-3877">To find <span class="process-math">\(\xvec\text{,}\)</span> we solve the equation <span class="process-math">\(U\xvec=\cvec\)</span> to obtain <span class="process-math">\(\xvec=\threevec31{-1}\text{.}\)</span>
 </div></li>
-<li id="li-2566"><div class="para" id="p-3870">We solve <span class="process-math">\(L\cvec=\threevec{2}{-2}{7}\)</span> to find <span class="process-math">\(\cvec=\threevec22{-1}\)</span> and <span class="process-math">\(U\xvec=\cvec\)</span> to find <span class="process-math">\(\xvec=\threevec{-1}{2}{-1}\text{.}\)</span>
+<li id="li-2566"><div class="para" id="p-3878">We solve <span class="process-math">\(L\cvec=\threevec{2}{-2}{7}\)</span> to find <span class="process-math">\(\cvec=\threevec22{-1}\)</span> and <span class="process-math">\(U\xvec=\cvec\)</span> to find <span class="process-math">\(\xvec=\threevec{-1}{2}{-1}\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-3871">This activity introduces a method for factoring a matrix <span class="process-math">\(A\)</span> as a product of two triangular matrices, <span class="process-math">\(A=LU\text{,}\)</span> where <span class="process-math">\(L\)</span> is lower triangular and <span class="process-math">\(U\)</span> is upper triangular.  The key to finding this factorization is to represent the row operations that we apply in the Gaussian elimination algorithm through multiplication by elementary matrices.</div>
+</div></article><div class="para" id="p-3879">This activity introduces a method for factoring a matrix <span class="process-math">\(A\)</span> as a product of two triangular matrices, <span class="process-math">\(A=LU\text{,}\)</span> where <span class="process-math">\(L\)</span> is lower triangular and <span class="process-math">\(U\)</span> is upper triangular.  The key to finding this factorization is to represent the row operations that we apply in the Gaussian elimination algorithm through multiplication by elementary matrices.</div>
 <article class="example example-like" id="example-LU"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">4.7.1</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-3872">
+<div class="para logical" id="p-3880">
 <div class="para">Suppose we have the equation</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1273,7 +1276,7 @@ E_3^{-1}=
 </div>
 <div class="para">which we write in the form <span class="process-math">\(A\xvec = \bvec\text{.}\)</span>  We begin by applying the Gaussian elimination algorithm to find an <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-3873">
+</div> <div class="para logical" id="p-3881">
 <div class="para">The first step is to multiply the first row of <span class="process-math">\(A\)</span> by <span class="process-math">\(2\)</span> and add it to the second row.  The elementary matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1291,7 +1294,7 @@ E_1 = \begin{bmatrix}
 \end{bmatrix}
 \text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-3874">
+</div> <div class="para logical" id="p-3882">
 <div class="para">We next apply matrices</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1315,7 +1318,7 @@ E_3 = \begin{bmatrix}
 \end{bmatrix}
 \text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-3875">
+</div> <div class="para logical" id="p-3883">
 <div class="para">We can write <span class="process-math">\(U = (E_3E_2E_1)A\text{,}\)</span> which tells us that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1343,7 +1346,7 @@ A = LU =
 \end{equation*}
 </div>
 <div class="para">Notice that the matrix <span class="process-math">\(L\)</span> is lower triangular, a result of the fact that the elementary matrices <span class="process-math">\(E_1\text{,}\)</span> <span class="process-math">\(E_2\text{,}\)</span> and <span class="process-math">\(E_3\)</span> are lower triangular.</div>
-</div> <div class="para logical" id="p-3876">
+</div> <div class="para logical" id="p-3884">
 <div class="para">Now that we have factored <span class="process-math">\(A=LU\)</span> into two triangular matrices, we can solve the equation <span class="process-math">\(A\xvec = \bvec\)</span> by solving two triangular systems.  We write</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1353,7 +1356,7 @@ A\xvec = L(U\xvec) = \bvec
 <div class="para">and define the unknown vector <span class="process-math">\(\cvec = U\xvec\text{,}\)</span> which is determined by the equation <span class="process-math">\(L\cvec = \bvec\text{.}\)</span> Because <span class="process-math">\(L\)</span> is lower triangular, we find the solution using forward substitution, <span class="process-math">\(\cvec = \threevec833\text{.}\)</span>  Finally, we find <span class="process-math">\(\xvec\text{,}\)</span> the solution to our original system <span class="process-math">\(A\xvec = \bvec\text{,}\)</span> by applying back substitution to solve <span class="process-math">\(U\xvec = \cvec\text{.}\)</span>  This gives <span class="process-math">\(\xvec =
 \threevec2{-1}1\text{.}\)</span>
 </div>
-</div> <div class="para" id="p-3877">If we want to solve <span class="process-math">\(A\xvec = \bvec\)</span> for a different right-hand side <span class="process-math">\(\bvec\text{,}\)</span> we can simply repeat this two-step process.</div></article><div class="para logical" id="p-3878">
+</div> <div class="para" id="p-3885">If we want to solve <span class="process-math">\(A\xvec = \bvec\)</span> for a different right-hand side <span class="process-math">\(\bvec\text{,}\)</span> we can simply repeat this two-step process.</div></article><div class="para logical" id="p-3886">
 <div class="para">An <span class="process-math">\(LU\)</span> factorization allow us to trade in one equation <span class="process-math">\(A\xvec = \bvec\)</span> for two simpler equations</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1375,9 +1378,9 @@ U\xvec \amp = \cvec. \\
 </div>
 <div class="para">Because <span class="process-math">\(L\)</span> is a lower-triangular matrix, we can read off the first component of <span class="process-math">\(\cvec\)</span> directly from the equations:  <span class="process-math">\(c_1 = 8\text{.}\)</span>  We then have <span class="process-math">\(-2c_1+c_2 = -13\text{,}\)</span> which gives <span class="process-math">\(c_2 = 3\text{,}\)</span> and <span class="process-math">\(c_1 - c_2 + c_3 = 8\text{,}\)</span> which gives <span class="process-math">\(c_3=3\text{.}\)</span> Solving a triangular system is simplified because we only need to perform a sequence of substitutions.</div>
 </div>
-<div class="para" id="p-3879">In fact, solving an equation with an <span class="process-math">\(n\by n\)</span> triangular matrix requires approximately <span class="process-math">\(\frac 12 n^2\)</span> operations. Once we have the factorization <span class="process-math">\(A=LU\text{,}\)</span> we solve the equation <span class="process-math">\(A\xvec=\bvec\)</span> by solving two equations involving triangular matrices, which requires about <span class="process-math">\(n^2\)</span> operations. For example, if <span class="process-math">\(A\)</span> is a <span class="process-math">\(1000\by1000\)</span> matrix, we solve the equation <span class="process-math">\(A\xvec = \bvec\)</span> using about one million steps.  This compares with roughly a billion operations needed to perform Gaussian elimination, which represents a significant savings.  Of course, we have to first find the <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\)</span> and this requires roughly the same amount of work as performing Gaussian elimination. However, once we have the <span class="process-math">\(LU\)</span> factorization, we can use it to solve <span class="process-math">\(A\xvec=\bvec\)</span> for different right hand sides <span class="process-math">\(\bvec\text{.}\)</span>
+<div class="para" id="p-3887">In fact, solving an equation with an <span class="process-math">\(n\by n\)</span> triangular matrix requires approximately <span class="process-math">\(\frac 12 n^2\)</span> operations. Once we have the factorization <span class="process-math">\(A=LU\text{,}\)</span> we solve the equation <span class="process-math">\(A\xvec=\bvec\)</span> by solving two equations involving triangular matrices, which requires about <span class="process-math">\(n^2\)</span> operations. For example, if <span class="process-math">\(A\)</span> is a <span class="process-math">\(1000\by1000\)</span> matrix, we solve the equation <span class="process-math">\(A\xvec = \bvec\)</span> using about one million steps.  This compares with roughly a billion operations needed to perform Gaussian elimination, which represents a significant savings.  Of course, we have to first find the <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\)</span> and this requires roughly the same amount of work as performing Gaussian elimination. However, once we have the <span class="process-math">\(LU\)</span> factorization, we can use it to solve <span class="process-math">\(A\xvec=\bvec\)</span> for different right hand sides <span class="process-math">\(\bvec\text{.}\)</span>
 </div>
-<div class="para logical" id="p-3880">
+<div class="para logical" id="p-3888">
 <div class="para">Our discussion so far has ignored one issue, however. Remember that we sometimes have to perform row interchange operations in addition to row replacement.  A typical row interchange is represented by multiplication by a matrix such as</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1390,7 +1393,7 @@ P = \left[\begin{array}{rrr}
 </div>
 <div class="para">which has the effect of interchanging the first and third rows. Notice that this matrix is not triangular so performing a row interchange will disrupt the structure of the <span class="process-math">\(LU\)</span> factorization we seek.  Without giving the details, we simply note that linear algebra software packages compute a matrix <span class="process-math">\(P\)</span> that describes how the rows are permuted in the Gaussian elimination process.</div>
 </div>
-<div class="para logical" id="p-3881">
+<div class="para logical" id="p-3889">
 <div class="para">Once we have <span class="process-math">\(PA = LU\text{,}\)</span> where <span class="process-math">\(P\)</span> is a (row) permutation matrix, <span class="process-math">\(L\)</span> is lower triangular, and <span class="process-math">\(U\)</span> is upper triangular, we can use this to solve the equation <span class="process-math">\(A\xvec = \bvec\)</span> using backsubstitution twice. Notice that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1403,32 +1406,31 @@ PA\xvec = LU\xvec = P\bvec\text{.}
 <article class="proposition theorem-like" id="prop-LU"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">4.7.2</span><span class="period">.</span><span class="space"> </span><span class="title"><span class="process-math">\(PLU\)</span> factorization: <span class="process-math">\(LU\)</span> factorization with partial pivoting.</span>
 </h4>
-<div class="para logical" id="p-3882">
+<div class="para logical" id="p-3890">
 <div class="para">For any <span class="process-math">\(m \by n\)</span> matrix <span class="process-math">\(A\)</span> there are matrices <span class="process-math">\(P\text{,}\)</span> <span class="process-math">\(L\text{,}\)</span> and <span class="process-math">\(U\)</span> such that</div>
 <ul class="disc">
-<li id="li-2567"><div class="para" id="p-3883">
+<li id="li-2567"><div class="para" id="p-3891">
 <span class="process-math">\(P\)</span> is an <span class="process-math">\(m \by m\)</span> (row) permutation matrix.</div></li>
-<li id="li-2568"><div class="para" id="p-3884">
+<li id="li-2568"><div class="para" id="p-3892">
 <span class="process-math">\(L\)</span> is an <span class="process-math">\(m \by m\)</span> lower triangular matrix.</div></li>
-<li id="li-2569"><div class="para" id="p-3885">
+<li id="li-2569"><div class="para" id="p-3893">
 <span class="process-math">\(U\)</span> is an <span class="process-math">\(n \by n\)</span> uppter triangular matrix.</div></li>
-<li id="li-2570"><div class="para" id="p-3886"><span class="process-math">\(PA = LU \text{.}\)</span></div></li>
+<li id="li-2570"><div class="para" id="p-3894"><span class="process-math">\(PA = LU \text{.}\)</span></div></li>
 </ul>
 <div class="para">Matrices <span class="process-math">\(P\text{,}\)</span> <span class="process-math">\(L\text{,}\)</span> and <span class="process-math">\(U\)</span> can by found by keeping track of the elementary matrices corresponding to Gaussian elimination with row permutations to put numbers with the largest absolute value into the pivot positions.</div>
-</div> <div class="para logical" id="p-3887">
+</div> <div class="para logical" id="p-3895">
 <div class="para">We can solve <span class="process-math">\(A \xvec = \bvec\)</span> using this factorization as follows:</div>
 <ul class="disc">
-<li id="li-2571"><div class="para" id="p-3888">Rewrite as <span class="process-math">\(PA\xvec = LU \xvec = P\bvec\text{.}\)</span>
+<li id="li-2571"><div class="para" id="p-3896">Rewrite as <span class="process-math">\(PA\xvec = LU \xvec = P\bvec\text{.}\)</span>
 </div></li>
-<li id="li-2572"><div class="para" id="p-3889">Solve  <span class="process-math">\(L \cvec = P \bvec\)</span> for <span class="process-math">\(\cvec\)</span> using backsubstitution.</div></li>
-<li id="li-2573"><div class="para" id="p-3890">Solve <span class="process-math">\(U \xvec = \cvec\)</span> for <span class="process-math">\(\xvec\)</span> backsubstitution.</div></li>
-<li id="li-2574"><div class="para" id="p-3891">This implies that <span class="process-math">\(P\bvec = L\cvec = LU \xvec = PA \xvec \text{,}\)</span> so <span class="process-math">\(A\xvec = \bvec\)</span> since <span class="process-math">\(P\)</span> is invertible.</div></li>
+<li id="li-2572"><div class="para" id="p-3897">Solve  <span class="process-math">\(L \cvec = P \bvec\)</span> for <span class="process-math">\(\cvec\)</span> using backsubstitution.</div></li>
+<li id="li-2573"><div class="para" id="p-3898">Solve <span class="process-math">\(U \xvec = \cvec\)</span> for <span class="process-math">\(\xvec\)</span> backsubstitution.</div></li>
+<li id="li-2574"><div class="para" id="p-3899">This implies that <span class="process-math">\(P\bvec = L\cvec = LU \xvec = PA \xvec \text{,}\)</span> so <span class="process-math">\(A\xvec = \bvec\)</span> since <span class="process-math">\(P\)</span> is invertible.</div></li>
 </ul>
 </div></article><article class="activity project-like" id="activity-43"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.7.4</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-3892">
-<div class="para">The <code class="code-inline tex2jax_ignore">scipy.linalg</code> package can compute <span class="process-math">\(LU\)</span> factorizations; we write <code class="code-inline tex2jax_ignore">P, L, U = scipy.linalg.LU(A)</code> to obtain the matrices <span class="process-math">\(P\text{,}\)</span> <span class="process-math">\(L\text{,}\)</span> and <span class="process-math">\(U\)</span> such that <span class="process-math">\(PA = LU\text{.}\)</span> Here is an example. <pre class="ptx-sagecell sagecell-python" id="sage-137"><script type="text/x-sage">import numpy as np
+<div class="para" id="p-3900">The <code class="code-inline tex2jax_ignore">scipy.linalg</code> package can compute <span class="process-math">\(LU\)</span> factorizations; we write <code class="code-inline tex2jax_ignore">P, L, U = scipy.linalg.LU(A)</code> to obtain the matrices <span class="process-math">\(P\text{,}\)</span> <span class="process-math">\(L\text{,}\)</span> and <span class="process-math">\(U\)</span> such that <span class="process-math">\(PA = LU\text{.}\)</span> Here is an example.</div> <pre class="ptx-sagecell sagecell-python" id="sage-137"><script type="text/x-sage">import numpy as np
 import scipy.linalg   # SciPy Linear Algebra Library
 
 A = np.array([ [7, 3, -1, 2], [3, 8, 1, -4], [-1, 1, 4, -1], [2, -4, -1, 6] ])
@@ -1445,11 +1447,9 @@ print(L)
 
 print("U:")
 print(U)
-</script></pre>
-</div>
-<ol class="lower-alpha">
+</script></pre> <div class="para logical" id="p-3901"><ol class="lower-alpha">
 <li id="li-2575">
-<div class="para logical" id="p-3893">
+<div class="para logical" id="p-3902">
 <div class="para">In <a href="" class="xref" data-knowl="./knowl/example-LU.html" title="Example 4.7.1">Example 4.7.1</a>, we found the <span class="process-math">\(LU\)</span> factorization</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/example-LU.html">
 \begin{equation*}
@@ -1475,16 +1475,16 @@ A =
 <div class="para">Using Python, define the matrix <span class="process-math">\(A\)</span> and then ask for the <span class="process-math">\(LU\)</span> factorization.  What are the matrices <span class="process-math">\(P\text{,}\)</span> <span class="process-math">\(L\text{,}\)</span> and <span class="process-math">\(U\text{?}\)</span>
 </div>
 </div>
-<div class="para" id="p-3894">Notice that <code class="code-inline tex2jax_ignore">scipy.linalg.LI()</code> finds a different <span class="process-math">\(LU\)</span> factorization than we found in the previous activity because it is using partial pivoting, as described in the previous section, when it performs Gaussian elimination.</div>
+<div class="para" id="p-3903">Notice that <code class="code-inline tex2jax_ignore">scipy.linalg.LI()</code> finds a different <span class="process-math">\(LU\)</span> factorization than we found in the previous activity because it is using partial pivoting, as described in the previous section, when it performs Gaussian elimination.</div>
 </li>
-<li id="li-2576"><div class="para" id="p-3895">Define the vector <span class="process-math">\(\bvec = \threevec8{-13}{8}\)</span> in Python and compute <span class="process-math">\(P\bvec\text{.}\)</span>
+<li id="li-2576"><div class="para" id="p-3904">Define the vector <span class="process-math">\(\bvec = \threevec8{-13}{8}\)</span> in Python and compute <span class="process-math">\(P\bvec\text{.}\)</span>
 </div></li>
-<li id="li-2577"><div class="para" id="p-3896">Use the matrices <code class="code-inline tex2jax_ignore">L</code> and <code class="code-inline tex2jax_ignore">U</code> to solve <span class="process-math">\(L\cvec = P\bvec\)</span> and <span class="process-math">\(U\xvec = \cvec\text{.}\)</span>  You should find the same solution <span class="process-math">\(\xvec\)</span> that you found in the previous activity.</div></li>
-<li id="li-2578"><div class="para" id="p-3897">Use the factorization to solve the equation <span class="process-math">\(A\xvec
+<li id="li-2577"><div class="para" id="p-3905">Use the matrices <code class="code-inline tex2jax_ignore">L</code> and <code class="code-inline tex2jax_ignore">U</code> to solve <span class="process-math">\(L\cvec = P\bvec\)</span> and <span class="process-math">\(U\xvec = \cvec\text{.}\)</span>  You should find the same solution <span class="process-math">\(\xvec\)</span> that you found in the previous activity.</div></li>
+<li id="li-2578"><div class="para" id="p-3906">Use the factorization to solve the equation <span class="process-math">\(A\xvec
 = \threevec9{-16}{10}\text{.}\)</span>
 </div></li>
-<li id="li-2579"><div class="para" id="p-3898">How does the factorization show us that <span class="process-math">\(A\)</span> is invertible and that, therefore, every equation <span class="process-math">\(A\xvec=\bvec\)</span> has a unique solution?</div></li>
-<li id="li-2580"><div class="para logical" id="p-3899">
+<li id="li-2579"><div class="para" id="p-3907">How does the factorization show us that <span class="process-math">\(A\)</span> is invertible and that, therefore, every equation <span class="process-math">\(A\xvec=\bvec\)</span> has a unique solution?</div></li>
+<li id="li-2580"><div class="para logical" id="p-3908">
 <div class="para">Suppose that we have the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1497,7 +1497,7 @@ B = \left[\begin{array}{rrr}
 </div>
 <div class="para">Use Python to find the <span class="process-math">\(LU\)</span> factorization.  Explain how the factorization shows that <span class="process-math">\(B\)</span> is not invertible.</div>
 </div></li>
-<li id="li-2581"><div class="para logical" id="p-3900">
+<li id="li-2581"><div class="para logical" id="p-3909">
 <div class="para">Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1511,11 +1511,10 @@ C = \left[\begin{array}{rrrr}
 <div class="para">and find its <span class="process-math">\(LU\)</span> factorization.  Explain why <span class="process-math">\(C\)</span> and <span class="process-math">\(U\)</span> have the same null space and use this observation to find a basis for <span class="process-math">\(\nul(A)\text{.}\)</span>
 </div>
 </div></li>
-</ol>
-</div>
+</ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-187" id="solution-187"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-187"><div class="solution solution-like"><div class="para logical" id="p-3901"><ol class="lower-alpha">
-<li id="li-2582"><div class="para logical" id="p-3902">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-187" id="solution-187"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-187"><div class="solution solution-like"><div class="para logical" id="p-3910"><ol class="lower-alpha">
+<li id="li-2582"><div class="para logical" id="p-3911">
 <div class="para">Python gives us the matrices</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1537,11 +1536,11 @@ L=\begin{bmatrix}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2583"><div class="para" id="p-3903">We find <span class="process-math">\(P\bvec=\threevec{-13}8{8}\text{.}\)</span>
+<li id="li-2583"><div class="para" id="p-3912">We find <span class="process-math">\(P\bvec=\threevec{-13}8{8}\text{.}\)</span>
 </div></li>
-<li id="li-2584"><div class="para" id="p-3904">Solving <span class="process-math">\(L\cvec=P\bvec\text{,}\)</span> we have <span class="process-math">\(\cvec=\threevec{-13}{\frac32}{3}\text{.}\)</span>  Finally, solving <span class="process-math">\(U\xvec=\cvec\text{,}\)</span> we obtain <span class="process-math">\(\xvec=\threevec2{-1}1\text{.}\)</span>
+<li id="li-2584"><div class="para" id="p-3913">Solving <span class="process-math">\(L\cvec=P\bvec\text{,}\)</span> we have <span class="process-math">\(\cvec=\threevec{-13}{\frac32}{3}\text{.}\)</span>  Finally, solving <span class="process-math">\(U\xvec=\cvec\text{,}\)</span> we obtain <span class="process-math">\(\xvec=\threevec2{-1}1\text{.}\)</span>
 </div></li>
-<li id="li-2585"><div class="para logical" id="p-3905">
+<li id="li-2585"><div class="para logical" id="p-3914">
 <div class="para">We find</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1551,7 +1550,7 @@ P\bvec=\threevec{-16}9{10},~~~
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2586"><div class="para logical" id="p-3906">
+<li id="li-2586"><div class="para logical" id="p-3915">
 <div class="para">Because <span class="process-math">\(P\text{,}\)</span> <span class="process-math">\(L\text{,}\)</span> and <span class="process-math">\(U\)</span> are invertible, it follows that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1560,7 +1559,7 @@ P\bvec=\threevec{-16}9{10},~~~
 </div>
 <div class="para">which means that <span class="process-math">\(A\)</span> is invertible.</div>
 </div></li>
-<li id="li-2587"><div class="para logical" id="p-3907">
+<li id="li-2587"><div class="para logical" id="p-3916">
 <div class="para">Python tells us that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1592,7 +1591,7 @@ U=
 <div class="para">so <span class="process-math">\(B\)</span> is not invertible.</div>
 </div></li>
 <li id="li-2588">
-<div class="para logical" id="p-3908">
+<div class="para logical" id="p-3917">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1619,7 +1618,7 @@ U= \left[\begin{array}{rrrr}
 </div>
 <div class="para">We may rewrite <span class="process-math">\(PC=LU\)</span> as <span class="process-math">\(C=P^{-1}LU\)</span> so if <span class="process-math">\(C\xvec=P^{-1}LU\xvec=\zerovec\text{,}\)</span> then <span class="process-math">\(U\xvec=\zerovec\)</span> because <span class="process-math">\(P\)</span> and <span class="process-math">\(L\)</span> are invertible.</div>
 </div>
-<div class="para logical" id="p-3909">
+<div class="para logical" id="p-3918">
 <div class="para">Notice that <span class="process-math">\(U\)</span> is upper triangular, which means that it is straightforward to find its reduced row echelon form:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1665,12 +1664,12 @@ U=
 </div></article></section><section class="subsection" id="subsection-74"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">4.7.3</span><span class="space"> </span><span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-3910">
+<div class="para logical" id="p-3919">
 <div class="para">We returned to Gaussian elimination, which we have used as a primary tool for finding solutions to linear systems, and explored its practicality, both in terms of numerical accuracy and computational effort.</div>
 <ul class="disc">
-<li id="li-2589"><div class="para" id="p-3911">We saw that the accuracy of computations implemented on a computer could be improved using <dfn class="terminology">partial pivoting</dfn>, a technique that performs row interchanges so that the entry in a pivot position has the largest possible magnitude.</div></li>
-<li id="li-2590"><div class="para" id="p-3912">Beginning with a matrix <span class="process-math">\(A\text{,}\)</span> we used the Gaussian elimination algorithm to write <span class="process-math">\(PA = LU\text{,}\)</span> where <span class="process-math">\(P\)</span> is a permutation matrix, <span class="process-math">\(L\)</span> is lower triangular, and <span class="process-math">\(U\)</span> is upper triangular.</div></li>
-<li id="li-2591"><div class="para" id="p-3913">Finding this factorization involves roughly as much work as performing Gaussian elimination.  However, once we have the factorization, we are able to quickly solve equations of the form <span class="process-math">\(A\xvec = \bvec\)</span> by first solving <span class="process-math">\(L\cvec =
+<li id="li-2589"><div class="para" id="p-3920">We saw that the accuracy of computations implemented on a computer could be improved using <dfn class="terminology">partial pivoting</dfn>, a technique that performs row interchanges so that the entry in a pivot position has the largest possible magnitude.</div></li>
+<li id="li-2590"><div class="para" id="p-3921">Beginning with a matrix <span class="process-math">\(A\text{,}\)</span> we used the Gaussian elimination algorithm to write <span class="process-math">\(PA = LU\text{,}\)</span> where <span class="process-math">\(P\)</span> is a permutation matrix, <span class="process-math">\(L\)</span> is lower triangular, and <span class="process-math">\(U\)</span> is upper triangular.</div></li>
+<li id="li-2591"><div class="para" id="p-3922">Finding this factorization involves roughly as much work as performing Gaussian elimination.  However, once we have the factorization, we are able to quickly solve equations of the form <span class="process-math">\(A\xvec = \bvec\)</span> by first solving <span class="process-math">\(L\cvec =
 P\bvec\)</span> and then <span class="process-math">\(U\xvec = \cvec\text{.}\)</span>
 </div></li>
 </ul>
@@ -1678,7 +1677,7 @@ P\bvec\)</span> and then <span class="process-math">\(U\xvec = \cvec\text{.}\)</
 <span class="type">Exercises</span><span class="space"> </span><span class="codenumber">4.7.4</span><span class="space"> </span><span class="title">Exercises</span>
 </h3>
 <article class="exercise exercise-like" id="exercise-136"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3914">
+<div class="para logical" id="p-3923">
 <div class="para">In this section, we saw that errors made in computer arithmetic can produce approximate solutions that are far from the exact solutions.  Here is another example in which this can happen.  Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1689,12 +1688,12 @@ A = \left[\begin{array}{cc}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2592"><div class="para" id="p-3915">Find the exact solution to the equation <span class="process-math">\(A\xvec = \twovec{2}{2}\text{.}\)</span>
+<li id="li-2592"><div class="para" id="p-3924">Find the exact solution to the equation <span class="process-math">\(A\xvec = \twovec{2}{2}\text{.}\)</span>
 </div></li>
-<li id="li-2593"><div class="para" id="p-3916">Suppose that this linear system arises in the midst of a larger computation except that, due to some error in the computation of the right hand side of the equation, our computer thinks we want to solve <span class="process-math">\(A\xvec = \ctwovec{2}{2.0001}\text{.}\)</span>  Find the solution to this equation and compare it to the solution of the equation in the previous part of this exericse.</div></li>
+<li id="li-2593"><div class="para" id="p-3925">Suppose that this linear system arises in the midst of a larger computation except that, due to some error in the computation of the right hand side of the equation, our computer thinks we want to solve <span class="process-math">\(A\xvec = \ctwovec{2}{2.0001}\text{.}\)</span>  Find the solution to this equation and compare it to the solution of the equation in the previous part of this exericse.</div></li>
 </ol>
-</div> <div class="para" id="p-3917">Notice how a small change in the right hand side of the equation leads to a large change in the solution.  In this case, we say that the matrix <span class="process-math">\(A\)</span> is <em class="emphasis">ill-conditioned</em> because the solutions are extremely sensitive to small changes in the right hand side of the equation.  Though we will not do so here, it is possible to create a measure of the matrix that tells us when a matrix is ill-conditioned.  Regrettably, there is not much we can do to remedy this problem.</div></article><article class="exercise exercise-like" id="exercise-137"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3924">
+</div> <div class="para" id="p-3926">Notice how a small change in the right hand side of the equation leads to a large change in the solution.  In this case, we say that the matrix <span class="process-math">\(A\)</span> is <em class="emphasis">ill-conditioned</em> because the solutions are extremely sensitive to small changes in the right hand side of the equation.  Though we will not do so here, it is possible to create a measure of the matrix that tells us when a matrix is ill-conditioned.  Regrettably, there is not much we can do to remedy this problem.</div></article><article class="exercise exercise-like" id="exercise-137"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
+<div class="para logical" id="p-3933">
 <div class="para">In this section, we found the <span class="process-math">\(LU\)</span> factorization of the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1709,11 +1708,11 @@ A = \left[\begin{array}{rrr}
 </script></pre>
 </div>
 </div></article><article class="exercise exercise-like" id="exercise-138"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3927">
+<div class="para logical" id="p-3936">
 <div class="para">In the following exercises, use the given <span class="process-math">\(LU\)</span> factorizations to solve the equations <span class="process-math">\(A\xvec = \bvec\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-2598"><div class="para logical" id="p-3928">
+<li id="li-2598"><div class="para logical" id="p-3937">
 <div class="para">Solve the equation</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1731,7 +1730,7 @@ A\xvec =
 \end{equation*}
 </div>
 </div></li>
-<li id="li-2599"><div class="para logical" id="p-3929">
+<li id="li-2599"><div class="para logical" id="p-3938">
 <div class="para">Solve the equation</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1753,7 +1752,7 @@ A\xvec =
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-139"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3936">
+<div class="para logical" id="p-3945">
 <div class="para">Use Sage to solve the following equation by finding an <span class="process-math">\(LU\)</span> factorization:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1768,7 +1767,7 @@ A\xvec =
 <div class="para"><pre class="ptx-sagecell sagecell-sage" id="sage-139"><script type="text/x-sage">
 </script></pre></div>
 </div></article><article class="exercise exercise-like" id="exercise-eigenvector-approx"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3939">
+<div class="para logical" id="p-3948">
 <div class="para">Here is another problem with approximate computer arithmetic that we will encounter in the next section.  Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1780,26 +1779,26 @@ A = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2604"><div class="para" id="p-3940">Notice that this is a positive stochastic matrix. What do we know about the eigenvalues of this matrix?</div></li>
-<li id="li-2605"><div class="para" id="p-3941">Use Sage to define the matrix <span class="process-math">\(A\)</span> using decimals such as <code class="code-inline tex2jax_ignore">0.2</code> and the <span class="process-math">\(3\by3\)</span> identity matrix <span class="process-math">\(I\text{.}\)</span>  Ask Sage to compute <span class="process-math">\(B = A-I\)</span> and find the reduced row echelon form of <span class="process-math">\(B\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-140"><script type="text/x-sage">
+<li id="li-2604"><div class="para" id="p-3949">Notice that this is a positive stochastic matrix. What do we know about the eigenvalues of this matrix?</div></li>
+<li id="li-2605"><div class="para" id="p-3950">Use Sage to define the matrix <span class="process-math">\(A\)</span> using decimals such as <code class="code-inline tex2jax_ignore">0.2</code> and the <span class="process-math">\(3\by3\)</span> identity matrix <span class="process-math">\(I\text{.}\)</span>  Ask Sage to compute <span class="process-math">\(B = A-I\)</span> and find the reduced row echelon form of <span class="process-math">\(B\text{.}\)</span> <pre class="ptx-sagecell sagecell-sage" id="sage-140"><script type="text/x-sage">
 </script></pre>
 </div></li>
-<li id="li-2606"><div class="para" id="p-3942">Why is the computation that Sage performed incorrect?</div></li>
-<li id="li-2607"><div class="para" id="p-3943">Explain why using a computer to find the eigenvectors of a matrix <span class="process-math">\(A\)</span> by finding a basis for <span class="process-math">\(\nul(A-\lambda
+<li id="li-2606"><div class="para" id="p-3951">Why is the computation that Sage performed incorrect?</div></li>
+<li id="li-2607"><div class="para" id="p-3952">Explain why using a computer to find the eigenvectors of a matrix <span class="process-math">\(A\)</span> by finding a basis for <span class="process-math">\(\nul(A-\lambda
 I)\)</span> is problematic.</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-141"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3954">
+<div class="para logical" id="p-3963">
 <div class="para">In practice, one rarely finds the inverse of a matrix <span class="process-math">\(A\text{.}\)</span>  It requires considerable effort to compute, and we can solve any equation of the form <span class="process-math">\(A\xvec = \bvec\)</span> using an <span class="process-math">\(LU\)</span> factorization, which means that the inverse isn’t necessary.  In any case, the best way to compute an inverse is using an <span class="process-math">\(LU\)</span> factorization, as this exericse demonstrates.</div>
 <ol class="lower-alpha">
 <li id="li-2616">
-<div class="para" id="p-3955">Suppose that <span class="process-math">\(PA = LU\text{.}\)</span>  Explain why <span class="process-math">\(A^{-1} =
+<div class="para" id="p-3964">Suppose that <span class="process-math">\(PA = LU\text{.}\)</span>  Explain why <span class="process-math">\(A^{-1} =
 U^{-1}L^{-1}P\text{.}\)</span>
 </div>
-<div class="para" id="p-3956">Since <span class="process-math">\(L\)</span> and <span class="process-math">\(U\)</span> are triangular, finding their inverses is relatively efficient.  That makes this an effective means of finding <span class="process-math">\(A^{-1}\text{.}\)</span>
+<div class="para" id="p-3965">Since <span class="process-math">\(L\)</span> and <span class="process-math">\(U\)</span> are triangular, finding their inverses is relatively efficient.  That makes this an effective means of finding <span class="process-math">\(A^{-1}\text{.}\)</span>
 </div>
 </li>
-<li id="li-2617"><div class="para logical" id="p-3957">
+<li id="li-2617"><div class="para logical" id="p-3966">
 <div class="para">Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1816,7 +1815,7 @@ A = \left[\begin{array}{rrr}
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-142"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3962">
+<div class="para logical" id="p-3971">
 <div class="para">Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1829,12 +1828,12 @@ a \amp b \amp c \amp d \\
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2620"><div class="para" id="p-3963">Find the <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>
+<li id="li-2620"><div class="para" id="p-3972">Find the <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-2621"><div class="para" id="p-3964">What conditions on <span class="process-math">\(a\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> <span class="process-math">\(c\text{,}\)</span> and <span class="process-math">\(d\)</span> guarantee that <span class="process-math">\(A\)</span> is invertible?</div></li>
+<li id="li-2621"><div class="para" id="p-3973">What conditions on <span class="process-math">\(a\text{,}\)</span> <span class="process-math">\(b\text{,}\)</span> <span class="process-math">\(c\text{,}\)</span> and <span class="process-math">\(d\)</span> guarantee that <span class="process-math">\(A\)</span> is invertible?</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-143"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3971">
+<div class="para logical" id="p-3980">
 <div class="para">In the <span class="process-math">\(LU\)</span> factorization of a matrix, the diagonal entries of <span class="process-math">\(L\)</span> are all <span class="process-math">\(1\)</span> while the diagonal entries of <span class="process-math">\(U\)</span> are not necessarily <span class="process-math">\(1\text{.}\)</span>  This exercise will explore that observation by considering the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1846,23 +1845,23 @@ A = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2626"><div class="para" id="p-3972">Perform Gaussian elimination without partial pivoting to find <span class="process-math">\(U\text{,}\)</span> an upper triangular matrix that is row equivalent to <span class="process-math">\(A\text{.}\)</span>
+<li id="li-2626"><div class="para" id="p-3981">Perform Gaussian elimination without partial pivoting to find <span class="process-math">\(U\text{,}\)</span> an upper triangular matrix that is row equivalent to <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-2627"><div class="para" id="p-3973">The diagonal entries of <span class="process-math">\(U\)</span> are called <em class="emphasis">pivots</em>.  Explain why <span class="process-math">\(\det A\)</span> equals the product of the pivots.</div></li>
-<li id="li-2628"><div class="para" id="p-3974">What is <span class="process-math">\(\det A\)</span> for our matrix <span class="process-math">\(A\text{?}\)</span>
+<li id="li-2627"><div class="para" id="p-3982">The diagonal entries of <span class="process-math">\(U\)</span> are called <em class="emphasis">pivots</em>.  Explain why <span class="process-math">\(\det A\)</span> equals the product of the pivots.</div></li>
+<li id="li-2628"><div class="para" id="p-3983">What is <span class="process-math">\(\det A\)</span> for our matrix <span class="process-math">\(A\text{?}\)</span>
 </div></li>
-<li id="li-2629"><div class="para" id="p-3975">More generally, if we have <span class="process-math">\(PA=LU\text{,}\)</span> explain why <span class="process-math">\(\det A\)</span> equals plus or minus the product of the pivots.</div></li>
+<li id="li-2629"><div class="para" id="p-3984">More generally, if we have <span class="process-math">\(PA=LU\text{,}\)</span> explain why <span class="process-math">\(\det A\)</span> equals plus or minus the product of the pivots.</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-144"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3986">
+<div class="para logical" id="p-3995">
 <div class="para">Please provide a justification to your responses to these questions.</div>
 <ol class="lower-alpha">
-<li id="li-2638"><div class="para" id="p-3987">In this section, our hypothetical computer could only store numbers using 3 decimal places.  Most computers can store numbers using 15 or more decimal places.  Why do we still need to be concerned about the accuracy of our computations when solving systems of linear equations?</div></li>
-<li id="li-2639"><div class="para" id="p-3988">Finding the <span class="process-math">\(LU\)</span> factorization of a matrix <span class="process-math">\(A\)</span> is roughly the same amount of work as finding its reduced row echelon form.  Why is the <span class="process-math">\(LU\)</span> factorization useful then?</div></li>
-<li id="li-2640"><div class="para" id="p-3989">How can we detect whether a matrix is invertible from its <span class="process-math">\(LU\)</span> factorization?</div></li>
+<li id="li-2638"><div class="para" id="p-3996">In this section, our hypothetical computer could only store numbers using 3 decimal places.  Most computers can store numbers using 15 or more decimal places.  Why do we still need to be concerned about the accuracy of our computations when solving systems of linear equations?</div></li>
+<li id="li-2639"><div class="para" id="p-3997">Finding the <span class="process-math">\(LU\)</span> factorization of a matrix <span class="process-math">\(A\)</span> is roughly the same amount of work as finding its reduced row echelon form.  Why is the <span class="process-math">\(LU\)</span> factorization useful then?</div></li>
+<li id="li-2640"><div class="para" id="p-3998">How can we detect whether a matrix is invertible from its <span class="process-math">\(LU\)</span> factorization?</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-145"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
-<div class="para logical" id="p-3998">
+<div class="para logical" id="p-4007">
 <div class="para">Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1875,11 +1874,11 @@ A = \left[\begin{array}{rrrr}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-2647"><div class="para" id="p-3999">Find the <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>
+<li id="li-2647"><div class="para" id="p-4008">Find the <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-2648"><div class="para" id="p-4000">Use the factorization to find a basis for <span class="process-math">\(\nul(A)\text{.}\)</span>
+<li id="li-2648"><div class="para" id="p-4009">Use the factorization to find a basis for <span class="process-math">\(\nul(A)\text{.}\)</span>
 </div></li>
-<li id="li-2649"><div class="para" id="p-4001">We have seen that <span class="process-math">\(\nul(A) = \nul(U)\text{.}\)</span>  Is it true that <span class="process-math">\(\col(A) = \col(L)\text{?}\)</span>
+<li id="li-2649"><div class="para" id="p-4010">We have seen that <span class="process-math">\(\nul(A) = \nul(U)\text{.}\)</span>  Is it true that <span class="process-math">\(\col(A) = \col(L)\text{?}\)</span>
 </div></li>
 </ol>
 </div></article></section></section></div>

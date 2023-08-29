@@ -35,7 +35,9 @@ sagecell.makeSagecell({
 <li><div class="para">The eigenvalues are <span class="process-math">\(\lambda=1\)</span> and <span class="process-math">\(\lambda=0.1\text{.}\)</span>
 </div></li>
 <li><div class="para">The reduced row echelon form is <span class="process-math">\(\mattwo{-2}{1}{0}{0}\text{,}\)</span> which shows that <span class="process-math">\(A-I\)</span> is not invertible, as expected.</div></li>
-<li><div class="para">Python returns <span class="process-math">\(\mattwo{1}{0}{0}{1}\text{,}\)</span> which is not correct because <span class="process-math">\(A-I\)</span> cannot be invertible if <span class="process-math">\(\lambda=1\)</span> is an eigenvalue of <span class="process-math">\(A\text{.}\)</span> The issue is round-off errors that make things that should be exactly zero slightly different from 0. <pre class="ptx-sagecell sagecell-sage" id="sage-151"><script type="text/x-sage">import numpy as np 	
+<li>
+<div class="para">Python returns <span class="process-math">\(\mattwo{1}{0}{0}{1}\text{,}\)</span> which is not correct because <span class="process-math">\(A-I\)</span> cannot be invertible if <span class="process-math">\(\lambda=1\)</span> is an eigenvalue of <span class="process-math">\(A\text{.}\)</span> The issue is round-off errors that make things that should be exactly zero slightly different from 0.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-151"><script type="text/x-sage">import numpy as np 	
 from numpy import linalg
 		
 A = np.array([[0.8,0.6],[0.2,0.4]])
@@ -43,7 +45,7 @@ B = A - np.eye(2)
 print(B); print()
 print(B.sum(axis = 0))	 # column sums shoudl be zero, but...
 </script></pre>
-</div></li>
+</li>
 <li><div class="para">Here we find the correct eigenvalues, <span class="process-math">\(\lambda=1\)</span> with basis vector <span class="process-math">\(\twovec{1}{2}\)</span> for <span class="process-math">\(E_1\)</span> and <span class="process-math">\(\lambda=0.1\)</span> with basis vector <span class="process-math">\(\twovec{1}{-1}\)</span> for <span class="process-math">\(E_{0.1}\text{.}\)</span>
 </div></li>
 </ol>
