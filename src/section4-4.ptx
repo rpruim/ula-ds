@@ -17,14 +17,14 @@
     </p>
 
     <figure xml:id="fig-jpeg-orig">
-      <sidebyside widths="45% 45%">
-	<image source="images/spring-canyon-cropped.jpg" />
-	<image source="images/jpeg-orig-block" />
-      </sidebyside>
       <caption>
 	An image stored as a <m>1440\by1468</m> array of pixels
 	along with a close-up of a smaller <m>8\by8</m> array.
       </caption>
+      <sidebyside widths="45% 45%">
+	<image source="images/spring-canyon-cropped.jpg" />
+	<image source="images/jpeg-orig-block" />
+      </sidebyside>
     </figure>
     
     <p> A lot of data is required to display this image.  A quantity
@@ -83,11 +83,12 @@
 	</me> is a basis for <m>\real^2</m>.  If
 	<m>\coords{\xvec}{\bcal} = \twovec{1}{-2}</m>, find the vector
 	<m>\xvec</m>.
+</p>
 	<sage language="python">
 	  <input>
 	  </input>
 	</sage>
-	</p></li>
+	</li>
 
 	<li><p> If <m>\xvec=\twovec{2}{-4}</m>, find
 	<m>\coords{\xvec}{\bcal}</m>. </p></li>
@@ -310,11 +311,11 @@
 	
 	<li><p> Verify that <m>\bcal</m> is a basis for
 	<m>\real^3</m>.
+	</p>
 	<sage language="python">
 	  <input>
 	  </input>
 	</sage>
-      </p>
 	</li>
 	
 	<li><p> Find the matrix <m>P_{\bcal}</m> that converts from
@@ -525,13 +526,13 @@
     </p>
 
     <figure xml:id="fig-jpeg-luminance">
+      <caption>
+	The original image rendered with only the luminance values.
+      </caption>
       <sidebyside widths="48% 48%">
 	<image source="images/spring-canyon-cropped.jpg" />
 	<image source="images/spring-canyon-luminance.jpg" />
       </sidebyside>
-      <caption>
-	The original image rendered with only the luminance values.
-      </caption>
     </figure>
 
     <p> For comparison, shown in <xref ref="fig-jpeg-chrominance" />
@@ -540,14 +541,14 @@
     visual detail is considerably less in these images.</p>
     
     <figure xml:id="fig-jpeg-chrominance">
-      <sidebyside widths="48% 48%">
-	<image source="images/spring-canyon-blue-chrominance.jpg" />
-	<image source="images/spring-canyon-red-chrominance.jpg" />
-      </sidebyside>
       <caption>
 	The original image rendered, on the left, with only blue
 	chrominance and, on the right, with only red chrominance.
       </caption>
+      <sidebyside widths="48% 48%">
+	<image source="images/spring-canyon-blue-chrominance.jpg" />
+	<image source="images/spring-canyon-red-chrominance.jpg" />
+      </sidebyside>
     </figure>
 
     <p> The aim of the JPEG compression algorithm is to represent an
@@ -575,15 +576,15 @@
     </p>
     
     <figure xml:id="fig-jpeg-block">
-      <sidebyside widths="48% 48%">
-	<image source="images/jpeg-block.jpg" />
-	<image source="images/jpeg-block-zoom.jpg" />
-      </sidebyside>
       <caption>
 	An <m>8\by8</m> block of pixels outlined in green in the
 	original image on the left.  We see the same block on a smaller
 	scale on the right.
       </caption>
+      <sidebyside widths="48% 48%">
+	<image source="images/jpeg-block.jpg" />
+	<image source="images/jpeg-block-zoom.jpg" />
+      </sidebyside>
     </figure>
 
     <p> Notice that this block, as seen in the original image, is very
@@ -592,6 +593,8 @@
     </p>
 
     <figure xml:id="fig-jpeg-block-zoom">
+      <caption> The <m>8\by8</m> block under consideration.
+      </caption>
       <sidebyside widths="45% 45%">
 	<p> Here we see a close-up of the block.  The important point
 	here is that the colors do not change too much over this
@@ -601,8 +604,6 @@
 	but they will be the exception.</p>
 	<image source="images/jpeg-orig-block" />
       </sidebyside>
-      <caption> The <m>8\by8</m> block under consideration.
-      </caption>
     </figure>
 
     <p> Following our earlier work, we will change the representation
@@ -615,13 +616,13 @@
     </p>
     
     <figure xml:id="fig-jpeg-block-luminance">
+      <caption>
+	The luminance values in this block.
+      </caption>
       <sidebyside widths="48% 48%">
 	<image source="images/jpeg-block-luminance" />
 	<image source="images/jpeg-block-luminance-values" />
       </sidebyside>
-      <caption>
-	The luminance values in this block.
-      </caption>
     </figure>
 
     <p> Our strategy in the compression algorithm is to perform a
@@ -695,13 +696,13 @@
     </p>
 
     <figure xml:id="fig-jpeg-fourier-basis">
-      <sidebyside width="90%">
-	<image source="images/jpeg-fourier-basis" />
-      </sidebyside>
       <caption>
 	Four of the basis vectors <m>\vvec_0</m>, <m>\vvec_1</m>,
 	<m>\vvec_2</m>, and <m>\vvec_7</m>.
       </caption>
+      <sidebyside width="90%">
+	<image source="images/jpeg-fourier-basis" />
+      </sidebyside>
     </figure>
 
     <sidebyside widths="45% 50%">
@@ -894,6 +895,7 @@
 	<m>P_{\bcal}^{-1}</m>,
 	which is denoted <c>Pinv</c>.  Evaluate this Python cell and
 	notice that it prints the matrix <m>P_{\bcal}^{-1}</m>.
+	</p>
 	<sage language="python" xml:id="sage-dct-def">
 	  <input>
 import numpy as np
@@ -906,6 +908,7 @@ Pinv = np.linalg.inv(P)
 print (Pinv.round(3))
 	  </input>
 	</sage>
+	<p>
 	Now look at the form of 
 	<m>P_{\bcal}^{-1}</m> and explain why <m>F_0</m> is the
 	average of the luminance values in the vector
@@ -920,7 +923,7 @@ print (Pinv.round(3))
 	coefficients  
 	<m>F_0,F_1,\ldots,F_7</m>.  If you have
 	evaluated the cell above, you will still be able to refer to
-	<c>P</c> and <c>Pinv</c> in this cell.  
+	<c>P</c> and <c>Pinv</c> in this cell.  </p>
 	<sage language="python">
 	  <input>
 import numpy as np
@@ -930,6 +933,7 @@ f =
 print (f.round(4))
 	  </input>
 	</sage>
+	<p>
 	Write the Fourier coefficients and discuss the relative
 	sizes of the coefficients.
 	</p></li>
@@ -942,6 +946,7 @@ print (f.round(4))
 	  This is an approximation to <m>\fvec</m>, the vector of
 	  Fourier coefficients.  Use the approximation to <m>\fvec</m>
 	  to form an approximation of the vector <m>\xvec</m>.
+	</p>
 	  <sage language="python">
 	    <input>
 # define fapprox below and then find xapprox
@@ -970,6 +975,7 @@ print(np.vstack((x, xapprox.round(1))))
 print("x - xapprox: ")
 print((x - xapprox).round(3))
 -->
+	<p>
 	  How much does your approximation differ from the actual
 	  vector <m>\xvec</m>?
 	</p></li>
@@ -990,6 +996,7 @@ print((x - xapprox).round(3))
       luminance values.  Find the <m>8\by8</m> matrix <m>F</m>
       whose columns are the Fourier coefficients of the columns of
       luminance values.
+	  </p>
       <sage language="python">
 	<input>
 luminance = np.array([176, 170, 170, 169, 162, 160, 155, 150, 181,
@@ -1004,7 +1011,7 @@ print (F.round(3))
 
 	</input>
       </sage>
-	</p></li>
+	</li>
 
 	<li><p> Notice that the first row of this matrix consists of
 	the 
@@ -1013,6 +1020,7 @@ print (F.round(3))
 	significantly as we move across the row.  In the Sage cell
 	below, write these entries in the vector <m>\yvec</m> and find
 	the corresponding Fourier coefficients.
+	</p>
 	<sage language="python">
 	  <input>
 # define the vector y as the entries in the first row of F	    
@@ -1021,7 +1029,7 @@ y_fourier =
 print (y_fourier.round(digits=3))
 	  </input>
 	</sage>
-	</p></li>
+</li>
       </ol>
     </p>
   </statement>
@@ -1192,13 +1200,13 @@ print (y_fourier.round(digits=3))
     </p>
 
     <figure xml:id="fig-jpeg-quality">
-      <sidebyside width="40%">
-	<image source="images/quality.jpg" />
-      </sidebyside>
       <caption>
 	When creating a JPEG file, we choose a value of the <q>quality</q>
 	parameter. 
       </caption>
+      <sidebyside width="40%">
+	<image source="images/quality.jpg" />
+      </sidebyside>
     </figure>
 
     <p> To see how this works, suppose the quality setting is
@@ -1295,14 +1303,14 @@ image.
     </p>
 
     <figure xml:id="fig-jpeg-image-low">
-      <sidebyside widths="48% 48%">
-	<image source="images/spring-canyon-cropped.jpg" />
-	<image source="images/spring-canyon-low.jpg" />
-      </sidebyside>
       <caption>
 	The original image and the result of storing the image with a
 	low quality setting.
       </caption>
+      <sidebyside widths="48% 48%">
+	<image source="images/spring-canyon-cropped.jpg" />
+	<image source="images/spring-canyon-low.jpg" />
+      </sidebyside>
     </figure>
 
     <p> This discussion of the JPEG compression algorithm is meant to
