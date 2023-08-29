@@ -60,7 +60,10 @@ sagecell.makeSagecell({
 </li>
 <li><div class="para">If the components of <span class="process-math">\(\xvec\)</span> vary relatively slowly, what would you expect to be true of the Fourier coefficients <span class="process-math">\(F_j\text{?}\)</span>
 </div></li>
-<li><div class="para">The Python cell below will construct the vector <span class="process-math">\(P_{\bcal}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">P</code>, and its inverse <span class="process-math">\(P_{\bcal}^{-1}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">Pinv</code>.  Evaluate this Python cell and notice that it prints the matrix <span class="process-math">\(P_{\bcal}^{-1}\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-dct-def"><script type="text/x-sage">import numpy as np
+<li>
+<div class="para">The Python cell below will construct the vector <span class="process-math">\(P_{\bcal}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">P</code>, and its inverse <span class="process-math">\(P_{\bcal}^{-1}\text{,}\)</span> which is denoted <code class="code-inline tex2jax_ignore">Pinv</code>.  Evaluate this Python cell and notice that it prints the matrix <span class="process-math">\(P_{\bcal}^{-1}\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-dct-def"><script type="text/x-sage">import numpy as np
 mat = [[math.cos((2*i+1)*j*pi/16) for j in range(8)] for i in range(8)]
 P = np.array(mat)
 print(P.dtype)
@@ -68,15 +71,24 @@ print(P.round(3))
 print("------------")
 Pinv = np.linalg.inv(P)
 print (Pinv.round(3))
-</script></pre> Now look at the form of <span class="process-math">\(P_{\bcal}^{-1}\)</span> and explain why <span class="process-math">\(F_0\)</span> is the average of the luminance values in the vector <span class="process-math">\(\xvec\text{.}\)</span>
-</div></li>
-<li><div class="para">The Python cell below defines the vector <span class="process-math">\(\xvec\text{,}\)</span> which is the vector of luminance values in the first column, as seen in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block-luminance.html" title="Figure 4.4.8">Figure 4.4.8</a>. Use the cell below to find the vector <span class="process-math">\(\fvec\)</span> of Fourier coefficients <span class="process-math">\(F_0,F_1,\ldots,F_7\text{.}\)</span>  If you have evaluated the cell above, you will still be able to refer to <code class="code-inline tex2jax_ignore">P</code> and <code class="code-inline tex2jax_ignore">Pinv</code> in this cell. <pre class="ptx-sagecell sagecell-python" id="sage-123"><script type="text/x-sage">import numpy as np
+</script></pre>
+<div class="para">Now look at the form of <span class="process-math">\(P_{\bcal}^{-1}\)</span> and explain why <span class="process-math">\(F_0\)</span> is the average of the luminance values in the vector <span class="process-math">\(\xvec\text{.}\)</span>
+</div>
+</li>
+<li>
+<div class="para">The Python cell below defines the vector <span class="process-math">\(\xvec\text{,}\)</span> which is the vector of luminance values in the first column, as seen in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block-luminance.html" title="Figure 4.4.8">Figure 4.4.8</a>. Use the cell below to find the vector <span class="process-math">\(\fvec\)</span> of Fourier coefficients <span class="process-math">\(F_0,F_1,\ldots,F_7\text{.}\)</span>  If you have evaluated the cell above, you will still be able to refer to <code class="code-inline tex2jax_ignore">P</code> and <code class="code-inline tex2jax_ignore">Pinv</code> in this cell.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-123"><script type="text/x-sage">import numpy as np
 x = np.array([176,181,165,139,131,131,140,150])
 #  find the vector of Fourier coefficients f below
 f =
 print (f.round(4))
-</script></pre> Write the Fourier coefficients and discuss the relative sizes of the coefficients.</div></li>
-<li><div class="para">Let’s see what happens when we simply ignore the coefficients <span class="process-math">\(F_6\)</span> and <span class="process-math">\(F_7\text{.}\)</span>  Form a new vector of Fourier coefficients by rounding the coefficients to the nearest integer and setting <span class="process-math">\(F_6\)</span> and <span class="process-math">\(F_7\)</span> to zero. This is an approximation to <span class="process-math">\(\fvec\text{,}\)</span> the vector of Fourier coefficients.  Use the approximation to <span class="process-math">\(\fvec\)</span> to form an approximation of the vector <span class="process-math">\(\xvec\text{.}\)</span> <pre class="ptx-sagecell sagecell-python" id="sage-124"><script type="text/x-sage"># define fapprox below and then find xapprox
+</script></pre>
+<div class="para">Write the Fourier coefficients and discuss the relative sizes of the coefficients.</div>
+</li>
+<li>
+<div class="para">Let’s see what happens when we simply ignore the coefficients <span class="process-math">\(F_6\)</span> and <span class="process-math">\(F_7\text{.}\)</span>  Form a new vector of Fourier coefficients by rounding the coefficients to the nearest integer and setting <span class="process-math">\(F_6\)</span> and <span class="process-math">\(F_7\)</span> to zero. This is an approximation to <span class="process-math">\(\fvec\text{,}\)</span> the vector of Fourier coefficients.  Use the approximation to <span class="process-math">\(\fvec\)</span> to form an approximation of the vector <span class="process-math">\(\xvec\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-124"><script type="text/x-sage"># define fapprox below and then find xapprox
 fapprox = 
 print(np.vstack((f, fapprox)))
 xapprox = 
@@ -86,11 +98,14 @@ print(np.vstack((x, xapprox.round(0))))
 
 print("x - xapprox: ")
 print((x - xapprox).round(0))
-</script></pre>  How much does your approximation differ from the actual vector <span class="process-math">\(\xvec\text{?}\)</span>
-</div></li>
+</script></pre>
+<div class="para">How much does your approximation differ from the actual vector <span class="process-math">\(\xvec\text{?}\)</span>
+</div>
+</li>
 <li>
 <div class="para">When we ignore the Fourier coefficients corresponding to rapidly varying basis elements, we see that the vector <span class="process-math">\(\xvec\)</span> that we reconstruct is very close to the original one.  In fact, the luminance values in the approximation differ by at most one or two from the actual luminance values. Our eyes are not sensitive enough to detect this difference.</div>
-<div class="para">So far, we have concentrated on only one column in our <span class="process-math">\(8\by8\)</span> block of luminance values.  Let’s now consider all of the columns. The following Python cell defines a matrix called <code class="code-inline tex2jax_ignore">luminance</code>, which is the <span class="process-math">\(8\by8\)</span> matrix of luminance values.  Find the <span class="process-math">\(8\by8\)</span> matrix <span class="process-math">\(F\)</span> whose columns are the Fourier coefficients of the columns of luminance values. <pre class="ptx-sagecell sagecell-python" id="sage-125"><script type="text/x-sage">luminance = np.array([176, 170, 170, 169, 162, 160, 155, 150, 181,
+<div class="para">So far, we have concentrated on only one column in our <span class="process-math">\(8\by8\)</span> block of luminance values.  Let’s now consider all of the columns. The following Python cell defines a matrix called <code class="code-inline tex2jax_ignore">luminance</code>, which is the <span class="process-math">\(8\by8\)</span> matrix of luminance values.  Find the <span class="process-math">\(8\by8\)</span> matrix <span class="process-math">\(F\)</span> whose columns are the Fourier coefficients of the columns of luminance values.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-125"><script type="text/x-sage">luminance = np.array([176, 170, 170, 169, 162, 160, 155, 150, 181,
 179, 175, 167, 162, 160, 154, 149, 165, 170, 169, 161, 162, 161, 160,
 158, 139, 150, 164, 166, 159, 160, 162, 163, 131, 137, 157, 165, 163,
 163, 164, 164, 131, 132, 153, 161, 167, 167, 167, 169, 140, 142, 157,
@@ -100,16 +115,17 @@ luminance.shape = c(8,8)
 F =
 print (F.round(3))
 </script></pre>
-</div>
 </li>
-<li><div class="para">Notice that the first row of this matrix consists of the Fourier coefficient <span class="process-math">\(F_0\)</span> for each of the columns.  Just as we saw before, the entries in this row do not change significantly as we move across the row.  In the Sage cell below, write these entries in the vector <span class="process-math">\(\yvec\)</span> and find the corresponding Fourier coefficients. <pre class="ptx-sagecell sagecell-python" id="sage-126"><script type="text/x-sage"># define the vector y as the entries in the first row of F	    
+<li>
+<div class="para">Notice that the first row of this matrix consists of the Fourier coefficient <span class="process-math">\(F_0\)</span> for each of the columns.  Just as we saw before, the entries in this row do not change significantly as we move across the row.  In the Sage cell below, write these entries in the vector <span class="process-math">\(\yvec\)</span> and find the corresponding Fourier coefficients.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-126"><script type="text/x-sage"># define the vector y as the entries in the first row of F	    
 y = 
 y_fourier =
 print (y_fourier.round(digits=3))
 </script></pre>
-</div></li>
+</li>
 </ol>
 </div>
-<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-148-hidden.html" title="Solution 4.4.3.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-jpeg.html#activity-34" class="internal">in-context</a></span>
+<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-147-hidden.html" title="Solution 4.4.3.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-jpeg.html#activity-34" class="internal">in-context</a></span>
 </body>
 </html>

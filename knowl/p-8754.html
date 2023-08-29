@@ -25,12 +25,10 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <h4 class="heading"><span class="type">Paragraph</span></h4>
-<div class="para">A singular value decomposition is obtained with <pre class="ptx-sagecell sagecell-python" id="sage-344"><script type="text/x-sage">A = np.array(np.arange(12)).reshape(3,4)
-U, s, V = linalg.svd(A)
-print([x.shape for x in [U, s, V]])
-</script></pre> Note that <code class="code-inline tex2jax_ignore">s</code> is not a matric but a 1-d array of singular values. If the matrix is needed, we can construct it with <pre class="ptx-sagecell sagecell-python" id="sage-345"><script type="text/x-sage">Sigma = linalg.diagsvd(s, 3, 4)  # must specify the shape 
-print(s.round(3)) 
-print(Sigma.round(3))
+<div class="para">The characteristic polynomial of <code class="code-inline tex2jax_ignore">sympy.Matrix</code> <code class="code-inline tex2jax_ignore">A</code> is <code class="code-inline tex2jax_ignore">A.charpoly('x')</code>. <pre class="ptx-sagecell sagecell-python" id="sage-342"><script type="text/x-sage">A = np.array(np.arange(9)).reshape(3,3)
+poly = sympy.Matrix(A).charpoly('x')
+sympy.pprint(poly)
+print(poly(2))
 </script></pre>
 </div>
 <span class="incontext"><a href="subsec-frequently-used-python.html#p-8754" class="internal">in-context</a></span>
