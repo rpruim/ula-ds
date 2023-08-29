@@ -159,6 +159,7 @@
       matrix to consist of floating point entries.  We do this by
       including <c>RDF</c> inside the matrix definition, as
       illustrated in the following cell.
+    </p>
       <sage language="python">
 	<input>
 import numpy as np
@@ -173,7 +174,6 @@ print('---------')
 print(V)
 	</input>
       </sage>
-    </p>
 
     <activity>
       <statement>
@@ -194,11 +194,11 @@ print(V)
 		Find a singular value decomposition for <m>A</m> using
 		the Python cell below.  What are singular values of
 		<m>A</m>?
+	      </p>
 		<sage language='python'>
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 	    <li>
 	      <p>
@@ -226,12 +226,12 @@ print(V)
 		the desired columns or rows.  For instance,
 		<c>B[0:2, :])</c> provides a matrix
 		formed from the first three rows of <c>B</c>.
+	      </p>
 		<sage language="python">
 		  <input>
 
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -267,17 +267,77 @@ print(V)
 		</me>
 		is the least squares approximate solution, and
 		use this expression to find <m>\xhat</m>.
+	      </p>
 		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 	      
 	  </ol>
 	</p>
       </statement>
 
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>\sigma_1 = 2.67</m> and
+		<m>\sigma_2 = 0.92</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\rank(A) = 2</m> and the first two columns of
+		<m>U</m> form an orthonormal basis for <m>\col(A)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have
+		<me>
+		  U_r = \begin{bmatrix}
+		  -0.22 \amp 0.89 \\
+		  -0.52 \amp 0.25 \\
+		  -0.83 \amp -0.39
+		  \end{bmatrix},\hspace{24pt}
+		  \Sigma_r = \begin{bmatrix}
+		  2.7 \amp 0.00 \\
+		  0.00 \amp 0.92
+		  \end{bmatrix},\hspace{24pt}
+		  V_r = \begin{bmatrix}
+		  -0.58 \amp 0.81 \\
+		  -0.81 \amp -0.58
+		  \end{bmatrix}\text{.}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The columns of <m>U_r</m> form an orthonormal basis
+		for <m>\col(A)</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\bhat=U_rU_r^{\transpose}\bvec</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_r^{\transpose}V_r = I</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\xhat=\twovec{-0.83}{3.50}</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+	      
       <solution>
 	<p>
 	  <ol marker="a.">
@@ -352,66 +412,6 @@ print(V)
 	</p>
       </solution>
 
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		<m>\sigma_1 = 2.67</m> and
-		<m>\sigma_2 = 0.92</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\rank(A) = 2</m> and the first two columns of
-		<m>U</m> form an orthonormal basis for <m>\col(A)</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		We have
-		<me>
-		  U_r = \begin{bmatrix}
-		  -0.22 \amp 0.89 \\
-		  -0.52 \amp 0.25 \\
-		  -0.83 \amp -0.39
-		  \end{bmatrix},\hspace{24pt}
-		  \Sigma_r = \begin{bmatrix}
-		  2.7 \amp 0.00 \\
-		  0.00 \amp 0.92
-		  \end{bmatrix},\hspace{24pt}
-		  V_r = \begin{bmatrix}
-		  -0.58 \amp 0.81 \\
-		  -0.81 \amp -0.58
-		  \end{bmatrix}\text{.}
-		</me>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The columns of <m>U_r</m> form an orthonormal basis
-		for <m>\col(A)</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\bhat=U_rU_r^{\transpose}\bvec</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>V_r^{\transpose}V_r = I</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\xhat=\twovec{-0.83}{3.50}</m>
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
-	      
     </activity>
 		
     <p>
@@ -535,6 +535,7 @@ print(V)
 	  <c>U</c>, <c>V</c>, and <c>Sigma</c>.  Notice how the
 	  <c>diagonal_matrix</c> command provides a convenient way to
 	  form the diagonal matrix <m>\Sigma</m>.
+	</p>
 	  <sage language="python">
 	    <input>
 h = 1/2
@@ -543,27 +544,28 @@ V = matrix([[h,h,h,h],  [h,-h,-h,h],  [-h,-h,h,h],  [-h,h,-h,h]])
 Sigma = np.diag([500, 100, 20, 4])
 	    </input>
 	  </sage>
+	  <p>
 	  <ol marker="a.">
 	    <li>
 	      <p>
 		Form the matrix <m>A=U\Sigma V^{\transpose}</m>.  What is
 		<m>\rank(A)</m>?
+	      </p>
 		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
 	      <p>
 		Now form the approximating matrix <m>A_1=U\Sigma^{(1)}
 		V^{\transpose}</m>.  What is <m>\rank(A_1)</m>?
+	      </p>
 		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -578,11 +580,11 @@ Sigma = np.diag([500, 100, 20, 4])
 	      <p>
 		Now find <m>A_2 = U\Sigma^{(2)} V^{\transpose}</m> and the error
 		<m>A-A_2</m>.  What is <m>\rank(A_2)</m>?
+	      </p>
 		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -608,6 +610,85 @@ Sigma = np.diag([500, 100, 20, 4])
 	</p>
       </statement>
 
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>A = \begin{bmatrix}
+		156 \amp 96 \amp -144 \amp -104 \\
+		144 \amp 104 \amp -156 \amp -96 \\
+		104 \amp 144 \amp -96 \amp -156 \\
+		96 \amp 156 \amp -104 \amp -144
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_1=\begin{bmatrix}
+		125 \amp 125 \amp -125 \amp -125 \\
+		125 \amp 125 \amp -125 \amp -125 \\
+		125 \amp 125 \amp -125 \amp -125 \\
+		125 \amp 125 \amp -125 \amp -125
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A-A_1 = \begin{bmatrix}
+		31 \amp -29 \amp -19 \amp 21 \\
+		19 \amp -21 \amp -31 \amp 29 \\
+		-21 \amp 19 \amp 29 \amp -31 \\
+		-29 \amp 31 \amp 21 \amp -19
+		\end{bmatrix}</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_2 = \begin{bmatrix}
+		150 \amp 100 \amp -150 \amp -100 \\
+		150 \amp 100 \amp -150 \amp -100 \\
+		100 \amp 150 \amp -100 \amp -150 \\
+		100 \amp 150 \amp -100 \amp -150
+		\end{bmatrix}</m>
+		and <m>A-A_2 = \begin{bmatrix}
+		6 \amp -4 \amp 6 \amp -4 \\
+		-6 \amp 4 \amp -6 \amp 4 \\
+		4 \amp -6 \amp 4 \amp -6 \\
+		-4 \amp 6 \amp -4 \amp 6
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_3 = \begin{bmatrix}
+		155 \amp 95 \amp -145 \amp -105 \\
+		145 \amp 105 \amp -155 \amp -95 \\
+		105 \amp 145 \amp -95 \amp -155 \\
+		95 \amp 155 \amp -105 \amp -145
+		\end{bmatrix}</m> and
+		<m>A-A_3 = \begin{bmatrix}
+		1 \amp 1 \amp 1 \amp 1 \\
+		-1 \amp -1 \amp -1 \amp -1 \\
+		-1 \amp -1 \amp -1 \amp -1 \\
+		1 \amp 1 \amp 1 \amp 1
+		\end{bmatrix}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A_4=A</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The entries get closer to <m>0</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+      
       <solution>
 	<p>
 	  <ol marker="a.">
@@ -695,85 +776,6 @@ Sigma = np.diag([500, 100, 20, 4])
 	</p>
       </solution>
 
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		<m>A = \begin{bmatrix}
-		156 \amp 96 \amp -144 \amp -104 \\
-		144 \amp 104 \amp -156 \amp -96 \\
-		104 \amp 144 \amp -96 \amp -156 \\
-		96 \amp 156 \amp -104 \amp -144
-		\end{bmatrix}</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>A_1=\begin{bmatrix}
-		125 \amp 125 \amp -125 \amp -125 \\
-		125 \amp 125 \amp -125 \amp -125 \\
-		125 \amp 125 \amp -125 \amp -125 \\
-		125 \amp 125 \amp -125 \amp -125
-		\end{bmatrix}</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>A-A_1 = \begin{bmatrix}
-		31 \amp -29 \amp -19 \amp 21 \\
-		19 \amp -21 \amp -31 \amp 29 \\
-		-21 \amp 19 \amp 29 \amp -31 \\
-		-29 \amp 31 \amp 21 \amp -19
-		\end{bmatrix}</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>A_2 = \begin{bmatrix}
-		150 \amp 100 \amp -150 \amp -100 \\
-		150 \amp 100 \amp -150 \amp -100 \\
-		100 \amp 150 \amp -100 \amp -150 \\
-		100 \amp 150 \amp -100 \amp -150
-		\end{bmatrix}</m>
-		and <m>A-A_2 = \begin{bmatrix}
-		6 \amp -4 \amp 6 \amp -4 \\
-		-6 \amp 4 \amp -6 \amp 4 \\
-		4 \amp -6 \amp 4 \amp -6 \\
-		-4 \amp 6 \amp -4 \amp 6
-		\end{bmatrix}</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>A_3 = \begin{bmatrix}
-		155 \amp 95 \amp -145 \amp -105 \\
-		145 \amp 105 \amp -155 \amp -95 \\
-		105 \amp 145 \amp -95 \amp -155 \\
-		95 \amp 155 \amp -105 \amp -145
-		\end{bmatrix}</m> and
-		<m>A-A_3 = \begin{bmatrix}
-		1 \amp 1 \amp 1 \amp 1 \\
-		-1 \amp -1 \amp -1 \amp -1 \\
-		-1 \amp -1 \amp -1 \amp -1 \\
-		1 \amp 1 \amp 1 \amp 1
-		\end{bmatrix}</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>A_4=A</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The entries get closer to <m>0</m>.
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
-      
     </activity>
 
     <p>
@@ -920,6 +922,7 @@ Sigma = np.diag([500, 100, 20, 4])
 	  Evaluating the following cell will load the dataset and
 	  define the demeaned
 	  data matrix <m>A</m> whose shape is <m>150\by4</m>.
+	</p>
 	  <sage language="python">
 	    <input>
 from sklearn import datasets 
@@ -935,6 +938,7 @@ print(A_iris.shape)
 	    </input>
 	  </sage>
 	  
+	  <p>
 	  <ol marker="a.">
 	    <li>
 	      <p>
@@ -944,13 +948,13 @@ print(A_iris.shape)
 		each of the four principal components.  What is the
 		fraction of variance retained by the first two
 		principal components?
+	      </p>
 		<sage language="python">
 		  <input>
 
 
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -1012,6 +1016,7 @@ print(A_iris.shape)
 		evaluate this cell, you will see a plot of the
 		projected demeaned data plots, similar to the one we
 		created in <xref ref="sec-pca" />.
+	      </p>
 		<sage language="python">
 		  <input>
 # Form the SVD of A and use it to form Gamma2
@@ -1026,12 +1031,52 @@ data = Gamma2.columns()
  list_plot(data[100:], color='green'))
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 	  </ol>
 	</p>
       </statement>
 
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The fraction of the total variance
+		represented by the first two principal components is
+		<m>97.8\%</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>\xvec =
+		c_1\uvec_1+c_2\uvec_2+c_3\uvec_3+c_4\uvec_4</m>, then 
+		<m>\fourvec{c_1}{c_2}{c_3}{c_4}</m> is the
+		corresponding column of <m>U^{\transpose}A</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We just need the first two components of the
+		corresponding column of <m>\Gamma</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\twovec{c_1}{c_2}</m> is
+		the corresponding column of <m>U_2^{\transpose}A</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We can construct <m>\Gamma_2=\Sigma_2 V_2^{\transpose}</m> or
+		just pull out the first two rows of <m>\Gamma=\Sigma
+		V^{\transpose}</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+		  
       <solution>
 	<p>
 	  <ol marker="a.">
@@ -1092,47 +1137,6 @@ data = Gamma2.columns()
 	</p>
       </solution>
 		  
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		The fraction of the total variance
-		represented by the first two principal components is
-		<m>97.8\%</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		If <m>\xvec =
-		c_1\uvec_1+c_2\uvec_2+c_3\uvec_3+c_4\uvec_4</m>, then 
-		<m>\fourvec{c_1}{c_2}{c_3}{c_4}</m> is the
-		corresponding column of <m>U^{\transpose}A</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		We just need the first two components of the
-		corresponding column of <m>\Gamma</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\twovec{c_1}{c_2}</m> is
-		the corresponding column of <m>U_2^{\transpose}A</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		We can construct <m>\Gamma_2=\Sigma_2 V_2^{\transpose}</m> or
-		just pull out the first two rows of <m>\Gamma=\Sigma
-		V^{\transpose}</m>.
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
-		  
     </activity>
 
     <p>
@@ -1175,6 +1179,7 @@ data = Gamma2.columns()
 	  Evaluating the following cell loads some data that we'll use
 	  in this activity.  To begin, it defines and displays a
 	  <m>25\by15</m> matrix <m>A</m>.
+	</p>
 	  <sage language="python">
 	    <input>
 sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_compress.py', globals())
@@ -1183,17 +1188,20 @@ print(A)
 
 	    </input>
 	  </sage>
+	  <p>
 	  <ol marker="a.">
 	    <li>
 	      <p> 
 		If we interpret 0 as black and 1 as white, this matrix
 		represents an image as shown below.
+		  </p>
 		<sage language="python">
 		  <input>
 display_matrix(A)
 
 		  </input>
 		</sage>
+		<p>
 		We will explore how the singular value
 		decomposition helps us to compress this image.
 		<ol marker="1.">
@@ -1210,13 +1218,13 @@ display_matrix(A)
 		      The following cell plots the singular values of
 		      <m>A</m>.  Explain how this plot verifies that
 		      the rank is what you found in the previous part.
+		    </p>
 		      <sage language="python">
 			<input>
 plot_sv(A)		    
 
 			</input>
 		      </sage>
-		    </p>
 		  </li>
 
 		  <li>
@@ -1227,13 +1235,13 @@ plot_sv(A)
 		      images represented by the
 		      first few approximations.  What is the smallest
 		      value of <m>k</m> for which <m>A=A_k</m>?
+		    </p>
 		      <sage language="python">
 			<input>
 k = 
 display_matrix(approximate(A, k))			  
 			</input>
 		      </sage>
-		    </p>
 		  </li>
 
 		  <li>
@@ -1281,6 +1289,7 @@ display_matrix(approximate(A, k))
 		      Consider the following image consisting of an
 		      array of <m>316\by310</m> pixels stored in the
 		      matrix <m>A</m>.
+		    </p>
 		      <sage language="python">
 			<input>
 A = matrix(RDF, image)
@@ -1288,21 +1297,21 @@ display_image(A)
 
 			</input>
 		      </sage>
-		    </p>
 		    <p>
 		      Plot the singular values of <m>A</m>.
+		    </p>
 		      <sage language="python">
 			<input>
 plot_sv(A)
 			</input>
 		      </sage>
-		    </p>
 		  </li>
 
 		  <li>
 		    <p>
 		      Use the cell below to study the approximations
 		      <m>A_k</m> for <m>k=1, 10, 20, 50, 100</m>.
+			</p>
 		      <sage language="python">
 			<input>
 k = 1
@@ -1310,6 +1319,7 @@ display_image(approximate(A, k))
 
 			</input>
 		      </sage>
+			  <p>
 		      Notice how the approximating image
 		      <m>A_k</m> more closely approximates the
 		      original image <m>A</m> as <m>k</m> increases.
@@ -1331,12 +1341,14 @@ display_image(approximate(A, k))
 		decomposition to image processing is called
 		<em>denoising</em>.  For example, consider the image
 		represented by the matrix <m>A</m> below.
+		  </p>
 		<sage language="python">
 		  <input>
 A = matrix(RDF, noise.values)		    
 display_matrix(A)		
 		  </input>
 		</sage>
+		<p>
 		This image is similar to the image of the letter "O"
 		we first studied in this activity, but there are
 		splotchy regions in the background that result,
@@ -1351,13 +1363,13 @@ display_matrix(A)
 		      singular values of this matrix similar to those
 		      represented by the clean image that we 
 		      considered earlier and how are they different?
+		    </p>
 		      <sage language="python">
 			<input>
 plot_sv(A)
 
 			</input>
 		      </sage>
-		    </p>
 		  </li>
 
 		  <li>
@@ -1375,6 +1387,7 @@ plot_sv(A)
 		      <m>k</m> below and notice that the new image
 		      appears to be somewhat cleaned up as a result of
 		      removing the noise.
+		    </p>
 		      <sage language="python">
 			<input>
 k = 
@@ -1382,7 +1395,6 @@ display_matrix(approximate(A, k))
 
 			</input>
 		      </sage>
-		    </p>
 		  </li>
 		</ol>
 	      </p>
@@ -1391,6 +1403,80 @@ display_matrix(approximate(A, k))
 	</p>
       </statement>
 
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      <m>\rank(A) = 3</m> 
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>\rank(A) = 3</m> 
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>k=3</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>123</m>
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      The compression ratio is <m>375/123=3.0</m>
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      The singular values fall off steeply but never
+		      reach <m>0</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      When <m>k=50</m>, the compression ratio is about
+		      <m>3.1</m>.  When <m>k=100</m>, the compression
+		      ratio is about <m>1.6</m>.
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<ol marker="1.">
+		  <li>
+		    <p>
+		      The singular values are similar, but they never
+		      reach <m>0</m>.
+		    </p>
+		  </li>
+		  <li>
+		    <p>
+		      <m>k=3</m> seems like a natural approximation
+		    </p>
+		  </li>
+		</ol>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+      
       <solution>
 	<p>
 	  <ol marker="a.">
@@ -1477,80 +1563,6 @@ display_matrix(approximate(A, k))
 	</p>
       </solution>
 
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		<ol marker="1.">
-		  <li>
-		    <p>
-		      <m>\rank(A) = 3</m> 
-		    </p>
-		  </li>
-		  <li>
-		    <p>
-		      <m>\rank(A) = 3</m> 
-		    </p>
-		  </li>
-		  <li>
-		    <p>
-		      <m>k=3</m>
-		    </p>
-		  </li>
-		  <li>
-		    <p>
-		      <m>123</m>
-		    </p>
-		  </li>
-		  <li>
-		    <p>
-		      The compression ratio is <m>375/123=3.0</m>
-		    </p>
-		  </li>
-		</ol>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<ol marker="1.">
-		  <li>
-		    <p>
-		      The singular values fall off steeply but never
-		      reach <m>0</m>.
-		    </p>
-		  </li>
-		  <li>
-		    <p>
-		      When <m>k=50</m>, the compression ratio is about
-		      <m>3.1</m>.  When <m>k=100</m>, the compression
-		      ratio is about <m>1.6</m>.
-		    </p>
-		  </li>
-		</ol>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<ol marker="1.">
-		  <li>
-		    <p>
-		      The singular values are similar, but they never
-		      reach <m>0</m>.
-		    </p>
-		  </li>
-		  <li>
-		    <p>
-		      <m>k=3</m> seems like a natural approximation
-		    </p>
-		  </li>
-		</ol>
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
-      
     </activity>
 
     <p>
@@ -1617,6 +1629,7 @@ display_matrix(approximate(A, k))
 	  represented by the column.  An entry of -1 means that
 	  justice was in the minority.  This information is also
 	  stored in the <m>9\by911</m> matrix <m>A</m>.
+	</p>
 	  
 	  <sage language="python">
 	    <input>
@@ -1626,6 +1639,7 @@ cases
 
 	    </input>
 	  </sage>
+	<p>
 	  The justices are listed, very roughly, in order from more
 	  conservative to more progressive.
 	</p>
@@ -1636,6 +1650,7 @@ cases
 	  displays the first 50 columns of the matrix <m>A</m> with
 	  white representing an entry of +1, red representing -1, and
 	  black representing 0.
+	</p>
 	  <sage language="python">
 	    <input>
 display_matrix(A.matrix_from_columns(range(50)))
@@ -1643,6 +1658,7 @@ display_matrix(A.matrix_from_columns(range(50)))
 
 	    </input>
 	  </sage>
+	  <p>
 	  <ol marker="a.">
 	    <li>
 	      <p>
@@ -1650,12 +1666,12 @@ display_matrix(A.matrix_from_columns(range(50)))
 		the significance of this plot, including the relative
 		contributions from the singular values <m>\sigma_k</m>
 		as <m>k</m> increases.
+		  </p>
 		<sage language="python">
 		  <input>
 plot_sv(A)
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 	    
 	    <li>
@@ -1663,12 +1679,12 @@ plot_sv(A)
 		Form the singular value decomposition <m>A=U\Sigma
 		V^{\transpose}</m> and the matrix of coefficients <m>\Gamma</m>
 		so that <m>A=U\Gamma</m>.
+	      </p>
 		<sage language="python">
 		  <input>
 
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -1680,11 +1696,11 @@ plot_sv(A)
 		provides a visual display of the <m>k^{th}</m> column
 		of a matrix <m>A</m>.  Describe the justices' votes in
 		the second case.
+	      </p>
 		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -1695,12 +1711,13 @@ plot_sv(A)
 		<m>\Gamma</m> holding the coefficients that express the
 		second case as a linear combination of left singular
 		vectors.
+		  </p>
 		<sage language="python">
 		  <input>
 
 		  </input>
 		</sage>
-
+		<p>
 		What does this tell us about how the second case is
 		constructed as a linear combination of left singular
 		vectors?  What is the significance of the first left
@@ -1713,12 +1730,12 @@ plot_sv(A)
 		Let's now study the <m>48^{th}</m> case, which is
 		represented by the column of <m>A</m> indexed by
 		<c>47</c>.  Describe the voting pattern in this case.
+	      </p>
 		<sage language="python">
 		  <input>
 
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -1727,11 +1744,13 @@ plot_sv(A)
 		and the vector 
 		of coefficients that express the <m>48^{th}</m> case as
 		a linear combination of left singular vectors.
+		  </p>
 		<sage language="python">
 		  <input>
 
 		  </input>
 		</sage>
+		<p>
 		Describe how this case is constructed as a linear
 		combination of singular vectors.  What is the
 		significance of the second left singular vector
@@ -1744,6 +1763,7 @@ plot_sv(A)
 		The data in <xref ref="table-supreme-cases" />
 		describes the number of cases decided by each possible
 		vote count.
+		  </p>
 		<table xml:id="table-supreme-cases">
 		  <title> Number of cases by vote count </title>
 		  <tabular halign="center">
@@ -1773,6 +1793,7 @@ plot_sv(A)
 		    </row>
 		  </tabular>
 		</table>
+		<p>
 		How do the singular vectors <m>\uvec_1</m> and
 		<m>\uvec_2</m> reflect this data?  Would you
 		characterize the court as leaning toward the
@@ -1789,6 +1810,7 @@ plot_sv(A)
 		reason, we will now focus on the 5-4 decisions.
 		Evaluating the next cell forms the <m>9\by188</m>
 		matrix <m>B</m> consisting of 5-4 decisions.
+		  </p>
 		<sage language="python">
 		  <input>
 B = matrix(RDF, fivefour.values)
@@ -1796,6 +1818,7 @@ display_matrix(B.matrix_from_columns(range(50)))
 
 		  </input>
 		</sage>
+		<p>
 		Form the singular value decomposition of <m>B=U\Sigma
 		V^{\transpose}</m> 
 		along with the matrix <m>\Gamma</m> of coefficients so
@@ -1804,11 +1827,13 @@ display_matrix(B.matrix_from_columns(range(50)))
 		<m>7^{th}</m> case, indexed by <c>6</c>, is
 		constructed as a linear 
 		combination of left singular vectors.
+		</p>
 		<sage language="python">
 		  <input>
 
 		  </input>
 		</sage>
+		<p>
 		What does this singular vector tell us about the
 		make up of the court and whether it leans towards the
 		conservatives or progressives?  
@@ -1821,11 +1846,13 @@ display_matrix(B.matrix_from_columns(range(50)))
 		<m>\uvec_2</m> and study how the <m>6^{th}</m> case,
 		indexed by <c>5</c>, is constructed as a linear
 		combination of left singular vectors.
+		  </p>
 		<sage language="python">
 		  <input>
 
 		  </input>
 		</sage>
+		<p>
 		What does <m>\uvec_2</m> tell us about the
 		relative importance of the justices' voting records?
 	      </p>
@@ -1848,6 +1875,72 @@ display_matrix(B.matrix_from_columns(range(50)))
 	</p>
       </statement>
 
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The first two singular values contribute most
+		significantly.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\Gamma</m> is a <m>9\by911</m> matrix that
+		expresses the cases as linear combinations of the
+		left singular vectors.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		This is a unanimous decision.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\uvec_1</m> represents a
+		unanimous decision.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		This is a 5-4 decision with the 5 conservative
+		justices voting in the majority.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\uvec_2</m> represents a 5-4 decision.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The most frequently occurring decisions are unanimous
+		and the second most frequently occurring are 5-4.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\uvec_1</m> represents a
+		case where the five conservative justices are voting
+		together.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The second left singular vector <m>\uvec_2</m>
+		essentially records the vote of Sandra Day O'Connor.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Sandra Day O'Connor 
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+	    
       <solution>
 	<p>
 	  <ol marker="a.">
@@ -1924,72 +2017,6 @@ display_matrix(B.matrix_from_columns(range(50)))
 	</p>
       </solution>
 	      
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		The first two singular values contribute most
-		significantly.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\Gamma</m> is a <m>9\by911</m> matrix that
-		expresses the cases as linear combinations of the
-		left singular vectors.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		This is a unanimous decision.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\uvec_1</m> represents a
-		unanimous decision.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		This is a 5-4 decision with the 5 conservative
-		justices voting in the majority.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\uvec_2</m> represents a 5-4 decision.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The most frequently occurring decisions are unanimous
-		and the second most frequently occurring are 5-4.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\uvec_1</m> represents a
-		case where the five conservative justices are voting
-		together.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The second left singular vector <m>\uvec_2</m>
-		essentially records the vote of Sandra Day O'Connor.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Sandra Day O'Connor 
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
-	    
     </activity>
   </subsection>
 

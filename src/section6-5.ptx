@@ -16,14 +16,14 @@
     </p>
     
     <figure xml:id="lst-squares-intro">
-      <sidebyside widths="45% 45%">
-	<image source="images/lst-squares-1" />
-	<image source="images/lst-squares-2" />
-      </sidebyside>
       <caption>
 	A collection of points and a line approximating the
 	linear relationship implied by them.
       </caption>
+      <sidebyside widths="45% 45%">
+	<image source="images/lst-squares-1" />
+	<image source="images/lst-squares-2" />
+      </sidebyside>
     </figure>
 
     <p>
@@ -60,6 +60,7 @@
 	      \end{bmatrix}
 	      \xvec = \threevec5{-3}{-1}
 	    </me>.
+	    </p>
 	    <sage language="python">
 	      <input>
 import numpy as np
@@ -67,7 +68,6 @@ A = np.array([1, 2, 2, 5, -1, 0]).reshape(3,2)
 b = np.array([5, -3, -1)]
 	      </input>
 	    </sage>
-	    </p>
 	  </li>
 
 	  <li>
@@ -174,13 +174,13 @@ b = np.array([5, -3, -1)]
 		Plot these three points in <xref ref="fig-ls-empty"
 		/>.  Are you able to draw a line that passes through
 		all three points? 
+		  </p>
 		<figure xml:id="fig-ls-empty">
+		  <caption> Plot the three data points here. </caption>
 		  <sidebyside width="50%">
 		    <image source = "images/empty-ls" />
 		  </sidebyside>
-		  <caption> Plot the three data points here. </caption>
 		</figure>
-	      </p>
 	    </li>
 	    
 	    <li>
@@ -231,12 +231,12 @@ b = np.array([5, -3, -1)]
 		Is there a solution to this linear system?  How does
 		this question relate to your attempt to draw a line
 		through the three points above?
+	      </p>
 		<sage language="python">
 		  <input>
 
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -266,6 +266,70 @@ b = np.array([5, -3, -1)]
 	  </ol>
 	</p>
       </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		It's not
+		possible to draw a line through all three points.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have the equations
+		<md>
+			<mrow>
+			  \beta_0 + \beta_1 \amp {}={} 1
+			</mrow>
+			<mrow>
+			  \beta_0 + 2\beta_1 \amp {}={} 1
+			</mrow>
+			<mrow>
+			  \beta_0 + 3\beta_1 \amp {}={} 3
+			</mrow>
+		  </md>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+			We have <m>X = \begin{bmatrix}
+				1 \amp 1 \\
+				1 \amp 2 \\
+				1 \amp 3 \\
+				\end{bmatrix}</m> and <m>\yvec=\threevec113</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		This linear system is inconsistent.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\yhat=\threevec{2/3}{5/3}{8/3}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\betahat=\twovec{-1/3}1</m>.
+		This line is shown in <xref
+		ref="fig-best-fit-line-ans" />.
+	      </p>
+	      <figure xml:id="fig-best-fit-line-ans">
+		<caption>
+		  The line that best approximates the three data
+		  points.
+		</caption>
+		<sidebyside width="50%">
+		  <image source="images/line-regress-2" />
+		</sidebyside>
+	      </figure>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
 
       <solution>
 	<p>
@@ -328,82 +392,18 @@ b = np.array([5, -3, -1)]
 		ref="fig-best-fit-line" />.
 	      </p>
 	      <figure xml:id="fig-best-fit-line">
-		<sidebyside width="50%">
-		  <image source="images/line-regress-2" />
-		</sidebyside>
 		<caption>
 		  The line that best approximates the three data
 		  points.
 		</caption>
+		<sidebyside width="50%">
+		  <image source="images/line-regress-2" />
+		</sidebyside>
 	      </figure>
 	    </li>
 	  </ol>
 	</p>
       </solution>
-
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		It's not
-		possible to draw a line through all three points.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		We have the equations
-		<md>
-			<mrow>
-			  \beta_0 + \beta_1 \amp {}={} 1
-			</mrow>
-			<mrow>
-			  \beta_0 + 2\beta_1 \amp {}={} 1
-			</mrow>
-			<mrow>
-			  \beta_0 + 3\beta_1 \amp {}={} 3
-			</mrow>
-		  </md>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-			We have <m>X = \begin{bmatrix}
-				1 \amp 1 \\
-				1 \amp 2 \\
-				1 \amp 3 \\
-				\end{bmatrix}</m> and <m>\yvec=\threevec113</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		This linear system is inconsistent.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\yhat=\threevec{2/3}{5/3}{8/3}</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\betahat=\twovec{-1/3}1</m>.
-		This line is shown in <xref
-		ref="fig-best-fit-line-ans" />.
-	      </p>
-	      <figure xml:id="fig-best-fit-line-ans">
-		<sidebyside width="50%">
-		  <image source="images/line-regress-2" />
-		</sidebyside>
-		<caption>
-		  The line that best approximates the three data
-		  points.
-		</caption>
-	      </figure>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
 
     </activity>
 
@@ -460,8 +460,8 @@ b = np.array([5, -3, -1)]
 	  \left(y_1-(\hat{\beta}_0 +\hat{\beta}_1 x_1)\right)^2 + 
 	  \left(y_2-(\hat{\beta}_0 +\hat{\beta}_1 x_2)\right)^2 +
 	  \left(y_3-(\hat{\beta}_0 +\hat{\beta}_1 x_3)\right)^2
-	</mrow>.
-      </md>
+	</mrow>
+      </md>.
 	  <idx><h>least squares regression</h></idx>
       Our approach finds the values for <m>\beta_0</m> and <m>\beta_1</m> that
       make this sum of squares as small as possible, which is
@@ -486,19 +486,19 @@ b = np.array([5, -3, -1)]
     </p>
 
     <figure xml:id="fig-least-squares-def">
-      <sidebyside width="50%">
-	<image source = "images/line-regress-1" />
-      </sidebyside>
       <caption>
 	The solution of the least squares problem and the vertical
 	distances between the line and the data points.
       </caption>
+      <sidebyside width="50%">
+	<image source = "images/line-regress-1" />
+      </sidebyside>
     </figure>
 </subsection>
 
 <subsection xml:id="subsec-linear-model-framework">
-	<idx><h>linear model</h></idx>
 	<title>The linear model framework</title>
+	<idx><h>linear model</h></idx>
 	<p>
 		The previous example is an example of <term>simple linear regression</term>. In simple linear 
 		regression there is a single quantitative predictor and the model proposes a linear 
@@ -546,8 +546,8 @@ b = np.array([5, -3, -1)]
 			</mrow>
 			<mrow>
 				\yvec \amp = X \betavec
-			</mrow>.
-		</md>
+			</mrow>
+		</md>.
 		This equation will almost never have an exact solution because in typical applications  
 		<m>X</m> will have many more rows than columns.
 	</p>
@@ -671,8 +671,8 @@ b = np.array([5, -3, -1)]
 	</mrow>
 	<mrow>
 	  X^{\transpose}X\betahat \amp = X^{\transpose}\yvec
-	</mrow>.
-      </md>
+	</mrow>
+      </md>.
       <idx> <h>normal equation</h> </idx>
       This equation is called the <term>normal equation</term>, and we
       have the following proposition.
@@ -747,6 +747,8 @@ b = np.array([5, -3, -1)]
 	  chirp rate <m>C</m> is expressed in chirps per second while the
 	  temperature <m>T</m> is in degrees Fahrenheit.  Evaluate the
 	  following cell to load the data:
+	</p>
+
 	  <sage>
 	    <input>
 import pandas as pd 
@@ -758,7 +760,6 @@ print(Crickets)
 so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 	    </input>
 	  </sage>
-	</p>
 
 	<p>
 	  We would like to represent this relationship by a linear
@@ -783,11 +784,11 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 		<m>X</m> and vector <m>\yvec</m> 
 		so that the linear system
 		<m>\yvec = X \betavec</m> describes the desired relationship.
+	      </p>
 		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -803,11 +804,12 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 	      <p> Solve the normal equations to find <m>\betahat</m>, the
 	      least squares approximate solution to the equation
 	      <m>\yvec = X \betavec</m>.  Call your solution <m>\betahat</m>.
+	      </p>
+
 	      <sage>
 		<input>
 		</input>
 	      </sage>
-	      </p>
 
 	      <p>
 		What are the values of <m>\beta_0</m> and <m>\beta_1</m>
@@ -823,16 +825,56 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 
 	      <p>
 			Plot the data and your least squares regression line.
+	      </p>
 		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 	    
 	  </ol>
 	</p>
       </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>\beta_0 + 20.0\beta_1 = 88.6</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>X</m> is the <m>15\by2</m> matrix whose first
+		column consists only of 1's and whose second column is
+		the vector of chirp rates.  The vector <m>\yvec</m> is
+		the vector of temperatures.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>X^{\transpose}X=\begin{bmatrix}
+		15.0 \amp 248.5 \\
+		248.5 \amp 4157.9 \\
+		\end{bmatrix}</m> and <m>X^{\transpose}\yvec =
+		\twovec{1190.2}{19857.7}</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\xhat = \twovec{\beta_0}{\beta_1} =
+		\twovec{22.8}{3.4}</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>97.9</m> degrees.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
 
       <solution>
 	<p>
@@ -875,45 +917,6 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 	</p>
       </solution>
 
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		<m>\beta_0 + 20.0\beta_1 = 88.6</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>X</m> is the <m>15\by2</m> matrix whose first
-		column consists only of 1's and whose second column is
-		the vector of chirp rates.  The vector <m>\yvec</m> is
-		the vector of temperatures.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>X^{\transpose}X=\begin{bmatrix}
-		15.0 \amp 248.5 \\
-		248.5 \amp 4157.9 \\
-		\end{bmatrix}</m> and <m>X^{\transpose}\yvec =
-		\twovec{1190.2}{19857.7}</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\xhat = \twovec{\beta_0}{\beta_1} =
-		\twovec{22.8}{3.4}</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>97.9</m> degrees.
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
     </activity>
 
     <p>
@@ -950,14 +953,14 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
     </p>
 
     <figure xml:id="fig-regression-scale">
-      <sidebyside widths="45% 45%">
-	<image source="images/line-regress-1" />
-	<image source="images/line-regress-10" />
-      </sidebyside>
       <caption>
 	The lines appear to fit equally well in spite of the fact that
 	<m>\len{\yvec-\yhat}^2</m> differs by a factor of 100.
       </caption>
+      <sidebyside widths="45% 45%">
+	<image source="images/line-regress-1" />
+	<image source="images/line-regress-10" />
+      </sidebyside>
     </figure>
 
 	<p> We can create a measure of fit that is indpendent of scale if we consider the 
@@ -1002,8 +1005,8 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 		Putting this together we see that 
 		<md>
 			<mrow> \yvec - \ymean \amp = (\yvec - \yhat ) + (\yhat - \ymean) </mrow>
-			<mrow> \len{\yvec - \ymean}^2 \amp = \len{\yvec - \yhat}^2 + \len{\yhat - \ymean}^2 </mrow>.
-		</md>
+			<mrow> \len{\yvec - \ymean}^2 \amp = \len{\yvec - \yhat}^2 + \len{\yhat - \ymean}^2 </mrow>
+		</md>.
 		The second equation is the just the Pythagorean Theorem applied to the triangle formed by our 
 		three vectors.
 	</p>
@@ -1042,8 +1045,8 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 			</mrow>
 			<mrow>
 			 	\amp = \frac{ \len{\yhat - \ymean}^2}{\len{\yvec - \yhat}^2 + \len{\yhat - \ymean}^2 }
-			</mrow>.
-		</md>    
+			</mrow>
+		</md>.    
 	  <!-- <me>
 	    R^2 = 1 - \frac{\len{\yvec - \yhat}^2}{\len{\yvec - \overline{\yvec}}}
 	  </me>. -->
@@ -1085,8 +1088,8 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 		For this model, an orthogonal basis for the model space is  
 		<md>
 			<mrow> \wvec_1 \amp = \onevec </mrow>
-			<mrow> \wvec_2 \amp = \xvec - \proj{\xvec}{\onevec} = \xvec - \xmean </mrow>,
-		</md>
+			<mrow> \wvec_2 \amp = \xvec - \proj{\xvec}{\onevec} = \xvec - \xmean </mrow>
+		</md>,
 		and 
 		<me>
 			\yhat = \proj{\yvec}{\onevec} + \proj{\yvec}{\xvec - \xmean} = ???
@@ -1184,6 +1187,8 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 		<m>r</m> in centimeters, neck circumference <m>n</m> in
 		centimeters, and <m>BFI</m>.  Evaluating the following
 		cell loads and displays the data.
+		  </p>
+
 		<sage>
 		  <input>
 sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
@@ -1198,6 +1203,7 @@ print(df)
 		  </input>
 		</sage>
 
+		<p>
 		In addition, that cell provides:
 		<ol>
 		  <li>
@@ -1260,11 +1266,11 @@ print(df)
 	      <p>
 		Construct the matrix <m>A</m> and find its <m>QR</m>
 		factorization in the cell below.
+	      </p>
 		<sage>
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -1284,11 +1290,11 @@ print(df)
 		Find the coefficient of determination <m>R^2</m> for
 		your parameters.  What does this imply about the quality
 		of the fit?
+	      </p>
 		<sage>
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -1302,6 +1308,66 @@ print(df)
 	  </ol>
 	</p>
       </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Use the fact that <m>\bhat=QQ^{\transpose}\bvec</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Use the fact that <m>Q^{\transpose}Q=I</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\beta_0 + 154\beta_1 + 68\beta_2 + 85\beta_3 +
+		17\beta_4 + 36\beta_5 = 13</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>A</m> is the <m>10\by6</m> matrix whose columns
+		are a vector of all 1's followed by the vectors of
+		weights, heights, abdominal, wrist, and neck
+		measurements.  The vector <m>\bvec</m> is the vector
+		of BFI readings.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>Q</m> is a <m>10\by6</m> matrix and <m>R</m> is
+		a <m>6\by6</m> upper triangular matrix.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We find that
+		<me>
+		  \beta_0 = 54.08, \beta_1 = 0.19, \beta_2 =
+		    -2.62,
+		    \beta_3 = 0.92, \beta_4 = 2.70, \beta_5 =
+		    -0.41
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=0.95</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Evaluating <m>\beta_0 + 190\beta_1 + 70\beta_2 +
+		90\beta_3 + 18\beta_4 + 35\beta_5 = 22.9</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
 
       <solution>
 	<p>
@@ -1368,66 +1434,6 @@ print(df)
 	</p>
       </solution>
 
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		Use the fact that <m>\bhat=QQ^{\transpose}\bvec</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Use the fact that <m>Q^{\transpose}Q=I</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\beta_0 + 154\beta_1 + 68\beta_2 + 85\beta_3 +
-		17\beta_4 + 36\beta_5 = 13</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>A</m> is the <m>10\by6</m> matrix whose columns
-		are a vector of all 1's followed by the vectors of
-		weights, heights, abdominal, wrist, and neck
-		measurements.  The vector <m>\bvec</m> is the vector
-		of BFI readings.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>Q</m> is a <m>10\by6</m> matrix and <m>R</m> is
-		a <m>6\by6</m> upper triangular matrix.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		We find that
-		<me>
-		  \beta_0 = 54.08, \beta_1 = 0.19, \beta_2 =
-		    -2.62,
-		    \beta_3 = 0.92, \beta_4 = 2.70, \beta_5 =
-		    -0.41
-		</me>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>R^2=0.95</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Evaluating <m>\beta_0 + 190\beta_1 + 70\beta_2 +
-		90\beta_3 + 18\beta_4 + 35\beta_5 = 22.9</m>
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
-
     </activity>
 
     <p>
@@ -1471,6 +1477,8 @@ print(df)
 		points <m>(0,2)</m>, <m>(1,1)</m>, <m>(2,3)</m>, and
 		<m>(3,3)</m>, such as appear when the following cell is
 		evaluated.
+	      </p>
+
 		<sage language="python">
 		  <input>
 import numpy as np
@@ -1480,7 +1488,6 @@ so.Plot(x=small_data[:,0], y = small_data[:, 1]).add(so.Dot())
 list_plot(data, color='blue', size=40)		  
 		  </input>
 		</sage>
-	      </p>
 
 	      <p>
 		Let's fit a quadratic function of the form
@@ -1509,11 +1516,12 @@ list_plot(data, color='blue', size=40)
 		Find the <m>QR</m> factorization of <m>X</m> and use it
 		to find the least squares approximate solution
 		<m>\betahat</m>.
+	      </p>
+
 		<sage>
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -1521,11 +1529,12 @@ list_plot(data, color='blue', size=40)
 		Use the parameters <m>\beta_0</m>, <m>\beta_1</m>, and <m>\beta_2</m> that you found to
 		write the quadratic function that fits the data.  
 		Creat a plot that incluedes the raw data and the quadratic fit.
+	      </p>
+
 		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -1550,11 +1559,12 @@ list_plot(data, color='blue', size=40)
 		  \yvec = \beta_0 \onevec + \beta_1 \xvec  + \beta_2 \xvec^2 + \beta_3 \xvec ^3
 		</me>
 		to this dataset.
+	      </p>
+
 		<sage>
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -1570,16 +1580,79 @@ list_plot(data, color='blue', size=40)
 		What do you notice when you plot the cubic function
 		along with the data?  How does this reflect the value of
 		<m>R^2</m> that you found?
+	      </p>
+
 		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	  </ol>
 	</p>
       </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		We have the equations
+		<md>
+		  <mrow>
+		    \beta_0 + 0\beta_1 + 0^2\beta_2 \amp {}={} 2
+		  </mrow>
+		  <mrow>
+		    \beta_0 + 1\beta_1 + 1^2\beta_2 \amp {}={} 1
+		  </mrow>
+		  <mrow>
+		    \beta_0 + 2\beta_1 + 2^2\beta_2 \amp {}={} 3
+		  </mrow>
+		  <mrow>
+		    \beta_0 + 3\beta_1 + 3^2\beta_2 \amp {}={} 3
+		  </mrow>
+		</md>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\betahat = \threevec{7/4}{-1/4}{1/4}</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\frac74 - \frac14 x + \frac14x^2 = y</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>1.9375</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>0.54</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>\yhat = 2-\frac{25}{6} \xvec +4 \xvec ^2-\frac56 \xvec^3 </m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=1</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The graph of the cubic function passes through each
+		data point.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
 
       <solution>
 	<p>
@@ -1652,67 +1725,6 @@ list_plot(data, color='blue', size=40)
 	</p>
       </solution>
 
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		We have the equations
-		<md>
-		  <mrow>
-		    \beta_0 + 0\beta_1 + 0^2\beta_2 \amp {}={} 2
-		  </mrow>
-		  <mrow>
-		    \beta_0 + 1\beta_1 + 1^2\beta_2 \amp {}={} 1
-		  </mrow>
-		  <mrow>
-		    \beta_0 + 2\beta_1 + 2^2\beta_2 \amp {}={} 3
-		  </mrow>
-		  <mrow>
-		    \beta_0 + 3\beta_1 + 3^2\beta_2 \amp {}={} 3
-		  </mrow>
-		</md>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\betahat = \threevec{7/4}{-1/4}{1/4}</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\frac74 - \frac14 x + \frac14x^2 = y</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>1.9375</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>0.54</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\yhat = 2-\frac{25}{6} \xvec +4 \xvec ^2-\frac56 \xvec^3 </m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>R^2=1</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The graph of the cubic function passes through each
-		data point.
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
     </activity>
 
     <p>
@@ -1735,6 +1747,7 @@ list_plot(data, color='blue', size=40)
 	  <idx><h> <c>numpy.polynomial.polynomial.polyvander()</c> </h> </idx>
 	  <idx><h>Vandermonde matrix</h><seealso> <c>numpy.polynomial.polynomial.polyvander()</c> </seealso> </idx>
 	  these matrices for a specified vector <m>\xvec</m> and degree.
+	</p>
 <sage>
 	<input>
 import numpy as np 
@@ -1750,6 +1763,7 @@ print(polyvander(x, 5))
 [1.000e+00 4.000e+00 1.600e+01 6.400e+01 2.560e+02 1.024e+03]]
 	</output>
 </sage>
+<p>
 Notice that <m>0^0</m> is treated as <m>1</m> for the purposes of this matrix.
     </p>
 
@@ -1768,6 +1782,7 @@ Notice that <m>0^0</m> is treated as <m>1</m> for the purposes of this matrix.
 	  Evaluating the cell below will plot the extent of Arctic sea
 	  ice, in millions of square kilometers, during the twelve
 	  months of 1980, 2012, and 2017. We will focus primarily on 2012.
+	</p>
 	  <sage language="python">
 	    <input>
 import pandas as pd
@@ -1778,7 +1793,6 @@ print(ice)
 so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
 	    </input>
 	  </sage>
-	</p>
 
 	<p>
 	  <ol marker="a.">
@@ -1787,22 +1801,24 @@ so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
 		Find the vector <m>\betahat</m>, the least squares
 		approximate solution to the linear system that results
 		from fitting a degree 5 polynomial to the data.
+	      </p>
+
 		<sage language="python">
 		  <input>
 
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
 	      <p>
 			Plot the data along with the fitted polynomial model.
+	      </p>
+
 		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
@@ -1817,22 +1833,22 @@ so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
 		Repeat these steps to fit a degree 8 polynomial to the
 		data, plot the polynomial with the data, and find
 		<m>R^2</m>.
+	      </p>
 		<sage>
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 
 	    <li>
 	      <p>
 		Repeat one more time by fitting a degree 11 polynomial
 		to the data, creating a plot, and finding <m>R^2</m>.
+	      </p>
 		<sage>
 		  <input>
 		  </input>
 		</sage>
-	      </p>
 
 	      <p>
 		It's certainly true that higher degree polynomials fit
@@ -1879,6 +1895,47 @@ so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
 	</p>
       </statement>
       
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>\xhat = \begin{bmatrix}
+		17.4\\-7.1\\4.5\\-1.1\\0.1\\-0.003
+		\end{bmatrix}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The fifth degree polynomial fits the data fairly well.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=0.99</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=0.9997</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>R^2=1</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>8.7</m> million square kilometers
+		of sea ice.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+	    
       <solution>
 	<p>
 	  <ol marker="a.">
@@ -1921,47 +1978,6 @@ so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
 	</p>
       </solution>
 	    
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		<m>\xhat = \begin{bmatrix}
-		17.4\\-7.1\\4.5\\-1.1\\0.1\\-0.003
-		\end{bmatrix}
-		</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The fifth degree polynomial fits the data fairly well.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>R^2=0.99</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>R^2=0.9997</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>R^2=1</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>8.7</m> million square kilometers
-		of sea ice.
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
-	    
     </activity>
 	
 
@@ -1969,6 +1985,10 @@ so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
 
   <subsection xml:id="subsec-skl-lm">
 	<title>Fitting linear models with standard tools</title>
+
+	<p>
+		Coming soon.
+	</p>
 	
 
   </subsection>
@@ -2023,6 +2043,9 @@ so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
 						<m>\betavec = \begin{bmatrix}\beta_0\\\beta_1\\ \vdots \\ \beta_p \\\end{bmatrix}</m> 
 						represents the coefficients of the model.
 					</title>
+					<p>
+						
+					</p>
 				</li>
 			</ol>
 

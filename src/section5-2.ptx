@@ -83,8 +83,8 @@
   </introduction>
 
   <subsection>
-	<idx><h>characteristic polynomial</h></idx>
     <title> The characteristic polynomial </title>
+	<idx><h>characteristic polynomial</h></idx>
 
     <p> We will first see that the eigenvalues of a square matrix
     appear as the roots of a particular polynomial.  To begin, notice
@@ -345,9 +345,10 @@
       4,-2,3</m>. 
       </p>
     </example>
-
+	<p>
 	<xref ref="example-triangular-eigenvalues"/> is important enough to present as the following 
 		proposition.
+	</p>
 
 		<proposition xml:id="prop-triangular-eigenvalues">
 			<idx><h>eigenvalue</h><h>of a triangular matrix</h></idx>
@@ -1129,9 +1130,10 @@ print(sympy.factor(p.as_expr()))
 	</li>
 
 	<li><p> If we only want the eigenvalues, we can use
-	<c>numpy.linalg.eigvals()</c> or <c>scipy.linalg.eigvals()</c>.  </p>
+	<c>numpy.linalg.eigvals()</c> or <c>scipy.linalg.eigvals()</c>. 
 	<idx><h><c>np.linalg.eigvals()</c></h></idx>
 	<idx><h><c>scipy.linalg.eigvals()</c></h></idx>
+	</p>
 
 	  <sage language="python">
 	    <input>
@@ -1158,7 +1160,7 @@ print(np.linalg.eigvals(A))
 	<idx><h><c>numpy.linalg.eigvals()</c></h></idx>
 	</p>
 	
-	<note>
+	<aside>
 		<title>Left and right eigenvectors</title>
 	<p>
 	Technically, we are finding <term>right eigenvectors</term> since the vector <m>\vvec</m>
@@ -1168,7 +1170,7 @@ print(np.linalg.eigvals(A))
 	Feel free to try it in the code chunk below.
 	NumPy does not provide this option.
     </p>
-	</note>
+</aside>
 	  
 	  <sage language="python">
 	    <input>
@@ -1222,6 +1224,7 @@ print((A - sympy.eye(2)).rref())   # use sympy.eye() to get a sympy.Matrix
 		    <idx><h>reduced row echelon form</h><h>not numerically stable</h></idx>
 			<p> Despite the error in finding the reduce row echelon form, 
 			NumPy and SciPy <em>can</em> compute these eigenvalues and eigenvectors for us.
+			</p>
 	    <sage language="python">
 	      <input>
 import numpy as np  
@@ -1229,6 +1232,7 @@ A = np.array([[0.4, 0.3],[0.6,0.7]])
 print(np.linalg.eig(A))
 	      </input>
 	    </sage>
+		<p>
 			As you might expect, this implies that the method being used does not 
 			rely on using RREF along the way.
 			RREF is not numerically stable, this is why it is not included in 
@@ -1240,6 +1244,7 @@ print(np.linalg.eig(A))
 			If we provide sympy with rational values instead of floating point,
 			then it can compute the RREF of our matrix exactly and the error 
 			from above goes away.
+			</p>
 	    <sage language="python">
 	      <input>
 import numpy as np  
@@ -1250,6 +1255,7 @@ print(A)
 print(A.eigenvals())
 	      </input>
 	    </sage>
+		<p>
 			In <xref ref="chap6"/> we will see other methods for computing eigevectors  
 			that do not rely on RREF.
 
@@ -1291,6 +1297,7 @@ print(A.eigenvals())
 	    not correct because <m>A-I</m> cannot be invertible if
 	    <m>\lambda=1</m> is an eigenvalue of <m>A</m>. The issue is round-off errors that 
 		make things that should be exactly zero slightly different from 0.
+		</p>
 		
 <sage>
 	<input>
@@ -1302,12 +1309,9 @@ B = A - np.eye(2)
 print(B); print()
 print(B.sum(axis = 0))	 # column sums shoudl be zero, but...
 	</input>
-	<output>
-		(for static output)
-	</output>
 </sage>
 
-	    </p></li>
+	</li>
 
 	    <li><p> Here we find the correct eigenvalues,
 	    <m>\lambda=1</m> with basis vector <m>\twovec{1}{2}</m>

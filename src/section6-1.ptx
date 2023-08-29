@@ -40,6 +40,7 @@
 			or longer (lower right), then the angle will not be a right angle, and so a closer vector exists
 			(because the legs of a right triangle are shorter than the hypotenuse).
 		</caption>
+		<sbsgroup>
 		<sidebyside widths="45% 45%" margins="5% 5%" valign="bottom">
 		<image source="images/projection-line-1" />
 		<image source="images/projection-line-10" />
@@ -48,6 +49,8 @@
 		<image source="images/projection-line-8" />
 		<image source="images/projection-line-12" />
 		</sidebyside>
+	</sbsgroup>
+		
 	</figure>
 
 	<p>
@@ -82,13 +85,13 @@
 	</p>
 
     <figure xml:id="fig-dot-angle">
-      <sidebyside width="50%">
-	<image source="images/dot-angle" />
-      </sidebyside>
       <caption>
 	The dot product <m>\vvec\cdot\wvec</m> measures the angle  
 	<m>\theta</m>.
       </caption>
+      <sidebyside width="50%">
+	<image source="images/dot-angle" />
+      </sidebyside>
     </figure>
 
 
@@ -108,8 +111,10 @@
 		</definition>
 
 	<note>
+		<p>
 		Note that the dot product of two vectors is a <em>scalar</em>. For this reason, the dot product is sometimes  
 		called the <term>scalar product</term>. 
+		</p>
 	</note>
 
 	<p>
@@ -324,15 +329,17 @@
     </p>
 
     <definition>
-      <statement>
 	<idx><h>orthogonal vectors</h></idx>
 	<notation>
 		<usage><m>\vvec \perp \wvec</m></usage>
 	  <description>the vectors <m>\vvec</m> and <m>\wvec</m> are orthogonal</description>
 	</notation>
+      <statement>
+		<p>
 	We say that vectors <m>\vvec</m> and <m>\wvec</m> are
 	<term>orthogonal</term> if <m>\vvec\cdot\wvec=0</m>.
 	We can denote this with <m>\vvec \perp \wvec</m>.
+		</p>
       </statement>
     </definition>
 
@@ -380,8 +387,8 @@
 				</mrow>
 				<mrow>
 				\wvec \amp = w_1 \evec_1 + w_2 \evec_2 + \cdots + w_n \evec_n
-				</mrow>.
-			</md>
+				</mrow>
+			</md>.
 			From this it follows that  
 			<md>
 				<mrow> \vvec \cdot \wvec \amp =
@@ -483,10 +490,10 @@
 						ref="fig-dot-length" />. </p>
 
 				<figure xml:id="fig-dot-length">
+					<caption> The vector <m>\vvec=\twovec32</m>. </caption>
 					<sidebyside width="50%">
 						<image source="images/dot-length" />
 					</sidebyside>
-					<caption> The vector <m>\vvec=\twovec32</m>. </caption>
 				</figure>
 
 				<p> We may find the length of this vector using the Pythagorean theorem since the
@@ -509,15 +516,16 @@
 
 	  <li><p> Sketch the vector <m>\vvec=\twovec{3}{4}</m> below.  Then
 	  use the Pythagorean theorem to find the length of <m>\vvec</m>.
+	  </p>
 	  <figure>
-	    <sidebyside width="50%">
-										<image source="images/empty-6" />
-	    </sidebyside>
 	    <caption>
 	      Sketch the vector <m>\vvec</m> and find its length.
 	    </caption>
+	    <sidebyside width="50%">
+										<image source="images/empty-6" />
+	    </sidebyside>
 	  </figure>
-	  </p></li>
+	  </li>
 
 	  <li><p> Compute the dot product <m>\vvec\cdot\vvec</m>.  How
 	  is the dot product related to the length of <m>\vvec</m>?
@@ -545,6 +553,7 @@
 	</ol>
       </p>
       </statement>
+
       <solution>
 	<p>
 	  <ol marker="a.">
@@ -589,7 +598,7 @@
 	</p>
       </solution>
 	      
-	</activity>>
+	</activity>
 
 
 
@@ -632,12 +641,12 @@
 	      </p>
 	
 	      <figure xml:id="fig-dot-empty">
-		<sidebyside width="50%">
-		  <image source="images/empty-4" />
-		</sidebyside>
 		<caption>
 		  Sketch the vectors <m>\vvec</m> and <m>\wvec</m> here.
 		</caption>
+		<sidebyside width="50%">
+		  <image source="images/empty-4" />
+		</sidebyside>
 	      </figure>
 	    </li>
 	    
@@ -663,11 +672,13 @@
 	    </p></li>
 	    
 	    <li><p> Python can be used to find lengths of vectors and their
-	    dot products.  For instance, if <c>v</c> and <c>w</c> are
-	    vectors, then <c>np.linalg.norm()</c> gives the length of <c>v</c> and
-	    <c>v @ w</c> gives <m>\vvec\cdot\wvec</m>.</p>
+	    dot products.  
 		<idx><h><c>np.linalg.norm()</c></h></idx>
 		<idx><h>norm</h><h>Euclidean</h></idx>
+		For instance, if <c>v</c> and <c>w</c> are
+	    vectors, then <c>np.linalg.norm()</c> gives the length of <c>v</c> and
+	    <c>v @ w</c> gives <m>\vvec\cdot\wvec</m>.
+	</p>
 	    
 	    <p> Suppose that
 	    <me>
@@ -679,15 +690,69 @@
 	    between <m>\vvec</m> and <m>\wvec</m>.  You may use
 	    <c>math.acos()</c> to find the angle's measure expressed in
 	    radians.  
+	</p>
 	    <sage language="python">
 			<input> 
 import math  
 import numpy as np
 			</input>
 	    </sage>
-	    </p></li>
+	    </li>
 	</ol></p>
       </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <sidebyside width="50%">
+		<image source="images/ex-6-1-1-plot" />
+	      </sidebyside>
+	    </li>
+
+	    <li>
+	      <p>
+		<m>\len{\vvec} = \sqrt{13}</m> and <m>\len{\wvec} =
+		\sqrt{10}</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		<m> 
+		  \theta =
+		  = 52.1^\circ.
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>
+		  \theta =
+		  = 90^\circ.
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Their dot product
+		must be zero.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>k=2</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>55.9^\circ</m>.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+
       <solution>
 	<p>
 	  <ol marker="a.">
@@ -759,58 +824,6 @@ import numpy as np
 	</p>
       </solution>
 
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <sidebyside width="50%">
-		<image source="images/ex-6-1-1-plot" />
-	      </sidebyside>
-	    </li>
-
-	    <li>
-	      <p>
-		<m>\len{\vvec} = \sqrt{13}</m> and <m>\len{\wvec} =
-		\sqrt{10}</m>.
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		<m> 
-		  \theta =
-		  = 52.1^\circ.
-		</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>
-		  \theta =
-		  = 90^\circ.
-		</m>
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Their dot product
-		must be zero.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>k=2</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>55.9^\circ</m>.
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-
-      </answer>
     </activity>
 
 
@@ -831,12 +844,12 @@ import numpy as np
     </p>
 
     <figure xml:id="fig-similar-vectors">
-      <sidebyside width="50%">
-	<image source="images/similar-vectors" />
-      </sidebyside>
       <caption>
 	Which of the vectors are most similar?
       </caption>
+      <sidebyside width="50%">
+	<image source="images/similar-vectors" />
+      </sidebyside>
     </figure>
 
     <activity>
@@ -867,6 +880,7 @@ import numpy as np
 	      For instance, the word <q>act</q> appears 3 times in the
 	      Veteran's Day article and 0 times in the Labor Day
 	      article.
+		</p>
 	      <sage language="python">
 		<input>
 import pandas as pd
@@ -893,7 +907,6 @@ acting              0
 active              3  
 		</output>
 	      </sage>
-	    </p>
 
 	    <p>
 	      <ol marker="1.">
@@ -920,6 +933,7 @@ active              3
 		  the document vector for the Veteran's Day article and the other four
 		  articles.  To express the angle in degrees, multiply radians by 
 		  <c>180.0 / math.pi</c>.
+		  </p>
 
 		  <sage language="python">
 		    <input>
@@ -927,7 +941,6 @@ import numpy as np
 import math 
 		    </input>
 		  </sage>
-		  </p>
 		</li>
 
 		<li>
@@ -954,6 +967,7 @@ import math
 		  Evaluate the Python cell
 	      below to see a representation of time series
 	      for four different stocks over 10 days. 
+		  </p>
 	      <sage language="python">
 		<input>
 import numpy as np
@@ -969,7 +983,7 @@ print(stocks1)
 so.Plot(stocks1_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
 		</input>
 	      </sage>
-
+		<p>
 	      Notices that although one stock has a higher value, stocks 0 and 3 appear to 
 		  be related since they seem to rise and
 	      fall at roughly similar ways.  We often say that such series are 
@@ -985,6 +999,7 @@ so.Plot(stocks1_long, x = "day", y = "price", color = "stock").add(so.Lines()).s
 		    <term>demean</term> each time series;  that is, for each
 		    time series, we will subtract its average value to
 		    obtain a new time series.  
+		  </p>
 		    <sage language="python">
 		      <input>
 stocks0 = stocks - stocks.mean(axis = 0)
@@ -992,7 +1007,6 @@ stocks0_long = pd.melt(stocks0, id_vars="day", var_name = "stock", value_name="p
 so.Plot(stocks_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
 		      </input>
 		    </sage>
-		  </p>
 		</li>
 
 		<li>
@@ -1019,12 +1033,12 @@ so.Plot(stocks_long, x = "day", y = "price", color = "stock").add(so.Lines()).sh
 
 		  <p>
 		    Find the correlation between each pair of stocks. 
-		    <sage langauge="python">
+		  </p>
+		    <sage language="python">
 		      <input>
 
 		      </input>
 		    </sage>
-		  </p>
 		</li>
 
 		<li>
@@ -1035,15 +1049,15 @@ so.Plot(stocks_long, x = "day", y = "price", color = "stock").add(so.Lines()).sh
 		  </p>
 
 		  <figure xml:id="fig-correlation">
-		    <sidebyside widths="40% 40%">
-		      <image source="images/correlation-pos" />
-		      <image source="images/correlation-neg" />
-		    </sidebyside>
 		    <caption>
 		      On the left, the demeaned time series are positive
 		      scalar multiples of one another.  On the right,
 		      they are negative scalar multiples.
 		    </caption>
+		    <sidebyside widths="40% 40%">
+		      <image source="images/correlation-pos" />
+		      <image source="images/correlation-neg" />
+		    </sidebyside>
 		  </figure>
 
 		  <p>
@@ -1090,6 +1104,7 @@ so.Plot(stocks_long, x = "day", y = "price", color = "stock").add(so.Lines()).sh
 				pair of rows (default) or columns (what we want here) in a matrix.  The result is a matrix containing 
 				all the pairwise correlations.
 				<idx><h><c>np.corrcoef()</c></h></idx>
+			</p>
 				<sage language="python">
 					<input>
 print("correlations"); print() 
@@ -1104,7 +1119,7 @@ correlations
  [ 0.97826418 -0.91146418 -0.08984275  1.        ]]
 					</output>
 				</sage>
-			</p>
+				<p>
 			<ul>
 				<li>
 					<p>
@@ -1123,6 +1138,7 @@ correlations
 					</p>
 				</li>
 			</ul>
+		</p>
 		</li>
 	      </ol>
 	    </p>
@@ -1130,6 +1146,75 @@ correlations
 	</ol>
       </p>
     </statement>
+
+    <answer>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <ol marker="1.">
+		<li>
+		  <p> They are perpendicular.
+		  </p>
+		</li>
+		<li>
+		  <p>
+		    The angle should be close to 0.
+		  </p>
+		</li>
+		<li>
+		  <p>
+		    The angle <c>veterans</c> makes with
+		    <c>memorial</c> is <m>46.4^\circ</m>, with
+		    <c>labor</c> is <m>59.2^\circ</m>, with
+		    <c>golden</c> is <m>86.2^\circ</m>, and with
+		    <c>super</c> is <m>86.4^\circ</m>.
+		  </p>
+		</li>
+		<li>
+		  <p>
+		    The articles on Veteran's Day and
+		    Memorial Day are most similar.
+		  </p>
+		</li>
+	      </ol>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <ol marker="1.">
+		<li>
+		  <p>
+		    The graphs are now lowered so that their averages
+		    are zero.
+		  </p>
+		</li>
+		<li>
+		  <p>
+		  </p>
+		</li>
+		<li>
+		  <p>
+		  </p>
+		</li>
+		<li>
+		  <p>
+		  </p>
+		</li>
+		<li>
+		  <p>
+		  </p>
+		</li>
+		<li>
+		  <p>
+		  </p>
+		</li>
+	      </ol>
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </answer>
 
     <solution>
       <p>
@@ -1152,11 +1237,11 @@ correlations
 		</li>
 		<li>
 		  <p>
-		    The angle <code>veterans</code> makes with
-		    <code>memorial</code> is <m>46.4^\circ</m>, with
-		    <code>labor</code> is <m>59.2^\circ</m>, with
-		    <code>golden</code> is <m>86.2^\circ</m>, and with
-		    <code>super</code> is <m>86.4^\circ</m>.
+		    The angle <c>veterans</c> makes with
+		    <c>memorial</c> is <m>46.4^\circ</m>, with
+		    <c>labor</c> is <m>59.2^\circ</m>, with
+		    <c>golden</c> is <m>86.2^\circ</m>, and with
+		    <c>super</c> is <m>86.4^\circ</m>.
 		  </p>
 		</li>
 		<li>
@@ -1235,74 +1320,6 @@ correlations
       </p>
     </solution>
 
-    <answer>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      <ol marker="1.">
-		<li>
-		  <p> They are perpendicular.
-		  </p>
-		</li>
-		<li>
-		  <p>
-		    The angle should be close to 0.
-		  </p>
-		</li>
-		<li>
-		  <p>
-		    The angle <code>veterans</code> makes with
-		    <code>memorial</code> is <m>46.4^\circ</m>, with
-		    <code>labor</code> is <m>59.2^\circ</m>, with
-		    <code>golden</code> is <m>86.2^\circ</m>, and with
-		    <code>super</code> is <m>86.4^\circ</m>.
-		  </p>
-		</li>
-		<li>
-		  <p>
-		    The articles on Veteran's Day and
-		    Memorial Day are most similar.
-		  </p>
-		</li>
-	      </ol>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <ol marker="1.">
-		<li>
-		  <p>
-		    The graphs are now lowered so that their averages
-		    are zero.
-		  </p>
-		</li>
-		<li>
-		  <p>
-		  </p>
-		</li>
-		<li>
-		  <p>
-		  </p>
-		</li>
-		<li>
-		  <p>
-		  </p>
-		</li>
-		<li>
-		  <p>
-		  </p>
-		</li>
-		<li>
-		  <p>
-		  </p>
-		</li>
-	      </ol>
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </answer>
   </activity>
  
   <p>We conclude this section by listing once more the important properties of the dot produt.</p>
@@ -1367,12 +1384,12 @@ correlations
     </p>
 
     <figure xml:id="fig-clusters">
-      <sidebyside width="80%">
-	<image source="images/cluster-plot" />
-      </sidebyside>
       <caption>
 	A set of 177 data points.
       </caption>
+      <sidebyside width="80%">
+	<image source="images/cluster-plot" />
+      </sidebyside>
     </figure>
 
     <p>
@@ -1437,13 +1454,13 @@ correlations
 	      </p>
 
 	      <figure xml:id="fig-centroid-plot">
-		<sidebyside width="50%">
-		  <image source="images/empty-5-k" />
-		</sidebyside>
 		<caption>
 		  The vectors <m>\vvec_1</m>, <m>\vvec_2</m>,
 		  <m>\vvec_3</m> and their centroid.
 		</caption>
+		<sidebyside width="50%">
+		  <image source="images/empty-5-k" />
+		</sidebyside>
 	      </figure>
 
 	      <p>
@@ -1468,13 +1485,13 @@ correlations
 	      </p>
 
 	      <figure xml:id="fig-clustering-ex">
-		<sidebyside width="50%">
-		  <image source="images/kmeans-data" />
-		</sidebyside>
 		<caption>
 		  We will group this set of four points into two
 		  clusters.
 		</caption>
+		<sidebyside width="50%">
+		  <image source="images/kmeans-data" />
+		</sidebyside>
 	      </figure>
 
 	      <p> 
@@ -1521,12 +1538,12 @@ correlations
 	      </p>
 
 	      <figure xml:id="fig-clustering-ex-2">
-		<sidebyside width="50%">
-		  <image source="images/kmeans-data" />
-		</sidebyside>
 		<caption>
 		  Indicate the new centroids and clusters.
 		</caption>
+		<sidebyside width="50%">
+		  <image source="images/kmeans-data" />
+		</sidebyside>
 	      </figure>
 
 	      <p>
@@ -1548,12 +1565,12 @@ correlations
 	      </p>
 
 	      <figure xml:id="fig-clustering-ex-3">
-		<sidebyside width="50%">
-		  <image source="images/kmeans-data" />
-		</sidebyside>
 		<caption>
 		  Indicate the new centroids and clusters.
 		</caption>
+		<sidebyside width="50%">
+		  <image source="images/kmeans-data" />
+		</sidebyside>
 	      </figure>
 
 	      <p>
@@ -1566,51 +1583,6 @@ correlations
 	  </ol>
 	</p>
       </statement>
-
-      <solution>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		The centroid is <m>c = \twovec32</m>.
-	      </p>
-	      <sidebyside width="50%">
-		<image source="images/k-means-6-1" />
-	      </sidebyside>
-	    </li>
-
-	    <li>
-	      <p>
-		The first cluster is <m>C_1 = \{\vvec_1,
-		\vvec_2\}</m>.
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		The second cluster is 
-		<m>C_2=\{\vvec_3,\vvec_4\}</m>.
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		We redefine <m>c_1 = \twovec{-1/2}{0}</m> and <m>c_2 =
-		\twovec22</m>. This leads to new clusters <m>C_1 =
-		\{\vvec_1\}</m> and <m>C_2=\{\vvec_2, \vvec_3,
-		\vvec_4\}</m>. 
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		We have new centroids <m>c_1 = \twovec{-2}1</m> and
-		<m>c_2 = \twovec{5/3}{5/3}</m>, and the clusters
-		<m>C_1</m> and <m>C_2</m> are unchanged.
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </solution>
 
       <answer>
 	<p>
@@ -1657,6 +1629,52 @@ correlations
 	  </ol>
 	</p>
       </answer>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The centroid is <m>c = \twovec32</m>.
+	      </p>
+	      <sidebyside width="50%">
+		<image source="images/k-means-6-1" />
+	      </sidebyside>
+	    </li>
+
+	    <li>
+	      <p>
+		The first cluster is <m>C_1 = \{\vvec_1,
+		\vvec_2\}</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		The second cluster is 
+		<m>C_2=\{\vvec_3,\vvec_4\}</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		We redefine <m>c_1 = \twovec{-1/2}{0}</m> and <m>c_2 =
+		\twovec22</m>. This leads to new clusters <m>C_1 =
+		\{\vvec_1\}</m> and <m>C_2=\{\vvec_2, \vvec_3,
+		\vvec_4\}</m>. 
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have new centroids <m>c_1 = \twovec{-2}1</m> and
+		<m>c_2 = \twovec{5/3}{5/3}</m>, and the clusters
+		<m>C_1</m> and <m>C_2</m> are unchanged.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
     </activity>
 
     <p>
@@ -1796,12 +1814,14 @@ correlations
 		Evaluating the following cell will load and display a
 		data set consisting of 177 data points.  This data set
 		has the name <c>data</c>.
+		  </p>
 		<sage>
 		  <input>
 sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/k_means.py", globals())
 list_plot(data, color='blue', size=20, aspect_ratio=1)
 		  </input>
 		</sage>
+		<p>
 		Given this plot of the data, what would seem like a
 		reasonable number of clusters?
 	      </p>
@@ -1822,6 +1842,7 @@ list_plot(data, color='blue', size=20, aspect_ratio=1)
 		times.  Notice that clusterings having lower objectives
 		seem to fit the data better.  Repeat this experiment
 		with a few different values of <m>k</m>.
+	      </p>
 		<sage>
 		  <input>
 k = 2  # you may change the value of k here
@@ -1830,7 +1851,6 @@ print('Objective =', objective)
 plotclusters(clusters, centroids)
 		  </input>
 		</sage>
-	      </p>
 	    </li>
 	    
 	    <li>
@@ -1841,6 +1861,7 @@ plotclusters(clusters, centroids)
 		<m>k</m>, the following cell will run the
 		algorithm 10 times and display the clustering having the
 		smallest objective.
+	      </p>
 		<sage>
 		  <input>
 k = 2  # you may change the value of k here
@@ -1849,7 +1870,6 @@ print('Objective =', objective)
 plotclusters(clusters, centroids)
 		  </input>
 		</sage>
-	      </p>
 	      
 	      <p>
 		For each value of <m>k</m> between 2 and 9, find the
@@ -1858,13 +1878,13 @@ plotclusters(clusters, centroids)
 	      </p>
 	      
 	      <figure xml:id="fig-clustering-elbow">
-		<sidebyside width="80%">
-		  <image source="images/clustering-elbow" />
-		</sidebyside>
 		<caption>
 		  Construct a plot of the minimal objective as it
 		  depends on the choice of <m>k</m>.
 		</caption>
+		<sidebyside width="80%">
+		  <image source="images/clustering-elbow" />
+		</sidebyside>
 	      </figure>
 
 	      <p>
@@ -1898,6 +1918,47 @@ plotclusters(clusters, centroids)
 	  of the data.
 	</p>
       </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The objective is <m>5/6</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		The clustering <m>C_1=\{\vvec_1\}</m> and <m>C_2
+		= \{\vvec_2, \vvec_3, \vvec_4\}</m> has a smaller
+		objective. 
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>k=6</m> or <m>k=7</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		With a fixed value of <m>k</m>, running the algorithm
+		several times leads to different clusterings with
+		different objectives.  If we increase <m>k</m>, the
+		objective generally decreases.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The elbow occurs around <m>k=6</m> or <m>k=7</m>.
+	      </p>
+	      <sidebyside width="90%">
+		<image source="images/clustering-elbow-plot" />
+	      </sidebyside>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
 
       <solution>
 	<p>
@@ -1948,47 +2009,6 @@ plotclusters(clusters, centroids)
 	  </ol>
 	</p>
       </solution>
-	    
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		The objective is <m>5/6</m>.
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		The clustering <m>C_1=\{\vvec_1\}</m> and <m>C_2
-		= \{\vvec_2, \vvec_3, \vvec_4\}</m> has a smaller
-		objective. 
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>k=6</m> or <m>k=7</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		With a fixed value of <m>k</m>, running the algorithm
-		several times leads to different clusterings with
-		different objectives.  If we increase <m>k</m>, the
-		objective generally decreases.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		The elbow occurs around <m>k=6</m> or <m>k=7</m>.
-	      </p>
-	      <sidebyside width="90%">
-		<image source="images/clustering-elbow-plot" />
-	      </sidebyside>
-	    </li>
-	  </ol>
-	</p>
-      </answer>
 	    
     </activity>
 
