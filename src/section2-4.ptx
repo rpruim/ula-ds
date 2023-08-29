@@ -25,11 +25,14 @@
     </p>
 
     <definition>
+		<title>Pivot position</title>
       <idx> pivot position </idx>
+	  <statement>
       <p> A <term> pivot position </term> in a matrix <m>A</m> is the
       position of a leading entry in the reduced row echelon matrix of
       <m>A</m>.  
       </p>
+	</statement>
     </definition>
 
     <p>
@@ -94,6 +97,46 @@
       </ol>
       </p>
       </statement>
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li><p>
+	      The pivot positions are indicated below
+	      <me>
+		\left[
+		\begin{array}{rrrr}
+		{\mathbf 2} \amp 4 \amp 6 \amp -1 \\
+		-3 \amp {\mathbf 1} \amp 5 \amp 0 \\
+		1 \amp 3 \amp 5 \amp {\mathbf 1} \\
+		\end{array}
+		\right]
+		\sim
+		\left[
+		\begin{array}{rrrr}
+		{\mathbf 1} \amp 0 \amp -1 \amp 0 \\
+		0 \amp {\mathbf 1} \amp 2 \amp 0 \\
+		0 \amp 0 \amp 0 \amp {\mathbf 1} \\
+		\end{array}
+		\right]\text{.}
+	      </me>
+	    </p></li>
+
+	    <li><p>
+	      Three.
+	    </p></li>
+
+	    <li><p>
+	      Three.
+	    </p></li>
+
+	    <li><p>
+	      Such a matrix must necessarily have the same number of
+	      rows and columns, which means it is what we call a
+	      square matrix.
+	    </p></li>
+	  </ol>
+	</p>
+      </answer>
 
       <solution>
 	<p>
@@ -167,46 +210,6 @@
 	</p>
       </solution>
 
-      <answer>
-	<p>
-	  <ol marker="a.">
-	    <li><p>
-	      The pivot positions are indicated below
-	      <me>
-		\left[
-		\begin{array}{rrrr}
-		{\mathbf 2} \amp 4 \amp 6 \amp -1 \\
-		-3 \amp {\mathbf 1} \amp 5 \amp 0 \\
-		1 \amp 3 \amp 5 \amp {\mathbf 1} \\
-		\end{array}
-		\right]
-		\sim
-		\left[
-		\begin{array}{rrrr}
-		{\mathbf 1} \amp 0 \amp -1 \amp 0 \\
-		0 \amp {\mathbf 1} \amp 2 \amp 0 \\
-		0 \amp 0 \amp 0 \amp {\mathbf 1} \\
-		\end{array}
-		\right]\text{.}
-	      </me>
-	    </p></li>
-
-	    <li><p>
-	      Three.
-	    </p></li>
-
-	    <li><p>
-	      Three.
-	    </p></li>
-
-	    <li><p>
-	      Such a matrix must necessarily have the same number of
-	      rows and columns, which means it is what we call a
-	      square matrix.
-	    </p></li>
-	  </ol>
-	</p>
-      </answer>
     </exploration>
 
 	<example>
@@ -215,6 +218,7 @@
 			When we compute the reduced row echelon form of a matrix using 
 			<c>sympy.rref()</c>, the second part of the returned result tells us  
 			where the pivots positions are.
+		</p>
 
 			<sage language="python">
 				<input>
@@ -226,11 +230,11 @@ print(sympy.Matrix(A).rref()[1])
 				<output>
 				</output>
 			</sage>
+			<p>
 			Executing this code shows us that the pivot positions 
 			(in Python 0-based indexing) are <m>(0,0), (1,1), (2,3))</m>.
 			Mathematically, using 1-based indexing, we would call these 
 			<m>(1,1), (2,2), (3,4))</m>.
-			
 		</p>
 	</example>
 
@@ -386,6 +390,7 @@ print(sympy.Matrix(A).rref()[1])
 	<p>
 	  <ol marker="a.">
 	    <li><p> The pivot positions are indicated below.
+		</p>
 	      <sidebyside>
 		<p>
 		  <me>
@@ -426,6 +431,7 @@ print(sympy.Matrix(A).rref()[1])
 		  </me>
 		</p>
 	      </sidebyside>
+		  <p>
 	      The first two augmented matrices correspond to
 	      consistent linear systems.  The third does not, however,
 	      since the third row corresponds to the equation
@@ -613,9 +619,11 @@ print(sympy.Matrix(A).rref()[1])
 
     <proposition xml:id="prop-pivot-consistent">
       <statement>
+		<p>
 	If every row of the coefficient matrix has a pivot position,
 	then the corresponding system of linear equations is
 	consistent.
+		</p>
       </statement>
     </proposition>
 
@@ -635,6 +643,7 @@ print(sympy.Matrix(A).rref()[1])
 	  <li><p>
 	    Here are the three augmented matrices in reduced row echelon
 	    form that we considered in the previous section.
+	  </p>
 	    <sidebyside>
 	      <p>
 		<me>
@@ -675,7 +684,6 @@ print(sympy.Matrix(A).rref()[1])
 		</me>
 	      </p>
 	    </sidebyside>
-	  </p>
 	  <p>
 	    For each matrix, identify the pivot positions and state
 	    whether the corresponding linear system is
@@ -713,6 +721,7 @@ print(sympy.Matrix(A).rref()[1])
 	<p>
 	  <ol marker="a.">
 	    <li><p> The pivot positions are indicated below.
+		</p>
 	      <sidebyside>
 		<p>
 		  <me>
@@ -753,6 +762,7 @@ print(sympy.Matrix(A).rref()[1])
 		  </me>
 		</p>
 	      </sidebyside>
+		  <p>
 	      The third linear system is inconsistent.  The first
 	      system is consistent and has exactly one solution
 	      because <m>x_1=3</m>, <m>x_2=0</m>, and <m>x_3=-2</m>.  The
@@ -817,6 +827,7 @@ print(sympy.Matrix(A).rref()[1])
       consistent systems.  By the results of the previous section,
       this means that there is not a pivot in the rightmost column of
       the augmented matrix.  Here are two possible examples:
+	</p>
       <sidebyside>
 	<p>
 	  <me>
@@ -841,9 +852,7 @@ print(sympy.Matrix(A).rref()[1])
 	    \right]
 	  </me>
 	</p>
-	
       </sidebyside>
-    </p>
 
     <p>
       In the first example, we have the equations
