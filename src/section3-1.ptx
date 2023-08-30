@@ -36,6 +36,22 @@
       vectors. 
     </p>
 
+	<p>
+		Before we get going, let's load the NumPy and SymPy packages and set
+		some print options to reduce the number of digits displayed. Here we choose  
+		to display 4 digits; 
+		<c>suppress = True</c> suppresses scientific notation for small values.
+	</p>
+
+	<sage language="python" auto-evaluate="yes">
+		<input>
+import numpy as np  
+import sympy
+np.set_printoptions(precision = 4, suppress = True)
+		</input>
+	</sage>
+	
+
     <exploration>
       <title> The existence of solutions </title>
       <statement>
@@ -62,7 +78,6 @@
 	</p>
 	  <sage language="python">
 	    <input>
-import numpy as np 
 A = np.array([[1, 0 ,-2], [-2, 2, 2], [1, 1, -3]])
 b = np.array([2, 2, 5])
 	    </input>
@@ -167,6 +182,7 @@ b = np.array([2, 2, 5])
   <subsection>
     <title> The span of a set of vectors </title>
 
+
     <p>  In the preview activity, we considered a <m>3\by3</m>
     matrix <m>A</m> and found that the equation <m>A\xvec = \bvec</m>
     has a solution for some vectors <m>\bvec</m> in <m>\real^3</m> and
@@ -229,12 +245,11 @@ b = np.array([2, 2, 5])
 			\end{bmatrix}
 			\twovec{3}{1} = \twovec{2}{-1}
 		</me>
-		we know that <me>\bvec = \twovec 52 </me> is in the span of  
+		we know that <me>\bvec = \twovec2{-1} </me> is in the span of  
 		<m>\vvec</m> and <m>\wvec</m>:
 	</p>
 		<sage language="python">
 			<input>
-import numpy as np
 v = np.array([-2, 1])
 w = np.array([8, -4])
 A = np.column_stack((v,w))
@@ -260,8 +275,6 @@ print(A @ x)
 	</p>
 	  <sage language="python">
 		<input>
-import numpy as np
-import sympy 
 v = np.array([-2,  1])
 w = np.array([ 8, -4])
 b = np.array([ 5,  2])
