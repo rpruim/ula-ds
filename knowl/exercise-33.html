@@ -25,63 +25,63 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <article class="exercise exercise-like"><h4 class="heading">
-<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">15<span class="period">.</span></span>
+<span class="type">Exercise</span><span class="space"> </span><span class="codenumber">14<span class="period">.</span></span>
 </h4>
-<div class="para logical">
-<div class="para">In this exercise, you will construct the <dfn class="terminology">inverse</dfn> of a matrix, a subject that we will investigate more fully in the <a href="chap4.html" class="internal" title="Chapter 4: Invertibility, bases, and coordinate systems">Chapter 4</a>. Suppose that <span class="process-math">\(A\)</span> is the <span class="process-math">\(2\by2\)</span> matrix:</div>
-<div class="displaymath process-math" data-contains-math-knowls="./knowl/chap4.html">
+<div class="para">The operations that we perform in Gaussian elimination can be accomplished using matrix multiplication.  This observation is the basis of an important technique that we will investigate in a subsequent chapter.</div> <div class="para logical">
+<div class="para">Let’s consider the matrix</div>
+<div class="displaymath process-math">
 \begin{equation*}
-A = \left[\begin{array}{rr}
-3 \amp -2 \\
--2 \amp 1 \\
+A = \left[\begin{array}{rrr}
+1 \amp 2 \amp -1 \\
+2 \amp 0 \amp 2 \\
+-3 \amp 2 \amp 3 \\
 \end{array}\right]\text{.}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li>
-<div class="para logical">
-<div class="para">Find the vectors <span class="process-math">\(\bvec_1\)</span> and <span class="process-math">\(\bvec_2\)</span> such that the matrix <span class="process-math">\(B=\left[\begin{array}{rr} \bvec_1 \amp \bvec_2
-\end{array}\right]\)</span> satisfies</div>
+<li><div class="para logical">
+<div class="para">Suppose that</div>
 <div class="displaymath process-math">
 \begin{equation*}
-AB = I =
-\left[\begin{array}{rr}
-1 \amp 0 \\
-0 \amp 1 \\
+S = \left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+0 \amp 7 \amp 0 \\
+0 \amp 0 \amp 1 \\
 \end{array}\right]\text{.}
 \end{equation*}
 </div>
-</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-76"><script type="text/x-sage">
-</script></pre>
-</li>
-<li>
-<div class="para">In general, it is not true that <span class="process-math">\(AB = BA\text{.}\)</span>  Check that it is true, however, for the specific <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> that appear in this problem.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-77"><script type="text/x-sage">
-</script></pre>
-</li>
-<li><div class="para">Suppose that <span class="process-math">\(\xvec = \twovec{x_1}{x_2}\text{.}\)</span>  What do you find when you evaluate <span class="process-math">\(I\xvec\text{?}\)</span>
+<div class="para">Verify that <span class="process-math">\(SA\)</span> is the matrix that results when the second row of <span class="process-math">\(A\)</span> is scaled by a factor of 7.  What matrix <span class="process-math">\(S\)</span> would scale the third row by -3?</div>
 </div></li>
-<li>
-<div class="para logical">
-<div class="para">Suppose that we want to solve the equation <span class="process-math">\(A\xvec =
-\bvec\text{.}\)</span>  We know how to do this using Gaussian elimination; let’s use our matrix <span class="process-math">\(B\)</span> to find a different way:</div>
+<li><div class="para logical">
+<div class="para">Suppose that</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\begin{aligned}
-A\xvec \amp {}={} \bvec \\
-B(A\xvec) \amp {}={} B\bvec \\
-(BA)\xvec \amp {}={} B\bvec \\
-I\xvec \amp {}={} B\bvec \\
-\xvec \amp {}={} B\bvec \\
-\end{aligned}\text{.}
+P = \left[\begin{array}{rrr}
+0 \amp 1 \amp 0 \\
+1 \amp 0 \amp 0 \\
+0 \amp 0 \amp 1 \\
+\end{array}\right]\text{.}
 \end{equation*}
 </div>
-<div class="para">In other words, the solution to the equation <span class="process-math">\(A\xvec=\bvec\)</span> is <span class="process-math">\(\xvec = B\bvec\text{.}\)</span>
+<div class="para">Verify that <span class="process-math">\(PA\)</span> is the matrix that results from interchanging the first and second rows.  What matrix <span class="process-math">\(P\)</span> would interchange the first and third rows?</div>
+</div></li>
+<li><div class="para logical">
+<div class="para">Suppose that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+L_1 = \left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+-2 \amp 1 \amp 0 \\
+0 \amp 0 \amp 1 \\
+\end{array}\right]\text{.}
+\end{equation*}
 </div>
+<div class="para">Verify that <span class="process-math">\(L_1A\)</span> is the matrix that results from multiplying the first row of <span class="process-math">\(A\)</span> by <span class="process-math">\(-2\)</span> and adding it to the second row.  What matrix <span class="process-math">\(L_2\)</span> would multiply the first row by 3 and add it to the third row?</div>
+</div></li>
+<li>
+<div class="para">When we performed Gaussian elimination, our first goal was to perform row operations that brought the matrix into a triangular form.  For our matrix <span class="process-math">\(A\text{,}\)</span> find the row operations needed to find a row equivalent matrix <span class="process-math">\(U\)</span> in triangular form.  By expressing these row operations in terms of matrix multiplication, find a matrix <span class="process-math">\(L\)</span> such that <span class="process-math">\(LA = U\text{.}\)</span>
 </div>
-<div class="para">Consider the equation <span class="process-math">\(A\xvec = \twovec{5}{-2}\text{.}\)</span> Find the solution in two different ways, first using Gaussian elimination and then as <span class="process-math">\(\xvec = B\bvec\text{,}\)</span> and verify that you have found the same result.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-78"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-75"><script type="text/x-sage">
 </script></pre>
 </li>
 </ol>
