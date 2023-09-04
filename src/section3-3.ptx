@@ -123,9 +123,11 @@
       </solution>
 	    
     </exploration>
+
+	
   </introduction>
 
-  <subsection>
+  <subsection xml:id="subsec-matrix-trans">
     <title> Matrix transformations </title>
 
     <p>
@@ -338,15 +340,17 @@
 	    A\twovec{0}{1} = \twovec{1}{2}</m>.
 	    </p></li>
 
-	    <li><p> <m>T\left(\twovec xy\right) =
-	    \twovec{2x+y}{x+2y}</m>.
-	    </p></li>
-
 	    <li><p> We seek a vector <m>\xvec</m> such that
 	    <m>T(\xvec) = A\xvec=\twovec{3}{0}</m>.  We can solve
 	    this equation to find the unique solution
 	    <m>\xvec=\twovec{2}{-1}</m>.
+	    </p>
+
+	    <li><p> <m>T\left(\twovec xy\right) =
+	    \twovec{2x+y}{x+2y}</m>.
 	    </p></li>
+
+	</li>
 	  </ol>
 	  </p></li>
 
@@ -426,17 +430,25 @@
     </p>
 
 	<p>
-		While every vector in the domain of a matrix transformation can be  provided 
+		Second, while every vector in the domain of a matrix transformation can be  provided 
 		as in input, it may or may not be the case that every vector in the codomain 
 		is a possible output of the transformation.  We will call the set of vectors 
 		<m>\bvec</m> that are posible outputs 
 		(that is, for which there is a vector <m>\xvec </m> in the domain with <m>A \xvec = \bvec</m>)
 		the <term>range</term> of the matrix transformation.
-		<idx><h>range</h><h>of a transformation</h></idx>.  If the range is equal to all 
+		<idx><h>range</h><h>of a transformation</h></idx>  If the range is equal to all 
 		of the codomain, then we say that the matrix transformation is <term>onto</term>.
 		<idx><h>onto</h><h>transformation</h></idx>
 		This is the same as saying that <m> A \xvec = \bvec</m> has a solution <m>\xvec</m>
 		for any <m>\bvec</m> in the codomain.
+	</p>
+
+	<p>
+		If every input to a matrix transformation has a different output, we say 
+		that the matrix transformation is <term>one-to-one</term>. In this case, 
+		the input is uniquely determined by the output, so in principle we can 
+		"undo" the transformation.  We will have more to say about "undoing" a 
+		transformation in <xref ref="chap4"/>.
 	</p>
 
     <p>
@@ -632,6 +644,11 @@
 		      2 for 180 hours, what is the total number of
 		      cakes, doughnuts, and eclairs produced?
 			</p>
+	<sage language="python" auto-evaluate="yes">
+		<input>
+import numpy as np
+		</input>
+	</sage>
 		      <sage language="python">
 			<input>
 			</input>
@@ -770,9 +787,148 @@
       In these examples, we glided over an important point: how do we
       know these functions <m>T:\real^n\to\real^m</m> can be expressed
       as matrix transformations?  We will take up this question in
-      detail in the next section and not worry about it for now.
+      detail in <xref ref="subsec-linear-trans" />.
     </p>
 
+  </subsection>
+
+  <subsection xml:id="subsec-linear-trans">
+	<title>Linear transformations</title>
+
+	<p>
+		A matrix transformation <m>T</m> associated with matrix <m>A</m> is defined by 
+		<me>
+			T(\xvec) = A \xvec
+		</me>.
+		From what we know about matrix-vector multiplication, this means that all 
+		matrix transformations must satisfy the following linearity properties.
+	</p>
+	<proposition xml:id="prop-linear-props-of-matrix-trans">
+		<statement>
+			<p>
+		Let <m>T</m> be the matrix transforamtion associated with matrix <m>A</m>, let 
+		<m>c</m> be a scalar, and let <m>\xvec</m> and <m>\yvec</m> be a vector in the 
+		domain of <m>T</m>. 
+		Then 
+		<ol>
+			<li>
+				<p>
+					<m>T(c \xvec) = c T(\xvec)</m>
+				</p>
+			</li>
+			<li>
+				<p>
+					<m>T(\xvec + \yvec) = T(\xvec) + T(\yvec)</m>
+				</p>
+			</li>
+		</ol> 
+		These two properties can be combined into a single property if we like:
+		<me>
+			T(c_1 \xvec + c_2 \yvec) = c_1 T(\xvec) + c_2 T(\yvec)
+		</me>.
+			</p>
+		</statement>
+		<proof>
+			Both statements follow directly from properties of matrix-vector mulitplcation.
+			<p>
+				<ol>
+					<li>
+						<p>
+							<m>T(c\xvec) = A (c \xvec) = c (A\xvec) = c T(\xvec)</m>.
+						</p>
+					</li>
+					<li>
+						<p>
+							<m>T(\xvec + \yvec) = A (\xvec + \yvec)
+								= A xvec + A \yvec = T(\xvec) + T(\yvec)</m>.
+						</p>
+					</li>
+				</ol>
+			</p>
+		</proof>
+	</proposition>
+
+	<p>
+		Any transformation that satisfies the two  
+		linearity properties is called a <term>linear transformation</term>.
+		<idx><h>linear transformation</h></idx>
+		Importantly, we have the following proposition.
+	</p>
+
+	<proposition xml:id="prop-">
+		<idx><h>linear transformation</h></idx>
+		<statement>
+			<p>
+				If <m>T : \real^m \to \real^n</m> is a <term>linear transformation</term>, then 
+				<m>T</m> is a <term>matrix transformation</term> with matrix   
+				<me>
+					A = \begin{bmatrix} T(\evec_1) \amp T(\evec_2) \amp \cdots \amp T(\evec_n) \end{bmatrix}
+				</me>.
+				That is, the columns of the matrix are determined by applying <m>T</m> to 
+				the elementary vectors <m>\evec_i</m>.
+			</p>
+		</statement>
+		<proof>
+			<p>
+				Any vector <m>\xvec = \begin{bmatrix} x_1 \\ x_2 \\ \vdots \\ x_n\end{bmatrix}</m> 
+				in <m>\real^n</m> can be written as  
+				<me> 
+					x_1 \evec_1 + x_2 \evec_2 + \cdots + x_n \evec_n
+				</me>.
+				Since <m>T</m> is linear, we have
+				<md>
+					<mrow>
+					T(\xvec) \amp = x_1 T(\evec_1) + x_2 T(\evec_2) + x_n T(\evec_n)
+					</mrow>
+					<mrow>
+						\amp = 
+						\begin{bmatrix} 
+						T(\evec_1) \amp T(\evec_2) \amp \cdots \amp T(\evec_n)
+						\end{bmatrix} 
+						\begin{bmatrix}
+						x_1 \\ x_2 \\ \amp \\ x_n
+						\end{bmatrix} 
+					</mrow>
+				</md>.
+				So <m>T</m> is a matrix transformation with matrix   
+				<m>
+						\begin{bmatrix} 
+						T(\evec_1) \amp T(\evec_2) \amp \cdots \amp T(\evec_n)
+						\end{bmatrix} 
+						\begin{bmatrix}
+				</m>.
+			</p>
+		</proof>
+	</proposition>
+
+	<p>
+		Returning to the discussion at the end of <xref ref="subsec-matrix-trans"/>,
+		to show that a transformation <m>T: \real^n \to \real^m</m> is a 
+		matrix transformation, we just need demonstrate that it is linear. 
+	</p>
+	<example>
+		<statement>
+			<p>
+				Show that any rotation in <m>\real^2</m> is a linear transfromation.
+			</p>
+		</statement>
+		<solution>
+			<p>
+				If we scale a vector and then rotate, we get the same vector as when we rotate first and then scale,
+				so the first linearity property is satisfied.
+				Similarly, for addition, we can either rotate both vectors and then add or add the two vectors  
+				and then rotate. We get the same result either way.
+				Since rotations satisfy the two linearity properties, they are linear transforamtions, and 
+				therefore matrix transformations.  The matrix is completely determined by what the rotation 
+				does to <m>\evec_1</m> and <m>\evec_2</m>.
+			</p>
+
+			<p>
+				Similar arguments can be applied to other familiar geometric transformations, 
+				like reflections and dilations.
+			</p>
+		</solution>
+	</example>
   </subsection>
 
   <subsection>
@@ -1301,6 +1457,33 @@
       long-term predictions about the evolution of the state vector.
     </p>
 
+	<note>
+		NumPy uses <c>**</c> for matrix powers.  So we can calculate <m>A^n</m> as <c>A**n</c>.
+
+		<sage language="python">
+			<input>
+A = np.array([[0.7, 0.5], [0.3, 0.5]])
+for i in range(1, 5):
+    print("A^", i, "=\n", A**i)
+			</input>
+			<output>
+A^ 1 =
+ [[0.7 0.5]
+ [0.3 0.5]]
+A^ 2 =
+ [[0.49 0.25]
+ [0.09 0.25]]
+A^ 3 =
+ [[0.343 0.125]
+ [0.027 0.125]]
+A^ 4 =
+ [[0.2401 0.0625]
+ [0.0081 0.0625]]
+			</output>
+		</sage>
+		
+	</note>
+
   </subsection>
   
   <subsection>
@@ -1325,8 +1508,28 @@
 	\end{array}\right]
       </me>. </p></li>
 
+	  <li>
+		<p>
+			We can demonstrate that a transformation is a matrix transformation 
+			by showing that it satisfies two key linearity properties.
+		<ul>
+			<li>
+				<p>
+					<m>T(c \xvec) = c T(\xvec)</m>
+				</p>
+			</li>
+			<li>
+				<p>
+					<m>T(\xvec + \yvec) = T(\xvec) + T(\yvec)</m>
+				</p>
+			</li>
+		</ul> 
+		</p>
+	  </li>
+
       <li><p> The composition of matrix transformations corresponds to 
       matrix multiplication.</p></li>
+
 
       <li><p> A discrete dynamical system consists of a state vector
       <m>\xvec</m> along with a transition function <m>T(\xvec) =
@@ -1335,6 +1538,33 @@
       long-term behavior of the state vector. </p></li>
     </ul>
     </p>
+
+	<assemblage xml:id="assemblage-matrix-trans-alt-notation">
+		<title>Alternative notation</title>
+		<p>
+			We have been writing vectors as, for example, <m>\threevec 123</m>.  To save 
+			space vertically, sometimes this is written as <m>\langle 1, 2, 3 \rangle</m> instead.
+			<notation>
+				<usage><m>\langle a, b, c\rangle</m></usage>
+			  <description>horizontal vector notation, equivalent to <m>\threevec {a}{b}{c}</m>
+			</description>
+			</notation>
+		</p>
+		<p>
+			Because matrix transformations are so closely connected to their defining 
+			matrices, some authors will write the matrix transformation associated with 
+			matrix <m>A</m> as <m>A()</m> rather than introducing a new letter for the 
+			transformation.  The round parentheses indicate that we are thinking of <m>A</m>
+			as a function or transformation.  In this notation, <m>A(\xvec) = A \xvec</m>.
+		</p>
+
+		<p>
+			Combining the two shorthands, we can write things like 
+			<m>A(\langle 1, 2 ,3 \rangle) = \langle 4, 5 \rangle</m> instead of  
+			<m> T\left(\threevec 123\right) = \twovec 45</m> where <m>T</m> is the matrix  transformation 
+			associated with the matrix <m>A</m>.
+		</p>
+	</assemblage>
 
   </subsection>
 
