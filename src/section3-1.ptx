@@ -1299,6 +1299,53 @@ print(sympy.Matrix(A).rref())
     
   </subsection>
 
+
+  <subsection xml:id="subsec-span-and-linear-models">
+	<title>Span and linear models</title>
+
+	<p>
+		Consider a linear model with an intercept and two precitors.
+		The fitted vector for such a model has the form 
+		<me>
+			\yhat = \hat\beta_0 \onevec + \hat\beta_1 \xvec_1 + \hat\beta_2 \xvec_2
+		</me>.
+		From a linear algebra perspective, this means that 
+		<m>\yhat</m> is in <m>\laspan{\onevec, \xvec_1, \xvec_2}</m>. 
+		If we have <m>n</m> observations in our data, then the data vector 
+		<m>\yvec</m> lives in <m>\real^n</m>, but the fitted vector <m>\yhat</m> 
+		lives in <m>\laspan{\onevec, \xvec_1, \xvec_2}</m>, a subspace of dimension 3 
+		called the <term>model space</term>.
+	</p>
+	<p>
+		In <xref ref="chap6"/> we will learn how to use linear algebra to determine 
+		which vector in the model space is closest to <m>\yvec</m>. That will be  
+		the vector <m>\yhat</m>.
+		For now, the important thing is that we can use some geometric intuition 
+		to understand linear models if we think of the model space as the 
+		span of the predictor vectors.
+	</p>
+	<p>
+		For example, adding predictors to a model increases the dimension of the
+		model space and leads to fitted vectors <m>\yhat</m> that are closer to
+		the data vector <m>\yvec</m>.  We say that models with more predictors
+		are more flexible or have more <term>model degrees of freedom</term> because
+		we have more "room" to search for a best <m>\yhat</m>. 
+	</p>
+
+	<p>
+		Somewhat counterintuitively, it is not always good to fit the data
+		better. In an extreme case, if we have <m>n</m> linearly 
+		independent<fn>See <xref ref="sec-linear-dep" /> for more about linear independence.</fn>
+		predictors (including <m>\onevec</m>), then the model space is all of 
+		<m>\real^n</m>, so  <m>\yhat = \yvec</m> and the model fits the data
+		perfectly. But a model that fits the data this well is almost surely
+		<term>overfitting</term> -- it is learning both the generalizable
+		features of the data and the idiosyncrasies of the data.  Because of
+		this, a "larger" model (one with a higher-dimensional model space) may be less
+		useful at predicting new data than a "smaller" model that fits the data
+		less well but generalizes better.  
+	</p>
+  </subsection>
   <subsection>
     <title>
       Summary
@@ -1338,6 +1385,13 @@ print(sympy.Matrix(A).rref())
 
       <li><p> Any set of vectors that spans <m>\real^m</m> must have
       at least <m>m</m> vectors. </p></li>
+	<li>
+		<p>
+			The <term>model space</term> of a linear model is the span 
+			of the predictor vectors in the data. The fitted response  
+			<m>\yhat</m> is always in this span.
+		</p>
+	</li>
 
     </ul></p>
       
