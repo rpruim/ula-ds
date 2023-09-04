@@ -221,25 +221,98 @@ plt.show()
 		</p>
 
 		<example>
-			<title>Row and column sums and means</title>
+			<title>Row and column sums</title>
 			<p>
 			We often want to know the sum or mean of all rows or columns of a matrix. NumPy provides two ways 
 			to compute aggregating functions like this.
 			</p>
 			<sage language="python">
 				<input>
-A = nd.arange(6).reshape(2,3)
+A = np.arange(6).reshape(2,3)
 print(A)
-print(A.sum())
-print(A.sum(axes = 0))
-print(A.sum(axes = 1))
+print("no axis specified: ", A.sum())
+print("axis = 0:", A.sum(axis = 0))
+print("axis = 1:", A.sum(axis = 1))
+				</input>
+				<output>
+[[0 1 2]
+ [3 4 5]]
+no axis specified:  15
+axis = 0: [3 5 7]
+axis = 1: [ 3 12]
+				</output>
+			</sage>
+			<p>
+				Understanding the <c>axis</c> argument can be a little counterintuitive.
+				Notice that to get row sums, we specify <c>axis = 1</c> and to get column 
+				sums, we specify <c>axis = 0</c>.  Here's a way to think about this.
+				Consider the shape of the result you want.  If we are computing row sums, then 
+				our result should have two rows and one column, so <m>2 \by 1</m>. That is, 
+				we have collapsed axis 1: <m>2 \by 3 \to 2 \by 1</m>.  The <c>axis</c> 
+				argument specifies which axis (or axes) are being collapsed. And then, rather 
+				than retaining these axes, 
+				they are dropped (unless we specify <c>keepdims = True</c>).
+			</p>
+			
+			<sage language="python">
+				<input>
+A = np.arange(6).reshape(2,3)
+print("no axis specified: ", A.sum( keepdims = True))
+print("axis = 0:\n", A.sum(axis = 0, keepdims = True))
+print("axis = 1:\n", A.sum(axis = 1, keepdims = True))
+				</input>
+				<output>
+no axis specified:  [[15]]
+axis = 0:
+ [[3 5 7]]
+axis = 1:
+ [[ 3]
+ [12]]
+				</output>
+			</sage>
+
+			<p>
+				This way of doing things makes more sense in higher dimensions when there 
+				are more options for which axes to collapse.
+			</p>
+		</example>
+
+		<example>
+		<p>
+			NumPy supports several other aggregating functions as well.
+			<idx><h>standard deviation</h></idx>
+			<idx><h>mean</h></idx>
+			<c>np.prod()</c>,
+			<c>np.mean()</c>, 
+			<c>np.std()</c>,
+			<c>np.var()</c>,
+			<c>np.min()</c>, and 
+			<c>np.max()</c> compute the product, mean, standard deviation variance, minimum,
+			and maximum, collapsing over the specified axis or axes.
+			And for boolean arrays, we can use <c>np.all()</c> and <c>np.any()</c>.
+		</p>
+
+		<p>Replace <c>mean()</c> with one of the other aggregating functions in the cell 
+			below to see how they work.
+		</p>
+			<sage language="python">
+				<input>
+A = np.arange(6).reshape(2,3)
+print("no axis specified: ", A.mean( keepdims = True))
+print("axis = 0:\n", A.mean(axis = 0, keepdims = True))
+print("axis = 1:\n", A.mean(axis = 1, keepdims = True))
 				</input>
 				<output>
 				</output>
 			</sage>
-			
-			
-			
+		<sage>
+			<input>
+			</input>
+			<output>
+				(for static output)
+			</output>
+		</sage>
+		
 			
 		</example>
 
@@ -266,7 +339,7 @@ print(A.sum(axes = 1))
 			<input>
 A = np.arange(6).reshape((3,2))
 b = np.array([5, 3, 2])
-Aplus = np.append(A, b.reshape(3,1), 1)    # need to make b 2-d first
+Aplus = np.append(A, b.reshape(3,1), 1) # need to make b 2-d first
 print(Aplus)
 			</input>
 			<output>
@@ -285,7 +358,7 @@ print(Aplus)
 			<li>
 				<p>
 					<c>np.concetentate()</c> takes a sequence of arrays and repeatedly appends. This is especially 
-					useful for combining three or more arrays.
+					useful for combining three or more arrays. 
 				</p>
 			</li>
 			<li>
@@ -295,6 +368,26 @@ print(Aplus)
 					vectors into an array or arrays into a tensor. The resulting object will have a higher dimension (more axes) 
 					than the inputs.
 				</p>
+			</li>
+			<li>
+				<p>
+					For working with matrices and vectors, <c>np.column_stack()</c> is handy since will  
+					treat 1-dimensional arrays as 2-dimensional column vectors, making it easy to add 
+					vectors as new columns of a matrix.
+				</p>
+				<sage language="python">
+					<input>
+A = np.arange(6).reshape((3,2))
+b = np.array([5, 3, 2])
+Aplus2 = np.column_stack((A, b))          # no need to make 2-d or specify axis
+print(Aplus2)
+					</input>
+				<output>
+[[0 1 5]
+	[2 3 3]
+	[4 5 2]]
+			</output>
+		</sage>
 			</li>
 			<li>
 				<p>
@@ -334,7 +427,8 @@ print(Aplus)
 			</p>
 
 			<p>
-				The images were obtained from <url href="https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG" />.
+				The images were obtained from 
+				<url href="https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG">WikiMedia</url>.
 				We will use low resolutoin images below, but you can repeat this example with higher resolution 
 				images if you like. Notice the use of <c>np.stack()</c> to combine the images into one 4-dimensional 
 				tensor, and the use of <c>np.rint()</c> and <c>astype(int)</c> to make sure the resulting data 
@@ -354,14 +448,14 @@ print(p.shape for p in photos)
 print(photo_stack.shape)
 average_photo = np.rint(photo_stack.mean(axis = 0)).astype(int)
 fig, ax = plt.subplots(1, 4)
+
 print("four different exposures")
 for i in range(4):
     ax[i].imshow(photos[i])
 plt.show()
+
 print("the average image")
-
 plt.subplots(1, 1)
-
 plt.imshow(average_photo)
 plt.show()						
 					</input>
@@ -371,11 +465,6 @@ plt.show()
 			from multiple exposures of the same scene.
 			</p>
 		</statement>
-		<solution>
-			<p>
-				
-			</p>
-		</solution>
 	</example>
 
 	
