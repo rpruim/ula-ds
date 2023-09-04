@@ -12,104 +12,134 @@
 </head>
 <body class="ignore-math">
 <article class="example example-like"><h4 class="heading">
-<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.3.6</span><span class="period">.</span>
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">4.2.3</span><span class="period">.</span>
 </h4>
 <div class="para logical">
-<div class="para">In this section’s preview activity, we considered the vectors</div>
+<div class="para">Suppose we have</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\vvec_1 = \twovec{2}{1},
-\vvec_2 = \twovec{1}{2}\text{,}
+A = \left[\begin{array}{rrr}
+1 \amp 3 \amp -2 \\
+-3 \amp -6 \amp 3 \\
+2 \amp 0 \amp -2 \\
+\end{array}\right].
 \end{equation*}
 </div>
-<div class="para">which form a basis <span class="process-math">\(\bcal=\{\vvec_1,\vvec_2\}\)</span> for <span class="process-math">\(\real^2\text{.}\)</span>
-</div>
-</div> <div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
-<div class="sbspanel top" style="width:47.3684210526316%;"><div class="para">In the standard coordinate system, the point <span class="process-math">\((2,-3)\)</span> is found by moving 2 units to the right and 3 units down.  We would like to define a new coordinate system where we interpret <span class="process-math">\((2,-3)\)</span> to mean we move two times along <span class="process-math">\(\vvec_1\)</span> and 3 times along <span class="process-math">\(-\vvec_2\text{.}\)</span>  As we see in the figure, doing so leaves us at the point <span class="process-math">\((1,-4)\text{,}\)</span> expressed in the usual coordinate system.</div></div>
-<div class="sbspanel top" style="width:47.3684210526316%;"><img src="external/images/basis-1.svg" role="img" class="contained"></div>
-</div></div> <div class="para logical">
-<div class="para">We have seen that</div>
+<div class="para">For the forward substitution phase of Gaussian elimination, we perform a sequence of three replacement operations. The first replacement operation multiplies the first row by <span class="process-math">\(3\)</span> and adds the result to the second row.  We can perform this operation by multiplying <span class="process-math">\(A\)</span> by the lower triangular matrix <span class="process-math">\(L_1\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\xvec = \twovec{1}{-4} = 2\vvec_1 - 3\vvec_2 \text{.}
-\end{equation*}
-</div>
-<div class="para">The coordinates of the vector <span class="process-math">\(\xvec\)</span> in the new coordinate system are the weights that we use to create <span class="process-math">\(\xvec\)</span> as a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>
-</div>
-</div> <div class="para logical">
-<div class="para">Since we now have two descriptions of the vector <span class="process-math">\(\xvec\text{,}\)</span> we need some notation to keep track of which coordinate system we are using.  Because <span class="process-math">\(\twovec{1}{-4} = 2\vvec_1 - 3\vvec_2\text{,}\)</span> we will write</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\coords{\twovec{1}{-4}}{\bcal} =
-\twovec{2}{-3} \text{.}
-\end{equation*}
-</div>
-<div class="para">More generally, <span class="process-math">\(\coords{\xvec}{\bcal}\)</span> will denote the coordinates of <span class="process-math">\(\xvec\)</span> in the basis <span class="process-math">\(\bcal\text{;}\)</span>  that is, <span class="process-math">\(\coords{\xvec}{\bcal}\)</span> is the vector <span class="process-math">\(\twovec{c_1}{c_2}\)</span> of weights such that</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\xvec = c_1\vvec_1 + c_2 \vvec_2\text{.}
-\end{equation*}
-</div>
-</div> <div class="para logical">
-<div class="para">For example, if the coordinates of <span class="process-math">\(\xvec\)</span> in the basis <span class="process-math">\(\bcal\)</span> are</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\coords{\xvec}{\bcal} = \twovec{5}{-2}\text{,}
-\end{equation*}
-</div>
-<div class="para">then</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\xvec = 5\vvec_1 - 2\vvec_2 = 5\twovec{2}{1}-2\twovec{1}{2}
-= \twovec{8}{3},
-\end{equation*}
-</div>
-<div class="para">and we conclude that</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\coords{\twovec{8}{3}}{\bcal} = \twovec{5}{-2}\text{.}
-\end{equation*}
-</div>
-<div class="para">This demonstrates how we can translate coordinates in the basis <span class="process-math">\(\bcal\)</span> into standard coordinates.</div>
-</div> <div class="para logical">
-<div class="para">Suppose we know the expression of a vector <span class="process-math">\(\xvec\)</span> in standard coordinates.  How can we find its coordinates in the basis <span class="process-math">\(\bcal\text{?}\)</span>  For instance, suppose <span class="process-math">\(\xvec=\twovec{-8}{2}\)</span> and that we would like to find <span class="process-math">\(\coords{\xvec}{\bcal}\text{.}\)</span>  We can write</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\coords{\twovec{-8}{2}}{\bcal}=\twovec{c_1}{c_2},
-\end{equation*}
-</div>
-<div class="para">which means that</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\twovec{-8}{2} = c_1\vvec_1 + c_2\vvec_2
-\end{equation*}
-</div>
-<div class="para">or</div>
-<div class="displaymath process-math">
-\begin{equation*}
-c_1 \twovec{2}{1} + c_2 \twovec{1}{2} = \twovec{-8}{2}.
-\end{equation*}
-</div>
-<div class="para">This linear system for the weights defines an augmented matrix</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\left[\begin{array}{rr|r}
-2 \amp 1 \amp -8 \\
-1 \amp 2 \amp 2 \\
+L_1A =
+\left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+3 \amp 1 \amp 0 \\
+0 \amp 0 \amp 1 \\
 \end{array}\right]
-\sim
-\left[\begin{array}{rr|r}
-1 \amp 0 \amp -6 \\
-0 \amp 1 \amp 4 \\
-\end{array}\right],\text{.}
+\left[\begin{array}{rrr}
+1 \amp 3 \amp -2 \\
+-3 \amp -6 \amp 3 \\
+2 \amp 0 \amp -2 \\
+\end{array}\right]
+= 
+\left[\begin{array}{rrr}
+1 \amp 3 \amp -2 \\
+0 \amp 3 \amp -3 \\
+2 \amp 0 \amp -1 \\
+\end{array}\right].
 \end{equation*}
 </div>
-<div class="para">which means that</div>
+</div> <div class="para logical">
+<div class="para">The next two replacement operations are performed by the matrices</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\coords{\twovec{-8}{2}}{\bcal} = \twovec{-6}{4}\text{.}
+L_2 = \left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+0 \amp 1 \amp 0 \\
+-2 \amp 0 \amp 1 \\
+\end{array}\right],
+\hspace{24pt}
+L_3 = \left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+0 \amp 1 \amp 0 \\
+0 \amp 2 \amp 1 \\
+\end{array}\right]
 \end{equation*}
 </div>
-</div></article><span class="incontext"><a href="sec-bases.html#example-28" class="internal">in-context</a></span>
+<div class="para">so that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+L_3L_2L_1A = U = \begin{bmatrix}
+1 \amp 3 \amp -2 \\
+0 \amp 3 \amp -3 \\
+0 \amp 0 \amp -3 \\
+\end{bmatrix}.
+\end{equation*}
+</div>
+</div> <div class="para logical">
+<div class="para">Notice that the inverse of <span class="process-math">\(L_1\)</span> has the simple form:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+L_1 = \left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+3 \amp 1 \amp 0 \\
+0 \amp 0 \amp 1 \\
+\end{array}\right],
+\hspace{24pt}
+L_1^{-1} = \left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+-3 \amp 1 \amp 0 \\
+0 \amp 0 \amp 1 \\
+\end{array}\right]\text{.}
+\end{equation*}
+</div>
+<div class="para">This says that if we want to undo the operation of multiplying the first row by <span class="process-math">\(3\)</span> and adding to the second row, we should multiply the first row by <span class="process-math">\(-3\)</span> and add it to the second row. We can see this by simple algebra.</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\hat{R}_2 = 3 R_1 + R_2 \Rightarrow R_2 = -3 R_1 + \hat{R}_2
+\end{equation*}
+</div>
+<div class="para">That is the effect of <span class="process-math">\(L_1^{-1}\text{,}\)</span> which is obtained by negating the off diagonal entry of <span class="process-math">\(L_1\text{.}\)</span>
+</div>
+</div> <div class="para logical">
+<div class="para">Notice that we now have <span class="process-math">\(L_3L_2L_1A = U\text{,}\)</span> which gives</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/sec-gaussian-revisited.html">
+\begin{equation*}
+\begin{aligned}
+(L_3L_2L_1)A \amp = U \\
+(L_3L_2L_1)^{-1}(L_3L_2L_1)A \amp = 
+(L_3L_2L_1)^{-1}U \\
+A \amp = (L_3L_2L_1)^{-1}U = LU\\
+\end{aligned}
+\end{equation*}
+</div>
+<div class="para">where <span class="process-math">\(L\)</span> is the lower triangular matrix</div>
+<div class="displaymath process-math" data-contains-math-knowls="./knowl/sec-gaussian-revisited.html">
+\begin{equation*}
+L = (L_3L_2L_1)^{-1}=
+L_1^{-1} L_2^{-1} L_3^{-1} =
+\left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+-3 \amp 1 \amp 0 \\
+0 \amp 0 \amp 1 \\
+\end{array}\right]
+\left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+0 \amp 1 \amp 0 \\
+2 \amp 0 \amp 1 \\
+\end{array}\right]
+\left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+0 \amp 1 \amp 0 \\
+0 \amp -2 \amp 1 \\
+\end{array}\right]
+=
+\begin{bmatrix}
+1 \amp 0 \amp 0 \\
+-3 \amp 1 \amp 0 \\
+2 \amp -2 \amp 1 \\
+\end{bmatrix}.
+\end{equation*}
+</div>
+<div class="para"> This way of writing <span class="process-math">\(A=LU\)</span> as the product of a lower and an upper triangular matrix is known as an <dfn class="terminology"><span class="process-math">\(LU\)</span> factorization</dfn> of <span class="process-math">\(A\text{,}\)</span> and its usefulness will be explored in <a href="sec-gaussian-revisited.html" class="internal" title="Section 4.7: Partial pivoting and LU factorizations">Section 4.7</a>.</div>
+</div></article><span class="incontext"><a href="subsec-triangular-invertible.html#example-28" class="internal">in-context</a></span>
 </body>
 </html>

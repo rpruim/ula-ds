@@ -25,21 +25,30 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <article class="example example-like"><h4 class="heading">
-<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.5</span><span class="period">.</span><span class="space"> </span><span class="title">Broadcasting.</span>
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.5</span><span class="period">.</span>
 </h4>
-<div class="para">For each of the ten pairs formed from <code class="code-inline tex2jax_ignore">seven</code>, <code class="code-inline tex2jax_ignore">A</code>, <code class="code-inline tex2jax_ignore">B</code>, <code class="code-inline tex2jax_ignore">C</code>, and <code class="code-inline tex2jax_ignore">D</code>, what result to you get when you add? See if you can figure out what the restults will be before executing the code to check.</div> <pre class="ptx-sagecell sagecell-python" id="sage-42"><script type="text/x-sage">import numpy as np
-seven = 7
-A = np.array([[1, 2, 3], [4, 5, 6]])
-B = np.array([[10], [20]])
-C = np.array([10, 20])
-D = np.array([[10, 20]])
-print(A.shape)
-print(B.shape)
-print(C.shape)
-print(D.shape)
-</script></pre> <pre class="ptx-sagecell sagecell-python" id="sage-43"><script type="text/x-sage">print(A + seven)
-print(A + B)
-# etc, for the other pairs of arrays
-</script></pre></article><span class="incontext"><a href="sec-tensors.html#example-10" class="internal">in-context</a></span>
+<div class="para">In scenes were some regions are very bright and others very dark, it can be challenging to create a good exposure over the entire image. Exposure bracketing is a technique that has been used since the 1850’s to help with this situation. This technique involves capturing multiple images, each with a different exposure. Later one can choose the best of the captured images or combine them in some way.  In the 1850’s, Gustave Le Gray printed seascape photos from two images, using one exposure for the sky and the other for the water. Modern HDR methods can combine multiple digital images in much more complex ways.</div> <div class="para">In this example we stack multiple images with different exposures and use a very simple method (averaging) to convert the stack of images into a single HDR (high dynamic range) image.  This works because each images loses some information in the brightest or darkest regions due to the limits on the values (typically 0 to 255) that each pixel may have. The averages will remain in the appropriate range, but do a better job of distinguishing among the very dark and very bright regions of the image.</div> <div class="para">The images were obtained from <a class="external" href="https://commons.wikimedia.org/wiki/File:StLouisArchMultExpEV%2B1.51.JPG" target="_blank">WikiMedia</a><a href="" class="fn-knowl original" data-knowl="./knowl/fn-3-hidden.html" title="Footnote 1.5.1"><sup> 1 </sup></a>. We will use low resolutoin images below, but you can repeat this example with higher resolution images if you like. Notice the use of <code class="code-inline tex2jax_ignore">np.stack()</code> to combine the images into one 4-dimensional tensor, and the use of <code class="code-inline tex2jax_ignore">np.rint()</code> and <code class="code-inline tex2jax_ignore">astype(int)</code> to make sure the resulting data is again integer (the nearest integer to the average).</div> <pre class="ptx-sagecell sagecell-python" id="sage-45"><script type="text/x-sage">from skimage import io
+import matplotlib.pyplot as plt 
+url = "https://rpruim.github.io/data/images/StLouisArchMultExpEV1.jpg"
+urls = [url.replace('1', x) for x in ["1","2","3","4"]]
+print(urls)
+
+photos = [io.imread(u) for u in urls]
+photo_stack = np.stack(photos)
+print(p.shape for p in photos)
+print(photo_stack.shape)
+average_photo = np.rint(photo_stack.mean(axis = 0)).astype(int)
+fig, ax = plt.subplots(1, 4)
+
+print("four different exposures")
+for i in range(4):
+    ax[i].imshow(photos[i])
+plt.show()
+
+print("the average image")
+plt.subplots(1, 1)
+plt.imshow(average_photo)
+plt.show()
+</script></pre> <div class="para">More sophisticated algorithms can do an even better job of creating the final image from multiple exposures of the same scene.</div></article><span class="incontext"><a href="sec-tensors.html#example-10" class="internal">in-context</a></span>
 </body>
 </html>

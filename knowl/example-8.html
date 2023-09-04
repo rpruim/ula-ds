@@ -25,12 +25,16 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <article class="example example-like"><h4 class="heading">
-<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.3</span><span class="period">.</span><span class="space"> </span><span class="title">Row and column sums and means.</span>
-</h4> <div class="para">We often want to know the sum or mean of all rows or columns of a matrix. NumPy provides two ways to compute aggregating functions like this.</div> <pre class="ptx-sagecell sagecell-python" id="sage-39"><script type="text/x-sage">A = nd.arange(6).reshape(2,3)
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">1.5.3</span><span class="period">.</span><span class="space"> </span><span class="title">Row and column sums.</span>
+</h4> <div class="para">We often want to know the sum or mean of all rows or columns of a matrix. NumPy provides two ways to compute aggregating functions like this.</div> <pre class="ptx-sagecell sagecell-python" id="sage-39"><script type="text/x-sage">A = np.arange(6).reshape(2,3)
 print(A)
-print(A.sum())
-print(A.sum(axes = 0))
-print(A.sum(axes = 1))
-</script></pre></article><span class="incontext"><a href="sec-tensors.html#example-8" class="internal">in-context</a></span>
+print("no axis specified: ", A.sum())
+print("axis = 0:", A.sum(axis = 0))
+print("axis = 1:", A.sum(axis = 1))
+</script></pre> <div class="para">Understanding the <code class="code-inline tex2jax_ignore">axis</code> argument can be a little counterintuitive. Notice that to get row sums, we specify <code class="code-inline tex2jax_ignore">axis = 1</code> and to get column sums, we specify <code class="code-inline tex2jax_ignore">axis = 0</code>.  Here’s a way to think about this. Consider the shape of the result you want.  If we are computing row sums, then our result should have two rows and one column, so <span class="process-math">\(2 \by 1\text{.}\)</span> That is, we have collapsed axis 1: <span class="process-math">\(2 \by 3 \to 2 \by 1\text{.}\)</span>  The <code class="code-inline tex2jax_ignore">axis</code> argument specifies which axis (or axes) are being collapsed. And then, rather than retaining these axes, they are dropped (unless we specify <code class="code-inline tex2jax_ignore">keepdims = True</code>).</div> <pre class="ptx-sagecell sagecell-python" id="sage-40"><script type="text/x-sage">A = np.arange(6).reshape(2,3)
+print("no axis specified: ", A.sum( keepdims = True))
+print("axis = 0:\n", A.sum(axis = 0, keepdims = True))
+print("axis = 1:\n", A.sum(axis = 1, keepdims = True))
+</script></pre> <div class="para">This way of doing things makes more sense in higher dimensions when there are more options for which axes to collapse.</div></article><span class="incontext"><a href="sec-tensors.html#example-8" class="internal">in-context</a></span>
 </body>
 </html>

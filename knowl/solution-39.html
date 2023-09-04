@@ -9,79 +9,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-python",
-  "linked": true,
-  "linkKey": "linked-python",
-  "autoeval": false,
-  "languages": [
-    "python"
-  ],
-  "evalButtonText": "Evaluate (Python)"
-});
-</script>
 </head>
 <body class="ignore-math">
 <div class="solution solution-like">
 <h4 class="heading">
-<span class="type">Solution</span><span class="space"> </span><span class="codenumber">2.3.5.10.1</span><span class="period">.</span>
+<span class="type">Solution</span><span class="space"> </span><span class="codenumber">2.3.5.11.1</span><span class="period">.</span>
 </h4>
 <div class="para logical"><ol class="lower-alpha">
-<li>
-<div class="para logical">
-<div class="para">The exact solution is</div>
+<li><div class="para">
+<span class="process-math">\(A = \left[\begin{array}{rrr}
+1 \amp 2 \amp -1 \\
+3 \amp 2 \amp 2 \\
+-1 \amp 0 \amp 4 \\
+\end{array}\right]\)</span> and <span class="process-math">\(\bvec=\threevec{1}{7}{-3}\text{.}\)</span>
+</div></li>
+<li><div class="para logical">
+<div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
-x=9, y=-36, z=30\text{.}
+\left[\begin{array}{rrr|r}
+1 \amp 2 \amp -1 \amp 1 \\
+3 \amp 2 \amp 2 \amp 7 \\
+-1 \amp 0 \amp 4 \amp -3
+\end{array}\right]
+\sim
+\left[\begin{array}{rrr|r}
+1 \amp 0 \amp 0 \amp 3 \\
+0 \amp 1 \amp 0 \amp -1 \\
+0 \amp 0 \amp 1 \amp 0
+\end{array}\right]
 \end{equation*}
 </div>
-<div class="para">However, if we first round to 3 digits, we find the approximate solution</div>
-<div class="displaymath process-math">
-\begin{equation*}
-x = 9.04, y = -36.2, z = 30.2
-\end{equation*}
+<div class="para">so there is a unique solution <span class="process-math">\(\xvec=\threevec{3}{-1}{0}\text{.}\)</span>
 </div>
-</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-67"><script type="text/x-sage">import numpy as np
-import sympy as s
-
-A = s.Matrix([[1,1/2,1/3,1] , [1/2, 1/3, 1/4, 0], [1/3, 1/4, 1/5, 0]])
-B = s.Matrix(3, 4, lambda i,j: s.Rational(A[i,j]))
-C = s.Matrix([
-    [s.Rational(1,1), s.Rational(1,2), s.Rational(1,3), s.Rational(1,1)],
-    [s.Rational(1,2), s.Rational(1,3), s.Rational(1,4), s.Rational(0,1)],
-    [s.Rational(1,3), s.Rational(1,4), s.Rational(1,5), s.Rational(0,1)]
-])
-
-print("Using A:")
-print(A.rref())
-print("\nB:")
-print(B)
-print("Using B:")
-print(B.rref()[0])
-print(B.rref()[0].evalf(10))
-print("\nUsing C:")
-print(C.rref())
-
-print("\nUsing A, rounded to 3 digits:")
-print(A.evalf(3).rref())
-</script></pre>
-</li>
-<li>
-<div class="para">This solution to the first system is <span class="process-math">\(x=2\)</span> and <span class="process-math">\(y=0\text{.}\)</span>  However, with just a small change in the system, we find the solution <span class="process-math">\(x=1\)</span> and <span class="process-math">\(y=1\text{.}\)</span>
-</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-68"><script type="text/x-sage">import numpy as np
-import sympy as s
-
-A = np.array([[1,1,2],[1, 1.001, 2]])
-print(s.Matrix(A).rref())
-
-B = np.array([[1,1,2],[1, 1.001, 2.001]])
-print(s.Matrix(B).rref())
-</script></pre>
-</li>
+</div></li>
 </ol></div>
 </div>
 <span class="incontext"><a href="sec-python-introduction.html#solution-39" class="internal">in-context</a></span>
