@@ -12,7 +12,7 @@
     algorithm to find solutions to linear systems, which is equivalent 
 	to solving matrix equations of the form <m>A \xvec = \bvec</m>, where  
 	<m>\bvec</m> is a vector of constants, <m>A</m> a matrix of coefficients, 
-	and <m>x</m> a vector of variables, or unknowns. 
+	and <m>\xvec</m> a vector of variables, or unknowns. 
 	We now investigate another way to find solutions to the 
     equation <m>A\xvec=\bvec</m> when the matrix <m>A</m> is square.
 	To get started, let's look at some familiar examples.
@@ -157,75 +157,627 @@
     We will see, however, that many do.
     </p>
 
+	<definition> 
+		<idx><h>left inverse</h><see>inverse, left</see></idx>
+		<idx><h>right inverse</h><see>inverse, right</see></idx>
+		<idx><h>inverse</h><h>left</h></idx>
+		<idx><h>inverse</h><h>right</h></idx>
+		<statement>
+			<p>
+				Let <m>A</m> be an <m>m \by n</m> matrix. 
+				If <m>LA = I_n</m>, then we call <m>L</m> a <term>left inverse</term> of <m>A</m>.  
+				If <m>AR = I_m</m>, then we call <m>R</m> a <term>right inverse</term> of <m>A</m>.  
+			</p>
+		</statement>
+	</definition>
+
+	<activity>
+		<statement>
+			<p>
+				<ol>
+					<li>
+						<p>
+							If <m>A</m> is <m>m \by n</m> and has a left inverse <m>L</m>, what shape must <m>L</m> be? 
+						</p>
+					</li>
+					<li>
+						<p>
+							If <m>A</m> is <m>m \by n</m> and has a right inverse <m>R</m>, what shape must <m>R</m> be? 
+						</p>
+					</li>
+				</ol>
+			</p>
+		</statement>
+
+		<answer>
+			<p>
+				In both cases, <m>n \by m</m>, the reverse of the shape of <m>A</m>.
+			</p>
+		</answer>
+		<solution>
+			<p>
+				In both cases, <m>n \by m</m>, the reverse of the shape of <m>A</m>. For example, a left inverse <m>L</m>
+				must have <m>m</m> columns because <m>A</m> has <m>m</m> rows.  And the product <m>LA</m> will have  
+				<m>n</m> columns because <m>A</m> has <m>n</m> coloumns.  Since an idenity matrix is square, the product 
+				also has <m>n</m> rows.  This implies the <m>L</m> has <m>n</m> rows.
+			</p>
+			<p>A similar argument shows that <m>R</m> must be <m>n \by m</m>.</p>
+		</solution>
+	</activity>
+
+	<activity xml:id="activity-left-right-match">
+		<statement>
+		<p>
+			<ol>
+			<li>
+				<p>
+					Show that if a matrix <m>A</m> has left inverse <m>L</m> and 
+					right inverse <m> R </m>, then <m>L = R </m>.  Hint: Consider the product <m>LAR</m>.
+				</p>
+			</li>
+			<li>
+				<p>
+					Show that if an <m>m \by n</m> matrix <m>A</m> has right inverse <m>R</m>, then 
+					<m> n \ge m</m>
+				</p>
+			</li>
+			<li>
+				<p>
+					Show that if an <m>m \by n</m> matrix <m>A</m> has left inverse <m>L</m>, then 
+					<m> m \ge n</m>. Hint: What does <m>LA\xvec = L\bvec</m> tell you about the 
+					equation <m>A \xvec = \bvec</m>?
+				</p>
+			</li>
+			<li>
+				<p>
+					Show that if an <m>m \by n</m> matrix <m>A</m> has both a left and a right inverse,
+					then <m> m = n</m>, so <m>A</m> is a square matrix.
+				</p>
+			</li>
+		</ol>
+		</p>
+	</statement>
+
+	<solution>
+		<p>
+		<ol>
+			<li>
+				<p>
+		If <m>LA = I</m> and <m>AR = I</m>, then 
+			<md>
+			<mrow>
+			LAR \amp = (LA)R = I R = R
+			</mrow>
+			<mrow>
+			LAR \amp = L(AR) = L I = L
+			</mrow>
+			</md>
+			so <m>L = R</m>
+				</p>
+			</li>
+			<li>
+				<p>
+					If <m>AR = I</m>, then for any <m>\bvec \in \real^m</m>, <m>AR\bvec = I \bvec = \bvec</m>.
+					This means that <m>A \xvec = \bvec</m> is consistent for every <m>\bvec \in \real^m</m>. 
+					That means every row of the RREF of <m>A</m> has a pivot position. So there are <m>m</m> pivots.
+					There can be at most one pivot in each column, so there must be at least as many columns as 
+					pivots: <m>n \ge m</m>.
+				</p>
+			</li>
+			<li>
+				<p>
+					If <m>A</m> has a left inverse <m>L</m>, then <m>L</m> has a right inverse (namely <m>A</m>). 
+					So <m>L</m> must have at least as many columns as rows, which means <m>A</m> must have 
+					at least as many rows as columns: <m> m \ge n</m>
+				</p>
+			</li>
+			<li>
+				<p>
+					Combine the two previous parts.
+				</p>
+			</li>
+		</ol>
+	</p>
+	</solution>
+	</activity> 
+
+	<p>
+		<xref ref="activity-left-right-match"/> tells us two important pieces of information about 
+		matrices that have both a left and a right inverse.
+	</p>
+
+	<proposition xml:id="prop-left-right-match">
+		<statement>
+			<p>
+			If a matrix <m>A</m> has left inverse <m>L</m> and 
+			right inverse <m> R </m>, then 
+			<ul>
+				<li>
+					<p>
+						<m>L = R</m>.
+					</p>
+				</li>
+				<li>
+					<p>
+						<m>A</m> is square.
+					</p>
+				</li>
+			</ul>
+			</p>
+		</statement>
+	</proposition>
+
+	<p>
+		This leads to the following definition
+	</p>
+
+
     <definition>
-	<idx> invertible </idx>
-	<idx> matrix, inverse </idx>
+	<idx> <h>invertible matrix</h> </idx>
+	<idx> <h>matrix</h><h>inverse</h> </idx>
       <statement>
-	<p> An <m>n\by n</m> matrix <m>A</m> is called
-	<term>invertible</term> if there is a matrix <m>B</m> such that
-	<m>AB = I_n</m>, where <m>I_n</m> is the <m>n\by n</m>
-	identity matrix.  The matrix <m>B</m> is called the
-	<term>inverse</term> of <m>A</m> and denoted <m>A^{-1}</m>.
+	<p> An <m>n \by n</m> square matrix <m>A</m> is called <term>invertible</term> 
+		if there is a matrix <m>B</m> that is both a left and a right inverse for <m>A</m>.
+	That is <m>BA = I_n</m> and <m> AB = I_n</m>.
+	The matrix <m>B</m> is called the <term>inverse</term> of <m>A</m> and denoted <m>A^{-1}</m>.
 	</p>
       </statement>
     </definition>
 
-    <p>
-      <idx> matrix, square </idx> Notice that we only define
-      invertibility for matrices that have the same number of rows and
-      columns in which case we say that the matrix is <em>square</em>.
-    </p>
+	<aside>
+		<p>
+			It makes sense to refer to <em>the</em> inverse of an invertible matrix because
+			<xref ref="prop-left-right-match"/> implies that there can only be one 
+				matrix that is both a left and a right inverse.
+		</p>
+	</aside>
 
-    <example>
+    <proposition xml:id="prop-inverse-inverse">
       <statement>
 	<p>
-	  Suppose that <m>A</m> is the matrix that rotates
-	  two-dimensional vectors counterclockwise by <m>90^\circ</m>
-	  and that <m>B</m> rotates vectors
-	  by <m>-90^\circ</m>.  We have
+	  If <m>A</m> is a <m>n\by n</m> invertible matrix with
+	  inverse <m>B</m>, then <m>B</m> is also invertbile and 
+	  the inverse of <m>B</m> is <m>A</m>.
+	  In other words,
 	  <me>
-	    A=\left[\begin{array}{rr}
-	    0 \amp -1 \\
-	    1 \amp 0 \\
-	    \end{array}\right],~~~
-	    B=\left[\begin{array}{rr}
-	    0 \amp 1 \\
-	    -1 \amp 0 \\
-	    \end{array}\right].
+	    (A^{-1})^{-1} = A.
 	  </me>
-	  We can check that
-	  <me>
-	    AB = \begin{bmatrix}
-	    0 \amp -1 \\
-	    1 \amp 0 \\
-	    \end{bmatrix}
-	    \begin{bmatrix}
-	    0 \amp 1 \\
-	    -1 \amp 0 \\
-	    \end{bmatrix}
-	    = \begin{bmatrix}
-	    1 \amp 0 \\
-	    0 \amp 1 \\
-	    \end{bmatrix}
-	    = I 
-	  </me>
-	  which shows that <m>A</m> is invertible and that
-	  <m>A^{-1}=B</m>. 
-	</p>
-	<p>
-	  Notice that if we multiply the matrices in the opposite
-	  order, we find that <m>BA=I</m>, which says that
-	  <m>B</m> is also invertible and that <m>B^{-1} = A</m>.  In
-	  other words, <m>A</m> and <m>B</m> are inverses of each
-	  other.  
 	</p>
       </statement>
-    </example>
+	  <proof>
+		<p>
+			If <m>B</m> is the inverse of <m>A</m>, then <m>AB = I</m> and <m>BA = I</m>.
+			But this means that <m>A</m> is the inverse of <m>B</m> as well.
+		</p>
+	  </proof>
+    </proposition>
+
+
+	<p>
+		We have seen that if a matrix has a left and a right inverse, then these must be  
+		the same matrix.
+		In fact, more is true. 
+		For square matrices, any right inverse is also a left inverse, 
+		and any left inverse is also a right inverse.
+	</p>
+
+	<p>
+		It is important to remember that the product of two matrices
+		depends on the order in which they are multiplied.  That is, if
+		<m>C</m> and <m>D</m> are matrices, then it sometimes happens
+		that <m>CD \neq DC</m>, even if the matrices are square.  
+		So it is not immediate that <m>RA = I</m> just becuase <m>AR = I</m>.  
+		For matrices that are not square, 
+		<m>AR</m> and <m>RA</m> won't even be the same shape, and at most one of the 
+		two products will be an identity matrix.
+		So <xref ref="prop-left-inverse-implies-right-inverse"/> establishes something 
+		special about one-sided inverses of square matrices.
+	</p>
+
+	<proposition xml:id="prop-left-inverse-implies-right-inverse">
+		<statement>
+			<p>
+				If <m>A</m> is an <m>n \by n</m> square matrix and <m>AR = I_n</m>,
+				then <m>RA = I_n</m>.  Similarly if <m>LA = I_n</m> then <m>AL = I_n</m>.
+			</p>
+		</statement>
+
+		<proof>
+			<p>
+				Suppose <m>A</m> is <m>n \by n</m> and has a right inverse <m>R</m>. 
+				Then for any <m>\bvec \in \real^n</m>, <m>AR\bvec = \bvec</m>. So <m>A \xvec = \bvec</m>
+				is consistent for every <m>\bvec</m>.  This implies that the RREF of <m>A</m> has a pivot in 
+				each row, and therefore also in each column.  In other words, <m>A \sim I</m>.
+			</p>
+
+			<p>
+				Notice that if <m>R\xvec = R \yvec</m>, then <m>\xvec = AR \xvec = AR \yvec = \yvec</m>.
+				This means the matrix transformation associated with <m>R</m> is one-to-one, so the RREF  
+				for <m>R</m> has a pivot in every column, and therefore in every row.  In other words,
+				<m>R \sim I</m>.
+			</p>
+
+			<p>
+				Now consider <m>RA \xvec</m> for any <m>\xvec \in \real^n</m>.  Because <m>R \sim I</m>, there 
+				must be a <m>\yvec</m> with <m>R \yvec = \xvec</m>. So
+				<me>
+					RA \xvec = RAR \yvec = R \yvec = \xvec
+				</me>
+				But this means that <m>RA</m> is the identity matrix since the transformation associated with 
+				it is the identity transformation.  In other words, <m>RA = I</m> and <m>R</m> is also a left 
+				inverse of <m>A</m>
+			</p>
+
+			<p>Now suppose that <m>L</m> is a left inverse for <m>A</m>. That means <m>A</m> is a right inverse  
+				for <m>L</m>, and we just show that this means <m>A</m> is also a left inverse for <m>L</m>. 
+				So <m> AL = I</m> and <m>L</m> is a right inverse for <m>A</m>.
+			</p>
+		</proof>
+
+	</proposition>
+
+	<p>
+		<xref ref="prop-left-inverse-implies-right-inverse"/> means that to show
+		that matrix is invertible, it suffices to find a one-sided inverse -- it
+		will always also be a full inverse.
+	</p>
+
+	
+		<!-- However, something fortunate happens for square matrices:
+		If <m>A</m> and <m>R</m> are <m>n\by n</m> matrices and <m>AR=I</m>, 
+		then it is also true that <m>RA=I</m>.  Similarly, if <m>A</m> has a 
+		left inverse, it will also be a right inverse. -->
+
+	<example>
+		<statement>
+			<p>Consider the following two matrices  
+				<me>
+				A = \begin{bmatrix} 1 \amp 0 \amp 2\\ 2 \amp 2 \amp 1\\ \end{bmatrix} 
+				\quad
+				B = \begin{bmatrix} 1 \amp 0\\ -1 \amp 0.5 \\ 0 \amp 0\\ \end{bmatrix}
+				</me>.
+				Then 
+				<md>
+					<mrow> 
+					AB  \amp =
+					\begin{bmatrix}
+					1 \amp 0\\
+					0 \amp 1\\ 
+				  \end{bmatri}
+					= I_2
+					</mrow>
+					<mrow> 
+					BA  \amp =
+				  \begin{bmatrix}
+					1 \amp 0 \amp 2\\
+					0 \amp 1 \amp -1.5\\
+					0 \amp 0 \amp 0\\
+				  \end{bmatrix} \neq I_3
+					</mrow>
+				</md>
+				So <m>B</m> is a right inverse of <m>A</m>, but <m>B</m> is not a left inverse of <m>A</m>. 
+			</p>
+			<p>
+				Now consider 
+				<me>B_2 = \begin{bmatrix}
+					-3 \amp -4 \\
+					2 \amp 3.5 \\ 
+					2 \amp 2 \\
+					\end{bmatrix}
+				</me>. 
+				Multiplication shows that 
+				<me>
+					A B_2 = I_2
+				</me>,
+				So <m>A</m> has more than one right inverse.  In fact, there are infinitely many and none of them 
+				can be a left inverse, since if <m>L</m> had both a left and a right inverse, they would have to
+				be the same by <xref ref="prop-left-right-match" />. But that means a left inverse would 
+				have to be the same as both <m>B</m> and <m>B_2</m>, which is not posssible.
+			</p>
+		</statement>
+	</example>
+
+
+
+	<example>
+		<statement>
+	  <p>
+		Suppose that <m>A</m> is the matrix that rotates
+		two-dimensional vectors counterclockwise by <m>90^\circ</m>
+		and that <m>B</m> rotates vectors
+		by <m>-90^\circ</m>.  We have
+		<me>
+		  A=\left[\begin{array}{rr}
+		  0 \amp -1 \\
+		  1 \amp 0 \\
+		  \end{array}\right],~~~
+		  B=\left[\begin{array}{rr}
+		  0 \amp 1 \\
+		  -1 \amp 0 \\
+		  \end{array}\right].
+		</me>
+		We can check that
+		<me>
+		  AB = \begin{bmatrix}
+		  0 \amp -1 \\
+		  1 \amp 0 \\
+		  \end{bmatrix}
+		  \begin{bmatrix}
+		  0 \amp 1 \\
+		  -1 \amp 0 \\
+		  \end{bmatrix}
+		  = \begin{bmatrix}
+		  1 \amp 0 \\
+		  0 \amp 1 \\
+		  \end{bmatrix}
+		  = I 
+		</me>
+		which shows that <m>B</m> is a right inverse of <m>A</m>.
+	  </p>
+	  <p>
+		If we multiply the matrices in the opposite
+		order, we find that 
+		<me>
+		  BA = 
+		  \begin{bmatrix}
+		  0 \amp 1 \\
+		  -1 \amp 0 \\
+		  \end{bmatrix}
+		  \begin{bmatrix}
+		  0 \amp -1 \\
+		  1 \amp 0 \\
+		  \end{bmatrix}
+		  = \begin{bmatrix}
+		  1 \amp 0 \\
+		  0 \amp 1 \\
+		  \end{bmatrix}
+		  = I 
+		</me>,
+		which says that (a) <m>B</m> is also the left inverse of <m>A</m>, 
+		and (b) <m>A</m> is the inverse of <m>B</m> as well.
+		Inverses always come in pairs like this.  If <m>A</m> is invertible with 
+		inverse <m>B</m>, then <m>B</m> is also invertible and its inverse is <m>A</m>.
+		In other words, <m>A</m> and <m>B</m> are inverses of each other.  
+	  </p>
+
+	  <p>
+		If we think about the matrix transformations associated with <m>A</m> and <m>B</m>, this makes  
+		geometric sense.  Rotating clockwise "undoes" a counterclockwise rotation.  Rotating counterclockwise 
+		"undoes" a clockwise rotation.
+	  </p>
+		</statement>
+	  </example>
+
+
+    <!-- <p>
+      It is important to remember that the product of two matrices
+      depends on the order in which they are multiplied.  That is, if
+      <m>C</m> and <m>D</m> are matrices, then it sometimes happens
+      that <m>CD \neq DC</m>.  However, something fortunate happens
+      when we consider invertibility.  It turns that if <m>A</m> is an
+      <m>n\by n</m> matrix and that <m>AB=I</m>, then it is also
+      true that <m>BA=I</m>.  We have verified this in a few examples
+      so far, and <xref ref="ex-right-inverse" /> explains why it 
+      always happens.  This leads to the following proposition.
+    </p> -->
+
+  </subsection>
+
+  <subsection>
+    <title> Solving equations with an inverse </title>
+
+	<p>
+		If <m>A</m> is an invertible matrix, then for any <m>\bvec \in \real^n</m>,  
+		<me>A (A^{-1} \bvec) = (A A^{-1}) \bvec  = \bvec</me>.
+		This implies that <m>A \xvec = \bvec</m> has a unique solution for every <m>\bvec</m>, 
+		namely <m>\xvec = A^{-1} \bvec</m>.
+	</p>
+
+	<p>
+		This result is import enough to capture in a proposition.
+	</p>
+
+    <proposition xml:id="prop-inverse-solve">
+      <statement>
+	<p>
+	  If <m>A</m> is an invertible <m>n \by n</m> matrix with inverse <m>A^{-1}</m>,
+	  and <m>\bvec \in \real^n</m>,
+	  then the equation <m>A\xvec = \bvec</m> is consistent and
+	  <m>\xvec = A^{-1} \bvec</m> is the unique solution.  
+	  <!-- In other words, the solution to <m>A\xvec = \bvec</m> is <m>\xvec = A^{-1}\bvec</m>.  -->
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      Notice that this is similar to saying that the solution to
+      <m>3x=5</m> is <m>x = \frac13\cdot 5</m>, as we saw in the
+      preview activity.
+    </p>
+
+    <p>
+      You may have noticed that <xref
+				ref="prop-inverse-solve" /> says that <em>the</em>
+      solution to the equation <m>A\xvec = \bvec</m> is <m>\xvec =
+      A^{-1}\bvec</m>.  Indeed, we know that this equation has a
+      unique solution because <m>A</m> has a pivot position in every
+      <em>column</em>.
+    </p>
+      
+    <p>
+      <xref ref="prop-inverse-solve" />
+      shows us how to use <m>A^{-1}</m> to solve equations of the form 
+	  <m>A\xvec = \bvec</m>.  In <xref ref="subsec-finding-inverses"/> we will 
+	  learn how to find an inverse for any square matrix that has an inverse. 
+	  But before we get to that, let's see some examples of how to use an inverse  
+	  once we have it.
+    </p>
 
     <activity>
       <statement>
 	<p>
-	  This activity demonstrates a procedure for finding the
+	  We'll begin by considering the square matrix
+	  <me>
+	    A = \begin{bmatrix}
+	    1 \amp 0 \amp 2 \\
+	    2 \amp 2 \amp 1 \\
+	    1 \amp 1 \amp 1 \\
+	    \end{bmatrix}.
+	  </me>
+	  
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Describe the solution space to the equation <m>A\xvec
+		= \threevec343</m> by augmenting <m>A</m> and finding
+		the reduced row echelon form.
+		</p>
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+	    </li>
+	    <li>
+	      <p>
+			Show that 
+			<me>
+				A^{-1} = \begin{bmatrix}
+				1 \amp 2 \amp -4\\
+				-1 \amp -1 \amp 3\\
+				0 \amp -1 \amp 2\\
+			  \end{bmatrix}
+			</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Now use <m>A^{-1}</m> to solve the equation 
+		<m>A\xvec = \threevec343</m> and verify that your result agrees
+		with what you found in part a.
+	      </p>
+	    </li>
+		
+	    <li>
+	      <p>
+			We'll learn a way to compute the inverse of a matrix shortly.
+			NumPy knows how to do this, of course.
+		If you have defined a matrix <c>B</c> in Python, you can
+		find it's inverse as <c>np.linalg.inv(B)</c>. 
+		Use Python to find the inverse of the matrix
+		<me>
+		  B = \left[\begin{array}{rrr}
+		  1 \amp -2 \amp -1 \\
+		  -1 \amp 5 \amp 6 \\
+		  5 \amp -4 \amp 6 \\
+		  \end{array}\right]
+		</me>
+		and use the inverse to solve the equation <m>B\xvec = \threevec83{36}</m>. 
+		</p>
+		  <sage language="python">
+		    <input>
+		    </input>
+		  </sage>
+	    </li>
+	    
+	    <li>
+	      <p>
+		If <m>A</m> and <m>B</m> are the two matrices defined
+		in this activity, compute their product <m>AB</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Compute the products <m>A^{-1}B^{-1}</m> and
+		<m>B^{-1}A^{-1}</m>.  One of these is <m>(AB)^{-1}</m>.  Which one?
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Explain your finding by considering the product
+		<me>
+		  (AB)(B^{-1}A^{-1})
+		</me>
+		and using associativity to regroup the products so
+		that the middle two terms are multiplied first.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <solution>
+	<p><ol marker="a.">
+	  <li><p>
+		We can demonstrate that the matrix is an inverse by multiplication.
+	      <me>
+		\begin{bmatrix}
+		1 \amp 2 \amp -4 \\
+		-1 \amp -1 \amp 3 \\
+		0 \amp -1 \amp 2 \\
+		\end{bmatrix}
+		\begin{bmatrix}
+	    1 \amp 0 \amp 2 \\
+	    2 \amp 2 \amp 1 \\
+	    1 \amp 1 \amp 1 \\
+	    \end{bmatrix}
+		= I_3
+	      </me>.
+		It suffices to show we have a left inverse, but you can multiply the other way around to see that it also a right inverse.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      We see that <m>A^{-1}\threevec343 = \threevec{-1}22</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Python tells us that <m>B^{-1}\threevec{8}3{36} =
+	      \threevec4{-1}2</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Python helps us see that <m>(AB)\sim I</m>, which tells us
+	      that <m>AB</m> is invertible.
+	    </p>
+	  </li>
+
+	  <li><p>
+	    We find that <m>(AB)^{-1} = B^{-1}A^{-1}</m>.
+	  </p></li>
+
+	  <li>
+	    <p>
+	      We see that
+	      <me>
+		(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AIA^{-1} =
+		AA^{-1} = I.
+	      </me>
+	    </p>
+	  </li>
+	</ol></p>
+      </solution>
+
+    </activity>
+
+</subsection>
+
+<subsection xml:id="subsec-finding-inverses">
+	<title>Finding inverses</title>
+
+	<p>
+		Now that we have seen one use of inverses -- solving equations of the
+		form <m>A \xvec = \bvec</m> -- we turn our attention to the task of
+		computing the inverse of a matrix, or demonstrating that no inverse
+		exists.
+	</p>
+
+    <activity>
+      <statement>
+	<p>
+	  This activity demonstrates a procedure for finding the (right)
 	  inverse of a matrix <m>A</m>.
 
 	  <ol marker="a.">
@@ -235,7 +787,7 @@
 		3 \amp -2 \\
 		1 \amp -1 \\
 		\end{bmatrix}
-		</m>.  To find an inverse <m>B</m>, we write its columns
+		</m>.  To find a right inverse <m>B</m>, we write its columns
 		as <m>B = \begin{bmatrix}\bvec_1 \amp \bvec_2
 		\end{bmatrix}</m> and require that
 		<me>
@@ -254,14 +806,12 @@
 		In other words, we can find the columns of <m>B</m> by
 		solving the equations
 		<me>
-		  A\bvec_1 = \twovec10,~~~
+		  A\bvec_1 = \twovec10, \quad
 		  A\bvec_2 = \twovec01.
 		</me>
 		Solve these equations to find <m>\bvec_1</m> and
 		<m>\bvec_2</m>.  Then write the matrix <m>B</m> and
-		verify that <m>AB=I</m>.  This is enough for us to
-		conclude that <m>B</m> is
-		the inverse of <m>A</m>.
+		verify that <m>AB=I</m>.  
 	</p>
 		<sage language="python">
 		  <input>
@@ -270,8 +820,10 @@
 	    </li>
 	    <li>
 	      <p>
-		Find the product <m>BA</m> and explain why we now know
-		that <m>B</m> is invertible and <m>B^{-1}=A</m>.
+		By <xref ref="prop-left-inverse-implies-right-inverse"/>
+		this is enough for us to
+		conclude that <m>B</m> is the inverse of <m>A</m>.
+		But le'ts compute the product <m>BA</m> just to confirm.
 		  </p>
 		<sage language="python">
 		  <input>
@@ -325,7 +877,7 @@
 		  A = \begin{bmatrix}
 		  3 \amp -2 \\
 		  1 \amp -1 \\
-		  \end{bmatrix},~~~
+		  \end{bmatrix}, \qquad
 		  C = \begin{bmatrix}
 		  -2 \amp 1 \\
 		  4 \amp -2 \\
@@ -383,7 +935,7 @@
 	      A\sim \begin{bmatrix}
 	      1 \amp 0 \\
 	      0 \amp 1 \\
-	      \end{bmatrix},~~~
+	      \end{bmatrix}, \quad
 	      C\sim
 	      \begin{bmatrix}
 	      1 \amp -\frac12 \\
@@ -407,7 +959,7 @@
 	  <m>B=\begin{bmatrix} \bvec_1 \amp \bvec_2 \end{bmatrix}</m>.  
 	  Rather than solving the equations
 	  <me>
-	    A\bvec_1 = \twovec10,~~~
+	    A\bvec_1 = \twovec10, \quad
 	    A\bvec_2 = \twovec01
 	  </me>
 	  separately, we can solve them at the same time by augmenting
@@ -468,44 +1020,18 @@
     </example>
 
     <p>
-      In fact, this reformulation will always work.  Suppose that
-      <m>A</m> is an invertible <m>n\by n</m> matrix with inverse
-      <m>B</m>.  Suppose furthermore that
-      <m>\bvec</m> is any <m>n</m>-dimensional vector and consider the
-      equation <m>A\xvec = \bvec</m>.  We know that <m>x=B\bvec</m> is
-      a solution because
-      <m>
-	A(B\bvec) = (AB)\bvec = I\bvec = \bvec.
-      </m>
-    </p>
-
-    <proposition xml:id="proposition-inverse-solve">
-      <statement>
-	<p>
-	  If <m>A</m> is an invertible matrix with inverse <m>B</m>,
-	  then any equation <m>A\xvec = \bvec</m> is consistent and
-	  <m>\xvec = B\bvec</m> is a solution.  In other words, the
-	  solution to <m>A\xvec = \bvec</m> is <m>\xvec =
-	  A^{-1}\bvec</m>. 
+      This reformulation will always work. 
 	</p>
-      </statement>
-    </proposition>
 
-    <p>
-      Notice that this is similar to saying that the solution to
-      <m>3x=5</m> is <m>x = \frac13\cdot 5</m>, as we saw in the
-      preview activity.
-    </p>
-
-    <p>
+	<!-- <p>
       Now since <m>A\xvec=\bvec</m> is consistent for every vector
       <m>\bvec</m>, the columns of <m>A</m>
       must span <m>\real^n</m> so there is a pivot position in every
       row.  Since <m>A</m> is also square, this means that the reduced
       row echelon form of <m>A</m> is the identity matrix.  
-    </p>
+    </p> -->
 
-    <proposition xml:id="proposition-invertible-rref">
+    <proposition xml:id="prop-invertible-rref">
       <statement>
 	<p>
 	  The matrix <m>A</m> is invertible if and only if
@@ -530,236 +1056,13 @@
       </statement>
     </proposition>
 
-    <p>
-      You may have noticed that <xref
-				ref="proposition-inverse-solve" /> says that <em>the</em>
-      solution to the equation <m>A\xvec = \bvec</m> is <m>\xvec =
-      A^{-1}\bvec</m>.  Indeed, we know that this equation has a
-      unique solution because <m>A</m> has a pivot position in every
-      column.
-    </p>
-      
-    <p>
-      It is important to remember that the product of two matrices
-      depends on the order in which they are multiplied.  That is, if
-      <m>C</m> and <m>D</m> are matrices, then it sometimes happens
-      that <m>CD \neq DC</m>.  However, something fortunate happens
-      when we consider invertibility.  It turns that if <m>A</m> is an
-      <m>n\by n</m> matrix and that <m>AB=I</m>, then it is also
-      true that <m>BA=I</m>.  We have verified this in a few examples
-      so far, and <xref ref="ex-right-inverse" /> explains why it 
-      always happens.  This leads to the following proposition.
-    </p>
-
-    <proposition xml:id="proposition-inverse-inverse">
-      <statement>
-	<p>
-	  If <m>A</m> is a <m>n\by n</m> invertible matrix with
-	  inverse <m>B</m>, then <m>BA=I</m>, which tells us that
-	  <m>B</m> is invertible with inverse <m>A</m>.  In other
-	  words,
-	  <me>
-	    (A^{-1})^{-1} = A.
-	  </me>
-	</p>
-      </statement>
-    </proposition>
-
-  </subsection>
-
-  <subsection>
-    <title> Solving equations with an inverse </title>
-
-    <p>
-      If <m>A</m> is an invertible matrix,
-      then
-      <xref ref="proposition-inverse-solve" />
-      shows us how to use <m>A^{-1}</m> to solve equations involving
-      <m>A</m>.  In particular, the solution to <m>A\xvec = \bvec</m>
-      is <m>\xvec = A^{-1}\bvec</m>.
-    </p>
-
-    <activity>
-      <statement>
-	<p>
-	  We'll begin by considering the square matrix
-	  <me>
-	    A = \begin{bmatrix}
-	    1 \amp 0 \amp 2 \\
-	    2 \amp 2 \amp 1 \\
-	    1 \amp 1 \amp 1 \\
-	    \end{bmatrix}.
-	  </me>
-	  
-	  <ol marker="a.">
-	    <li>
-	      <p>
-		Describe the solution space to the equation <m>A\xvec
-		= \threevec343</m> by augmenting <m>A</m> and finding
-		the reduced row echelon form.
-		</p>
-		<sage language="python">
-		  <input>
-		  </input>
-		</sage>
-	    </li>
-	    <li>
-	      <p>
-		Using <xref ref="proposition-invertible-rref" />,
-		explain why <m>A</m> is invertible and find its
-		inverse.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Now use the inverse to solve the equation <m>A\xvec =
-		\threevec343</m> and verify that your result agrees
-		with what you found in part a.
-	      </p>
-	    </li>
-		
-	    <li>
-	      <p>
-		If you have defined a matrix <c>B</c> in Python, you can
-		find it's inverse as <c>np.linalg.inv(B)</c>. 
-		Use Python to find the inverse of the matrix
-		<me>
-		  B = \left[\begin{array}{rrr}
-		  1 \amp -2 \amp -1 \\
-		  -1 \amp 5 \amp 6 \\
-		  5 \amp -4 \amp 6 \\
-		  \end{array}\right]
-		</me>
-		and use the inverse to solve the equation <m>B\xvec =
-		\threevec83{36}</m>. 
-		</p>
-		  <sage language="python">
-		    <input>
-		    </input>
-		  </sage>
-	    </li>
-	    
-	    <li>
-	      <p>
-		If <m>A</m> and <m>B</m> are the two matrices defined
-		in this activity, find their product <m>AB</m> and
-		verify that it is invertible.
-	      </p>
-	    </li>
-
-	    <li>
-	      <p>
-		Compute the products <m>A^{-1}B^{-1}</m> and
-		<m>B^{-1}A^{-1}</m>.  Which one agrees with
-		<m>(AB)^{-1}</m>?
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		Explain your finding by considering the product
-		<me>
-		  (AB)(B^{-1}A^{-1})
-		</me>
-		and using associativity to regroup the products so
-		that the middle two terms are multiplied first.
-	      </p>
-	    </li>
-	  </ol>
-	</p>
-      </statement>
-
-      <solution>
-	<p><ol marker="a.">
-	  <li><p>
-	    Constructing the augmented matrix, we see that
-	    <me>
-	      \left[\begin{array}{rrr|r}
-	      1 \amp 0 \amp 2 \amp 3 \\
-	      2 \amp 2 \amp 1 \amp 4 \\
-	      1 \amp 1 \amp 1 \amp 3
-	      \end{array}\right]
-	      \sim
-	      \left[\begin{array}{rrr|r}
-	      1 \amp 0 \amp 0 \amp -1 \\
-	      0 \amp 1 \amp 0 \amp 2 \\
-	      0 \amp 0 \amp 1 \amp 2
-	      \end{array}\right],
-	    </me>
-	    which says that there is a unique solution <m>\xvec =
-	    \threevec{-1}22</m>.
-	  </p>
-	  </li>
-
-	  <li>
-	    <p>
-	      Our work in part a shows that <m>A\sim I</m> from which
-	      we conclude that <m>A</m> is invertible.  To find the
-	      inverse,
-	      <me>
-		\left[\begin{array}{rrr|rrr}
-		1 \amp 0 \amp 2 \amp 1 \amp 0 \amp 0 \\
-		2 \amp 2 \amp 1 \amp 0 \amp 1 \amp 0 \\
-		1 \amp 1 \amp 1 \amp 0 \amp 0 \amp 1
-		\end{array}\right]
-		\sim
-		\left[\begin{array}{rrr|rrr}
-		1 \amp 0 \amp 0 \amp 1 \amp 2 \amp -4 \\
-		0 \amp 1 \amp 0 \amp -1 \amp -1 \amp 3 \\
-		0 \amp 0 \amp 1 \amp 0 \amp -1 \amp 2
-		\end{array}\right],
-	      </me>
-	      which says that
-	      <me>
-		A^{-1} = \begin{bmatrix}
-		1 \amp 2 \amp -4 \\
-		-1 \amp -1 \amp 3 \\
-		0 \amp -1 \amp 2 \\
-		\end{bmatrix}.
-	      </me>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      We see that <m>A^{-1}\threevec343 = \threevec{-1}22</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      Python tells us that <m>B^{-1}\threevec{8}3{36} =
-	      \threevec4{-1}2</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      Python helps us see that <m>(AB)\sim I</m>, which tells us
-	      that <m>AB</m> is invertible.
-	    </p>
-	  </li>
-
-	  <li><p>
-	    We find that <m>(AB)^{-1} = B^{-1}A^{-1}</m>.
-	  </p></li>
-
-	  <li>
-	    <p>
-	      We see that
-	      <me>
-		(AB)(B^{-1}A^{-1}) = A(BB^{-1})A^{-1} = AIA^{-1} =
-		AA^{-1} = I.
-	      </me>
-	    </p>
-	  </li>
-	</ol></p>
-      </solution>
-
-    </activity>
 
     <p>
       The next proposition summarizes much of what we have found about
       invertible matrices.
     </p>
     
-    <proposition xml:id="proposition-invertible-properties">
+    <proposition xml:id="prop-invertible-properties">
       <title> Properties of invertible matrices </title>
       <statement>
 	<p> 
