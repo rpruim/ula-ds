@@ -25,69 +25,59 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.4.3</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.3.4</span><span class="period">.</span>
 </h4>
-<div class="para">Python can automate these computations for us, and we’ll learn a standard numpy way of approaching this shortly. But first let’s see how we can code up the Gram-Schmidt process directly. The code below allows vectors to be given as 1-d arrays or as 1-column matrices. <code class="code-inline tex2jax_ignore">flatten()</code> is used to convert either to the 1-d representation. The basis is provided as a python list of vectors (in either representation).</div>  <pre class="ptx-sagecell sagecell-python" id="sage-210"><script type="text/x-sage">import numpy as np
-
-def flatten(x):
-    return x.reshape((np.prod(x.shape), ))
-
-def projection(b, basis):
-    b = flatten(b)
-    basis = [flatten(x) for x in basis]
-    if len(basis) == 0: return np.zeros(b.shape[0])
-    return sum([ (b@v)/(v@v) * v for v in basis ])
-
-def unit(v):
-    return 1/np.linalg.norm(v) * v
-
-def gram_schmidt(basis):
-    new_basis = []
-    basis = [flatten(x) for x in basis]
-    for b in basis:
-        new_basis.append(unit(b - projection(b, new_basis)))
-    return new_basis
-
-B = [np.array([1,2,3]), np.array([1,1,1]), np.array([1,0,0])]
-print(gram_schmidt(B))
-</script></pre> <div class="para logical">
-<div class="para">Let’s now consider <span class="process-math">\(W\text{,}\)</span> the subspace of <span class="process-math">\(\real^5\)</span> having basis</div>
+<div class="para logical"><ol class="lower-alpha">
+<li>
+<div class="para">Suppose that <span class="process-math">\(L\)</span> is the line in <span class="process-math">\(\real^3\)</span> defined by the vector <span class="process-math">\(\wvec=\threevec{1}{2}{-2}\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-208"><script type="text/x-sage">
+</script></pre>
+<div class="para logical"><ol class="decimal">
+<li><div class="para">Find an orthonormal basis <span class="process-math">\(\uvec\)</span> for <span class="process-math">\(L\text{.}\)</span>
+</div></li>
+<li><div class="para">Construct the matrix <span class="process-math">\(Q = \begin{bmatrix}\uvec\end{bmatrix}\)</span> and use it to construct the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(L\text{.}\)</span>
+</div></li>
+<li><div class="para">Use your matrix to find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec=\threevec111\)</span> onto <span class="process-math">\(L\text{.}\)</span>
+</div></li>
+<li><div class="para">Find <span class="process-math">\(\rank(P)\)</span> and explain its geometric significance.</div></li>
+</ol></div>
+</li>
+<li>
+<div class="para logical">
+<div class="para">The vectors</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\vvec_1 = \fivevec{14}{-6}{8}2{-6},\hspace{24pt}
-\vvec_2 = \fivevec{5}{-3}{4}3{-7},\hspace{24pt}
-\vvec_3 = \fivevec{2}30{-2}1.
+\wvec_1 = \fourvec1111,\hspace{24pt}
+\wvec_2 = \fourvec011{-2}
 \end{equation*}
 </div>
-<ol class="lower-alpha">
-<li>
-<div class="para">Apply the Gram-Schmidt algorithm to find an orthogonal basis <span class="process-math">\(\wvec_1\text{,}\)</span> <span class="process-math">\(\wvec_2\text{,}\)</span> and <span class="process-math">\(\wvec_3\)</span> for <span class="process-math">\(W\text{.}\)</span>
+<div class="para">form an orthogonal basis of <span class="process-math">\(W\text{,}\)</span> a two-dimensional subspace of <span class="process-math">\(\real^4\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-211"><script type="text/x-sage">
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-209"><script type="text/x-sage">
 </script></pre>
-</li>
-<li><div class="para">Find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec = 
-\fivevec{-5}{11}0{-1}5\)</span> onto <span class="process-math">\(W\text{.}\)</span>
+<div class="para logical"><ol class="decimal">
+<li><div class="para">Use the projection formula from <a href="" class="xref" data-knowl="./knowl/prop-proj-formula.html" title="Proposition 6.3.13: Projection formula">Proposition 6.3.13</a> to find <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection of <span class="process-math">\(\bvec=\fourvec92{-2}3\)</span> onto <span class="process-math">\(W\text{.}\)</span>
+</div></li>
+<li><div class="para">Find an orthonormal basis <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> for <span class="process-math">\(W\)</span> and use it to construct the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(W\text{.}\)</span>  Check that <span class="process-math">\(P\bvec = \bhat\text{,}\)</span> the orthogonal projection you found in the previous part of this activity.</div></li>
+<li><div class="para">Find <span class="process-math">\(\rank(P)\)</span> and explain its geometric significance.</div></li>
+<li><div class="para">Find a basis for <span class="process-math">\(W^\perp\text{.}\)</span>
 </div></li>
 <li><div class="para logical">
-<div class="para">Explain why we know that <span class="process-math">\(\bhat\)</span> is a linear combination of the original vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\)</span> and then find weights so that</div>
+<div class="para">Find a vector <span class="process-math">\(\bvec^\perp\)</span> in <span class="process-math">\(W^\perp\)</span> such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\bhat = c_1\vvec_1 + c_2\vvec_2 + c_3\vvec_3.
+\bvec = \bhat + \bvec^\perp.
 \end{equation*}
 </div>
 </div></li>
-<li>
-<div class="para">Find an orthonormal basis <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_2\text{,}\)</span> for <span class="process-math">\(\uvec_3\)</span> for <span class="process-math">\(W\)</span> and form the matrix <span class="process-math">\(Q\)</span> whose columns are these vectors.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-212"><script type="text/x-sage">
-</script></pre>
+<li><div class="para">Find the product <span class="process-math">\(Q^{\transpose}Q\)</span> and explain your result.</div></li>
+</ol></div>
 </li>
-<li><div class="para">Find the product <span class="process-math">\(Q^{\transpose}Q\)</span> and explain the result.</div></li>
-<li><div class="para">Find the matrix <span class="process-math">\(P\)</span> that projects vectors orthogonally onto <span class="process-math">\(W\)</span> and verify that <span class="process-math">\(P\bvec\)</span> gives <span class="process-math">\(\bhat\text{,}\)</span> the orthogonal projection that you found earlier.</div></li>
-</ol>
-</div>
+</ol></div>
 <div class="solutions">
-<a href="" class="answer-knowl original" data-knowl="./knowl/answer-259-hidden.html" title="Answer 6.4.3.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-332-hidden.html" title="Solution 6.4.3.1"><span class="type">Solution</span><span class="period">.</span></a>
-</div></article><span class="incontext"><a href="sec-gram-schmidt.html#activity-80" class="internal">in-context</a></span>
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-247-hidden.html" title="Answer 6.3.4.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-320-hidden.html" title="Solution 6.3.4.1"><span class="type">Solution</span><span class="period">.</span></a>
+</div></article><span class="incontext"><a href="sec-orthogonal-bases.html#activity-80" class="internal">in-context</a></span>
 </body>
 </html>

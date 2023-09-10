@@ -25,40 +25,48 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.5.6</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.5.4</span><span class="period">.</span>
 </h4>
-<div class="para">Consider the Internet with eight web pages, shown in <a href="" class="xref" data-knowl="./knowl/fig-google-irreducible.html" title="Figure 5.5.8">Figure 5.5.8</a>.</div> <figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/google-irreducible.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.5.8<span class="period">.</span></span><span class="space"> </span>A simple model of the Internet with eight web pages.</figcaption></figure> <div class="para logical"><ol class="lower-alpha">
+<div class="para logical">
+<div class="para">We will explore the meaning of the Perron-Frobenius theorem in this activity.</div>
+<ol class="lower-alpha">
+<li><div class="para">Consider the matrix <span class="process-math">\(C = \left[\begin{array}{rr}
+0 \amp 0.5 \\
+1 \amp 0.5 \\
+\end{array}\right]
+\text{.}\)</span> This is a positive matrix, as we saw in the previous example.  Find the eigenvectors of <span class="process-math">\(C\)</span> and verify there is a unique steady-state vector.</div></li>
 <li>
-<div class="para">Construct the Google matrix <span class="process-math">\(G\)</span> for this Internet.  Then use a Markov chain to find the steady-state PageRank vector <span class="process-math">\(\xvec\text{.}\)</span>
-</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-176"><script type="text/x-sage">def markov_chain(A, x0, N):
+<div class="para">Using the Python cell below, construct the Markov chain with initial vector <span class="process-math">\(\xvec_0= \twovec{1}{0}\)</span> and describe what happens to <span class="process-math">\(\xvec_k\)</span> as <span class="process-math">\(k\)</span> becomes large.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-173"><script type="text/x-sage">def markov_chain(A, x0, N):
     result = [x0]
     for i in range(N):
         x_new = A@result[-1]
         result.append(x_new)
     return result
 
-## define the matrix G and x0
-G =
+## define the matrix C and x0
+C =
 x0 =
-markov_chain(G, x0, 20)
+print(markov_chain(C, x0, 10))
 </script></pre>
 </li>
-<li><div class="para">What does this vector tell us about the relative quality of the pages in this Internet?  Which page has the highest quality and which the lowest?</div></li>
+<li><div class="para">Construct another Markov chain with initial vector <span class="process-math">\(\xvec_0=\twovec{0.2}{0.8}\)</span> and describe what happens to <span class="process-math">\(\xvec_k\)</span> as <span class="process-math">\(k\)</span> becomes large.</div></li>
 <li>
-<div class="para">Now consider the Internet with five pages, shown in <a href="" class="xref" data-knowl="./knowl/fig-google-cyclic.html" title="Figure 5.5.9">Figure 5.5.9</a>.</div>
-<figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/google-cyclic.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.5.9<span class="period">.</span></span><span class="space"> </span>A model of the Internet with five web pages.</figcaption></figure><div class="para">What happens when you begin the Markov chain with the vector <span class="process-math">\(\xvec_0=\fivevec{1}{0}{0}{0}{0}\text{?}\)</span>  Explain why this behavior is consistent with the Perron-Frobenius theorem.</div>
+<div class="para">Consider the matrix <span class="process-math">\(D = \left[\begin{array}{rrr}
+0 \amp 0.5 \amp 0 \\
+1 \amp 0.5 \amp 0 \\
+0 \amp 0 \amp 1 \\
+\end{array}\right]\)</span> and compute several powers of <span class="process-math">\(D\)</span> below.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-174"><script type="text/x-sage">
+</script></pre>
+<div class="para">Determine whether <span class="process-math">\(D\)</span> is a positive matrix.</div>
 </li>
-<li><div class="para">What do you think the PageRank vector for this Internet should be?  Is any one page of a higher quality than another?</div></li>
-<li>
-<div class="para">Now consider the Internet with eight web pages, shown in <a href="" class="xref" data-knowl="./knowl/fig-google-reducible.html" title="Figure 5.5.10">Figure 5.5.10</a>.</div>
-<figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/google-reducible.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.5.10<span class="period">.</span></span><span class="space"> </span>Another model of the Internet with eight web pages.</figcaption></figure><div class="para">Notice that this version of the Internet is identical to the first one that we saw in this activity, except that a single link from page 7 to page 1 has been removed.  We can therefore find its Google matrix <span class="process-math">\(G\)</span> by slightly modifying the earlier matrix.</div>
-<div class="para">What is the long-term behavior of a Markov chain defined by <span class="process-math">\(G\)</span> and why is this behavior not desirable?  How is this behavior consistent with the Perron-Frobenius theorem?</div>
-</li>
-</ol></div>
-<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-260-hidden.html" title="Solution 5.5.6.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-stochastic.html#activity-62" class="internal">in-context</a></span>
+<li><div class="para">Find the eigenvalues of <span class="process-math">\(D\)</span> and then find the steady-state vectors.  Is there a unique steady-state vector?</div></li>
+<li><div class="para">What happens to the Markov chain defined by <span class="process-math">\(D\)</span> with initial vector <span class="process-math">\(\xvec_0 =\threevec{1}{0}{0}\text{?}\)</span>  What happens to the Markov chain with initial vector <span class="process-math">\(\xvec_0=\threevec{0}{0}{1}\text{.}\)</span>
+</div></li>
+<li><div class="para">Explain how the matrices <span class="process-math">\(C\)</span> and <span class="process-math">\(D\text{,}\)</span> which we have considered in this activity, relate to the Perron-Frobenius theorem.</div></li>
+</ol>
+</div>
+<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-259-hidden.html" title="Solution 5.5.4.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-stochastic.html#activity-62" class="internal">in-context</a></span>
 </body>
 </html>

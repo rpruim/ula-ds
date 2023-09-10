@@ -25,48 +25,26 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para logical">
-<div class="para">Consider the matrices</div>
-<div class="displaymath process-math">
-\begin{equation*}
-A=\left[\begin{array}{rr}
-0 \amp 1 \\
-1 \amp 0 \\
-\end{array}\right],\qquad
-B=\left[\begin{array}{rr}
-0.4 \amp 0.3 \\
-0.6 \amp 0.7 \\
-\end{array}\right]\text{.}
-\end{equation*}
-</div>
-<ol class="lower-alpha">
-<li><div class="para">Verify that both <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are stochastic matrices.</div></li>
-<li><div class="para">Find the eigenvalues of <span class="process-math">\(A\)</span> and then find a steady-state vector for <span class="process-math">\(A\text{.}\)</span>
+<div class="para logical"><ol class="lower-alpha">
+<li><div class="para">Write expressions for <span class="process-math">\(P_{k+1}\text{,}\)</span> <span class="process-math">\(Q_{k+1}\text{,}\)</span> and <span class="process-math">\(R_{k+1}\)</span> in terms of <span class="process-math">\(P_k\text{,}\)</span> <span class="process-math">\(Q_k\text{,}\)</span> and <span class="process-math">\(R_k\text{.}\)</span>
 </div></li>
+<li><div class="para">If we write <span class="process-math">\(\xvec_k =
+\threevec{P_k}{Q_k}{R_k}\text{,}\)</span> find the matrix <span class="process-math">\(A\)</span> such that <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{.}\)</span>
+</div></li>
+<li><div class="para">Explain why <span class="process-math">\(A\)</span> is a stochastic matrix.</div></li>
+<li><div class="para">Suppose that initially 40% of citizens vote for party <span class="process-math">\(P\text{,}\)</span> 30% vote for party <span class="process-math">\(Q\text{,}\)</span> and 30% vote for party <span class="process-math">\(R\text{.}\)</span>  Form the vector <span class="process-math">\(\xvec_0\)</span> and explain why <span class="process-math">\(\xvec_0\)</span> is a probability vector.</div></li>
 <li>
-<div class="para">We will form the Markov chain beginning with the vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\)</span> and defining <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{.}\)</span>  The Python cell below constructs the first <span class="process-math">\(N\)</span> terms of the Markov chain with the command <code class="code-inline tex2jax_ignore">markov_chain(A, x0, N)</code>.  Define the matrix <code class="code-inline tex2jax_ignore">A</code> and vector <code class="code-inline tex2jax_ignore">x0</code> and evaluate the cell to find the first 10 terms of the Markov chain.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-171"><script type="text/x-sage">def markov_chain(A, x0, N):
-    result = [x0]
-    for i in range(N):
-        x_new = A@result[-1]
-        result.append(x_new)
-    return result
-
-## define the matrix A and x0
-A =
-x0 =
-markov_chain(A, x0, 10)
+<div class="para">Find <span class="process-math">\(\xvec_1\text{,}\)</span> the percentages who vote for the three parties in the next election.  Verify that <span class="process-math">\(\xvec_1\)</span> is also a probability vector and explain why <span class="process-math">\(\xvec_k\)</span> will be a probability vector for every <span class="process-math">\(k\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-171"><script type="text/x-sage">
 </script></pre>
-<div class="para">What do you notice about the Markov chain?  Does it converge to the steady-state vector for <span class="process-math">\(A\text{?}\)</span>
-</div>
 </li>
-<li><div class="para">Now find the eigenvalues of <span class="process-math">\(B\)</span> along with a steady-state vector for <span class="process-math">\(B\text{.}\)</span>
+<li><div class="para">Find the eigenvalues of the matrix <span class="process-math">\(A\)</span> and explain why the eigenspace <span class="process-math">\(E_1\)</span> is a one-dimensional subspace of <span class="process-math">\(\real^3\text{.}\)</span>  Then verify that <span class="process-math">\(\vvec=\threevec{1}{2}{2}\)</span> is a basis vector for <span class="process-math">\(E_1\text{.}\)</span>
 </div></li>
-<li><div class="para">As before, find the first 10 terms in the Markov chain beginning with <span class="process-math">\(\xvec_0 = \twovec{1}{0}\)</span> and <span class="process-math">\(\xvec_{k+1} = B\xvec_k\text{.}\)</span>  What do you notice about the Markov chain?  Does it converge to the steady-state vector for <span class="process-math">\(B\text{?}\)</span>
+<li><div class="para">As every vector in <span class="process-math">\(E_1\)</span> is a scalar multiple of <span class="process-math">\(\vvec\text{,}\)</span> find a probability vector in <span class="process-math">\(E_1\)</span> and explain why it is the only probability vector in <span class="process-math">\(E_1\text{.}\)</span>
 </div></li>
-<li><div class="para">What condition on the eigenvalues of a stochastic matrix will guarantee that a Markov chain will converge to a steady-state vector?</div></li>
-</ol>
-</div>
+<li><div class="para">Describe what happens to <span class="process-math">\(\xvec_k\)</span> after a very long time.</div></li>
+</ol></div>
 <span class="incontext"><a href="sec-stochastic.html#p-5201" class="internal">in-context</a></span>
 </body>
 </html>

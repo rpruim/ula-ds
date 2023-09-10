@@ -9,74 +9,124 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-sage",
+  "inputLocation": "pre.sagecell-python",
   "linked": true,
-  "linkKey": "linked-sage",
+  "linkKey": "linked-python",
   "autoeval": false,
   "languages": [
-    "sage"
+    "python"
   ],
-  "evalButtonText": "Evaluate (Sage)"
+  "evalButtonText": "Evaluate (Python)"
 });
 </script>
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.1.5</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.1.3</span><span class="period">.</span>
 </h4>
 <div class="para logical">
-<div class="para">We’ll now use the objective to compare clusterings and to choose an appropriate value of <span class="process-math">\(k\text{.}\)</span>
-</div>
+<div class="para">This activity explores two uses of the dot product as a way to compute the "similarity" of vectors.</div>
 <ol class="lower-alpha">
-<li><div class="para logical">
-<div class="para">In the previous activity, one initial choice of <span class="process-math">\(c_1\)</span> and <span class="process-math">\(c_2\)</span> led to the clustering:</div>
+<li>
+<div class="para">Our first task is to assess the similarity between various Wikipedia articles by forming vectors from each of five articles.  In particular, one may download the text from a Wikipedia article, remove common words, such as “the” and “and”, count the number of times the remaining words appear in the article, and represent these counts in a vector, called the <dfn class="terminology">document vector</dfn> for each article.</div>
+<div class="para">For example, evaluate the following cell that loads a matrix constructed from the Wikipedia articles on Veteran’s Day, Memorial Day, Labor Day, the Golden Globe Awards, and the Super Bowl.  Each row of the matrix represents one of 604 words and each column represents one of the articles as a document vector. For instance, the word “act” appears 3 times in the Veteran’s Day article and 0 times in the Labor Day article.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-195"><script type="text/x-sage">import pandas as pd
+import numpy as np
+
+events = pd.read_csv("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/events.csv", index_col=0)
+print(events.shape) 
+print(head(events, 5))
+</script></pre>
+<div class="para logical"><ol class="decimal">
+<li><div class="para">Suppose that two articles have no words in common.  What is the value of the dot product between their corresponding vectors?  What does this say about the angle between these vectors?</div></li>
+<li><div class="para">Suppose there are two articles on the same subject, yet one article is twice as long.  What approximate relationship would you expect to hold between the two vectors?  What does this say about the angle between them?</div></li>
+<li>
+<div class="para">Use the Python cell below to find the angle between the document vector for the Veteran’s Day article and the other four articles.  To express the angle in degrees, multiply radians by <code class="code-inline tex2jax_ignore">180.0 / math.pi</code>.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-196"><script type="text/x-sage">import numpy as np
+import math
+</script></pre>
+</li>
+<li><div class="para">Compare the four angles you have found and discuss what they mean about the similarity between the Veteran’s Day article and the other four.  How do your findings reflect the nature of these five events?</div></li>
+</ol></div>
+</li>
+<li>
+<div class="para">Vectors are often used to represent how a quantity changes over time.  For instance, the vector <span class="process-math">\(\svec=\fourvec{78.3}{81.2}{82.1}{79.0}\)</span> might represent the value of a company’s stock on four consecutive days.  When interpreted in this way, we call the vector a <dfn class="terminology">time series.</dfn>  Evaluate the Python cell below to see a representation of time series for four different stocks over 10 days.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-197"><script type="text/x-sage">import numpy as np
+import pandas as pd
+import seaborn.objects as so
+stocks = pd.read_csv("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/time-series.csv", header=None)
+stocks1 = stocks  
+stocks1['day'] = stocks1.index
+# convert to "long" format for plotting with seaborn.objects
+stocks1_long = pd.melt(stocks1, id_vars="day", var_name = "stock", value_name="price")
+print(stocks1)
+# print(stocks1_long)
+so.Plot(stocks1_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
+</script></pre>
+<div class="para logical">
+<div class="para">Notices that although one stock has a higher value, stocks 0 and 3 appear to be related since they seem to rise and fall at roughly similar ways.  We often say that such series are <dfn class="terminology">correlated</dfn>, and we would like to measure the degree to which they are correlated.</div>
+<ol class="decimal">
+<li>
+<div class="para">In order to compare the ways in which they rise and fall, we will first  <dfn class="terminology">demean</dfn> each time series;  that is, for each time series, we will subtract its average value to obtain a new time series.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-198"><script type="text/x-sage">stocks0 = stocks - stocks.mean(axis = 0)
+stocks0_long = pd.melt(stocks0, id_vars="day", var_name = "stock", value_name="price")
+so.Plot(stocks_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
+</script></pre>
+</li>
+<li>
+<div class="para logical">
+<div class="para">If the demeaned series are <span class="process-math">\(\tilde{\svec}_1\)</span> and <span class="process-math">\(\tilde{\svec}_2\text{,}\)</span> then the <dfn class="terminology">correlation</dfn> between <span class="process-math">\(\svec_1\)</span> and <span class="process-math">\(\svec_2\)</span> is defined to be </div>
 <div class="displaymath process-math">
 \begin{equation*}
-\begin{array}{rcl}
-C_1 \amp {}={} \amp \{\vvec_1\} \\
-C_2 \amp {}={} \amp \{\vvec_2, \vvec_3,\vvec_4\}
-\end{array}
+\corr(\svec_1, \svec_2) =
+\frac{\tilde{\svec}_1\cdot\tilde{\svec}_2}
+{\len{\tilde{\svec}_1}\len{\tilde{\svec}_2}} =
+\frac{\len{\tilde{\svec}_1}\len{\tilde{\svec}_2} \cos \theta}
+{\len{\tilde{\svec}_1}\len{\tilde{\svec}_2}} = \cos \theta
 \end{equation*}
 </div>
-<div class="para">with centroids <span class="process-math">\(c_1=\vvec_1\)</span> and <span class="process-math">\(c_2=\twovec{5/3}{5/3}\text{.}\)</span> Find the objective of this clustering.</div>
+<div class="para">where <span class="process-math">\(\theta\)</span> is the angle between <span class="process-math">\(\tilde{\svec_1}\)</span> and <span class="process-math">\(\tilde{\svec_2}\text{.}\)</span> That is, the correlation equals the cosine of the angle between the demeaned time series. Among other things, this implies that <span class="process-math">\(\corr(\svec_1,\svec_2)\)</span> is always between -1 and 1.</div>
+</div>
+<div class="para">Find the correlation between each pair of stocks.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-199"><script type="text/x-sage">
+</script></pre>
+</li>
+<li>
+<div class="para">Suppose that two time series are such that their demeaned time series are scalar multiples of one another, as in <a href="" class="xref" data-knowl="./knowl/fig-correlation.html" title="Figure 6.1.18">Figure 6.1.18</a>
+</div>
+<figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;">
+<div class="sbspanel top" style="width:44.4444444444444%;"><img src="external/images/correlation-pos.svg" role="img" class="contained"></div>
+<div class="sbspanel top" style="width:44.4444444444444%;"><img src="external/images/correlation-neg.svg" role="img" class="contained"></div>
+</div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.1.18<span class="period">.</span></span><span class="space"> </span>On the left, the demeaned time series are positive scalar multiples of one another.  On the right, they are negative scalar multiples.</figcaption></figure><div class="para">For instance, suppose we have time series <span class="process-math">\(\tvec_1\)</span> and <span class="process-math">\(\tvec_2\)</span> whose demeaned time series <span class="process-math">\(\tilde{\tvec}_1\)</span> and <span class="process-math">\(\tilde{\tvec}_2\)</span> are positive scalar multiples of one another.  What is the angle between the demeaned vectors?  What does this say about the correlation <span class="process-math">\(\corr(\tvec_1, \tvec_2)\text{?}\)</span>
+</div>
+</li>
+<li><div class="para">Suppose the demeaned time series <span class="process-math">\(\tilde{\tvec}_1\)</span> and <span class="process-math">\(\tilde{\tvec}_2\)</span> are negative scalar multiples of one another, what is the angle between the demeaned vectors?  What does this say about the correlation <span class="process-math">\(\corr(\tvec_1, \tvec_2)\text{?}\)</span>
 </div></li>
-<li><div class="para">We have now seen two clusterings and computed their objectives.  Recall that our data set is shown in <a href="" class="xref" data-knowl="./knowl/fig-clustering-ex.html" title="Figure 6.1.21">Figure 6.1.21</a>.  Which of the two clusterings feels like the better fit?  How is this fit reflected in the values of the objectives?</div></li>
+<li><div class="para">Which pair of stocks had the largest correlation?  How is this reflected in the plot?</div></li>
+<li><div class="para">Which pair of stocks had the smallest (most negative) correlation? How is this reflected in the plot?</div></li>
+<li><div class="para">Which pair of stocks had a correlation closest to 0? How is this reflected in the plot?</div></li>
 <li>
-<div class="para">Evaluating the following cell will load and display a data set consisting of 177 data points.  This data set has the name <code class="code-inline tex2jax_ignore">data</code>.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-200"><script type="text/x-sage">sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/k_means.py", globals())
-list_plot(data, color='blue', size=20, aspect_ratio=1)
+<div class="para">The correlation is important enough that numpy can do all the work of computing correlations for each pair of rows (default) or columns (what we want here) in a matrix.  The result is a matrix containing all the pairwise correlations. </div>
+<pre class="ptx-sagecell sagecell-python" id="sage-200"><script type="text/x-sage">print("correlations"); print() 
+print(np.corrcoef(stocks, rowvar = False))
 </script></pre>
-<div class="para">Given this plot of the data, what would seem like a reasonable number of clusters?</div>
-</li>
-<li>
-<div class="para">In the following cell, you may choose a value of <span class="process-math">\(k\)</span> and then run the algorithm to determine and display a clustering and its objective.  If you run the algorithm a few times with the same value of <span class="process-math">\(k\text{,}\)</span> you will likely see different clusterings having different objectives. This is natural since our algorithm starts by making a random choice of points <span class="process-math">\(c_1,c_2,\ldots,c_k\text{,}\)</span> and a different choices may lead to different clusterings. Choose a value of <span class="process-math">\(k\)</span> and run the algorithm a few times.  Notice that clusterings having lower objectives seem to fit the data better.  Repeat this experiment with a few different values of <span class="process-math">\(k\text{.}\)</span>
-</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-201"><script type="text/x-sage">k = 2  # you may change the value of k here
-clusters, centroids, objective = kmeans(data, k)
-print('Objective =', objective)
-plotclusters(clusters, centroids)
-</script></pre>
-</li>
-<li>
-<div class="para">For a given value of <span class="process-math">\(k\text{,}\)</span> our strategy is to run the algorithm several times and choose the clustering with the smallest objective.  After choosing a value of <span class="process-math">\(k\text{,}\)</span> the following cell will run the algorithm 10 times and display the clustering having the smallest objective.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-202"><script type="text/x-sage">k = 2  # you may change the value of k here
-clusters, centroids, objective = minimalobjective(data, k)
-print('Objective =', objective)
-plotclusters(clusters, centroids)
-</script></pre>
-<div class="para">For each value of <span class="process-math">\(k\)</span> between 2 and 9, find the clustering having the smallest objective and plot your findings in <a href="" class="xref" data-knowl="./knowl/fig-clustering-elbow.html" title="Figure 6.1.24">Figure 6.1.24</a>.</div>
-<figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:10%;margin-right:10%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/clustering-elbow.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.1.24<span class="period">.</span></span><span class="space"> </span>Construct a plot of the minimal objective as it depends on the choice of <span class="process-math">\(k\text{.}\)</span></figcaption></figure><div class="para">This plot is called an <dfn class="terminology">elbow plot</dfn> due to its shape.  Notice how the objective decreases sharply when <span class="process-math">\(k\)</span> is small and then flattens out. This leads to a location, called the elbow, where the objective transitions from being sharply decreasing to relatively flat.  This means that increasing <span class="process-math">\(k\)</span> beyond the elbow does not significantly decrease the objective, which makes the elbow a good choice for <span class="process-math">\(k\text{.}\)</span>
-</div>
-<div class="para">Where does the elbow occur in your plot above?  How does this compare to the best value of <span class="process-math">\(k\)</span> that you estimated by simply looking at the data in <a href="" class="xref" data-knowl="./knowl/li-guess-clusters.html" title="Item c">Item c</a>.</div>
+<div class="para logical"><ul class="disc">
+<li><div class="para">Explain why the shape of the correlation matrix is what it is. What shape would it have been if we had not used <code class="code-inline tex2jax_ignore">rowvar = False</code>?</div></li>
+<li><div class="para">Explain why this matrix is symmetric.</div></li>
+<li><div class="para">Explain why the diagonal values are what they are.</div></li>
+</ul></div>
 </li>
 </ol>
-</div> <div class="para">Of course, we could increase <span class="process-math">\(k\)</span> until each data point is its own cluster.  However, this defeats the point of the technique, which is to group together nearby data points in the hope that they share common features, thus providing insight into the structure of the data.</div>
+</div>
+</li>
+</ol>
+</div>
 <div class="solutions">
-<a href="" class="answer-knowl original" data-knowl="./knowl/answer-219-hidden.html" title="Answer 6.1.5.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-289-hidden.html" title="Solution 6.1.5.1"><span class="type">Solution</span><span class="period">.</span></a>
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-217-hidden.html" title="Answer 6.1.3.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-288-hidden.html" title="Solution 6.1.3.1"><span class="type">Solution</span><span class="period">.</span></a>
 </div></article><span class="incontext"><a href="sec-dot-product.html#activity-71" class="internal">in-context</a></span>
 </body>
 </html>

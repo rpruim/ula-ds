@@ -25,13 +25,23 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para">In the JPEG compression algorithm, we looked at the Fourier coefficients of all the columns of luminance values and then performed a Fourier transform on the rows.  The Sage cell below will perform the same operation using the wavelet transform;  that is, it will first find the wavelet coefficients of each of the columns and then perform the wavelet transform on the rows.  You only need to evaluate the cell to find the wavelet coefficients obtained in this way. <pre class="ptx-sagecell sagecell-sage" id="sage-138"><script type="text/x-sage">luminance = matrix(4,4,[176, 170, 170, 169, 181, 179, 175, 167, 165,
-170, 169, 161, 139, 150,  164, 166])
-Winv = W.inverse()
-wavelet_transform = (Winv*(Winv*luminance).transpose()).transpose()
-print (wavelet_transform.numerical_approx(digits=3))
+<div class="para logical"><ol class="lower-alpha">
+<li>
+<div class="para">The Sage cell below defines the matrix <code class="code-inline tex2jax_ignore">S</code> whose columns are the vectors in the basis <span class="process-math">\(\scal\)</span> as well as the matrix <code class="code-inline tex2jax_ignore">C</code> whose columns form the basis <span class="process-math">\(\ccal\)</span> used in the Fourier Cosine Transform.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-136"><script type="text/x-sage">sinmat = [[sin((2*i+1)*j*pi/8) for j in range(1,5)] for i in range(4)]
+cosmat = [[cos((2*i+1)*j*pi/8) for j in range(4)] for i in range(4)]
+S = matrix(sinmat).numerical_approx()    
+C = matrix(cosmat).numerical_approx()
 </script></pre>
+<div class="para">In the <span class="process-math">\(8\by8\)</span> block of luminance values we considered in this section, the first column begins with the four entries 176, 181, 165, and 139, as seen in <a href="" class="xref" data-knowl="./knowl/fig-jpeg-block-luminance.html" title="Figure 4.4.8">Figure 4.4.8</a>.  These form the vector <span class="process-math">\(\xvec=\fourvec{176}{181}{165}{139}\text{.}\)</span>  Find both <span class="process-math">\(\coords{\xvec}{\scal}\)</span> and <span class="process-math">\(\coords{\xvec}{\ccal}\text{.}\)</span>
 </div>
+</li>
+<li><div class="para">Write a sentence or two comparing the values for the Fourier Sine coefficients <span class="process-math">\(\coords{\xvec}{\scal}\)</span> and the Fourier Cosine coefficients <span class="process-math">\(\coords{\xvec}{\ccal}\text{.}\)</span>
+</div></li>
+<li><div class="para">Suppose now that <span class="process-math">\(\xvec=\fourvec{100}{100}{100}{100}\text{.}\)</span> Find the Fourier Sine coefficients <span class="process-math">\(\coords{\xvec}{\scal}\)</span> and the Fourier Cosine coefficients <span class="process-math">\(\coords{\xvec}{\ccal}\text{.}\)</span>
+</div></li>
+<li><div class="para">Write a few sentences explaining why we use the Fourier Cosine Transform in the JPEG compression algorithm rather than the Fourier Sine Transform.</div></li>
+</ol></div>
 <span class="incontext"><a href="sec-jpeg.html#p-3280" class="internal">in-context</a></span>
 </body>
 </html>

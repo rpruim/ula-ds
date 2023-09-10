@@ -25,50 +25,29 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.6.3</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.5.7</span><span class="period">.</span>
 </h4>
-<div class="para logical">
-<div class="para">The key to finding the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value is to note that the eigenvectors of <span class="process-math">\(A\)</span> are the same as those of <span class="process-math">\(A^{-1}\text{.}\)</span>
-</div>
-<ol class="lower-alpha">
-<li><div class="para">If <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with associated eigenvector <span class="process-math">\(\lambda\text{,}\)</span> explain why <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A^{-1}\)</span> with associated eigenvalue <span class="process-math">\(\lambda^{-1}\text{.}\)</span>
-</div></li>
-<li><div class="para">Explain why the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value is the reciprocal of the dominant eigenvalue of <span class="process-math">\(A^{-1}\text{.}\)</span>
-</div></li>
-<li><div class="para">Explain how to use the power method applied to <span class="process-math">\(A^{-1}\)</span> to find the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value.</div></li>
-<li><div class="para">If we apply the power method to <span class="process-math">\(A^{-1}\text{,}\)</span> we begin with an intial vector <span class="process-math">\(\xvec_0\)</span> and generate the sequence <span class="process-math">\(\xvec_{k+1} = A^{-1}\xvec_k\text{.}\)</span>  It is not computationally efficient to compute <span class="process-math">\(A^{-1}\text{,}\)</span> however, so instead we solve the equation <span class="process-math">\(A\xvec_{k+1} =
-\xvec_k\text{.}\)</span>  Explain why an <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\)</span> is useful for implementing the power method applied to <span class="process-math">\(A^{-1}\text{.}\)</span>
-</div></li>
-<li>
-<div class="para">The following Python cell defines a command called <code class="code-inline tex2jax_ignore">inverse_power</code> that applies the power method to <span class="process-math">\(A^{-1}\text{.}\)</span>  That is, <code class="code-inline tex2jax_ignore">inverse_power(A, x0, N)</code> prints the vectors <span class="process-math">\(\xvec_k\text{,}\)</span> where <span class="process-math">\(\xvec_{k+1} =
-A^{-1}\xvec_k\text{,}\)</span> and multipliers <span class="process-math">\(\frac{1}{m_k}\text{,}\)</span> which approximate the eigenvalue of <span class="process-math">\(A\text{.}\)</span>  Use it to find the eigenvalue of <span class="process-math">\(A=\left[\begin{array}{rr}
--5.1 \amp 5.7 \\
--3.8 \amp 4.4 \\
-\end{array}\right]\)</span> having the smallest absolute value.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-186"><script type="text/x-sage">import numpy as np
-from scipy import linalg
-def inverse_power(A, x, N):
-	result = []
+<div class="para">The following Python cell will generate the Markov chain for the modified Google matrix <span class="process-math">\(G\)</span> if you simply enter the original Google matrix <span class="process-math">\(G\)</span> in the appropriate line.</div> <pre class="ptx-sagecell sagecell-python" id="sage-178"><script type="text/x-sage">def modified_markov_chain(A, x0, N):
+    r = A.shape[0]
+    A = 0.85 * A + 0.15 * np.full((r,r),  1.0 / r)	      
+    result = [x0]
     for i in range(N):
-        x = linalg.solve(A, x)
-        m = max([comp for comp in x], key=abs) # .numerical_approx(digits=14)
-        x = 1/m * x  # 1/float(m)*x
-        result.append((1/m, x))
-### define the matrix A and vector x0
-A =
+        x_new = A@result[-1]
+        result.append(x_new)
+    return result
+
+## Define original Google matrix G and initial vector x0.
+## The function above finds the modified Google matrix
+## and resulting Markov chain 
+G =
 x0 =
-print(inverse_power(A, x0, 20))
-</script></pre>
-</li>
-<li><div class="para">The inverse power method only works if <span class="process-math">\(A\)</span> is invertible.  If <span class="process-math">\(A\)</span> is not invertible, what is its eigenvalue having the smallest absolute value?</div></li>
-<li><div class="para">Use the power method and the inverse power method to find the eigenvalues and associated eigenvectors of the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
--0.23 \amp -2.33 \\
--1.16 \amp 1.08 \\
-\end{array}\right]
-\text{.}\)</span>
+print(modified_markov_chain(G, x0, 20).round(3))
+</script></pre> <div class="para logical"><ol class="lower-alpha">
+<li><div class="para">Consider the original Internet with three pages shown in <a href="" class="xref" data-knowl="./knowl/fig-google-intro.html" title="Figure 5.5.7">Figure 5.5.7</a> and find the PageRank vector <span class="process-math">\(\xvec\)</span> using the modified Google matrix in the Python cell above. How does this modified PageRank vector compare to the vector we found using the original Google matrix <span class="process-math">\(G\text{?}\)</span>
 </div></li>
-</ol>
-</div>
-<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-274-hidden.html" title="Solution 5.6.3.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-power-method.html#activity-65" class="internal">in-context</a></span>
+<li><div class="para">Find the modified PageRank vector for the Internet shown in <a href="" class="xref" data-knowl="./knowl/fig-google-cyclic.html" title="Figure 5.5.9">Figure 5.5.9</a>.  Explain why this vector seems to be the correct one.</div></li>
+<li><div class="para">Find the modified PageRank vector for the Internet shown in <a href="" class="xref" data-knowl="./knowl/fig-google-reducible.html" title="Figure 5.5.10">Figure 5.5.10</a>.  Explain why this modified PageRank vector fixes the problem that appeared with the original PageRank vector.</div></li>
+</ol></div>
+<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-262-hidden.html" title="Solution 5.5.7.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-stochastic.html#activity-65" class="internal">in-context</a></span>
 </body>
 </html>

@@ -25,38 +25,66 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.2.5</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.2.3</span><span class="period">.</span>
 </h4>
 <div class="para logical">
-<div class="para">Let’s explore how our understanding of quadratic forms helps us determine the behavior of a function <span class="process-math">\(f\)</span> near a critical point.</div>
+<div class="para">We can gain some intuition about this problem by graphing the quadratic form and paying particular attention to the unit vectors.</div>
 <ol class="lower-alpha">
-<li><div class="para">Consider the function <span class="process-math">\(f(x,y) = 2x^3 - 6xy +
-3y^2\text{.}\)</span>  Find the partial derivatives <span class="process-math">\(f_{x}\)</span> and <span class="process-math">\(f_y\)</span> and use these expressions to determine the critical points of <span class="process-math">\(f\text{.}\)</span>
+<li>
+<div class="para">Evaluating the following cell defines the matrix <span class="process-math">\(D = \begin{bmatrix}
+3 \amp 0 \\
+0 \amp -1
+\end{bmatrix}\)</span> and displays the graph of the associated quadratic form <span class="process-math">\(q_D(\xvec)\text{.}\)</span>  In addition, the points corresponding to vectors <span class="process-math">\(\uvec\)</span> with unit length are displayed as a curve.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-256"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/quad_plot.py', globals())
+
+## We define our matrix here
+A = matrix(2, 2, [3, 0, 0, -1])
+
+quad_plot(A)
+</script></pre>
+<div class="para">Notice that the matrix <span class="process-math">\(D\)</span> is diagonal.  In which directions does the quadratic form have its maximum and minimum values?</div>
+</li>
+<li><div class="para">Write the quadratic form <span class="process-math">\(q_D\)</span> associated to <span class="process-math">\(D\text{.}\)</span>  What is the value of <span class="process-math">\(q_D\left(\twovec10\right)\text{?}\)</span>  What is the value of <span class="process-math">\(q_D\left(\twovec01\right)\text{?}\)</span>
 </div></li>
-<li><div class="para">Evaluate the second partial derivatives <span class="process-math">\(f_{xx}\text{,}\)</span> <span class="process-math">\(f_{xy}\text{,}\)</span> and <span class="process-math">\(f_{yy}\text{.}\)</span>
-</div></li>
-<li><div class="para">Let’s first consider the critical point <span class="process-math">\((1,1)\text{.}\)</span> Use the quadratic approximation as written above to find an expression approximating <span class="process-math">\(f\)</span> near the critical point.</div></li>
-<li><div class="para logical">
-<div class="para">Using the vector <span class="process-math">\(\wvec = \twovec{x-1}{y-1}\text{,}\)</span> rewrite your approximation as</div>
+<li><div class="para">Consider a unit vector <span class="process-math">\(\uvec=\twovec{u_1}{u_2}\)</span> so that <span class="process-math">\(u_1^2+u_2^2 =
+1\text{,}\)</span> an expression we can rewrite as <span class="process-math">\(u_1^2 =
+1-u_2^2\text{.}\)</span>  Write the quadratic form <span class="process-math">\(q_D(\uvec)\)</span> and replace <span class="process-math">\(u_1^2\)</span> by <span class="process-math">\(1-u_2^2\text{.}\)</span>  Now explain why the maximum of <span class="process-math">\(q_D(\uvec)\)</span> is 3.  In which direction does the maximum occur?  Does this agree with what you observed from the graph above?</div></li>
+<li><div class="para">Write the quadratic form <span class="process-math">\(q_D(\uvec)\)</span> and replace <span class="process-math">\(u_2^2\)</span> by <span class="process-math">\(1-u_1^2\text{.}\)</span>  What is the minimum value of <span class="process-math">\(q_D(\uvec)\)</span> and in which direction does the minimum occur?</div></li>
+<li><div class="para">Use the previous Sage cell to change the matrix to <span class="process-math">\(A=\begin{bmatrix}
+1 \amp 2 \\
+2 \amp 1
+\end{bmatrix}\)</span> and display the graph of the quadratic form <span class="process-math">\(q_A(\xvec) = \xvec\cdot(A\xvec)\text{.}\)</span> Determine the directions in which the maximum and minimum occur?</div></li>
+<li>
+<div class="para logical">
+<div class="para">Remember that <span class="process-math">\(A=\begin{bmatrix}
+1 \amp 2 \\
+2 \amp 1
+\end{bmatrix}\)</span> is symmetric so that <span class="process-math">\(A=QDQ^{\transpose}\)</span> where <span class="process-math">\(D\)</span> is the diagonal matrix above and <span class="process-math">\(Q\)</span> is the orthogonal matrix that rotates vectors by <span class="process-math">\(45^\circ\text{.}\)</span>  Notice that</div>
 <div class="displaymath process-math">
 \begin{equation*}
-f(x,y) \approx f(1,1) + q_A(\wvec)
+q_A(\uvec) = \uvec\cdot(A\uvec) =
+\uvec\cdot(QDQ^{\transpose}\uvec) = (Q^{\transpose}\uvec)\cdot(DQ^{\transpose}\uvec)
+= q_D(\vvec)
 \end{equation*}
 </div>
-<div class="para">for some matrix <span class="process-math">\(A\text{.}\)</span>  What is the matrix <span class="process-math">\(A\)</span> in this case?</div>
-</div></li>
-<li><div class="para">Find the eigenvalues of <span class="process-math">\(A\text{.}\)</span>  What can you conclude about the definiteness of <span class="process-math">\(A\text{?}\)</span>
-</div></li>
-<li>
-<div class="para">Recall that <span class="process-math">\((x_0,y_0)\)</span> is a local minimum for <span class="process-math">\(f\)</span> if <span class="process-math">\(f(x,y) \gt f(x_0,y_0)\)</span> for nearby points <span class="process-math">\((x,y)\text{.}\)</span> Explain why our understanding of the eigenvalues of <span class="process-math">\(A\)</span> shows that <span class="process-math">\((1,1)\)</span> is a local minimum for <span class="process-math">\(f\text{.}\)</span>
+<div class="para">where <span class="process-math">\(\vvec=Q^{\transpose}\uvec\text{.}\)</span>  That is, we have <span class="process-math">\(q_A(\uvec) = q_D(\vvec)\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-256"><script type="text/x-sage">plot3d(2*x^3 - 6*x*y + 3*y^2, (x, -2,2), (y,-2,2))
-</script></pre>
+</div>
+<div class="para logical">
+<div class="para">Explain why <span class="process-math">\(\vvec = Q^{\transpose}\uvec\)</span> is also a unit vector;  that is, explain why</div>
+<div class="displaymath process-math">
+\begin{equation*}
+|\vvec|^2 = |Q^{\transpose}\uvec|^2 =
+(Q^{\transpose}\uvec)\cdot(Q^{\transpose}\uvec) = 1.
+\end{equation*}
+</div>
+</div>
 </li>
+<li><div class="para">Using the fact that <span class="process-math">\(q_A(\uvec) = q_D(\vvec)\text{,}\)</span> explain how we now know the maximum value of <span class="process-math">\(q_A(\uvec)\)</span> is 3 and determine the direction in which it occurs.  Also, determine the minimum value of <span class="process-math">\(q_A(\uvec)\)</span> and determine the direction in which it occurs.</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" class="answer-knowl original" data-knowl="./knowl/answer-304-hidden.html" title="Answer 7.2.5.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-381-hidden.html" title="Solution 7.2.5.1"><span class="type">Solution</span><span class="period">.</span></a>
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-302-hidden.html" title="Answer 7.2.3.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-380-hidden.html" title="Solution 7.2.3.1"><span class="type">Solution</span><span class="period">.</span></a>
 </div></article><span class="incontext"><a href="sec-quadratic-forms.html#activity-96" class="internal">in-context</a></span>
 </body>
 </html>

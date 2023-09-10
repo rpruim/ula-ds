@@ -25,49 +25,40 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.6.2</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.5.6</span><span class="period">.</span>
 </h4>
-<div class="para">Let’s begin by considering the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
-0.5 \amp 0.2 \\
-0.4 \amp 0.7 \\
-\end{array}\right]\)</span> and the initial vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-python" id="sage-184"><script type="text/x-sage">
-</script></pre> <div class="para logical"><ol class="lower-alpha">
-<li><div class="para">Compute the vector <span class="process-math">\(\xvec_1 =
-A\xvec_0\text{.}\)</span>
-</div></li>
-<li><div class="para">Find <span class="process-math">\(m_1\text{,}\)</span> the component of <span class="process-math">\(\xvec_1\)</span> that has the largest absolute value.  Then form <span class="process-math">\(\overline{\xvec}_1 =
-\frac 1{m_1} \xvec_1\text{.}\)</span>  Notice that the component having the largest absolute value of <span class="process-math">\(\overline{\xvec}_1\)</span> is <span class="process-math">\(1\text{.}\)</span>
-</div></li>
-<li><div class="para">Find the vector <span class="process-math">\(\xvec_2 = A\overline{\xvec}_1\text{.}\)</span> Identify the component <span class="process-math">\(m_2\)</span> of <span class="process-math">\(\xvec_2\)</span> having the largest absolute value.  Then form <span class="process-math">\(\overline{\xvec}_2 =
-\frac1{m_2}\overline{\xvec}_1\)</span> to obtain a vector in which the component with the largest absolute value is <span class="process-math">\(1\text{.}\)</span>
-</div></li>
+<div class="para">Consider the Internet with eight web pages, shown in <a href="" class="xref" data-knowl="./knowl/fig-google-irreducible.html" title="Figure 5.5.8">Figure 5.5.8</a>.</div> <figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/google-irreducible.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.5.8<span class="period">.</span></span><span class="space"> </span>A simple model of the Internet with eight web pages.</figcaption></figure> <div class="para logical"><ol class="lower-alpha">
 <li>
-<div class="para">The Python cell below defines a function that implements the power method.  Define the matrix <span class="process-math">\(A\)</span> and initial vector <span class="process-math">\(\xvec_0\)</span> below.  The command <code class="code-inline tex2jax_ignore">power(A, x0,	N)</code> will print out the multiplier <span class="process-math">\(m\)</span> and the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> for <span class="process-math">\(N\)</span> steps of the power method.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-185"><script type="text/x-sage">import sympy as s
-def power(A, x, N):
-    for i in range(N):
-        x = A@x
-        m = max([comp for comp in x], key = abs).evalf(digits = 14)
-        x = 1 / float(m) * x
-        print (m, x)
-
-### Define the matrix A and initial vector x0 below
-A =
-x0 =
-power(A, x0, 20)
-</script></pre>
-<div class="para">How does this computation identify an eigenvector of the matrix <span class="process-math">\(A\text{?}\)</span>
+<div class="para">Construct the Google matrix <span class="process-math">\(G\)</span> for this Internet.  Then use a Markov chain to find the steady-state PageRank vector <span class="process-math">\(\xvec\text{.}\)</span>
 </div>
+<pre class="ptx-sagecell sagecell-python" id="sage-177"><script type="text/x-sage">def markov_chain(A, x0, N):
+    result = [x0]
+    for i in range(N):
+        x_new = A@result[-1]
+        result.append(x_new)
+    return result
+
+## define the matrix G and x0
+G =
+x0 =
+markov_chain(G, x0, 20)
+</script></pre>
 </li>
-<li><div class="para">What is the corresponding eigenvalue of this eigenvector?</div></li>
-<li><div class="para">How do the values of the multipliers <span class="process-math">\(m_k\)</span> tell us the eigenvalue associated to the eigenvector we have found?</div></li>
-<li><div class="para">Consider now the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
--5.1 \amp 5.7 \\
--3.8 \amp 4.4 \\
-\end{array}\right]
-\text{.}\)</span> Use the power method to find the dominant eigenvalue of <span class="process-math">\(A\)</span> and an associated eigenvector.</div></li>
+<li><div class="para">What does this vector tell us about the relative quality of the pages in this Internet?  Which page has the highest quality and which the lowest?</div></li>
+<li>
+<div class="para">Now consider the Internet with five pages, shown in <a href="" class="xref" data-knowl="./knowl/fig-google-cyclic.html" title="Figure 5.5.9">Figure 5.5.9</a>.</div>
+<figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/google-cyclic.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.5.9<span class="period">.</span></span><span class="space"> </span>A model of the Internet with five web pages.</figcaption></figure><div class="para">What happens when you begin the Markov chain with the vector <span class="process-math">\(\xvec_0=\fivevec{1}{0}{0}{0}{0}\text{?}\)</span>  Explain why this behavior is consistent with the Perron-Frobenius theorem.</div>
+</li>
+<li><div class="para">What do you think the PageRank vector for this Internet should be?  Is any one page of a higher quality than another?</div></li>
+<li>
+<div class="para">Now consider the Internet with eight web pages, shown in <a href="" class="xref" data-knowl="./knowl/fig-google-reducible.html" title="Figure 5.5.10">Figure 5.5.10</a>.</div>
+<figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/google-reducible.svg" role="img" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.5.10<span class="period">.</span></span><span class="space"> </span>Another model of the Internet with eight web pages.</figcaption></figure><div class="para">Notice that this version of the Internet is identical to the first one that we saw in this activity, except that a single link from page 7 to page 1 has been removed.  We can therefore find its Google matrix <span class="process-math">\(G\)</span> by slightly modifying the earlier matrix.</div>
+<div class="para">What is the long-term behavior of a Markov chain defined by <span class="process-math">\(G\)</span> and why is this behavior not desirable?  How is this behavior consistent with the Perron-Frobenius theorem?</div>
+</li>
 </ol></div>
-<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-273-hidden.html" title="Solution 5.6.2.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-power-method.html#activity-64" class="internal">in-context</a></span>
+<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-261-hidden.html" title="Solution 5.5.6.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-stochastic.html#activity-64" class="internal">in-context</a></span>
 </body>
 </html>

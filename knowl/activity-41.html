@@ -12,52 +12,63 @@
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.7.2</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">4.6.3</span><span class="period">.</span>
 </h4>
 <div class="para logical">
-<div class="para">Suppose we have a hypothetical computer that represents numbers using only three decimal digits. We will consider the linear system</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\begin{alignedat}{3}
-0.0001x \amp  {}+{}  \amp y \amp  {}={}  \amp 1 \\
-x \amp  {}+{}  \amp y \amp  {}={}  \amp 2 \\
-\end{alignedat}\text{.}
-\end{equation*}
-</div>
+<div class="para">We will explore some column spaces in this activity.</div>
 <ol class="lower-alpha">
 <li><div class="para logical">
-<div class="para">Show that this system has the unique solution</div>
+<div class="para">Consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\begin{aligned}
-x \amp {}={} \frac{10000}{9999} = 1.00010001\ldots, \\
-y \amp {}={} \frac{9998}{9999} =  0.99989998\ldots
-\end{aligned}\text{.}
+A= \left[\begin{array}{rrr}
+\vvec_1 \amp \vvec_2 \amp \vvec_3
+\end{array}\right]
+=
+\left[\begin{array}{rrr}
+1 \amp 3 \amp -1 \\
+-2 \amp 0 \amp -4 \\
+1 \amp 2 \amp 0 \\
+\end{array}\right].
 \end{equation*}
 </div>
+<div class="para">Since <span class="process-math">\(\col(A)\)</span> is the span of the columns, we have</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\col(A) = \laspan{\vvec_1,\vvec_2,\vvec_3}.
+\end{equation*}
+</div>
+<div class="para">Explain why <span class="process-math">\(\vvec_3\)</span> can be written as a linear combination of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> and why <span class="process-math">\(\col(A)=\laspan{\vvec_1,\vvec_2}\text{.}\)</span>
+</div>
 </div></li>
-<li><div class="para">If we represent this solution inside our computer that only holds 3 decimal digits, what do we find for the solution? This is the best that we can hope to find using our computer.</div></li>
-<li><div class="para">Let’s imagine that we use our computer to find the solution using Gaussian elimination; that is, after every arithmetic operation, we keep only three decimal digits.  Our first step is to multiply the first equation by 10000 and subtract it from the second equation.  If we represent numbers using only three decimal digits, what does this give for the value of <span class="process-math">\(y\text{?}\)</span>
-</div></li>
-<li><div class="para">By substituting our value for <span class="process-math">\(y\)</span> into the first equation, what do we find for <span class="process-math">\(x\text{?}\)</span>
-</div></li>
-<li><div class="para">Compare the solution we find on our computer with the actual solution and assess the quality of the approximation.</div></li>
+<li><div class="para">Explain why the vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> form a basis for <span class="process-math">\(\col(A)\)</span> and why <span class="process-math">\(\col(A)\)</span> is a 2-dimensional subspace of <span class="process-math">\(\real^3\)</span> and therefore a plane.</div></li>
 <li><div class="para logical">
-<div class="para">Let’s now modify the linear system by simplying interchanging the equations:</div>
+<div class="para">Now consider the matrix <span class="process-math">\(B\)</span> and its reduced row echelon form:</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\begin{alignedat}{3}
-x \amp  {}+{}  \amp y \amp  {}={}  \amp 2 \\
-0.0001x \amp  {}+{}  \amp y \amp  {}={}  \amp 1 \\
-\end{alignedat}\text{.}
+B = \left[\begin{array}{rrrr}
+-2 \amp -4 \amp 0 \amp 6 \\
+1 \amp 2 \amp 0 \amp -3 \\
+\end{array}\right]
+\sim
+\left[\begin{array}{rrrr}
+1 \amp 2 \amp 0 \amp -3 \\
+0 \amp 0 \amp 0 \amp 0 \\
+\end{array}\right].
 \end{equation*}
 </div>
-<div class="para">Of course, this doesn’t change the actual solution.  Let’s imagine we use our computer to find the solution using Gaussian elimination.  Perform the first step where we multiply the first equation by 0.0001 and subtract from the second equation.  What does this give for <span class="process-math">\(y\)</span> if we represent numbers using only three decimal digits?</div>
+<div class="para">Explain why <span class="process-math">\(\col(B)\)</span> is a 1-dimensional subspace of <span class="process-math">\(\real^2\)</span> and is therefore a line.</div>
 </div></li>
-<li><div class="para">Substitute the value you found for <span class="process-math">\(y\)</span> into the first equation and solve for <span class="process-math">\(x\text{.}\)</span>  Then compare the approximate solution found with our hypothetical computer to the exact solution.</div></li>
-<li><div class="para">Which approach produces the most accurate approximation?</div></li>
+<li><div class="para">For a general matrix <span class="process-math">\(A\text{,}\)</span> what is the relationship between the dimension <span class="process-math">\(\dim~\col(A)\)</span> and the number of pivot positions in <span class="process-math">\(A\text{?}\)</span>
+</div></li>
+<li><div class="para">How does the location of the pivot positions indicate a basis for <span class="process-math">\(\col(A)\text{?}\)</span>
+</div></li>
+<li><div class="para">If <span class="process-math">\(A\)</span> is an invertible <span class="process-math">\(9\by9\)</span> matrix, what can you say about the column space <span class="process-math">\(\col(A)\text{?}\)</span>
+</div></li>
+<li><div class="para">Suppose that <span class="process-math">\(A\)</span> is an <span class="process-math">\(8\by 10\)</span> matrix and that <span class="process-math">\(\col(A) = \real^8\text{.}\)</span>  If <span class="process-math">\(\bvec\)</span> is an 8-dimensional vector, what can you say about the equation <span class="process-math">\(A\xvec = \bvec\text{?}\)</span>
+</div></li>
 </ol>
 </div>
-<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-185-hidden.html" title="Solution 4.7.2.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-gaussian-revisited.html#activity-41" class="internal">in-context</a></span>
+<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-173-hidden.html" title="Solution 4.6.3.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-subspaces.html#activity-41" class="internal">in-context</a></span>
 </body>
 </html>

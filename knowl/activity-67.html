@@ -9,34 +9,66 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">6.1.1</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.6.3</span><span class="period">.</span>
 </h4>
-<div class="para logical"><ol class="lower-alpha">
-<li><div class="para logical">
-<div class="para">Compute the dot product</div>
-<div class="displaymath process-math">
-\begin{equation*}
-\twovec{3}{4}\cdot\twovec{2}{-2}\text{.}
-\end{equation*}
+<div class="para logical">
+<div class="para">The key to finding the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value is to note that the eigenvectors of <span class="process-math">\(A\)</span> are the same as those of <span class="process-math">\(A^{-1}\text{.}\)</span>
 </div>
+<ol class="lower-alpha">
+<li><div class="para">If <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with associated eigenvector <span class="process-math">\(\lambda\text{,}\)</span> explain why <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A^{-1}\)</span> with associated eigenvalue <span class="process-math">\(\lambda^{-1}\text{.}\)</span>
+</div></li>
+<li><div class="para">Explain why the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value is the reciprocal of the dominant eigenvalue of <span class="process-math">\(A^{-1}\text{.}\)</span>
+</div></li>
+<li><div class="para">Explain how to use the power method applied to <span class="process-math">\(A^{-1}\)</span> to find the eigenvalue of <span class="process-math">\(A\)</span> having the smallest absolute value.</div></li>
+<li><div class="para">If we apply the power method to <span class="process-math">\(A^{-1}\text{,}\)</span> we begin with an intial vector <span class="process-math">\(\xvec_0\)</span> and generate the sequence <span class="process-math">\(\xvec_{k+1} = A^{-1}\xvec_k\text{.}\)</span>  It is not computationally efficient to compute <span class="process-math">\(A^{-1}\text{,}\)</span> however, so instead we solve the equation <span class="process-math">\(A\xvec_{k+1} =
+\xvec_k\text{.}\)</span>  Explain why an <span class="process-math">\(LU\)</span> factorization of <span class="process-math">\(A\)</span> is useful for implementing the power method applied to <span class="process-math">\(A^{-1}\text{.}\)</span>
 </div></li>
 <li>
-<div class="para">Sketch the vector <span class="process-math">\(\vvec=\twovec{3}{4}\)</span> below.  Then use the Pythagorean theorem to find the length of <span class="process-math">\(\vvec\text{.}\)</span>
-</div>
-<figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:25%;margin-right:25%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/empty-6.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">6.1.15<span class="period">.</span></span><span class="space"> </span>Sketch the vector <span class="process-math">\(\vvec\)</span> and find its length.</figcaption></figure>
+<div class="para">The following Python cell defines a command called <code class="code-inline tex2jax_ignore">inverse_power</code> that applies the power method to <span class="process-math">\(A^{-1}\text{.}\)</span>  That is, <code class="code-inline tex2jax_ignore">inverse_power(A, x0, N)</code> prints the vectors <span class="process-math">\(\xvec_k\text{,}\)</span> where <span class="process-math">\(\xvec_{k+1} =
+A^{-1}\xvec_k\text{,}\)</span> and multipliers <span class="process-math">\(\frac{1}{m_k}\text{,}\)</span> which approximate the eigenvalue of <span class="process-math">\(A\text{.}\)</span>  Use it to find the eigenvalue of <span class="process-math">\(A=\left[\begin{array}{rr}
+-5.1 \amp 5.7 \\
+-3.8 \amp 4.4 \\
+\end{array}\right]\)</span> having the smallest absolute value.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-187"><script type="text/x-sage">import numpy as np
+from scipy import linalg
+def inverse_power(A, x, N):
+	result = []
+    for i in range(N):
+        x = linalg.solve(A, x)
+        m = max([comp for comp in x], key=abs) # .numerical_approx(digits=14)
+        x = 1/m * x  # 1/float(m)*x
+        result.append((1/m, x))
+### define the matrix A and vector x0
+A =
+x0 =
+print(inverse_power(A, x0, 20))
+</script></pre>
 </li>
-<li><div class="para">Compute the dot product <span class="process-math">\(\vvec\cdot\vvec\text{.}\)</span>  How is the dot product related to the length of <span class="process-math">\(\vvec\text{?}\)</span>
+<li><div class="para">The inverse power method only works if <span class="process-math">\(A\)</span> is invertible.  If <span class="process-math">\(A\)</span> is not invertible, what is its eigenvalue having the smallest absolute value?</div></li>
+<li><div class="para">Use the power method and the inverse power method to find the eigenvalues and associated eigenvectors of the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
+-0.23 \amp -2.33 \\
+-1.16 \amp 1.08 \\
+\end{array}\right]
+\text{.}\)</span>
 </div></li>
-<li><div class="para">Remember that the matrix <span class="process-math">\(\mattwo0{-1}10\)</span> represents the matrix transformation that rotates vectors counterclockwise by <span class="process-math">\(90^\circ\text{.}\)</span>  Beginning with the vector <span class="process-math">\(\vvec = \twovec34\text{,}\)</span> find <span class="process-math">\(\wvec\text{,}\)</span> the result of rotating <span class="process-math">\(\vvec\)</span> by <span class="process-math">\(90^\circ\text{,}\)</span> and sketch it above.</div></li>
-<li><div class="para">What is the dot product <span class="process-math">\(\vvec\cdot\wvec\text{?}\)</span>
-</div></li>
-<li><div class="para">Suppose that <span class="process-math">\(\vvec=\twovec ab\text{.}\)</span>  Find the vector <span class="process-math">\(\wvec\)</span> that results from rotating <span class="process-math">\(\vvec\)</span> by <span class="process-math">\(90^\circ\)</span> and find the dot product <span class="process-math">\(\vvec\cdot\wvec\text{.}\)</span>
-</div></li>
-</ol></div>
-<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-285-hidden.html" title="Solution 6.1.1.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-dot-product.html#activity-67" class="internal">in-context</a></span>
+</ol>
+</div>
+<div class="solutions"><a href="" class="solution-knowl original" data-knowl="./knowl/solution-275-hidden.html" title="Solution 5.6.3.1"><span class="type">Solution</span><span class="period">.</span></a></div></article><span class="incontext"><a href="sec-power-method.html#activity-67" class="internal">in-context</a></span>
 </body>
 </html>
