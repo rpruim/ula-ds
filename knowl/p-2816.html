@@ -9,50 +9,46 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-python",
-  "linked": true,
-  "linkKey": "linked-python",
-  "autoeval": false,
-  "languages": [
-    "python"
-  ],
-  "evalButtonText": "Evaluate (Python)"
-});
-</script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
 <div class="para logical">
-<div class="para">Suppose that we start with the <span class="process-math">\(3\by3\)</span> matrix <span class="process-math">\(A\text{,}\)</span> perform the following sequence of row operations:</div>
-<ol class="decimal">
-<li><div class="para">Multiply row 1 by -2 and add to row 2.</div></li>
-<li><div class="para">Multiply row 1 by 4 and add to row 3.</div></li>
-<li><div class="para">Scale row 2 by <span class="process-math">\(1/2\text{.}\)</span>
-</div></li>
-<li><div class="para">Multiply row 2 by -1 and add to row 3,</div></li>
-</ol>
-<div class="para">and arrive at the upper triangular matrix</div>
+<div class="para">We use a scaling followed by replacement operations:</div>
 <div class="displaymath process-math">
 \begin{equation*}
-U = \left[\begin{array}{rrr}
-3 \amp 2 \amp -1 \\
-0 \amp 1 \amp 3 \\
-0 \amp 0 \amp -4 \\
-\end{array}\right].
+S =
+\left[\begin{array}{rrr}
+1 \amp 0 \amp 0 \\
+0 \amp 1 \amp 0 \\
+0 \amp 0 \amp \frac12 \\
+\end{array}\right],
+U_1 =
+\left[\begin{array}{rrr}
+1 \amp 0 \amp -1 \\
+0 \amp 1 \amp -1 \\
+0 \amp 0 \amp 1 \\
+\end{array}\right],
+U_2 = \begin{bmatrix}
+1 \amp 0 \amp -1 \\
+0 \amp 1 \amp 0 \\
+0 \amp 0 \amp 1 \\
+\end{bmatrix},
+U_3 = 
+\left[\begin{array}{rrr}
+1 \amp -1 \amp 0 \\
+0 \amp 1 \amp 0 \\
+0 \amp 0 \amp 1 \\
+\end{array}\right]\text{.}
 \end{equation*}
 </div>
-<div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-123"><script type="text/x-sage">
-</script></pre></div>
-<ol class="lower-alpha">
-<li><div class="para">Write the matrices <span class="process-math">\(E_1\text{,}\)</span> <span class="process-math">\(E_2\text{,}\)</span> <span class="process-math">\(E_3\text{,}\)</span> and <span class="process-math">\(E_4\)</span> that perform the four row operations.</div></li>
-<li><div class="para">Find the matrix <span class="process-math">\(E = E_4E_3E_2E_1\text{.}\)</span>
-</div></li>
-<li><div class="para">We then have <span class="process-math">\(E_4E_3E_2E_1 A = EA = U\text{.}\)</span>  Now that we have the matrix <span class="process-math">\(E\text{,}\)</span> find the original matrix <span class="process-math">\(A = E^{-1}U = E_1^{-1} E_2^{-1} E_3^{-1} E_4^{-1} U \text{.}\)</span>
-</div></li>
-</ol>
+<div class="para">This gives <span class="process-math">\(U_3U_2U_1SA = I\)</span> so that <span class="process-math">\(A^{-1} = U_3U_2U_1S =
+\left[\begin{array}{rrr}
+1 \amp -1 \amp 0 \\
+0 \amp 1 \amp -\frac12 \\
+0 \amp 0 \amp \frac12 \\
+\end{array}\right]
+\text{.}\)</span>
+</div>
 </div>
 <span class="incontext"><a href="subsec-triangular-invertible.html#p-2816" class="internal">in-context</a></span>
 </body>
