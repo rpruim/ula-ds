@@ -118,7 +118,8 @@
   <subsection>
     <title> Determinants of <m>2\by2</m> matrices </title>
 
-    <p> We will begin by defining
+    <p> Determinants are defined for any square matrix, 
+		but we will begin by defining
     the determinant of a <m>2\by2</m> matrix <m>A =
     \left[\begin{array}{rr} \vvec_1 \amp \vvec_2
     \end{array}\right]</m>.  First, however, we need to define the
@@ -200,7 +201,7 @@
       </statement>
     </example>
 
-    <activity>
+    <activity xml:id="activity-2-by-2-determinants">
       <statement>
       <p> In this activity, we will find the determinant of some
       simple <m>2\by2</m> matrices and discover some important
@@ -359,31 +360,29 @@
 	  
     </activity>
 
-    <p> Later in this section, we will learn an algebraic
-    technique for computing determinants.  In the meantime, 
-    we will simply note that we can define determinants for <m>n\by
-    n</m> matrices by measuring the volume of a box defined by the columns
-    of the matrix, even if this box resides in <m>\real^n</m> for
-    some very large <m>n</m>.  
-    </p>
 
-    <sidebyside widths="60% 40%">
-      <p> For example, the columns of a <m>3\by3</m> matrix
-      <m>A</m> will form a parallelpiped, like the one shown here, and
-      there is a means by which we can classify sets of such vectors
-      as either positively or negatively oriented.  Therefore, we can
-      define the determinant <m>\det(A)</m> in terms of the volume of
-      the parallelpiped, but we will not worry about the details here.
-      </p>
-      <image source="images/det-3d" />
-    </sidebyside>
+    <p> <xref ref="activity-2-by-2-determinants" /> illustrates some 
+		important properties of determinants that are true more generally,
+		including for larger matrices.
 
-    <p> Though the previous activity deals with determinants of
-    <m>2\by2</m> matrices, it illustrates some important properties of
-    determinants that are true more generally.  
     <ul>
+      <li><p> If <m>A</m> is a diagonal matrix, then <m>\det(A)</m>
+      equals the product of the entries on the diagonal.  
+	  A <m>2 \by 2</m> diagonal matrix represents a transformation that scales horizontally 
+	  and vertically by the scaling factors on the diagonal.  
+	  The area of the transformed unit square is the product of the diagonal entries.
+	  If exactly one of the two is negative, the orientation is reversed and the determinant will be  
+	  negative.  We saw an example of this in <xref ref="fig-det-identity" />.
+	  </p>
+	  </li>
+		
       <li><p> If <m>A</m> is a triangular matrix, then <m>\det(A)</m>
-      equals the product of the entries on the diagonal.  For example,
+      equals the product of the entries on the diagonal.  A <m>2 \by 2</m> 
+	  triangular matrix represents a shear transformation.  The diagonal entries 
+	  represent the horizontal and vertical scaling.  The non-zero off-diagonal entry 
+	  represents the amount of shear.  This distorts a rectangle into a parallelogram, but 
+	  leaves the area unchanged.
+	  For example,
       <me>
 	\det\left[\begin{array}{rr} 2 \amp 2 \\
 	0 \amp 3 \\ \end{array}\right] = 2\cdot 3 = 6
@@ -434,43 +433,119 @@
     </ul>
     </p>
 
-    <proposition xml:id="proposition-det-properties">
-      <statement>
+	<p>As we will see, these properties hold for larger matrices as well.</p>
+
+    
+
+  </subsection>
+
+
+  <subsection xml:id="subsec-determinants-larger-matrices">
+	<title>Determinants of larger matrices</title>
+
+
+    <p> 
+		<idx><h>parallelepiped</h></idx>
+	We can define determinants for <m>n\by n</m> matrices by measuring the "volume"
+	of a "box" (technically a <term>parallelepiped</term>) defined by the columns of the matrix, 
+	even if this box resides in <m>\real^n</m> for some very large <m>n</m>.  
+    </p>
+
+    <sidebyside widths="60% 40%">
+      <p> For example, the columns of a <m>3\by3</m> matrix
+      <m>A</m> will form a parallelpiped, like the one shown here, and
+      there is a means by which we can classify sets of such vectors
+      as either positively or negatively oriented.  Therefore, we can
+      define the determinant <m>\det(A)</m> in terms of the volume of
+      the parallelpiped, but we will not worry about the details here.
+      </p>
+      <image source="images/det-3d" />
+    </sidebyside>
+
 	<p>
-	  The determinant satisfies these properties:
-	  <ul>
-	    <li>
-	      <p>
-		The determinant of a triangular matrix equals the
-		product of its diagonal entries.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		If <m>P</m> is obtained by interchanging two rows of
-		the identity matrix, then <m>\det(P) = -1</m>.
-	      </p>
-	    </li>
-	    <li>
-	      <p>
-		<m>\det(AB) = \det(A)\det(B)</m>.
-	      </p>
-	    </li>
-	  </ul>
+		Soon we will learn general methods for computing the determinant of a matrix, 
+		but some determinants are easy to calculate directly from the definition. 
 	</p>
-      </statement>
-    </proposition>
+
+	<proposition xml:id="prop-row-of-zeros-determinant">
+		<statement>
+			<p>
+			<ol>
+				<li>
+					<p>
+						<m>\det(I) = 1</m> for any identity matrix <m>I</m>.
+					</p>
+				</li>
+				<li>
+					<p>
+				If <m>A</m> is a square matrix with a row of 0s, then <m>\det(A) = 0</m>.
+					</p>
+				</li>
+			</ol>
+			</p>
+		</statement>
+
+		<proof>
+			<p>
+			<ol>
+				<li>
+					<p>
+				The identity transformation doesn't change anything, so the scaling factor is 1.
+					</p>
+				</li>
+				<li>
+					<p>
+						If row <m>r</m> of <m>A</m> consists entirely of 0s, then the <m>r</m>th component 
+						of <m>A \xvec</m> will be 0.  This means that the transformation associated with 
+						<m>A</m> collapses into a smaller space, and so the volume of any transformed 
+						shape will be 0.
+					</p>
+				</li>
+			</ol>
+		</p>
+		</proof>
+	</proposition>
+
+	<p>Several properties established for <m>2\by2</m> matrices hold for larger matrices as well.
+		In particular the following proposition holds by the same argument given for <m>2 \by 2</m> matrices.
+	</p>
+
+	<proposition xml:id="proposition-det-product">
+		<statement>
+	  <p>
+		For any <m>n \by n</m> matrices <m>A</m> and <m>B</m>, 
+		  <me>\det(AB) = \det(A)\det(B)</me>.
+		</p>
+	</statement>
+	</proposition>
+
+	<p>
+		<xref ref="proposition-det-product" /> allows us to establish a relationship between the
+		determinant of an invertible matrix and the determinant of its inverse. For an invertible
+		matrix <m>A</m> we know that <m>\det(A) \det(A^{-1}) = \det(A A^{-1}) = \det(I) = 1</m>.
+		This leads to the following proposition. 
+	</p>
+
+	<proposition xml:id="proposition-det-of-inverse">
+		<statement>
+	  <p>
+		If <m>A</m> is an invertible matrix, then
+		<m>\det(A^{-1}) = 1/\det(A)</m>.
+	  </p>
+		</statement>
+	  </proposition>
+
 
   </subsection>
 
   <subsection>
-    <title> Determinants and invertibility </title>
+    <title> Determinants of elementary matrices</title>
 
     <p>
       Perhaps the most important property of determinants also
-      appeared in the previous activity.  We saw that when the columns
-      of the matrix <m>A</m> are linearly dependent, the
-      parallelogram formed by those vectors folds down onto a line.
+      appeared in <xref ref="activity-2-by-2-determinants" />.
+	  We saw that when the columns of the matrix <m>A</m> are linearly dependent, 
+	  the parallelogram formed by those vectors folds down onto a line.
       For instance, if <m>A=\begin{bmatrix} 1 \amp 2 \\ -1 \amp -2 \\
       \end{bmatrix}</m>, then the resulting parallelogram, as shown
       in
@@ -490,7 +565,7 @@
 
     <p>
       The condition that the columns of <m>A</m> are linearly
-      dependent is precisely the same as the condition that <m>A</m>
+      dependent is equivalent same to the condition that <m>A</m>
       is not invertible.  This leads us to believe that <m>A</m> is
       not invertible if and only if its determinant is zero.  
       The following proposition expresses this thought.
@@ -498,8 +573,8 @@
 
     <proposition xml:id="prop-invertible-det">
       <statement>
-	<p> The matrix <m>A</m> is invertible if and only if <m>\det(A)
-	\neq 0</m>.
+	<p> 
+		The matrix <m>A</m> is invertible if and only if <m>\det(A) \neq 0</m>.
 	</p>
       </statement>
     </proposition>
@@ -512,17 +587,20 @@
     determinant.
     </p>
 
+
     <p> In <xref ref="subsec-triangular-invertible" />, we saw how to
     describe the three row operations, scaling, interchange, and 
-    replacement, using matrix multiplication.  If we perform a row
+    replacement, using matrix multiplication.  
+	Now we would like to compute the determinants of each of these matrices.
+			<!-- If we perform a row
     operation on the matrix <m>A</m> to obtain the matrix <m>A'</m>,
     we would like to relate <m>\det(A)</m> and <m>\det(A')</m>.  To do
     so, 
-    remember that
+    remember that -->
     <ul>
-      <li> <p> Scalings are performed by multiplying a matrix <m>A</m>
-      by a diagonal
-      matrix, such as 
+      <li> <title>Scaling</title> 
+		<p> Scalings are performed by multiplying a matrix <m>A</m>
+      by a diagonal matrix, such as 
       <me>
 	S = \left[\begin{array}{rrr}
 	1 \amp 0 \amp 0 \\
@@ -531,17 +609,24 @@
 	\end{array}\right],
       </me>
       which has the effect of multiplying the second row of <m>A</m>
-      by <m>3</m> to obtain <m>A'</m>.  Since <m>S</m> is diagonal, we
+      by <m>3</m> to obtain <m>A'</m>.  The associated transformation scales 
+	  by a factor of three in one dimension, so it scales the volumne by 3 as well. 
+	  Thus <m>\det(S) = 3</m>.
+						<!-- Since <m>S</m> is diagonal, we
       know that its determinant is the product of its diagonal entries
-      so that <m>\det(S) = 3</m>.  
-      This means that <m>A'=SA</m> and therefore
-      <me>\det(A')=\det(S)\det(A) = 3\det(A).</me> In general, if we
-      scale a row of <m>A</m> by 
-      <m>k</m>, we have <m>\det(A') =
-      k\det(A)</m>.  </p></li>
+      so that <m>\det(S) = 3</m>.   -->
+						<!-- This means that <m>A'=SA</m> and therefore
+      <me>\det(A')=\det(S)\det(A) = 3\det(A).</me> 
+	  In general, if we -->
+	  More generally, if we scale any row of <m>A</m>
+      <m>k</m>, we have <me>\det(S) = k</me>.
+	  Note that when <m>k</m> is negative, the orientation is reversed by scaling.
+	</p></li>
 
-      <li><p> Interchanges are performed by matrices such
-      as
+      <li><title>Interchanges</title>
+	  
+	  <p> Interchanges are performed by matrices <m>P</m> which result from interchanging two rows of 
+		the identity matrix. For example,
       <me>
 	P = \left[\begin{array}{rrr}
 	0 \amp 1 \amp 0 \\
@@ -549,12 +634,22 @@
 	0 \amp 0 \amp 1 \\
 	\end{array}\right],
       </me>
-      which has the effect of interchanging the first and second rows
-      of <m>A</m>.  As we saw in <xref
-      ref="proposition-det-properties"/>, <m>\det(P) = -1</m>.
+      interchanges the first and second rows of <m>I_3</m>.  
+	  Note that for any such matrix <m>P</m>, <m>P P = I</m>, so <m>\det(P) \det(P) = 1</m>.
+	  This means that <m>\det(P)</m> must either be <m>1</m> or <m>-1</m>. As a transformation, 
+	  an interchange "swaps" two axes.  This reverses the orientation, so   
+	  <me>
+		\det(P) = -1
+	  </me>
+	  for any interchange matrix <m>P</m>.
+
+						<!-- 
+	  As we saw in <xref ref="proposition-det-properties"/>, <m>\det(P) = -1</m>.
       Therefore, when <m>PA=A'</m>, we have <me>\det(A')=\det(P)
       \det(A) = -\det(A).</me> In other words, <m>\det(A') =
-      -\det(A)</m> when we perform an interchange.  </p></li>
+      -\det(A)</m> when we perform an interchange.  -->
+
+	</p></li> 
 
       <li><p> Row replacement operations are performed by matrices
       such as
@@ -566,15 +661,84 @@
 	\end{array}\right],
       </me>
       which multiplies the first row by <m>-2</m> and adds the result
-      to the third row.  Since this is a lower triangular matrix, we
+      to the third row.  Each such matrix has exactly one off-diagonal entry that is non-zero. 
+	  This represents a shear along one axis of <m>\real^n</m>, so 
+	  <me>
+		\det(R) = 1
+	  </me>
+	  for any replacement matrix <m>R</m>.
+						<!-- Since this is a lower triangular matrix, we
       know that the determinant is the product of the diagonal entries,
       which says that <m>\det(R) = 1</m>.  This means that when
       <m>RA = A'</m>,
       we have <m>\det(A')=\det(R)\det(A) = \det(A)</m>.  In
-      other words, a row replacement does not change the determinant.
-      </p></li>
+      other words, a row replacement does not change the determinant. -->
+      </p>
+	</li>
     </ul>
     </p>
+
+    <proposition xml:id="proposition-det-elementary-matrices">
+      <title> The determinants of elementary matrices</title>
+      <statement>
+	<p>
+	  <ul>
+	    <li>
+	      <p>
+		If <m>S</m> is a scaling matrix with scaling factor <m>k</m>, then  
+		<m>\det(S) = k</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>P</m> is an interchange matrix, then  <m>\det(P) = -1</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>R</m> is a replacement matrix, then <m>\det(R) = 1</m>.
+	      </p>
+	    </li>
+	  </ul>
+	</p>
+      </statement>
+    </proposition>
+
+	<p>
+	<xref ref="proposition-det-elementary-matrics"/> allows us to compute the determinant of any matrix.  
+		If <m>A</m> is invertible, then <m>A\sim I</m>. But this means that 
+		<me>
+		E_k E_{k-1} \cdots E_2 E_1 A = I	
+		</me>
+		for some elementary matrices <m>E_1, E_2, \dots, E_k</m>.
+		By <xref ref="prop-" /> this implies
+		<me>
+		\det(E_k) \det(E_{k-1}) \cdots \det(E_2) \det(E_1) \det(A) = \det(I) = 1
+		</me>,
+		so
+		<me>
+		\det(A) = \frac{1}{\det(E_k) \det(E_{k-1}) \cdots \det(E_2) \det(E_1)}
+		</me>.
+		Recall that <m>\det(R) = 1</m> for an replacement matrices, so most of these terms are 1.
+		Also <m>\det(P) = -1</m>, so we only need to know if there we have an even or odd number of  
+		interchanges to know if the determinant is positive or negative. The abosulte value of the determinant of  
+		<m>A</m> is the reciprocal of the product of the scaling factors used in any scaling operations involved in 
+		computing the RREF.
+	</p>
+
+	<p>
+		If <m>A</m> is not invertible, then the RREF of <m>A</m> will have a row of zeros, so  
+		by <xref ref="prop-row-of-zeros-determinant"/>, 
+		<me>
+		\det(E_k) \det(E_{k-1}) \cdots \det(E_2) \det(E_1) \det(A) = 0
+		</me>,
+		from which we see that <m>\det(A) = 0</m>.
+	</p>
+	<p>
+		So with just a little bookkeeping, we can compute the determinant of a matrix while we are calculting its reduced  
+		row echelon form.
+	</p>
+
 
     <proposition xml:id="proposition-det-row-operations">
       <title> The effect of row operations on the determinant </title>
@@ -604,7 +768,57 @@
 	</p>
       </statement>
     </proposition>
-    
+
+	<p>
+		Elemenatary matrices also provide us a tool for demonstrating 
+		<xref ref="proposition-det-triangular" /> and 
+		<xref ref="prop-invertible-det"/>.
+	</p>
+
+	<proposition xml:id="proposition-det-triangular">
+		<statement>
+			<p>
+		  The determinant of a square triangular matrix equals the
+		  product of its diagonal entries.  
+			</p>
+		</statement>
+	<proof>
+		<p>
+		If <m>A</m> is a square triangular matrix, then we can reduce <m>A</m> to a square diagonal matrix<m>D</m> 
+		using only replacement operations.  Thus <m>\det(A) = \det(D)</m>.  Also, the diagonal entries of <m>D</m> 
+		are the same as the diagonal entries of <m>A</m>. 
+		</p>
+
+		<p>
+			A square diagonal matrix <m>D</m> can be reduced to <m>I</m> by a sequence of scaling operations. 
+			If the diagonal entires of <m>D</m> are <m>d_1, d_2, \dots d_n</m>, then we must scale by
+			<m>1/d_1, 1/d_2, \dots 1/d_n</m>, so      
+			<me>
+				\frac{1}{d_1} \cdot \frac{1}{d_2} \dots frac{1}{d_n} \det(D) = \det(I) = 1
+			</me>
+			and 
+			<me>
+				\det(D) = d_1 d_2 \cdots d_n
+			</me>.
+		</p>
+	</proof>
+	  </proposition>
+
+
+
+	<proof>
+		<title>Proof of <xref ref="prop-invertible-det"/></title>
+		<p>
+		If <m>A</m> is invertible, then <m>A \sim I</m>. So <m>\det(A)</m> is a nonzero multiple of <m>\det(I) = 1</m>.  
+		Thus <m>\det(A) \neq 0</m>. 
+		</p>
+		<p>
+			If <m>A</m> is not invertible, then <m>A \sim B</m> for some matrix <m>B</m> that contains a row of 0s.
+			This means <m>\det(A)</m> is a nonzero multiple of <m>\det(B) = 0</m>.  Thus <m>\det(A) = 0</m>.
+		</p>
+	</proof>
+
+
     <activity xml:id="act-determinant-gaussian-elimination">
       <statement>
       <p> We will investigate the connection between the determinant
@@ -821,11 +1035,14 @@
     <p> As seen in this activity, row operations can be used to
     compute the determinant of a matrix.  More specifically, 
     applying the forward substitution phase of Gaussian
-    elimination to the matrix <m>A</m> leads us to an upper triangular
-    matrix <m>U</m> so that <m>A\sim U</m>.
+    elimination to the matrix <m>A</m> requires only replacement operations and interchanges and leads 
+	us to an upper triangular matrix <m>U</m> so that <m>A\sim U</m> and <m>\det(A) = \pm \det(U)</m>.
+	And <m>\det(U)</m> is easily calculated using <xref ref="proposition-det-triangular" />. So we  
+	see that we can calculate determinates without completing the RREF algorithm.  If suffices to 
+	do the forward substitutions phase.
     </p>
 
-    <p>
+    <!-- <p>
       We know that <m>U</m> is
       invertible when all of its diagonal entries are nonzero.  We also
       know that <m>\det(U)\neq 0</m> under the same condition.  This
@@ -864,9 +1081,10 @@
 	  <m>\det(A^{-1}) = 1/\det(A)</m>.
 	</p>
       </statement>
-    </proposition>
+    </proposition> -->
 	    
   </subsection>
+
 
   <subsection>
     <title> Cofactor expansions </title>
@@ -916,10 +1134,10 @@
 			Note that the derivation of a formula for the determinant of a <m> 2 \by 2 </m> matrix relied on two  
 			facts: (a) replacement doesn't change the determinant, and (b) the determinant of a triangular matrix   
 			is the product of the diagonal elements.
-			This same general approach could be used on any square matrix: keep applying row operations until we  
+			<!-- This same general approach could be used on any square matrix: keep applying row operations until we  
 			obtain a triangular matrix.  If we use scaling or or interchange, we need to keep track of how our determinant 
 			changes.  But we can obtain a triangular matrix without using scaling, so  this just amounts to 
-			keeping track of a possible sign change when we use interchange.
+			keeping track of a possible sign change when we use interchange. -->
 		</p>
 
     <p> Now that we have a formula for the determinant of a <m> 2 \by 2 </m> matrix in hand, we  
