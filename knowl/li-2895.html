@@ -21,6 +21,21 @@ sagecell.makeSagecell({
   ],
   "evalButtonText": "Evaluate (Python)"
 });
+</script><script>// Make *any* pre with class 'sagecell-python-autoeval' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python-autoeval",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": true,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)",
+  "hide": [
+    "evalButton"
+  ]
+});
 </script>
 </head>
 <body class="ignore-math">
@@ -28,17 +43,16 @@ sagecell.makeSagecell({
 <span class="type">Item</span><span class="space"> </span><span class="codenumber">a</span><span class="period">.</span>
 </h5>
 <div class="para">We can find the characteristic polynomial of a <code class="code-inline tex2jax_ignore">sympy.Matrix</code> <code class="code-inline tex2jax_ignore">A</code> by writing <code class="code-inline tex2jax_ignore">A.charpoly('lambda')</code>.  Notice that we have to give Python a variable in which to write the polynomial;  here, we use <code class="code-inline tex2jax_ignore">lambda</code> though <code class="code-inline tex2jax_ignore">x</code> works just as well.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-152"><script type="text/x-sage">import numpy as np
+<pre class="ptx-sagecell sagecell-python-autoeval" id="sage-152"><script type="text/x-sage">import numpy as np
 import sympy
-A = np.array([[-3,1],[0,-3]])
+</script></pre>
+<pre class="ptx-sagecell sagecell-python" id="sage-153"><script type="text/x-sage">A = np.array([[-3,1],[0,-3]])
 M = sympy.Matrix(A)
 p = M.charpoly('lambda')
 print(p)
 </script></pre>
 <div class="para">The factored form of the characteristic polynomial may be more useful since it will tell us the eigenvalues and their multiplicities.  The factored characteristic polynomial is found with <code class="code-inline tex2jax_ignore">sympy.factor()</code>.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-153"><script type="text/x-sage">import numpy as np 
-import sympy
-A = np.array([[-3, 1], [0, -3]])
+<pre class="ptx-sagecell sagecell-python" id="sage-154"><script type="text/x-sage">A = np.array([[-3, 1], [0, -3]])
 M = sympy.Matrix(A)
 p = M.charpoly('x')
 print(sympy.factor(p)); print()
