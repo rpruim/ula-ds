@@ -124,21 +124,27 @@
 	  about the existence of a steady-state vector <m>\qvec</m>
 	  and the behavior of a Markov chain. </p></li>
 
-	  <li><p> Use the Sage cell below to find the some terms of a
+	  <li><p> Use the Python cell below to find the some terms of a
 	  Markov chain.
-	  <sage>
+	  </p>
+	  <sage language="python">
 	    <input>
+import numpy as np
+numpy.set_printoptions(precision = 3, suppress = True)
 def markov_chain(A, x0, N):
+	result = [x0]
     for i in range(N):
-        x0 = A*x0
-        print (x0.numerical_approx(digits=3))
+        x0 = A @ x0
+        result.append(x0)
+	return result
+
 ## define the matrix G and x0
 A =
 x0 =
 markov_chain(A, x0, 20)		
 	    </input>
 	  </sage>
-	  </p></li>
+	  </li>
 
 	  <li><p> Describe the long-term distribution of people among
 	  urban, suburban, and rural populations. </p></li>
@@ -287,12 +293,12 @@ markov_chain(A, x0, 20)
 	\end{array}\right]
       </me>.
       <ol marker="a.">
-	<li><p> Find the eigenvalues of <m>A</m>.
-	<sage>
+	<li><p> Find the eigenvalues of <m>A</m>.</p>
+	<sage language="python">
 	  <input>
 	  </input>
 	</sage>
-	</p></li>
+	</li>
 
 	<li><p> Do the conditions of the Perron-Frobenius theorem
 	apply to this matrix? </p></li>
@@ -682,30 +688,40 @@ markov_chain(A, x0, 20)
       <m>\alpha</m> in this exercise.  Let's consider the model
       Internet described in <xref 
       ref="fig-google-cyclic" /> and construct the Google matrix
-      <m>G</m>.  In the Sage cell below, you can enter the matrix
+      <m>G</m>.  In the Python cell below, you can enter the matrix
       <m>G</m> and choose a value for <m>\alpha</m>.
-      <sage>
+	  </p>
+      <sage language="python">
 	<input>
-def modified_markov_chain(A, x0, N):
-    r = A.nrows()
-    A = alpha*A + (1-alpha)*matrix(r,r,[1.0/r]*(r*r))	      
+import numpy as np  
+np.set_printoptions(precision = 3, suppress = True)
+def modified_markov_chain(A, x0, N, alpha=0.85):
+    r = A.shape[0]
+    F = np.eye(r)
+    F.fill((1.0/r) * r * r)
+    Amod = alpha * A + (1-alpha) * F
+    print(Amod)
+    result = [x0]
     for i in range(N):
-        x0 = A*x0
-        print (x0.numerical_approx(digits=3))
+        x0 = Amod @ x0
+        result.append(x0)
+    return result
+
 ## Define the matrix original Google matrix G and choose alpha.
 ## The function above finds the modified Google matrix
 ## and resulting Markov chain
 alpha = 0
 G =
-x0 = vector([1,0,0,0,0])
-modified_markov_chain(G, x0, 20)		
+x0 = np.array([1,0,0,0,0])
+print(modified_markov_chain(G, x0, 20))
 	</input>
       </sage>
 
+	  <p>
       <ol marker="a.">
 	<li><p> Let's begin with <m>\alpha=0</m>.  With this choice,
 	what is the matrix <m>G'=\alpha G + (1-\alpha)H_n</m>?
-	Construct a Markov chain using the Sage cell above.  How
+	Construct a Markov chain using the Python cell above.  How
 	many steps are required for the Markov chain to converge to
 	the accuracy with which the vectors <m>\xvec_k</m> are
 	displayed? </p></li>
@@ -836,19 +852,21 @@ modified_markov_chain(G, x0, 20)
 	  <p> Since we begin the game on square 1, the initial vector
 	  <m>\xvec_0 = \evec_1</m>.  Generate a few terms of the
 	  Markov chain <m>\xvec_{k+1} = A\xvec_k</m>.
-	  <sage>
+	  </p>
+	  <sage language="python">
 	    <input>
+import numpy as np
 def markov_chain(A, x0, N):
+    result = [x0]
     for i in range(N):
-        x0 = A*x0
-        print (x0.numerical_approx(digits=3))
+        x0 = A @ x0
+		result.append(x0)
 ## define the matrix A and x0
 A =
 x0 =
-markov_chain(A, x0, 10)		
+print(markov_chain(A, x0, 10))
 	    </input>
 	  </sage>
-	  </p>
 
 	  <p> What is the probability that we arrive at square 8 by
 	  the fourth move?  By the sixth move?  By the seventh
@@ -878,19 +896,22 @@ markov_chain(A, x0, 10)
 	  matrix that records the probability that we move from one
 	  square to another on a given turn and generate some terms in
 	  the Markov chain that begins with <m>\xvec_0=\evec_1</m>.  
-	  <sage>
+	  </p>
+
+	  <sage language="python">
 	    <input>
+import numpy as np
 def markov_chain(A, x0, N):
+    result = [x0]
     for i in range(N):
-        x0 = A*x0
-        print (x0.numerical_approx(digits=3))
+        x0 = A @ x0
+		result.append(x0)
 ## define the matrix A and x0
 A =
 x0 =
 markov_chain(A, x0, 10)		
 	    </input>
 	  </sage>
-	  </p>
 
 	  <p>
 	    <ol marker="1.">
