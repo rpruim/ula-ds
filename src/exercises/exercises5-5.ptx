@@ -106,13 +106,13 @@
       in <xref ref="fig-stoch-pops" />. </p>
 
       <figure xml:id="fig-stoch-pops">
-	<sidebyside widths="50%">
-	  <image source="images/stoch-pops" />
-	</sidebyside>
 	<caption>
 	  The flow between urban, suburban, and rural
 	  populations. 
 	</caption>
+	<sidebyside widths="50%">
+	  <image source="images/stoch-pops" />
+	</sidebyside>
       </figure>
 
       <p>
@@ -443,9 +443,15 @@ markov_chain(A, x0, 20)
 
   </exercise>
 
+  <exercisegroup>
+
+	<introduction>
   <p> In the next few exercises, we will consider the <m>1\by n</m>
   matrix <m>S = \left[\begin{array}{rrrr} 1 \amp 1 \amp \ldots \amp 1
   \end{array}\right]</m>. </p>
+	</introduction>
+
+
 
   <exercise xml:id="exercise-stochastic-probability">
     <statement>
@@ -662,6 +668,9 @@ markov_chain(A, x0, 20)
 
   </exercise>
 
+
+</exercisegroup>
+
   <exercise>
     <statement>
       <p> We saw a couple of model Internets in which a Markov chain
@@ -804,7 +813,7 @@ print(modified_markov_chain(G, x0, 20))
       <p> This exercise will analyze the board game <em>Chutes and
       Ladders</em>, or at least a simplified version of it. </p>
 
-      <sidebyside widths="50% 45%" margin="5%">
+      <sidebyside widths="50% 45%" margins="5%">
 	<p> The board for this game consists of 100 squares arranged
 	in a <m>10\by10</m> grid and numbered 1 to 100.  There are
 	pairs of squares joined by a ladder and pairs joined by a
@@ -833,13 +842,13 @@ print(modified_markov_chain(G, x0, 20))
 	  on square 8, we will stay there forever.  </p>
 
 	  <figure xml:id="fig-chutes-plain">
-	    <sidebyside width="50%">
-	      <image source="images/chutes-plain" />
-	    </sidebyside>
 	    <caption>
 	      A simple version of Chutes and Ladders with neither chutes
 	      nor ladders.
 	    </caption>
+	    <sidebyside width="50%">
+	      <image source="images/chutes-plain" />
+	    </sidebyside>
 	  </figure>
 
 	  <p> Construct the <m>8\by8</m> matrix <m>A</m> that
@@ -856,14 +865,16 @@ print(modified_markov_chain(G, x0, 20))
 	  <sage language="python">
 	    <input>
 import numpy as np
+import numpy as np
 def markov_chain(A, x0, N):
     result = [x0]
     for i in range(N):
         x0 = A @ x0
-		result.append(x0)
+        result.append(x0)
+    return result
 ## define the matrix A and x0
-A =
-x0 =
+A = 
+x0 = 
 print(markov_chain(A, x0, 10))
 	    </input>
 	  </sage>
@@ -877,13 +888,13 @@ print(markov_chain(A, x0, 10))
 	  </p>
 
 	  <figure xml:id="fig-chutes-ladders">
-	    <sidebyside width="50%">
-	      <image source="images/chutes-ladders" />
-	    </sidebyside>
 	    <caption>
 	      A version of Chutes and Ladders with one chute and one
 	      ladder. 
 	    </caption>
+	    <sidebyside width="50%">
+	      <image source="images/chutes-ladders" />
+	    </sidebyside>
 	  </figure>
 
 	  <p> Even though there are eight squares, we only need to
@@ -905,11 +916,13 @@ def markov_chain(A, x0, N):
     result = [x0]
     for i in range(N):
         x0 = A @ x0
-		result.append(x0)
+        result.append(x0)
+    return result
+
 ## define the matrix A and x0
 A =
 x0 =
-markov_chain(A, x0, 10)		
+print(markov_chain(A, x0, 10))		
 	    </input>
 	  </sage>
 
