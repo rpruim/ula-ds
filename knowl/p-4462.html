@@ -9,62 +9,41 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-python",
+  "inputLocation": "pre.sagecell-sage",
   "linked": true,
-  "linkKey": "linked-python",
+  "linkKey": "linked-sage",
   "autoeval": false,
   "languages": [
-    "python"
+    "sage"
   ],
-  "evalButtonText": "Evaluate (Python)"
+  "evalButtonText": "Evaluate (Sage)"
 });
 </script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
 <div class="para logical">
-<div class="para">When working with decimal entries, which are called <dfn class="terminology">floating point numbers</dfn> in computer science, we must remember that computers perform only approximate arithmetic. This can be a problem when we wish to find the eigenvectors of a matrix.  To illustrate, consider the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
-0.4 \amp 0.3 \\
-0.6 \amp 0.7 \\
-\end{array}\right]
-\text{.}\)</span>
-</div>
+<div class="para">If we begin with the matrix <span class="process-math">\(A\text{,}\)</span> we find</div>
 <ol class="decimal">
-<li><div class="para">Without using Python, find the eigenvalues of this matrix.</div></li>
-<li><div class="para">What do you find for the reduced row echelon form of <span class="process-math">\(A-I\text{?}\)</span>
+<li><div class="para">The eigenvalues are <span class="process-math">\(\lambda=1\)</span> and <span class="process-math">\(\lambda=0.1\text{.}\)</span>
 </div></li>
+<li><div class="para">The reduced row echelon form is <span class="process-math">\(\mattwo{-2}{1}{0}{0}\text{,}\)</span> which shows that <span class="process-math">\(A-I\)</span> is not invertible, as expected.</div></li>
 <li>
-<div class="para">Let’s now use Python to determine the reduced row echelon form of <span class="process-math">\(A-I\text{:}\)</span>
-</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-157"><script type="text/x-sage">import numpy as np 
-import sympy 
-A = sympy.Matrix([[0.4,0.3],[0.6,0.7]])
-print((A - sympy.eye(2)).rref())   # use sympy.eye() to get a sympy.Matrix
+<div class="para">Python returns <span class="process-math">\(\mattwo{1}{0}{0}{1}\text{,}\)</span> which is not correct because <span class="process-math">\(A-I\)</span> cannot be invertible if <span class="process-math">\(\lambda=1\)</span> is an eigenvalue of <span class="process-math">\(A\text{.}\)</span> The issue is round-off errors that make things that should be exactly zero slightly different from 0.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-159"><script type="text/x-sage">import numpy as np 	
+from numpy import linalg
+		
+A = np.array([[0.8,0.6],[0.2,0.4]])
+B = A - np.eye(2)
+print(B); print()
+print(B.sum(axis = 0))	 # column sums shoudl be zero, but...
 </script></pre>
-<div class="para">What result does Python report for the reduced row echelon form?  Why is this result not correct? (Hint: compute row and column sums.)</div>
 </li>
-<li>
-<div class="para">Despite the error in finding the reduce row echelon form, NumPy and SciPy <em class="emphasis">can</em> compute these eigenvalues and eigenvectors for us.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-158"><script type="text/x-sage">import numpy as np  
-A = np.array([[0.4, 0.3],[0.6,0.7]])
-print(np.linalg.eig(A))
-</script></pre>
-<div class="para">As you might expect, this implies that the method being used does not rely on using RREF along the way. RREF is not numerically stable, this is why it is not included in numpy and scipy.</div>
-</li>
-<li>
-<div class="para">If we provide sympy with rational values instead of floating point, then it can compute the RREF of our matrix exactly and the error from above goes away.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-159"><script type="text/x-sage">import numpy as np  
-import sympy 
-from sympy import Rational as r
-A = sympy.Matrix([[r(4,10),r(3,10)],[r(6,10),r(7,10)]])
-print(A)
-print(A.eigenvals())
-</script></pre>
-<div class="para">In <a href="chap6.html" class="internal" title="Chapter 6: Orthogonality and Least Squares">Chapter 6</a> we will see other methods for computing eigevectors that do not rely on RREF.</div>
-</li>
+<li><div class="para">Here we find the correct eigenvalues, <span class="process-math">\(\lambda=1\)</span> with basis vector <span class="process-math">\(\twovec{1}{2}\)</span> for <span class="process-math">\(E_1\)</span> and <span class="process-math">\(\lambda=0.1\)</span> with basis vector <span class="process-math">\(\twovec{1}{-1}\)</span> for <span class="process-math">\(E_{0.1}\text{.}\)</span>
+</div></li>
 </ol>
 </div>
 <span class="incontext"><a href="sec-eigen-find.html#p-4462" class="internal">in-context</a></span>
