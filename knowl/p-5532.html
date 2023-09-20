@@ -9,10 +9,67 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script><script>// Make *any* pre with class 'sagecell-python-autoeval' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python-autoeval",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": true,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)",
+  "hide": [
+    "evalButton"
+  ]
+});
+</script>
 </head>
 <body class="ignore-math">
-<h3 class="heading"><span class="type">Paragraph</span></h3>
-<div class="para">We have typically found eigenvalues of a square matrix <span class="process-math">\(A\)</span> as the roots of the characteristic polynomial <span class="process-math">\(\det(A-\lambda I) = 0\)</span> and the associated eigenvectors as the null space <span class="process-math">\(\nul(A-\lambda I)\text{.}\)</span>  Unfortunately, this approach is not practical when we are working with large matrices. First, finding the charactertic polynomial of a large matrix requires considerable computation, as does finding the roots of that polynomial.  Second, finding the null space of a singular matrix is plagued by numerical problems, as we will see in the preview activity.</div>
+<h4 class="heading"><span class="type">Paragraph</span></h4>
+<div class="para logical">
+<div class="para">Let’s recall some earlier observations about eigenvalues and eigenvectors.</div>
+<ol class="lower-alpha">
+<li><div class="para">How are the eigenvalues and associated eigenvectors of <span class="process-math">\(A\)</span> related to those of <span class="process-math">\(A^{-1}\text{?}\)</span>
+</div></li>
+<li><div class="para">How are the eigenvalues and associated eigenvectors of <span class="process-math">\(A\)</span> related to those of <span class="process-math">\(A-3I\text{?}\)</span>
+</div></li>
+<li><div class="para">If <span class="process-math">\(\lambda\)</span> is an eigenvalue of <span class="process-math">\(A\text{,}\)</span> what can we say about the pivot positions of <span class="process-math">\(A-\lambda
+I\text{?}\)</span>
+</div></li>
+<li>
+<div class="para">Suppose that <span class="process-math">\(A = \left[\begin{array}{rr}
+0.8 \amp 0.4 \\
+0.2 \amp 0.6 \\
+\end{array}\right]
+\text{.}\)</span>  Explain how we know that <span class="process-math">\(1\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> and then explain why the following computation is incorrect.</div>
+<pre class="ptx-sagecell sagecell-python-autoeval" id="sage-186"><script type="text/x-sage">import numpy as np
+import sympy as s   
+from scipy import linalg  
+from pprint import pprint
+</script></pre>
+<pre class="ptx-sagecell sagecell-python" id="sage-187"><script type="text/x-sage">A = s.Matrix([[0.8, 0.4], [0.2, 0.6]])
+I = s.eye(2) 
+print((A-I).rref())
+</script></pre>
+</li>
+<li><div class="para">Suppose that <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{,}\)</span> and we define a sequence <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{;}\)</span>  in other words, <span class="process-math">\(\xvec_{k} = A^k\xvec_0\text{.}\)</span>  What happens to <span class="process-math">\(\xvec_k\)</span> as <span class="process-math">\(k\)</span> grows increasingly large?</div></li>
+<li><div class="para">Explain how the eigenvalues of <span class="process-math">\(A\)</span> are responsible for the behavior noted in the previous question.</div></li>
+</ol>
+</div>
 <span class="incontext"><a href="sec-power-method.html#p-5532" class="internal">in-context</a></span>
 </body>
 </html>

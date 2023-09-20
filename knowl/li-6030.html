@@ -25,7 +25,7 @@ sagecell.makeSagecell({
 </head>
 <body class="ignore-math">
 <article class="li"><h3 class="heading"><span class="title">Multiplication</span></h3>
-<div class="para">From a mathematical perspecitve, the <code class="code-inline tex2jax_ignore">*</code> operator performs scalar multiplication of vectors and matrices. <pre class="ptx-sagecell sagecell-python" id="sage-347"><script type="text/x-sage">v = np.array([2,1])
+<div class="para">From a mathematical perspecitve, the <code class="code-inline tex2jax_ignore">*</code> operator performs scalar multiplication of vectors and matrices. <pre class="ptx-sagecell sagecell-python" id="sage-348"><script type="text/x-sage">v = np.array([2,1])
 print(3*v)
 A = np.array([[2,1],[-3,2]])	    
 print(3*A)
@@ -33,7 +33,7 @@ print(3*A)
 </div>
 <div class="para">Computationally, numpy is using something called <dfn class="terminology">broadcasting</dfn>, which is more general than scalar multiplication. When two numpy arrays have different shapes, numpy starts from the end of the shape tuples and compares their values.  If they match, that’s good.  But it is also OK if one of them is 1 (or non-existant, which amounts to nearly the samething) and the other is not.  In this case, we can imagine duplicating the array with 1 in that dimension to fill out its shape to match the other. (NumPy does not actually do this duplication, since that would be ineffcient, but it is a good mental model for how the operation behaves.) Working from back to front, each axis is considered, and in the end, if the shapes are compatible, they can be treated as if they had the same shape.  At that point, the opreation proceeds element by element in the expanded arrays.</div>
 <div class="para">You can find out much more about broadcasting at <a class="external" href="https://numpy.org/doc/stable/user/basics.broadcasting.html" target="_blank"><code class="code-inline tex2jax_ignore">numpy.org/doc/stable/user/basics.broadcasting.html</code></a>.</div>
-<div class="para">Broadcasting means that <code class="code-inline tex2jax_ignore">*</code> cannot be used for for matrix-vector and matrix-matrix multiplication in the linear algebra sense.  Instead we use <code class="code-inline tex2jax_ignore">@</code>. <pre class="ptx-sagecell sagecell-python" id="sage-348"><script type="text/x-sage">A = np.array([[2,-3],[1,2]])
+<div class="para">Broadcasting means that <code class="code-inline tex2jax_ignore">*</code> cannot be used for for matrix-vector and matrix-matrix multiplication in the linear algebra sense.  Instead we use <code class="code-inline tex2jax_ignore">@</code>. <pre class="ptx-sagecell sagecell-python" id="sage-349"><script type="text/x-sage">A = np.array([[2,-3],[1,2]])
 v = np.array([2,1])	    
 print(A*v)  # component-wise, after broadcasting
 print(A@v)  # CORRECT way to do linear algebra

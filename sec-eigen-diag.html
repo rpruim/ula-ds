@@ -762,7 +762,7 @@ sagecell.makeSagecell({
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="section" id="sec-eigen-diag"><h2 class="heading hide-type">
 <span class="type">Section</span><span class="space"> </span><span class="codenumber">5.3</span><span class="space"> </span><span class="title">Diagonalization, similarity, and powers of a matrix</span>
 </h2>
-<section class="introduction" id="introduction-27"><div class="para" id="p-4593">The first example we considered in this chapter was the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
+<section class="introduction" id="introduction-27"><div class="para" id="p-4591">The first example we considered in this chapter was the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
 1 \amp 2 \\
 2 \amp 1 \\
 \end{array}\right]
@@ -771,26 +771,26 @@ sagecell.makeSagecell({
 0 \amp -1\\
 \end{array}\right]
 \text{.}\)</span>
-</div> <div class="para" id="p-4594">This equivalence is summarized by <a href="" class="xref" data-knowl="./knowl/fig-eigen-diag-A.html" title="Figure 5.3.1">Figure 5.3.1</a>.  The diagonal matrix <span class="process-math">\(D\)</span> has the geometric effect of stretching vectors horizontally by a factor of <span class="process-math">\(3\)</span> and flipping vectors vertically.  The matrix <span class="process-math">\(A\)</span> has the geometric effect of stretching vectors by a factor of <span class="process-math">\(3\)</span> in the <span class="process-math">\(\vvec_1\)</span> direction and flipping them in the <span class="process-math">\(\vvec_2\)</span> direction.  That is, the geometric effect of <span class="process-math">\(A\)</span> is the same as that of <span class="process-math">\(D\)</span> when viewed in a basis of eigenvectors of <span class="process-math">\(A\text{.}\)</span>
+</div> <div class="para" id="p-4592">This equivalence is summarized by <a href="" class="xref" data-knowl="./knowl/fig-eigen-diag-A.html" title="Figure 5.3.1">Figure 5.3.1</a>.  The diagonal matrix <span class="process-math">\(D\)</span> has the geometric effect of stretching vectors horizontally by a factor of <span class="process-math">\(3\)</span> and flipping vectors vertically.  The matrix <span class="process-math">\(A\)</span> has the geometric effect of stretching vectors by a factor of <span class="process-math">\(3\)</span> in the <span class="process-math">\(\vvec_1\)</span> direction and flipping them in the <span class="process-math">\(\vvec_2\)</span> direction.  That is, the geometric effect of <span class="process-math">\(A\)</span> is the same as that of <span class="process-math">\(D\)</span> when viewed in a basis of eigenvectors of <span class="process-math">\(A\text{.}\)</span>
 </div> <figure class="figure figure-like" id="fig-eigen-diag-A"><div class="sidebyside"><div class="sbsrow" style="margin-left:10%;margin-right:10%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/eigen-intro-A.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.3.1<span class="period">.</span></span><span class="space"> </span>The matrix <span class="process-math">\(A\)</span> has the same geometric effect as the diagonal matrix <span class="process-math">\(D\)</span> when viewed in the basis of eigenvectors.</figcaption></figure> <div class="para" id="p-4595">Our goal in this section is to express this geometric observation in algebraic terms.  In doing so, we will make precise the sense in which <span class="process-math">\(A\)</span> and <span class="process-math">\(D\)</span> are equivalent.</div> <article class="exploration project-like" id="exploration-17"><h3 class="heading">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.3.1<span class="period">.</span></span><span class="space"> </span>The matrix <span class="process-math">\(A\)</span> has the same geometric effect as the diagonal matrix <span class="process-math">\(D\)</span> when viewed in the basis of eigenvectors.</figcaption></figure> <div class="para" id="p-4593">Our goal in this section is to express this geometric observation in algebraic terms.  In doing so, we will make precise the sense in which <span class="process-math">\(A\)</span> and <span class="process-math">\(D\)</span> are equivalent.</div> <article class="exploration project-like" id="exploration-17"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">5.3.1</span><span class="period">.</span>
 </h3>
-<div class="para logical" id="p-4596">
+<div class="para logical" id="p-4594">
 <div class="para">In this preview activity, we will review some familiar properties about matrix multiplication that appear in this section.</div>
 <ol class="lower-alpha">
-<li id="li-3012"><div class="para" id="p-4597">Remember that matrix-vector multiplication constructs linear combinations of the columns of the matrix.  For instance, if <span class="process-math">\(A = \begin{bmatrix}
+<li id="li-3012"><div class="para" id="p-4595">Remember that matrix-vector multiplication constructs linear combinations of the columns of the matrix.  For instance, if <span class="process-math">\(A = \begin{bmatrix}
 \avec_1 \amp \avec_2 \end{bmatrix}\text{,}\)</span> express the product <span class="process-math">\(A\twovec2{-3}\)</span> in terms of <span class="process-math">\(\avec_1\)</span> and <span class="process-math">\(\avec_2\text{.}\)</span>
 </div></li>
-<li id="li-3013"><div class="para" id="p-4598">What is the product <span class="process-math">\(A\twovec40\)</span> in terms of <span class="process-math">\(\avec_1\)</span> and <span class="process-math">\(\avec_2\text{?}\)</span>
+<li id="li-3013"><div class="para" id="p-4596">What is the product <span class="process-math">\(A\twovec40\)</span> in terms of <span class="process-math">\(\avec_1\)</span> and <span class="process-math">\(\avec_2\text{?}\)</span>
 </div></li>
-<li id="li-3014"><div class="para" id="p-4599">Next, remember how matrix-matrix multiplication is defined.  Suppose that we have matrices <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> and that <span class="process-math">\(B = \begin{bmatrix}
+<li id="li-3014"><div class="para" id="p-4597">Next, remember how matrix-matrix multiplication is defined.  Suppose that we have matrices <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> and that <span class="process-math">\(B = \begin{bmatrix}
 \bvec_1 \amp \bvec_2 \end{bmatrix}\text{.}\)</span>  How can we express the matrix product <span class="process-math">\(AB\)</span> in terms of the columns of <span class="process-math">\(B\text{?}\)</span>
 </div></li>
-<li id="li-3015"><div class="para" id="p-4600">Suppose that <span class="process-math">\(A\)</span> is a matrix having eigenvectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> with associated eigenvalues <span class="process-math">\(\lambda_1 = 4\)</span> and <span class="process-math">\(\lambda_2 =
+<li id="li-3015"><div class="para" id="p-4598">Suppose that <span class="process-math">\(A\)</span> is a matrix having eigenvectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> with associated eigenvalues <span class="process-math">\(\lambda_1 = 4\)</span> and <span class="process-math">\(\lambda_2 =
 -1\text{.}\)</span>  Express the product <span class="process-math">\(A(2\vvec_1+3\vvec_2)\)</span> in terms of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>
 </div></li>
-<li id="li-3016"><div class="para logical" id="p-4601">
+<li id="li-3016"><div class="para logical" id="p-4599">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> is the matrix from the previous part and that <span class="process-math">\(P=\begin{bmatrix} \vvec_1 \amp \vvec_2
 \end{bmatrix}\text{.}\)</span>  What is the matrix product</div>
 <div class="displaymath process-math">
@@ -804,14 +804,14 @@ AP = A\begin{bmatrix}
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-225" id="solution-225"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-225"><div class="solution solution-like"><div class="para logical" id="p-4602"><ol class="lower-alpha">
-<li id="li-3017"><div class="para" id="p-4603"><span class="process-math">\(A\twovec{2}{-3} = 2\avec_1 - 3\avec_2\text{.}\)</span></div></li>
-<li id="li-3018"><div class="para" id="p-4604"><span class="process-math">\(A\twovec40 = 4\avec_1\text{.}\)</span></div></li>
-<li id="li-3019"><div class="para" id="p-4605"><span class="process-math">\(AB = \begin{bmatrix}
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-225" id="solution-225"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-225"><div class="solution solution-like"><div class="para logical" id="p-4600"><ol class="lower-alpha">
+<li id="li-3017"><div class="para" id="p-4601"><span class="process-math">\(A\twovec{2}{-3} = 2\avec_1 - 3\avec_2\text{.}\)</span></div></li>
+<li id="li-3018"><div class="para" id="p-4602"><span class="process-math">\(A\twovec40 = 4\avec_1\text{.}\)</span></div></li>
+<li id="li-3019"><div class="para" id="p-4603"><span class="process-math">\(AB = \begin{bmatrix}
 A\bvec_1 \amp A\bvec_2
 \end{bmatrix}\text{.}\)</span></div></li>
-<li id="li-3020"><div class="para" id="p-4606"><span class="process-math">\(A(2\vvec_1 + 3\vvec_2) = 8\vvec_1 - 3\vvec_2\text{.}\)</span></div></li>
-<li id="li-3021"><div class="para" id="p-4607"><span class="process-math">\(AP =
+<li id="li-3020"><div class="para" id="p-4604"><span class="process-math">\(A(2\vvec_1 + 3\vvec_2) = 8\vvec_1 - 3\vvec_2\text{.}\)</span></div></li>
+<li id="li-3021"><div class="para" id="p-4605"><span class="process-math">\(AP =
 \begin{bmatrix}
 A\vvec_1 \amp A\vvec_2
 \end{bmatrix}
@@ -824,37 +824,37 @@ A\vvec_1 \amp A\vvec_2
 </div></article></section><section class="subsection" id="subsection-85"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">5.3.1</span><span class="space"> </span><span class="title">Diagonalization of matrices</span>
 </h3>
-<div class="para" id="p-4608">When working with an <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\text{,}\)</span> <a href="sec-eigen-intro.html#subsec-eigen-use" class="internal" title="Subsection 5.1.2: The usefulness of eigenvalues and eigenvectors">Subsection 5.1.2</a> demonstrated the value of having a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span> In fact, <a href="" class="xref" data-knowl="./knowl/prop-eigen-basis.html" title="Proposition 5.2.10">Proposition 5.2.10</a> tells us that if the eigenvalues of <span class="process-math">\(A\)</span> are real and distinct, then there is a such a basis.  As we’ll see later, there are other conditions on <span class="process-math">\(A\)</span> that guarantee a basis of eigenvectors.  For now, suffice it to say that we can find a basis of eigenvectors for many matrices.  With this assumption, we will see how the matrix <span class="process-math">\(A\)</span> is equivalent to a diagonal matrix <span class="process-math">\(D\text{.}\)</span>
+<div class="para" id="p-4606">When working with an <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\text{,}\)</span> <a href="sec-eigen-intro.html#subsec-eigen-use" class="internal" title="Subsection 5.1.2: The usefulness of eigenvalues and eigenvectors">Subsection 5.1.2</a> demonstrated the value of having a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span> In fact, <a href="" class="xref" data-knowl="./knowl/prop-eigen-basis.html" title="Proposition 5.2.10">Proposition 5.2.10</a> tells us that if the eigenvalues of <span class="process-math">\(A\)</span> are real and distinct, then there is a such a basis.  As we’ll see later, there are other conditions on <span class="process-math">\(A\)</span> that guarantee a basis of eigenvectors.  For now, suffice it to say that we can find a basis of eigenvectors for many matrices.  With this assumption, we will see how the matrix <span class="process-math">\(A\)</span> is equivalent to a diagonal matrix <span class="process-math">\(D\text{.}\)</span>
 </div>
 <article class="activity project-like" id="activity-52"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.3.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-4609">
+<div class="para logical" id="p-4607">
 <div class="para">Suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix having eigenvectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> with associated eigenvalues <span class="process-math">\(\lambda_1=3\)</span> and <span class="process-math">\(\lambda_2 = -6\text{.}\)</span> Because the eigenvalues are real and distinct, we know by <a href="" class="xref" data-knowl="./knowl/prop-eigen-basis.html" title="Proposition 5.2.10">Proposition 5.2.10</a> that these eigenvectors form a basis of <span class="process-math">\(\real^2\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3022"><div class="para" id="p-4610">What are the products <span class="process-math">\(A\vvec_1\)</span> and <span class="process-math">\(A\vvec_2\)</span> in terms of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{?}\)</span>
+<li id="li-3022"><div class="para" id="p-4608">What are the products <span class="process-math">\(A\vvec_1\)</span> and <span class="process-math">\(A\vvec_2\)</span> in terms of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{?}\)</span>
 </div></li>
-<li id="li-3023"><div class="para" id="p-4611">If we form the matrix <span class="process-math">\(P = \begin{bmatrix}
+<li id="li-3023"><div class="para" id="p-4609">If we form the matrix <span class="process-math">\(P = \begin{bmatrix}
 \vvec_1 \amp \vvec_2
 \end{bmatrix}
 \text{,}\)</span> what is the product <span class="process-math">\(AP\)</span> in terms of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{?}\)</span>
 </div></li>
-<li id="li-3024"><div class="para" id="p-4612">Use the eigenvalues to form the diagonal matrix <span class="process-math">\(D
+<li id="li-3024"><div class="para" id="p-4610">Use the eigenvalues to form the diagonal matrix <span class="process-math">\(D
 = \begin{bmatrix}
 3 \amp 0 \\
 0 \amp -6 
 \end{bmatrix}\)</span> and determine the product <span class="process-math">\(PD\)</span> in terms of <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\text{.}\)</span>
 </div></li>
-<li id="li-3025"><div class="para" id="p-4613">The results from the previous two parts of this activity demonstrate that <span class="process-math">\(AP=PD\text{.}\)</span> Using the fact that the eigenvectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> form a basis of <span class="process-math">\(\real^2\text{,}\)</span> explain why <span class="process-math">\(P\)</span> is invertible and that we must have <span class="process-math">\(A=PDP^{-1}\text{.}\)</span>
+<li id="li-3025"><div class="para" id="p-4611">The results from the previous two parts of this activity demonstrate that <span class="process-math">\(AP=PD\text{.}\)</span> Using the fact that the eigenvectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> form a basis of <span class="process-math">\(\real^2\text{,}\)</span> explain why <span class="process-math">\(P\)</span> is invertible and that we must have <span class="process-math">\(A=PDP^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3026"><div class="para" id="p-4614">Suppose that <span class="process-math">\(A=\begin{bmatrix}
+<li id="li-3026"><div class="para" id="p-4612">Suppose that <span class="process-math">\(A=\begin{bmatrix}
 -3 \amp 6 \\
 3 \amp 0 \\
 \end{bmatrix}\text{.}\)</span>  Verify that <span class="process-math">\(\vvec_1=\twovec11\)</span> and <span class="process-math">\(\vvec_2=\twovec2{-1}\)</span> are eigenvectors of <span class="process-math">\(A\)</span> with eigenvalues <span class="process-math">\(\lambda_1 = 3\)</span> and <span class="process-math">\(\lambda_2=-6\text{.}\)</span>
 </div></li>
 <li id="li-3027">
-<div class="para" id="p-4615">Use the Python cell below to define the matrices <span class="process-math">\(P\)</span> and <span class="process-math">\(D\)</span> and then verify that <span class="process-math">\(A=PDP^{-1}\text{.}\)</span>
+<div class="para" id="p-4613">Use the Python cell below to define the matrices <span class="process-math">\(P\)</span> and <span class="process-math">\(D\)</span> and then verify that <span class="process-math">\(A=PDP^{-1}\text{.}\)</span>
 </div>
 <pre class="ptx-sagecell sagecell-sage-autoeval" id="sage-162"><script type="text/x-sage">import numpy as np
 </script></pre>
@@ -868,15 +868,15 @@ P @ D @ np.linalg.inv(P)
 </div>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-226" id="solution-226"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-226"><div class="solution solution-like">
-<div class="para logical" id="p-4616"><ol class="lower-alpha">
-<li id="li-3028"><div class="para" id="p-4617">We have <span class="process-math">\(A\vvec_1=3\vvec_1\)</span> and <span class="process-math">\(A\vvec_2 = -6\vvec_2\text{.}\)</span>
+<div class="para logical" id="p-4614"><ol class="lower-alpha">
+<li id="li-3028"><div class="para" id="p-4615">We have <span class="process-math">\(A\vvec_1=3\vvec_1\)</span> and <span class="process-math">\(A\vvec_2 = -6\vvec_2\text{.}\)</span>
 </div></li>
-<li id="li-3029"><div class="para" id="p-4618"><span class="process-math">\(AP = \begin{bmatrix}
+<li id="li-3029"><div class="para" id="p-4616"><span class="process-math">\(AP = \begin{bmatrix}
 A\vvec_1 \amp A\vvec_2
 \end{bmatrix} = \begin{bmatrix}
 3\vvec_1 \amp -6\vvec_2
 \end{bmatrix}\text{.}\)</span></div></li>
-<li id="li-3030"><div class="para" id="p-4619">
+<li id="li-3030"><div class="para" id="p-4617">
 <span class="process-math">\(PD = \begin{bmatrix}
 \vvec_1 \amp \vvec_2
 \end{bmatrix}
@@ -889,11 +889,11 @@ A\vvec_1 \amp A\vvec_2
 \end{bmatrix}
 \text{.}\)</span>  Comparing the result of this part of the activity to the previous, we see that <span class="process-math">\(AP = PD\text{.}\)</span>
 </div></li>
-<li id="li-3031"><div class="para" id="p-4620">Since the eigenvectors form a basis, the columns of <span class="process-math">\(P\)</span> are linearly independent and their span is <span class="process-math">\(\real^2\text{.}\)</span>  This guarantees that <span class="process-math">\(P\)</span> is invertible. Multiplying the equation <span class="process-math">\(AP=PD\)</span> on the right by <span class="process-math">\(P^{-1}\)</span> gives <span class="process-math">\(APP^{-1} = A = PDP^{-1}\text{.}\)</span>
+<li id="li-3031"><div class="para" id="p-4618">Since the eigenvectors form a basis, the columns of <span class="process-math">\(P\)</span> are linearly independent and their span is <span class="process-math">\(\real^2\text{.}\)</span>  This guarantees that <span class="process-math">\(P\)</span> is invertible. Multiplying the equation <span class="process-math">\(AP=PD\)</span> on the right by <span class="process-math">\(P^{-1}\)</span> gives <span class="process-math">\(APP^{-1} = A = PDP^{-1}\text{.}\)</span>
 </div></li>
-</ol></div> <div class="para" id="p-4621">The rest of the activity can be verified using Python.</div>
+</ol></div> <div class="para" id="p-4619">The rest of the activity can be verified using Python.</div>
 </div></div>
-</div></article><div class="para logical" id="p-4622">
+</div></article><div class="para logical" id="p-4620">
 <div class="para">More generally, suppose that we have an <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> and that there is a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors <span class="process-math">\(\vvec_1,\vvec_2,\ldots,\vvec_n\)</span> of <span class="process-math">\(A\)</span> with associated eigenvalues <span class="process-math">\(\lambda_1,\lambda_2,\ldots,\lambda_n\text{.}\)</span>  If we use the eigenvectors to form the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -920,11 +920,11 @@ A=PDP^{-1}.
 \end{equation*}
 </div>
 </div>
-<div class="para" id="p-4623">We have now seen the following proposition.</div>
+<div class="para" id="p-4621">We have now seen the following proposition.</div>
 <article class="proposition theorem-like" id="prop-diagonalizable"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">5.3.2</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-4624">
+<div class="para logical" id="p-4622">
 <div class="para">If <span class="process-math">\(A\)</span> is an <span class="process-math">\(n\by n\)</span> matrix and there is a basis <span class="process-math">\(\{\vvec_1,\vvec_2,\ldots,\vvec_n\}\)</span> of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of <span class="process-math">\(A\)</span> having associated eigenvalues <span class="process-math">\(\lambda_1, \lambda_2, \ldots, \lambda_n\text{,}\)</span> then we can write <span class="process-math">\(A=PDP^{-1}\)</span> where <span class="process-math">\(D\)</span> is the diagonal matrix whose diagonal entries are the eigenvalues of <span class="process-math">\(A\)</span>
 </div>
 <div class="displaymath process-math">
@@ -945,7 +945,7 @@ D = \left[\begin{array}{cccc}
 </div></article><article class="example example-like" id="example-54"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">5.3.3</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-4625">
+<div class="para logical" id="p-4623">
 <div class="para">We have seen that <span class="process-math">\(A = \begin{bmatrix}
 1 \amp 2 \\
 2 \amp 1 \\
@@ -967,10 +967,10 @@ D = \begin{bmatrix}
 </div>
 <div class="para">we see that <span class="process-math">\(A=PDP^{-1}\text{.}\)</span>
 </div>
-</div> <div class="para" id="p-4626">This is the sense in which we mean that <span class="process-math">\(A\)</span> is equivalent to a diagonal matrix <span class="process-math">\(D\text{.}\)</span>  The expression <span class="process-math">\(A=PDP^{-1}\)</span> says that <span class="process-math">\(A\text{,}\)</span> expressed in the basis defined by the columns of <span class="process-math">\(P\text{,}\)</span> has the same geometric effect as <span class="process-math">\(D\text{,}\)</span> expressed in the standard basis <span class="process-math">\(\evec_1, \evec_2,\ldots,\evec_n\text{.}\)</span>
+</div> <div class="para" id="p-4624">This is the sense in which we mean that <span class="process-math">\(A\)</span> is equivalent to a diagonal matrix <span class="process-math">\(D\text{.}\)</span>  The expression <span class="process-math">\(A=PDP^{-1}\)</span> says that <span class="process-math">\(A\text{,}\)</span> expressed in the basis defined by the columns of <span class="process-math">\(P\text{,}\)</span> has the same geometric effect as <span class="process-math">\(D\text{,}\)</span> expressed in the standard basis <span class="process-math">\(\evec_1, \evec_2,\ldots,\evec_n\text{.}\)</span>
 </div></article><article class="definition definition-like" id="definition-24"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">5.3.4</span><span class="period">.</span>
-</h4> <div class="para logical" id="p-4627">
+</h4> <div class="para logical" id="p-4625">
 <div class="para">We say that the matrix <span class="process-math">\(A\)</span> is <dfn class="terminology">diagonalizable</dfn> if there is a diagonal matrix <span class="process-math">\(D\)</span> and invertible matrix <span class="process-math">\(P\)</span> such that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -980,7 +980,7 @@ A = PDP^{-1}.
 </div></article><article class="example example-like" id="example-55"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">5.3.5</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-4628">
+<div class="para logical" id="p-4626">
 <div class="para">We will try to find a diagonalization of <span class="process-math">\(A =
 \left[\begin{array}{rr}
 -5 \amp 6 \\
@@ -995,9 +995,9 @@ A = PDP^{-1}.
 <div class="para">This shows that the eigenvalues of <span class="process-math">\(A\)</span> are <span class="process-math">\(\lambda_1 =
 -2\)</span> and <span class="process-math">\(\lambda_2 = 1\text{.}\)</span>
 </div>
-</div> <div class="para" id="p-4629">By constructing <span class="process-math">\(\nul(A-(-2)I)\text{,}\)</span> we find a basis for <span class="process-math">\(E_{-2}\)</span> consisting of the vector <span class="process-math">\(\vvec_1 =
+</div> <div class="para" id="p-4627">By constructing <span class="process-math">\(\nul(A-(-2)I)\text{,}\)</span> we find a basis for <span class="process-math">\(E_{-2}\)</span> consisting of the vector <span class="process-math">\(\vvec_1 =
 \twovec{2}{1}\text{.}\)</span>  Similarly, a basis for <span class="process-math">\(E_1\)</span> consists of the vector <span class="process-math">\(\vvec_2 = \twovec{1}{1}\text{.}\)</span>  This shows that we can construct a basis <span class="process-math">\(\{\vvec_1,\vvec_2\}\)</span> of <span class="process-math">\(\real^2\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span>
-</div> <div class="para logical" id="p-4630">
+</div> <div class="para logical" id="p-4628">
 <div class="para">We now form the matrices</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1036,7 +1036,7 @@ PDP^{-1} =
 \end{array}\right] = A\text{.}
 \end{equation*}
 </div>
-</div> <div class="para logical" id="p-4631">
+</div> <div class="para logical" id="p-4629">
 <div class="para">There are, in fact, many ways to diagonalize <span class="process-math">\(A\text{.}\)</span> For instance, we could change the order of the eigenvalues and eigenvectors and write</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1052,17 +1052,17 @@ P = \left[\begin{array}{cc} \vvec_2 \amp \vvec_1
 \end{array}\right]\text{.}
 \end{equation*}
 </div>
-</div> <div class="para" id="p-4632">If we choose a different basis for the eigenspaces, we will also find a different matrix <span class="process-math">\(P\)</span> that diagonalizes <span class="process-math">\(A\text{.}\)</span>  The point is that there are many ways in which <span class="process-math">\(A\)</span> can be written in the form <span class="process-math">\(A=PDP^{-1}\text{.}\)</span>
+</div> <div class="para" id="p-4630">If we choose a different basis for the eigenspaces, we will also find a different matrix <span class="process-math">\(P\)</span> that diagonalizes <span class="process-math">\(A\text{.}\)</span>  The point is that there are many ways in which <span class="process-math">\(A\)</span> can be written in the form <span class="process-math">\(A=PDP^{-1}\text{.}\)</span>
 </div></article><article class="example example-like" id="example-56"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">5.3.6</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-4633">We will try to find a diagonalization of <span class="process-math">\(A =
+<div class="para" id="p-4631">We will try to find a diagonalization of <span class="process-math">\(A =
 \left[\begin{array}{rr}
 0 \amp 4 \\
 -1 \amp 4 \\
 \end{array}\right]
 \text{.}\)</span>
-</div> <div class="para logical" id="p-4634">
+</div> <div class="para logical" id="p-4632">
 <div class="para">Once again, we find the eigenvalues by solving the characteristic equation:</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1072,7 +1072,7 @@ P = \left[\begin{array}{cc} \vvec_2 \amp \vvec_1
 </div>
 <div class="para">In this case, there is a single eigenvalue <span class="process-math">\(\lambda=2\text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-4635">
+</div> <div class="para logical" id="p-4633">
 <div class="para">We find a basis for the eigenspace <span class="process-math">\(E_2\)</span> by describing <span class="process-math">\(\nul(A-2I)\text{:}\)</span>
 </div>
 <div class="displaymath process-math">
@@ -1089,15 +1089,15 @@ A-2I = \left[\begin{array}{rr}
 \end{equation*}
 </div>
 <div class="para">This shows that the eigenspace <span class="process-math">\(E_2\)</span> is one-dimensional with <span class="process-math">\(\vvec_1=\twovec{2}{1}\)</span> forming a basis.</div>
-</div> <div class="para" id="p-4636">In this case, there is not a basis of <span class="process-math">\(\real^2\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{,}\)</span> which tells us that <span class="process-math">\(A\)</span> is not diagonalizable.</div></article><div class="para" id="p-4637">In fact, if we only know that <span class="process-math">\(A = PDP^{-1}\text{,}\)</span> we can say that the columns of <span class="process-math">\(P\)</span> are eigenvectors of <span class="process-math">\(A\)</span> and that the diagonal entries of <span class="process-math">\(D\)</span> are the associated eigenvalues.</div>
+</div> <div class="para" id="p-4634">In this case, there is not a basis of <span class="process-math">\(\real^2\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{,}\)</span> which tells us that <span class="process-math">\(A\)</span> is not diagonalizable.</div></article><div class="para" id="p-4635">In fact, if we only know that <span class="process-math">\(A = PDP^{-1}\text{,}\)</span> we can say that the columns of <span class="process-math">\(P\)</span> are eigenvectors of <span class="process-math">\(A\)</span> and that the diagonal entries of <span class="process-math">\(D\)</span> are the associated eigenvalues.</div>
 <article class="proposition theorem-like" id="proposition-40"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">5.3.7</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-4638">An <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is diagonalizable if and only if there is a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span>
+<div class="para" id="p-4636">An <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is diagonalizable if and only if there is a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span>
 </div></article><article class="example example-like" id="example-57"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">5.3.8</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-4639">
+<div class="para logical" id="p-4637">
 <div class="para">Suppose we know that <span class="process-math">\(A=PDP^{-1}\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1117,7 +1117,7 @@ P = \left[\begin{array}{cc} \vvec_2 \amp \vvec_1
 \twovec{1}{1}\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with eigenvalue <span class="process-math">\(\lambda_1 = 2\)</span> and <span class="process-math">\(\vvec_2 =
 \twovec{1}{2}\)</span> is an eigenvector with eigenvalue <span class="process-math">\(\lambda_2=-2\text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-4640">
+</div> <div class="para logical" id="p-4638">
 <div class="para">We can verify this by computing</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1135,8 +1135,8 @@ A = PDP^{-1} =
 </div></article><article class="activity project-like" id="activity-53"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.3.3</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-4641"><ol class="lower-alpha">
-<li id="li-3032"><div class="para logical" id="p-4642">
+<div class="para logical" id="p-4639"><ol class="lower-alpha">
+<li id="li-3032"><div class="para logical" id="p-4640">
 <div class="para">Find a diagonalization of <span class="process-math">\(A\text{,}\)</span> if one exists, when</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1147,7 +1147,7 @@ A = \left[\begin{array}{rr}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-3033"><div class="para logical" id="p-4643">
+<li id="li-3033"><div class="para logical" id="p-4641">
 <div class="para">Can the diagonal matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1161,7 +1161,7 @@ A = \left[\begin{array}{rr}
 </div>
 </div></li>
 <li id="li-3034">
-<div class="para logical" id="p-4644">
+<div class="para logical" id="p-4642">
 <div class="para">Find a diagonalization of <span class="process-math">\(A\text{,}\)</span> if one exists, when</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1177,7 +1177,7 @@ A = \left[\begin{array}{rrr}
 </script></pre>
 </li>
 <li id="li-3035">
-<div class="para logical" id="p-4645">
+<div class="para logical" id="p-4643">
 <div class="para">Find a diagonalization of <span class="process-math">\(A\text{,}\)</span> if one exists, when</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1192,7 +1192,7 @@ A = \left[\begin{array}{rrr}
 <pre class="ptx-sagecell sagecell-python" id="sage-165"><script type="text/x-sage">
 </script></pre>
 </li>
-<li id="li-3036"><div class="para logical" id="p-4646">
+<li id="li-3036"><div class="para logical" id="p-4644">
 <div class="para">Suppose that <span class="process-math">\(A=PDP^{-1}\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1209,22 +1209,22 @@ P = \left[\begin{array}{cc} \vvec_2 \amp \vvec_1
 \end{equation*}
 </div>
 <ol class="decimal">
-<li id="li-3037"><div class="para" id="p-4647">Explain why <span class="process-math">\(A\)</span> is invertible.</div></li>
-<li id="li-3038"><div class="para" id="p-4648">Find a diagonalization of <span class="process-math">\(A^{-1}\text{.}\)</span>
+<li id="li-3037"><div class="para" id="p-4645">Explain why <span class="process-math">\(A\)</span> is invertible.</div></li>
+<li id="li-3038"><div class="para" id="p-4646">Find a diagonalization of <span class="process-math">\(A^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3039"><div class="para" id="p-4649">Find a diagonalization of <span class="process-math">\(A^3\text{.}\)</span>
+<li id="li-3039"><div class="para" id="p-4647">Find a diagonalization of <span class="process-math">\(A^3\text{.}\)</span>
 </div></li>
 </ol>
 </div></li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-227" id="solution-227"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-227"><div class="solution solution-like"><div class="para logical" id="p-4650"><ol class="lower-alpha">
-<li id="li-3040"><div class="para" id="p-4651">We find that <span class="process-math">\(A\)</span> has eigenvectors <span class="process-math">\(\vvec_1=\twovec11\)</span> with associated eigenvalue <span class="process-math">\(\lambda_1=1\)</span> and <span class="process-math">\(\vvec_2=\twovec{1}{3}\)</span> with associated eigenvalue <span class="process-math">\(\lambda_2=-3\text{.}\)</span>  We then have <span class="process-math">\(P=\mattwo1113\)</span> and <span class="process-math">\(D=\mattwo100{-3}\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-227" id="solution-227"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-227"><div class="solution solution-like"><div class="para logical" id="p-4648"><ol class="lower-alpha">
+<li id="li-3040"><div class="para" id="p-4649">We find that <span class="process-math">\(A\)</span> has eigenvectors <span class="process-math">\(\vvec_1=\twovec11\)</span> with associated eigenvalue <span class="process-math">\(\lambda_1=1\)</span> and <span class="process-math">\(\vvec_2=\twovec{1}{3}\)</span> with associated eigenvalue <span class="process-math">\(\lambda_2=-3\text{.}\)</span>  We then have <span class="process-math">\(P=\mattwo1113\)</span> and <span class="process-math">\(D=\mattwo100{-3}\text{.}\)</span>
 </div></li>
-<li id="li-3041"><div class="para" id="p-4652">Yes.  We know that the eigenvectors are <span class="process-math">\(\vvec_1=\twovec10\)</span> with associated eigenvalue <span class="process-math">\(\lambda_1=2\)</span> and <span class="process-math">\(\vvec_2=\twovec01\)</span> with associated eigenvalue <span class="process-math">\(\lambda_2=-5\text{.}\)</span>  Therefore, <span class="process-math">\(P
+<li id="li-3041"><div class="para" id="p-4650">Yes.  We know that the eigenvectors are <span class="process-math">\(\vvec_1=\twovec10\)</span> with associated eigenvalue <span class="process-math">\(\lambda_1=2\)</span> and <span class="process-math">\(\vvec_2=\twovec01\)</span> with associated eigenvalue <span class="process-math">\(\lambda_2=-5\text{.}\)</span>  Therefore, <span class="process-math">\(P
 = \left[\begin{array}{rr}\vvec_1 \amp \vvec_2
 \end{array}\right] = \mattwo1001=I\)</span> and <span class="process-math">\(D=\mattwo200{-5}=A\text{.}\)</span>  This shows that the diagonalization is <span class="process-math">\(A=IAI^{-1}\text{;}\)</span> that is, since <span class="process-math">\(A\)</span> is already diagonal, it is diagonalized by the identity matrix.</div></li>
-<li id="li-3042"><div class="para logical" id="p-4653">
+<li id="li-3042"><div class="para logical" id="p-4651">
 <div class="para">We find eigenvectors <span class="process-math">\(\vvec_1=\threevec112\text{,}\)</span> <span class="process-math">\(\vvec_2=\threevec010\text{,}\)</span> and <span class="process-math">\(\vvec_3=\threevec001\)</span> with associated eigenvalues <span class="process-math">\(\lambda_1=-2\text{,}\)</span> <span class="process-math">\(\lambda_2=-3\text{,}\)</span> and <span class="process-math">\(\lambda_3=-3\text{.}\)</span>  Therefore, <span class="process-math">\(A = PDP^{-1}\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1241,21 +1241,21 @@ D = \left[\begin{array}{rrr}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-3043"><div class="para" id="p-4654">Once again, we see that <span class="process-math">\(\lambda=-2\)</span> is an eigenvalue with multiplicity one and <span class="process-math">\(\lambda=-3\)</span> is an eigenvalue with multiplicity two.  However, <span class="process-math">\(\dim E_{-3} =
+<li id="li-3043"><div class="para" id="p-4652">Once again, we see that <span class="process-math">\(\lambda=-2\)</span> is an eigenvalue with multiplicity one and <span class="process-math">\(\lambda=-3\)</span> is an eigenvalue with multiplicity two.  However, <span class="process-math">\(\dim E_{-3} =
 1\)</span> so we are not able to find a basis for <span class="process-math">\(\real^3\)</span> consisting of eigenvalues of <span class="process-math">\(A\text{.}\)</span>  Therefore, <span class="process-math">\(A\)</span> is not diagonalizable.</div></li>
-<li id="li-3044"><div class="para logical" id="p-4655">
+<li id="li-3044"><div class="para logical" id="p-4653">
 <div class="para">If <span class="process-math">\(A=PDP^{-1}\text{,}\)</span>
 </div>
 <ol class="decimal">
-<li id="li-3045"><div class="para" id="p-4656">
+<li id="li-3045"><div class="para" id="p-4654">
 <span class="process-math">\(A\)</span> is invertible since <span class="process-math">\(\det A = \det D =
 -3\text{.}\)</span>
 </div></li>
-<li id="li-3046"><div class="para" id="p-4657">We know that <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> are eigenvectors of <span class="process-math">\(A\)</span> with associated eigenvalues <span class="process-math">\(\lambda_1=3\)</span> and <span class="process-math">\(\lambda_2=-1\text{.}\)</span>  If <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with associated eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> then <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A^{-1}\)</span> with associated eigenvalue <span class="process-math">\(\frac1{\lambda}\text{.}\)</span>  Therefore, <span class="process-math">\(A^{-1} =
+<li id="li-3046"><div class="para" id="p-4655">We know that <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> are eigenvectors of <span class="process-math">\(A\)</span> with associated eigenvalues <span class="process-math">\(\lambda_1=3\)</span> and <span class="process-math">\(\lambda_2=-1\text{.}\)</span>  If <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with associated eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> then <span class="process-math">\(\vvec\)</span> is an eigenvector of <span class="process-math">\(A^{-1}\)</span> with associated eigenvalue <span class="process-math">\(\frac1{\lambda}\text{.}\)</span>  Therefore, <span class="process-math">\(A^{-1} =
 PEP^{-1}\)</span> where <span class="process-math">\(E =
 \mattwo{\frac13}00{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3047"><div class="para" id="p-4658">We have <span class="process-math">\(A^3=PFP^{-1}\)</span> where <span class="process-math">\(F=\mattwo{27}00{-1}\text{.}\)</span>
+<li id="li-3047"><div class="para" id="p-4656">We have <span class="process-math">\(A^3=PFP^{-1}\)</span> where <span class="process-math">\(F=\mattwo{27}00{-1}\text{.}\)</span>
 </div></li>
 </ol>
 </div></li>
@@ -1263,7 +1263,7 @@ PEP^{-1}\)</span> where <span class="process-math">\(E =
 </div></article></section><section class="subsection" id="subsection-86"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">5.3.2</span><span class="space"> </span><span class="title">Powers of a diagonalizable matrix</span>
 </h3>
-<div class="para logical" id="p-4659">
+<div class="para logical" id="p-4657">
 <div class="para">In several earlier examples, we have been interested in computing powers of a given matrix.  For instance, in <a href="" class="xref" data-knowl="./knowl/activity-eigen-intro.html" title="Activity 5.1.3">Activity 5.1.3</a>, we had the matrix <span class="process-math">\(A = \left[\begin{array}{rr}
 0.8 \amp 0.6 \\
 0.2 \amp 0.4 \\
@@ -1282,8 +1282,8 @@ PEP^{-1}\)</span> where <span class="process-math">\(E =
 <article class="activity project-like" id="activity-54"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.3.4</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-4660"><ol class="lower-alpha">
-<li id="li-3048"><div class="para logical" id="p-4661">
+<div class="para logical" id="p-4658"><ol class="lower-alpha">
+<li id="li-3048"><div class="para logical" id="p-4659">
 <div class="para">Let’s begin with the diagonal matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1296,9 +1296,9 @@ D = \left[\begin{array}{rr}
 <div class="para">Find the powers <span class="process-math">\(D^2\text{,}\)</span> <span class="process-math">\(D^3\text{,}\)</span> and <span class="process-math">\(D^4\text{.}\)</span>  What is <span class="process-math">\(D^k\)</span> for a general value of <span class="process-math">\(k\text{?}\)</span>
 </div>
 </div></li>
-<li id="li-3049"><div class="para" id="p-4662">Suppose that <span class="process-math">\(A\)</span> is a matrix with eigenvector <span class="process-math">\(\vvec\)</span> and associated eigenvalue <span class="process-math">\(\lambda\text{;}\)</span>  that is, <span class="process-math">\(A\vvec = \lambda\vvec\text{.}\)</span>  By considering <span class="process-math">\(A^2\vvec\text{,}\)</span> explain why <span class="process-math">\(\vvec\)</span> is also an eigenvector of <span class="process-math">\(A\)</span> with eigenvalue <span class="process-math">\(\lambda^2\text{.}\)</span>
+<li id="li-3049"><div class="para" id="p-4660">Suppose that <span class="process-math">\(A\)</span> is a matrix with eigenvector <span class="process-math">\(\vvec\)</span> and associated eigenvalue <span class="process-math">\(\lambda\text{;}\)</span>  that is, <span class="process-math">\(A\vvec = \lambda\vvec\text{.}\)</span>  By considering <span class="process-math">\(A^2\vvec\text{,}\)</span> explain why <span class="process-math">\(\vvec\)</span> is also an eigenvector of <span class="process-math">\(A\)</span> with eigenvalue <span class="process-math">\(\lambda^2\text{.}\)</span>
 </div></li>
-<li id="li-3050"><div class="para logical" id="p-4663">
+<li id="li-3050"><div class="para logical" id="p-4661">
 <div class="para">Suppose that <span class="process-math">\(A= PDP^{-1}\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1311,7 +1311,7 @@ D = \left[\begin{array}{rr}
 <div class="para">Remembering that the columns of <span class="process-math">\(P\)</span> are eigenvectors of <span class="process-math">\(A\text{,}\)</span> explain why <span class="process-math">\(A^2\)</span> is diagonalizable and find a diagonalization in terms of <span class="process-math">\(P\)</span> and <span class="process-math">\(D\text{.}\)</span>
 </div>
 </div></li>
-<li id="li-3051"><div class="para logical" id="p-4664">
+<li id="li-3051"><div class="para logical" id="p-4662">
 <div class="para">Give another explanation of the diagonalizability of <span class="process-math">\(A^2\)</span> by writing</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1319,14 +1319,14 @@ A^2 = (PDP^{-1})(PDP^{-1}) = PD(P^{-1}P)DP^{-1}\text{.}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-3052"><div class="para" id="p-4665">In the same way, find a diagonalization of <span class="process-math">\(A^3\text{,}\)</span> <span class="process-math">\(A^4\text{,}\)</span> and <span class="process-math">\(A^k\text{.}\)</span>
+<li id="li-3052"><div class="para" id="p-4663">In the same way, find a diagonalization of <span class="process-math">\(A^3\text{,}\)</span> <span class="process-math">\(A^4\text{,}\)</span> and <span class="process-math">\(A^k\text{.}\)</span>
 </div></li>
-<li id="li-3053"><div class="para" id="p-4666">Suppose that <span class="process-math">\(A\)</span> is a diagonalizable <span class="process-math">\(2\by2\)</span> matrix with eigenvalues <span class="process-math">\(\lambda_1 =
+<li id="li-3053"><div class="para" id="p-4664">Suppose that <span class="process-math">\(A\)</span> is a diagonalizable <span class="process-math">\(2\by2\)</span> matrix with eigenvalues <span class="process-math">\(\lambda_1 =
 0.5\)</span> and <span class="process-math">\(\lambda_2=0.1\text{.}\)</span>  What happens to <span class="process-math">\(A^k\)</span> as <span class="process-math">\(k\)</span> becomes very large?</div></li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-228" id="solution-228"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-228"><div class="solution solution-like"><div class="para logical" id="p-4667"><ol class="lower-alpha">
-<li id="li-3054"><div class="para logical" id="p-4668">
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-228" id="solution-228"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-228"><div class="solution solution-like"><div class="para logical" id="p-4665"><ol class="lower-alpha">
+<li id="li-3054"><div class="para logical" id="p-4666">
 <div class="para">We have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1335,12 +1335,12 @@ D^k=\mattwo{2^k}00{(-1)^k}\text{.}
 \end{equation*}
 </div>
 </div></li>
-<li id="li-3055"><div class="para" id="p-4669">We know that <span class="process-math">\(A^2\vvec = \lambda A\vvec =
+<li id="li-3055"><div class="para" id="p-4667">We know that <span class="process-math">\(A^2\vvec = \lambda A\vvec =
 \lambda^2\vvec\)</span> so that <span class="process-math">\(\vvec\)</span> is also an eigenvector of <span class="process-math">\(A^2\)</span> with associated eigenvalue <span class="process-math">\(\lambda^2\text{.}\)</span>
 </div></li>
-<li id="li-3056"><div class="para" id="p-4670">Since eigenvectors of <span class="process-math">\(A\)</span> are also eigenvectors of <span class="process-math">\(A^2\text{,}\)</span> we can use the matrix <span class="process-math">\(P\)</span> to diagonalize <span class="process-math">\(A^2\text{.}\)</span>  The eigenvalues are squared, however, so we have <span class="process-math">\(A^2=PEP^{-1}\)</span> where <span class="process-math">\(E=D^2=\mattwo4001\text{.}\)</span>
+<li id="li-3056"><div class="para" id="p-4668">Since eigenvectors of <span class="process-math">\(A\)</span> are also eigenvectors of <span class="process-math">\(A^2\text{,}\)</span> we can use the matrix <span class="process-math">\(P\)</span> to diagonalize <span class="process-math">\(A^2\text{.}\)</span>  The eigenvalues are squared, however, so we have <span class="process-math">\(A^2=PEP^{-1}\)</span> where <span class="process-math">\(E=D^2=\mattwo4001\text{.}\)</span>
 </div></li>
-<li id="li-3057"><div class="para logical" id="p-4671">
+<li id="li-3057"><div class="para logical" id="p-4669">
 <div class="para">We can also see this by noting that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1353,26 +1353,26 @@ A^2 \amp = (PDP^{-1})(PDP^{-1})
 \end{equation*}
 </div>
 </div></li>
-<li id="li-3058"><div class="para" id="p-4672">
+<li id="li-3058"><div class="para" id="p-4670">
 <span class="process-math">\(A^3=PD^3P^{-1}\text{,}\)</span> <span class="process-math">\(A^4=PD^4P^{-1}\text{,}\)</span> and <span class="process-math">\(A^k=PD^kP^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3059"><div class="para" id="p-4673">We can write <span class="process-math">\(A=PDP^{-1}\)</span> where <span class="process-math">\(D=\mattwo{0.5}00{0.1}\text{.}\)</span>  Therefore, <span class="process-math">\(A^k=PD^kP^{-1}\)</span> where <span class="process-math">\(D^k=\mattwo{0.5^k}00{0.1^k}\text{.}\)</span>  As <span class="process-math">\(k\)</span> becomes very large, <span class="process-math">\(0.5^k\)</span> and <span class="process-math">\(0.1^k\)</span> become very close to zero.  Hence <span class="process-math">\(D^k\)</span> and <span class="process-math">\(A^k\)</span> become very close to the zero matrix.</div></li>
+<li id="li-3059"><div class="para" id="p-4671">We can write <span class="process-math">\(A=PDP^{-1}\)</span> where <span class="process-math">\(D=\mattwo{0.5}00{0.1}\text{.}\)</span>  Therefore, <span class="process-math">\(A^k=PD^kP^{-1}\)</span> where <span class="process-math">\(D^k=\mattwo{0.5^k}00{0.1^k}\text{.}\)</span>  As <span class="process-math">\(k\)</span> becomes very large, <span class="process-math">\(0.5^k\)</span> and <span class="process-math">\(0.1^k\)</span> become very close to zero.  Hence <span class="process-math">\(D^k\)</span> and <span class="process-math">\(A^k\)</span> become very close to the zero matrix.</div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-4674">If <span class="process-math">\(A\)</span> is diagonalizable, the activity demonstrates that any power of <span class="process-math">\(A\)</span> is as well.</div>
+</div></article><div class="para" id="p-4672">If <span class="process-math">\(A\)</span> is diagonalizable, the activity demonstrates that any power of <span class="process-math">\(A\)</span> is as well.</div>
 <article class="proposition theorem-like" id="proposition-41"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">5.3.9</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-4675">If <span class="process-math">\(A=PDP^{-1}\text{,}\)</span> then <span class="process-math">\(A^k = PD^kP^{-1}\text{.}\)</span>  When <span class="process-math">\(A\)</span> is invertible, we also have <span class="process-math">\(A^{-1} =
+<div class="para" id="p-4673">If <span class="process-math">\(A=PDP^{-1}\text{,}\)</span> then <span class="process-math">\(A^k = PD^kP^{-1}\text{.}\)</span>  When <span class="process-math">\(A\)</span> is invertible, we also have <span class="process-math">\(A^{-1} =
 PD^{-1}P^{-1}\text{.}\)</span>
 </div></article><article class="example example-like" id="example-58"><h4 class="heading">
 <span class="type">Example</span><span class="space"> </span><span class="codenumber">5.3.10</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-4676">Let’s revisit <a href="" class="xref" data-knowl="./knowl/activity-eigen-intro.html" title="Activity 5.1.3">Activity 5.1.3</a> where we had the matrix <span class="process-math">\(A = \begin{bmatrix}
+<div class="para" id="p-4674">Let’s revisit <a href="" class="xref" data-knowl="./knowl/activity-eigen-intro.html" title="Activity 5.1.3">Activity 5.1.3</a> where we had the matrix <span class="process-math">\(A = \begin{bmatrix}
 0.8 \amp 0.6 \\
 0.2 \amp 0.4 \\
 \end{bmatrix}\)</span> and the initial vector <span class="process-math">\(\xvec_0 = \ctwovec{1000}0\text{.}\)</span> We were interested in understanding the sequence of vectors <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{,}\)</span> which means that <span class="process-math">\(\xvec_k =
 A^k\xvec_0\text{.}\)</span>
-</div> <div class="para logical" id="p-4677">
+</div> <div class="para logical" id="p-4675">
 <div class="para">We can verify that <span class="process-math">\(\vvec_1 = \twovec31\)</span> and <span class="process-math">\(\vvec_2 =
 \twovec{-1}1\)</span> are eigenvectors of <span class="process-math">\(A\)</span> having associated eigenvalues <span class="process-math">\(\lambda_1=1\)</span> and <span class="process-math">\(\lambda_2 =
 0.2\text{.}\)</span>  This means that <span class="process-math">\(A = PDP^{-1}\)</span> where</div>
@@ -1391,7 +1391,7 @@ D = \begin{bmatrix}
 <div class="para">Therefore, the powers of <span class="process-math">\(A\)</span> have the form <span class="process-math">\(A^k =
 PD^kP^{-1}\text{.}\)</span>
 </div>
-</div> <div class="para logical" id="p-4678">
+</div> <div class="para logical" id="p-4676">
 <div class="para">Notice that <span class="process-math">\(D^k = \begin{bmatrix}
 1^k \amp 0 \\
 0 \amp 0.2^k \\
@@ -1422,7 +1422,7 @@ A^k = PD^kP^{-1} \approx P\begin{bmatrix}
 \end{bmatrix}.
 \end{equation*}
 </div>
-</div> <div class="para" id="p-4679">Beginning with the vector <span class="process-math">\(\xvec_0 = \ctwovec{1000}{0}\text{,}\)</span> we find that <span class="process-math">\(\xvec_k = A^k\xvec_0\approx
+</div> <div class="para" id="p-4677">Beginning with the vector <span class="process-math">\(\xvec_0 = \ctwovec{1000}{0}\text{,}\)</span> we find that <span class="process-math">\(\xvec_k = A^k\xvec_0\approx
 \twovec{750}{250}\)</span> when <span class="process-math">\(k\)</span> is very large.</div> <pre class="ptx-sagecell sagecell-python" id="sage-166"><script type="text/x-sage">from numpy import linalg
 
 A = np.array([[0.8,0.6],[0.2,0.4]])
@@ -1440,20 +1440,20 @@ print("A^5")
 </script></pre></article></section><section class="subsection" id="subsection-87"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">5.3.3</span><span class="space"> </span><span class="title">Similarity and complex eigenvalues</span>
 </h3>
-<div class="para" id="p-4680">We have been interested in diagonalizing a matrix <span class="process-math">\(A\)</span> because doing so relates a matrix <span class="process-math">\(A\)</span> to a simpler diagonal matrix <span class="process-math">\(D\text{.}\)</span>  In particular, the effect of multiplying a vector by <span class="process-math">\(A=PDP^{-1}\text{,}\)</span> viewed in the basis defined by the columns of <span class="process-math">\(P\text{,}\)</span> is the same as the effect of multiplying by <span class="process-math">\(D\)</span> in the standard basis.</div>
-<div class="para" id="p-4681">While many matrices are diagonalizable, there are some that are not.  For example, if a matrix has complex eigenvalues, it is not possible to find a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors, which means that the matrix is not diagonalizable.  In this case, however, we can still relate the matrix to a simpler form that explains the geometric effect this matrix has on vectors.</div>
+<div class="para" id="p-4678">We have been interested in diagonalizing a matrix <span class="process-math">\(A\)</span> because doing so relates a matrix <span class="process-math">\(A\)</span> to a simpler diagonal matrix <span class="process-math">\(D\text{.}\)</span>  In particular, the effect of multiplying a vector by <span class="process-math">\(A=PDP^{-1}\text{,}\)</span> viewed in the basis defined by the columns of <span class="process-math">\(P\text{,}\)</span> is the same as the effect of multiplying by <span class="process-math">\(D\)</span> in the standard basis.</div>
+<div class="para" id="p-4679">While many matrices are diagonalizable, there are some that are not.  For example, if a matrix has complex eigenvalues, it is not possible to find a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors, which means that the matrix is not diagonalizable.  In this case, however, we can still relate the matrix to a simpler form that explains the geometric effect this matrix has on vectors.</div>
 <article class="definition definition-like" id="definition-25"><h4 class="heading">
 <span class="type">Definition</span><span class="space"> </span><span class="codenumber">5.3.11</span><span class="period">.</span>
-</h4> <div class="para" id="p-4682">We say that <span class="process-math">\(A\)</span> is <dfn class="terminology">similar</dfn> to <span class="process-math">\(B\)</span> if there is an invertible matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A = PBP^{-1}\text{.}\)</span>
-</div></article><div class="para" id="p-4683">Notice that a matrix is diagonalizable if and only if it is similar to a diagonal matrix. In case a matrix <span class="process-math">\(A\)</span> has complex eigenvalues, we will find a simpler matrix <span class="process-math">\(C\)</span> that is similar to <span class="process-math">\(A\)</span> and note that <span class="process-math">\(A=PCP^{-1}\)</span> has the same effect, when viewed in the basis defined by the columns of <span class="process-math">\(P\text{,}\)</span> as <span class="process-math">\(C\text{,}\)</span> when viewed in the standard basis.</div>
-<div class="para" id="p-4684">To begin, suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix having a complex eigenvalue <span class="process-math">\(\lambda = a+bi\text{.}\)</span>  It turns out that <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C=\begin{bmatrix}
+</h4> <div class="para" id="p-4680">We say that <span class="process-math">\(A\)</span> is <dfn class="terminology">similar</dfn> to <span class="process-math">\(B\)</span> if there is an invertible matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A = PBP^{-1}\text{.}\)</span>
+</div></article><div class="para" id="p-4681">Notice that a matrix is diagonalizable if and only if it is similar to a diagonal matrix. In case a matrix <span class="process-math">\(A\)</span> has complex eigenvalues, we will find a simpler matrix <span class="process-math">\(C\)</span> that is similar to <span class="process-math">\(A\)</span> and note that <span class="process-math">\(A=PCP^{-1}\)</span> has the same effect, when viewed in the basis defined by the columns of <span class="process-math">\(P\text{,}\)</span> as <span class="process-math">\(C\text{,}\)</span> when viewed in the standard basis.</div>
+<div class="para" id="p-4682">To begin, suppose that <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix having a complex eigenvalue <span class="process-math">\(\lambda = a+bi\text{.}\)</span>  It turns out that <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C=\begin{bmatrix}
 a \amp -b \\
 b \amp a \\
 \end{bmatrix}
 \text{.}\)</span>
 </div>
 <div class="sidebyside"><div class="sbsrow" style="margin-left:0%;margin-right:0%;">
-<div class="sbspanel top" style="width:60%;"><div class="para logical" id="p-4685">
+<div class="sbspanel top" style="width:60%;"><div class="para logical" id="p-4683">
 <div class="para">The next activity shows that <span class="process-math">\(C\)</span> has a simple geometric effect on <span class="process-math">\(\real^2\text{.}\)</span>  First, however, we will use polar coordinates to rewrite <span class="process-math">\(C\text{.}\)</span>  As shown in the figure, the point <span class="process-math">\((a,b)\)</span> defines <span class="process-math">\(r\text{,}\)</span> the distance from the origin, and <span class="process-math">\(\theta\text{,}\)</span> the angle formed with the positive horizontal axis.  We then have</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1471,7 +1471,7 @@ b \amp {}={} r\sin\theta\text{.} \\
 <article class="activity project-like" id="activity-55"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">5.3.5</span><span class="period">.</span>
 </h4>
-<div class="para logical" id="p-4686">
+<div class="para logical" id="p-4684">
 <div class="para">We begin by rewriting <span class="process-math">\(C\)</span> in terms of <span class="process-math">\(r\)</span> and <span class="process-math">\(\theta\)</span> and noting that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1497,10 +1497,10 @@ r \amp 0 \\
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-3060"><div class="para" id="p-4687">Explain why <span class="process-math">\(C\)</span> has the geometric effect of rotating vectors by <span class="process-math">\(\theta\)</span> and scaling them by a factor of <span class="process-math">\(r\text{.}\)</span>
+<li id="li-3060"><div class="para" id="p-4685">Explain why <span class="process-math">\(C\)</span> has the geometric effect of rotating vectors by <span class="process-math">\(\theta\)</span> and scaling them by a factor of <span class="process-math">\(r\text{.}\)</span>
 </div></li>
 <li id="li-3061">
-<div class="para logical" id="p-4688">
+<div class="para logical" id="p-4686">
 <div class="para">Let’s now consider the matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1514,11 +1514,11 @@ A = \left[\begin{array}{rr}
 1-i\text{.}\)</span>  We will choose to focus on one of the eigenvalues <span class="process-math">\(\lambda_1 = a+bi= 1+i. \)</span>
 </div>
 </div>
-<div class="para" id="p-4689">Form the matrix <span class="process-math">\(C\)</span> using these values of <span class="process-math">\(a\)</span> and <span class="process-math">\(b\text{.}\)</span>  Then rewrite the point <span class="process-math">\((a,b)\)</span> in polar coordinates by identifying the values of <span class="process-math">\(r\)</span> and <span class="process-math">\(\theta\text{.}\)</span>  Explain the geometric effect of multiplying vectors by <span class="process-math">\(C\text{.}\)</span>
+<div class="para" id="p-4687">Form the matrix <span class="process-math">\(C\)</span> using these values of <span class="process-math">\(a\)</span> and <span class="process-math">\(b\text{.}\)</span>  Then rewrite the point <span class="process-math">\((a,b)\)</span> in polar coordinates by identifying the values of <span class="process-math">\(r\)</span> and <span class="process-math">\(\theta\text{.}\)</span>  Explain the geometric effect of multiplying vectors by <span class="process-math">\(C\text{.}\)</span>
 </div>
 </li>
 <li id="li-3062">
-<div class="para" id="p-4690">Suppose that <span class="process-math">\(P=\left[\begin{array}{rr}
+<div class="para" id="p-4688">Suppose that <span class="process-math">\(P=\left[\begin{array}{rr}
 1 \amp 1 \\
 2 \amp 1 \\
 \end{array}\right]
@@ -1529,11 +1529,11 @@ P =
 P @ C @ np.linalg.inv(P)
 </script></pre>
 </li>
-<li id="li-3063"><div class="para" id="p-4691">Explain why <span class="process-math">\(A^k = PC^kP^{-1}\text{.}\)</span>
+<li id="li-3063"><div class="para" id="p-4689">Explain why <span class="process-math">\(A^k = PC^kP^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3064"><div class="para" id="p-4692">We formed the matrix <span class="process-math">\(C\)</span> by choosing the eigenvalue <span class="process-math">\(\lambda_1=1+i\text{.}\)</span>  Suppose we had instead chosen <span class="process-math">\(\lambda_2 = 1-i\text{.}\)</span>  Form the matrix <span class="process-math">\(C'\)</span> and use polar coordinates to describe the geometric effect of <span class="process-math">\(C\text{.}\)</span>
+<li id="li-3064"><div class="para" id="p-4690">We formed the matrix <span class="process-math">\(C\)</span> by choosing the eigenvalue <span class="process-math">\(\lambda_1=1+i\text{.}\)</span>  Suppose we had instead chosen <span class="process-math">\(\lambda_2 = 1-i\text{.}\)</span>  Form the matrix <span class="process-math">\(C'\)</span> and use polar coordinates to describe the geometric effect of <span class="process-math">\(C\text{.}\)</span>
 </div></li>
-<li id="li-3065"><div class="para" id="p-4693">Using the matrix <span class="process-math">\(P' = \left[\begin{array}{rr}
+<li id="li-3065"><div class="para" id="p-4691">Using the matrix <span class="process-math">\(P' = \left[\begin{array}{rr}
 1 \amp -1 \\
 2 \amp -1 \\
 \end{array}\right]
@@ -1542,47 +1542,47 @@ P @ C @ np.linalg.inv(P)
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-229" id="solution-229"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-229"><div class="solution solution-like"><div class="para logical" id="p-4694"><ol class="lower-alpha">
-<li id="li-3066"><div class="para" id="p-4695">The matrix <span class="process-math">\(S=\mattwo r00r\)</span> has the geometric effect of scaling vectors uniformly by a factor of <span class="process-math">\(r\)</span> while the matrix <span class="process-math">\(R=\mattwo{\cos\theta}{-\sin\theta}{\sin\theta}{\cos\theta}\)</span> rotates vectors by <span class="process-math">\(\theta\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-229" id="solution-229"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-229"><div class="solution solution-like"><div class="para logical" id="p-4692"><ol class="lower-alpha">
+<li id="li-3066"><div class="para" id="p-4693">The matrix <span class="process-math">\(S=\mattwo r00r\)</span> has the geometric effect of scaling vectors uniformly by a factor of <span class="process-math">\(r\)</span> while the matrix <span class="process-math">\(R=\mattwo{\cos\theta}{-\sin\theta}{\sin\theta}{\cos\theta}\)</span> rotates vectors by <span class="process-math">\(\theta\text{.}\)</span>
 </div></li>
-<li id="li-3067"><div class="para" id="p-4696">We have <span class="process-math">\(a=b=1\)</span> so we form the matrix <span class="process-math">\(C=\mattwo1{-1}11 =
+<li id="li-3067"><div class="para" id="p-4694">We have <span class="process-math">\(a=b=1\)</span> so we form the matrix <span class="process-math">\(C=\mattwo1{-1}11 =
 \mattwo{\sqrt{2}}00{\sqrt{2}}
 \mattwo{\cos(45^\circ)}{-\sin(45^\circ)}
 {\sin(45^\circ)}{\cos(45^\circ)}\text{.}\)</span>  This shows that <span class="process-math">\(C\)</span> will scale vectors by a factor of <span class="process-math">\(\sqrt2\)</span> while rotating them by <span class="process-math">\(45^\circ\text{.}\)</span>
 </div></li>
-<li id="li-3068"><div class="para" id="p-4697">Python will verify this relationship.</div></li>
-<li id="li-3069"><div class="para" id="p-4698">As we saw earlier, we have <span class="process-math">\(A^2 =
+<li id="li-3068"><div class="para" id="p-4695">Python will verify this relationship.</div></li>
+<li id="li-3069"><div class="para" id="p-4696">As we saw earlier, we have <span class="process-math">\(A^2 =
 (PCP^{-1})(PCP^{-1}) = PC^2P^{-1}\)</span> and hence <span class="process-math">\(A^k =
 PC^kP^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3070"><div class="para" id="p-4699">We have <span class="process-math">\(a=1\)</span> and <span class="process-math">\(b=-1\)</span> so we form the matrix <span class="process-math">\(C'=\mattwo1{1}{-1}1 =
+<li id="li-3070"><div class="para" id="p-4697">We have <span class="process-math">\(a=1\)</span> and <span class="process-math">\(b=-1\)</span> so we form the matrix <span class="process-math">\(C'=\mattwo1{1}{-1}1 =
 \mattwo{\sqrt{2}}00{\sqrt{2}}
 \mattwo{\cos(-45^\circ)}{-\sin(-45^\circ)}
 {\sin(-45^\circ)}{\cos(-45^\circ)}\text{.}\)</span>  This shows that <span class="process-math">\(C\)</span> will scale vectors by a factor of <span class="process-math">\(\sqrt2\)</span> while rotating them by <span class="process-math">\(-45^\circ\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-4700">If the <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(A\)</span> has a complex eigenvalue <span class="process-math">\(\lambda = a + bi\text{,}\)</span> it turns out that <span class="process-math">\(A\)</span> is always similar to the matrix <span class="process-math">\(C = \left[\begin{array}{rr}
+</div></article><div class="para" id="p-4698">If the <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(A\)</span> has a complex eigenvalue <span class="process-math">\(\lambda = a + bi\text{,}\)</span> it turns out that <span class="process-math">\(A\)</span> is always similar to the matrix <span class="process-math">\(C = \left[\begin{array}{rr}
 a \amp -b \\
 b \amp a \\
 \end{array}\right],\)</span> whose geometric effect on vectors can be described in terms of a rotation and a scaling. There is, in fact, a method for finding the matrix <span class="process-math">\(P\)</span> so that <span class="process-math">\(A=PCP^{-1}\)</span> that we’ll see in <a href="" class="xref" data-knowl="./knowl/exercise-complex-eigenvector.html" title="Exercise 5.3.5.8">Exercise 5.3.5.8</a>. For now, we note that <span class="process-math">\(A\)</span> has the same geometric effect as <span class="process-math">\(C\text{,}\)</span> when viewed in the basis provided by the columns of <span class="process-math">\(P\text{.}\)</span>  We will put this fact to use in the next section to understand certain dynamical systems.</div>
 <article class="proposition theorem-like" id="proposition-42"><h4 class="heading">
 <span class="type">Proposition</span><span class="space"> </span><span class="codenumber">5.3.12</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-4701">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix with a complex eigenvalue <span class="process-math">\(\lambda = a + bi\text{,}\)</span> then <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C = \begin{bmatrix}
+<div class="para" id="p-4699">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix with a complex eigenvalue <span class="process-math">\(\lambda = a + bi\text{,}\)</span> then <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C = \begin{bmatrix}
 a \amp -b \\
 b \amp a \\
 \end{bmatrix}\text{;}\)</span>  that is, there is a matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A= PCP^{-1}\text{.}\)</span>
 </div></article></section><section class="subsection" id="subsection-88"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">5.3.4</span><span class="space"> </span><span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-4702">
+<div class="para logical" id="p-4700">
 <div class="para">Our goal in this section has been to use the eigenvalues and eigenvectors of a matrix <span class="process-math">\(A\)</span> to relate <span class="process-math">\(A\)</span> to a simpler matrix.</div>
 <ul class="disc">
-<li id="li-3071"><div class="para" id="p-4703">We said that <span class="process-math">\(A\)</span> is <dfn class="terminology">diagonalizable</dfn> if we can write <span class="process-math">\(A = PDP^{-1}\)</span> where <span class="process-math">\(D\)</span> is a diagonal matrix.</div></li>
-<li id="li-3072"><div class="para" id="p-4704">An <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is diagonalizable if and only if there is a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span>  In that case, we can find a diagonalization by letting the columns of <span class="process-math">\(P\)</span> consist of eigenvectors of <span class="process-math">\(A\)</span> and the diagonal entries of <span class="process-math">\(D\)</span> be the associated eigenvalues.</div></li>
-<li id="li-3073"><div class="para" id="p-4705">We said that <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar if there is an invertible matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A=PBP^{-1}\text{.}\)</span> In this case, <span class="process-math">\(A^k = PB^kP^{-1}\text{.}\)</span>
+<li id="li-3071"><div class="para" id="p-4701">We said that <span class="process-math">\(A\)</span> is <dfn class="terminology">diagonalizable</dfn> if we can write <span class="process-math">\(A = PDP^{-1}\)</span> where <span class="process-math">\(D\)</span> is a diagonal matrix.</div></li>
+<li id="li-3072"><div class="para" id="p-4702">An <span class="process-math">\(n\by n\)</span> matrix <span class="process-math">\(A\)</span> is diagonalizable if and only if there is a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span>  In that case, we can find a diagonalization by letting the columns of <span class="process-math">\(P\)</span> consist of eigenvectors of <span class="process-math">\(A\)</span> and the diagonal entries of <span class="process-math">\(D\)</span> be the associated eigenvalues.</div></li>
+<li id="li-3073"><div class="para" id="p-4703">We said that <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar if there is an invertible matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A=PBP^{-1}\text{.}\)</span> In this case, <span class="process-math">\(A^k = PB^kP^{-1}\text{.}\)</span>
 </div></li>
-<li id="li-3074"><div class="para" id="p-4706">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix with complex eigenvalue <span class="process-math">\(\lambda = a+bi\text{,}\)</span> then <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C = \left[\begin{array}{rr}
+<li id="li-3074"><div class="para" id="p-4704">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix with complex eigenvalue <span class="process-math">\(\lambda = a+bi\text{,}\)</span> then <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C = \left[\begin{array}{rr}
 a \amp -b \\
 b \amp a \\
 \end{array} \right]
@@ -1593,32 +1593,32 @@ b \amp a \\
 <span class="type">Exercises</span><span class="space"> </span><span class="codenumber">5.3.5</span><span class="space"> </span><span class="title">Exercises</span>
 </h3>
 <article class="exercise exercise-like" id="exercise-164"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-4707">
+<div class="para logical" id="p-4705">
 <div class="para">Determine whether the following matrices are diagonalizable.  If so, find matrices <span class="process-math">\(D\)</span> and <span class="process-math">\(P\)</span> such that <span class="process-math">\(A=PDP^{-1}\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3075"><div class="para" id="p-4708"><span class="process-math">\(A = \left[\begin{array}{rr}
+<li id="li-3075"><div class="para" id="p-4706"><span class="process-math">\(A = \left[\begin{array}{rr}
 -2 \amp -2 \\
 -2 \amp 1 \\
 \end{array}\right]
 \text{.}\)</span></div></li>
-<li id="li-3076"><div class="para" id="p-4709"><span class="process-math">\(A = \left[\begin{array}{rr}
+<li id="li-3076"><div class="para" id="p-4707"><span class="process-math">\(A = \left[\begin{array}{rr}
 -1 \amp 1 \\
 -1 \amp -3 \\
 \end{array}\right]
 \text{.}\)</span></div></li>
-<li id="li-3077"><div class="para" id="p-4710"><span class="process-math">\(A = \left[\begin{array}{rr}
+<li id="li-3077"><div class="para" id="p-4708"><span class="process-math">\(A = \left[\begin{array}{rr}
 3 \amp -4 \\
 2 \amp -1 \\
 \end{array}\right]
 \text{.}\)</span></div></li>
-<li id="li-3078"><div class="para" id="p-4711"><span class="process-math">\(A = \left[\begin{array}{rrr}
+<li id="li-3078"><div class="para" id="p-4709"><span class="process-math">\(A = \left[\begin{array}{rrr}
 1 \amp 0 \amp 0 \\
 2 \amp -2 \amp 0 \\
 0 \amp 1 \amp 4 \\
 \end{array}\right]
 \text{.}\)</span></div></li>
-<li id="li-3079"><div class="para" id="p-4712"><span class="process-math">\(A = \left[\begin{array}{rrr}
+<li id="li-3079"><div class="para" id="p-4710"><span class="process-math">\(A = \left[\begin{array}{rrr}
 1 \amp 2 \amp 2 \\
 2 \amp 1 \amp 2 \\
 2 \amp 2 \amp 1 \\
@@ -1626,97 +1626,97 @@ b \amp a \\
 \text{.}\)</span></div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-165"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para logical" id="p-4725">
+<div class="para logical" id="p-4723">
 <div class="para">Determine whether the following matrices have complex eigenvalues.  If so, find the matrix <span class="process-math">\(C\)</span> such that <span class="process-math">\(A =
 PCP^{-1}\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3090"><div class="para" id="p-4726"><span class="process-math">\(A = \left[\begin{array}{rr}
+<li id="li-3090"><div class="para" id="p-4724"><span class="process-math">\(A = \left[\begin{array}{rr}
 -2 \amp -2 \\
 -2 \amp 1 \\
 \end{array}\right]
 \text{.}\)</span></div></li>
-<li id="li-3091"><div class="para" id="p-4727"><span class="process-math">\(A = \left[\begin{array}{rr}
+<li id="li-3091"><div class="para" id="p-4725"><span class="process-math">\(A = \left[\begin{array}{rr}
 -1 \amp 1 \\
 -1 \amp -3 \\
 \end{array}\right]
 \text{.}\)</span></div></li>
-<li id="li-3092"><div class="para" id="p-4728"><span class="process-math">\(A = \left[\begin{array}{rr}
+<li id="li-3092"><div class="para" id="p-4726"><span class="process-math">\(A = \left[\begin{array}{rr}
 3 \amp -4 \\
 2 \amp -1 \\
 \end{array}\right]
 \text{.}\)</span></div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-166"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para logical" id="p-4737">
+<div class="para logical" id="p-4735">
 <div class="para">Determine whether the following statements are true or false and provide a justification for your response.</div>
 <ol class="lower-alpha">
-<li id="li-3099"><div class="para" id="p-4738">If <span class="process-math">\(A\)</span> is invertible, then <span class="process-math">\(A\)</span> is diagonalizable.</div></li>
-<li id="li-3100"><div class="para" id="p-4739">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar and <span class="process-math">\(A\)</span> is invertible, then <span class="process-math">\(B\)</span> is also invertible.</div></li>
-<li id="li-3101"><div class="para" id="p-4740">If <span class="process-math">\(A\)</span> is a diagonalizable <span class="process-math">\(n\by n\)</span> matrix, then there is a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span>
+<li id="li-3099"><div class="para" id="p-4736">If <span class="process-math">\(A\)</span> is invertible, then <span class="process-math">\(A\)</span> is diagonalizable.</div></li>
+<li id="li-3100"><div class="para" id="p-4737">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar and <span class="process-math">\(A\)</span> is invertible, then <span class="process-math">\(B\)</span> is also invertible.</div></li>
+<li id="li-3101"><div class="para" id="p-4738">If <span class="process-math">\(A\)</span> is a diagonalizable <span class="process-math">\(n\by n\)</span> matrix, then there is a basis of <span class="process-math">\(\real^n\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-3102"><div class="para" id="p-4741">If <span class="process-math">\(A\)</span> is diagonalizable, then <span class="process-math">\(A^{10}\)</span> is also diagonalizable.</div></li>
-<li id="li-3103"><div class="para" id="p-4742">If <span class="process-math">\(A\)</span> is diagonalizable, then <span class="process-math">\(A\)</span> is invertible.</div></li>
+<li id="li-3102"><div class="para" id="p-4739">If <span class="process-math">\(A\)</span> is diagonalizable, then <span class="process-math">\(A^{10}\)</span> is also diagonalizable.</div></li>
+<li id="li-3103"><div class="para" id="p-4740">If <span class="process-math">\(A\)</span> is diagonalizable, then <span class="process-math">\(A\)</span> is invertible.</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-167"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-4756">
+<div class="para logical" id="p-4754">
 <div class="para">Provide a justification for your response to the following questions.</div>
 <ol class="lower-alpha">
-<li id="li-3114"><div class="para" id="p-4757">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(3\by3\)</span> matrix having eigenvalues <span class="process-math">\(\lambda = 2, 3, -4\text{,}\)</span> can you guarantee that <span class="process-math">\(A\)</span> is diagonalizable?</div></li>
-<li id="li-3115"><div class="para" id="p-4758">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by 2\)</span> matrix with a complex eigenvalue, can you guarantee that <span class="process-math">\(A\)</span> is diagonalizable?</div></li>
-<li id="li-3116"><div class="para" id="p-4759">If <span class="process-math">\(A\)</span> is similar to the matrix <span class="process-math">\(B = \left[\begin{array}{rrr}
+<li id="li-3114"><div class="para" id="p-4755">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(3\by3\)</span> matrix having eigenvalues <span class="process-math">\(\lambda = 2, 3, -4\text{,}\)</span> can you guarantee that <span class="process-math">\(A\)</span> is diagonalizable?</div></li>
+<li id="li-3115"><div class="para" id="p-4756">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by 2\)</span> matrix with a complex eigenvalue, can you guarantee that <span class="process-math">\(A\)</span> is diagonalizable?</div></li>
+<li id="li-3116"><div class="para" id="p-4757">If <span class="process-math">\(A\)</span> is similar to the matrix <span class="process-math">\(B = \left[\begin{array}{rrr}
 -5 \amp 0 \amp 0 \\
 0 \amp -5 \amp 0 \\
 0 \amp 0 \amp 3 \\
 \end{array}\right]
 \text{,}\)</span> is <span class="process-math">\(A\)</span> diagonalizable?</div></li>
-<li id="li-3117"><div class="para" id="p-4760">What can you say about a matrix that is similar to the identity matrix?</div></li>
-<li id="li-3118"><div class="para" id="p-4761">If <span class="process-math">\(A\)</span> is a diagonalizable <span class="process-math">\(2\by2\)</span> matrix with a single eigenvalue <span class="process-math">\(\lambda = 4\text{,}\)</span> what is <span class="process-math">\(A\text{?}\)</span>
+<li id="li-3117"><div class="para" id="p-4758">What can you say about a matrix that is similar to the identity matrix?</div></li>
+<li id="li-3118"><div class="para" id="p-4759">If <span class="process-math">\(A\)</span> is a diagonalizable <span class="process-math">\(2\by2\)</span> matrix with a single eigenvalue <span class="process-math">\(\lambda = 4\text{,}\)</span> what is <span class="process-math">\(A\text{?}\)</span>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-168"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para logical" id="p-4774">
+<div class="para logical" id="p-4772">
 <div class="para">Describe geometric effect that the following matrices have on <span class="process-math">\(\real^2\text{:}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3129"><div class="para" id="p-4775"><span class="process-math">\(\displaystyle A = \left[\begin{array}{rr}
+<li id="li-3129"><div class="para" id="p-4773"><span class="process-math">\(\displaystyle A = \left[\begin{array}{rr}
 2 \amp 0 \\
 0 \amp 2 \\
 \end{array}\right]\)</span></div></li>
-<li id="li-3130"><div class="para" id="p-4776"><span class="process-math">\(\displaystyle A = \left[\begin{array}{rr}
+<li id="li-3130"><div class="para" id="p-4774"><span class="process-math">\(\displaystyle A = \left[\begin{array}{rr}
 4 \amp 2 \\
 0 \amp 4 \\
 \end{array}\right]\)</span></div></li>
-<li id="li-3131"><div class="para" id="p-4777"><span class="process-math">\(\displaystyle A = \left[\begin{array}{rr}
+<li id="li-3131"><div class="para" id="p-4775"><span class="process-math">\(\displaystyle A = \left[\begin{array}{rr}
 3 \amp -6 \\
 6 \amp 3 \\
 \end{array}\right]\)</span></div></li>
-<li id="li-3132"><div class="para" id="p-4778"><span class="process-math">\(\displaystyle A = \left[\begin{array}{rr}
+<li id="li-3132"><div class="para" id="p-4776"><span class="process-math">\(\displaystyle A = \left[\begin{array}{rr}
 4 \amp 0 \\
 0 \amp -2 \\
 \end{array}\right]\)</span></div></li>
-<li id="li-3133"><div class="para" id="p-4779"><span class="process-math">\(\displaystyle A = \left[\begin{array}{rr}
+<li id="li-3133"><div class="para" id="p-4777"><span class="process-math">\(\displaystyle A = \left[\begin{array}{rr}
 1 \amp 3 \\
 3 \amp 1 \\
 \end{array}\right]\)</span></div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-169"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
-<div class="para logical" id="p-4792">
+<div class="para logical" id="p-4790">
 <div class="para">We say that <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(B\)</span> if there is a matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A = PBP^{-1}\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3144"><div class="para" id="p-4793">If <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(B\text{,}\)</span> explain why <span class="process-math">\(B\)</span> is similar to <span class="process-math">\(A\text{.}\)</span>
+<li id="li-3144"><div class="para" id="p-4791">If <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(B\text{,}\)</span> explain why <span class="process-math">\(B\)</span> is similar to <span class="process-math">\(A\text{.}\)</span>
 </div></li>
-<li id="li-3145"><div class="para" id="p-4794">If <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(B\)</span> and <span class="process-math">\(B\)</span> is similar to <span class="process-math">\(C\text{,}\)</span> explain why <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C\text{.}\)</span>
+<li id="li-3145"><div class="para" id="p-4792">If <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(B\)</span> and <span class="process-math">\(B\)</span> is similar to <span class="process-math">\(C\text{,}\)</span> explain why <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(C\text{.}\)</span>
 </div></li>
-<li id="li-3146"><div class="para" id="p-4795">If <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(B\)</span> and <span class="process-math">\(B\)</span> is diagonalizable, explain why <span class="process-math">\(A\)</span> is diagonalizable.</div></li>
-<li id="li-3147"><div class="para" id="p-4796">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar, explain why <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> have the same characteristic polynomial;  that is, explain why <span class="process-math">\(\det(A-\lambda I) =
+<li id="li-3146"><div class="para" id="p-4793">If <span class="process-math">\(A\)</span> is similar to <span class="process-math">\(B\)</span> and <span class="process-math">\(B\)</span> is diagonalizable, explain why <span class="process-math">\(A\)</span> is diagonalizable.</div></li>
+<li id="li-3147"><div class="para" id="p-4794">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar, explain why <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> have the same characteristic polynomial;  that is, explain why <span class="process-math">\(\det(A-\lambda I) =
 \det(B-\lambda I)\text{.}\)</span>
 </div></li>
-<li id="li-3148"><div class="para" id="p-4797">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar, explain why <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> have the same eigenvalues.</div></li>
+<li id="li-3148"><div class="para" id="p-4795">If <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> are similar, explain why <span class="process-math">\(A\)</span> and <span class="process-math">\(B\)</span> have the same eigenvalues.</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-170"><h4 class="heading"><span class="codenumber">7<span class="period">.</span></span></h4>
-<div class="para logical" id="p-4810">
+<div class="para logical" id="p-4808">
 <div class="para">Suppose that <span class="process-math">\(A = PDP^{-1}\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1731,16 +1731,16 @@ P = \left[\begin{array}{rr}
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-3159"><div class="para" id="p-4811">Explain the geometric effect that <span class="process-math">\(D\)</span> has on vectors in <span class="process-math">\(\real^2\text{.}\)</span>
+<li id="li-3159"><div class="para" id="p-4809">Explain the geometric effect that <span class="process-math">\(D\)</span> has on vectors in <span class="process-math">\(\real^2\text{.}\)</span>
 </div></li>
-<li id="li-3160"><div class="para" id="p-4812">Explain the geometric effect that <span class="process-math">\(A\)</span> has on vectors in <span class="process-math">\(\real^2\text{.}\)</span>
+<li id="li-3160"><div class="para" id="p-4810">Explain the geometric effect that <span class="process-math">\(A\)</span> has on vectors in <span class="process-math">\(\real^2\text{.}\)</span>
 </div></li>
-<li id="li-3161"><div class="para" id="p-4813">What can you say about <span class="process-math">\(A^2\)</span> and other powers of <span class="process-math">\(A\text{?}\)</span>
+<li id="li-3161"><div class="para" id="p-4811">What can you say about <span class="process-math">\(A^2\)</span> and other powers of <span class="process-math">\(A\text{?}\)</span>
 </div></li>
-<li id="li-3162"><div class="para" id="p-4814">Is <span class="process-math">\(A\)</span> invertible?</div></li>
+<li id="li-3162"><div class="para" id="p-4812">Is <span class="process-math">\(A\)</span> invertible?</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-complex-eigenvector"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
-<div class="para logical" id="p-4825">
+<div class="para logical" id="p-4823">
 <div class="para">When <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix with a complex eigenvalue <span class="process-math">\(\lambda = a+bi\text{,}\)</span> we have said that there is a matrix <span class="process-math">\(P\)</span> such that <span class="process-math">\(A=PCP^{-1}\)</span> where <span class="process-math">\(C=\left[\begin{array}{rr}
 a \amp -b \\
 b \amp a \\
@@ -1752,23 +1752,23 @@ b \amp a \\
 \text{.}\)</span>
 </div>
 <ol class="lower-alpha">
-<li id="li-3171"><div class="para" id="p-4826">Show that the eigenvalues of <span class="process-math">\(A\)</span> are complex.</div></li>
-<li id="li-3172"><div class="para" id="p-4827">Choose one of the complex eigenvalues <span class="process-math">\(\lambda=a+bi\)</span> and construct the usual matrix <span class="process-math">\(C\text{.}\)</span>
+<li id="li-3171"><div class="para" id="p-4824">Show that the eigenvalues of <span class="process-math">\(A\)</span> are complex.</div></li>
+<li id="li-3172"><div class="para" id="p-4825">Choose one of the complex eigenvalues <span class="process-math">\(\lambda=a+bi\)</span> and construct the usual matrix <span class="process-math">\(C\text{.}\)</span>
 </div></li>
-<li id="li-3173"><div class="para" id="p-4828">Using the same eigenvalue, we will find an eigenvector <span class="process-math">\(\vvec\)</span> where the entries of <span class="process-math">\(\vvec\)</span> are complex numbers.  As always, we will describe <span class="process-math">\(\nul(A-\lambda I)\)</span> by constructing the matrix <span class="process-math">\(A-\lambda I\)</span> and finding its reduced row echelon form.  In doing so, we will necessarily need to use complex arithmetic.</div></li>
-<li id="li-3174"><div class="para" id="p-4829">We have now found a complex eigenvector <span class="process-math">\(\vvec\text{.}\)</span> Write <span class="process-math">\(\vvec = \vvec_1 - i \vvec_2\)</span> to identify vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> having real entries.</div></li>
-<li id="li-3175"><div class="para" id="p-4830">Construct the matrix <span class="process-math">\(P = \left[\begin{array}{rr}
+<li id="li-3173"><div class="para" id="p-4826">Using the same eigenvalue, we will find an eigenvector <span class="process-math">\(\vvec\)</span> where the entries of <span class="process-math">\(\vvec\)</span> are complex numbers.  As always, we will describe <span class="process-math">\(\nul(A-\lambda I)\)</span> by constructing the matrix <span class="process-math">\(A-\lambda I\)</span> and finding its reduced row echelon form.  In doing so, we will necessarily need to use complex arithmetic.</div></li>
+<li id="li-3174"><div class="para" id="p-4827">We have now found a complex eigenvector <span class="process-math">\(\vvec\text{.}\)</span> Write <span class="process-math">\(\vvec = \vvec_1 - i \vvec_2\)</span> to identify vectors <span class="process-math">\(\vvec_1\)</span> and <span class="process-math">\(\vvec_2\)</span> having real entries.</div></li>
+<li id="li-3175"><div class="para" id="p-4828">Construct the matrix <span class="process-math">\(P = \left[\begin{array}{rr}
 \vvec_1 \amp \vvec_2
 \end{array}\right]\)</span> and verify that <span class="process-math">\(A=PCP^{-1}\text{.}\)</span>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-172"><h4 class="heading"><span class="codenumber">9<span class="period">.</span></span></h4>
-<div class="para logical" id="p-4843">
+<div class="para logical" id="p-4841">
 <div class="para">For each of the following matrices, sketch the vector <span class="process-math">\(\xvec = \twovec{1}{0}\)</span> and powers <span class="process-math">\(A^k\xvec\)</span> for <span class="process-math">\(k=1,2,3,4\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
 <li id="li-3186"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
-<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para" id="p-4844"><span class="process-math">\(A = \left[\begin{array}{rr}
+<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para" id="p-4842"><span class="process-math">\(A = \left[\begin{array}{rr}
 0 \amp -1.4 \\
 1.4 \amp 0 \\
 \end{array}\right]
@@ -1776,7 +1776,7 @@ b \amp a \\
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/empty.svg" role="img" class="contained"></div>
 </div></div></li>
 <li id="li-3187"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
-<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para" id="p-4845"><span class="process-math">\(A = \left[\begin{array}{rr}
+<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para" id="p-4843"><span class="process-math">\(A = \left[\begin{array}{rr}
 0 \amp -0.8 \\
 0.8 \amp 0 \\
 \end{array}\right]
@@ -1784,32 +1784,32 @@ b \amp a \\
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/empty.svg" role="img" class="contained"></div>
 </div></div></li>
 <li id="li-3188"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
-<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para" id="p-4846"><span class="process-math">\(A = \left[\begin{array}{rr}
+<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para" id="p-4844"><span class="process-math">\(A = \left[\begin{array}{rr}
 0 \amp -1 \\
 1 \amp 0 \\
 \end{array}\right]
 \text{.}\)</span></div></div>
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/empty.svg" role="img" class="contained"></div>
 </div></div></li>
-<li id="li-3189"><div class="para logical" id="p-4847">
+<li id="li-3189"><div class="para logical" id="p-4845">
 <div class="para">Consider a matrix of the form <span class="process-math">\(C=\left[\begin{array}{rr}
 a \amp -b \\
 b \amp a \\
 \end{array}\right]\)</span> with <span class="process-math">\(r=\sqrt{a^2+b^2}\text{.}\)</span>  What happens when <span class="process-math">\(k\)</span> becomes very large when</div>
 <ol class="decimal">
-<li id="li-3190"><div class="para" id="p-4848"><span class="process-math">\(r \lt 1\text{.}\)</span></div></li>
-<li id="li-3191"><div class="para" id="p-4849"><span class="process-math">\(r = 1\text{.}\)</span></div></li>
-<li id="li-3192"><div class="para" id="p-4850"><span class="process-math">\(r \gt 1\text{.}\)</span></div></li>
+<li id="li-3190"><div class="para" id="p-4846"><span class="process-math">\(r \lt 1\text{.}\)</span></div></li>
+<li id="li-3191"><div class="para" id="p-4847"><span class="process-math">\(r = 1\text{.}\)</span></div></li>
+<li id="li-3192"><div class="para" id="p-4848"><span class="process-math">\(r \gt 1\text{.}\)</span></div></li>
 </ol>
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-173"><h4 class="heading"><span class="codenumber">10<span class="period">.</span></span></h4>
-<div class="para logical" id="p-4867">
+<div class="para logical" id="p-4865">
 <div class="para">For each of the following matrices and vectors, sketch the vector <span class="process-math">\(\xvec\)</span> along with <span class="process-math">\(A^k\xvec\)</span> for <span class="process-math">\(k=1,2,3,4\text{.}\)</span>
 </div>
 <ol class="lower-alpha">
 <li id="li-3207"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
-<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para logical" id="p-4868"><div class="displaymath process-math">
+<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para logical" id="p-4866"><div class="displaymath process-math">
 \begin{equation*}
 \begin{aligned}
 A \amp {}={} \left[\begin{array}{rr}
@@ -1824,7 +1824,7 @@ A \amp {}={} \left[\begin{array}{rr}
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/empty.svg" role="img" class="contained"></div>
 </div></div></li>
 <li id="li-3208"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
-<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para logical" id="p-4869"><div class="displaymath process-math">
+<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para logical" id="p-4867"><div class="displaymath process-math">
 \begin{equation*}
 \begin{aligned}
 A \amp {}={} \left[\begin{array}{rr}
@@ -1838,7 +1838,7 @@ A \amp {}={} \left[\begin{array}{rr}
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/empty.svg" role="img" class="contained"></div>
 </div></div></li>
 <li id="li-3209"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
-<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para logical" id="p-4870"><div class="displaymath process-math">
+<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para logical" id="p-4868"><div class="displaymath process-math">
 \begin{equation*}
 \begin{aligned}
 A \amp {}={} \left[\begin{array}{rr}
@@ -1852,7 +1852,7 @@ A \amp {}={} \left[\begin{array}{rr}
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/empty.svg" role="img" class="contained"></div>
 </div></div></li>
 <li id="li-3210"><div class="sidebyside"><div class="sbsrow" style="margin-left:1%;margin-right:1%;">
-<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para logical" id="p-4871">
+<div class="sbspanel top" style="width:48.9795918367347%;"><div class="para logical" id="p-4869">
 <div class="displaymath process-math">
 \begin{equation*}
 \begin{aligned}
@@ -1868,7 +1868,7 @@ A \amp {}={} \left[\begin{array}{rr}
 </div></div>
 <div class="sbspanel top" style="width:48.9795918367347%;"><img src="external/images/empty.svg" role="img" class="contained"></div>
 </div></div></li>
-<li id="li-3211"><div class="para" id="p-4872">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix with eigenvalues <span class="process-math">\(\lambda_1=0.7\)</span> and <span class="process-math">\(\lambda_2=0.5\)</span> and <span class="process-math">\(\xvec\)</span> is any vector, what happens to <span class="process-math">\(A^k\xvec\)</span> when <span class="process-math">\(k\)</span> becomes very large?</div></li>
+<li id="li-3211"><div class="para" id="p-4870">If <span class="process-math">\(A\)</span> is a <span class="process-math">\(2\by2\)</span> matrix with eigenvalues <span class="process-math">\(\lambda_1=0.7\)</span> and <span class="process-math">\(\lambda_2=0.5\)</span> and <span class="process-math">\(\xvec\)</span> is any vector, what happens to <span class="process-math">\(A^k\xvec\)</span> when <span class="process-math">\(k\)</span> becomes very large?</div></li>
 </ol>
 </div></article></section></section></div>
 <div class="ptx-content-footer">

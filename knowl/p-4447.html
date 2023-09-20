@@ -9,10 +9,59 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
-<h6 class="heading"><span class="type">Paragraph</span></h6>
-<div class="para">Technically, we are finding <dfn class="terminology">right eigenvectors</dfn> since the vector <span class="process-math">\(\vvec\)</span> appears to the right of <span class="process-math">\(A\)</span> in the definition <span class="process-math">\(A\vvec=\lambda \vvec\text{.}\)</span> That’s most often what we want.  But we can also get <dfn class="terminology">left eigenvectors</dfn> with <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A, left = True)</code>. Feel free to try it in the code chunk below. NumPy does not provide this option.</div>
+<h5 class="heading"><span class="type">Paragraph</span></h5>
+<div class="para logical">
+<div class="para">When working with decimal entries, which are called <dfn class="terminology">floating point numbers</dfn> in computer science, we must remember that computers perform only approximate arithmetic. This can be a problem when we wish to find the eigenvectors of a matrix.  To illustrate, consider the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
+0.4 \amp 0.3 \\
+0.6 \amp 0.7 \\
+\end{array}\right]
+\text{.}\)</span>
+</div>
+<ol class="decimal">
+<li><div class="para">Without using Python, find the eigenvalues of this matrix.</div></li>
+<li><div class="para">What do you find for the reduced row echelon form of <span class="process-math">\(A-I\text{?}\)</span>
+</div></li>
+<li>
+<div class="para">Let’s now use Python to determine the reduced row echelon form of <span class="process-math">\(A-I\text{:}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-157"><script type="text/x-sage">A = sympy.Matrix([[0.4,0.3],[0.6,0.7]])
+print((A - sympy.eye(2)).rref())   # use sympy.eye() to get a sympy.Matrix
+</script></pre>
+<div class="para">What result does Python report for the reduced row echelon form?  Why is this result not correct? (Hint: compute row and column sums.)</div>
+</li>
+<li>
+<div class="para">Despite the error in finding the reduce row echelon form, NumPy and SciPy <em class="emphasis">can</em> compute these eigenvalues and eigenvectors for us.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-158"><script type="text/x-sage">A = np.array([[0.4, 0.3],[0.6,0.7]])
+print(np.linalg.eig(A))
+</script></pre>
+<div class="para">As you might expect, this implies that the method being used does not rely on using RREF along the way. RREF is not numerically stable, this is why it is not included in numpy and scipy.</div>
+</li>
+<li>
+<div class="para">If we provide sympy with rational values instead of floating point, then it can compute the RREF of our matrix exactly and the error from above goes away.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-159"><script type="text/x-sage">from sympy import Rational as r
+A = sympy.Matrix([[r(4,10),r(3,10)],[r(6,10),r(7,10)]])
+print(A)
+print(A.eigenvals())
+</script></pre>
+<div class="para">In <a href="chap6.html" class="internal" title="Chapter 6: Orthogonality and Least Squares">Chapter 6</a> we will see other methods for computing eigevectors that do not rely on RREF.</div>
+</li>
+</ol>
+</div>
 <span class="incontext"><a href="sec-eigen-find.html#p-4447" class="internal">in-context</a></span>
 </body>
 </html>
