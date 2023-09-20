@@ -110,7 +110,7 @@
 	  The flow between urban, suburban, and rural
 	  populations. 
 	</caption>
-	<sidebyside widths="50%">
+	<sidebyside widths="50%" valign="bottom">
 	  <image source="images/stoch-pops" />
 	</sidebyside>
       </figure>
@@ -444,6 +444,7 @@ markov_chain(A, x0, 20)
   </exercise>
 
   <exercisegroup>
+	<title>Stochastic Matrices</title>
 
 	<introduction>
   <p> In the next few exercises, we will consider the <m>1\by n</m>
@@ -705,10 +706,10 @@ markov_chain(A, x0, 20)
 import numpy as np  
 np.set_printoptions(precision = 3, suppress = True)
 def modified_markov_chain(A, x0, N, alpha=0.85):
-    r = A.shape[0]
-    F = np.eye(r)
-    F.fill((1.0/r) * r * r)
-    Amod = alpha * A + (1-alpha) * F
+    n = A.shape[0]
+    H = np.eye(n)
+    H.fill((1.0/n))
+    Amod = alpha * A + (1-alpha) * H
     print(Amod)
     result = [x0]
     for i in range(N):
@@ -813,7 +814,7 @@ print(modified_markov_chain(G, x0, 20))
       <p> This exercise will analyze the board game <em>Chutes and
       Ladders</em>, or at least a simplified version of it. </p>
 
-      <sidebyside widths="50% 45%" margins="5%">
+      <sidebyside widths="45% 45%" margins="3%">
 	<p> The board for this game consists of 100 squares arranged
 	in a <m>10\by10</m> grid and numbered 1 to 100.  There are
 	pairs of squares joined by a ladder and pairs joined by a
@@ -831,7 +832,8 @@ print(modified_markov_chain(G, x0, 20))
 
       <p>
 	<ol marker="a.">
-	  <li><p> We begin by playing a simpler version of this game
+	  <li>
+		<p> We begin by playing a simpler version of this game
 	  with only eight squares laid out in a row as shown in
 	  <xref ref="fig-chutes-plain" /> and containing neither
 	  chutes nor ladders.  Rather than a six-sided
@@ -846,9 +848,7 @@ print(modified_markov_chain(G, x0, 20))
 	      A simple version of Chutes and Ladders with neither chutes
 	      nor ladders.
 	    </caption>
-	    <sidebyside width="50%">
-	      <image source="images/chutes-plain" />
-	    </sidebyside>
+		<image source="images/chutes-plain.png" />
 	  </figure>
 
 	  <p> Construct the <m>8\by8</m> matrix <m>A</m> that
@@ -882,20 +882,19 @@ print(markov_chain(A, x0, 10))
 	  <p> What is the probability that we arrive at square 8 by
 	  the fourth move?  By the sixth move?  By the seventh
 	  move?</p> </li>
-	  
-	  <li><p> We will now modify the game by adding one chute and
-	  one ladder as shown in <xref ref="fig-chutes-ladders" />.
-	  </p>
 
-	  <figure xml:id="fig-chutes-ladders">
-	    <caption>
-	      A version of Chutes and Ladders with one chute and one
-	      ladder. 
-	    </caption>
-	    <sidebyside width="50%">
-	      <image source="images/chutes-ladders" />
-	    </sidebyside>
-	  </figure>
+		<li>
+			<p> We will now modify the game by adding one chute and one ladder as
+								shown in <xref ref="fig-chutes-ladders.png" />. 
+			</p>
+
+			<figure xml:id="fig-chutes-ladders">
+				<caption>
+					A version of Chutes and Ladders with one chute and one
+					ladder.
+				</caption>
+				<image source="images/chutes-ladders" />
+			</figure>
 
 	  <p> Even though there are eight squares, we only need to
 	  consider six of them.  For instance, if we arrive at the
@@ -930,7 +929,8 @@ print(markov_chain(A, x0, 10))
 	    <ol marker="1.">
 	      <li><p> What is the smallest number of moves we can make and
 	      arrive at square 6?  What is the probability that we
-	      arrive at square 6 using this number of moves?  </p></li>
+	      arrive at square 6 using this number of moves?  
+		</p></li>
 
 	      <li><p> What is the probability that we arrive at square
 	      6 after five moves? </p></li>

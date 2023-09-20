@@ -48,10 +48,17 @@
 	<m>A</m> and then explain why the following computation
 	is incorrect.
 </p>
-	<sage language="python">
+	<sage language="python" auto-evaluate="yes">
 	  <input>
 import numpy as np
 import sympy as s   
+from scipy import linalg  
+from pprint import pprint
+	  </input>
+	</sage>
+
+	<sage language="python">
+	  <input>
 A = s.Matrix([[0.8, 0.4], [0.2, 0.6]])
 I = s.eye(2) 
 print((A-I).rref())
@@ -92,7 +99,7 @@ print((A-I).rref())
 
 	  <li><p> Since <m>A</m> is a positive stochastic matrix, we
 	  know that <m>\lambda=1</m> is an eigenvalue and hence that
-	  <m>A-I</m> is not invertible.  Sympy, however, tells us that
+	  <m>A-I</m> is not invertible.  SymPy, however, tells us that
 	  <m>A-I\sim I</m>, which cannot be true since <m>A-I</m> is
 	  not invertible. </p></li>
 
@@ -178,7 +185,7 @@ print((A-I).rref())
       </p>
     </example>
 
-    <example>
+    <example xml:id="example-power-eigen">
       <p> Let's now look at the matrix <m>A = \left[\begin{array}{rr}
       2 \amp 1 \\ 1 \amp 2 \\ \end{array}\right] </m>, which has
       eigenvalues <m>\lambda_1=3</m> and <m>\lambda_2 = 1</m>.  The
@@ -291,25 +298,26 @@ print((A-I).rref())
 	<li><p> The Python cell below defines a function that implements
 	the power method.  Define the matrix <m>A</m> and initial
 	vector <m>\xvec_0</m> below.  The command
-	<c>power(A, x0,	N)</c> will print out the
+	<c>power_eig(A, x0,	N)</c> will compute out the
 	multiplier <m>m</m> and the vectors
 	<m>\overline{\xvec}_k</m> for <m>N</m> steps of the power method.
 	</p>
 
 	  <sage language="python">
 	    <input>
-import sympy as s
-def power(A, x, N):
+def power_eig(A, x, N):
+    result = [[0, x]]
     for i in range(N):
         x = A@x
-        m = max([comp for comp in x], key = abs).evalf(digits = 14)
-        x = 1 / float(m) * x
-        print (m, x)
+        m = max([comp for comp in x], key = abs).round(14)
+        x = 1.0 / m * x
+        result.append([m, x])
+    return result
 
 ### Define the matrix A and initial vector x0 below
 A =
 x0 =
-power(A, x0, 20)
+pprint(power_eig(A, x0, 20))
 	    </input>
 	  </sage>
 
@@ -394,10 +402,10 @@ power(A, x0, 20)
     vector <m>\xvec_0</m>.  For most choices, this method will find
     the eigenvalue having the largest absolute value.  However, an
     unfortunate choice of <m>\xvec_0</m> may not.  For instance, if we
-    had chosen <m>\xvec_0 = \vvec_2</m> in our example above, the
-    vectors in the sequence <m>\xvec_k =
-    A^k\xvec_0=\lambda_2^k\vvec_2</m> will not detect the eigenvector
-    <m>\vvec_1</m>.  However, it usually happens that our
+    had chosen <m>\xvec_0 = \vvec_2 = \twovec{-1}{1}</m> in 
+	<xref ref="example-power-eigen" />, 
+	the vectors in the sequence <m>\xvec_k = A^k\xvec_0=\lambda_2^k\vvec_2</m> 
+	will not detect the eigenvector <m>\vvec_1</m>.  However, it usually happens that our
     initial guess <m>\xvec_0</m> has some contribution from
     <m>\vvec_1</m> that enables us to find it.
     </p>
@@ -450,9 +458,9 @@ power(A, x0, 20)
 	<m>A^{-1}</m>. </p></li>
 
 	<li><p> The following Python cell defines a command called
-	<c>inverse_power</c> that applies the power method to
-	<m>A^{-1}</m>.  That is, <c>inverse_power(A, x0, N)</c>
-	prints the vectors <m>\xvec_k</m>, where <m>\xvec_{k+1} =
+	<c>inverse_power_eig</c> that applies the power method to
+	<m>A^{-1}</m>.  That is, <c>inverse_power_eig(A, x0, N)</c>
+	computes the vectors <m>\xvec_k</m>, where <m>\xvec_{k+1} =
 	A^{-1}\xvec_k</m>, and multipliers <m>\frac{1}{m_k}</m>, which
 	approximate the eigenvalue of <m>A</m>.  Use it to find
 	the eigenvalue of
@@ -468,19 +476,17 @@ power(A, x0, 20)
 
 	<sage language="python">
 	  <input>
-import numpy as np
-from scipy import linalg
-def inverse_power(A, x, N):
+def inverse_power_eig(A, x, N):
 	result = []
     for i in range(N):
         x = linalg.solve(A, x)
-        m = max([comp for comp in x], key=abs) # .numerical_approx(digits=14)
-        x = 1/m * x  # 1/float(m)*x
-        result.append((1/m, x))
+        m = max([comp for comp in x], key = abs) 
+        x = 1.0/m * x  
+        result.append((1.0/m, x))
 ### define the matrix A and vector x0
 A =
 x0 =
-print(inverse_power(A, x0, 20))
+pprint(inverse_power_eig(A, x0, 20))
 	  </input>
 	</sage>
 	</li>
@@ -561,8 +567,7 @@ print(inverse_power(A, x0, 20))
       <ol marker="a.">
 	<li><p> If <m>\vvec</m> is an eigenvalue of <m>A</m> with
 	associated eigenvalue <m>\lambda</m>, explain why <m>\vvec</m>
-	is an eigenvector of <m>A - sI</m> where <m>s</m> is some
-	scalar. </p></li>
+	is an eigenvector of <m>A - sI</m> where <m>s</m> is any scalar. </p></li>
 
 	<li><p> What is the eigenvalue of <m>A-sI</m> associated to
 	the eigenvector <m>\vvec</m>? </p></li>
@@ -603,7 +608,7 @@ print(inverse_power(A, x0, 20))
 	<c>find_closest_eigenvalue(A, s, x, N)</c> that implements
 	<m>N</m> steps of the inverse power method using the matrix
 	<m>A-sI</m> and an initial vector <m>x</m>.  This function
-	prints approximations to the eigenvalue of <m>A</m> closest to
+	computes approximations to the eigenvalue of <m>A</m> closest to
 	<m>s</m> and its associated eigenvector.  By trying different
 	values of <m>s</m> in the shaded regions of the number line
 	shown in <xref ref="fig-numerical-power-line"/>, find the
@@ -612,21 +617,26 @@ print(inverse_power(A, x0, 20))
 
 	<sage language="python">
 	  <input>
-from scipy import linalg 
 def find_closest_eigenvalue(A, s, x, N):
-    B = A - s @ linalg.eye(A.shape[0])
-	result = []
+    B = A - (s * np.eye(A.shape[0]))
+    result = []
     for i in range(N):
-        x = B.solve(x)
-        m = max([comp for comp in x], key=abs)
-        x = 1/m * x
-		result.append((1/m + s, x))
-	return result
+        x = linalg.solve(B, x)
+        m = max([comp for comp in x], key = abs)
+        x = 1.0/m * x
+        result.append((1.0/m + s, x))
+    return result
 
 ### define the matrix A and vector x0
-A =
-x0 =
-print(find_closest_eigenvalue(A, 2, x0, 20))
+A = np.column_stack((
+    [3.6, 1.6, 3.9, 7.6], 
+    [1.6, 2.2, 4.3, 4.1],
+    [4.0, 4.4, 9.0, 0.6],
+    [7.6, 4.1, 0.6, 5.0]))
+pprint(A)
+                     
+x0 = 
+pprint(find_closest_eigenvalue(A, -10, x0, 20))
 	  </input>
 	</sage>
 	</li>

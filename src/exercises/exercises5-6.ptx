@@ -2,28 +2,40 @@
 
 <exercises>
   <introduction>
-  <p> This Sage cell has the commands <c>power</c>,
-  <c>inverse_power</c>, and <c>find_closest_eigenvalue</c> that we
-  have developed in this section.  After evaluating this cell, these
-  commands will be available in any other cell on this page.
+  <p> This Python cell has the commands <c>power_eig()</c>,
+  <c>inverse_power_eig()</c>, and <c>find_closest_eigenvalue()</c> that we
+  have developed in this section.  After this cell has been evaluated, 
+  these commands will be available in any other cell on this page.
   </p>
-  <sage>
+  <sage language="python" auto-evaluate="yes">
     <input>
-def power(A, x, N):
+def power_eig(A, x, N):
+    result = [[0, x]]
     for i in range(N):
-        x = A*x
-        m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
-        x = 1/float(m)*x
-        print (m, x)
+        x = A@x
+        m = max([comp for comp in x], key = abs).round(14)
+        x = 1.0 / m * x
+        result.append([m, x])
+    return result
+
 def find_closest_eigenvalue(A, s, x, N):
-    B = A-s*identity_matrix(A.nrows())
+    B = A - (s * np.eye(A.shape[0]))
+    result = []
     for i in range(N):
-        x = B \ x
-        m = max([comp for comp in x], key=abs).numerical_approx(digits=14)
-        x = 1/float(m)*x
-        print (1/float(m)+s, x)
+        x = linalg.solve(B, x)
+        m = max([comp for comp in x], key = abs)
+        x = 1.0/m * x
+        result.append((1.0/m + s, x))
+    return result    
+
 def inverse_power(A, x, N):
-    find_closest_eigenvalue(A, 0, x, N)
+	result = []
+    for i in range(N):
+        x = linalg.solve(A, x)
+        m = max([comp for comp in x], key = abs) 
+        x = 1.0/m * x  
+        result.append((1.0/m, x))
+    return result
     </input>
   </sage>
 </introduction>
@@ -67,12 +79,12 @@ def inverse_power(A, x, N):
 
   <exercise>
     <statement>
-      <p> Use the commands <c>power</c>, <c>inverse_power</c>, and
+      <p> Use the commands <c>power_eig()</c>, <c>inverse_power_eig()</c>, and
       <c>find_closest_eigenvalue</c> to approximate the eigenvalues
       and associated eigenvectors of the
       following matrices.
      </p>
-      <sage>
+      <sage langage="python">
 	<input>
 	</input>
       </sage>
@@ -164,13 +176,13 @@ def inverse_power(A, x, N):
 	 \end{array}\right]
       </me>.
     </p>
-      <sage>
+      <sage language="python">
 	<input>
-A = matrix(5,5, [-14.6,  9.0, -14.1, 5.8,  13.0,
-                  27.8, -4.2,  16.0, 0.9, -21.3,
-                  -5.5,  3.4,   3.4, 3.3,   1.1,
-                 -25.4, 11.3, -15.4, 4.7,  20.3,
-                 -33.7, 14.8, -22.5, 9.7,  26.6])
+A = np.array([[-14.6,  9.0, -14.1, 5.8,  13.0],
+             [27.8, -4.2,  16.0, 0.9, -21.3],
+             [-5.5,  3.4,   3.4, 3.3,   1.1],
+             [-25.4, 11.3, -15.4, 4.7,  20.3],
+             [-33.7, 14.8, -22.5, 9.7,  26.6]])
 	</input>
       </sage>
     </statement>
@@ -200,7 +212,7 @@ A = matrix(5,5, [-14.6,  9.0, -14.1, 5.8,  13.0,
       \end{array}\right]
       </m>.
       </p>
-      <sage>
+      <sage langage="python">
 	<input>
 	</input>
       </sage>
@@ -417,7 +429,7 @@ A = matrix(5,5, [-14.6,  9.0, -14.1, 5.8,  13.0,
 	of <m>A</m>. </p></li>
 
 	<li><p> Verify your prediction using Sage.</p>
-	<sage>
+	<sage langage="python">
 	  <input>
 	  </input>
 	</sage>
