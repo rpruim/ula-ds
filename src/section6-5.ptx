@@ -560,7 +560,7 @@ b = np.array([5, -3, -1)]
 		<idx><h>model space</h></idx>
 		In this context, <m>\col(X)</m> is called the <term>model space</term>. It will be important below  to 
 		note that this means that 
-		<me>\yvec - \yhat \mbox{\ is orthogonal to (every vector in) the model space}</me>.
+		<me>\yvec - \yhat \mbox{ is orthogonal to (every vector in) the model space}</me>.
 	</p>
 
 	<p>
@@ -749,7 +749,7 @@ b = np.array([5, -3, -1)]
 	  following cell to load the data:
 	</p>
 
-	  <sage>
+	  <sage language="python">
 	    <input>
 import pandas as pd 
 import numpy as np 
@@ -806,7 +806,7 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 	      <m>\yvec = X \betavec</m>.  Call your solution <m>\betahat</m>.
 	      </p>
 
-	      <sage>
+	      <sage language="python">
 		<input>
 		</input>
 	      </sage>
@@ -968,7 +968,7 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 		<ul>
 			<li>
 				<p>
-					<m> \yvec - \ymean</m> 
+					<m> \yvec - \ybar</m> 
 					holds the differences between the observed response values and their mean value. 
 					The (square of the) length of this vector is a measure of the total 
 					variability in the response variable.
@@ -984,28 +984,28 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 			</li>
 			<li>
 				<p>
-					<m> \yhat - \ymean</m>
+					<m> \yhat - \ybar</m>
 					holds the differences between the fitted values and the mean response. 
 					Importantly, this vector <em>is in the model space</em>.  We can see this as follows.
 					The vector <m>\yhat</m> is in the model space by definition.
 					If our model includes an intercept (so the first column of <m>X</m> is <m>\onevec</m>),
 					then 
-					<me>\ymean = \overline{y} \onevec = \overline{y}\onevec + 0 \xvec_1 + 0 \xvec_2 + \cdots + 0 \xvec_p
+					<me>\ybar = \overline{y} \onevec = \overline{y}\onevec + 0 \xvec_1 + 0 \xvec_2 + \cdots + 0 \xvec_p
 						= X \begin{bmatrix}\overline{y} \\0\\\vdots\\0\end{bmatrix}
 					</me>,
-					so <m>\ymean</m> is also in the model space.  This implies that <m>\yhat - \ymean</m> 
+					so <m>\ybar</m> is also in the model space.  This implies that <m>\yhat - \ybar</m> 
 					is in the model space.
 				</p>
 				<p>
-					Because <m>\yhat - \ymean</m> is in the model space and <m>y - \yhat</m> is orthogonal to the 
+					Because <m>\yhat - \ybar</m> is in the model space and <m>y - \yhat</m> is orthogonal to the 
 					model space, we know that these vectors are orthogonal.
 				</p>
 			</li>
 		</ul>
 		Putting this together we see that 
 		<md>
-			<mrow> \yvec - \ymean \amp = (\yvec - \yhat ) + (\yhat - \ymean) </mrow>
-			<mrow> \len{\yvec - \ymean}^2 \amp = \len{\yvec - \yhat}^2 + \len{\yhat - \ymean}^2 </mrow>
+			<mrow> \yvec - \ybar \amp = (\yvec - \yhat ) + (\yhat - \ybar) </mrow>
+			<mrow> \len{\yvec - \ybar}^2 \amp = \len{\yvec - \yhat}^2 + \len{\yhat - \ybar}^2 </mrow>
 		</md>.
 		The second equation is the just the Pythagorean Theorem applied to the triangle formed by our 
 		three vectors.
@@ -1041,27 +1041,36 @@ so.Plot(data = Crickets, x = "Chirps", "Temperature").add(so.Dot()).show()
 		the <term>coefficient of determination</term> as 
 		<md>
 			<mrow>
-			R^2 \amp = \frac{ \len{\yhat - \ymean}^2}{\len{\yvec - \ymean}^2}
+			R^2 \amp = \frac{ \len{\yhat - \ybar}^2}{\len{\yvec - \ybar}^2}
+			</mrow>
+		</md>.    
+	</p>
+	<p>
+		For linear model with an intercept, we additionally have
+		<m>\yvec - \yhat \perp \yhat - \ybar</m>, so 
+		<md>
+			<mrow>
+			R^2 \amp = \frac{ \len{\yhat - \ybar}^2}{\len{\yvec - \ybar}^2}
 			</mrow>
 			<mrow>
-			 	\amp = \frac{ \len{\yhat - \ymean}^2}{\len{\yvec - \yhat}^2 + \len{\yhat - \ymean}^2 }
+			 \amp = \frac{ \len{\yhat - \ybar}^2}{\len{\yvec - \ybar}^2}
+			 	\frac{ \len{\yhat - \ybar}^2}{\len{\yvec - \yhat}^2 + \len{\yhat - \ybar}^2 }
 			</mrow>
 		</md>.    
 	  <!-- <me>
 	    R^2 = 1 - \frac{\len{\yvec - \yhat}^2}{\len{\yvec - \overline{\yvec}}}
 	  </me>. -->
-	  For a linear model, <me>\yhat = X \betahat</me>, but the definition can 
-	  be applied to other models as well.
 	</p>
       </statement>
     </definition>
+
 
 	<p>It is clear from the definition that for linear models with an intercept,
 		<me>0 \le R^2 \le 1</me>. 
 		So one way to interpret <m>R^2</m>
 		is as the proportion of the variation in <m>\yvec</m> that is explained by the model 
 		(i.e., by <m>\yhat</m>). If <m>\yhat = \yvec</m>, the fit is perfect and <m>R^2 = 1</m>. 
-		At the other extreme, if our model predicts <m>\yhat = \ymean</m> (everyone is average),
+		At the other extreme, if our model predicts <m>\yhat = \ybar</m> (everyone is average),
 		then <m>R^2 = 0</m>.
 	</p>
 
@@ -1267,7 +1276,7 @@ print(df)
 		Construct the matrix <m>A</m> and find its <m>QR</m>
 		factorization in the cell below.
 	      </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -1291,7 +1300,7 @@ print(df)
 		your parameters.  What does this imply about the quality
 		of the fit?
 	      </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -1518,7 +1527,7 @@ list_plot(data, color='blue', size=40)
 		<m>\betahat</m>.
 	      </p>
 
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -1561,7 +1570,7 @@ list_plot(data, color='blue', size=40)
 		to this dataset.
 	      </p>
 
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -1748,7 +1757,7 @@ list_plot(data, color='blue', size=40)
 	  <idx><h>Vandermonde matrix</h><seealso> <c>numpy.polynomial.polynomial.polyvander()</c> </seealso> </idx>
 	  these matrices for a specified vector <m>\xvec</m> and degree.
 	</p>
-<sage>
+<sage language="python">
 	<input>
 import numpy as np 
 from numpy.polynomial.polynomial import polyvander
@@ -1834,7 +1843,7 @@ so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
 		data, plot the polynomial with the data, and find
 		<m>R^2</m>.
 	      </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -1845,7 +1854,7 @@ so.Plot(data = ice, x = "Month", y = "2012").add(so.Dot())
 		Repeat one more time by fitting a degree 11 polynomial
 		to the data, creating a plot, and finding <m>R^2</m>.
 	      </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>

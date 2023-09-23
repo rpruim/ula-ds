@@ -1,48 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <exercises>
+	<introduction>
   <p>
-    Evaluating the following cell loads in some commands that will be
-    helpful in the following exercises.  In particular, there are
-    commands
+	Here are some useful Python commands you may like to use in these exercises.
     <ul>
       <li>
 	<p>
-	  <c>QR(A)</c> that returns the <m>QR</m> factorization of
-	  <c>A</c> as <c>Q, R = QR(A)</c>,
+	  <c>Q, R = scipy.linalg.qr(A)</c> returns the <m>QR</m> factorization of a matrix 
+	  <m>A</m> as <c>Q</c> and <c>R</c>,
 	</p>
       </li>
       <li>
 	<p>
-	  <c>onesvec(n)</c> that returns the <m>n</m>-dimensional
+	  <c>np.ones(n)</c> returns the <m>n</m>-dimensional
 	  vector whose entries are all 1,
 	</p>
       </li>
       <li>
 	<p>
-	  <c>demean(v)</c> that demeans the vector <c>v</c>,
+	  <c>x - x.mean()</c> demeans the vector <c>x</c>,
 	</p>
       </li>
       <li>
 	<p>
-	  <c>vandermonde(x, k)</c> that returns the Vandermonde matrix
-	  of degree <m>k</m>
+	  <c>numpy.vander(x, N)</c> returns the Vandermonde matrix
+	  of degree <c>N - 1</c> (<c>N</c> columns) 
 	  formed from the components of the vector <c>x</c>, and
 	</p>
       </li>
-      <li>
-	<p>
-	  <c>plot_model(xhat, data)</c> that plots the <c>data</c> and
-	  the model <c>xhat</c>.
-	</p>
-      </li>
+	  <li>
+		<p>
+			<c>pandas.read_csv()</c> reads csv data into a pandas data frame.
+		</p>
+	  </li>
+	  <li>
+		<p>
+			<c>x.to_numpy()</c> will convert pandas data frames and columns of data frames into NumPy arrays.
+		</p>
+	  </li>
+	  <li>
+		<p>
+			<c>numpy.set_printoptions(precision = k, suppress = True)</c> 
+			sets the precision used for NumPy's numerical output and suppresses the use of  
+			scientific notation for small values. 
+		</p>
+	  </li>
+	  <li>
+		<p>
+			<c>pprint.pprint()</c> sometimes offeres a nicer display of output.
+		</p>
+	  </li>
     </ul>
-    <sage>
+	The following packages and modules have been pre-loaded on this page.
+  </p>
+    <!-- <sage>
       <input>
 sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
       </input>
-    </sage>
-  </p>
+    </sage> -->
+
+	<sage language="python" auto-evaluate="yes">
+		<input>
+import numpy as np   
+import pandas as pd 
+import seaborn.objects as so
+from pprint import pprint
+np.set_printoptions(precision = 4, suppress = True)
+		</input>
+	</sage>
+	
+</introduction>
 
   <exercise>
     <statement>
@@ -79,6 +107,28 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
       </p>
     </statement>
 
+    <answer>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <m>\wvec_1=\threevec12{-1}</m> and <m>
+		\wvec_2=\threevec012</m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>\bhat = \threevec21{-8}</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>\xvec=\twovec{-1}{-3}</m>.
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </answer>
     <solution>
       <p>
 	<ol marker="a.">
@@ -105,34 +155,13 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	</ol>
       </p>
     </solution>
-    <answer>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      <m>\wvec_1=\threevec12{-1}</m> and <m>
-		\wvec_2=\threevec012</m>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>\bhat = \threevec21{-8}</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>\xvec=\twovec{-1}{-3}</m>.
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </answer>
   </exercise>
 
   <exercise xml:id="ex-lst-squares-line">
     <statement>
       <p>
 	Consider the data in <xref ref="table-lst-squares-line" />.
+	  </p>
 	<table xml:id="table-lst-squares-line">
 	  <title>
 	    A data set with four points.
@@ -160,29 +189,31 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    </row>
 	  </tabular>
 	</table>
-	<sage>
+	<sage language="python">
 	  <input>
 
 	  </input>
 	</sage>
+	<p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Set up the linear system <m>A\xvec=\bvec</m> that
-	      describes the line <m>b + mx = y</m> passing through
-	      these points.
+	      Set up the matrix equation <m>\yvec = X \betavec</m> for a simple linear model (intercept and slope)
+		  for these data. That is, specify <m>X</m> and <m>\yvec</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      Write the normal equations that describe the least
-	      squares approximate solution to <m>A\xvec=\bvec</m>.
+	      Write the normal equation that describes the least
+	      squares approximate solution to <m>\yvec = X\betavec</m>. 
+		  Write the equation symbolically first, then plug in the matrices for
+		  this problem and simplify.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      Find the least squares approximate solution <m>\xhat</m> 
-	      and plot the data and the resulting line.
+	      Find the least squares approximate solution <m>\betahat</m> and create a plot  showing 
+		  the original data and the least squares regression line.
 	    </p>
 	  </li>
 	  <li>
@@ -196,65 +227,21 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    </p>
 	  </li>
 	</ol>
-	      
       </p>
     </statement>
 
-    <solution>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      The matrix <m>A=\begin{bmatrix}
-	      1 \amp 1 \\
-	      1 \amp 2 \\
-	      1 \amp 3 \\
-	      1 \amp 4 \\
-	      \end{bmatrix}</m>
-	      and the vector <m>\bvec=\fourvec1112</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>\begin{bmatrix}
-	      4 \amp 10 \\
-	      10 \amp 30 \\
-	      \end{bmatrix}
-	      \xhat = \twovec5{14}
-	      </m>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>\xhat = \twovec{1/2}{3/10}</m>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      The predicted value is <m>y=1/2 + 3/10*3.5 = 1.55</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>R^2=0.6</m>
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </solution>
-	      
     <answer>
       <p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      <m>A=\begin{bmatrix}
+	      <m>X=\begin{bmatrix}
 	      1 \amp 1 \\
 	      1 \amp 2 \\
 	      1 \amp 3 \\
 	      1 \amp 4 \\
 	      \end{bmatrix}</m>,
-	      <m>\bvec=\fourvec1112</m>.
+	      <m>\yvec=\fourvec1112</m>.
 	    </p>
 	  </li>
 	  <li>
@@ -263,13 +250,13 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	      4 \amp 10 \\
 	      10 \amp 30 \\
 	      \end{bmatrix}
-	      \xhat = \twovec5{14}
+	      \betahat = \twovec5{14}
 	      </m>
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      <m>\xhat = \twovec{1/2}{3/10}</m>
+	      <m>\betahat = \twovec{1/2}{3/10}</m>
 	    </p>
 	  </li>
 	  <li>
@@ -286,6 +273,49 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
       </p>
     </answer>
 	      
+    <solution>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      The matrix <m>X=\begin{bmatrix}
+	      1 \amp 1 \\
+	      1 \amp 2 \\
+	      1 \amp 3 \\
+	      1 \amp 4 \\
+	      \end{bmatrix}</m>
+	      and the vector <m>\yvec=\fourvec1112</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>\begin{bmatrix}
+	      4 \amp 10 \\
+	      10 \amp 30 \\
+	      \end{bmatrix}
+	      \betahat = \twovec5{14}
+	      </m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>\betahat = \twovec{1/2}{3/10}</m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      The predicted value is <m>y=1/2 + 3/10*3.5 = 1.55</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>R^2=0.6</m>
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </solution>
+	      
   </exercise>
 
   <exercise>
@@ -293,26 +323,25 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
       <p>
 	Consider the four points in
 	<xref ref="table-lst-squares-line" />.
+	  </p>
 	<sage>
 	  <input>
 
 	  </input>
 	</sage>
+	<p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Set up a linear system <m>A\xvec = \bvec</m> that
-	      describes a quadratic function
-	      <me>
-		\beta_0+\beta_1x+\beta_2x^2 = y
-	      </me>
-	      passing through the points.
+		  Set up the matrix equation <m>\yvec = X \betavec</m> for a quadratic model
+		  (<m>y = \beta_0 + \beta_1 x + \beta_2 x^2</m>) for these data. That
+		  is, specify <m>X</m> and <m>\yvec</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
 	      Use a <m>QR</m> factorization to find the least squares
-	      approximate solution <m>\xhat</m> and plot the data and
+	      approximate solution <m>\betahat</m> and plot the data and
 	      the graph of the resulting quadratic function.
 	    </p>
 	  </li>
@@ -369,6 +398,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
     <statement>
       <p>
 	Consider the data in <xref ref="table-lst-squares-multi" />.
+	  </p>
 	<table xml:id="table-lst-squares-multi">
 	  <title>
 	    A simple data set
@@ -411,25 +441,27 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
             </row>
           </tabular>
 	</table>
+
 	<sage>
 	  <input>
 
 	  </input>
 	</sage>
+	<p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Set up a linear system <m>A\xvec = \bvec</m> that
+	      Set up a linear system <m>\yvec = X\betavec</m> that
 	      describes the relationship
 	      <me>
-		\beta_0 + \beta_1 x_1 + \beta_2 x_2 = y.
-	      </me>
+		y = \beta_0 + \beta_1 x_1 + \beta_2 x_2
+	      </me>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
 	      Find the least squares approximate solution
-	      <m>\xhat</m>.
+	      <m>\betahat</m>.
 	    </p>
 	  </li>
 	  <li>
@@ -444,49 +476,17 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	      Find the coefficient of determination <m>R^2</m>.
 	    </p>
 	  </li>
+
+	  <li>
+		<p>
+			Repeat for a quadratic model <m>y = \beta_0 + \beta_1 x_1 + \beta_2 x_1^2</m>.
+		</p>
+	  </li>
+
 	</ol>
       </p>
     </statement>
 
-    <solution>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      <m>\begin{bmatrix}
-	      1 \amp 1 \amp 1 \\
-	      1 \amp 1 \amp 2 \\
-	      1 \amp 2 \amp 1 \\
-	      1 \amp 2 \amp 2 \\
-	      1 \amp 3 \amp 2 \\
-	      1 \amp 3 \amp 3 \\
-	      \end{bmatrix}
-	      \xvec = \begin{bmatrix}
-	      4.2 \\ 3.3 \\ 5.9 \\ 5.1 \\ 7.5 \\ 6.3
-	      \end{bmatrix}
-	      </m>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>\xhat=\threevec{2.95}{2.00}{-0.85}
-	      </m>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>2.95+2.00(2.4)-0.85(2.9) = 5.27</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>R^2=0.99</m>
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </solution>
-	      
     <answer>
       <p>
 	<ol marker="a.">
@@ -526,6 +526,45 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
       </p>
     </answer>
 	      
+    <solution>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <m>\begin{bmatrix}
+	      1 \amp 1 \amp 1 \\
+	      1 \amp 1 \amp 2 \\
+	      1 \amp 2 \amp 1 \\
+	      1 \amp 2 \amp 2 \\
+	      1 \amp 3 \amp 2 \\
+	      1 \amp 3 \amp 3 \\
+	      \end{bmatrix}
+	      \xvec = \begin{bmatrix}
+	      4.2 \\ 3.3 \\ 5.9 \\ 5.1 \\ 7.5 \\ 6.3
+	      \end{bmatrix}
+	      </m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>\xhat=\threevec{2.95}{2.00}{-0.85}
+	      </m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>2.95+2.00(2.4)-0.85(2.9) = 5.27</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>R^2=0.99</m>
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </solution>
+	      
   </exercise>
 
   <exercise>
@@ -536,8 +575,8 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      If <m>A\xvec=\bvec</m> is consistent, then <m>\xhat</m>
-	      is a solution to <m>A\xvec=\bvec</m>.
+	      If <m>A\xvec=\bvec</m> is consistent, <m>\bhat = \proj{\bvec}{\col(A)}</m>, and 
+		  <m>A\xhat = \bhat</m>, then <m>\xhat</m> is a solution to <m>A\xvec=\bvec</m>. 
 	    </p>
 	  </li>
 	  <li>
@@ -570,6 +609,17 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	</ol>
       </p>
     </statement>
+    <answer>
+      <p>
+	<ol marker="a.">
+	  <li><p> True </p></li>
+	  <li><p> True </p></li>
+	  <li><p> False </p></li>
+	  <li><p> True </p></li>
+	  <li><p> False </p></li>
+	</ol>
+      </p>
+    </answer>
     <solution>
       <p>
 	<ol marker="a.">
@@ -610,17 +660,6 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	</ol>
       </p>
     </solution>
-    <answer>
-      <p>
-	<ol marker="a.">
-	  <li><p> True </p></li>
-	  <li><p> True </p></li>
-	  <li><p> False </p></li>
-	  <li><p> True </p></li>
-	  <li><p> False </p></li>
-	</ol>
-      </p>
-    </answer>
 	      
   </exercise>
 	    
@@ -631,20 +670,37 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      If <m>\xhat=\zerovec</m>, what does this say about the
-	      vector <m>\bvec</m>?
+			In a least squares regression model, 
+	      if <m>\betahat=\zerovec</m>, what does this say about the
+	      vector <m>\yvec</m>?
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      If the columns of <m>A</m> are orthonormal, how can you
+	      If the columns of <m>X</m> are orthonormal, how can you
 	      easily find the least squares approximate solution to
-	      <m>A\xvec=\bvec</m>?
+	      <m>\yvec = X\betavec</m>?
 	    </p>
 	  </li>
 	</ol>
       </p>
     </statement>
+    <answer>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <m>\bvec</m> is in <m>\col(A)^\perp = \nul(A^{\transpose})</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>\xhat = A^{\transpose}\bvec</m>.
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </answer>
     <solution>
       <p>
 	<ol marker="a.">
@@ -665,22 +721,6 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	</ol>
       </p>
     </solution>
-    <answer>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      <m>\bvec</m> is in <m>\col(A)^\perp = \nul(A^{\transpose})</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>\xhat = A^{\transpose}\bvec</m>.
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </answer>
   </exercise>
 
   <exercise>
@@ -689,20 +729,25 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	The following cell loads in some data showing the number of
 	people in Bangladesh living without electricity over 27 years.
 	It also defines vectors <c>year</c>, which records the years in the
-	data set, and <c>people</c>, which records the number of people.
-	<sage>
+	data set, and <c>people</c>, which records the number of people living without electricity.
+	  </p>
+<!-- sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals()) -->
+	<sage language="python">
 	  <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
-df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/bangladesh.csv')
-data = [vector(row) for row in df.values]
-year = vector(df['Year'])
-people = vector(df['People'])
-print(df)
-list_plot(data, size=40, color='blue')
-
+Bangladesh = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/bangladesh.csv')
+print(Bangladesh.head(5))
+( 
+    so.Plot(Bangladesh, x="Year", y="People")
+    .add(so.Dot())
+    .show()
+)
+# extract columns as numpy vectors
+year = Bangladesh['Year'].to_numpy()
+people = Bangladesh['People'].to_numpy()
 
 	  </input>
 	</sage>
+	<p>
 	<ol marker="a.">
 	  <li>
 	    <p>
@@ -711,12 +756,11 @@ list_plot(data, size=40, color='blue')
 		N = \beta_0 + \beta_1 t
 	      </me>
 	      where <m>t</m> is the year and <m>N</m> is the number of
-	      people. 
-	      Construct the matrix <m>A</m> and vector
-	      <m>\bvec</m> so that
-	      the linear system
-	      <m>A\xvec=\bvec</m> describes the vector
-	      <m>\xvec=\twovec{\beta_0}{\beta_1}</m>.
+	      people living without electricity. 
+	      Construct the matrix <m>X</m> and vector
+	      <m>\yvec</m> so that the linear system
+	      <m>X\betavec=\yvec</m> describes the vector
+	      <m>\betahat = \twovec{\beta_0}{\beta_1}</m>.
 	    </p>
 	  </li>
 	  <li>
@@ -724,7 +768,7 @@ list_plot(data, size=40, color='blue')
 	      Using a <m>QR</m> factorization of <m>A</m>, find
 	      the values of <m>\beta_0</m> and <m>\beta_1</m>
 	      in the least squares approximate solution
-	      <m>\xhat</m>.
+	      <m>\betahat</m>.
 	    </p>
 	  </li>
 	  <li>
@@ -749,6 +793,40 @@ list_plot(data, size=40, color='blue')
 	</ol>
       </p>
     </statement>
+    <answer>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      The matrix <m>A</m> will be the <m>27\by 2</m> matrix
+	      whose first column is all 1's and whose second column is
+	      the vector of years.  The vector <m>\bvec</m> is the
+	      vector that records the number of people.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>N = 3.88\by10^9 - 1.90\by10^6t</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>R^2=0.90</m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	    <m>1.14\by10^8</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      2045
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </answer>
     <solution>
       <p>
 	<ol marker="a.">
@@ -785,40 +863,6 @@ list_plot(data, size=40, color='blue')
 	</ol>
       </p>
     </solution>
-    <answer>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      The matrix <m>A</m> will be the <m>27\by 2</m> matrix
-	      whose first column is all 1's and whose second column is
-	      the vector of years.  The vector <m>\bvec</m> is the
-	      vector that records the number of people.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>N = 3.88\by10^9 - 1.90\by10^6t</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>R^2=0.90</m>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	    <m>1.14\by10^8</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      2045
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </answer>
 	    
   </exercise>
 
@@ -841,39 +885,44 @@ list_plot(data, size=40, color='blue')
 	will transform this relationship by taking the natural
 	logarithm of both sides to obtain
 	<me>
-	  \ln(P) = \ln(C) + r\ln(L).
+	  \text{Model 1: } \log(P) = \log(C_1) + r_1\log(L).
+	</me>
+	Equivalently, 
+	<me>
+	  \text{Model 2: } \log(L) = \log(C_2) + r_2\log(L).
 	</me>
       </p>
 
       <p>
 	Evaluating the following cell loads the data set and defines
 	two vectors <c>logaxis</c>, whose
-	components are <m>\ln(L)</m>, and <c>logperiod</c>, whose
-	components are <m>\ln(P)</m>.	
-	<sage>
+	components are <m>\log(L)</m>, and <c>logperiod</c>, whose
+	components are <m>\log(P)</m>.	
+	  </p>
+<!-- sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals()) -->
+	<sage language="python">
 	  <input>
-import numpy as np	    
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
-df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/planets.csv',index_col=0)
-logaxis = vector(np.log(df['Semi-major axis']))
-logperiod = vector(np.log(df['Period']))
-print(df)
+planets = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/planets.csv',index_col=0)
+log_axis = np.log(planets['Semi-major axis'].to_numpy())
+log_period = np.log(planets['Period'].to_numpy())
+print(planets)
 
 	  </input>
 	</sage>
 
+	<p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Construct the matrix <m>A</m> and vector <m>\bvec</m> so that
-	      the solution to <m>A\xvec=\bvec</m> is the vector
-	      <m>\xvec=\ctwovec{\ln(C)}r</m>.
+	      Construct the matrix <m>X</m> and vector <m>\yvec</m> form Model 1 so that
+	      the solution to <m>X\betavec=\yvec</m> is the vector
+	      <m>\betahat = \ctwovec{\log(C)}r</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
 	      Find the least squares approximate solution
-	      <m>\xhat</m>.  What does this give for the values of
+	      <m>\betahat</m>.  What does this give for the values of
 	      <m>C</m> and <m>r</m>?
 	    </p>
 	  </li>
@@ -885,78 +934,45 @@ print(df)
 	    </p>
 	  </li>
 	  <li>
+		<p>
+			Repeat the process above for Model 2.
+		</p>
+	  </li>
+	  <li>
 	    Suppose that the orbit of an asteroid has a semi-major
 	    axis whose length is <m>L=4.0</m> AU.  Estimate the period
-	    <m>P</m> of the asteroid's orbit.
+	    <m>P</m> of the asteroid's orbit. 
+		Which model should you use?
+		Do you get the same result if you use the other model?
 	  </li>
 
 	  <li>
 	    <p>
 	      Halley's Comet has a period of <m>P=75</m> years.
 	      Estimate the length of its semi-major axis.
+		  Which model should you use?
+		  Do you get the same result if you use the other model?
 	    </p>
 	  </li>
 	</ol>
       </p>
     </statement>
 
-    <solution>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      The matrix <m>A</m> is the <m>9\by2</m> matrix whose
-	      first column is all 1's and whose second column is the
-	      vector of the logarithms of the semi-major axes.  The
-	      vector <m>\bvec</m> is the vector that records the
-	      logarithms of the periods.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      We find <m>\xhat=\twovec{\ln(C)}{r} =
-	      \twovec{-0.0036}{1.501}</m> so that <m>C=e^{-0.0036} =
-	      0.996</m> and <m>r=1.50</m>.  This means that <m>P =
-	      0.996L^{1.5}</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>R^2=1.000</m>, which means that we have a very good
-	      fit because this data reflects a physical
-	      law.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>P = 0.996(4.0)^{1.5}=7.99</m> years.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      The expression <m>\ln(P) = \ln(C) + r\ln(L)</m> means
-	      that <m>\ln(76) = \ln(C) + r\ln(L)</m>.  Solving for
-	      <m>L = 17.9</m> AU.
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </solution>
     <answer>
       <p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      The matrix <m>A</m> is the <m>9\by2</m> matrix whose
+	      The matrix <m>X</m> is the <m>9\by2</m> matrix whose
 	      first column is all 1's and whose second column is the
 	      vector of the logarithms of the semi-major axes.  The
-	      vector <m>\bvec</m> is the vector that records the
+	      vector <m>\yvec</m> is the vector that records the
 	      logarithms of the periods.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      <m>C=0.996</m> and <m>r=1.50</m>.
+	      <m>\hat C_1=0.996</m> and <m>\hat r_1=1.50</m>.
 	    </p>
 	  </li>
 	  <li>
@@ -977,6 +993,48 @@ print(df)
 	</ol>
       </p>
     </answer>
+    <solution>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      The matrix <m>X</m> is the <m>9\by2</m> matrix whose
+	      first column is all 1's and whose second column is the
+	      vector of the logarithms of the semi-major axes.  The
+	      vector <m>\yvec</m> is the vector that records the
+	      logarithms of the periods.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      We find <m>\betahat=\twovec{\log(C_1)}{r_1} =
+	      \twovec{-0.0036}{1.501}</m> so that <m>C=e^{-0.0036} =
+	      0.996</m> and <m>r=1.50</m>.  This means that <m>P =
+	      0.996L^{1.5}</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>R^2=1.000</m>, which means that we have a very good
+	      fit because this data reflects a physical
+	      law.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>P = 0.996(4.0)^{1.5}=7.99</m> years.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      The expression <m>\log(P) = \log(C) + r\log(L)</m> means
+	      that <m>\log(76) = \log(C) + r\log(L)</m>.  Solving for
+	      <m>L = 17.9</m> AU.
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </solution>
   </exercise>
   
   <exercise>
@@ -986,39 +1044,42 @@ print(df)
 	temperature in the Earth's atmosphere at various altitudes.
 	There are also two vectors <c>altitude</c>, expressed in kilometers,
 	and <c>temperature</c>, in degrees Celsius.
-	<sage>
+	  </p>
+<!-- sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals()) -->
+	<sage language="python">
 	  <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
-df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/altitude-temps.csv')
-data = [vector(row) for row in df.values]
-altitude = vector(df['Altitude'])
-temperature = vector(df['Temperature'])
-print(df)
-list_plot(data, size=40, color='blue')
-
+weather = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/altitude-temps.csv')
+altitude = weather['Altitude'].to_numpy()
+temperature = weather['Temperature'].to_numpy()
+print(weather)
+(
+    so.Plot(weather, x = "Altitude", y = "Temperature")
+	.add(so.Dot())
+	.show()
+)
 	  </input>
 	</sage>
+	<p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Describe how to form the matrix <m>A</m> and vector
-	      <m>\bvec</m> so that the linear system
-	      <m>A\xvec=\bvec</m> describes a degree <m>k</m>
+	      Describe how to form the matrix <m>X</m> and vector
+	      <m>\yvec</m> so that the linear system
+	      <m>X\betavec=\yvec</m> describes a degree <m>k</m>
 	      polynomial fitting the data.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
 	      After choosing a value of <m>k</m>,
-	      construct the matrix <m>A</m> and vector <m>\bvec</m>,
+	      construct the matrix <m>X</m> and vector <m>\yvec</m>,
 	      and find the least squares approximate solution
-	      <m>\xhat</m>.
+	      <m>\betahat</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      Plot the polynomial and data using
-	      <c>plot_model(xhat, data)</c>.
+	      Plot the polynomial by sampling some points on the curve and plotting them.
 	    </p>
 	  </li>
 
@@ -1042,14 +1103,58 @@ list_plot(data, size=40, color='blue')
       </p>
     </statement>
 
+    <answer>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      The matrix <m>X</m> will be the Vandermonde matrix of
+	      degree <m>k</m> using the altitude readings while
+	      <m>\yvec</m> is the vector of temperatures.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>k=6</m> appears to give a good fit without
+	      overfitting.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      We have
+	      <me>
+	      18.0-10.3x+0.35x^2+0.0003x^3-0.0001x^4+1.5\by10^{-6}x^5
+	      -4.7\by 10^{-9}x^6
+	      </me>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      A small value of <m>k</m> does not adequately track
+	      important features of the data.
+	      If we increase <m>k</m> too far, the graph tries too
+	      hard to match the data, and we see spurious features in
+	      the graph.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      We estimate the temperature to be <m>-7</m> degrees
+	      Celsius.
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </answer>
+	      
     <solution>
       <p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      The matrix <m>A</m> will be the Vandermonde matrix of
+	      The matrix <m>X</m> will be the Vandermonde matrix of
 	      degree <m>k</m> using the altitude readings while
-	      <m>\bvec</m> is the vector of temperatures.
+	      <m>\yvec</m> is the vector of temperatures.
 	    </p>
 	  </li>
 	  <li>
@@ -1087,50 +1192,6 @@ list_plot(data, size=40, color='blue')
       </p>
     </solution>
 	      
-    <answer>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      The matrix <m>A</m> will be the Vandermonde matrix of
-	      degree <m>k</m> using the altitude readings while
-	      <m>\bvec</m> is the vector of temperatures.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>k=6</m> appears to give a good fit without
-	      overfitting.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      We have
-	      <me>
-	      18.0-10.3x+0.35x^2+0.0003x^3-0.0001x^4+1.5\by10^{-6}x^5
-	      -4.7\by 10^{-9}x^6\text{.} 
-	      </me>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      A small value of <m>k</m> does not adequately track
-	      important features of the data.
-	      If we increase <m>k</m> too far, the graph tries too
-	      hard to match the data, and we see spurious features in
-	      the graph.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      We estimate the temperature to be <m>-7</m> degrees
-	      Celsius.
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </answer>
-	      
   </exercise>
 
   <exercise>
@@ -1139,28 +1200,26 @@ list_plot(data, size=40, color='blue')
 	The following cell loads some data describing 1057 houses in a
 	particular real estate market.  For each house, we record the
 	living area in square feet, the lot size in acres, the age
-	in years, and the price in dollars.  The cell also defines
-	variables <c>area</c>, <c>size</c>, <c>age</c>, and <c>price</c>.
+	in years, and the price in dollars.  
+	  </p>
 
-	<sage>
+<!-- sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals()) -->
+	<sage language="python">
 	  <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py', globals())
-df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/housing.csv',index_col=0)
-df = df.fillna(df.mean())
-area = vector(df['Living.Area'])
-size = vector(df['Lot.Size'])
-age = vector(df['Age'])
-price = vector(df['Price'])
-df
-
-
+housing = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/housing.csv',index_col=0)
+print(housing)
+A = housing.to_numpy()
+pprint(A)
 	  </input>
 	</sage>
+
+	<p>
 	We will use linear regression to predict the price of
 	a house given its living area, lot size, and age:
 	<me>
+	  \text{Price} = 
 	  \beta_0 + \beta_1~\text{Living Area} +
-	  \beta_2~\text{Lot Size} + \beta_3~\text{Age} = \text{Price}.
+	  \beta_2~\text{Lot Size} + \beta_3~\text{Age} 
 	</me>
 	<ol marker="a.">
 	  <li>
@@ -1172,9 +1231,8 @@ df
 
 	  <li>
 	    <p>
-	      Discuss the
-	      significance of the signs of <m>\beta_1</m>,
-	      <m>\beta_2</m>, and <m>\beta_3</m>.
+	      Discuss what the of the signs of <m>\hat\beta_1</m>,
+	      <m>\hat\beta_2</m>, and <m>\hat\beta_3</m> tell you about prices of houses.
 	    </p>
 	  </li>
 
@@ -1201,6 +1259,44 @@ df
       </p>
     </statement>
 
+    <answer>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <m>\xhat = \fourvec{\beta_0}{\beta_1}{\beta_2}{\beta_3}
+	      =
+	      \fourvec{20823}{84.7}{588.4}{-263.6}
+	      </m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Increasing the living area or the lot size
+	      will cause the house price to increase, but an older
+	      house will cost less.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      A house
+	      that's one year older will cost about <m>\$263.60</m> less.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>R^2=0.59</m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      We estimate <m>\$177966</m>.
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </answer>
+	      
     <solution>
       <p>
 	<ol marker="a.">
@@ -1243,44 +1339,6 @@ df
 	</ol>
       </p>
     </solution>
-	      
-    <answer>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      <m>\xhat = \fourvec{\beta_0}{\beta_1}{\beta_2}{\beta_3}
-	      =
-	      \fourvec{20823}{84.7}{588.4}{-263.6}
-	      </m>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      Increasing the living area or the lot size
-	      will cause the house price to increase, but an older
-	      house will cost less.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      A house
-	      that's one year older will cost about <m>\$263.60</m> less.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>R^2=0.59</m>
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      We estimate <m>\$177966</m>.
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </answer>
 	      
   </exercise>
 
@@ -1343,6 +1401,34 @@ df
 	</ol>
       </p>
     </statement>
+    <answer>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      Use the fact that <m>\xvec\cdot(A^{\transpose}A\xvec)=
+	      (A\xvec)^{\transpose}(A\xvec)</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      It must be true that <m>\xvec=\zerovec</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      This follows from the previous two parts of this
+	      exercise.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      The columns of <m>A^{\transpose}A</m> must be linearly independent.
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </answer>
     <solution>
       <p>
 	<ol marker="a.">
@@ -1392,34 +1478,6 @@ df
 	</ol>
       </p>
     </solution>
-    <answer>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      Use the fact that <m>\xvec\cdot(A^{\transpose}A\xvec)=
-	      (A\xvec)^{\transpose}(A\xvec)</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      It must be true that <m>\xvec=\zerovec</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      This follows from the previous two parts of this
-	      exercise.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      The columns of <m>A^{\transpose}A</m> must be linearly independent.
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </answer>
 	  
   </exercise>
 	    
@@ -1430,23 +1488,22 @@ df
 	This problem is about the meaning of the coefficient of
 	determination <m>R^2</m> and its connection to variance, a
 	topic that appears in the next section.  Throughout this
-	problem, we consider the linear system <m>A\xvec=\bvec</m> and
-	the approximate least squares solution <m>\xhat</m>, where
-	<m>A\xhat=\bhat</m>.  We suppose that <m>A</m> is an
+	problem, we consider the linear system <m>\yvec = X\betavec</m> and
+	the approximate least squares solution <m>\betahat</m>, where
+	<m>\yhat = X\betahat</m>.  We suppose that <m>X</m> is an
 	<m>m\by n</m> matrix, and we will denote the
-	<m>m</m>-dimensional vector <m>\onevec =
-	\fourvec11{\vdots}1</m>.
+	<m>m</m>-dimensional vector <m>\onevec = \fourvec11{\vdots}1</m>.
       </p>
 
       <p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Explain why <m>\bbar</m>, the
-	      mean of the components of <m>\bvec</m>, can be found as
+	      Explain why <m>\ybar</m>, the
+	      mean of the components of <m>\yvec</m>, can be found as
 	      the dot product
 	      <me>
-		\bbar = \frac 1m \bvec\cdot\onevec.
+		\ybar = \frac 1m \yvec\cdot\onevec.
 	      </me>
 	    </p>
 	  </li>
@@ -1460,13 +1517,13 @@ df
 
 	  <li>
 	    <p>
-	      If we write <m>\bvec = \bhat + \bvec^\perp</m>, 
+	      If we write <m>\yvec = \yhat + \yvec^\perp</m>, 
 	      explain why
 	      <me>
-		\bvec^\perp\cdot\onevec = 0
+		\yvec^\perp\cdot\onevec = 0
 	      </me>
 	      and hence why the mean of the components of
-	      <m>\bvec^\perp</m> is zero.
+	      <m>\yvec^\perp = \yvec - \yhat</m> is zero.
 	    </p>
 	  </li>
 
@@ -1482,7 +1539,7 @@ df
 	    <p>
 	      Explain why
 	      <me>
-		\var(\bvec) = \var(\bhat) + \var(\bvec^\perp).
+		\var(\yvec) = \var(\yhat) + \var(\yvec^\perp).
 	      </me>
 	    </p>
 	  </li>
@@ -1491,20 +1548,20 @@ df
 	    <p>
 	      Explain why
 	      <me>
-		\frac{\len{\bvec - A\xhat}^2}{\len{\widetilde{\bvec}}^2}
-		= \frac{\var(\bvec^\perp)}{\var(\bvec)}
+		\frac{\len{\yvec - X\yhat}^2}{\len{\widetilde{\yvec}}^2}
+		= \frac{\var(\yvec^\perp)}{\var(\yvec)}
 	      </me>
 	      and hence
 	      <me>
-		R^2 = \frac{\var(\bhat)}{\var(\bvec)} =
-		\frac{\var(A\xhat)}{\var(\bvec)}.
+		R^2 = \frac{\var(\yhat)}{\var(\yvec)} =
+		\frac{\var(X\betahat)}{\var(\yvec)}.
 	      </me>
 	    </p>
 
 	    <p>
 	      These expressions indicate why 
 	      it is sometimes said that <m>R^2</m> measures the
-	      <q>fraction of variance explained</q> by the function we
+	      <q>fraction of the variance explained </q> by the model we
 	      are using to fit the data.  As seen in the previous
 	      exercise, there may be other features that are not
 	      recorded in the dataset that influence the quantity we
@@ -1522,93 +1579,13 @@ df
       </p>
     </statement>
 
-    <solution>
-      <p>
-	<ol marker="a.">
-	  <li>
-	    <p>
-	      <m>\bvec\cdot\onevec</m> simply sums the components of
-	      <m>\bvec</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      The examples we've seen fit the data using functions
-	      that have a constant term such as
-	      <m>y=\beta_0+\beta_1x</m>.  This means that
-	      <m>\onevec</m> will be a column of the matrix <m>A</m>
-	      and hence in <m>\col(A)</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      Since <m>\onevec</m> is in <m>\col(A)</m>, any vector in
-	      <m>\col(A)^\perp</m>, such as <m>\bperp</m>, will be
-	      orthogonal to <m>\onevec</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      Notice that
-	      <me>\bvec\cdot\onevec = \bhat\cdot\onevec +
-	      \bperp\cdot\onevec = \bhat\cdot\onevec</me>
-	      which says that
-	      <me>
-		\widetilde{\bvec} = \widetilde{\bhat} + \bperp\text{.} 
-	      </me>
-	      Since <m>\bhat</m> and <m>\bperp</m> are orthogonal, we
-	      have
-	      <m>\widetilde{\bhat}\cdot\bperp = 0</m>.  This means
-	      that
-	      <me>
-		|\widetilde{\bvec}|^2 =
-		(\widetilde{\bhat}+\bperp)\cdot 
-		(\widetilde{\bhat}+\bperp)
-		= |\widetilde{\bhat}|^2 + |\bperp|^2
-	      </me>
-	      so that <m>\var(\bvec) = \var(\bhat)+\var(\bperp)</m>.
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      <m>|\bvec-A\xhat|^2 = |\bvec-\bhat|^2 = |\bperp|^2</m>,
-	      which explains why
-	      <me>
-		\frac{\len{\bvec - A\xhat}^2}{\len{\widetilde{\bvec}}^2}
-		= \frac{\var(\bvec^\perp)}{\var(\bvec)}\text{.}
-	      </me>
-	      Then
-	      <me>
-		R^2 = 1 - 
-		\frac{\len{\bvec - A\xhat}^2}{\len{\widetilde{\bvec}}^2}
-		= 1-\frac{\var(\bvec^\perp)}{\var(\bvec)} =
-		\frac{\var(\bvec) - \var(\bperp)}{\var(\bvec)} =
-		\frac{\var(\bhat)}{\var(\bvec)}\text{.}
-	      </me> 
-	    </p>
-	  </li>
-	  <li>
-	    <p>
-	      The variances are nonnegative so we have <m>R^2 \geq
-	      0</m>.  Also,
-	      <me>
-		1 = \frac{\var(\bvec)}{\var(\bvec)} =
-		\frac{\var(\bhat)+\var(\bperp)}{\var(\bvec)} \geq
-		\frac{\var(\bhat)}{\var(\bvec)}=R^2\text{.}
-	      </me>
-	    </p>
-	  </li>
-	</ol>
-      </p>
-    </solution>
-
     <answer>
       <p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      <m>\bvec\cdot\onevec</m> simply sums the components of
-	      <m>\bvec</m>.
+	      <m>\yvec\cdot\onevec</m> simply sums the components of
+	      <m>\yvec</m>.
 	    </p>
 	  </li>
 	  <li>
@@ -1618,28 +1595,108 @@ df
 	  </li>
 	  <li>
 	    <p>
-	      <m>\bperp</m> is in <m>\col(A)^\perp</m>.
+	      <m>\yperp</m> is in <m>\col(A)^\perp</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      Use the fact that <m>\bhat</m> and <m>\bperp</m> are orthogonal.
+	      Use the fact that <m>\yhat</m> and <m>\yperp</m> are orthogonal.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      This follows from <m>\bvec = \bhat + \bperp</m>.
+	      This follows from <m>\yvec = \yhat + \yperp</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      This follow from <m>\var(\bvec) = \var(\bhat) +
-	      \var(\bperp)</m>. 
+	      This follows from <m>\var(\yvec) = \var(\yhat) + \var(\yperp)</m>. 
 	    </p>
 	  </li>
 	</ol>
       </p>
     </answer>
+
+    <solution>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <m>\yvec\cdot\onevec</m> simply sums the components of
+	      <m>\yvec</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      The examples we've seen fit the data using functions
+	      that have a constant term such as
+	      <m>y=\beta_0+\beta_1x</m>.  This means that
+	      <m>\onevec</m> will be a column of the matrix <m>X</m>
+	      and hence in <m>\col(X)</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Since <m>\onevec</m> is in <m>\col(X)</m>, any vector in
+	      <m>\col(X)^\perp</m>, such as <m>\yperp</m>, will be
+	      orthogonal to <m>\onevec</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Notice that
+	      <me>\yvec\cdot\onevec = \yhat\cdot\onevec +
+	      \yperp\cdot\onevec = \yhat\cdot\onevec</me>
+	      which says that
+	      <me>
+		\widetilde{\yvec} = \widetilde{\yhat} + \yperp
+	      </me>.
+	      Since <m>\yhat</m> and <m>\yperp</m> are orthogonal, we
+	      have
+	      <m>\widetilde{\yhat}\cdot\yperp = 0</m>.  This means
+	      that
+	      <me>
+		|\widetilde{\yvec}|^2 =
+		(\widetilde{\yhat}+\yperp)\cdot 
+		(\widetilde{\yhat}+\yperp)
+		= |\widetilde{\yhat}|^2 + |\yperp|^2
+	      </me>
+	      so that <m>\var(\yvec) = \var(\yhat)+\var(\yperp)</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>|\yvec-X\betahat|^2 = |\yvec-\yhat|^2 = |\yperp|^2</m>,
+	      which explains why
+	      <me>
+		\frac{\len{\yvec - X\betahat}^2}{\len{\widetilde{\yvec}}^2}
+		= \frac{\var(\yvec^\perp)}{\var(\yvec)}
+	      </me>.
+	      Then
+	      <me>
+		R^2 = 1 - 
+		\frac{\len{\yvec - X\betahat}^2}{\len{\widetilde{\yvec}}^2}
+		= 1-\frac{\var(\yvec^\perp)}{\var(\yvec)} =
+		\frac{\var(\yvec) - \var(\yperp)}{\var(\yvec)} =
+		\frac{\var(\yhat)}{\var(\yvec)}
+	      </me>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      The variances are nonnegative so we have <m>R^2 \geq
+	      0</m>.  Also,
+	      <me>
+		1 = \frac{\var(\yvec)}{\var(\yvec)} =
+		\frac{\var(\yhat)+\var(\yperp)}{\var(\yvec)} \geq
+		\frac{\var(\yhat)}{\var(\yvec)}=R^2
+	      </me>.
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </solution>
+
   </exercise>
 
 </exercises>

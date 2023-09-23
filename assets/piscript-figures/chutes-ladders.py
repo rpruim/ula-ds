@@ -16,7 +16,9 @@ def showlabel(l):
     show(l)
     grestore()
 
+
 beginfigure("chutes-ladders", width+2*margin, height+2*margin)
+
 
 gsave()
 setupcoordinates([margin, margin, width+margin, height+margin],

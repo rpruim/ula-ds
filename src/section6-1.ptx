@@ -6,6 +6,7 @@
 
   <introduction>
 		<p> In this section, we introduce a new operation on vectors, known as the <term>dot product</term>.
+			Our interest in this opearation is based on <term>linear projections</term>.
 	Geometrically, the dot product is related to the lengths of vectors and the angles between pairs
 	of vectors. Importantly, the dot product is also easily computed from the list-of-numbers
 	representation of vectors. It also has many nice algebraic properties. So this is another
@@ -156,6 +157,30 @@
 		<em>unit</em> vector in the same direction as <m>\xvec</m>.
 	</p>
 
+	<proposition xml:id="prop-unit-projection">
+		<statement>
+			<p>
+				If <m>\uvec</m> is a unit vector and <m>\xvec</m> is any vector of the same dimension, 
+				then 
+				<ol>
+					<li>
+						<p>
+				<me>
+					\proj{\xvec}{\uvec} = (\xvec \cdot \uvec) \uvec
+				</me>.
+							
+						</p>
+					</li>
+					<li>
+						<p>
+							<m>\len{\proj{\xvec}{\uvec}} = \xvec \cdot \uvec</m>.
+						</p>
+					</li>
+				</ol>
+			</p>
+		</statement>
+	</proposition>
+
 	<p>
 		A number of properties of the dot product follow from the definition.
 	</p>
@@ -225,9 +250,11 @@
 			</statement>
 
 			<proof>
-				<p>
+				<p> 
 					The first two statements follow directly from the definition. 
-					The third follows by observing that <m>\cos \theta = \cos 0 = 1</m> for two vectors  
+				</p>
+				<p>
+					The third statement follows by observing that <m>\cos \theta = \cos 0 = 1</m> for two vectors  
 					that point in the same direction.
 				</p>
 				<p>
@@ -440,6 +467,49 @@
 				</p>
 			</statement>
 		</proposition>
+
+		<note>
+				<p>
+					<me>
+					\vvec\cdot\wvec =
+						\left[
+						\begin{array}{c}
+						v_1 \\ v_2 \\ \vdots \\ v_n \\
+						\end{array}
+						\right]
+						\cdot
+						\left[
+						\begin{array}{c}
+						w_1 \\ w_2 \\ \vdots \\ w_n \\
+						\end{array}
+						\right]
+						= v_1w_1 + v_2w_2 + \cdots + v_n w_n
+						= 
+						\begin{bmatrix} v_1 \amp v_2 \amp \cdots \amp v_n \\ \end{bmatrix}
+						\begin{bmatrix} w_1 \\ w_2 \\ \cdots \\ w_n \\ \end{bmatrix}
+					</me>.
+					So a dot product can be comuted as a matrix product of a <m>1 \by n</m> matrix and an <m>n \by 1</m> matrix.
+				</p>
+				<p>
+					This means that for a fixed dimension, the dot product is a <term>linear transformation</term> from 
+					<m>\real^n \to \real^1</m>.
+					There is a 
+					<url href="https://youtu.be/LyGKycYT2v0?si=f9R2mjWaAYPllbcs" visual="youtu.be/LyGKycYT2v0?si=f9R2mjWaAYPllbcs">
+					3Blue1Brown video</url> that illustrates the connection
+					between the dot product and this linear transformation. We
+					recommend that you view it.
+				</p>
+				<p>
+					We will write
+					<idx><h>transpose of a matrix</h></idx>
+					<me>
+						\begin{bmatrix} v_1 \amp v_2 \amp \cdots \amp v_n \\ \end{bmatrix} = 
+						\begin{bmatrix} v_1 \\ v_2 \\ \cdots \\ v_n \\ \end{bmatrix}^\transpose
+					</me>
+					and call the wide version the <term>transpose</term> of the tall version.  
+					For more about matrix transposes see <xref ref="sec-transpose"/>.
+				</p>
+		</note>
 
 		<example>
 			<statement>

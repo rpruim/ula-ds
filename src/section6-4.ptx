@@ -17,11 +17,13 @@
 			<mrow>
 				\bhat \amp = \proj{\bvec}{W}
 			</mrow>
+			<mrow>\amp</mrow>
 			<mrow>
 				\amp = \proj{\bvec}{\wvec_1} +
 				\proj{\bvec}{\wvec_2} + \cdots +
 				\proj{\bvec}{\wvec_n} 
 			</mrow>
+			<mrow>\amp</mrow>
 			<mrow> \amp = 
 					\frac{\bvec\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 +
 					\frac{\bvec\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 +
@@ -40,7 +42,7 @@
       is even more convenient:  after forming the matrix
       <m>Q=\begin{bmatrix} \uvec_1 \amp \uvec_2 \amp \ldots \amp
       \uvec_n
-      \end{bmatrix}</m>, we have <m>\bhat = QQ^{\transpose}\bvec</m>.
+      \end{bmatrix}</m>, we have <me>\bhat = QQ^{\transpose}\bvec</me>.
     </p>
       
     <p>
@@ -550,9 +552,11 @@
 	</p>
 	
 <!-- sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/orthogonality.py", globals()) -->
-	  <sage language="python">
+	  <sage language="python" auto-evaluate="yes">
 	    <input>
 import numpy as np
+from pprint import pprint  
+np.set_printoptions(precision = 4, suppress = True)
 
 def flatten(x):
     return x.reshape((np.prod(x.shape), ))
@@ -573,11 +577,14 @@ def gram_schmidt(basis):
         new_basis.append(unit(b - projection(b, new_basis)))
     return new_basis
 
+		</input>
+	</sage>
+	<sage language="python">
+		<input>
 B = [np.array([1,2,3]), np.array([1,1,1]), np.array([1,0,0])]
 print(gram_schmidt(B))
 	    </input>
 	  </sage>
-
 
 	<p>
 	  Let's now consider <m>W</m>, the subspace of <m>\real^5</m>
@@ -812,16 +819,18 @@ print(gram_schmidt(B))
 		  \wvec_2 \amp = \vvec_2 - \proj{\vvec_2}{\wvec_1} \\
 		  \wvec_3 \amp = \vvec_3 - \proj{\vvec_3}{\wvec_1}  - \proj{\vvec_3}{\wvec_2} \\
 		  \end{aligned}
-		</me>
+		</me>.
 		That is,
 		<me>
-		  \frac{\vvec_2\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 \\
+		  \begin{aligned}
+		  \wvec_2 \amp = \vvec_2 - 
+		      \frac{\vvec_2\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 \\
 		  \wvec_3 \amp = \vvec_3 -
-		  \frac{\vvec_3\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 -
-		  \frac{\vvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 \; .
+		     \frac{\vvec_3\cdot\wvec_1}{\wvec_1\cdot\wvec_1}\wvec_1 -
+		     \frac{\vvec_3\cdot\wvec_2}{\wvec_2\cdot\wvec_2}\wvec_2 
 		  \\
 		  \end{aligned}
-		</me>
+		</me>.
 		Use these expressions to write <m>\vvec_1</m>,
 		<m>\vvec_1</m>, and 
 		<m>\vvec_3</m> as linear combinations of <m>\wvec_1</m>,
@@ -1073,6 +1082,31 @@ print(gram_schmidt(B))
       </statement>
     </proposition>
 
+	<note>
+		<title>Reduced and fulll <m>QR</m> factorizations</title>
+		<idx><h><m>QR</m> factorization</h><h>reduced</h></idx>
+		<idx><h><m>QR</m> factorization</h><h>full</h></idx>
+		<p>
+		There are two versions of <m>QR</m> factorization. The version introduced here is sometimes called 
+		the <term>reduced <m>QR</m> factorization</term>.  When <m>A</m> is <m>m \by n</m> and <m>m > n</m>, 
+		the <term>full <m>QR</m> factorization</term> can be created by augmenting <m>Q</m> to a square 
+		(<m>m \by m</m>) orthogonal matrix <m>\left[ Q Q+ \right]</m>.
+		Similarly, we can add 0's below <m>R</m> to create an <m>m \by n</m> matrix. When we multiply these  
+		expanded matrices we get  
+		<me>
+			\begin{bmatrix} Q \amp Q+ \end{bmatrix} \begin{bmatrix} R \\ 0\end{bmatrix} = A
+		</me>
+		because all the entries in <m>Q+</m> are only multiplied by 0 when
+		computing the product.  We can find a suitable <m>Q+</m> by finding any
+		orthonormal basis for <m>\col(A)^{\perp} = \nul(A^{\transpose})</m>.
+		</p>
+
+		<p>
+			When computing <m>QR</m> factorization in software, it is important to know which form will be returned.
+			For many purposes, the reduced form suffices, and because it is smaller, it is preferable for computations.
+		</p>
+	</note>
+
     <example>
       <statement>
 	<p>
@@ -1146,7 +1180,7 @@ print(gram_schmidt(B))
     <activity>
       <statement>
 	<p>
-	  As before, we would like to use Python to automate the process
+	  We would like to use Python to automate the process
 	  of finding and using the <m>QR</m> factorization of a matrix
 	  <m>A</m>. 
 	  <c>Q, R = numpy.linalg.qr(A)</c> will do the trick.
