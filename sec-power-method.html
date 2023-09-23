@@ -86,19 +86,7 @@ window.MathJax = {
     )}
   }
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
-// Their results will be linked, only within language type
-sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-sage",
-  "linked": true,
-  "linkKey": "linked-sage",
-  "autoeval": false,
-  "languages": [
-    "sage"
-  ],
-  "evalButtonText": "Evaluate (Sage)"
-});
-</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
   "inputLocation": "pre.sagecell-python",
@@ -328,8 +316,11 @@ sagecell.makeSagecell({
 \newcommand{\what}{\widehat{\wvec}}
 \newcommand{\xhat}{\widehat{\xvec}}
 \newcommand{\xmean}{\overline{\xvec}}
+\newcommand{\xbar}{\overline{\xvec}}
 \newcommand{\yhat}{\widehat{\yvec}}
 \newcommand{\ymean}{\overline{\yvec}}
+\newcommand{\ybar}{\overline{\yvec}}
+\newcommand{\yperp}{\yvec^\perp}
 \newcommand{\betahat}{\widehat{\betavec}}
 \newcommand{\Sighat}{\widehat{\Sigma}}
 \newcommand{\by}{\times}
@@ -985,12 +976,13 @@ A^{-1}\xvec_k\text{,}\)</span> and multipliers <span class="process-math">\(\fra
 -3.8 \amp 4.4 \\
 \end{array}\right]\)</span> having the smallest absolute value.</div>
 <pre class="ptx-sagecell sagecell-python" id="sage-190"><script type="text/x-sage">def inverse_power_eig(A, x, N):
-	result = []
+    result = []
     for i in range(N):
         x = linalg.solve(A, x)
         m = max([comp for comp in x], key = abs) 
         x = 1.0/m * x  
         result.append((1.0/m, x))
+    return result
 ### define the matrix A and vector x0
 A =
 x0 =
@@ -1125,7 +1117,7 @@ def find_closest_eigenvalue(A, s, x, N):
     return result    
 
 def inverse_power(A, x, N):
-	result = []
+    result = []
     for i in range(N):
         x = linalg.solve(A, x)
         m = max([comp for comp in x], key = abs) 
@@ -1143,7 +1135,7 @@ def inverse_power(A, x, N):
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-196"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para" id="p-5624">Use the commands <code class="code-inline tex2jax_ignore">power_eig()</code>, <code class="code-inline tex2jax_ignore">inverse_power_eig()</code>, and <code class="code-inline tex2jax_ignore">find_closest_eigenvalue</code> to approximate the eigenvalues and associated eigenvectors of the following matrices.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-193"><script type="text/x-sage">
+<div class="para" id="p-5624">Use the commands <code class="code-inline tex2jax_ignore">power_eig()</code>, <code class="code-inline tex2jax_ignore">inverse_power_eig()</code>, and <code class="code-inline tex2jax_ignore">find_closest_eigenvalue</code> to approximate the eigenvalues and associated eigenvectors of the following matrices.</div> <pre class="ptx-sagecell sagecell-python" id="sage-193"><script type="text/x-sage">
 </script></pre> <div class="para logical" id="p-5625"><ol class="lower-alpha">
 <li id="li-3743"><div class="para" id="p-5626"><span class="process-math">\(A= \left[\begin{array}{rr}
 -2 \amp -2 \\
@@ -1187,7 +1179,7 @@ A= \left[\begin{array}{rrrrr}
 -4 \amp 0 \\
 \end{array}\right]
 \text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-sage" id="sage-195"><script type="text/x-sage">
+</div> <pre class="ptx-sagecell sagecell-python" id="sage-195"><script type="text/x-sage">
 </script></pre> <div class="para logical" id="p-5642"><ol class="lower-alpha">
 <li id="li-3752"><div class="para" id="p-5643">Describe what happens if we apply the power method and the inverse power method using the initial vector <span class="process-math">\(\xvec_0 =
 \twovec{1}{0}\text{.}\)</span>
@@ -1227,8 +1219,8 @@ A= \left[\begin{array}{rrrrr}
 <li id="li-3771"><div class="para" id="p-5677">Make a prediction about what happens if we apply the power method and the inverse power method to find eigenvalues of <span class="process-math">\(A\text{.}\)</span>
 </div></li>
 <li id="li-3772">
-<div class="para" id="p-5678">Verify your prediction using Sage.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-196"><script type="text/x-sage">
+<div class="para" id="p-5678">Verify your prediction using Python.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-196"><script type="text/x-sage">
 </script></pre>
 </li>
 </ol>
