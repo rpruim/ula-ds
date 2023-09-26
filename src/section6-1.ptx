@@ -5,12 +5,24 @@
   <title> The dot product  </title>
 
   <introduction>
-		<p> In this section, we introduce a new operation on vectors, known as the <term>dot product</term>.
-			Our interest in this opearation is based on <term>linear projections</term>.
-	Geometrically, the dot product is related to the lengths of vectors and the angles between pairs
-	of vectors. Importantly, the dot product is also easily computed from the list-of-numbers
-	representation of vectors. It also has many nice algebraic properties. So this is another
-	situation where each of our three presepectives of vectors provides valuable insight. </p>
+		<p>
+			Recall that our goal for the chapter is to find an approximate
+			solution to <m>A\xvec = \bvec</m>.  We will do this by solving 
+			<m>A \xvec = \bhat</m>, for a <m>\bhat</m> that is a close as possible  
+			to <m>\bvec</m>. We will start with a simple case: If <m>\col(A)</m>
+			is spanned by a single vector, then geometrically, finding such a
+			<m>\bhat</m> is the same as finding a <term>linear projction</term>.
+		</p>
+			
+		<p> 
+			Along the way, we will introduce a new operation on vectors, known
+			as the <term>dot product</term>.  Geometrically, the dot product is
+			related to the lengths of vectors and the angles between pairs of
+			vectors. Importantly, the dot product is also easily computed from
+			the list-of-numbers representation of vectors. It also has many nice
+			algebraic properties. So this is another situation where each of our
+			three presepectives of vectors provides valuable insight. 
+		</p>
 	</introduction>
 
 	<subsection xml:id="sec-projections-and-dot-products">
@@ -21,8 +33,8 @@
 		of a vector <m>\bvec</m> in the direction of a vector <m>\vvec</m>, which we will denote as 
 		<m>\proj{\bvec}{\vvec}</m>. 
 		<notation>
-			<usage> <m>\proj{\yvec}{\xvec}</m> </usage>
-		  <description>the projection of <m>\yvec</m> in the direction of <m>\xvec</m></description>
+			<usage> <m>\proj{\yvec}{\vvec}</m> </usage>
+		  <description>the projection of <m>\yvec</m> in the direction of <m>\vvec</m></description>
 		</notation>
 
 		The projection vector <m>\proj{\bvec}{\vvec}</m> is the scalar multiple <m>k \vvec</m> of <m>\vvec</m> 
@@ -87,7 +99,7 @@
 
     <figure xml:id="fig-dot-angle">
       <caption>
-	The dot product <m>\vvec\cdot\wvec</m> measures the angle  
+	The dot product <m>\xvec\cdot\yvec</m> measures the angle  
 	<m>\theta</m>.
       </caption>
       <sidebyside width="50%">
@@ -165,9 +177,9 @@
 				<ol>
 					<li>
 						<p>
-				<me>
+				<m>
 					\proj{\xvec}{\uvec} = (\xvec \cdot \uvec) \uvec
-				</me>.
+				</m>.
 							
 						</p>
 					</li>
@@ -423,15 +435,15 @@
 				(w_1 \evec_1 + w_2 \evec_2 + \cdots + w_n \evec_n) 
 				</mrow>
 				<mrow> 
-					\amp 
+					\amp =
 					\sum_{i=1}^{n} \sum_{j=1}^{n} v_i w_j \evec_i \cdot \evec_j 
 				</mrow>
 				<mrow> 
-					\amp 
+					\amp =
 					\sum_{i = j} v_i w_i 1 + \sum_{i \neq j} v_i w_i 0
 				</mrow>
 				<mrow> 
-					\amp 
+					\amp =
 					\sum_{i=1}^{n} v_i w_i 
 				</mrow>
 			</md>
@@ -1054,7 +1066,7 @@ so.Plot(stocks1_long, x = "day", y = "price", color = "stock").add(so.Lines()).s
 		</input>
 	      </sage>
 		<p>
-	      Notices that although one stock has a higher value, stocks 0 and 3 appear to 
+	      Notice that although one stock has a higher value, stocks 0 and 3 appear to 
 		  be related since they seem to rise and
 	      fall at roughly similar ways.  We often say that such series are 
 	      <term>correlated</term>, and we would like to measure the degree
@@ -1074,7 +1086,7 @@ so.Plot(stocks1_long, x = "day", y = "price", color = "stock").add(so.Lines()).s
 		      <input>
 stocks0 = stocks - stocks.mean(axis = 0)
 stocks0_long = pd.melt(stocks0, id_vars="day", var_name = "stock", value_name="price")
-so.Plot(stocks_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
+so.Plot(stocks0_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
 		      </input>
 		    </sage>
 		</li>
@@ -1095,8 +1107,8 @@ so.Plot(stocks_long, x = "day", y = "price", color = "stock").add(so.Lines()).sh
 			where <m>\theta</m> is the angle between 
 			<m>\tilde{\svec_1}</m> and 
 			<m>\tilde{\svec_2}</m>.
-		    That is, the correlation equals the cosine of the
-		    angle between the demeaned time series. Among other things, 
+		    That is, <em>the correlation equals the cosine of the
+		    angle between the demeaned time series</em>. Among other things, 
 		    this implies that <m>\corr(\svec_1,\svec_2)</m> is always 
 			between -1 and 1.
 		  </p>

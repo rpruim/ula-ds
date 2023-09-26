@@ -530,6 +530,9 @@ unsure := animate-woody.pdf jpeg-block-luminance-values.pdf jpeg-block-luminance
 %-axis-4.eps: axis-4.py
 	python axis-4.py
 
+cluster-plot.eps: cluster-plot.py clusters_data.csv
+	python cluster-plot.py
+
 diag-D-%.eps: diag-D.py
 	python diag-D.py
 
