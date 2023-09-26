@@ -41,13 +41,13 @@ print(stocks1)
 so.Plot(stocks1_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
 </script></pre>
 <div class="para logical">
-<div class="para">Notices that although one stock has a higher value, stocks 0 and 3 appear to be related since they seem to rise and fall at roughly similar ways.  We often say that such series are <dfn class="terminology">correlated</dfn>, and we would like to measure the degree to which they are correlated.</div>
+<div class="para">Notice that although one stock has a higher value, stocks 0 and 3 appear to be related since they seem to rise and fall at roughly similar ways.  We often say that such series are <dfn class="terminology">correlated</dfn>, and we would like to measure the degree to which they are correlated.</div>
 <ol class="decimal">
 <li>
 <div class="para">In order to compare the ways in which they rise and fall, we will first  <dfn class="terminology">demean</dfn> each time series;  that is, for each time series, we will subtract its average value to obtain a new time series.</div>
 <pre class="ptx-sagecell sagecell-python" id="sage-201"><script type="text/x-sage">stocks0 = stocks - stocks.mean(axis = 0)
 stocks0_long = pd.melt(stocks0, id_vars="day", var_name = "stock", value_name="price")
-so.Plot(stocks_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
+so.Plot(stocks0_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
 </script></pre>
 </li>
 <li>
@@ -62,7 +62,7 @@ so.Plot(stocks_long, x = "day", y = "price", color = "stock").add(so.Lines()).sh
 {\len{\tilde{\svec}_1}\len{\tilde{\svec}_2}} = \cos \theta
 \end{equation*}
 </div>
-<div class="para">where <span class="process-math">\(\theta\)</span> is the angle between <span class="process-math">\(\tilde{\svec_1}\)</span> and <span class="process-math">\(\tilde{\svec_2}\text{.}\)</span> That is, the correlation equals the cosine of the angle between the demeaned time series. Among other things, this implies that <span class="process-math">\(\corr(\svec_1,\svec_2)\)</span> is always between -1 and 1.</div>
+<div class="para">where <span class="process-math">\(\theta\)</span> is the angle between <span class="process-math">\(\tilde{\svec_1}\)</span> and <span class="process-math">\(\tilde{\svec_2}\text{.}\)</span> That is, <em class="emphasis">the correlation equals the cosine of the angle between the demeaned time series</em>. Among other things, this implies that <span class="process-math">\(\corr(\svec_1,\svec_2)\)</span> is always between -1 and 1.</div>
 </div>
 <div class="para">Find the correlation between each pair of stocks.</div>
 <pre class="ptx-sagecell sagecell-python" id="sage-202"><script type="text/x-sage">

@@ -20,7 +20,8 @@ def circ(p, l):
     stroke()
 
     setfont("Palatino-Roman", 15)
-    d = dimensions(l)
+    # d = dimensions(l)
+    d = (8,10)
     moveto(0,0)
     rmoveto(-d[0]/2, -d[1]/2)
     show(l)

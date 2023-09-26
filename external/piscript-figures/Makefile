@@ -222,6 +222,10 @@ projection-line-1.pdf \
 projection-line-8.pdf \
 projection-line-10.pdf \
 projection-line-12.pdf \
+projection-line-relabel-1.pdf \
+projection-line-relabel-8.pdf \
+projection-line-relabel-10.pdf \
+projection-line-relabel-12.pdf \
 pythagorean-length.pdf \
 quad-variance-a.pdf \
 quad-variance-b.pdf \
@@ -478,6 +482,10 @@ projection-line-1.svg \
 projection-line-8.svg \
 projection-line-10.svg \
 projection-line-12.svg \
+projection-line-relabel-1.svg \
+projection-line-relabel-8.svg \
+projection-line-relabel-10.svg \
+projection-line-relabel-12.svg \
 pythagorean-length.svg \
 quad-variance-a.svg \
 quad-variance-b.svg \
@@ -522,6 +530,9 @@ unsure := animate-woody.pdf jpeg-block-luminance-values.pdf jpeg-block-luminance
 %-axis-4.eps: axis-4.py
 	python axis-4.py
 
+cluster-plot.eps: cluster-plot.py clusters_data.csv
+	python cluster-plot.py
+
 diag-D-%.eps: diag-D.py
 	python diag-D.py
 
@@ -548,6 +559,9 @@ lst-squares-%: lst-squares.py
 
 parallelogram-%.eps: parallelograms.py
 	python parallelograms.py
+
+projection-line-relabel%.eps: projection-line-relabel.py
+	python projection-line-relabel.py
 
 projection-line-%.eps: projection-line.py
 	python projection-line.py
