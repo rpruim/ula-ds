@@ -1010,15 +1010,16 @@
     effort. 
     </p>
 
-    <assemblage>
+    <proposition xml:id="proposition-properties-of-transpose">
       <title> Properties of the transpose </title>
+	  <statement>
 
       <p> Here are some properties of the matrix
       transpose, expressed in terms of general matrices <m>A</m>,
       <m>B</m>, and <m>C</m>.  We assume that <m>C</m> is a square
       matrix. 
 
-      <ul>
+      <ol>
 	<li><p> If <m>A+B</m> is defined, then <m>(A+B)^{\transpose} =
 	A^{\transpose}+B^{\transpose}</m>.
 	</p></li>
@@ -1026,9 +1027,6 @@
 	<li><p> <m>(sA)^{\transpose} = sA^{\transpose}</m>.</p></li>
 
 	<li><p> <m>(A^{\transpose})^{\transpose} = A</m>.
-	</p></li>
-
-	<li><p> <m>\det(C) = \det(C^{\transpose})</m>.
 	</p></li>
 
 	<li><p> If <m>AB</m> is defined, then <m>(AB)^{\transpose} = B^{\transpose}A^{\transpose}</m>.
@@ -1039,8 +1037,70 @@
 		<m>(C^{\transpose})^{-1} = (C^{-1})^{\transpose}</m>.
 	</p></li>
 
-      </ul></p>
-    </assemblage>
+	<li><p> <m>\det(C) = \det(C^{\transpose})</m>.
+	</p></li>
+
+      </ol></p>
+	</statement>
+
+	<proof>
+		<p>
+			<ol>
+				<li>
+					<p>
+						We can check this componentwise:
+						<me>(A + B)^{\transpose}_{ij} = (A +B)_{ji} = A_{ji} + B_{ji} = A^{\transpose}_{ij} + B^{\transpose}_{ij}</me>.
+					</p>
+				</li>
+				<li>
+					<p>
+						We can check this componentwise:
+						<me>(sA)^{\transpose}_{ij} = (sA)_{ji} = sA_{ji} = (sA)^{\transpose}_{ij} </me>.
+					</p>
+				</li>
+				<li>
+					<p>
+						We can check this componentwise:
+						<me>(A^{\transpose})^{\transpose}_{ij} = A^{\transpose}_{ji} = A_{ij}</me>.
+					</p>
+				</li>
+				<li>
+					<p>
+						<m>AB^{\transpose}_{ij} = AB_{ji} = A_{j \cdot} \cdot B_{\cdot i} = 
+							B^{\transpose}_{i \cdot} \cdot A^{\transpose}_{\cdot j} = 
+							\left(B^{\transpose} A^{\transpose}\right)_{ij}
+						</m>.
+					</p>
+				</li>
+				<li>
+					<p>
+						<m>(C^{-1})^{\transpose}C^{\transpose} = C C^{-1} = I</m>.
+					</p>
+				</li>
+				<li>
+					<p>If <m>C</m> is not invertible, then neither is <m>C^{\transpose}</m>, so both matrices have  
+						determinant 0.
+					</p>
+					<p>
+						If <m>C</m> is invertible, then 
+						we can write <m>C</m>  as a product of elemntary matrices <m>C = E_1 E_2 \cdots E_k</m>.
+						From this we see that 
+						<me>
+							\det(C^\transpose) 
+							= 
+							\det(E_k^\transpose \cdots E_1^\transpose)
+							= 
+							\det(E_k^\transpose) \cdots \det(E_1^\transpose)
+						</me>.
+						All tha remains is to show that <m>\det(E^\transpose) = \det(E)</m> for each elemntary matrix.
+						Each of these is easily verified.
+					</p>
+				</li>
+			</ol>
+			
+		</p>
+	</proof>
+	</proposition>
 
     <p>
       There is one final property we wish to record though we will
