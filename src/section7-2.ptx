@@ -11,34 +11,39 @@
       hand, we'll now explore how to determine the directions in which
       the variance of a dataset is as large as possible and where it
       is as small as possible.  This is part of a much larger story
-      involving a type of function, called a <em>quadratic form</em>,
+      involving a type of function, called a <term>quadratic form</term>,
       that we'll introduce here.
     </p>
 
     <exploration xml:id="preview-quadforms">
       <statement>
 	<p>
-	  Let's begin by looking at an example.  Suppose we have three
-	  data points that form the demeaned data matrix
+	  Let's begin by looking at an example.  Suppose we have 
+	  a demeaned column-variate data matrix 
 	  <me>
-	    A = \begin{bmatrix}
+		\Xtilde = 
+		\begin{bmatrix}
+		2 \amp 1 \\  
+		1 \amp 2 \\ 
+		-3 \amp -3 \\
+		\end{bmatrix}
+	  </me>
+	    <!-- A = \begin{bmatrix}
 	    2 \amp 1 \amp -3 \\
 	    1 \amp 2 \amp -3 \\
-	    \end{bmatrix}
-	  </me>
+	    \end{bmatrix} -->
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		Plot the demeaned data points in <xref
-		ref="fig-quad-preview" />.  In which direction does
+		Plot the demeaned case vectors as points in 
+		<xref ref="fig-quad-preview" />.  In which direction does
 		the variance appear to be largest and in which does it
 		appear to be smallest?
 	      </p>
 
 	      <figure xml:id="fig-quad-preview">
 		<caption>
-		  Use this coordinate grid to plot the demeaned data
-		  points.
+		  Use this coordinate grid to plot the demeaned case vectors as points.
 		</caption>
 		<sidebyside width="50%">
 		  <image source="images/empty-4" />
@@ -48,11 +53,16 @@
 
 	    <li>
 	      <p>
-		Construct the covariance matrix <m>C</m> and determine
+		Construct the covariance matrix <m>S_{XX}</m> and determine
 		the variance in the direction of <m>\twovec11</m> and
 		the variance in the direction of <m>\twovec{-1}1</m>.
 	      </p>
-		<sage>
+		<sage language="python" auto-evaluate="yes">
+		  <input>
+import numpy as np
+		  </input>
+		</sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -66,9 +76,9 @@
 
 	    <li>
 	      <p>
-		Generally speaking, if <m>C</m> is the covariance matrix
+		Generally speaking, if <m>S_{XX}</m> is the covariance matrix
 		of a dataset and <m>\uvec</m> is an eigenvector of
-		<m>C</m> having unit length and with associated
+		<m>S_{XX}</m> having unit length and with associated
 		eigenvalue <m>\lambda</m>, what is <m>V_{\uvec}</m>?
 	      </p>
 	    </li>
@@ -89,18 +99,18 @@
 	    <li>
 	      <p>
 		In the direction of <m>\twovec11</m>, the variance is
-		<m>9</m>, while in the direction of
-		<m>\twovec{-1}1</m>, the variance is <m>1/3</m>.
+		<m>27/2</m>, while in the direction of
+		<m>\twovec{-1}1</m>, the variance is <m>1/2</m>.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		The total variance is <m>9+1/3 = 28/3</m>.
+		The total variance is <m>27/2 + 1/2 = 28/2 = 14</m>.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		<m>V_{\uvec} = \uvec\cdot(C\uvec) =
+		<m>V_{\uvec} = \uvec\cdot(S_{XX} \uvec) =
 		\lambda\uvec\cdot\uvec = \lambda</m>
 	      </p>
 	    </li>
@@ -116,13 +126,14 @@
     <title> Quadratic forms </title>
 
     <p>
-      Given a matrix <m>A</m> of <m>N</m> demeaned data points,
-      the symmetric covariance matrix <m>C=\frac1N AA^{\transpose}</m> determines
-      the variance in a particular direction
+      Given a demeaned column-variate data matrix <m>\Xtilde</m> with 
+	  <m>n</m> rows, we can use 
+      the symmetric covariance matrix <m>S=\frac1{n-1} \Xtilde^{\transpose} \Xtilde</m> 
+	  to compute the variance in the direction specified by a unit vector <m>\uvec</m> 
+	  using
       <me>
-	V_{\uvec} = \uvec\cdot(C\uvec),
-      </me>
-      where <m>\uvec</m> is a unit vector defining the direction.
+	V_{\uvec} = \uvec\cdot(S\uvec)
+      </me>.
     </p>
 
     <p>
@@ -134,8 +145,11 @@
       </me>
       Notice that this expression is similar to the one we use to find
       the variance <m>V_{\uvec}</m> in terms of the covariance matrix
-      <m>C</m>.  The only difference is that we allow <m>\xvec</m> to
-      be any vector rather than requiring it to be a unit vector.
+      <m>S</m>.  The difference is that we allow <m>\xvec</m> to
+      be any vector rather than requiring it to be a unit vector and allow  
+	  <m>A</m> to be any symmetric matrix. 
+	  (Not all symmetric matrices are covariance matrices. In particular, covariance 
+	  matrices never have negative values on the diagonal.)
     </p>
 
     <example>
@@ -189,7 +203,7 @@
       <statement>
 	<p>
 	  If <m>A</m> is a symmetric <m>m\by m</m> matrix, the
-	  <em>quadratic form</em> defined by <m>A</m> is the function
+	  <term>quadratic form</term> defined by <m>A</m> is the function
 	  <m>q_A(\xvec) = \xvec\cdot(A\xvec)</m>.  
 	</p>
       </statement>
@@ -391,7 +405,7 @@
 
     <p>
       Let's now return to our motivating question:  in which direction
-      <m>\uvec</m> is the variance <m>V_{\uvec}=\uvec\cdot(C\uvec)</m>
+      <m>\uvec</m> is the variance <m>V_{\uvec}=\uvec\cdot(S\uvec)</m>
       of a dataset as 
       large as possible 
       and in which is it as small as possible.  Remembering that the
@@ -846,18 +860,20 @@ quad_plot(A)
     <example>
       <statement>
 	<p>
-	  Suppose we have the matrix of demeaned data points
-	  <m>A = \begin{bmatrix}
-	    2 \amp 1 \amp -3 \\
-	    1 \amp 2 \amp -3 \\
-	    \end{bmatrix}</m> that we considered in <xref
-	    ref="preview-quadforms" />.  The data points are shown in
+	  Suppose we have the demeaned column-variate data matrix 
+	  <me>
+		X = \begin{bmatrix}
+		2 \amp 1 \\ 1 \amp 2 \\ -3 \amp -3
+	    \end{bmatrix}
+	</me> 
+		that we considered in <xref
+	    ref="preview-quadforms" />.  The demeaned case vectors are plotted as points in
 	    <xref ref="fig-covariance-quad" />.
 	</p>
 
 	<figure xml:id="fig-covariance-quad">
 	  <caption>
-	      The set of demeaned data points from <xref
+	      The set of demeaned case vectors from <xref
 	      ref="preview-quadforms" />.
 	  </caption>
 	  <sidebyside width="50%">
@@ -866,23 +882,23 @@ quad_plot(A)
 	</figure>
 
 	<p>
-	  Constructing the covariance matrix <m>C=\frac13~AA^{\transpose}</m> gives
-	  <m>C=\begin{bmatrix}
-	  14/3 \amp 13/3 \\
-	  13/3 \amp 14/3 \end{bmatrix}</m>,
+	  Constructing the covariance matrix <m>S=\frac12~X^{\transpose}X</m> gives
+	  <m>S=\begin{bmatrix}
+	  14/2 \amp 13/2 \\
+	  13/2 \amp 14/2 \end{bmatrix}</m>,
 	  which has eigenvalues <m>\lambda_1
-	  = 9</m>, with associated eigenvector
+	  = 27/2</m>, with associated eigenvector
 	  <m>\twovec{1/\sqrt{2}}{1/\sqrt{2}}</m>, and 
-	  <m>\lambda_2=1/3</m>, with associated eigenvector
+	  <m>\lambda_2=1/2</m>, with associated eigenvector
 	  <m>\twovec{-1/\sqrt{2}}{1/\sqrt{2}}</m>.
 	</p>
 
 	<p>
 	  Remember that the variance in a direction <m>\uvec</m> is
-	  <m> V_{\uvec} = \uvec\cdot(C\uvec) = q_C(\uvec)</m>.
-	  Therefore, the variance attains a maximum value of 9 in the
+	  <m> V_{\uvec} = \uvec\cdot(S\uvec) = q_S(\uvec)</m>.
+	  Therefore, the variance attains a maximum value of 27/2 in the
 	  direction <m>\twovec{1/\sqrt{2}}{1/\sqrt{2}}</m> and a
-	  minimum value of 1/3 in the 
+	  minimum value of 1/2 in the 
 	  direction <m>\twovec{-1/\sqrt{2}}{1/\sqrt{2}}</m>.  <xref
 	  ref="fig-quad-project" 
 	  /> shows the data projected onto the lines defined by these
@@ -904,7 +920,7 @@ quad_plot(A)
 	<p>
 	  Remember that variance is additive, as stated in <xref
 	  ref="prop-variance-additivity" />, which tells us that the
-	  total variance is <m>V = 9 + 1/3 = 28/3</m>.
+	  total variance is <m>V = 27/2 + 1/2 = 14</m>.
 	</p>
       </statement>
     </example>
@@ -981,22 +997,22 @@ quad_plot(A)
     <definition>
       <statement>
 	<p>
-	  A symmetric matrix <m>A</m> is called <em>positive
-	  definite</em> if its associated quadratic form satisfies
+	  A symmetric matrix <m>A</m> is called <term>positive
+	  definite</term> if its associated quadratic form satisfies
 	  <m>q_A(\xvec) \gt 0</m> for any nonzero vector
 	  <m>\xvec</m>.  If <m>q_A(\xvec) \geq 0</m> for all nonzero
-	  vectors <m>\xvec</m>, we say that <m>A</m> is <em>positive 
-	  semidefinite</em>.
+	  vectors <m>\xvec</m>, we say that <m>A</m> is <term>positive 
+	  semidefinite</term>.
 	</p>
 
 	<p>
-	  Likewise, we say that <m>A</m> is <em>negative
-	  definite</em> if <m>q_A(\xvec) \lt 0</m> for all nonzero
+	  Likewise, we say that <m>A</m> is <term>negative
+	  definite</term> if <m>q_A(\xvec) \lt 0</m> for all nonzero
 	  vectors <m>\xvec</m>. 
 	</p>
 
 	<p>
-	  Finally, <m>A</m> is called <em>indefinite</em>
+	  Finally, <m>A</m> is called <term>indefinite</term>
 	  if <m>q_A(\xvec) \gt 0</m> for some <m>\xvec</m> and
 	  <m>q_A(\xvec) \lt 0</m> for others.
 	</p>
@@ -1549,7 +1565,7 @@ plot3d(2*x^3 - 6*x*y + 3*y^2, (x, -2,2), (y,-2,2))
 	f_{yx}(x_0,y_0) \amp f_{yy}(x_0,y_0)
 	\end{bmatrix}
       </me>
-      is called the <em>Hessian</em> of <m>f</m>, and we see now that
+      is called the <term>Hessian</term> of <m>f</m>, and we see now that
       the eigenvalues of this symmetric matrix determine the nature of
       the critical point <m>(x_0,y_0)</m>.  In particular, if the
       eigenvalues are both positive, then <m>q_H</m> is positive
@@ -1640,10 +1656,10 @@ plot3d(2*x^3 - 6*x*y + 3*y^2, (x, -2,2), (y,-2,2))
 
 	  <p>
 	    Quadratic forms appear when studying the variance of a
-	    dataset.  If <m>C</m> is the covariance matrix, then the
+	    dataset.  If <m>S</m> is the covariance matrix, then the
 	    variance in the direction defined by a unit vector
-	    <m>\uvec</m> is <m>q_C(\uvec) =
-	    \uvec\cdot(C\uvec)=V_{\uvec}</m>. 
+	    <m>\uvec</m> is <m>q_S(\uvec) =
+	    \uvec\cdot(S\uvec)=V_{\uvec}</m>. 
 	  </p>
 
 	  <p>
