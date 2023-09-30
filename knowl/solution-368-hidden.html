@@ -9,20 +9,76 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-sage",
+  "linked": true,
+  "linkKey": "linked-sage",
+  "autoeval": false,
+  "languages": [
+    "sage"
+  ],
+  "evalButtonText": "Evaluate (Sage)"
+});
+</script>
 </head>
 <body class="ignore-math"><div class="solution solution-like"><div class="para logical"><ol class="lower-alpha">
-<li><div class="para">
-<span class="process-math">\(C\)</span> will be the <span class="process-math">\(2\by2\)</span> matrix <span class="process-math">\(C=\begin{bmatrix}
-1.38 \amp 0.70 \\
-0.70 \amp 0.37
-\end{bmatrix}\)</span>
+<li><div class="para">The centroid is <span class="process-math">\(\overline{X} = \twovec22\text{.}\)</span>
 </div></li>
-<li><div class="para">
-<span class="process-math">\(V_x = 1.38\)</span> and <span class="process-math">\(V_y=0.37\text{,}\)</span> which agrees with the fact that the data is more spread out in the horizontal than vertical direction.</div></li>
-<li><div class="para"><span class="process-math">\(\displaystyle V=V_x+V_y=1.75\)</span></div></li>
-<li><div class="para">It looks like the direction <span class="process-math">\(\twovec21\)</span> defined by the unit vector <span class="process-math">\(\uvec_1=\twovec{2/\sqrt{5}}{1/\sqrt{5}}\text{.}\)</span>  We find that <span class="process-math">\(V_{\uvec_1} = 1.74\text{,}\)</span> which is almost all of the total variance.</div></li>
-<li><div class="para">It looks like the direction <span class="process-math">\(\twovec{-1}{2}\)</span> defined by the unit vector <span class="process-math">\(\uvec_2=\twovec{-1/\sqrt{5}}{2/\sqrt{5}}\text{.}\)</span>  We find that <span class="process-math">\(V_{\uvec_2} = 0.01\text{.}\)</span>
+<li><div class="para logical">
+<div class="para">The demeaned data are</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\Xtilde = 
+\begin{bmatrix}
+-1 \amp -1 \\ 0 \amp -1 \\ 1 \amp 2 \\
+\end{bmatrix}\text{.}
+\end{equation*}
+</div>
 </div></li>
-<li><div class="para">They are orthogonal to one another.  Since the total variance <span class="process-math">\(V=V_{\uvec_1}+V_{\uvec_2}\)</span> when <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> are orthogonal, <span class="process-math">\(V_{\uvec_1}\)</span> will be as large as possible when <span class="process-math">\(V_{\uvec_2}\)</span> is as small as possible.</div></li>
+<li><div class="para">The total variance is <span class="process-math">\(V=8/2 = 4\text{.}\)</span>
+</div></li>
+<li><div class="para logical"><div class="displaymath process-math">
+\begin{equation*}
+\dtil_1=\twovec{-1}{-1},\hspace{24pt}
+\dtil_2=\twovec{0}{-1},\hspace{24pt}
+\dtil_3=\twovec{1}{2}\text{.}
+\end{equation*}
+</div></div></li>
+<li><div class="para">We find <span class="process-math">\(V_x = 2/2 = 1\)</span> and <span class="process-math">\(V_y=3\text{.}\)</span>  Notice that <span class="process-math">\(V_y\)</span> is larger because the points are more spread out in the vertical direction.</div></li>
+<li><div class="para">We have <span class="process-math">\(V=V_x+V_y\)</span> due to the Pythagorean theorem.</div></li>
+<li>
+<div class="para">The points projected onto the line defined by <span class="process-math">\(\vvec_1\)</span> are <span class="process-math">\(\twovec{-1}{-1}\text{,}\)</span> <span class="process-math">\(\twovec{-1/2}{-1/2}\text{,}\)</span> and <span class="process-math">\(\twovec{3/2}{3/2}\text{.}\)</span>  This gives the variance <span class="process-math">\(V_{\vvec_1} = 7/2\text{.}\)</span>
+</div>
+<div class="para">The points projected onto the line defined by <span class="process-math">\(\vvec_2\)</span> are <span class="process-math">\(\twovec{0}{0}\text{,}\)</span> <span class="process-math">\(\twovec{1/2}{-1/2}\text{,}\)</span> and <span class="process-math">\(\twovec{-1/2}{1/2}\text{.}\)</span>  This gives the variance <span class="process-math">\(V_{\vvec_2} = 1/2\text{.}\)</span>
+</div>
+</li>
+<li><div class="para">Once again, <span class="process-math">\(V = V_{\vvec_1} + V_{\vvec_2}\)</span> because of the Pythagorean theorem.</div></li>
+<li>
+<div class="para">
+<span class="process-math">\(V_{\vvec_1} 
+= \twovec{\frac{1}{\sqrt 2}}{\frac{1}{\sqrt 2}} \cdot (S\twovec{\frac{1}{\sqrt 2}}{\frac{1}{\sqrt 2}} )
+= 7/2
+\text{.}\)</span> The others can be checked similarly.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-254"><script type="text/x-sage">import numpy as np
+X = np.column_stack(((1,2,3), (1,1,4)))
+X = X - X.mean(axis = 0)
+n = X.shape[0]; p = X.shape[1]
+print(X); print()
+
+print(np.cov(X, rowvar = False)); print()
+S = 1/(n-1) * np.transpose(X) @ X
+print(S); print()
+
+v1 = np.array((1,1))
+v2 = np.array((1, -1))
+e1 = np.eye(p)[0,:]
+e2 = np.eye(p)[1,:]
+u1 = w1 / np.linalg.norm(w1)
+u2 = w2 / np.linalg.norm(w2)
+print(e1 @ S @ e1, e2 @ S @ e2, u1 @ S @ u1, u2 @ S @ u2)
+</script></pre>
+</li>
 </ol></div></div></body>
 </html>

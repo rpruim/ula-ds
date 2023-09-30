@@ -9,11 +9,40 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
 <article class="li"><h5 class="heading">
-<span class="type">Item</span><span class="space"> </span><span class="codenumber">c</span><span class="period">.</span>
+<span class="type">Item</span><span class="space"> </span><span class="codenumber">a</span><span class="period">.</span>
 </h5>
-<div class="para"><span class="process-math">\(V=8/3\text{.}\)</span></div></article><span class="incontext"><a href="sec-symmetric-matrices.html#li-4998" class="internal">in-context</a></span>
+<div class="para">Evaluating the following Python cell loads a dataset consisting of 100 demeaned data points and provides a plot of them.  It also provides the demeaned data matrix <span class="process-math">\(A\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-256"><script type="text/x-sage">import pandas as pd
+import seaborn.objects as so
+some_data = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/variance-data.csv', header=None)
+X = some_data.to_numpy()
+print("columns means: ", X.mean(axis = 0))
+print("shape: ", X.shape)
+(
+    so.Plot(x = X[:, 0], y = X[:, 1])
+    .add(so.Dot())
+    .show()
+)
+</script></pre>
+<div class="para">What is the shape of the covariance matrix <span class="process-math">\(S\text{?}\)</span>  Find <span class="process-math">\(S\)</span> and verify your response.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-257"><script type="text/x-sage">
+</script></pre></article><span class="incontext"><a href="sec-variance-covariance.html#li-4998" class="internal">in-context</a></span>
 </body>
 </html>

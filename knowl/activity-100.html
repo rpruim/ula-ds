@@ -27,59 +27,64 @@ sagecell.makeSagecell({
 <article class="activity project-like"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.3.3</span><span class="period">.</span>
 </h4>
-<div class="para">We will work here with a dataset having 100 3-dimensional demeaned data points.  Evaluating the following cell will plot those data points and define the demeaned data matrix <code class="code-inline tex2jax_ignore">A</code> whose shape is <span class="process-math">\(3\by100\text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-sage" id="sage-263"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_demo.py', globals())
-</script></pre> <div class="para logical">
-<div class="para">Notice that the data appears to cluster around a plane though it does not seem to be wholly contained within that plane.</div>
+<div class="para logical">
+<div class="para">We can gain some intuition about this problem by graphing the quadratic form and paying particular attention to the unit vectors.</div>
 <ol class="lower-alpha">
 <li>
-<div class="para">Use the matrix <code class="code-inline tex2jax_ignore">A</code> to construct the covariance matrix <span class="process-math">\(C\text{.}\)</span>  Then determine the variance in the direction of <span class="process-math">\(\uvec=\threevec{1/3}{2/3}{2/3}\text{?}\)</span>
-</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-264"><script type="text/x-sage">
+<div class="para">Evaluating the following cell defines the matrix <span class="process-math">\(D = \begin{bmatrix}
+3 \amp 0 \\
+0 \amp -1
+\end{bmatrix}\)</span> and displays the graph of the associated quadratic form <span class="process-math">\(q_D(\xvec)\text{.}\)</span>  In addition, the points corresponding to vectors <span class="process-math">\(\uvec\)</span> with unit length are displayed as a curve.</div>
+<pre class="ptx-sagecell sagecell-sage" id="sage-266"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/quad_plot.py', globals())
+
+## We define our matrix here
+A = matrix(2, 2, [3, 0, 0, -1])
+
+quad_plot(A)
 </script></pre>
+<div class="para">Notice that the matrix <span class="process-math">\(D\)</span> is diagonal.  In which directions does the quadratic form have its maximum and minimum values?</div>
 </li>
-<li>
-<div class="para">Find the eigenvalues of <span class="process-math">\(C\)</span> and determine the total variance.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-265"><script type="text/x-sage">
-</script></pre>
-<div class="para">Notice that Sage does not necessarily sort the eigenvalues in decreasing order.</div>
-</li>
-<li><div class="para">Use the <code class="code-inline tex2jax_ignore">right_eigenmatrix()</code> command to find the eigenvectors of <span class="process-math">\(C\text{.}\)</span>  Remembering that the Sage command <code class="code-inline tex2jax_ignore">B.column(1)</code> retrieves the vector represented by the second column of <code class="code-inline tex2jax_ignore">B</code>, define vectors <code class="code-inline tex2jax_ignore">u1</code>, <code class="code-inline tex2jax_ignore">u2</code>, and <code class="code-inline tex2jax_ignore">u3</code> representing the three principal components in order of decreasing eigenvalues.  How can you check if these vectors are an orthonormal basis for <span class="process-math">\(\real^3\text{?}\)</span>
+<li><div class="para">Write the quadratic form <span class="process-math">\(q_D\)</span> associated to <span class="process-math">\(D\text{.}\)</span>  What is the value of <span class="process-math">\(q_D\left(\twovec10\right)\text{?}\)</span>  What is the value of <span class="process-math">\(q_D\left(\twovec01\right)\text{?}\)</span>
 </div></li>
-<li><div class="para">What fraction of the total variance is retained by projecting the data onto <span class="process-math">\(W_1\text{,}\)</span> the subspace spanned by <span class="process-math">\(\uvec_1\text{?}\)</span>  What fraction of the total variance is retained by projecting onto <span class="process-math">\(W_2\text{,}\)</span> the subspace spanned by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{?}\)</span>  What fraction of the total variance do we lose by projecting onto <span class="process-math">\(W_2\text{?}\)</span>
-</div></li>
+<li><div class="para">Consider a unit vector <span class="process-math">\(\uvec=\twovec{u_1}{u_2}\)</span> so that <span class="process-math">\(u_1^2+u_2^2 =
+1\text{,}\)</span> an expression we can rewrite as <span class="process-math">\(u_1^2 =
+1-u_2^2\text{.}\)</span>  Write the quadratic form <span class="process-math">\(q_D(\uvec)\)</span> and replace <span class="process-math">\(u_1^2\)</span> by <span class="process-math">\(1-u_2^2\text{.}\)</span>  Now explain why the maximum of <span class="process-math">\(q_D(\uvec)\)</span> is 3.  In which direction does the maximum occur?  Does this agree with what you observed from the graph above?</div></li>
+<li><div class="para">Write the quadratic form <span class="process-math">\(q_D(\uvec)\)</span> and replace <span class="process-math">\(u_2^2\)</span> by <span class="process-math">\(1-u_1^2\text{.}\)</span>  What is the minimum value of <span class="process-math">\(q_D(\uvec)\)</span> and in which direction does the minimum occur?</div></li>
+<li><div class="para">Use the previous Sage cell to change the matrix to <span class="process-math">\(A=\begin{bmatrix}
+1 \amp 2 \\
+2 \amp 1
+\end{bmatrix}\)</span> and display the graph of the quadratic form <span class="process-math">\(q_A(\xvec) = \xvec\cdot(A\xvec)\text{.}\)</span> Determine the directions in which the maximum and minimum occur?</div></li>
 <li>
 <div class="para logical">
-<div class="para">If we project a data point <span class="process-math">\(\xvec\)</span> onto <span class="process-math">\(W_2\text{,}\)</span> the Projection Formula tells us we obtain</div>
+<div class="para">Remember that <span class="process-math">\(A=\begin{bmatrix}
+1 \amp 2 \\
+2 \amp 1
+\end{bmatrix}\)</span> is symmetric so that <span class="process-math">\(A=QDQ^{\transpose}\)</span> where <span class="process-math">\(D\)</span> is the diagonal matrix above and <span class="process-math">\(Q\)</span> is the orthogonal matrix that rotates vectors by <span class="process-math">\(45^\circ\text{.}\)</span>  Notice that</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\xhat = (\uvec_1\cdot\xvec) \uvec_1 +
-(\uvec_2\cdot\xvec) \uvec_2.
+q_A(\uvec) = \uvec\cdot(A\uvec) =
+\uvec\cdot(QDQ^{\transpose}\uvec) = (Q^{\transpose}\uvec)\cdot(DQ^{\transpose}\uvec)
+= q_D(\vvec)
 \end{equation*}
 </div>
-<div class="para">Rather than viewing the projected data in <span class="process-math">\(\real^3\text{,}\)</span> we will record the coordinates of <span class="process-math">\(\xhat\)</span> in the basis defined by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{;}\)</span>  that is, we will record the coordinates</div>
+<div class="para">where <span class="process-math">\(\vvec=Q^{\transpose}\uvec\text{.}\)</span>  That is, we have <span class="process-math">\(q_A(\uvec) = q_D(\vvec)\text{.}\)</span>
+</div>
+</div>
+<div class="para logical">
+<div class="para">Explain why <span class="process-math">\(\vvec = Q^{\transpose}\uvec\)</span> is also a unit vector;  that is, explain why</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}.  
+|\vvec|^2 = |Q^{\transpose}\uvec|^2 =
+(Q^{\transpose}\uvec)\cdot(Q^{\transpose}\uvec) = 1.
 \end{equation*}
 </div>
-<div class="para">Construct the matrix <span class="process-math">\(Q\)</span> so that <span class="process-math">\(Q^{\transpose}\xvec =
-\twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}\text{.}\)</span>
 </div>
-</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-266"><script type="text/x-sage">
-</script></pre>
 </li>
-<li>
-<div class="para">Since each column of <span class="process-math">\(A\)</span> represents a data point, the matrix <span class="process-math">\(Q^{\transpose}A\)</span> represents the coordinates of the projected data points.  Evaluating the following cell will plot those projected data points.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-267"><script type="text/x-sage">pca_plot(Q.T*A)
-</script></pre>
-<div class="para">Notice how this plot enables us to view the data as if it were two-dimensional. Why is this plot wider than it is tall?</div>
-</li>
+<li><div class="para">Using the fact that <span class="process-math">\(q_A(\uvec) = q_D(\vvec)\text{,}\)</span> explain how we now know the maximum value of <span class="process-math">\(q_A(\uvec)\)</span> is 3 and determine the direction in which it occurs.  Also, determine the minimum value of <span class="process-math">\(q_A(\uvec)\)</span> and determine the direction in which it occurs.</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" class="answer-knowl original" data-knowl="./knowl/answer-316-hidden.html" title="Answer 7.3.3.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-396-hidden.html" title="Solution 7.3.3.1"><span class="type">Solution</span><span class="period">.</span></a>
-</div></article><span class="incontext"><a href="sec-pca.html#activity-100" class="internal">in-context</a></span>
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-302-hidden.html" title="Answer 7.3.3.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-387-hidden.html" title="Solution 7.3.3.1"><span class="type">Solution</span><span class="period">.</span></a>
+</div></article><span class="incontext"><a href="sec-quadratic-forms.html#activity-100" class="internal">in-context</a></span>
 </body>
 </html>

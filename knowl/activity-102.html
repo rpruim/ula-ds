@@ -9,67 +9,54 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-python",
+  "inputLocation": "pre.sagecell-sage",
   "linked": true,
-  "linkKey": "linked-python",
+  "linkKey": "linked-sage",
   "autoeval": false,
   "languages": [
-    "python"
+    "sage"
   ],
-  "evalButtonText": "Evaluate (Python)"
+  "evalButtonText": "Evaluate (Sage)"
 });
 </script>
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.3</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.3.5</span><span class="period">.</span>
 </h4>
 <div class="para logical">
-<div class="para">In this activity, we will construct the singular value decomposition of <span class="process-math">\(A=\begin{bmatrix} 1 \amp 0 \amp -1 \\
-1 \amp 1 \amp 1
-\end{bmatrix}\text{.}\)</span> Notice that this matrix is not square so there are no eigenvalues and eigenvectors associated to it.</div>
+<div class="para">Let’s explore how our understanding of quadratic forms helps us determine the behavior of a function <span class="process-math">\(f\)</span> near a critical point.</div>
 <ol class="lower-alpha">
-<li>
-<div class="para">Construct the Gram matrix <span class="process-math">\(G=A^{\transpose}A\)</span> and find an orthogonal diagonalization of it.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-282"><script type="text/x-sage">
-</script></pre>
-</li>
-<li><div class="para">Identify the singular values of <span class="process-math">\(A\)</span> and the right singular vectors <span class="process-math">\(\vvec_1\text{,}\)</span> <span class="process-math">\(\vvec_2\text{,}\)</span> and <span class="process-math">\(\vvec_3\text{.}\)</span>  What is the dimension of these vectors?  How many nonzero singular values are there?</div></li>
-<li><div class="para">Find the left singular vectors <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> using the fact that <span class="process-math">\(A\vvec_i =
-\sigma_i\uvec_i\text{.}\)</span> What is the dimension of these vectors? What happens if you try to find a third left singular vector <span class="process-math">\(\uvec_3\)</span> in this way?</div></li>
-<li><div class="para">As before, form the orthogonal matrices <span class="process-math">\(U\)</span> and <span class="process-math">\(V\)</span> from the left and right singular vectors. What are the shapes of <span class="process-math">\(U\)</span> and <span class="process-math">\(V\text{?}\)</span> How do these shapes relate to the number of rows and columns of <span class="process-math">\(A\text{?}\)</span>
+<li><div class="para">Consider the function <span class="process-math">\(f(x,y) = 2x^3 - 6xy +
+3y^2\text{.}\)</span>  Find the partial derivatives <span class="process-math">\(f_{x}\)</span> and <span class="process-math">\(f_y\)</span> and use these expressions to determine the critical points of <span class="process-math">\(f\text{.}\)</span>
 </div></li>
-<li>
-<div class="para logical">
-<div class="para">Now form <span class="process-math">\(\Sigma\)</span> so that it has the same shape as <span class="process-math">\(A\text{:}\)</span>
-</div>
+<li><div class="para">Evaluate the second partial derivatives <span class="process-math">\(f_{xx}\text{,}\)</span> <span class="process-math">\(f_{xy}\text{,}\)</span> and <span class="process-math">\(f_{yy}\text{.}\)</span>
+</div></li>
+<li><div class="para">Let’s first consider the critical point <span class="process-math">\((1,1)\text{.}\)</span> Use the quadratic approximation as written above to find an expression approximating <span class="process-math">\(f\)</span> near the critical point.</div></li>
+<li><div class="para logical">
+<div class="para">Using the vector <span class="process-math">\(\wvec = \twovec{x-1}{y-1}\text{,}\)</span> rewrite your approximation as</div>
 <div class="displaymath process-math">
 \begin{equation*}
-\Sigma = \begin{bmatrix}
-\sigma_1 \amp 0 \amp 0 \\
-0 \amp \sigma_2 \amp 0
-\end{bmatrix}
+f(x,y) \approx f(1,1) + q_A(\wvec)
 \end{equation*}
 </div>
-<div class="para">and verify that <span class="process-math">\(A = U\Sigma V^{\transpose}\text{.}\)</span>
+<div class="para">for some matrix <span class="process-math">\(A\text{.}\)</span>  What is the matrix <span class="process-math">\(A\)</span> in this case?</div>
+</div></li>
+<li><div class="para">Find the eigenvalues of <span class="process-math">\(A\text{.}\)</span>  What can you conclude about the definiteness of <span class="process-math">\(A\text{?}\)</span>
+</div></li>
+<li>
+<div class="para">Recall that <span class="process-math">\((x_0,y_0)\)</span> is a local minimum for <span class="process-math">\(f\)</span> if <span class="process-math">\(f(x,y) \gt f(x_0,y_0)\)</span> for nearby points <span class="process-math">\((x,y)\text{.}\)</span> Explain why our understanding of the eigenvalues of <span class="process-math">\(A\)</span> shows that <span class="process-math">\((1,1)\)</span> is a local minimum for <span class="process-math">\(f\text{.}\)</span>
 </div>
-</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-283"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-sage" id="sage-267"><script type="text/x-sage">plot3d(2*x^3 - 6*x*y + 3*y^2, (x, -2,2), (y,-2,2))
 </script></pre>
 </li>
-<li><div class="para">How can you use this singular value decomposition of <span class="process-math">\(A=U\Sigma V^{\transpose}\)</span> to easily find a singular value decomposition of <span class="process-math">\(A^{\transpose}=\begin{bmatrix}
-1 \amp 1 \\
-0 \amp 1 \\
--1 \amp 1 \\
-\end{bmatrix}\text{?}\)</span>
-</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" class="answer-knowl original" data-knowl="./knowl/answer-326-hidden.html" title="Answer 7.4.3.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-405-hidden.html" title="Solution 7.4.3.1"><span class="type">Solution</span><span class="period">.</span></a>
-</div></article><span class="incontext"><a href="sec-svd-intro.html#activity-102" class="internal">in-context</a></span>
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-304-hidden.html" title="Answer 7.3.5.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-389-hidden.html" title="Solution 7.3.5.1"><span class="type">Solution</span><span class="period">.</span></a>
+</div></article><span class="incontext"><a href="sec-quadratic-forms.html#activity-102" class="internal">in-context</a></span>
 </body>
 </html>

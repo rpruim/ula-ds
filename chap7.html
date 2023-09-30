@@ -110,6 +110,21 @@ sagecell.makeSagecell({
   ],
   "evalButtonText": "Evaluate (Python)"
 });
+</script><script>// Make *any* pre with class 'sagecell-python-autoeval' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python-autoeval",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": true,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)",
+  "hide": [
+    "evalButton"
+  ]
+});
 </script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.3/pretext_search.js"></script><link href="https://pretextbook.org/css/0.7/pretext_search.css" rel="stylesheet" type="text/css">
 <script>js_version = 0.3</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.3/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.3/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.3/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
 </script><link rel="preconnect" href="https://fonts.googleapis.com">
@@ -243,7 +258,7 @@ sagecell.makeSagecell({
 <span id="theeye" class="motioncheck"></span>eye tracking - not yet</li>
 </ol>
 </li>
-</ol></div></button><span class="treebuttons"><a class="previous-button button" href="sec-least-squares.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="ula.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="sec-symmetric-matrices.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchwrapper" role="search"><div class="gcse-search"></div></div>
+</ol></div></button><span class="treebuttons"><a class="previous-button button" href="sec-least-squares.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="up-button button" href="ula.html" title="Up"><span class="icon">^</span><span class="name">Up</span></a><a class="next-button button" href="sec-variance-covariance.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a></span><div class="searchwrapper" role="search"><div class="gcse-search"></div></div>
 <div class="searchbox"><div class="searchwidget">
 <input id="ptxsearch" class="ptxsearch" type="text" name="terms" placeholder="Search" onchange="doSearch()"><button id="searchbutton" class="searchbutton" type="button" onclick="doSearch()">🔍</button>
 </div></div></nav><div id="latex-macros" class="hidden-content process-math" style="display:none"><span class="process-math">\(\newcommand{\avec}{{\boldsymbol a}}
@@ -303,6 +318,7 @@ sagecell.makeSagecell({
 \renewcommand{\row}{\text{Row}}
 \newcommand{\nul}{\text{Nul}}
 \newcommand{\var}{\text{Var}}
+\newcommand{\cov}{\text{Cov}}
 \newcommand{\corr}{\text{corr}}
 \newcommand{\len}[1]{\left|#1\right|}
 \newcommand{\bbar}{\overline{\bvec}}
@@ -314,9 +330,12 @@ sagecell.makeSagecell({
 \newcommand{\xhat}{\widehat{\xvec}}
 \newcommand{\xmean}{\overline{\xvec}}
 \newcommand{\xbar}{\overline{\xvec}}
+\newcommand{\xtilde}{\tilde{\xvec}}
+\newcommand{\Xtilde}{\tilde{X}}
 \newcommand{\yhat}{\widehat{\yvec}}
 \newcommand{\ymean}{\overline{\yvec}}
 \newcommand{\ybar}{\overline{\yvec}}
+\newcommand{\ytilde}{\tilde{\yvec}}
 \newcommand{\yperp}{\yvec^\perp}
 \newcommand{\betahat}{\widehat{\betavec}}
 \newcommand{\Sighat}{\widehat{\Sigma}}
@@ -692,52 +711,60 @@ sagecell.makeSagecell({
 <div class="toc-item"><a href="chap7.html" class="internal"><span class="codenumber">7</span> <span class="title">The Spectral Theorem and singular value decompositions</span></a></div>
 <ul class="structural">
 <li>
-<div class="toc-item"><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span></a></div>
+<div class="toc-item"><a href="sec-variance-covariance.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Sample statistics as linear algebra</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-121" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-122" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Variance</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-123" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
-<li><div class="toc-item"><a href="sec-symmetric-matrices.html#exercises-30" class="internal"><span class="codenumber">7.1.4</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-variance-covariance.html#subsec-sample-mean" class="internal"><span class="codenumber">7.1.1</span> <span class="title">Sample mean</span></a></div></li>
+<li><div class="toc-item"><a href="sec-variance-covariance.html#subsec-variance-covariance" class="internal"><span class="codenumber">7.1.2</span> <span class="title">Sample variance and covariance</span></a></div></li>
+<li><div class="toc-item"><a href="sec-variance-covariance.html#subsection-123" class="internal"><span class="codenumber">7.1.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-variance-covariance.html#exercises-30" class="internal"><span class="codenumber">7.1.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
-<div class="toc-item"><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Quadratic forms</span></a></div>
+<div class="toc-item"><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Symmetric matrices</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-124" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Quadratic forms</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-125" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-126" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Summary</span></a></div></li>
-<li><div class="toc-item"><a href="sec-quadratic-forms.html#exercises-31" class="internal"><span class="codenumber">7.2.4</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-124" class="internal"><span class="codenumber">7.2.1</span> <span class="title">Symmetric matrices and orthogonal diagonalization</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#subsection-125" class="internal"><span class="codenumber">7.2.2</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-symmetric-matrices.html#exercises-31" class="internal"><span class="codenumber">7.2.3</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
-<div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Principal Component Analysis</span></a></div>
+<div class="toc-item"><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Quadratic forms</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pca.html#subsection-127" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-128" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#subsection-129" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
-<li><div class="toc-item"><a href="sec-pca.html#exercises-32" class="internal"><span class="codenumber">7.3.4</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-126" class="internal"><span class="codenumber">7.3.1</span> <span class="title">Quadratic forms</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-127" class="internal"><span class="codenumber">7.3.2</span> <span class="title">Definite symmetric matrices</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#subsection-128" class="internal"><span class="codenumber">7.3.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-quadratic-forms.html#exercises-32" class="internal"><span class="codenumber">7.3.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
-<div class="toc-item"><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Singular Value Decompositions</span></a></div>
+<div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Principal Component Analysis</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-130" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-131" class="internal"><span class="codenumber">7.4.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-132" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-133" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Summary</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-intro.html#exercises-33" class="internal"><span class="codenumber">7.4.5</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-129" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-130" class="internal"><span class="codenumber">7.4.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-131" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#exercises-33" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 <li>
-<div class="toc-item"><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Using Singular Value Decompositions</span></a></div>
+<div class="toc-item"><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Singular Value Decompositions</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-134" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Least squares problems</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-135" class="internal"><span class="codenumber">7.5.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-136" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Principal component analysis</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-137" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-138" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-139" class="internal"><span class="codenumber">7.5.6</span> <span class="title">Summary</span></a></div></li>
-<li><div class="toc-item"><a href="sec-svd-uses.html#exercises-34" class="internal"><span class="codenumber">7.5.7</span> <span class="title">Exercises</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-132" class="internal"><span class="codenumber">7.5.1</span> <span class="title">Finding singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-133" class="internal"><span class="codenumber">7.5.2</span> <span class="title">The structure of singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-134" class="internal"><span class="codenumber">7.5.3</span> <span class="title">Reduced singular value decompositions</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#subsection-135" class="internal"><span class="codenumber">7.5.4</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-intro.html#exercises-34" class="internal"><span class="codenumber">7.5.5</span> <span class="title">Exercises</span></a></div></li>
+</ul>
+</li>
+<li>
+<div class="toc-item"><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.6</span> <span class="title">Using Singular Value Decompositions</span></a></div>
+<ul class="structural">
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-136" class="internal"><span class="codenumber">7.6.1</span> <span class="title">Least squares problems</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-137" class="internal"><span class="codenumber">7.6.2</span> <span class="title">Rank <span class="process-math">\(k\)</span> approximations</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-138" class="internal"><span class="codenumber">7.6.3</span> <span class="title">Principal component analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-139" class="internal"><span class="codenumber">7.6.4</span> <span class="title">Image compressing and denoising</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-140" class="internal"><span class="codenumber">7.6.5</span> <span class="title">Analyzing Supreme Court cases</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#subsection-141" class="internal"><span class="codenumber">7.6.6</span> <span class="title">Summary</span></a></div></li>
+<li><div class="toc-item"><a href="sec-svd-uses.html#exercises-35" class="internal"><span class="codenumber">7.6.7</span> <span class="title">Exercises</span></a></div></li>
 </ul>
 </li>
 </ul>
@@ -749,8 +776,8 @@ sagecell.makeSagecell({
 <li>
 <div class="toc-item"><a href="app-python-reference.html" class="internal"><span class="codenumber">B</span> <span class="title">Python Reference</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="subsection-140.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
-<li><div class="toc-item"><a href="subsection-141.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-142.html" class="internal"><span class="codenumber">B.1</span> <span class="title">Accessing Python</span></a></div></li>
+<li><div class="toc-item"><a href="subsection-143.html" class="internal"><span class="codenumber">B.2</span> <span class="title">Packages and libraries for data science</span></a></div></li>
 <li><div class="toc-item"><a href="subsec-frequently-used-python.html" class="internal"><span class="codenumber">B.3</span> <span class="title">Frequently used Python commands</span></a></div></li>
 </ul>
 </li>
@@ -762,17 +789,18 @@ sagecell.makeSagecell({
 <main class="ptx-main"><div id="ptx-content" class="ptx-content"><section class="chapter" id="chap7"><h2 class="heading">
 <span class="type">Chapter</span><span class="space"> </span><span class="codenumber">7</span><span class="space"> </span><span class="title">The Spectral Theorem and singular value decompositions</span>
 </h2>
-<section class="introduction" id="introduction-40"><div class="para" id="p-7329">
+<section class="introduction" id="introduction-40"><div class="para" id="p-7339">
 <a href="chap5.html" class="internal" title="Chapter 5: Eigenvalues and eigenvectors">Chapter 5</a> demonstrated several important uses for the theory of eigenvalues and eigenvectors.  For example, knowing the eigenvalues and eigenvectors of a matrix <span class="process-math">\(A\)</span> enabled us to make predictions about the long-term behavior of dynamical systems in which some initial state <span class="process-math">\(\xvec_0\)</span> evolves according to the rule <span class="process-math">\(\xvec_{k+1} = A\xvec_k\text{.}\)</span>
-</div> <div class="para" id="p-7330">We can’t, however, apply this theory to every problem we might meet.  First, eigenvectors only exist when the matrix <span class="process-math">\(A\)</span> is square, and we have seen situations, such as the least squares problems in <a href="sec-least-squares.html" class="internal" title="Section 6.5: Least squares methods">Section 6.5</a>, where the matrices we’re interested in are not square.  Second, even when <span class="process-math">\(A\)</span> is square, there may not be a basis for <span class="process-math">\(\real^m\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{,}\)</span> an important condition we required for some of our work.</div> <div class="para" id="p-7331">This chapter introduces singular value decompositions, whose singular values and singular vectors may be viewed as a generalization of eigenvalues and eigenvectors.  In fact, we will see that every matrix, whether square or not, has a singular value decomposition and that knowing it gives us a great deal of insight into the matrix.  It’s been said that having a singular value decomposition is like looking at a matrix with X-ray vision as the decomposition reveals essential features of the matrix.</div></section><nav class="summary-links"><ul>
-<li><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Symmetric matrices and variance</span></a></li>
-<li><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Quadratic forms</span></a></li>
-<li><a href="sec-pca.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Principal Component Analysis</span></a></li>
-<li><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Singular Value Decompositions</span></a></li>
-<li><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Using Singular Value Decompositions</span></a></li>
+</div> <div class="para" id="p-7340">We can’t, however, apply this theory to every problem we might meet.  First, eigenvectors only exist when the matrix <span class="process-math">\(A\)</span> is square, and we have seen situations, such as the least squares problems in <a href="sec-least-squares.html" class="internal" title="Section 6.5: Least squares methods">Section 6.5</a>, where the matrices we’re interested in are not square.  Second, even when <span class="process-math">\(A\)</span> is square, there may not be a basis for <span class="process-math">\(\real^m\)</span> consisting of eigenvectors of <span class="process-math">\(A\text{,}\)</span> an important condition we required for some of our work.</div> <div class="para" id="p-7341">This chapter introduces singular value decompositions, whose singular values and singular vectors may be viewed as a generalization of eigenvalues and eigenvectors.  In fact, we will see that every matrix, whether square or not, has a singular value decomposition and that knowing it gives us a great deal of insight into the matrix.  It’s been said that having a singular value decomposition is like looking at a matrix with X-ray vision as the decomposition reveals essential features of the matrix.</div></section><nav class="summary-links"><ul>
+<li><a href="sec-variance-covariance.html" class="internal"><span class="codenumber">7.1</span> <span class="title">Sample statistics as linear algebra</span></a></li>
+<li><a href="sec-symmetric-matrices.html" class="internal"><span class="codenumber">7.2</span> <span class="title">Symmetric matrices</span></a></li>
+<li><a href="sec-quadratic-forms.html" class="internal"><span class="codenumber">7.3</span> <span class="title">Quadratic forms</span></a></li>
+<li><a href="sec-pca.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Principal Component Analysis</span></a></li>
+<li><a href="sec-svd-intro.html" class="internal"><span class="codenumber">7.5</span> <span class="title">Singular Value Decompositions</span></a></li>
+<li><a href="sec-svd-uses.html" class="internal"><span class="codenumber">7.6</span> <span class="title">Using Singular Value Decompositions</span></a></li>
 </ul></nav></section></div>
 <div class="ptx-content-footer">
-<a class="previous-button button" href="sec-least-squares.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-symmetric-matrices.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
+<a class="previous-button button" href="sec-least-squares.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-variance-covariance.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>
 </div></main>
 </div>
 <div id="ptx-page-footer" class="ptx-page-footer">

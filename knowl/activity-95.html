@@ -9,37 +9,70 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
 <article class="activity project-like"><h4 class="heading">
-<span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.2.2</span><span class="period">.</span>
+<span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.1.6</span><span class="period">.</span>
 </h4>
 <div class="para logical">
-<div class="para">Let’s look at some more examples of quadratic forms.</div>
+<div class="para">Let’s return to the demeaned dataset from the previous activity:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\Xtilde = 
+\begin{bmatrix}
+-1 \amp -1 \\ 0 \amp -1 \\ 1 \amp 2 \\
+\end{bmatrix}\text{.}
+\end{equation*}
+</div>
+<div class="para">The demeaned case vectors are</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\dtil_1=\twovec{-1}{-1},\hspace{24pt}
+\dtil_2=\twovec{0}{-1},\hspace{24pt}
+\dtil_3=\twovec{1}{2},
+\end{equation*}
+</div>
+<div class="para">and</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\Xtilde^{\transpose} = \begin{bmatrix} \dtil_1 \amp \dtil_2 \amp \dtil_3 \end{bmatrix}\text{.}
+\end{equation*}
+</div>
+<div class="para">Our goal is to compute the variance <span class="process-math">\(V_{\uvec}\)</span> in the direction defined by a unit vector <span class="process-math">\(\uvec\text{.}\)</span>
+</div>
+</div> <div class="para logical">
+<div class="para">Suppose that <span class="process-math">\(\uvec\)</span> is a unit vector.</div>
 <ol class="lower-alpha">
-<li><div class="para">Consider the symmetric matrix <span class="process-math">\(D = \begin{bmatrix}
-3 \amp 0 \\
-0 \amp -1 \\
-\end{bmatrix}
-\text{.}\)</span>  Write the quadratic form <span class="process-math">\(q_D(\xvec)\)</span> defined by <span class="process-math">\(D\)</span> in terms of the components of <span class="process-math">\(\xvec=\twovec{x_1}{x_2}\text{.}\)</span>  What is the value of <span class="process-math">\(q_D\left(\twovec2{-4}\right)\text{?}\)</span>
+<li>
+<div class="para">Compute the matrix <span class="process-math">\(S = X^{\transpose} X\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-255"><script type="text/x-sage">
+</script></pre>
+</li>
+<li><div class="para">Write an expression for <span class="process-math">\(V_\uvec\)</span> using <a href="" class="xref" data-knowl="./knowl/prop-var-of-linear-combo.html" title="Proposition 7.1.4: Variance of a linear combination">Proposition 7.1.4</a>.</div></li>
+<li><div class="para">Use the covariance matrix <span class="process-math">\(S\)</span> to find the variance <span class="process-math">\(V_{\uvec_1}\)</span> when <span class="process-math">\(\uvec_1=\twovec{1/\sqrt{5}}{2/\sqrt{5}}\text{.}\)</span>
 </div></li>
-<li><div class="para">Given the symmetric matrix <span class="process-math">\(A=\begin{bmatrix}
-2 \amp 5 \\
-5 \amp -3
-\end{bmatrix}
-\text{,}\)</span> write the quadratic form <span class="process-math">\(q_A(\xvec)\)</span> defined by <span class="process-math">\(A\)</span> and evaluate <span class="process-math">\(q_A\left(\twovec{2}{-1}\right)\text{.}\)</span>
+<li><div class="para">Use the covariance matrix to find the variance <span class="process-math">\(V_{\uvec_2}\)</span> when <span class="process-math">\(\uvec_2=\twovec{-2/\sqrt{5}}{1/\sqrt{5}}\text{.}\)</span>
 </div></li>
-<li><div class="para">Suppose that <span class="process-math">\(q\left(\twovec{x_1}{x_2}\right) = 3x_1^2
-- 4x_1x_2 + 4x_2^2\text{.}\)</span>  Find a symmetric matrix <span class="process-math">\(A\)</span> such that <span class="process-math">\(q\)</span> is the quadratic form defined by <span class="process-math">\(A\text{.}\)</span>
-</div></li>
-<li><div class="para">Suppose that <span class="process-math">\(q\)</span> is a quadratic form and that <span class="process-math">\(q(\xvec) = 3\text{.}\)</span>  What is <span class="process-math">\(q(2\xvec)\text{?}\)</span> <span class="process-math">\(q(-\xvec)\text{?}\)</span> <span class="process-math">\(q(10\xvec)\text{?}\)</span>
-</div></li>
-<li><div class="para">Suppose that <span class="process-math">\(A\)</span> is a symmetric matrix and <span class="process-math">\(q_A(\xvec)\)</span> is the quadratic form defined by <span class="process-math">\(A\text{.}\)</span>  Suppose that <span class="process-math">\(\xvec\)</span> is an eigenvector of <span class="process-math">\(A\)</span> with associated eigenvalue -4 and with length 7.  What is <span class="process-math">\(q_A(\xvec)\text{?}\)</span>
-</div></li>
+<li><div class="para">Since <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> are orthogonal, verify that the sum of <span class="process-math">\(V_{\uvec_1}\)</span> and <span class="process-math">\(V_{\uvec_2}\)</span> gives the total variance.</div></li>
+<li><div class="para">Now recompute <span class="process-math">\(V_{\uvec_1}\)</span>  and <span class="process-math">\(V_{\uvec_2}\)</span> by computing the squared lengths of the three projections and summing.</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" class="answer-knowl original" data-knowl="./knowl/answer-301-hidden.html" title="Answer 7.2.2.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-380-hidden.html" title="Solution 7.2.2.1"><span class="type">Solution</span><span class="period">.</span></a>
-</div></article><span class="incontext"><a href="sec-quadratic-forms.html#activity-95" class="internal">in-context</a></span>
+<a href="" class="answer-knowl original" data-knowl="./knowl/answer-287-hidden.html" title="Answer 7.1.6.1"><span class="type">Answer</span><span class="period">.</span></a><a href="" class="solution-knowl original" data-knowl="./knowl/solution-369-hidden.html" title="Solution 7.1.6.1"><span class="type">Solution</span><span class="period">.</span></a>
+</div></article><span class="incontext"><a href="sec-variance-covariance.html#activity-95" class="internal">in-context</a></span>
 </body>
 </html>

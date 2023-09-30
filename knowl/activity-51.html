@@ -54,6 +54,7 @@ sagecell.makeSagecell({
 <div class="para">We can find the characteristic polynomial of a <code class="code-inline tex2jax_ignore">sympy.Matrix</code> <code class="code-inline tex2jax_ignore">A</code> by writing <code class="code-inline tex2jax_ignore">A.charpoly('lambda')</code>.  Notice that we have to give Python a variable in which to write the polynomial;  here, we use <code class="code-inline tex2jax_ignore">lambda</code> though <code class="code-inline tex2jax_ignore">x</code> works just as well.</div>
 <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-152"><script type="text/x-sage">import numpy as np
 import sympy
+import scipy
 </script></pre>
 <pre class="ptx-sagecell sagecell-python" id="sage-153"><script type="text/x-sage">A = np.array([[-3,1],[0,-3]])
 M = sympy.Matrix(A)
@@ -83,7 +84,7 @@ evals, evecs = scipy.linalg.eig(A)
 print(evals); print()
 print(evecs.round(10))
 </script></pre>
-<div class="para">The first item in the tuple returned gives the eigenvalues, the second the eigenvalues.</div>
+<div class="para">The first item in the tuple returned gives the eigenvalues, the second the eigenvectors.</div>
 </li>
 <li><div class="para logical">
 <div class="para">When working with decimal entries, which are called <dfn class="terminology">floating point numbers</dfn> in computer science, we must remember that computers perform only approximate arithmetic. This can be a problem when we wish to find the eigenvectors of a matrix.  To illustrate, consider the matrix <span class="process-math">\(A=\left[\begin{array}{rr}
