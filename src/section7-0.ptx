@@ -1,0 +1,1589 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<section xml:id="sec-variance-covariance"
+	 xmlns:xi="http://www.w3.org/2001/XInclude">
+  <title> Sample statistics as linear algebra </title>
+
+  <introduction>
+    <p>
+	  If you have worked with data before, you have likely encountered some of the more common sample statistics:
+	  <ul>
+		<li>
+			<title>Sample mean</title>
+			<p>
+				<me>\overline{x} = \frac{1}{n} \sum x_i</me>.
+			</p>
+		</li>
+		<li>
+			<title>Sample variance</title>
+			<p>
+				<me>s_x^2 = \frac{1}{n-1} \sum (x_i - \overline{x})^2</me>.
+			</p>
+		</li>
+		<li>
+			<title>Sample covariance</title>
+			<p>
+				<me>s_{xy} = \frac{1}{n-1} \sum (x_i - \overline{x})(y_i - \overline{y})</me>.
+			</p>
+		</li>
+	  </ul>
+	  Each of these can be interpreted as vector and matrix operations, 
+	  and doing so can help us gain some additional insights.
+    </p>
+
+	<p>
+		Throughout this section we will use the typical convention of
+		letting <m>n</m> be the number of cases or subjects in a data set and
+		representing a data set with <m>n</m> cases or subjects and <m>p</m>
+		variables as an <m>n \by p</m> matrix. 
+		<idx><h>column-variate form</h></idx>
+		<idx><h>row-variate form</h></idx>
+		This arrangment is sometimes
+		called <term>column-variate form</term> because the variables are in columns.
+		This is by far the more common way to represent data as a matrix in data
+		science, but you may also encounter matrices in <term>row-variate form</term>.
+		A row-variate matrix is just the transpose of a column-variate matrix: 
+		Cases are in the columns, variables in the rows.
+	</p>
+      
+  </introduction>
+
+  <subsection xml:id="subsec-sample-mean">
+    <title> Sample mean </title>
+
+	<p>
+	If we re-express the sample mean using s a sum of products
+		<me>\overline{x} = \frac{1}{n} \sum x_i = \frac{1}{n} \sum 1 x_i</me>,
+	then we can intrepret the sum of products as a dot product, and equivalently as a 
+	matrix product
+		<me>\overline{x} 
+			= \frac{1}{n} \sum 1 x_i 
+			= \frac{1}{n} \onevec \cdot \xvec 
+			= \frac{1}{n} \onevec^{\transpose} \xvec 
+
+		</me>.
+		Here we are expressing the data variable as a vector 
+		<me>\xvec = \fourvec{x_1}{x_2}{\vdots}{x_n}</me> 
+		and using <m>\onevec</m> to represent the <m>n</m>-dimensional vector consisting entirely of 1's:
+		<me>
+			\onevec = \fourvec11{\vdots}1
+		</me>.
+	</p>
+
+	<p>
+		It is often convenient to work with <term>demeaned</term> data, also
+		called <term>deviation scores</term>.  
+		<idx><h>deviation score</h><see>demean</see></idx>
+		<idx><h>demean</h></idx>
+		We obtained a demeaned vector by
+		subtracting the mean from each entry in the vector. 
+		<me>
+			\xtilde = \xvec - \overline{x} \onevec = \xvec - \xmean
+		</me>.
+		Take note of the distinction between the scalar <m>\overline{x}</m> and the vector 
+		<me>
+			\xmean = \overline{x} \onevec = \fourvec{\overline{x}}{\overline{x}}{\vdots}{\overline{x}}
+		</me>.
+	</p>
+
+
+	<activity>
+		<statement>
+		<p>
+		A little matrix algebra shows that the vector of demaned values is a linear 
+		transformation of the original data <m>\xvec</m>:  
+		<md>
+			<mrow> \xtilde \amp = \xvec - \onevec \xbar </mrow>
+			<mrow> \amp = \xvec - \onevec \frac{\onevec^{\transpose} \xvec}{n}</mrow>
+			<mrow> \amp = \xvec - \frac{\onevec \onevec^{\transpose}}{n} \xvec</mrow>
+			<mrow> \amp = \left(I - \frac{\onevec \onevec^{\transpose}}{n} \right) \xvec</mrow>
+			<mrow> \amp = \left(I - P \right) \xvec</mrow>
+			<mrow> \amp = Q \xvec</mrow>
+		</md>
+		where  
+		<md>
+			<mrow> P \amp = \frac{\onevec \onevec^{\transpose}}{n}</mrow>
+			<mrow> Q \amp = I - P </mrow>
+		</md>.
+		</p>
+
+			<p>
+				<ol>
+					<li>
+						<p>
+							What is the shape of the matrix <m>P</m> and what the entries in <m>P</m>?
+						</p>
+					</li>
+					<li>
+						<p>
+							What are the entries in the matrix <m>Q</m>? Is <m>Q</m> symmetric?
+						</p>
+					</li>
+					<li>
+						<p>
+							<idx><h>idempotent</h></idx>
+							Show that <m>P^2 = P</m>.  Such a matrix is called <term>idempotent</term>.
+							Why must an idempotent matrix be square?
+						</p>
+					</li>
+					<li>
+						<p>
+							Show that if <m>A</m> is idempotent, then <m>I - A</m> is also idempotent.
+							This implies that <m>Q</m> is also idempotent.
+							What does that fact that <m>Q</m> is idempotent tell
+							you about the demeaning operation?
+						</p>
+					</li>
+					<li>
+						<p>
+							Show that <m>Q \onevec = \zerovec</m>.
+						</p>
+					</li>
+					<li>
+						<p>
+							Are the columns of  <m>Q</m> orthogonal?
+						</p>
+					</li>
+					<li>
+						<p>
+							Is <m>Q</m> an orthogonal matrix?
+						</p>
+					</li>
+				</ol>
+			</p>
+		</statement>
+		<solution>
+			<p>
+				<ol>
+					<li>
+						<p>
+							<m>P</m> is an <m>n \by n</m> matrix and every entry is a <m>\frac{1}{n}</m>.
+						</p>
+					</li>
+					<li>
+						<p>
+							The diagonal entries are <m> 1 - \frac{1/n} = \frac{n-1}{n}</m>.
+							The off-diagonal entries are <m>-\frac{1}{n}</m>. So <m>Q</m> is symmetric.
+						</p>
+					</li>
+					<li>
+						<p>
+							<me>
+								P^2 
+								= \frac{\onevec \onevec^{\transpose} \onevec \onevec^{\transpose}}{n^2}
+								= \frac{\onevec (\onevec^{\transpose} \onevec) \onevec^{\transpose}}{n^2}
+								= \frac{\onevec n \onevec^{\transpose}}{n^2}
+								= \frac{\onevec \onevec^{\transpose}}{n}
+								= P
+							</me>.
+						</p>
+					</li>
+					<li>
+						<p>
+							If <m>A</m> is idempotent, then 
+							<me>
+								(I - A)(I-A) 
+								= I^2 - IA - AI + A^2 
+								= I - A - A + A 
+								= I - A
+							</me>.
+							Since <m>Q = I - P</m>, <m>Q</m> is idempontent.  This means that 
+							<m> \widetile{\left( \xtidle \right)} = \xtilde</m>. That is,
+							demeaning an alredy demeaned vector doesn't change it.
+						</p>
+					</li>
+					<li>
+						<p>
+							<m>
+								P \onevec = 
+								1 \threevec{1/n}{\vdots}{1/n} +  
+								1 \threevec{1/n}{\vdots}{1/n} +  
+								\cdots
+								1 \threevec{1/n}{\vdots}{1/n} 
+								=
+								\threevec{n/n}{\vdots}{n/n}
+								= \onevec
+							</m>,
+							So <m>Q \onevec = (I - P)\onvec = \onvec - P\onvec = \onevec - \onevec = \zerovec</m>.
+						</p>
+					</li>
+					<li>
+						<p>
+							If <m> i \neq j</m>, then 
+							<m>
+								Q_{i \cdot} \cdot Q_{j \cdot} 
+								=  2 \frac{n-1}{n} \frac{-1}{n} + (n-2) \frac{-1}{n} \frac{-1}{n} 
+								= \frac{2 (1-n)}{n^2} + \frac{n-2}{n^2} 
+								= \frac{2 - 2n + n - 2}{n^2} = \frac{-1}{n} \neq 0
+							</m>,
+							so the columns of <m>Q</m> are not quite orthogonal.  
+							(They are pretty close to orthogonal when <m>n</m> is large.)
+						</p>
+					</li>
+					<li>
+						<p>
+							No. The columns are not orthogonal.  The columns are also not unit vectors.
+							So this is an instance where we are using the letter <m>Q</m> but the matrix is <em>not</em> 
+							orthogonal.
+						</p>
+					</li>
+				</ol>
+			</p>
+		</solution>
+	</activity>
+
+	<example>
+		<statement>
+			<p>
+		If <m>n = 4</m>, then matrix 
+		<m>Q = \begin{bmatrix}
+				 3/4 \amp -1/4 \amp -1/4 \amp -1/4 \\
+				-1/4 \amp  3/4 \amp -1/4 \amp -1/4 \\
+				-1/4 \amp -1/4 \amp  3/4 \amp -1/4 \\
+				-1/4 \amp -1/4 \amp -1/4 \amp  3/4 \\
+				\end{bmatrix}
+		</m> perfoms the demeaning operation.  For example, let's have Python compute  
+		<me>Q \fourvec2105</me> 
+			</p>
+			
+			<sage language="python" auto-evaluate="yes">
+			<input>
+import numpy as np 
+			</input>
+		</sage>
+
+		<sage language="python">
+			<input>
+from pprint import pprint
+Q = np.eye(4) - (np.ones((4,4)) / 4)
+x = nd.array([2,1,0,5])
+
+pprint("Q", "\n", Q)
+pprint("Q @ x", "\n", Q @ x)
+pprint("x - mean of x", "\n", x - x.mean())
+			</input>
+		</sage>
+		</statement>
+	</example>
+
+	<note>
+		<p>
+		While expressing <m>\xvec - \xbar</m> as <m>Q \xvec</m> is useful to
+		helping us understand the demaining operation, this would not be a good
+		way to compute <m>\xvec - \xbar</m>.  The matrix <m>Q</m> could be very
+		large and only contains two different values, so there are more
+		effiicent ways to perform this calculation on large data.
+		</p>
+	</note>
+
+	<p>
+		Not only is <m>Q \xvec = \xtilde</m> for any vector <m>\xvec</m>, we can apply <m>Q</m> to 
+		an entire data matrix (in column-variate form) to get 
+		<me>
+			\Xtilde = Q X = \begin{bmatrix} Q X_{\cdot 1} \amp Q X_{\cdot 2} \amp \cdots \amp Q X_{\cdot n} \end{bmatrix} 
+		</me>.
+		<notation>
+			<usage><m>X_{i \cdot}</m></usage>
+		  <description>The <m>i</m>th row of a matrix <m>X</m></description>
+		</notation>
+		<notation>
+			<usage><m>X_{\cdot j}</m></usage>
+		  <description>The <m>j</m>th column of a matrix <m>X</m></description>
+		</notation>
+		Here we are using the handy notation <m>X_{\cdot j}</m> to represent the <m>i</m>th column of <m>X</m>.
+		We can use <m> X_{i \cdot}</m> to represent the <m>i</m>th row of <m>X</m>.
+	</p>
+
+ </subsection>
+
+  <subsection xml:id="subsec-variance-covariance">
+    <title> Sample variance and covariance</title>
+
+	<p>
+		Now let's turn our attention to the sample variance (and then to covariance).
+		Once again, we can write a sum of products as a dot product and re-express 
+		the dot product as as matrix multiplication.
+		<md>
+			<mrow>
+			s_x^2 \amp = \frac{1}{n-1} \sum (x_i - \overline{x})^2
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum (\xvec - \xbar) \cdot (\xvec - \xbar)
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum \xtilde \cdot \xtilde
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum \xtilde^{\transpose} \xtilde
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum (Q \xvec)^{\transpose} Q\xvec  
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum \xvec^{\transpose} Q^{\transpose} Q\xvec  
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum \xvec^{\transpose} Q\xvec  
+			</mrow>
+		</md>,
+		where <m>Q</m> is the demaining matrix as defined in <xref ref="subsec-sample-mean"/>.
+		The last simplification follows because <m>Q</m> is both symmetric and idempotent.
+	</p>
+
+	<activity>
+		<statement>
+						<p> Show that we get a similar result for covariance: <md>
+									<mrow>
+										s_{xy} \amp = \frac{1}{n-1} \sum (x_i - \overline{x})(y -
+								\overline{y})
+									</mrow>
+									<mrow>
+										\amp = \frac{1}{n-1} \sum \xvec^{\transpose} Q\yvec
+									</mrow>
+								</md>.
+						</p>
+		</statement>
+		<solution>
+			<p>
+				<ol>
+				<li>
+					<p>
+				The algebra is essentially identical to the case for variance.
+		<md>
+			<mrow>
+			s_{xy} \amp = \frac{1}{n-1} \sum (x_i - \overline{x})(y - \overline{y})
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum (\xvec - \xbar) \cdot (\yvec - \ybar)
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum \xtilde \cdot \ytilde
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum \xtilde^{\transpose} \ytilde
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum (Q \xvec)^{\transpose} Q\yvec  
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum \xvec^{\transpose} Q^{\transpose} Q\yvec  
+			</mrow>
+			<mrow>
+			      \amp = \frac{1}{n-1} \sum \xvec^{\transpose} Q\yvec  
+			</mrow>
+		</md>.
+			</p>
+				</li>
+			</ol>
+			</p>
+		</solution>
+	</activity>
+
+	<note>
+		<p>
+			<m>s_{x}^2 = s_{xx}</m>, so the variance of a vector is the covariance of that vector 
+			with itself.  That is, variance is a special case of covariance.
+		</p>
+	</note>
+
+	<p>
+		Given a column-variate data matrix <m>X</m>, we can compute all the covariances simultaneously as a 
+		matrix operation:
+		<me>
+			S = S_{XX} 
+			= \frac{1}{n-1} \Xtilde^{\transpose} Q \Xtilde
+			= \frac{1}{n-1} X^{\transpose} Q Q X
+			= \frac{1}{n-1} X^{\transpose} Q X
+		</me>.
+		<idx><h>variance-covariance matrix</h><see>covariance matrix</see></idx>
+		<idx><h>covariance matrix</h></idx>
+		The resulting matrix <m>S</m> (sometimes denoted <m>\hat \Sigma</m>) is called the 
+		<term>variance-covariance matrix</term> or simply the <term>covariance matrix</term> 
+		(since the variance is a covariance).
+		<m>S_{XY} = \frac{1}{n-1} X^{\transpose} Q Y</m> can be defined similarly to compute  
+		the covariances of each column of <m>X</m> with each column of <m>Y</m>, assuming both matrices  
+		have the same number of rows.
+	</p>
+
+	<activity xml:id="activity-var-of-linear-combo">
+		<statement>
+			<p>
+		Supose we have an <m>n \by p</m> column-variate data matrix <m>X</m> and
+		wish to compute a new column (variable) <m>\yvec</m> that is a linear
+		combination of the columns in <m>X</m>.  That is <m>\yvec = X \bvec</m>
+		for some <m>p</m>-dimensional vector <m>b</m>.
+			</p>
+			<p>
+				<ol>
+
+					<li>
+						<p>
+						Show that <m>\ytilde = \Xtilde \bvec</m>.	 
+						</p>
+					</li>
+					<li>
+						<p>
+							Why is <m>s_y^2 = s_{\tilde{y}}^2</m>?
+						</p>
+					</li>
+					<li>
+						<p>
+							Show that <m>s_{y}^2 = \bvec^{\transpose} S_{XX} \bvec</m>.
+						</p>
+					</li>
+				</ol>
+			</p>
+		</statement>
+		<solution>
+			<p>
+				<ol>
+
+					<li>
+						<p>
+							<m>\ytilde = Q \yvec = Q X \bvec = \Xtilde \bvec</m>.
+						</p>
+					</li>
+					<li>
+						<p>
+							We can again use the idempotency of <m>Q</m>:
+							<m>
+								s_y^2 
+								= \frac{1}{n-1} \ytilde^{\transpose} \ytilde 
+								= \frac{1}{n-1} \yvec^{\transpose} Q^{\transpose} Q \yvec 
+								= \frac{1}{n-1} \yvec^{\transpose} Q^{\transpose} Q^{\transpose} Q Q \yvec 
+								= \frac{1}{n-1} \ytilde^{\transpose} Q^{\transpose} Q \ytilde 
+								s_{\tilde{y}}^2 
+							</m>.
+						</p>
+					</li>
+					<li>
+						<p>
+							<m>
+								s_y^2 
+								= \frac{1}{n-1} \ytilde^{\transpose} \ytilde 
+								= \frac{1}{n-1} \bvec^{\transpose} \Xtilde^{\transpose} \Xtilde \bvec 
+								= \bvec^{\transpose} \left( \frac{1}{n-1} \Xtilde^{\transpose} \Xtilde \right) \bvec 
+								= \bvec^{\transpose} S_{XX} \bvec 
+							</m>.
+						</p>
+					</li>
+				</ol>
+			</p>
+		</solution>
+	</activity>
+
+	<p>
+		The last statement of <xref ref="activity-var-of-linear-combo" /> is important enough to isolate as a 
+			proposition.
+	</p>
+
+	<proposition xml:id="prop-var-of-linear-combo">
+		<title>Variance of a linear combination</title>
+		<statement>
+			<p>
+				If <m>\yvec = X \bvec</m>, then 
+				<me>s_{y}^2 
+					= \bvec^{\transpose} S_{XX} \bvec
+					= \bvec \cdot (S_{XX} \bvec)
+				</me>.
+			</p>
+		</statement>
+	</proposition>
+
+	<activity>
+		<statement>
+			<p>
+				How do we know that <m>S_{XX}</m> will be symmetric?
+			</p>
+		</statement>
+		<solution>
+			<p>
+				<m>S_{XX} = (QX)^{\transpose} (QX) </m>, so <m>S_{XX}</m> is symmtric by 
+				<xref ref="proposition-properties-of-transpose"/>.
+			</p>
+		</solution>
+
+	</activity>
+
+	<p>
+		<xref ref="prop-var-of-linear-combo"/> tells us that we can compute the variance of a linear 
+		combination of vectors directly from the covariance matrix for those vectors and the weights 
+		used in the linear combination.
+	</p>
+
+	<example>
+		<statement>
+			<p>
+				Suppose <m>\zvec = \xvec - \yvec</m> and the covariance matrix for <m>\xvec</m> and <m>\yvec</m> is  
+				<me>
+					\begin{bmatrix}
+					7 \amp 2 \\ 
+					2 \amp 5 \\
+					\end{bmatrix}
+				</me>.
+				What is the variance of <m>\zvec</m>?
+			</p>
+		</statement>
+		<solution>
+			<p>
+				<me>s_{z} = 
+					\begin{bmatrix} 1 \amp -1\end{bmatrix} 
+					\begin{bmatrix} 7 \amp 2 \\ 2 \amp 5\end{bmatrix} 
+					\begin{bmatrix} 1 \\ -1\end{bmatrix} 
+					= 
+					\begin{bmatrix} 8 \end{bmatrix} 
+				</me>
+			</p>
+			<sage language="python">
+				<input>
+b = np.array([1, -1])
+S = np.array([ [7,2], [2, 5] ])
+print(np.transpose(b) @ S @ b)					
+				</input>
+				<output>
+8
+				</output>
+			</sage>
+		</solution>
+	</example>
+
+
+    <p>
+		So far, we have taken a very algebraic approach. And linear algebra does make it easy  
+		to work with means and (co)variances and to learn about them.  But it can be good to 
+		visualize these things as well.
+    </p>
+
+    <activity xml:id="activity-visual-variance">
+      <statement>
+	<p>
+	  We'll begin with a very small, artificial data set. This data set has three subjects.  For each subject, 
+	  two measurements are recorded.  We can gather all of these data into a <m>3\by2</m> matrix 
+	  <me>
+		X = \begin{bmatrix}\xvec \amp \yvec\end{bmatrix}
+		= 
+		\begin{bmatrix} 1 \amp 1 \\ 2 \amp 1 \\ 3 \amp 4 \\ \end{bmatrix}
+	  </me>.
+	  <m>X_{i \cdot}</m>, the <m>i</m>th row of <m>X</m> represents the <m>i</m>th case or subject.
+	  <m>X_{\cdot j}</m>, the <m>j</m>th column of <m>X</m> represents the <m>j</m>th variable.
+	  <ol marker="a.">
+	    <li>
+	      <p>
+			It is typical to plot the <em>rows</em> of <m>X</m> (columns of <m>X^{\transpose}</m>) 
+			as a scatter plot in <term>case space</term>. 
+			For each case -- i.e., for each row of <m>X</m> -- 
+			plot the <m>x</m> and <m>y</m> values as a dot in <xref ref="fig-variance-data" />.
+		  </p>
+	      <figure xml:id="fig-variance-data">
+		<caption>
+		  Plot the data and their centroid here.
+		</caption>
+		<sidebyside width="50%">
+		  <image source="images/empty-4" />
+		</sidebyside>
+	      </figure>
+		</li>
+
+
+		<li>
+			<p>
+				If we compute the mean of each column we get another row vector called the 
+				<term>centroid</term> or mean.  We will denote it as 
+				<m>\overline{X} = \begin{bmatrix} \overline{x} \amp \overline{y}\end{bmatrix}</m>.
+				Note that we can write this as  
+				<me>
+					\overline{X} = \frac{1}{3}\sum_{i = 1}^3 X_{i \cdot} = \frac13 ([1 1] + [2 1] + [3 4])
+				</me>.
+				In Python, we would calculate this as <c>X.mean(axis = 0)</c>.
+			</p>
+			<p>
+				Compute the centroid and add it as another dot in <xref ref="fig-variance-data" />.
+	      </p>
+
+	    </li>
+
+	    <li>
+	      <p>
+		Notice that the centroid lies in the center of the
+		data so we can measure the spread of the entire data set by measuring by how
+		far away the points are from the centroid.  To
+		simplify our calculations, find the demeaned data
+		<me>
+		  \tilde{X} = \begin{bmatrix} \xvec - \overline{\xvec} \amp \yvec - \overline{\yvec} \end{bmatrix}
+		</me>.
+		</p>
+		<p>
+		Plot the demeaned data and their centroid in <xref ref="fig-variance-demeaned" />.
+		Why is the centroid where it is?
+	      </p>
+	      <figure xml:id="fig-variance-demeaned">
+		<caption>
+		  Plot the demeaned data and their centroid here.
+		</caption>
+		<sidebyside width="50%">
+		  <image source="images/empty-4" />
+		</sidebyside>
+	      </figure>
+	    </li>
+
+	    <li>
+	      <p>
+		Now that the data have been demeaned, we will define the
+		total variance of <m>X</m> as the average of the squares of the
+		distances of the dots in our plot from the origin; 
+		that is, the total variance is
+		<me>
+		  V = \frac 1n \sum_{i=1}^n |\Xtilde_{i\cdot}^{\transpose}|^2
+		</me>.
+		Find the total variance <m>V</m> for our set of three
+		points. 
+		</p>
+	    </li>
+
+		<li>
+			<p>
+		To cut down on notation a bit, let's define <m>\dtil_i = \Xtilde_{i \cdot}</m>, so  
+		<me>
+		  V = \frac 1n \sum_{i=1}^n |\dtil|^2
+		</me>.
+		Notice that each <m>\dtil_i</m> is a column vector, but it is associated with a 
+		<em>row</em> of <m>X</m>. We will refer to these as the <em>demeaned case vectors</em>.
+	      </p>
+		<p>
+			Write down <m>\dtil_1, \dtil_2, \dtil_3</m>. 
+		</p>
+	    </li>
+
+	    <li>
+	      <p>
+		Now plot the projections of the demeaned case vectors <m>\dtil_1, \dtil_2, \dtil_3</m> 
+		onto the <m>x</m> and <m>y</m> axes using 
+		<xref ref="fig-variance-projection" /> and find the
+		variances <m>V_x</m> and <m>V_y</m> of the projected
+		points by computing the squares of the three distances and . 
+	    adding them together. </p>
+
+	      <figure xml:id="fig-variance-projection">
+		<caption>
+		  Plot the projections of the demeaned case vectors onto the
+		  <m>x</m> and <m>y</m> axes.
+		</caption>
+		<sidebyside widths="45% 45%">
+		  <image source = "images/x-axis-4" />
+		  <image source = "images/y-axis-4" />
+		</sidebyside>
+	      </figure>
+	    </li>
+
+	    <li>
+	      <p>
+		Which of the variances, <m>V_x</m> and <m>V_y</m>, is
+		larger and how does the plot of the projected points
+		explain your response?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		What do you notice about the relationship between
+		<m>V</m>, <m>V_x</m>, and <m>V_y</m>?  How does the
+		Pythagorean theorem explain this relationship?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Plot the projections of the demeaned case vectors onto the lines defined 
+		by vectors <m>\vvec_1=\twovec11</m> and
+		<m>\vvec_2=\twovec{-1}1</m> using <xref
+		ref="fig-variance-projection-2" /> and
+		find the variances
+		<m>V_{\vvec_1}</m> and <m>V_{\vvec_2}</m> of these
+		projected case vectors.
+	      </p>
+	      
+	      <figure xml:id="fig-variance-projection-2">
+		<caption>
+		    Plot the projections of the deameaned case vectors onto the
+		    lines defined by <m>\vvec_1</m> and <m>\vvec_2</m>.
+		</caption>
+		<sidebyside widths="50%">
+		  <image source = "images/empty-4-diag" />
+		</sidebyside>
+	      </figure>
+	    </li>
+
+	    <li>
+	      <p>
+		What is the relationship between the total variance
+		<m>V</m> and <m>V_{\vvec_1}</m> and <m>V_{\vvec_2}</m>?
+		How does the Pythagorean theorem explain your response?
+	      </p>
+	    </li>
+		<li>
+			<p>
+				Verify that you get the same results if you compute  
+				<m>V_x</m>,
+				<m>V_y</m>,
+				<m>V_\vvec_1</m>, and
+				<m>V_\vvec_2</m> using <xref ref="prop-var-of-linear-combo" />
+			</p>
+		</li>
+	  </ol>
+	</p>
+      </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>\overline{X} = \twovec22</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<me>
+			\Xtilde = 
+			\begin{bmatrix}
+			-1 \amp -1 \\ 0 \amp -1 \\ 1 \amp 2 \\
+			\end{bmatrix}
+		</me>.
+		  <!-- \dtil_1=\twovec{-1}{-1},\hspace{24pt}
+		  \dtil_2=\twovec{0}{-1},\hspace{24pt}
+		  \dtil_3=\twovec{1}{2}\text{.} -->
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V=4</m>.
+	      </p>
+	    </li>
+		<li>
+			<p>
+				<me>
+	    \dtil_1=\twovec{-1}{-1},\hspace{24pt}
+	    \dtil_2=\twovec{0}{-1},\hspace{24pt}
+	    \dtil_3=\twovec{1}{2}
+				</me>.
+			</p>
+		</li>
+	    <li>
+	      <p>
+		<m>V_x = 1</m> and <m>V_y=3</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V=V_x+V_y</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_{\vvec_1} = 7/2</m>
+	      </p>
+	      <p>
+		<m>V_{\vvec_2} = 1/2</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V = V_{\vvec_1} + V_{\vvec_2}</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+		
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The centroid is <m>\overline{X} = \twovec22</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The demeaned data are
+		<me>
+			\Xtilde = 
+			\begin{bmatrix}
+			-1 \amp -1 \\ 0 \amp -1 \\ 1 \amp 2 \\
+			\end{bmatrix}
+		</me>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The total variance is <m>V=8/2 = 4</m>.
+	      </p>
+	    </li>
+		<li>
+			<p>
+				<me>
+	    \dtil_1=\twovec{-1}{-1},\hspace{24pt}
+	    \dtil_2=\twovec{0}{-1},\hspace{24pt}
+	    \dtil_3=\twovec{1}{2}
+				</me>.
+				
+			</p>
+		</li>
+	    <li>
+	      <p>
+		We find <m>V_x = 2/2 = 1</m> and <m>V_y=3</m>.  Notice
+		that <m>V_y</m> is larger because the points are more
+		spread out in the vertical direction.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have <m>V=V_x+V_y</m> due to the Pythagorean
+		theorem.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The points projected onto the line defined by
+		<m>\vvec_1</m> are <m>\twovec{-1}{-1}</m>,
+		<m>\twovec{-1/2}{-1/2}</m>, and
+		<m>\twovec{3/2}{3/2}</m>.  This gives the variance
+		<m>V_{\vvec_1} = 7/2</m>.
+	      </p>
+	      <p>
+		The points projected onto the line defined by
+		<m>\vvec_2</m> are <m>\twovec{0}{0}</m>,
+		<m>\twovec{1/2}{-1/2}</m>, and
+		<m>\twovec{-1/2}{1/2}</m>.  This gives the variance
+		<m>V_{\vvec_2} = 1/2</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Once again, <m>V = V_{\vvec_1} + V_{\vvec_2}</m>
+		because of the Pythagorean theorem.
+	      </p>
+	    </li>
+		<li>
+			<p>
+				<m>
+					V_{\vvec_1} 
+					= \twovec{\frac{1}{\sqrt 2}}{\frac{1}{\sqrt 2}} \cdot (S\twovec{\frac{1}{\sqrt 2}}{\frac{1}{\sqrt 2}} )
+					= 7/2
+				</m>.
+				The others can be checked similarly.
+			</p>
+			<sage>
+				<input>
+import numpy as np
+X = np.column_stack(((1,2,3), (1,1,4)))
+X = X - X.mean(axis = 0)
+n = X.shape[0]; p = X.shape[1]
+print(X); print()
+
+print(np.cov(X, rowvar = False)); print()
+S = 1/(n-1) * np.transpose(X) @ X
+print(S); print()
+
+v1 = np.array((1,1))
+v2 = np.array((1, -1))
+e1 = np.eye(p)[0,:]
+e2 = np.eye(p)[1,:]
+u1 = w1 / np.linalg.norm(w1)
+u2 = w2 / np.linalg.norm(w2)
+print(e1 @ S @ e1, e2 @ S @ e2, u1 @ S @ u1, u2 @ S @ u2)
+				</input>
+				<output>
+[[-1. -1.]
+ [ 0. -1.]
+ [ 1.  2.]]
+
+[[1.  1.5]
+ [1.5 3. ]]
+
+[[1.  1.5]
+ [1.5 3. ]]
+
+1.0 3.0 3.500000000000001 0.5
+				</output>
+			</sage>
+			
+		</li>
+	  </ol>
+	</p>
+      </solution>
+
+    </activity>
+
+    <p>
+      As <xref ref="activity-visual-variance" /> suggests, the variance enjoys an 
+	  additivity property.  
+	  Consider, for instance, the situation where we have <m>p=2</m> variables
+	  measured for each of <m>n</m> cases, and suppose that the demeaned data
+	  are
+      <m>\Xtilde =\begin{bmatrix}\xtilde \amp \ytilde \end{bmatrix}</m>.  
+	  For the <m>i</m> row of <m>X</m> we get
+      <me>
+	|\dtil{i}|^2 = \xtilde_{i}^2 + \ytilde_{i}^2 
+      </me>.
+      If we take the average over all the cases, we find that the
+      total variance <m>V</m> is the sum of the variances in the
+      <m>x</m> and <m>y</m> directions:
+      <md>
+	<mrow>
+	  \frac1{n-1} \sum_i |\dtil{i}|^2 \amp =
+	  \frac1{n-1} \sum_i \xtilde^2 +
+	  \frac1{n-1} \sum_i \ytilde^2 
+	</mrow>
+	<mrow>
+	  V \amp = V_x + V_y.
+	</mrow>
+      </md>
+    </p>
+
+    <p>
+      More generally, suppose that we have an orthonormal basis
+      <m>\uvec_1</m> 
+      and <m>\uvec_2</m>.  If we project the demeaned points onto the
+      line defined by <m>\uvec_1</m>, we obtain the points
+      <m>(\dtil_j\cdot\uvec_1)\uvec_1</m> so that
+      <me>
+	V_{\uvec_1} = \frac1{n-1}\sum_j
+	~|(\dtil_j\cdot\uvec_1)~\uvec_1|^2 =
+	\frac1{n-1}~(\dtil_j\cdot\uvec_1)^2.
+      </me>
+    </p>
+
+    <p>
+      For each of our demeaned case vectors, the Projection Formula
+      tells us that
+      <me>
+	\dtil_j = (\dtil_j\cdot\uvec_1)~\uvec_1 + 
+	(\dtil_j\cdot\uvec_2)~\uvec_2.
+      </me>
+      We then have
+      <me>
+	|\dtil_j|^2 = \dtil_j\cdot\dtil_j =
+	(\dtil_j\cdot\uvec_1)^2 + (\dtil_j\cdot\uvec_2)^2
+      </me>
+      since <m>\uvec_1\cdot\uvec_2 = 0</m>.  When we average over all
+      the demeaned case vectors , we find that the total variance <m>V</m> is the
+      sum of the variances in the <m>\uvec_1</m> and <m>\uvec_2</m>
+      directions.  
+	</p>
+	<p>The restriction to two variables in this example was just for notational ease. 
+		The same reasoning works for any number of variables.  
+		This leads to the following proposition.
+    </p>
+
+    <proposition xml:id="prop-variance-additivity">
+      <title> Additivity of Variance </title>
+      <statement>
+	<p>
+	  If <m>W</m> is a subspace with orthonormal basis
+	  <m>\uvec_1,\uvec_2,\ldots, \uvec_n</m>, then the variance of
+	  the points projected onto <m>W</m> is the sum of the
+	  variances in the <m>\uvec_j</m> directions:
+	  <me>
+	    V_W = V_{\uvec_1} + V_{\uvec_2} + \ldots + V_{\uvec_n}.
+	  </me>
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      The next activity demonstrates how we can use <xref ref="prop-var-of-linear-combo" /> to compute 
+      the variance <m>V_{\uvec}</m> more eficiently.
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Let's return to the demeaned dataset from the previous activity:
+	  <me>
+			\Xtilde = 
+			\begin{bmatrix}
+			-1 \amp -1 \\ 0 \amp -1 \\ 1 \amp 2 \\
+			\end{bmatrix}
+	  </me>.
+	  The demeaned case vectors are
+	  <me>
+	    \dtil_1=\twovec{-1}{-1},\hspace{24pt}
+	    \dtil_2=\twovec{0}{-1},\hspace{24pt}
+	    \dtil_3=\twovec{1}{2},
+	  </me>
+	  and 
+	  <me>
+		\Xtilde^{\transpose} = \begin{bmatrix} \dtil_1 \amp \dtil_2 \amp \dtil_3 \end{bmatrix}
+	  </me>.
+	  
+	  Our goal is to compute the variance <m>V_{\uvec}</m> in the
+	  direction defined by a unit vector
+	  <m>\uvec</m>.
+	</p>
+
+	<p>
+	  Suppose that <m>\uvec</m> is a unit vector.  
+	  <ol marker="a.">
+		<li>
+			<p>
+				Compute the matrix <m>S = X^{\transpose} X</m>
+			</p>
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+
+		</li>
+		<li>
+			Write an expression for <m>V_\uvec</m> using
+			<xref ref="prop-var-of-linear-combo" />.
+		</li>
+		<!-- <li>
+	      <p>
+			To see that we will get the same thing working one demeaned case vector
+			at a time, write the vector <m>\Xtilde \uvec</m> in terms of
+			the dot products <m>\dtil_j\cdot\uvec</m>.
+	      </p>
+	    </li> -->
+
+	    <!-- <li>
+	      <p>
+		Explain why <m>V_{\uvec} = \frac13|X \uvec|^2</m>.
+	      </p>
+	    </li> -->
+
+	    <!-- <li>
+	      <p>
+		Apply <xref ref="prop-symmetric-dot" /> to explain why
+		<me>
+		  V_{\uvec} =
+		  \frac13|A^{\transpose}\uvec|^2 = 
+		  \frac13 (A^{\transpose}\uvec)\cdot(A^{\transpose}\uvec) =
+		  \uvec^{\transpose}\left(\frac13 AA^{\transpose}\right)\uvec = 
+		  \uvec\cdot\left(\frac13 AA^{\transpose}\right)\uvec = 
+		</me>
+	      </p>
+	    </li> -->
+
+	    <!-- <li>
+	      <p>
+		In general, the matrix <m>C=\frac1N~AA^{\transpose}</m> is called
+		the <term>covariance matrix</term> of the dataset, and it
+		is useful because the variance <m>V_{\uvec} = \uvec\cdot(C\uvec)</m>, 
+		as we have just seen.  
+		<idx><h>covariance matrix</h></idx>
+		<idx><h>matrix</h><h>covariance</h></idx>
+		Find the matrix <m>C</m> for our dataset with three points. 
+	    </li>  -->
+
+	    <li>
+	      <p>
+		Use the covariance matrix <m>S</m> to find the variance
+		<m>V_{\uvec_1}</m> when
+		<m>\uvec_1=\twovec{1/\sqrt{5}}{2/\sqrt{5}}</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Use the covariance matrix to find the variance
+		<m>V_{\uvec_2}</m> when
+		<m>\uvec_2=\twovec{-2/\sqrt{5}}{1/\sqrt{5}}</m>.
+		  </p>
+		  </li>
+
+		  <li>
+			<p>
+		Since <m>\uvec_1</m> and <m>\uvec_2</m> are
+		orthogonal, verify that the sum of <m>V_{\uvec_1}</m> and
+		<m>V_{\uvec_2}</m> 
+		gives the total variance.
+				
+			</p>
+		  </li>
+
+		<li>
+			<p>
+				Now recompute <m>V_{\uvec_1}</m>  and <m>V_{\uvec_2}</m> 
+				by computing the squared lengths of the three projections and
+				summing.
+			</p>
+		</li>
+
+	    <!-- <li>
+	      <p>
+		Explain why the covariance matrix <m>C</m> is a
+		symmetric matrix.
+	      </p>
+	    </li> -->
+	  </ol>
+	</p>
+      </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <m>S=\begin{bmatrix}
+	      2/3 \amp 1 \\
+	      1 \amp 2
+	      \end{bmatrix}
+	      </m>
+	    </li>
+	    <!-- <li>
+	      <p>
+		<m>A^{\transpose}\uvec=\threevec{\dtil_1\cdot\uvec}
+		{\dtil_2\cdot\uvec}
+		{\dtil_3\cdot\uvec}
+		</m>
+	      </p>
+	    </li> -->
+
+	    <!-- <li>
+	      <p>
+		<me>
+		  V_{\uvec} = \frac13\left((\dtil_1\cdot\uvec)^2 +
+		  (\dtil_2\cdot\uvec)^2 + (\dtil_3\cdot\uvec)^2\right)
+		  = \frac13|A^{\transpose}\uvec|^2\text{.}
+		</me>
+	      </p>
+	    </li> -->
+	    <!-- <li>
+	      <p>
+		<me>
+		  \frac13(A^{\transpose}\uvec)\cdot(A^{\transpose}\uvec) =
+		  \frac13\uvec\cdot(A^{\transpose})^{\transpose}A^{\transpose}\uvec =
+		  \uvec\cdot\left(\frac13AA^{\transpose}\right)\uvec
+		</me>
+	      </p>
+	    </li> -->
+	    <li>
+	      <p>
+		<m>V_{\uvec_1} = 38/10</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_{\uvec_2} = 2/10</m>.  
+	      </p>
+	    </li>
+		<li>
+			<p>
+				<m> 38/10 + 2/10 = 40/10 = 4</m>.
+			</p>
+		</li>
+	    <!-- <li>
+	      <p>
+		<m>C^{\transpose} = \left(\frac13 AA^{\transpose}\right)^{\transpose} = \frac13(A^{\transpose})^{\transpose}A^{\transpose}
+		= \frac13 AA^{\transpose} = C</m>
+	      </p>
+	    </li> -->
+	  </ol>
+	</p>
+      </answer>
+		
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <m>S= \frac{1/2} \Xtilde^{\transpose} \Xtilde = \begin{bmatrix}
+	      1 \amp 3/2 \\
+	      3/2 \amp 3 
+	      \end{bmatrix}
+	      </m>
+	    </li>
+
+		<li>
+			<p>
+				<m>V_{\uvec} = \uvec^{\transpose} S \uvec </m>
+			</p>
+		</li>
+	    <!-- <li>
+	      <p>
+		<m>A^{\transpose}\uvec=\threevec{\dtil_1\cdot\uvec}
+		{\dtil_2\cdot\uvec}
+		{\dtil_3\cdot\uvec}
+		</m>
+	      </p>
+	    </li> -->
+	    <!-- <li>
+	      <p>
+		Projecting <m>\dtil_j</m> onto <m>\uvec</m> gives
+		<m>(\dtil_j\cdot\uvec)\uvec</m>, whose length squared is
+		<m>(\dtil_j\cdot\uvec)^2</m>.  Then
+		<me>
+		  V_{\uvec} = \frac13\left((\dtil_1\cdot\uvec)^2 +
+		  (\dtil_2\cdot\uvec)^2 + (\dtil_3\cdot\uvec)^2\right)
+		  = \frac13|A^{\transpose}\uvec|^2\text{.}
+		</me>
+	      </p>
+	    </li> -->
+
+	    <!-- <li>
+	      <p>
+		<me>
+		  \frac13(A^{\transpose}\uvec)\cdot(A^{\transpose}\uvec) =
+		  \frac13\uvec\cdot(A^{\transpose})^{\transpose}A^{\transpose}\uvec =
+		  \uvec\cdot\left(\frac13AA^{\transpose}\right)\uvec
+		</me>
+	      </p>
+	    </li> -->
+	    <li>
+	      <p>
+		<m>V_{\uvec_1} = 38/10</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_{\uvec_2} = 2/10</m>.  Then
+		<m>V_{\uvec_1}+V_{\uvec_2} = 40/10 = 4</m>, which is the
+		total variance.
+	      </p>
+	    </li>
+	    <!-- <li>
+	      <p>
+		<m>C^{\transpose} = \left(\frac13 AA^{\transpose}\right)^{\transpose} = \frac13(A^{\transpose})^{\transpose}A^{\transpose}
+		= \frac13 AA^{\transpose} = C</m>
+	      </p>
+	    </li> -->
+	  </ol>
+	</p>
+      </solution>
+		
+    </activity>
+
+    <!-- <p>
+      This activity introduced the covariance matrix of a dataset,
+      which is defined to be 
+      <m>C=\frac1N~AA^{\transpose}</m> where <m>A</m> is the matrix of demeaned
+      data points.  Notice that
+      <me>
+	C^{\transpose} = \frac1N~(AA^{\transpose})^{\transpose} = \frac1N~AA^{\transpose} = C,
+      </me>
+      which tells us that <m>C</m> is symmetric.  In
+      particular, we know that it is orthogonally diagonalizable, an
+      observation that will play an important role in the future.
+    </p>
+
+    <p>
+      This activity also demonstrates the significance of the
+      covariance matrix, which is recorded in the following proposition.
+    </p>
+
+    <proposition xml:id="prop-covariance">
+      <statement>
+	<p>
+	  If <m>C</m> is the covariance matrix associated to a
+	  demeaned dataset and <m>\uvec</m> is a unit vector, then the
+	  variance of the demeaned points projected onto the line
+	  defined by <m>\uvec</m> is
+	  <me>
+	    V_{\uvec} = \uvec\cdot C\uvec.
+	  </me>
+	</p>
+      </statement>
+    </proposition> -->
+
+    <p>
+      Our goal in the future will be to find directions <m>\uvec</m>
+      where the variance is as large as possible and directions where
+      it is as small as possible.  The next activity demonstrates why
+      this is useful.
+    </p>
+      
+    <activity>
+      <statement>
+	<p>
+	
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Evaluating the following Python cell loads a dataset
+		consisting of 100 demeaned data points and provides a plot
+		of them.  It also provides the demeaned data matrix
+		<m>A</m>.
+	      </p>
+		<sage language="python">
+		  <input>
+import pandas as pd
+import seaborn.objects as so
+some_data = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/variance-data.csv', header=None)
+X = some_data.to_numpy()
+print("columns means: ", X.mean(axis = 0))
+print("shape: ", X.shape)
+(
+    so.Plot(x = X[:, 0], y = X[:, 1])
+    .add(so.Dot())
+    .show()
+)
+		  </input>
+		</sage>
+	      
+	      <p>
+		What is the shape of the covariance matrix
+		<m>S</m>?  Find <m>S</m> and verify your response.
+	      </p>
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+	    </li>
+	    
+	    <li>
+	      <p>
+		By visually inspecting the data, determine which is
+		larger, <m>V_x</m> or <m>V_y</m>.  Then compute both
+		of these quantities to verify your response.
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		What is the total variance <m>V</m>?
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		In approximately what direction is the variance
+		greatest?  Choose a reasonable vector <m>\uvec</m> that
+		points in approximately that direction 
+		and find <m>V_{\uvec}</m>.
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		In approximately what direction is the variance
+		smallest?  Choose a reasonable vector <m>\wvec</m> that
+		points in approximately that direction
+		and find <m>V_{\wvec}</m>.
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		How are the directions <m>\uvec</m> and <m>\wvec</m> in
+		the last two parts of this 
+		problem related to one another?  Why does this
+		relationship hold?
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>S=\begin{bmatrix}
+		1.38 \amp 0.70 \\
+		0.70 \amp 0.37
+		\end{bmatrix}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_x = 1.38</m> and <m>V_y=0.37</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V=1.75</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>\uvec_1=\twovec{2/\sqrt{5}}{1/\sqrt{5}}</m>,
+		then <m>V_{\uvec_1} = 1.74</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>\uvec_2=\twovec{-1/\sqrt{5}}{2/\sqrt{5}}</m>,
+		then <m>V_{\uvec_2} = 0.01</m>.
+
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		They are orthogonal to one another.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>S</m> will be the <m>2\by2</m> matrix
+		<m>S=\begin{bmatrix}
+		1.38 \amp 0.70 \\
+		0.70 \amp 0.37
+		\end{bmatrix}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_x = 1.38</m> and <m>V_y=0.37</m>, which agrees
+		with the fact that the data is more spread out in the
+		horizontal than vertical direction.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V=V_x+V_y=1.75</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		It looks like the direction <m>\twovec21</m> defined
+		by the unit vector
+		<m>\uvec_1=\twovec{2/\sqrt{5}}{1/\sqrt{5}}</m>.  We
+		find that <m>V_{\uvec_1} = 1.74</m>, which is almost
+		all of the total variance.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		It looks like the direction <m>\twovec{-1}{2}</m> defined
+		by the unit vector
+		<m>\uvec_2=\twovec{-1/\sqrt{5}}{2/\sqrt{5}}</m>.  We
+		find that <m>V_{\uvec_2} = 0.01</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		They are orthogonal to one another.  Since the total
+		variance <m>V=V_{\uvec_1}+V_{\uvec_2}</m> when
+		<m>\uvec_1</m> and <m>\uvec_2</m> are orthogonal,
+		<m>V_{\uvec_1}</m> will be as large as possible when
+		<m>V_{\uvec_2}</m> is as small as possible.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+    </activity>
+
+    <p>
+      This activity illustrates how variance can identify a
+      line along which the data are concentrated.  When the data
+      primarily lie along a line defined by a vector
+      <m>\uvec_1</m>, then the variance in that direction will be large
+      while the variance in an orthogonal direction <m>\uvec_2</m> will
+      be small.
+    </p>
+
+    <p>
+      Remember that variance is additive, according to <xref
+      ref="prop-variance-additivity" />, so that if
+      <m>\uvec_1</m> and 
+      <m>\uvec_2</m> are orthogonal unit vectors, then the total
+      variance is
+      <me>
+	V = V_{\uvec_1} + V_{\uvec_2}.
+      </me>
+      Therefore, if we choose <m>\uvec_1</m> to be the direction where
+      <m>V_{\uvec_1}</m> is a maximum, then <m>V_{\uvec_2}</m> will be a
+      minimum.  
+    </p>
+
+    <p>
+      In the next section, we will use an
+      orthogonal diagonalization of the covariance matrix <m>S</m> to
+      find the directions having the greatest and smallest variances.
+      In this way, we will be able to determine when data are
+      concentrated along a line or subspace.
+    </p>
+
+  </subsection>
+
+  <subsection>
+    <title> Summary </title>
+
+    <p>
+      This section explored and variance and covariance.  
+	  Let <m>X</m> be a column-variate data matrix and let <m>\Xtilde</m> be  
+	  the demeaned version of <m>X</m>. Then
+      <ul>
+	<li>
+		<p>
+		The variance of a vector is just a special case of covariance -- it is the 
+		covariance of a vector with itself.
+		</p>
+	</li>
+
+	<li>
+		<p>
+			<md>
+				<mrow> 
+				    \cov(\xvec, \yvec) = s_{xy} \amp = \frac{1}{n-1} (\xvec - \xbar) \cdot (\yvec - \ybar)
+				</mrow>
+				<mrow> 
+					\var(\xvec) = 
+				    s^2_{x} = s_{xx} \amp 
+					= \frac{1}{n-1} (\xvec - \xbar) \cdot (\xvec - \xbar)
+					= \frac{1}{n-1} \len{\xvec - \xbar}^2
+				</mrow>
+			</md>
+		</p>
+	</li>
+	<li>
+		<p>
+			We can compute all the variances and covariances of the columns of <m>X</m> 
+			with 
+			<me>
+				S_{XX} = \frac{1}{n-1} \Xtilde^{\transpose} \Xtilde
+			</me>.
+			This <term>covariance matrix</term> is always symmetric.
+		</p>
+	</li>
+	<li>
+		<p>
+			We can compute the variance of a linear combination of columns of <m>X</m> with 
+			<me>
+				\var(X \bvec) = \bvec^{\transpose} S_{XX} \bvec
+			</me>.
+		</p>
+	</li>
+
+	<li>
+	  <p>
+	    The total variance of a dataset can be computed using 
+		<me>
+		  V = \frac 1n \sum_{i=1}^n |\Xtilde_{i\cdot}^{\transpose}|^2
+		    = \frac 1n \sum_{i=1}^n |\dtil|^2
+		</me>
+		where <m>\dtil_i</m> is the <m>i</m>th demeaned case vector.
+	  </p>
+	</li>
+
+	<li>
+	  <p>
+	    Variance is additive so that if <m>W</m> is a subspace
+	    with orthonormal basis <m>\uvec_1,
+	    \uvec_2,\ldots,\uvec_n</m>, then
+	    <me>
+	      V_W = V_{\uvec_1} + V_{\uvec_2} + \ldots + V_{\uvec_n}.
+	    </me>
+	  </p>
+	</li>
+      </ul>
+    </p>
+
+  </subsection>
+
+  <xi:include href="exercises/exercises7-0.ptx" />
+
+</section>
+      
