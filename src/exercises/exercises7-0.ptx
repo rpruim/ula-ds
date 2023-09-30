@@ -1,0 +1,553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<exercises>
+
+  <exercise>
+    <statement>
+        <ol marker="a.">
+        <li>
+		<p>
+			Show that <m>\xtilde \cdot \ytilde = \xvec \cdot \ytilde = \xtilde \cdot \yvec</m>.
+			So to form the dot product of two demeaned vectors, it suffices to demean one 
+			of them and not the other. 
+		</p>
+    </li>
+    <li>
+        <p>
+            Let <m>\xvec = \fourvec1326</m> and let <m>\yvec = \fourvec524{-3}</m>.
+            Compute <m>\xtilde \cdot \ytilde</m>, <m>\xvec \cdot \ytilde</m>, and <m>\xtilde \cdot \yvec</m>
+            and show that you get the same result each time.
+        </p>
+    </li>
+    <li>
+        <p>
+            Show that <m>\xvec \cdot \yvec</m> gives a different result. 
+            (So it is important to demean at least one of the vectors.)
+        </p>
+    </li>
+</ol>
+
+    </statement>
+
+    <hint> 
+        For part a, take advantage of the properties of <m>Q</m> the matrix that performs demeaning.
+    </hint>
+
+    <solution>
+        <p>
+            <md>
+                <mrow> 
+                    \xtilde^{\transpose} \ytilde \amp =  (Q \xvec)^{\transpose} (Q \yvec)
+                </mrow>
+                <mrow>
+                    \amp  = \xvec^{\transpose} Q Q \yvec
+                </mrow>
+                <mrow>
+                    \amp  = (\xvec^{\transpose} Q) \yvec 
+                </mrow>
+                <mrow>
+                    \amp  = \xvec^{\transpose} \ytilde = \xvec \cdot \ytilde
+                </mrow>
+            </md>
+                <m>  \xtilde \cdot \ytilde = \xtilde \cdot \yvec</m> follows by the symmetry of the dot product.
+        </p>
+
+        <p>
+            Notice that this follows from the idempotency of <m>Q</m>.
+        </p>
+    </solution>
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p>
+	Suppose that you have a column-variate data matrix 
+	<me>
+		X = \begin{bmatrix}
+		2 \amp 0 \\
+		2 \amp 3 \\ 
+		4 \amp 1 \\ 
+		3 \amp 2 \\
+		4 \amp 4 \\  
+		\end{bmatrix}
+	</me>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      Find the demeaned case vectors. 
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Find the total variance <m>V</m> of the dataset.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Find the variance in the direction <m>\evec_1 =
+	      \twovec10</m> 
+	      and the 
+	      variance in the direction <m>\evec_2=\twovec01</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Project the demeaned data points onto the line defined
+	      by <m>\vvec_1=\twovec21</m> and find the variance of
+	      these projected points.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Project the demeaned data points onto the line defined by
+	      <m>\vvec_2=\twovec1{-2}</m> and find the variance of
+	      these projected points.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      How and why are the results of from the last two parts
+	      related to the total variance?
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </statement>
+
+    <solution>
+      <ol marker="a.">
+	<li>
+	  <p>
+	    <me>
+	      \twovec{-1}{-2},\twovec{-1}{1},\twovec1{-1},\twovec{0}{0},
+	      \twovec12
+	    </me>
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    <m>V = 14/5</m>
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    <m>V_{\evec_1} = 4/5</m> and <m>V_{\evec_2} = 2</m>
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    Let <m>\uvec_1</m> be the unit vector parallel to
+	    <m>\vvec_1</m> so that <m>V_{\uvec_1} = 34/25</m>.
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    Let <m>\uvec_2</m> be the unit vector parallel to
+	    <m>\vvec_2</m> so that <m>V_{\uvec_2} = 36/25</m>.
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    The vectors are orthogonal so the variances add to the toal
+	    variance.
+	  </p>
+	</li>
+      </ol>
+    </solution>
+      
+    <answer>
+      <ol marker="a.">
+	<li>
+	  <p>
+	    <me>
+	      \twovec{-1}{-2},\twovec{-1}{1},\twovec1{-1},\twovec{0}{0},
+	      \twovec12
+	    </me>
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    <m>V = 14/5</m>
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    <m>V_{\evec_1} = 4/5</m> and <m>V_{\evec_2} = 2</m>
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    <m>34/25</m>
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    <m>36/24</m>
+	  </p>
+	</li>
+	<li>
+	  <p>
+	    The variances add to the toal
+	    variance.
+	  </p>
+	</li>
+      </ol>
+    </answer>
+      
+  </exercise>
+
+  <exercise>
+    <statement>
+      <p>
+	Suppose you have the following columnn-variate data matrix 
+	<me>
+	  X = \begin{bmatrix}
+      2 \amp 1 \\  
+      0 \amp 0 \\  
+      4 \amp 3 \\  
+      4 \amp 5 \\ 
+      5 \amp 4 \\
+      3 \amp 5 \\
+	  \end{bmatrix}
+	</me>.
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      Find the demeaned data matrix <m>\Xtilde</m> and
+	      plot the demeaned case vectors as points in <xref ref="ex-demean-plot"/>.
+	      <figure xml:id="ex-demean-plot">
+		<sidebyside width="50%">
+		  <image source="images/empty-4" />
+		</sidebyside>
+		<caption>
+		  A plot for the demeaned case vectors.
+		</caption>
+	      </figure>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Construct the covariance matrix <m>S</m>. 
+	    </p>
+	  </li>
+	  <!-- <li>
+	    <p>
+	      Find an orthogonal diagonalization of <m>S</m>.
+	    </p>
+	  </li> -->
+	  <li>
+	    <p>
+	      Sketch the lines corresponding to the two eigenvectors
+	      on the plot above.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Find the variances in the directions of the
+	      eigenvectors.  
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </statement>
+
+    <solution>
+      <p>
+	<ol marker="a.">
+	  <li>
+        <sage language="python">
+            <input>
+import numpy as np
+X = np.column_stack(([2, 0, 4, 4, 5, 3], [1, 0, 3, 5, 4, 5]))
+X2 = X - X.mean(axis = 0)
+print(X2)
+            </input>
+            <output>
+[[-1. -2.]
+ [-3. -3.]
+ [ 1.  0.]
+ [ 1.  2.]
+ [ 2.  1.]
+ [ 0.  2.]]
+            </output>
+        </sage>
+        
+	    <p>
+	      <m>\Xtilde  = 
+            \begin{bmatrix}
+            -1 \amp -2 \\  
+            -3 \amp -3 \\  
+             1 \amp 0 \\  
+             1 \amp 2 \\ 
+             2 \amp 1 \\
+             0 \amp 2 \\
+	      \end{bmatrix}</m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>S_{XX}=
+            \begin{bmatrix}
+	      8/3 \amp 5/2 \\
+	      5/2 \amp 11/3
+	      \end{bmatrix}</m>.
+          <!-- is orthonally diagonalizable because it is symmetric. -->
+	    </p>
+	  </li>
+	  <!-- <li>
+	    <p>
+	      <me>
+		D = \begin{bmatrix}
+		5.72 \amp 0 \\
+		0 \amp 0.62 \\
+		\end{bmatrix},\hspace{24pt}
+		Q = \begin{bmatrix}
+		0.63 \amp 0.77 \\
+		0.77 \amp -0.63 \\
+		\end{bmatrix}
+	      </me>
+	    </p>
+	  </li> -->
+	  <li>
+	    <p>
+	      Sketch the lines defined by <m>\twovec{0.63}{0.77}</m>
+	      and <m>\twovec{0.77}{-0.63}</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      The variances are the eigenvalues <m>\lambda_1=5.72</m>
+	      and <m>\lambda_2 = 0.62</m>
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </solution>
+
+    <answer>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <m>A = \begin{bmatrix}
+	      -1 \amp -3 \amp 1 \amp 1 \amp 2 \amp 0 \\
+	      -2 \amp -3 \amp 0 \amp 2 \amp 1 \amp 2
+	      \end{bmatrix}</m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>C=\begin{bmatrix}
+	      8/3 \amp 5/2 \\
+	      5/2 \amp 11/3
+	      \end{bmatrix}</m> 
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <me>
+		D = \begin{bmatrix}
+		5.72 \amp 0 \\
+		0 \amp 0.62 \\
+		\end{bmatrix},\hspace{24pt}
+		Q = \begin{bmatrix}
+		0.63 \amp 0.77 \\
+		0.77 \amp -0.63 \\
+		\end{bmatrix}
+	      </me>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>\uvec_1=\twovec{0.63}{0.77}</m>
+	      and <m>\uvec_2=\twovec{0.77}{-0.63}</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>V_{\uvec_1}=5.72</m>
+	      and <m>V_{\uvec_2} = 0.62</m>
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </answer>
+
+  </exercise>
+
+
+  <exercise>
+    <statement>
+      <p>
+	Suppose that <m>S</m> is the covariance matrix of a demeaned
+	dataset.
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      Suppose that <m>\uvec</m> is an eigenvector of <m>S</m>
+	      with associated 
+	      eigenvalue <m>\lambda</m> and that <m>\uvec</m> has unit
+	      length.  Explain why <m>V_{\uvec} = \lambda</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Suppose that the covariance matrix of a demeaned dataset can
+	      be written as <m>S=QDQ^{\transpose}</m> where
+	      <me>
+		Q = \begin{bmatrix} \uvec_1 \amp \uvec_2 \end{bmatrix},
+		\hspace{24pt}
+		D = \begin{bmatrix}
+		10 \amp 0 \\
+		0 \amp 0 \\
+		\end{bmatrix}.
+	      </me>
+	      What is <m>V_{\uvec_2}</m>?  What does this tell you
+	      about the demeaned data?
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      Explain why the total variance of a dataset equals the
+	      sum of the eigenvalues of the covariance matrix.
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </statement>
+    
+    <solution>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      The variance is <m>V_{\uvec} = \uvec\cdot(C\uvec) =
+	      \lambda\uvec\cdot\uvec = \lambda</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>V_{\uvec_2} = 0</m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>V=V_{\uvec_1}+V_{\uvec_2} = \lambda_1+\lambda_2</m>
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </solution>
+	      
+    <answer>
+      <p>
+	<ol marker="a.">
+	  <li>
+	    <p>
+	      <m>V_{\uvec} = \uvec\cdot(C\uvec) =
+	      \lambda\uvec\cdot\uvec = \lambda</m>.
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>V_{\uvec_2} = 0</m>
+	    </p>
+	  </li>
+	  <li>
+	    <p>
+	      <m>V_{\uvec_1}+V_{\uvec_2} = \lambda_1+\lambda_2</m>
+	    </p>
+	  </li>
+	</ol>
+      </p>
+    </answer>
+	      
+  </exercise>
+
+  <exercise>
+    <statement>
+        <p>
+           Let  <m>S = \begin{bmatrix} 
+            1 \amp 2 \amp -1 \\
+            2 \amp 3 \amp  0 \\
+            -1 \amp 0 \amp  4 \\
+            \end{bmatrix}
+           </m> be a covariance matrix for a column-variate data matrix 
+           <m>X = \begin{bmatrix} \xvec_1 \amp \xvec_2 \amp \xvec_3 \end{bmatrix}</m> with 125 rows.
+           <ol marker="a.">
+            <li>
+                <p>
+                    What is the variance of each of the columns of <m> X</m>?
+                </p>
+            </li>
+            <li>
+                <p>
+                    What is the variance of <m> 2 \xvec_1</m>?
+                </p>
+            </li>
+            <li>
+                <p>
+                    What is the variance of <m> 2 \xvec_1 + \xvec_3</m>?
+                </p>
+            </li>
+            <li>
+                <p>
+                    What is the variance of <m> 2 \xvec_1 - \xvec_3</m>?
+                </p>
+            </li>
+           </ol>
+        </p>
+    </statement>
+  </exercise>
+
+  <exercise>
+    <statement>
+        <p>
+            In the expressions below <m>a</m> and <m>b</m> are scalars and 
+            <m>\xvec_1</m> and <m>\xvec_2</m> are vectors of the same dimension.
+            Use <xref ref="prop-var-of-linear-combo" /> to derive formulas for the 
+            following in terms of  
+            <m>\var(\xvec_1)</m>, 
+            <m>\var(\xvec_2)</m>, and
+            <m>\cov(\xvec_1, \xvec_2)</m>. 
+            <ol marker="a.">
+                <li>
+                    <p>
+                        <m>\var(a \xvec_1)</m>.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <m>\var(a \xvec_1 + b \xvec_2)</m>.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <m>\var(a \xvec_1 - b \xvec_2)</m>.
+                    </p>
+                </li>
+            </ol>
+        </p>
+    </statement>
+  </exercise>
+
+  <exercise>
+    <statement>
+        <p>
+            Identify each statement below as true or false and provide an explanation.
+            <ol marker="a.">
+                <li>
+                    <p>
+                        <m>\var(\xvec_1 - \xvec_2)</m> is always smaller than <m>\var(\xvec_1 + \xvec_2)</m>.
+                    </p>
+                </li>
+                <li>
+                    <p>
+                        <m>\var(\xvec_1 + \xvec_2)</m> is always larger than <m>\var(\xvec_1)</m>.
+                    </p>
+                </li>
+            </ol>
+        </p>
+    </statement>
+  </exercise>
+</exercises>
