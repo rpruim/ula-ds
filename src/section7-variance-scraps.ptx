@@ -1,0 +1,830 @@
+
+  <subsection>
+    <title> Variance </title>
+
+    <p>
+      Many of the ideas we'll encounter in this chapter, such as
+      orthogonal diagonalizations, can be applied to the study of
+      data.  In fact, it can be useful to understand these
+      applications because they provide an important context in which
+      mathematical ideas have a more concrete meaning and their
+      motivation appears more clearly.  For that reason, we will now
+      introduce the statistical concept of variance as a way to gain
+      insight into the significance of orthogonal diagonalizations.
+    </p>
+
+    <p>
+      Given a set of measurements, their variance measures how
+      spread out the measurements are.  The next activity looks at some
+      examples. 
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  We'll begin with a very small, artificial data set. This data set has three subjects.  For each subject, 
+	  two measurements are recorded.  We can gather all of these data into a <m>3\by2</m> matrix 
+	  <me>
+		X = \begin{bmatrix}\xvec \amp \yvec\end{bmatrix}
+		= 
+		\begin{bmatrix} 1 \amp 1 \\ 2 \amp 1 \\ 3 \amp 4 \\ \end{bmatrix}
+	  </me>.
+	  <m>X_{i \cdot}</m>, the <m>i</m>th row of <m>X</m> represents the <m>i</m>th case or subject.
+	  <m>X_{\cdot j}</m>, the <m>j</m>th column of <m>X</m> represents the <m>j</m>th variable.
+	  <ol marker="a.">
+	    <li>
+	      <p>
+			It is typical to plot the <em>rows</em> of <m>X</m> as a scatter plot in 
+			<term>case space</term>.  For each row of <m>X</m>, plot the <m>x</m> and 
+			<m>y</m> values as a dot in <xref ref="fig-variance-data" />.
+		  </p>
+	      <figure xml:id="fig-variance-data">
+		<caption>
+		  Plot the data points and their centroid here.
+		</caption>
+		<sidebyside width="50%">
+		  <image source="images/empty-4" />
+		</sidebyside>
+	      </figure>
+		</li>
+
+
+		<li>
+			<p>
+				If we compute the mean of each column we get another row vector called the 
+				<term>centroid</term> or mean.  We will denote it as 
+				<m>\overline{X} = \begin{bmatrix} \overline{x} \emp \overline{y}\end{bmatrix}</m>.
+				Note that we can write this as  
+				<me>
+					\overline{X} = \sum_{i = 1}^3 X_{i \cdot}
+				</me>.
+			</p>
+			<p>
+				Compute the centroid and add it as another dot in <xref ref="fig-variance-data" />.
+	      </p>
+
+	    </li>
+
+	    <li>
+	      <p>
+		Notice that the centroid lies in the center of the
+		data so the spread of the data will be measured by how
+		far away the points are from the centroid.  To
+		simplify our calculations, find the demeaned data
+		<me>
+		  \tilde{X} = \begin{bmatrix} \xvec - \overline{\xvec} \amp \yvec - \overline{\yvec} \end{bmatrix}
+		</me>, 
+		where <m>\overline{\xvec} = \overline{x} \onevec </m> is a vector of length 3 in which each entry 
+		is the mean value of <m>\xvec</m>. Similarly for <m>\overline{\yvec}</m>.
+		</p>
+		<p>
+		Plot the demeaned data and their centroid in <xref ref="fig-variance-demeaned" />.
+		Why is the centroid where it is?
+	      </p>
+	      <figure xml:id="fig-variance-demeaned">
+		<caption>
+		  Plot the demeaned data and their centroid here.
+		</caption>
+		<sidebyside width="50%">
+		  <image source="images/empty-4" />
+		</sidebyside>
+	      </figure>
+	    </li>
+
+	    <li>
+	      <p>
+		Now that the data has been demeaned, we will define the
+		total variance as the average of the squares of the
+		distances from the origin; that is, the total variance
+		is
+		<me>
+		  V = \frac 1N\sum_j~|\dtil_j|^2.
+		</me>
+		Find the total variance <m>V</m> for our set of three
+		points. 
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Now plot the projections of the demeaned data onto the
+		<m>x</m> and <m>y</m> axes using <xref
+		ref="fig-variance-projection" /> and find the
+		variances <m>V_x</m> and <m>V_y</m> of the projected
+		points. 
+	      </p>
+
+	      <figure xml:id="fig-variance-projection">
+		<caption>
+		  Plot the projections of the demeaned data onto the
+		  <m>x</m> and <m>y</m> axes.
+		</caption>
+		<sidebyside widths="45% 45%">
+		  <image source = "images/x-axis-4" />
+		  <image source = "images/y-axis-4" />
+		</sidebyside>
+	      </figure>
+	    </li>
+
+	    <li>
+	      <p>
+		Which of the variances, <m>V_x</m> and <m>V_y</m>, is
+		larger and how does the plot of the projected points
+		explain your response?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		What do you notice about the relationship between
+		<m>V</m>, <m>V_x</m>, and <m>V_y</m>?  How does the
+		Pythagorean theorem explain this relationship?
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Plot the projections of the demeaned data points onto
+		the lines defined 
+		by vectors <m>\vvec_1=\twovec11</m> and
+		<m>\vvec_2=\twovec{-1}1</m> using <xref
+		ref="fig-variance-projection-2" /> and
+		find the variances
+		<m>V_{\vvec_1}</m> and <m>V_{\vvec_2}</m> of these
+		projected points.
+	      </p>
+	      
+	      <figure xml:id="fig-variance-projection-2">
+		<caption>
+		    Plot the projections of the deameaned data onto the
+		    lines defined by <m>\vvec_1</m> and <m>\vvec_2</m>.
+		</caption>
+		<sidebyside widths="50%">
+		  <image source = "images/empty-4-diag" />
+		</sidebyside>
+	      </figure>
+	    </li>
+
+	    <li>
+	      <p>
+		What is the relationship between the total variance
+		<m>V</m> and <m>V_{\vvec_1}</m> and <m>V_{\vvec_2}</m>?
+		How does the Pythagorean theorem explain your response?
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>\overline{d} = \twovec22</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<me>
+		  \dtil_1=\twovec{-1}{-1},\hspace{24pt}
+		  \dtil_2=\twovec{0}{-1},\hspace{24pt}
+		  \dtil_3=\twovec{1}{2}\text{.}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V=8/3</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_x = 2/3</m> and <m>V_y=2</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V=V_x+V_y</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_{\vvec_1} = 7/3</m>
+	      </p>
+	      <p>
+		<m>V_{\vvec_2} = 1/3</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V = V_{\vvec_1} + V_{\vvec_2}</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+		
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		The centroid is <m>\overline{d} = \twovec22</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The demeaned data points are
+		<me>
+		  \dtil_1=\twovec{-1}{-1},\hspace{24pt}
+		  \dtil_2=\twovec{0}{-1},\hspace{24pt}
+		  \dtil_3=\twovec{1}{2}\text{.}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The total variance is <m>V=8/3</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We find <m>V_x = 2/3</m> and <m>V_y=2</m>.  Notice
+		that <m>V_y</m> is larger because the points are more
+		spread out in the vertical direction.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		We have <m>V=V_x+V_y</m> due to the Pythagorean
+		theorem.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		The points projected onto the line defined by
+		<m>\vvec_1</m> are <m>\twovec{-1}{-1}</m>,
+		<m>\twovec{-1/2}{-1/2}</m>, and
+		<m>\twovec{3/2}{3/2}</m>.  This gives the variance
+		<m>V_{\vvec_1} = 7/3</m>.
+	      </p>
+	      <p>
+		The points projected onto the line defined by
+		<m>\vvec_2</m> are <m>\twovec{0}{0}</m>,
+		<m>\twovec{1/2}{-1/2}</m>, and
+		<m>\twovec{-1/2}{1/2}</m>.  This gives the variance
+		<m>V_{\vvec_2} = 1/3</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Once again, <m>V = V_{\vvec_1} + V_{\vvec_2}</m>
+		because of the Pythagorean theorem.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+    </activity>
+
+    <p>
+      Notice that variance enjoys an additivity property.  Consider,
+      for instance, the situation where our data points are
+      two-dimensional and suppose that the demeaned points are
+      <m>\dtil_j=\twovec{\widetilde{x}_j}{\widetilde{y}_j}</m>.  We have
+      <me>
+	|\dtil_j|^2 = \widetilde{x}_j^2 + \widetilde{y}_j^2.
+      </me>
+      If we take the average over all data points, we find that the
+      total variance <m>V</m> is the sum of the variances in the
+      <m>x</m> and <m>y</m> directions:
+      <md>
+	<mrow>
+	  \frac1N \sum_j~ |\dtil_j|^2 \amp =
+	  \frac1N \sum_j~ \widetilde{x}_j^2 + 
+	  \frac1N \sum_j~ \widetilde{y}_j^2 
+	</mrow>
+	<mrow>
+	  V \amp = V_x + V_y.
+	</mrow>
+      </md>
+    </p>
+
+    <p>
+      More generally, suppose that we have an orthonormal basis
+      <m>\uvec_1</m> 
+      and <m>\uvec_2</m>.  If we project the demeaned points onto the
+      line defined by <m>\uvec_1</m>, we obtain the points
+      <m>(\dtil_j\cdot\uvec_1)\uvec_1</m> so that
+      <me>
+	V_{\uvec_1} = \frac1N\sum_j
+	~|(\dtil_j\cdot\uvec_1)~\uvec_1|^2 =
+	\frac1N~(\dtil_j\cdot\uvec_1)^2.
+      </me>
+    </p>
+
+    <p>
+      For each of our demeaned data points, the Projection Formula
+      tells us that
+      <me>
+	\dtil_j = (\dtil_j\cdot\uvec_1)~\uvec_1 + 
+	(\dtil_j\cdot\uvec_2)~\uvec_2.
+      </me>
+      We then have
+      <me>
+	|\dtil_j|^2 = \dtil_j\cdot\dtil_j =
+	(\dtil_j\cdot\uvec_1)^2 + (\dtil_j\cdot\uvec_2)^2
+      </me>
+      since <m>\uvec_1\cdot\uvec_2 = 0</m>.  When we average over all
+      the data points, we find that the total variance <m>V</m> is the
+      sum of the variances in the <m>\uvec_1</m> and <m>\uvec_2</m>
+      directions.  This leads to the following proposition, in which
+      this observation is expressed more generally.
+    </p>
+
+    <proposition xml:id="prop-variance-additivity">
+      <title> Additivity of Variance </title>
+      <statement>
+	<p>
+	  If <m>W</m> is a subspace with orthonormal basis
+	  <m>\uvec_1,\uvec_2,\ldots, \uvec_n</m>, then the variance of
+	  the points projected onto <m>W</m> is the sum of the
+	  variances in the <m>\uvec_j</m> directions:
+	  <me>
+	    V_W = V_{\uvec_1} + V_{\uvec_2} + \ldots + V_{\uvec_n}.
+	  </me>
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      The next activity demonstrates a more efficient way to find the
+      variance <m>V_{\uvec}</m> in a particular direction and 
+      connects our discussion of variance with symmetric matrices.
+    </p>
+
+    <activity>
+      <statement>
+	<p>
+	  Let's return to the dataset from the previous activity in which
+	  we have demeaned data points:
+	  <me>
+	    \dtil_1=\twovec{-1}{-1},\hspace{24pt}
+	    \dtil_2=\twovec{0}{-1},\hspace{24pt}
+	    \dtil_3=\twovec{1}{2}.
+	  </me>
+	  Our goal is to compute the variance <m>V_{\uvec}</m> in the
+	  direction defined by a unit vector
+	  <m>\uvec</m>.
+	</p>
+
+	<p>
+	  To begin, form the demeaned data matrix
+	  <me>
+	    A = \begin{bmatrix}
+	    \dtil_1 \amp \dtil_2 \amp \dtil_3
+	    \end{bmatrix}
+	  </me>
+	  and suppose that <m>\uvec</m> is a unit vector.  
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Write the vector <m>A^{\transpose}\uvec</m> in terms of
+		the dot products <m>\dtil_j\cdot\uvec</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Explain why <m>V_{\uvec} = \frac13|A^{\transpose}\uvec|^2</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Apply <xref ref="prop-symmetric-dot" /> to explain why
+		<me>
+		  V_{\uvec} =
+		  \frac13|A^{\transpose}\uvec|^2 = 
+		  \frac13 (A^{\transpose}\uvec)\cdot(A^{\transpose}\uvec) =
+		  \uvec^{\transpose}\left(\frac13 AA^{\transpose}\right)\uvec = 
+		  \uvec\cdot\left(\frac13 AA^{\transpose}\right)\uvec = 
+		</me>
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		In general, the matrix <m>C=\frac1N~AA^{\transpose}</m> is called
+		the <term>covariance matrix</term> of the dataset, and it
+		is useful because the variance <m>V_{\uvec} = \uvec\cdot(C\uvec)</m>, 
+		as we have just seen.  
+		<idx><h>covariance matrix</h></idx>
+		<idx><h>matrix</h><h>covariance</h></idx>
+		Find the matrix <m>C</m> for our dataset with three points.
+	      </p>
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+	    </li>
+
+	    <li>
+	      <p>
+		Use the covariance matrix to find the variance
+		<m>V_{\uvec_1}</m> when
+		<m>\uvec_1=\twovec{1/\sqrt{5}}{2/\sqrt{5}}</m>.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Use the covariance matrix to find the variance
+		<m>V_{\uvec_2}</m> when
+		<m>\uvec_2=\twovec{-2/\sqrt{5}}{1/\sqrt{5}}</m>.
+		Since <m>\uvec_1</m> and <m>\uvec_2</m> are
+		orthogonal, verify that the sum of <m>V_{\uvec_1}</m> and
+		<m>V_{\uvec_2}</m> 
+		gives the total variance.
+	      </p>
+	    </li>
+
+	    <li>
+	      <p>
+		Explain why the covariance matrix <m>C</m> is a
+		symmetric matrix.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>A^{\transpose}\uvec=\threevec{\dtil_1\cdot\uvec}
+		{\dtil_2\cdot\uvec}
+		{\dtil_3\cdot\uvec}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<me>
+		  V_{\uvec} = \frac13\left((\dtil_1\cdot\uvec)^2 +
+		  (\dtil_2\cdot\uvec)^2 + (\dtil_3\cdot\uvec)^2\right)
+		  = \frac13|A^{\transpose}\uvec|^2\text{.}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<me>
+		  \frac13(A^{\transpose}\uvec)\cdot(A^{\transpose}\uvec) =
+		  \frac13\uvec\cdot(A^{\transpose})^{\transpose}A^{\transpose}\uvec =
+		  \uvec\cdot\left(\frac13AA^{\transpose}\right)\uvec
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <m>C=\begin{bmatrix}
+	      2/3 \amp 1 \\
+	      1 \amp 2
+	      \end{bmatrix}
+	      </m>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_{\uvec_1} = 38/15</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_{\uvec_2} = 2/15</m>.  
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>C^{\transpose} = \left(\frac13 AA^{\transpose}\right)^{\transpose} = \frac13(A^{\transpose})^{\transpose}A^{\transpose}
+		= \frac13 AA^{\transpose} = C</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+		
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>A^{\transpose}\uvec=\threevec{\dtil_1\cdot\uvec}
+		{\dtil_2\cdot\uvec}
+		{\dtil_3\cdot\uvec}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		Projecting <m>\dtil_j</m> onto <m>\uvec</m> gives
+		<m>(\dtil_j\cdot\uvec)\uvec</m>, whose length squared is
+		<m>(\dtil_j\cdot\uvec)^2</m>.  Then
+		<me>
+		  V_{\uvec} = \frac13\left((\dtil_1\cdot\uvec)^2 +
+		  (\dtil_2\cdot\uvec)^2 + (\dtil_3\cdot\uvec)^2\right)
+		  = \frac13|A^{\transpose}\uvec|^2\text{.}
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<me>
+		  \frac13(A^{\transpose}\uvec)\cdot(A^{\transpose}\uvec) =
+		  \frac13\uvec\cdot(A^{\transpose})^{\transpose}A^{\transpose}\uvec =
+		  \uvec\cdot\left(\frac13AA^{\transpose}\right)\uvec
+		</me>
+	      </p>
+	    </li>
+	    <li>
+	      <m>C=\begin{bmatrix}
+	      2/3 \amp 1 \\
+	      1 \amp 2
+	      \end{bmatrix}
+	      </m>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_{\uvec_1} = 38/15</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_{\uvec_2} = 2/15</m>.  Then
+		<m>V_{\uvec_1}+V_{\uvec_2} = 8/3</m>, which is the
+		total variance.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>C^{\transpose} = \left(\frac13 AA^{\transpose}\right)^{\transpose} = \frac13(A^{\transpose})^{\transpose}A^{\transpose}
+		= \frac13 AA^{\transpose} = C</m>
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+		
+    </activity>
+
+    <p>
+      This activity introduced the covariance matrix of a dataset,
+      which is defined to be 
+      <m>C=\frac1N~AA^{\transpose}</m> where <m>A</m> is the matrix of demeaned
+      data points.  Notice that
+      <me>
+	C^{\transpose} = \frac1N~(AA^{\transpose})^{\transpose} = \frac1N~AA^{\transpose} = C,
+      </me>
+      which tells us that <m>C</m> is symmetric.  In
+      particular, we know that it is orthogonally diagonalizable, an
+      observation that will play an important role in the future.
+    </p>
+
+    <p>
+      This activity also demonstrates the significance of the
+      covariance matrix, which is recorded in the following proposition.
+    </p>
+
+    <proposition xml:id="prop-covariance">
+      <statement>
+	<p>
+	  If <m>C</m> is the covariance matrix associated to a
+	  demeaned dataset and <m>\uvec</m> is a unit vector, then the
+	  variance of the demeaned points projected onto the line
+	  defined by <m>\uvec</m> is
+	  <me>
+	    V_{\uvec} = \uvec\cdot C\uvec.
+	  </me>
+	</p>
+      </statement>
+    </proposition>
+
+    <p>
+      Our goal in the future will be to find directions <m>\uvec</m>
+      where the variance is as large as possible and directions where
+      it is as small as possible.  The next activity demonstrates why
+      this is useful.
+    </p>
+      
+    <activity>
+      <statement>
+	<p>
+	
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		Evaluating the following Sage cell loads a dataset
+		consisting of 100 demeaned data points and provides a plot
+		of them.  It also provides the demeaned data matrix
+		<m>A</m>.
+	      </p>
+		<sage language="python">
+		  <input>
+import pandas as pd
+df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/variance-data.csv', header=None)
+data = [vector(row) for row in df.values]
+A = matrix(data).T
+list_plot(data, size=20, color='blue', aspect_ratio=1)
+		  </input>
+		</sage>
+	      
+	      <p>
+		What is the shape of the covariance matrix
+		<m>C</m>?  Find <m>C</m> and verify your response.
+	      </p>
+		<sage language="python">
+		  <input>
+		  </input>
+		</sage>
+	    </li>
+	    
+	    <li>
+	      <p>
+		By visually inspecting the data, determine which is
+		larger, <m>V_x</m> or <m>V_y</m>.  Then compute both
+		of these quantities to verify your response.
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		What is the total variance <m>V</m>?
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		In approximately what direction is the variance
+		greatest?  Choose a reasonable vector <m>\uvec</m> that
+		points in approximately that direction 
+		and find <m>V_{\uvec}</m>.
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		In approximately what direction is the variance
+		smallest?  Choose a reasonable vector <m>\wvec</m> that
+		points in approximately that direction
+		and find <m>V_{\wvec}</m>.
+	      </p>
+	    </li>
+	    
+	    <li>
+	      <p>
+		How are the directions <m>\uvec</m> and <m>\wvec</m> in
+		the last two parts of this 
+		problem related to one another?  Why does this
+		relationship hold?
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </statement>
+
+      <answer>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>C=\begin{bmatrix}
+		1.38 \amp 0.70 \\
+		0.70 \amp 0.37
+		\end{bmatrix}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_x = 1.38</m> and <m>V_y=0.37</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V=1.75</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>\uvec_1=\twovec{2/\sqrt{5}}{1/\sqrt{5}}</m>,
+		then <m>V_{\uvec_1} = 1.74</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		If <m>\uvec_2=\twovec{-1/\sqrt{5}}{2/\sqrt{5}}</m>,
+		then <m>V_{\uvec_2} = 0.01</m>.
+
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		They are orthogonal to one another.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </answer>
+
+      <solution>
+	<p>
+	  <ol marker="a.">
+	    <li>
+	      <p>
+		<m>C</m> will be the <m>2\by2</m> matrix
+		<m>C=\begin{bmatrix}
+		1.38 \amp 0.70 \\
+		0.70 \amp 0.37
+		\end{bmatrix}
+		</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V_x = 1.38</m> and <m>V_y=0.37</m>, which agrees
+		with the fact that the data is more spread out in the
+		horizontal than vertical direction.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		<m>V=V_x+V_y=1.75</m>
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		It looks like the direction <m>\twovec21</m> defined
+		by the unit vector
+		<m>\uvec_1=\twovec{2/\sqrt{5}}{1/\sqrt{5}}</m>.  We
+		find that <m>V_{\uvec_1} = 1.74</m>, which is almost
+		all of the total variance.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		It looks like the direction <m>\twovec{-1}{2}</m> defined
+		by the unit vector
+		<m>\uvec_2=\twovec{-1/\sqrt{5}}{2/\sqrt{5}}</m>.  We
+		find that <m>V_{\uvec_2} = 0.01</m>.
+	      </p>
+	    </li>
+	    <li>
+	      <p>
+		They are orthogonal to one another.  Since the total
+		variance <m>V=V_{\uvec_1}+V_{\uvec_2}</m> when
+		<m>\uvec_1</m> and <m>\uvec_2</m> are orthogonal,
+		<m>V_{\uvec_1}</m> will be as large as possible when
+		<m>V_{\uvec_2}</m> is as small as possible.
+	      </p>
+	    </li>
+	  </ol>
+	</p>
+      </solution>
+
+    </activity>
+
+    <p>
+      This activity illustrates how variance can identify a
+      line along which the data are concentrated.  When the data
+      primarily lie along a line defined by a vector
+      <m>\uvec_1</m>, then the variance in that direction will be large
+      while the variance in an orthogonal direction <m>\uvec_2</m> will
+      be small.
+    </p>
+
+    <p>
+      Remember that variance is additive, according to <xref
+      ref="prop-variance-additivity" />, so that if
+      <m>\uvec_1</m> and 
+      <m>\uvec_2</m> are orthogonal unit vectors, then the total
+      variance is
+      <me>
+	V = V_{\uvec_1} + V_{\uvec_2}.
+      </me>
+      Therefore, if we choose <m>\uvec_1</m> to be the direction where
+      <m>V_{\uvec_1}</m> is a maximum, then <m>V_{\uvec_2}</m> will be a
+      minimum.  
+    </p>
+
+    <p>
+      In the next section, we will use an
+      orthogonal diagonalization of the covariance matrix <m>C</m> to
+      find the directions having the greatest and smallest variances.
+      In this way, we will be able to determine when data are
+      concentrated along a line or subspace.
+    </p>
+
+  </subsection>
