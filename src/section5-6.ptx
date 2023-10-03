@@ -261,6 +261,63 @@ print((A-I).rref())
 	<image source="images/numerical-power-norm" />
       </sidebyside>
     </example>
+
+	<note>
+		<title>The <m>L^p</m>-norms and the maximum absolute value</title>
+		<p>
+			The Euclidean norm of an <m>n</m>-dimensional vector <m>\xvec</m> is 
+			<me>
+				\len{\xvec} 
+				= \left(\sum_{i=1}^n (x_i^2\right)^{1/2}
+				= \left(\sum_{i=1}^n |x_i^2|\right)^{1/2}
+			</me>.
+			If we change the exponent from <m>2</m> to some other number <m>p > 1</m> we obtain 
+			an expression for the <m>p</m>-norm or <m>L^p</m> norm:
+			<me>
+				\len{\xvec}_p
+				= \left(\sum_{i=1}^n |x_i^p|\right)^{1/p}
+			</me>.
+			Notice that 
+			<me>
+				\len{\xvec}_1
+				= \left(\sum_{i=1}^n |x_i|\right)
+			</me>
+			is the sum of the absolute values of the components of <m>\xvec</m>.
+		</p>
+
+		<p>
+			As <m>p</m> gets larger and larger, the <m>p</m>-norm becomes dominated by 
+			the largest component of the vector:
+			<m>
+				\len{\xvec}_\infty = \lim_{p \to \infty} \len{\xvec} = \max_i( |x_i| )
+			</m>.
+			So to compute the scaling factor used in the power method, we can use  NumPy's norm function:
+			<c>numpy.linalg.norm(x, np.inf)</c>.
+		</p>
+		<sage>
+			<input>
+import numpy as np
+from numpy.linalg import norm 
+x = np.array([1,2,3])
+for p in range(1, 11):
+    print(p, "- norm =", norm(x, p))
+print("infinity - norm =", norm(x, np.inf))
+			</input>
+			<output>
+1 - norm = 6.0
+2 - norm = 3.7416573867739413
+3 - norm = 3.3019272488946263
+4 - norm = 3.1463462836457885
+5 - norm = 3.077384885394063
+6 - norm = 3.043010262919305
+7 - norm = 3.0246626009458444
+8 - norm = 3.014443335890572
+9 - norm = 3.0085886861624296
+10 - norm = 3.005167303445029
+infinity - norm =  3.0
+			</output>
+		</sage>
+	</note>
     
     <activity>
       <statement>
@@ -309,7 +366,7 @@ def power_eig(A, x, N):
     result = [[0, x]]
     for i in range(N):
         x = A@x
-        m = max([comp for comp in x], key = abs).round(14)
+        m = np.linalg.norm(x, np.inf)
         x = 1.0 / m * x
         result.append([m, x])
     return result
@@ -410,19 +467,142 @@ pprint(power_eig(A, x0, 20))
     <m>\vvec_1</m> that enables us to find it.
     </p>
 
-    <p> The power method, as presented here, will fail for certain
-    unlucky matrices.  This is examined in <xref
-    ref="exercise-power-method" /> along with a means to improve the
-    power method to work for all matrices.
-    </p>
 
+    <p> The power method, as presented here, will fail for some combinations of 
+		matrix <m>A</m> and initial vector <m>\xvec_0</m>.  
+	<!-- This is examined in <xref
+    ref="exercise-power-method" /> along with a means to improve the
+    power method to work for all matrices. -->
+	Although the power method does not work for all matrices, there are some conditions 
+	that guarantee that it will work and can tell us something about how quickly the method 
+	converges.
+	</p>
+
+	<p>
+		Suppose we have a diagonalizable matrix <m>A</m>. 
+		Because <m>A</m> is diagonalizable, by <xref ref="prop-diagonalizable-implies-eigenbasis" />, 
+		we know that <m>A</m> has <m>n</m> linearly independent eigenvectors. 
+		Let's choose the eigenvectors so that <m>\len{\vvec_i}_\infty = 1</m> for each <m>i</m>.
+		Because the eigenvectors form a basis for <m>\real^n</m>, we can write any <m>\xvec_0</m> as 
+					<me>
+						\xvec_0 = c_1 \vvec_1 + c_2 \vvec_2 + \cdots c_n \vvec_n
+					</me>
+		where <m>\vvec_i</m> is an eigenvector associated with the <m>i</m>th eigenvalue 
+		(sorted by decreasing absolute value <m>|\lambda_1| > |\lambda_2| \ge \dots \ge |\lambda_n|</m>).
+		We can scale the dominant eigenvector so that <m>|\vvec_1|_\infty = 1</m>.
+	</p>
+	<p>
+		Now let's work out expressions for the unnormalized vectors <m>\xvec_1, \xvec_2, \dots </m> and 
+		normalized vectors <m>\overline{\xvec}_1, \overline{\xvec}_2, \dots </m> produced by the power method. 
+		First notice that for any vector <m>\xvec</m> and scalar <m>m</m>, 
+		<m>A \frac{\xvec}{m} = \frac{1}{m} A \xvec</m>, so  
+		<me>
+		\overline{\xvec}_k = \frac{\xvec_k}{m_1 m_2 \cdots m_k}	
+		</me>. This means that althought the algorithm scales at every step along the way, 
+		algebraically, we can do all the scaling at the end, focusing our attention first on 
+		what happens to the unnormalized <m>\xvec_1, \xvec_2, \dots </m>.
+		
+		<md>
+			<mrow>
+			\xvec_k = A^k \xvec_0 \amp = A^k c_1 \vvec_1 + A^k c_2 \vvec_2 + \cdots + A^k c_n\vvec_n
+			</mrow>
+			<mrow> 
+			\amp = c_1 \lambda_1^k \vvec_1 + c_2 \lambda_2^k \vvec_2 + \cdots + c_n \lambda_n^k \vvec_n
+			</mrow>
+			<mrow> 
+			\amp = \lambda_1 \left[ c_1 \vvec_1 
+			+ c_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k \vvec_2 
+			+ \cdots 
+			+ c_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \vvec_n \right]
+			</mrow>
+			<mrow> \amp </mrow>
+			<mrow> 
+			\overline{\xvec}_k \amp = \frac{\lambda_1}{m_1 m_2 \cdots m_k} 
+			\left[ 
+			  c_1 \vvec_1 
+			+ c_2 \left(\frac{\lambda_2}{\lambda_1}\right)^k \vvec_2 
+			+ \cdots 
+			+ c_n \left(\frac{\lambda_n}{\lambda_1}\right)^k \vvec_n
+			\right]
+			</mrow>
+		</md>.
+	</p>
+
+	<p>
+		Let's further assume that we have a dominant eigenvalue (i.e., <m>|\lambda_1| > |\lambda_2|</m>) 
+		and that  <m>\dim E_{\lambda_1} = 1</m>.
+		Since <m>\lambda_1</m> is dominant, for <m>i \ge 2</m>,
+		<me> 
+			\lim_{k \to \infty} \left(\frac{\lambda_i}{\lambda_1}\right)^k = 0
+		</me>. 
+		So the approximation 
+		<me>
+			\overline{\xvec}_k \approx \frac{\lambda_1^k}{m_1 m_2 \cdots m_k} c_1 \vvec_1
+		</me>
+		improves as <m>k</m> gets larger, as long as <m>c_1 \neq 0</m>.
+	</p>
+
+	<p>
+	  Since <m>\len{\overline{\xvec}_k}_\infty = 1 = \len{\vvec_1}_\infty</m>, we know that 
+	  <me>
+			\lim_{k \to \infty} \frac{c_1 \lambda_1^k}{m_1 m_2 \cdots m_k} = 1
+	  </me>.
+	  From this it follows that 
+	  <me>
+		\lim_{k \to \infty} \overline{\xvec}_k = \vvec_1
+	  </me>,
+	  the dominant eigenvalue.  Furthermore, the lagged sequence also converges to 1:
+	  <me>
+			\lim_{k \to \infty} \frac{c_1 \lambda_1^{k-`}}{m_1 m_2 \cdots m_{k-1}} = 1
+	  </me>.
+	  So the ratio of the unlagged to lagged sequence also converges to 1:
+	  <me>
+		\lim_{k \to \infty} \frac{\lambda_1}{m_k} = 1
+	  </me>
+	  and 
+	  <me>
+		\lim_{k \to \infty} m_k = \lambda_1
+	  </me>.
+	</p>
+
+	<p>
+		The rate of convergence depends on how quickly <m>\left(\frac{\lambda_i}{\lambda_1}\right)^k</m> 
+		converges to 0.  If the magnitude of the dominant eigenvector is much larger than the magnitudes  
+		of the other eigenvectors, then the convergence will be fast. But if <m>\len{\lambda_2}</m> is nearly 
+		as large as <m>\len{\lambda_1}</m>, convergence will be slower.
+	</p>
+
+	<p>
+		It is imprtant to remember that although this argument makes use of the eigenvectors, these will not be known when  
+		we are  employing the algorithm.  In particular, we won't know that we have chosen <m>\xvec_0</m> so that 
+		<m>c_1 \neq 0</m>.  But most initial vectors will suffice since the vectors with <m>c_1 = 0</m> are spanned 
+		by <m>\vvec_2, \vvec_3, \dots, \vvec_n</m> and so form an <m>n-1</m> dimensional subspace of <m>\real^n</m>.
+	</p>
+	
+	<proposition xml:id="prop-power-method-workds">
+		<statement>
+			<p>
+				If <m>A</m> is an <m>n \by n</m> diagonalizable matrix with a dominant eigenvalue <m>\lambda_1</m>,
+				and <m>\dim E_{\lambda_1} = 1</m>, then there exists a vector <m>\xvec_0 \in \real^n</m> such that 
+				the sequence of vectors produced by the power method converges to the dominant eigenvector:
+				<me>
+					\overline{\xvec}_1, \overline{\xvec}_2, \overline{\xvec}_3, \dots, \overline{\xvec}_k, \dots  \to \vvec_1
+				</me>
+				and the sequence of scaling factors converges to the dominant eigenvalue:
+				<me>
+					m_1, m_2, m_3 \dots, m_k, \dots  \to \lambda_1
+				</me>.
+				The convergence is faster when the difference between <m>|\lambda_1|</m> and the magnitudes of  
+				the other eigenvalues is larger.
+			</p>
+			</statement>
+	</proposition>
   </subsection>
 
   <subsection>
     <title> Finding other eigenvalues </title>
 
-    <p> The power method gives a technique for finding the dominant
-    eigenvalue 
+    <p> The power method gives a technique for finding the dominant eigenvalue 
     of a matrix.  We can modify
     the method to find the other eigenvalues as well.</p>
 
@@ -480,7 +660,7 @@ def inverse_power_eig(A, x, N):
     result = []
     for i in range(N):
         x = linalg.solve(A, x)
-        m = max([comp for comp in x], key = abs) 
+        m = np.linalg.norm(x, np.inf)
         x = 1.0/m * x  
         result.append((1.0/m, x))
     return result
@@ -623,7 +803,7 @@ def find_closest_eigenvalue(A, s, x, N):
     result = []
     for i in range(N):
         x = linalg.solve(B, x)
-        m = max([comp for comp in x], key = abs)
+        m = np.linalg.norm(x, np.inf)
         x = 1.0/m * x
         result.append((1.0/m + s, x))
     return result
@@ -705,11 +885,16 @@ pprint(find_closest_eigenvalue(A, -10, x0, 20))
       <m>\xvec_k</m> closely approximates the direction
       of the eigenspace corresponding to the eigenvalue
       <m>\lambda_1</m> having the
-      largest absolute value. </p></li>
+      largest absolute value. 
+	</p></li>
 
       <li><p> We normalize the vectors <m>\xvec_k</m> by multiplying
       by <m>\frac{1}{m_k}</m>, where <m>m_k</m> is the component
-      having the largest absolute value.  In this way, the vectors
+      having the largest absolute value.  
+	  This is known as the <m>L^\infty</m> norm 
+	  of the vector <m>\xvec</m>, and we can compute it with 
+	  <c>np.linalg.norm(x, np.inf)</c>
+	  In this way, the vectors
       <m>\overline{\xvec}_k</m> approach an eigenvector associated to
       <m>\lambda_1</m>, and the multipliers <m>m_k</m> approach the
       eigenvalue <m>\lambda_1</m>. </p></li>
