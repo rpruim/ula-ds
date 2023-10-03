@@ -11,35 +11,58 @@
 <meta name="robots" content="noindex, nofollow">
 </head>
 <body class="ignore-math">
-<h4 class="heading"><span class="type">Paragraph</span></h4>
-<div class="para logical">
-<div class="para">Suppose that we have a dataset with <span class="process-math">\(N\)</span> points, that <span class="process-math">\(A\)</span> represents the demeaned data matrix, that <span class="process-math">\(A = U\Sigma V^{\transpose}\)</span> is a singular value decomposition, and that the singular values are <span class="process-math">\(A\)</span> are denoted as <span class="process-math">\(\sigma_i\text{.}\)</span> It follows that the covariance matrix</div>
-<div class="displaymath process-math">
-\begin{equation*}
-C = \frac1N AA^{\transpose} = \frac1N (U\Sigma V^{\transpose}) (U\Sigma V^{\transpose})^{\transpose} =
-U\left(\frac1N \Sigma \Sigma^{\transpose}\right) U^{\transpose}.
-\end{equation*}
-</div>
-<div class="para">Notice that <span class="process-math">\(\frac1N \Sigma\Sigma^{\transpose}\)</span> is a diagonal matrix whose diagonal entries are <span class="process-math">\(\frac1N\sigma_i^2\text{.}\)</span>  Therefore, it follows that</div>
-<div class="displaymath process-math">
-\begin{equation*}
-C = 
-U\left(\frac1N \Sigma \Sigma^{\transpose}\right) U^{\transpose}
-\end{equation*}
-</div>
-<div class="para">is an orthgonal diagonalization of <span class="process-math">\(C\)</span> showing that</div>
-<ul class="disc">
-<li><div class="para">the principal components of the dataset, which are the eigenvectors of <span class="process-math">\(C\text{,}\)</span> are given by the columns of <span class="process-math">\(U\text{.}\)</span>  In other words, the left singular vectors of <span class="process-math">\(A\)</span> are the principal components of the dataset.</div></li>
-<li><div class="para logical">
-<div class="para">the variance in the direction of a principal component is the associated eigenvalue of <span class="process-math">\(C\)</span> and therefore</div>
-<div class="displaymath process-math">
-\begin{equation*}
-V_{\uvec_i} = \frac1N\sigma_i^2.
-\end{equation*}
-</div>
+<h5 class="heading"><span class="type">Paragraph</span></h5>
+<div class="para logical"><ol class="lower-alpha">
+<li><div class="para">We find that <span class="process-math">\(A\)</span> is the rank <span class="process-math">\(4\)</span> matrix: <span class="process-math">\(\begin{bmatrix}
+156 \amp 96 \amp -144 \amp -104 \\
+144 \amp 104 \amp -156 \amp -96 \\
+104 \amp 144 \amp -96 \amp -156 \\
+96 \amp 156 \amp -104 \amp -144
+\end{bmatrix}\text{.}\)</span>
 </div></li>
-</ul>
-</div>
+<li><div class="para">Because it has one nonzero singular value, <span class="process-math">\(A_1\)</span> has rank <span class="process-math">\(1\)</span> and has the form: <span class="process-math">\(A_1=\begin{bmatrix}
+125 \amp 125 \amp -125 \amp -125 \\
+125 \amp 125 \amp -125 \amp -125 \\
+125 \amp 125 \amp -125 \amp -125 \\
+125 \amp 125 \amp -125 \amp -125
+\end{bmatrix}\text{.}\)</span>
+</div></li>
+<li><div class="para"><span class="process-math">\(\displaystyle A-A_1 = \begin{bmatrix}
+31 \amp -29 \amp -19 \amp 21 \\
+19 \amp -21 \amp -31 \amp 29 \\
+-21 \amp 19 \amp 29 \amp -31 \\
+-29 \amp 31 \amp 21 \amp -19
+\end{bmatrix}\)</span></div></li>
+<li><div class="para">
+<span class="process-math">\(A_2\)</span> is the rank <span class="process-math">\(2\)</span> matrix <span class="process-math">\(\begin{bmatrix}
+150 \amp 100 \amp -150 \amp -100 \\
+150 \amp 100 \amp -150 \amp -100 \\
+100 \amp 150 \amp -100 \amp -150 \\
+100 \amp 150 \amp -100 \amp -150
+\end{bmatrix}\)</span> and <span class="process-math">\(A-A_2 = \begin{bmatrix}
+6 \amp -4 \amp 6 \amp -4 \\
+-6 \amp 4 \amp -6 \amp 4 \\
+4 \amp -6 \amp 4 \amp -6 \\
+-4 \amp 6 \amp -4 \amp 6
+\end{bmatrix}\text{.}\)</span>
+</div></li>
+<li><div class="para">
+<span class="process-math">\(A_3\)</span> is the rank <span class="process-math">\(3\)</span> matrix <span class="process-math">\(\begin{bmatrix}
+155 \amp 95 \amp -145 \amp -105 \\
+145 \amp 105 \amp -155 \amp -95 \\
+105 \amp 145 \amp -95 \amp -155 \\
+95 \amp 155 \amp -105 \amp -145
+\end{bmatrix}\)</span> with <span class="process-math">\(A-A_3 = \begin{bmatrix}
+1 \amp 1 \amp 1 \amp 1 \\
+-1 \amp -1 \amp -1 \amp -1 \\
+-1 \amp -1 \amp -1 \amp -1 \\
+1 \amp 1 \amp 1 \amp 1
+\end{bmatrix}\text{.}\)</span>
+</div></li>
+<li><div class="para">
+<span class="process-math">\(A_4=A\)</span> since <span class="process-math">\(A\)</span> is a rank <span class="process-math">\(4\)</span> matrix.</div></li>
+<li><div class="para">As <span class="process-math">\(k\)</span> increases, the entries in the <span class="process-math">\(A-A_k\)</span> get closer to <span class="process-math">\(0\text{.}\)</span>  This means that our approximations <span class="process-math">\(A\approx A_k\)</span> are improving.</div></li>
+</ol></div>
 <span class="incontext"><a href="sec-svd-uses.html#p-8708" class="internal">in-context</a></span>
 </body>
 </html>

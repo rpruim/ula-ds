@@ -28,7 +28,7 @@ sagecell.makeSagecell({
 <span class="type">Item</span><span class="space"> </span><span class="codenumber">b</span><span class="period">.</span>
 </h5>
 <div class="para">Vectors are often used to represent how a quantity changes over time.  For instance, the vector <span class="process-math">\(\svec=\fourvec{78.3}{81.2}{82.1}{79.0}\)</span> might represent the value of a company’s stock on four consecutive days.  When interpreted in this way, we call the vector a <dfn class="terminology">time series.</dfn>  Evaluate the Python cell below to see a representation of time series for four different stocks over 10 days.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-200"><script type="text/x-sage">import numpy as np
+<pre class="ptx-sagecell sagecell-python" id="sage-201"><script type="text/x-sage">import numpy as np
 import pandas as pd
 import seaborn.objects as so
 stocks = pd.read_csv("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/time-series.csv", header=None)
@@ -45,7 +45,7 @@ so.Plot(stocks1_long, x = "day", y = "price", color = "stock").add(so.Lines()).s
 <ol class="decimal">
 <li>
 <div class="para">In order to compare the ways in which they rise and fall, we will first  <dfn class="terminology">demean</dfn> each time series;  that is, for each time series, we will subtract its average value to obtain a new time series.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-201"><script type="text/x-sage">stocks0 = stocks - stocks.mean(axis = 0)
+<pre class="ptx-sagecell sagecell-python" id="sage-202"><script type="text/x-sage">stocks0 = stocks - stocks.mean(axis = 0)
 stocks0_long = pd.melt(stocks0, id_vars="day", var_name = "stock", value_name="price")
 so.Plot(stocks0_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
 </script></pre>
@@ -65,7 +65,7 @@ so.Plot(stocks0_long, x = "day", y = "price", color = "stock").add(so.Lines()).s
 <div class="para">where <span class="process-math">\(\theta\)</span> is the angle between <span class="process-math">\(\tilde{\svec_1}\)</span> and <span class="process-math">\(\tilde{\svec_2}\text{.}\)</span> That is, <em class="emphasis">the correlation equals the cosine of the angle between the demeaned time series</em>. Among other things, this implies that <span class="process-math">\(\corr(\svec_1,\svec_2)\)</span> is always between -1 and 1.</div>
 </div>
 <div class="para">Find the correlation between each pair of stocks.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-202"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-203"><script type="text/x-sage">
 </script></pre>
 </li>
 <li>
@@ -85,7 +85,7 @@ so.Plot(stocks0_long, x = "day", y = "price", color = "stock").add(so.Lines()).s
 <li><div class="para">Which pair of stocks had a correlation closest to 0? How is this reflected in the plot?</div></li>
 <li>
 <div class="para">The correlation is important enough that numpy can do all the work of computing correlations for each pair of rows (default) or columns (what we want here) in a matrix.  The result is a matrix containing all the pairwise correlations. </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-203"><script type="text/x-sage">print("correlations"); print() 
+<pre class="ptx-sagecell sagecell-python" id="sage-204"><script type="text/x-sage">print("correlations"); print() 
 print(np.corrcoef(stocks, rowvar = False))
 </script></pre>
 <div class="para logical"><ul class="disc">

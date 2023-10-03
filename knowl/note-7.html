@@ -9,11 +9,55 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-sage",
+  "linked": true,
+  "linkKey": "linked-sage",
+  "autoeval": false,
+  "languages": [
+    "sage"
+  ],
+  "evalButtonText": "Evaluate (Sage)"
+});
+</script>
 </head>
 <body class="ignore-math">
 <article class="note remark-like"><h4 class="heading">
-<span class="type">Note</span><span class="space"> </span><span class="codenumber">6.1.4</span><span class="period">.</span>
-</h4>
-<div class="para">Note that the dot product of two vectors is a <em class="emphasis">scalar</em>. For this reason, the dot product is sometimes called the <dfn class="terminology">scalar product</dfn>.</div></article><span class="incontext"><a href="sec-dot-product.html#note-7" class="internal">in-context</a></span>
+<span class="type">Note</span><span class="space"> </span><span class="codenumber">5.6.3</span><span class="period">.</span><span class="space"> </span><span class="title">The <span class="process-math">\(L^p\)</span>-norms and the maximum absolute value.</span>
+</h4> <div class="para logical">
+<div class="para">The Euclidean norm of an <span class="process-math">\(n\)</span>-dimensional vector <span class="process-math">\(\xvec\)</span> is</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\len{\xvec} 
+= \left(\sum_{i=1}^n (x_i^2\right)^{1/2}
+= \left(\sum_{i=1}^n |x_i^2|\right)^{1/2}\text{.}
+\end{equation*}
+</div>
+<div class="para">If we change the exponent from <span class="process-math">\(2\)</span> to some other number <span class="process-math">\(p &gt; 1\)</span> we obtain an expression for the <span class="process-math">\(p\)</span>-norm or <span class="process-math">\(L^p\)</span> norm:</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\len{\xvec}_p
+= \left(\sum_{i=1}^n |x_i^p|\right)^{1/p}\text{.}
+\end{equation*}
+</div>
+<div class="para">Notice that</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\len{\xvec}_1
+= \left(\sum_{i=1}^n |x_i|\right)
+\end{equation*}
+</div>
+<div class="para">is the sum of the absolute values of the components of <span class="process-math">\(\xvec\text{.}\)</span>
+</div>
+</div> <div class="para">As <span class="process-math">\(p\)</span> gets larger and larger, the <span class="process-math">\(p\)</span>-norm becomes dominated by the largest component of the vector: <span class="process-math">\(\len{\xvec}_\infty = \lim_{p \to \infty} \len{\xvec} = \max_i( |x_i| )
+\text{.}\)</span> So to compute the scaling factor used in the power method, we can use  NumPy’s norm function: <code class="code-inline tex2jax_ignore">numpy.linalg.norm(x, np.inf)</code>.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-188"><script type="text/x-sage">import numpy as np
+from numpy.linalg import norm 
+x = np.array([1,2,3])
+for p in range(1, 11):
+    print(p, "- norm =", norm(x, p))
+print("infinity - norm =", norm(x, np.inf))
+</script></pre></article><span class="incontext"><a href="sec-power-method.html#note-7" class="internal">in-context</a></span>
 </body>
 </html>

@@ -31,7 +31,7 @@ sagecell.makeSagecell({
 0.5 \amp 0.2 \\
 0.4 \amp 0.7 \\
 \end{array}\right]\)</span> and the initial vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-python" id="sage-188"><script type="text/x-sage">
+</div> <pre class="ptx-sagecell sagecell-python" id="sage-189"><script type="text/x-sage">
 </script></pre> <div class="para logical"><ol class="lower-alpha">
 <li><div class="para">Compute the vector <span class="process-math">\(\xvec_1 =
 A\xvec_0\text{.}\)</span>
@@ -44,11 +44,11 @@ A\xvec_0\text{.}\)</span>
 </div></li>
 <li>
 <div class="para">The Python cell below defines a function that implements the power method.  Define the matrix <span class="process-math">\(A\)</span> and initial vector <span class="process-math">\(\xvec_0\)</span> below.  The command <code class="code-inline tex2jax_ignore">power_eig(A, x0,	N)</code> will compute out the multiplier <span class="process-math">\(m\)</span> and the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> for <span class="process-math">\(N\)</span> steps of the power method.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-189"><script type="text/x-sage">def power_eig(A, x, N):
+<pre class="ptx-sagecell sagecell-python" id="sage-190"><script type="text/x-sage">def power_eig(A, x, N):
     result = [[0, x]]
     for i in range(N):
         x = A@x
-        m = max([comp for comp in x], key = abs).round(14)
+        m = np.linalg.norm(x, np.inf)
         x = 1.0 / m * x
         result.append([m, x])
     return result

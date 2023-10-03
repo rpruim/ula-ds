@@ -32,11 +32,11 @@ A^{-1}\xvec_k\text{,}\)</span> and multipliers <span class="process-math">\(\fra
 -5.1 \amp 5.7 \\
 -3.8 \amp 4.4 \\
 \end{array}\right]\)</span> having the smallest absolute value.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-190"><script type="text/x-sage">def inverse_power_eig(A, x, N):
+<pre class="ptx-sagecell sagecell-python" id="sage-191"><script type="text/x-sage">def inverse_power_eig(A, x, N):
     result = []
     for i in range(N):
         x = linalg.solve(A, x)
-        m = max([comp for comp in x], key = abs) 
+        m = np.linalg.norm(x, np.inf)
         x = 1.0/m * x  
         result.append((1.0/m, x))
     return result
