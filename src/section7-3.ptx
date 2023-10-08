@@ -7,19 +7,21 @@
   <introduction>
 
     <p>
-      We are sometimes presented with a dataset having many data
-      points that live in a high dimensional space.  For instance, we
-      looked at a dataset describing body fat index (BFI) in
-      <xref ref="activity-BFI" /> where each data point is
-      six-dimensional.  Developing an intuitive understanding of the
-      data is hampered by the fact that it cannot be visualized.
+      We are sometimes presented with a dataset that includes many 
+	  variables for each observational unit.   When this happens, 
+	  the case vectors (rows of the column-variate data matrix or columns  
+	  of the row-variate data matrix) live in a high dimensional space.
+	  For instance, we looked at a dataset describing body fat index (BFI) in
+      <xref ref="activity-BFI" /> where each case vector is
+      six-dimensional.  Developing an intuitive understanding of such
+      data is hampered by the fact that it is challenging to visualize.
     </p>
 
     <p>
-      This section explores a technique called <em> principal
-      component analysis</em>, which enables us to reduce the
+      This section explores a technique called <term> principal
+      component analysis</term>, which enables us to reduce the
       dimension of a dataset so that it may be visualized or studied
-      in a way so that interesting features more readily stand out.
+      in a way that makes interesting features more readily stand out.
       Our previous work with variance and the orthogonal
       diagonalization of symmetric matrices provides the key ideas.
     </p>
@@ -31,7 +33,7 @@
 	  variance.  Suppose we have a dataset that leads to the
 	  covariance matrix
 	  <me>
-	    C = \begin{bmatrix}
+	    S = \begin{bmatrix}
 	    7 \amp -4 \\
 	    -4 \amp 13
 	    \end{bmatrix}.
@@ -40,7 +42,7 @@
 	    <li>
 	      <p>
 		Suppose that <m>\uvec</m> is a unit eigenvector of
-		<m>C</m> with eigenvalue <m>\lambda</m>.  What is the
+		<m>S</m> with eigenvalue <m>\lambda</m>.  What is the
 		variance <m>V_{\uvec}</m> in the <m>\uvec</m>
 		direction?
 	      </p>
@@ -48,9 +50,9 @@
 
 	    <li>
 	      <p>
-		Find an orthogonal diagonalization of <m>C</m>.
+		Find an orthogonal diagonalization of <m>S</m>.
 	      </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -86,13 +88,13 @@
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		<m>V_{\uvec} = \uvec\cdot(C\uvec) =
+		<m>V_{\uvec} = \uvec\cdot(S\uvec) =
 		\lambda\uvec\cdot\uvec = \lambda</m>.
 	      </p>
 	    </li>
 	    <li>
 	      <p>
-		We can write <m>C=QDQ^{\transpose}</m> where
+		We can write <m>S=QDQ^{\transpose}</m> where
 		<me>
 		  D=\begin{bmatrix}
 		  15 \amp 0 \\
@@ -135,22 +137,22 @@
     <p>
       Here are some ideas we've seen previously that will be
       particularly useful for us in this section.  Remember that 
-      the covariance matrix of a dataset is <m>C=\frac 1N AA^{\transpose}</m>
-      where <m>A</m> is the matrix of <m>N</m> demeaned
-      data points.
+      the covariance matrix of a dataset is <m>S=\frac 1{n-1} X^{\transpose}X</m>
+      where <m>X</m> is the column-variate matrix of <m>n</m> demeaned
+      data.
       <ul>
 	<li>
 	  <p>
 	    When <m>\uvec</m> is a unit vector, the variance of the
 	    demeaned data after projecting onto the line defined by
 	    <m>\uvec</m> is given by the quadratic form <m>V_{\uvec} =
-	    \uvec\cdot(C\uvec)</m>.
+	    \uvec\cdot(S\uvec)</m>.
 	  </p>
 	</li>
 	<li>
 	  <p>
 	    In particular, if <m>\uvec</m> is a unit eigenvector of
-	    <m>C</m> with associated eigenvalue <m>\lambda</m>, then
+	    <m>S</m> with associated eigenvalue <m>\lambda</m>, then
 	    <m>V_{\uvec} = \lambda</m>.
 	  </p>
 	</li>
@@ -172,7 +174,7 @@
   </introduction>
 
   <subsection>
-    <title> Principal Component Analysis </title>
+    <title> Themes of Principal Component Analysis </title>
 
     <p>
       Let's begin by looking at an example that illustrates the
@@ -182,13 +184,12 @@
     <activity>
       <statement>
 	<p>
-	  Suppose that we work with a dataset having 100
-	  five-dimensional data points.  The demeaned data matrix
-	  <m>A</m> is therefore <m>5\by100</m> and leads to the
-	  covariance matrix <m>C=\frac1{100}~AA^{\transpose}</m>, which is a
-	  <m>5\by5</m> matrix.  Because <m>C</m> is symmetric, the
+	  Suppose that we work with a dataset having 100 observations of 5 variables.
+	  The demeaned column-variate data matrix <m>X</m> is therefore <m>100 \by 5</m> 
+	  and leads to the covariance matrix <m>S=\frac1{99}~X^{\transpose}X</m>, which is a
+	  <m>5\by5</m> matrix.  Because <m>S</m> is symmetric, the
 	  Spectral Theorem tells us it is orthogonally diagonalizable
-	  so suppose that <m>C = QDQ^{\transpose}</m> where
+	  so suppose that <m>S = QDQ^{\transpose}</m> where
 	  <me>
 	    Q = \begin{bmatrix}
 	    \uvec_1 \amp \uvec_2 \amp \uvec_3 \amp \uvec_4 \amp \uvec_5
@@ -262,7 +263,7 @@
 	    <li>
 	      <p>
 		<m>0</m>, which tells us
-		every data point is in the
+		every case vector is in the
 		orthogonal complement of <m>\uvec_4</m>.
 	      </p>
 	    </li>
@@ -305,8 +306,8 @@
 		<m>V_{\uvec_4} = \lambda_4 = 0</m>, which tells us
 		there is no variance in the <m>\uvec_4</m> direction.
 		Therefore, when we project onto the line defined by
-		<m>\uvec_4</m>, every data point projects to
-		<m>\zerovec</m> so every data point is in the
+		<m>\uvec_4</m>, every case vector projects to
+		<m>\zerovec</m> so every case vector is in the
 		orthogonal complement of <m>\uvec_4</m>.
 	      </p>
 	    </li>
@@ -350,14 +351,14 @@
       that it actually lies in a 3-dimensional subspace of
       <m>\real^5</m>.  Later in this section, we'll see how to use
       this observation to work with the data as if it were
-      three-dimensional, an idea known as <em>dimensional
-      reduction</em>.
+      three-dimensional, an idea known as <term>dimensional reduction</term>.
     </p>
 
     <p>
-      <idx> principal components</idx> The eigenvectors <m>\uvec_j</m>
-      of the covariance matrix are called <em>principal
-      components</em>, and we will order them so that their associated
+      <idx> principal components</idx> 
+	  The eigenvectors <m>\uvec_j</m>
+      of the covariance matrix are called <term>principal
+      components</term>, and we will order them so that their associated
       eigenvalues decrease.  Generally speaking, we hope that the
       first few principal components retain most of the variance, as
       the example in the activity demonstrates.  In that example, we
@@ -398,7 +399,7 @@
     <p>
       In fact, these subspaces are the best possible.  We know that
       the first principal component <m>\uvec_1</m> is the eigenvector
-      of <m>C</m> associated to the largest eigenvalue.  This means
+      of <m>S</m> associated to the largest eigenvalue.  This means
       that the variance is as large as possible in the <m>\uvec_1</m>
       direction.  In other words, projecting onto any other line
       will retain a smaller amount of variance.  Similarly, projecting
@@ -412,8 +413,20 @@
     <p>
       Of course, this is a contrived example.  Typically, the presence
       of noise in a dataset means that we do not expect all the points
-      to be wholly contained in a smaller dimensional subspace.  In
-      fact, the 2-dimensional subspace <m>W_2</m> retains
+      to be wholly contained in a smaller dimensional subspace. One situation 
+	  where this does occur, however, is when some of the variables in the data 
+	  set are computed as linear combinations of other variables. This could 
+	  happen, for example, if our data had measurements in two different units 
+	  (say, Fahrenheit and Celsius temperatures) or if the data included both 
+	  subtotals and totals in a sum (e.g., before tax bill, tax, and total with 
+	  tax included). 
+	  <!-- And it always happens if there are more variables than 
+	  observational units, since the number of linearly independent columns in 
+	  <m>X</m> is bounded by the number of rows. -->
+	</p>
+
+	<p>
+      In this exaple, the 2-dimensional subspace <m>W_2</m> retains
       <m>92\%</m> of the variance.  Depending on the situation, we may
       want to write off the remaining <m>8\%</m> of the variance as
       noise in exchange for the convenience of working with a smaller
@@ -426,14 +439,30 @@
     <activity>
       <statement>
 	<p>
-	  We will work here with a dataset having 100 3-dimensional
-	  demeaned data points.  Evaluating the following cell will
-	  plot those data points and define the demeaned data matrix
-	  <c>A</c> whose shape is <m>3\by100</m>.
+	  We will work here with a demeaned dataset having 100 observations of 3
+	  variables.  Evaluating the following cell will create the demeaned column-variate 
+	  data matrix <m> X</m> and plot the data as a 3-d scatter plot.
 	</p>
-	  <sage>
+	<sage language="python" auto-evaluate="yes">
+		<input>
+import numpy as np 
+import pandas as pd
+		</input>
+		<output>
+		</output>
+	</sage>
+	
+<!-- sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_demo.py', globals()) -->
+	  <sage language="python">
 	    <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_demo.py', globals())
+import matplotlib.pyplot as plt
+data = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/pca-demo.csv', index_col=0)
+X = data.to_numpy()
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+ax.scatter(X[:, 0], X[:, 1], X[:, 2])                                
+plt.show()
+
+
 	    </input>
 	  </sage>
 	  <p>
@@ -444,12 +473,12 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		Use the matrix <c>A</c> to construct the covariance
-		matrix <m>C</m>.  Then determine the variance in the
+		Use the matrix <c>X</c> to construct the covariance
+		matrix <m>S</m>.  Then determine the variance in the
 		direction of 
 		<m>\uvec=\threevec{1/3}{2/3}{2/3}</m>?
 		  </p>
-		<sage>
+		<sage language="python">
 		  <input>
 
 		  </input>
@@ -458,26 +487,24 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 
 	    <li>
 	      <p>
-		Find the eigenvalues of <m>C</m> and determine the
+		Find the eigenvalues of <m>S</m> and determine the
 		total variance.
 		  </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
 		<p>
-		Notice that Sage does not necessarily sort the
+		Notice that Python does not necessarily sort the
 		eigenvalues in decreasing order.
 	      </p>
 	    </li>
 
 	    <li>
 	      <p>
-		Use the <c>right_eigenmatrix()</c> command to find the
-		eigenvectors of <m>C</m>.  Remembering that the Sage
-		command <c>B.column(1)</c> retrieves the vector
-		represented by the second column of <c>B</c>,
-		define vectors <c>u1</c>, <c>u2</c>, and <c>u3</c>
+		Use the <c>numpy.linalg.eig()</c> command to find the
+		eigenvectors of <m>S</m>.  
+		Define vectors <c>u1</c>, <c>u2</c>, and <c>u3</c>
 		representing the three principal components in order of
 		decreasing eigenvalues.  How can you check if these
 		vectors are an orthonormal basis for <m>\real^3</m>?
@@ -498,8 +525,15 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 
 	    <li>
 	      <p>
-		If we project a data point <m>\xvec</m> onto
-		<m>W_2</m>, the Projection Formula tells us we obtain
+		Each column of <m>X^{\transpose}</m> (each row of <m>X</m>) represents
+		one observational unit in our data.  
+		<idx><h>case vector</h></idx>
+		We will refer to these as
+		<term>case vectors</term>.
+		In a traditional scatter plot (or cloud plot in 3 dimensions), each 
+		case vector is represented by one of the dots. 
+		If we project each case vector  <m>\xvec</m> 
+		onto <m>W_2</m>, the Projection Formula tells us we obtain 
 		<me>
 		  \xhat = (\uvec_1\cdot\xvec) \uvec_1 +
 		  (\uvec_2\cdot\xvec) \uvec_2.
@@ -514,8 +548,9 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 		</me>
 		Construct the matrix <m>Q</m> so that <m>Q^{\transpose}\xvec =
 		\twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}</m>.
+		
 		</p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -523,14 +558,17 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 
 	    <li>
 	      <p>
-		Since each column of <m>A</m> represents a data point,
-		the matrix <m>Q^{\transpose}A</m> represents the coordinates of
-		the projected data points.  Evaluating the following
-		cell will plot those projected data points.
+		    Since each column of <m>X^{\transpose}</m> represents one observational unit,
+		    the matrix <m>Q^{\transpose}X^{\transpose}</m> is a <em>row-variate</em> representation 
+			of the data projected onto a lower-dimensional subspace identified by 
+			PCA. We can transpose again to get the column-variate represention <m>X Q</m>.
 		  </p>
-		<sage>
+		<sage language="python">
 		  <input>
-		    pca_plot(Q.T*A)
+PCA = X @ Q
+fig, ax = plt.subplots()
+ax.scatter(PCA[:, 0], PCA[:, 1])
+plt.show()
 		  </input>
 		</sage>
 		<p>
@@ -539,6 +577,24 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 		Why is this plot wider than it is tall?
 	      </p>
 	    </li>
+		<li>
+			<p>
+				ScikitLearn provides another way to compute the first (highest-variance) 
+				specified number of principle componenets from a data matrix.
+			</p>
+			<sage language="python">
+				<input>
+from sklearn.decomposition import PCA
+pca3 = PCA(n_components=3)
+pcaX = pca3.fit_transform(X)
+print(pcaX.shape)
+fig, ax = plt.subplots()
+ax.scatter(pcaX[:, 0], pcaX[:, 1])
+plt.show()
+				</input>
+			</sage>
+			
+		</li>
 	  </ol>
 
 	</p>
@@ -587,29 +643,86 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
       </answer>
 
       <solution>
+		<sage language="python">
+			<input>
+import numpy as np  
+import pandas as pd
+np.set_printoptions(precision = 2, suppress = True)
+data = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/pca-demo.csv', index_col=0)
+X = data.to_numpy()
+S = 1/99 * (np.transpose(X) @ X)
+print(S)
+evals, P = np.linalg.eig(S)
+print(evals, "\n", P)
+print(np.transpose(P) @ P)
+u = [P[:, i] for i in [0, 2, 1]]
+V = [np.transpose(uu) @ S @  for uu in u]
+print(V)
+			</input>
+			<output>
+			</output>
+		</sage>
+		
 	<p>
+		<!-- Check computations here: n vs n-1 -->
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		After constructing the covariance matrix <m>C =
-		\frac{1}{100}AA^{\transpose}</m>, we find that <m>V_{\uvec} =
-		\uvec\cdot(C\uvec) = 7885</m>.
+		After constructing the covariance matrix <m>S =
+		\frac{1}{99}X^{\transpose}X</m>, we find that <m>V_{\uvec} =
+		\uvec\cdot(S\uvec) \approx 7965</m>.
 	      </p>
+		  <sage language="python">
+			<input>
+np.set_printoptions(precision = 2, suppress = True)
+S = 1/99 * (np.transpose(X) @ X)
+print("\nS"); print(S)
+u = np.array((1,2,2))/3
+print(np.transpose(u) @ S @ u)
+print("\nVu"); print(u @ (S @ u))
+			</input>
+			<output>
+			</output>
+		  </sage>
+		  
 	    </li>
 	    <li>
 	      <p>
 		The total variance <m>V</m> is the sum of the
-		eigenvalues of <m>C</m> so we obtain
+		eigenvalues of <m>S_{XX}</m> so we obtain
 		<m>V=12195</m>.
 	      </p>
+		  <sage language="python">
+			<input>
+evals, P = np.linalg.eig(S)
+print("total variance"); print (np.sum(evals))
+			</input>
+			<output>
+			</output>
+		  </sage>
+		  
 	    </li>
 	    <li>
 	      <p>
 		If we obtain <m>P</m>, the matrix of eigenvectors,
-		from Sage, computing <m>P^{\transpose}P</m> evaluates the dot
+		from Python, computing <m>P^{\transpose}P</m> evaluates the dot
 		products between the columns.  Since <m>P^{\transpose}P=I</m>,
 		the basis provided by Sage is orthonormal.
 	      </p>
+		  <sage language="python">
+			<input>
+# put u1, u2, u3 into a list; ordered by eigen value
+u = [P[:, i] for i in [0, 2, 1]]
+print("\nu"); print(u)
+
+# if orthogonormal, this should be I
+print(np.transpose(P) @ P)
+
+			</input>
+			<output>
+			</output>
+		  </sage>
+		  
 	    </li>
 	    <li>
 	      <p>
@@ -621,12 +734,33 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 		onto <m>W_2</m> we lose less than <m>2\%</m> of the
 		variance. 
 	      </p>
+		  <sage language="python">
+			<input>
+# compute variance in direction of each u
+V = [np.transpose(uu) @ S @ uu for uu in u]
+print("\nvariance")
+print(V); print(np.sum(V))		
+			</input>
+			<output>
+			</output>
+		  </sage>
+		  
+
 	    </li>
 	    <li>
 	      <p>
 		<m>Q=\begin{bmatrix}\uvec_1\amp\uvec_2\end{bmatrix}</m>
 	      </p>
+		<sage language="python">
+			<input>
+Q = np.column_stack(u[0], u[1])
+print("Q"); print(Q)
+			</input>
+			<output>
+			</output>
+		</sage>
 	    </li>
+		
 	    <li>
 	      <p>
 		The plot is wider because the variance in the
@@ -646,22 +780,22 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
       component analysis.  The plot of the 3-dimensional data
       appears to show that the data lies close to a plane, and the
       principal components will identify this plane.  Starting with
-      the <m>3\by100</m> matrix of demeaned data <m>A</m>, we
-      construct the covariance matrix <m>C=\frac{1}{100} ~AA^{\transpose}</m> and
-      study its eigenvalues.  Notice that the first two principal
+      the <m>100\by3</m> matrix of demeaned data <m>X</m>, we
+      construct the covariance matrix <m>S=\frac{1}{99} ~X^{\transpose}X</m> 
+	  and study its eigenvalues.  Notice that the first two principal
       components account for more than 98% of the variance, which
-      means we can expect the points to lie close to <m>W_2</m>, the
+      means we can expect the case vectors to lie close to <m>W_2</m>, the
       two-dimensional subspace spanned by <m>\uvec_1</m> and
       <m>\uvec_2</m>.
     </p>
 
     <p>
       Since <m>W_2</m> is a subspace of <m>\real^3</m>, 
-      projecting the data points onto <m>W_2</m> gives a list of 100
+      projecting the case vectors onto <m>W_2</m> gives a list of 100
       points in <m>\real^3</m>.  In order to visualize them more
       easily, we instead consider the coordinates of the projections
       in the basis defined by <m>\uvec_1</m> and <m>\uvec_2</m>.  For
-      instance, we know that the projection of a data point
+      instance, we know that the projection of a case vector 
       <m>\xvec</m> is
       <me>
 	\xhat = (\uvec_1\cdot\xvec)\uvec_1 +
@@ -675,7 +809,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 
     <figure xml:id="fig-pca-coords">
       <caption>
-	The projection <m>\xhat</m> of a data point <m>\xvec</m> onto
+	The projection <m>\xhat</m> of a case vector <m>\xvec</m> onto
 	<m>W_2</m> is a three-dimensional vector, which may be
 	represented by the two coordinates describing this vector as a
 	linear combination of <m>\uvec_1</m> and <m>\uvec_2</m>.
@@ -692,14 +826,15 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
       <me>
 	Q^{\transpose}\xvec = \twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}.
       </me>
-      This means that the columns of <m>Q^{\transpose}A</m> represent the
-      coordinates of the projected points, which may now be plotted in
-      the plane.
+      This means that the columns of <m>Q^{\transpose}X^{\transpose}</m> represent the
+      coordinates of the projected case vectors, which may now be plotted in
+      the plane. Transposing again gives the column-variate version of the 
+	  PCA-projected data: <m>XQ</m>.
     </p>
 
     <p>
       In this plot, the first coordinate, represented by the
-      horizontal coordinate, represents the projection of a data point
+      horizontal coordinate, represents the projection of a case vector 
       onto the line defined by <m>\uvec_1</m> while the second
       coordinate represents the projection onto the line defined by
       <m>\uvec_2</m>.  Since <m>\uvec_1</m> is the first principal
@@ -727,35 +862,39 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	  the four nations of the United Kingdom.  The units for each
 	  entry are grams per person per week.
 	</p>
-	  <sage>
+	  <sage language="python">
 	    <input>
-import pandas as pd
-df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/uk-diet.csv', index_col=0)
-data_mean = vector(df.T.mean())
-A = matrix([vector(row) for row in (df.T-df.T.mean()).values]).T
-df
-
+np.set_printoptions(precision = 5, suppress = True)
+Food = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/uk-diet.csv', index_col=0)
+print(Food.info)
+FoodX = np.transpose(Food.to_numpy())
+data_mean = FoodX.mean(axis = 0)
+FoodX = FoodX - data_mean
+print(FoodX.mean(axis = 0))
+# one row per country; 17 variables
+print(FoodX.shape)
 	    </input>
 	  </sage>
 	  <p>
-	  We will view this as a dataset consisting of four points in
-	  <m>\real^{17}</m>.  As such, it is impossible to visualize
-	  and studying the numbers themselves doesn't lead to much
-	  insight.
+	  We will view this as a dataset consisting of four case vectors in
+	  <m>\real^{17}</m>.  Since we have 17 variables measured for each observation, 
+	  we can't easily visualize this with a scatter plot, which would consist of
+	  four points in 17-dimensional space. 
+	  Studying the numbers themselves doesn't lead to much insight either.
 	</p>
 
 	<p>
 	  In addition to loading the data, evaluating the cell above
-	  created a vector <c>data_mean</c>, which is the mean of the
-	  four data points, and <c>A</c>, the <m>17\by4</m> matrix
-	  of demeaned data.
+	  created a vector <c>data_mean</c>, which is the componentwise mean of the
+	  four case vectors, and <c>FoodX</c>, the <m>4 \by 17</m> column-variate 
+	  matrix of demeaned data.
 	  <ol marker="a.">
 	    <li>
 	      <p>
 		What is the average consumption of Beverages across
 		the four nations?
 	      </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -763,7 +902,7 @@ df
 
 	    <li>
 	      <p>
-		Find the covariance matrix <m>C</m> and its
+		Find the covariance matrix <m>S</m> and its
 		eigenvalues.  Because there are four points in
 		<m>\real^{17}</m> whose mean is zero, there are only
 		three nonzero eigenvalues.  
@@ -780,9 +919,9 @@ df
 	    <li>
 	      <p>
 		Find the first principal component <m>\uvec_1</m> and
-		project the four demeaned data points onto the line
-		defined by <m>\uvec_1</m>.  Plot those points on <xref
-		ref="fig-pca-1d" />
+		project the four demeaned case vectors onto the line
+		defined by <m>\uvec_1</m>.  Plot those vectors as points 
+		on <xref ref="fig-pca-1d" />
 	      </p>
 
 	      <figure xml:id="fig-pca-1d">
@@ -805,12 +944,12 @@ df
 
 	    <li>
 	      <p>
-		Find the coordinates of the demeaned data points
+		Find the coordinates of the demeaned case vectors 
 		projected onto <m>W_2</m>, the two-dimensional
 		subspace of <m>\real^{17}</m> spanned by
 		the first two principal components.
 	      </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -821,7 +960,7 @@ df
 
 	      <figure xml:id="fig-pca-2d">
 		<caption>
-		  The coordinates of the demeaned data points
+		  The coordinates of the demeaned case vectors 
 		  projected onto the first two principal components.
 		</caption>
 		<sidebyside width="90%">
@@ -833,7 +972,7 @@ df
 	    <li>
 	      <p>
 		What information do these plots reveal that is not
-		clear from consideration of the original data points?
+		clear from consideration of the original case vectors?
 	      </p>
 	    </li>
 
@@ -844,7 +983,7 @@ df
 		corresponds to the dietary category Alcoholic Drinks.
 		(To do this, you may wish to use
 		<c>N(u1, digits=2)</c> for a result that's easier to read.)
-		If a data point lies on the far right side of the plot
+		If a case vector lies on the far right side of the plot
 		in <xref ref="fig-pca-2d" />, what does it mean about
 		that nation's consumption of Alcoholic Drinks?
 	      </p>
@@ -1061,7 +1200,7 @@ df
       This activity demonstrates how principal component analysis
       enables us to extract information from a dataset that may not be
       easily obtained otherwise.  As in our previous example, we see
-      that the data points lie quite close to a
+      that the case vectors lie quite close to a
       two-dimensional subspace of <m>\real^{17}</m>.  In fact,
       <m>W_2</m>, the subspace spanned by the first two principal
       components, accounts for more than 96% of the variance.
@@ -1092,7 +1231,7 @@ df
       300 fewer grams of Fresh Fruit than the average across the four
       nations.  This is borne out by looking at the original data,
       which show that the consumption of Fresh Fruit in Northern
-      Ireland is significantly less than the other nations.  Examing
+      Ireland is significantly less than in the other nations.  Examing
       the other components of <m>\uvec_1</m> shows other ways in
       which Northern Ireland differs from the other three nations.
     </p>
@@ -1137,30 +1276,42 @@ df
 
 	<p>
 	  Evaluating the following cell will load the dataset, which
-	  consists of 150 points in <m>\real^4</m>.  In addition,
-	  we have a vector <c>data_mean</c>, a four-dimensional
-	  vector holding the mean of the data points, and <c>A</c>,
-	  the <m>4\by150</m> demeaned data matrix.
+	  consists four physcial measuremnts for each of 150 iris plants.  
+	  In addition, we compute a vector <c>data_mean</c>, a four-dimensional
+	  vector holding the means of the four measurements (which is the same as the mean  
+	  of the 150 case vectors), and <c>irisX</c>,
+	  the <m>150 \by 4</m> demeaned data matrix.
 	</p>
-	  <sage>
+<!-- sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_iris.py', globals()) -->
+	  <sage language="python">
 	    <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_iris.py', globals())
-df.T
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
 
-
+iris = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/iris.data')
+iris4 = iris[iris.columns[:4]]
+irisX = iris4.to_numpy()
+iris_mean = irisX.mean(axis = 0)
+irisX = irisX - iris_mean
 	    </input>
 	  </sage>
 	  <p>
 	  Since the data is four-dimensional, we are not able to
-	  visualize it.  Of course, we could forget about two of the
-	  measurements and plot the 150 points represented by their,
-	  say,  
-	  sepal length and sepal width.
+	  visualize it easily.  Of course, we could forget about two of the
+	  measurements and plot a scatter plot of just two of the four variables,
+	  say, just the sepal length and sepal width.
 	  </p>
 
-	  <sage>
+	  <sage language="python">
 	    <input>
-sepal_plot()	      
+import seaborn.objects as so 
+( 
+	so.Plot(iris, x = 'sepal length', y = 'sepal width', color = 'species')
+    .add(so.Dot())
+    .show()
+)
 	    </input>
 	  </sage>
 
@@ -1174,10 +1325,10 @@ sepal_plot()
 
 	    <li>
 	      <p>
-		Find the covariance matrix <m>C</m> and its
+		Find the covariance matrix <m>S</m> and its
 		eigenvalues.
 		  </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -1197,7 +1348,7 @@ sepal_plot()
 		matrix <m>Q</m> whose columns are <m>\uvec_1</m> and
 		<m>\uvec_2</m>.
 	      </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -1205,15 +1356,20 @@ sepal_plot()
 
 	    <li>
 	      <p>
-		As we have seen, the columns of the matrix <m>Q^{\transpose}A</m>
-		hold the coordinates of the demeaned data points after
+		As we have seen, the columns of the matrix <m>Q^{\transpose}X^{\transpose}</m> or 
+		rows of <m>XQ</m> hold the coordinates of the demeaned case vectors after
 		projecting onto <m>W_2</m>, the subspace spanned by
 		the first two principal components.  Evaluating the
 		following cell shows a plot of these coordinates.
 		  </p>
-		<sage>
+		<sage language="python">
 		  <input>
-pca_plot(Q.T*A)		    
+irisPCA = X @ Q
+( 
+	so.Plot(iris, x = irisPCA[:, 0], y = irisPCA[:, 1], color = 'species')
+	.add(so.Dot())
+	.show()
+)
 		  </input>
 		</sage>
 		<p>
@@ -1235,7 +1391,7 @@ pca_plot(Q.T*A)
 		likely belong?  Now estimate the petal length and petal
 		width of this iris.
 		  </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -1250,7 +1406,7 @@ pca_plot(Q.T*A)
 		belongs.  Also, estimate the sepal length and the
 		petal length.
 	      </p>
-		<sage>
+		<sage language="python">
 		  <input>
 		  </input>
 		</sage>
@@ -1289,7 +1445,7 @@ pca_plot(Q.T*A)
 	    </li>
 	    <li>
 	      <p>
-		Iris setosa and the vector of measurements is
+		<em>Iris setosa</em> and the vector of measurements is
 		<m>\fourvec{5.43}{3.81}{1.49}{0.25}</m>.
 	      </p>
 	    </li>
@@ -1310,6 +1466,31 @@ pca_plot(Q.T*A)
       </answer>
 		
       <solution>
+	  <sage language="python">
+		<input>
+np.set_printoptions(precision = 3, suppress = True)
+S = np.transpose(irisX) @ irisX / 149.0
+irisEvals, irisE = np.linalg.eig(S)
+Q = irisE[:, 0:2]
+print("Q"); print(Q)
+irisPCA = irisX @ Q 
+print("irisPCA"); print(irisPCA[0:10, :])
+( 
+	so.Plot(iris, x = irisPCA[:, 0], y = irisPCA[:, 1], color = 'species')
+	.add(so.Dot())
+    .add(so.Dot(x=-2.5, y=-.075, color = "red"))
+	.show()
+)
+
+pca_flower = np.array((-2.5, -0.75))
+natural_flower = Q @ pca_flower + iris_mean
+print(natural_flower)
+
+		</input>
+		<output>
+		</output>
+	  </sage>
+	  
 	<p>
 	  <ol marker="a.">
 	    <li>
@@ -1339,7 +1520,7 @@ pca_plot(Q.T*A)
 	    </li>
 	    <li>
 	      <p>
-		This would most likely belong to Iris setosa.  To find
+		This would most likely belong to <em>iris setosa</em>.  To find
 		its measurements, we evaluate <m>-2.5\uvec_1 -
 		0.75\uvec_2 + \mvec</m> where <m>\mvec</m> is the
 		vector of means.  This is the same as
@@ -1365,8 +1546,8 @@ pca_plot(Q.T*A)
 		Using the same approach as the last part, we find
 		<m>(c_1,c_2)=(2.90, -0.53)</m>, which gives a sepal
 		length of <m>7.23</m> and a petal length of
-		<m>6.15</m>.  Most likely, this flower belongs to Iris
-		virginica. 
+		<m>6.15</m>.  Most likely, this flower belongs to 
+		<em>iris virginica</em>. 
 	      </p>
 	    </li>
 	  </ol>
@@ -1382,16 +1563,16 @@ pca_plot(Q.T*A)
     <title> Summary </title>
 
     <p>
-      This section has explored principal component analysis as a
+      This section has explored <term>principal component analysis</term> (PCA) as a
       technique to reduce the dimension of a dataset.  From the
-      demeaned data matrix <m>A</m>, we form the covariance matrix
-      <m>C= \frac1N ~AA^{\transpose}</m>, where <m>N</m> is the number of data
-      points. 
+      demeaned column-variate data matrix <m>X</m>, we form the covariance matrix
+      <m>S_{XX} = \frac1{n-1} X^{\transpose}X</m>, where <m>n</m> is the number of observational units.
       <ul>
 	<li>
 	  <p>
 	    The eigenvectors <m>\uvec_1, \uvec_2, \ldots \uvec_m</m>,
-	    of <m>C</m> are called the principal components.  We arrange
+	    of <m>S_{XX}</m> are called the <term>principal components</term>.  
+		We arrange
 	    them so that their corresponding eigenvalues are in
 	    decreasing order.
 	  </p>
@@ -1399,22 +1580,22 @@ pca_plot(Q.T*A)
 
 	<li>
 	  <p>
-	    If <m>W_n</m> is the subspace spanned by the first
-	    <m>n</m> principal components, then the variance of the
-	    demeaned data projected onto <m>W_n</m> is the sum of the
-	    first <m>n</m> eigenvalues of <m>C</m>.  No other
-	    <m>n</m>-dimensional subspace retains more variance when
-	    the data is projected onto it.
+	    If <m>W_p</m> is the subspace spanned by the first
+	    <m>p</m> principal components, then the variance of the
+	    demeaned data projected onto <m>W_p</m> is the sum of the
+	    first <m>p</m> eigenvalues of <m>S_{XX}</m>.  No other
+	    <m>p</m>-dimensional subspace retains more variance when
+	    the data are projected onto it.
 	  </p>
 	</li>
 
 	<li>
 	  <p>
 	    If <m>Q</m> is the matrix whose columns are the first
-	    <m>n</m> principal components, then the columns of
-	    <m>Q^{\transpose}A</m> hold the coordinates, expressed in the basis
-	    <m>\uvec_1,\ldots,\uvec_n</m>, of the data once
-	    projected onto <m>W_n</m>.
+	    <m>p</m> principal components, then <m>XQ</m> contains the 
+		column-variate data matrix, 
+		expressed in the basis <m>\uvec_1,\ldots,\uvec_p</m>, of the data once
+	    projected onto <m>W_p</m>.
 	  </p>
 	</li>
 
@@ -1424,6 +1605,13 @@ pca_plot(Q.T*A)
 	    is large enough to retain most of the variance in the
 	    dataset but small enough to be manageable.
 	  </p>
+	</li>
+	<li>
+		<p>
+			The advantage of principal components analysis is the resulting data reudction.
+			The primary disadvantage is the prinicpal components may not be easily or naturally 
+			interpretable.
+		</p>
 	</li>
       </ul>
     </p>

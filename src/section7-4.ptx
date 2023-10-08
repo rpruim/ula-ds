@@ -194,7 +194,7 @@
 	\left(l_A(\xvec)\right)^2 = |A\xvec|^2 = (A\xvec)\cdot(A\xvec)
 	= \xvec\cdot(A^{\transpose}A\xvec)=q_{A^{\transpose}A}(\xvec)\text{.}
       </me>
-      <idx> Gram matrix </idx>
+      <idx> <h>Gram matrix</h> </idx>
       We call <m>G=A^{\transpose}A</m>, the <term>Gram matrix</term> associated to
       <m>A</m> and note that
       <me>
@@ -682,8 +682,10 @@
       </statement>
     </example>
 
+	<assemblage xml:id="assemblage-svd">
+		<title>Computing the SVD</title>
     <p>
-      To summarize, we find a singular value decomposition of a matrix
+      We find a singular value decomposition of a matrix
       <m>A</m> in the following way:
       <ul>
 	<li>
@@ -696,7 +698,7 @@
 	</li>
 	<li>
 	  <p>
-	    The singular values of <m>A</m> are the squares roots of
+	    The singular values of <m>A</m> are the square roots of
 	    eigenvalues <m>\lambda_i</m> of <m>G</m>; that is,
 	    <m>\sigma_i = \sqrt{\lambda_i}</m>.  By convention,
 	    the singular values are listed in
@@ -707,8 +709,10 @@
 	</li>
 	<li>
 	  <p>
-	    The left singular vectors <m>\uvec_i</m> are found by
-	    <m>A\vvec_i = \sigma_i\uvec_i</m>.  Because
+	    The left singular vectors <m>\uvec_i</m> are found by solving
+	    <m>A\vvec_i = \sigma_i\uvec_i</m>.  That is, 
+	    <me> \uvec_i = \frac{A\vvec_i}{\sigma_i}</me>.  
+		Because
 	    <m>\sigma_i=|A\vvec_i|</m>, we know that <m>\uvec_i</m>
 	    will be a unit vector.
 	  </p>
@@ -737,6 +741,7 @@
 	</li>
       </ul>
     </p>
+	</assemblage>
 
     <example>
       <statement>
@@ -1218,7 +1223,7 @@
       the next section.
     </p>
 
-    <activity>
+    <activity xml:id="activity-svd-null-col-spaces">
       <statement>
 	<p>
 	  Let's suppose that a matrix <m>A</m> has a singular value
@@ -1296,7 +1301,7 @@
 		<m>c_2</m>, and <m>c_3</m> must be satisfied if
 		<m>\xvec</m> is a solution
 		to the equation <m>A\xvec=40\uvec_1 + 20\uvec_2</m>?
-		Is there a unique solution or infinitely many?
+		Is there a unique solution or are there infinitely many?
 	      </p>
 	    </li>
 
@@ -1465,7 +1470,7 @@
 	</p>
 
 	<p>
-	  As in the activity, if <m>\xvec = c_1 \vvec_1 + c_2\vvec_2 +
+	  As in <xref ref="activity-svd-null-col-spaces" />, if <m>\xvec = c_1 \vvec_1 + c_2\vvec_2 +
 	  \ldots + c_5\vvec_5</m>, we have
 	  <me>
 	    A\xvec = \sigma_1c_1\uvec_1 + \sigma_2c_2\uvec_2 +
@@ -1601,7 +1606,7 @@
       the columns of <m>A^{\transpose}</m> are the rows of <m>A</m>, this
       subspace is sometimes called the <term> row space </term> of
       <m>A</m> and denoted <m>\row(A)</m>.  
-      <idx> row space </idx> 
+      <idx> <h>row space </h></idx> 
 	  While we have yet to have an occasion to use <m>\row(A)</m>, there are times when it is
       important to have an orthonormal basis for it, and a
       singular value decomposition provides just that.  To summarize,
@@ -1620,7 +1625,7 @@
       <m>\nul(A)</m>, <m>\col(A^{\transpose})</m>, and <m>\nul(A^{\transpose})</m> are
       called the <term>four fundamental subspaces </term> associated to
       <m>A</m>.  
-	  <idx>fundamental subspaces</idx>
+	  <idx><h>fundamental subspaces</h></idx>
 	  In addition to telling us the rank of a matrix, a
       singular value decomposition gives us orthonormal bases for
       all four fundamental subspaces.
@@ -2041,6 +2046,28 @@
 	</p>
       </statement>
     </example>
+
+	<p>
+		<idx><h><c>np.linalg.svd()</c></h></idx>
+		<idx><h>singular value decomposition</h><h>computing with NumPy</h></idx>
+		In Python, <c>np.linalg.svd()</c> can be used to compute the reduced SVD for a matrix.
+	</p>
+
+	<sage language="python">
+		<input>
+import numpy as np 
+A = np.column_stack(((2,-4), (-2, -8), (1,-8)))
+print(np.linalg.svd(A))
+		</input>
+		<output>
+		</output>
+	</sage>
+	<p>
+		Notice that only the diagonal entries of <m>\Sigma</m> are given in the Python output.
+		This save a lot of space when the matrices are big.
+		<c>np.diag()</c> can be used to inflate the diagonal vector to a diagonal matrix, if needed.
+	</p>
+	
 
   </subsection>
 

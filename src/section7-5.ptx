@@ -153,25 +153,33 @@
     </p>
 
     <p>
-      Before exploring this connection further, we will introduce Sage 
-      as a tool for automating the construction of singular value
-      decompositions.  One new feature is that we need to declare our
-      matrix to consist of floating point entries.  We do this by
-      including <c>RDF</c> inside the matrix definition, as
-      illustrated in the following cell.
+      Recall that we can compute the reduced singular value decomposition  
+	  of a matrix using <c>np.linalg.svd()</c> and that only the diagonal 
+	  entries of <m>\Sigma</m> (i.e., the singular values) are returned.
     </p>
+	<sage language="python" auto-evaluate="yes">
+		<input>
+import numpy as np
+		</input>
+	</sage>
+	
       <sage language="python">
 	<input>
-import numpy as np
+np.set_printoptions(precision = 3, suppress = True)
+
 A = np.array(
 	[[1.0, 0, -1],
      [1, 1, 1]])
+
 U, Sigma, V = np.linalg.svd(A)
-print(U)
+
+print("U"); print(U)
 print('---------')
-print(Sigma)
+print("Sigma"); print(Sigma); 
+print("----")
+print(np.diag(Sigma))
 print('---------')
-print(V)
+print("V"); print(V)
 	</input>
       </sage>
 
@@ -450,7 +458,7 @@ print(V)
       <idx> Moore-Penrose psuedoinverse </idx>
       The matrix <m>A^+ = V_r\Sigma_r^{-1}U_r^{\transpose}</m> is known as
       the <em> Moore-Penrose psuedoinverse</em> of <m>A</m>.  When
-      <m>A</m> is invertible, <m>A^{-1} = A^+</m>.
+      <m>A</m> is invertible, <m>A^+ = A^{-1} </m>.
     </p>
 
   </subsection>
@@ -473,14 +481,15 @@ print(V)
       create the approximating matrix <m>A_k</m>, we keep the first
       <m>k</m> singular values and set the others to zero.  For
       instance, if
-      <m>
+      <me>
 	\Sigma = \begin{bmatrix}
 	22 \amp 0 \amp 0 \amp 0 \amp 0 \\
 	0 \amp 14 \amp 0 \amp 0 \amp 0 \\
 	0 \amp 0 \amp 3 \amp 0 \amp 0 \\
 	0 \amp 0 \amp 0 \amp 0 \amp 0 \\
 	\end{bmatrix}
-	</m>, we can form matrices
+	</me>, 
+	we can form matrices
 	<me>
 	  \Sigma^{(1)} = \begin{bmatrix}
 	  22 \amp 0 \amp 0 \amp 0 \amp 0 \\
@@ -835,15 +844,18 @@ Sigma = np.diag([500, 100, 20, 4])
     </p>
 
     <p>
+		<idx><h>outer product</h></idx>
+		<idx><h>inner product</h></idx>
       Given two vectors <m>\uvec</m> and <m>\vvec</m>, the matrix
-      <m>\uvec~\vvec^{\transpose}</m> is called the <em> outer product</em> of
+      <m>\uvec~\vvec^{\transpose}</m> is called the <term> outer product</term> of
       <m>\uvec</m> and <m>\vvec</m>.  (The dot product
       <m>\uvec\cdot\vvec=\uvec^{\transpose}\vvec</m> is sometimes called the
-      <em>inner product</em>.)  An outer product will always be a rank
+      <term>inner product</term>.)  An outer product will always be a rank
       <m>1</m> matrix so we see above how <m>A_k</m> is obtained by
       adding together <m>k</m> rank <m>1</m> matrices, each of which
       gets us one step closer to the original matrix <m>A</m>.
     </p>  
+
 
   </subsection>
       
@@ -854,11 +866,11 @@ Sigma = np.diag([500, 100, 20, 4])
     <p>
       In <xref ref="sec-pca" />, we explored principal component
       analysis as a technique to reduce the dimension of a dataset.
-      In particular, we constructed the covariance matrix <m>C</m>
+      In particular, we constructed the covariance matrix <m>S</m>
       from a demeaned data matrix and saw that the eigenvalues and
-      eigenvectors of <m>C</m> tell us about the variance of the
+      eigenvectors of <m>S</m> tell us about the variance of the
       dataset in different directions.  We referred to the
-      eigenvectors of <m>C</m> as <em>principal components</em> and
+      eigenvectors of <m>S</m> as <em>principal components</em> and
       found that projecting the data onto a subspace defined by the
       first few principal components frequently gave us a way to
       visualize the dataset.  As we added more principal components,
@@ -868,41 +880,40 @@ Sigma = np.diag([500, 100, 20, 4])
     </p>
 
     <p>
-      Suppose that we have a dataset with <m>N</m> points,
-      that <m>A</m> represents the demeaned data matrix, that
-      <m>A = U\Sigma V^{\transpose}</m> is a singular value decomposition, and
-      that the singular values are <m>A</m> are denoted as
+      Suppose that we have a dataset with <m>n</m> points,
+      that <m>X</m> represents the demeaned column-variate data matrix, that
+      <m>X = U\Sigma V^{\transpose}</m> is a singular value decomposition, and
+      that the singular values of <m>X</m> are denoted as
       <m>\sigma_i</m>. 
       It follows that the covariance matrix
       <me>
-	C = \frac1N AA^{\transpose} = \frac1N (U\Sigma V^{\transpose}) (U\Sigma V^{\transpose})^{\transpose} =
-	U\left(\frac1N \Sigma \Sigma^{\transpose}\right) U^{\transpose}.
+	S = \frac1{n-1} X^{\transpose}X = \frac1{n-1} (U\Sigma V^{\transpose})^{\transpose} (U\Sigma V^{\transpose}) =
+	V\left(\frac1{n-1} \Sigma^{\transpose} \Sigma \right) V^{\transpose}.
       </me>
-      Notice that <m>\frac1N \Sigma\Sigma^{\transpose}</m> is a diagonal matrix
-      whose diagonal entries are <m>\frac1N\sigma_i^2</m>.  Therefore,
+      Notice that <m>\frac1{n-1} \Sigma^{\transpose} \Sigma </m> is a diagonal matrix
+      whose diagonal entries are <m>\frac1{n-1}\sigma_i^2</m>.  Therefore,
       it follows that 
       <me>
-	C = 
-	U\left(\frac1N \Sigma \Sigma^{\transpose}\right) U^{\transpose}
+	S = 
+	V\left(\frac1{n-1} \Sigma^{\transpose} \sigma \right) V^{\transpose}
       </me>
-      is an orthgonal diagonalization of <m>C</m> showing that
+      is an orthgonal diagonalization of <m>S</m> showing that
       <ul>
 	<li>
 	  <p>
 	    the principal components of the dataset, which are the
-	    eigenvectors of <m>C</m>, are given by the columns
-	    of <m>U</m>.  In other words, the left singular vectors of
-	    <m>A</m> are the principal components of the
-	    dataset.
+	    eigenvectors of <m>S</m>, are given by the columns
+	    of <m>V</m>.  In other words, the right singular vectors of
+	    <m>X</m> are the principal components of the dataset.
 	  </p>
 	</li>
 	<li>
 	  <p>
 	    the variance in the direction of a principal
-	    component is the associated eigenvalue of <m>C</m> and 
+	    component is the associated eigenvalue of <m>S</m> and 
 	    therefore 
 	    <me>
-	      V_{\uvec_i} = \frac1N\sigma_i^2.
+	      V_{\uvec_i} = \frac1{n-1}\sigma_i^2.
 	    </me>
 	  </p>
 	</li>
@@ -920,8 +931,8 @@ Sigma = np.diag([500, 100, 20, 4])
 
 	<p>
 	  Evaluating the following cell will load the dataset and
-	  define the demeaned
-	  data matrix <m>A</m> whose shape is <m>150\by4</m>.
+	  define the demeaned column-variate
+	  data matrix <m>X</m> whose shape is <m>150 \by 4</m>.
 	</p>
 	  <sage language="python">
 	    <input>
@@ -929,12 +940,8 @@ from sklearn import datasets
 iris = datasets.load_iris()
 X_iris = iris.data 
 y_iris = iris.target
-print(X_iris.shape)
-print(X_iris[0:5, :])
-print(X_iris.mean(axis = 0))
-A_iris = X_iris - X_iris.mean(axis = 0)
-print(A_iris.mean(axis = 0))    // these should all be 0
-print(A_iris.shape)
+X_iris = X_iris - X_iris.mean(axis = 0)
+print(X_iris.mean(axis = 0))  # these should all be 0
 	    </input>
 	  </sage>
 	  
@@ -942,7 +949,7 @@ print(A_iris.shape)
 	  <ol marker="a.">
 	    <li>
 	      <p>
-		Find the singular values of <m>A</m> using the command
+		Find the singular values of <m>X_iris</m> using the command
 		<c>np.linalg.svd()</c> and use them to determine
 		the variance <m>V_{\uvec_j}</m> in the direction of
 		each of the four principal components.  What is the
@@ -1142,8 +1149,8 @@ data = Gamma2.columns()
     <p>
       In our first encounter with principal component analysis, we
       began with a demeaned data matrix <m>A</m>, formed the
-      covariance matrix <m>C</m>, and used the eigenvalues and
-      eigenvectors of <m>C</m> to project the demeaned data onto a
+      covariance matrix <m>S</m>, and used the eigenvalues and
+      eigenvectors of <m>S</m> to project the demeaned data onto a
       smaller dimensional subspace.  In this section, we have seen
       that a singular value decomposition of <m>A</m> provides a more
       direct route: the left singular vectors of <m>A</m> form the
@@ -1173,6 +1180,130 @@ data = Gamma2.columns()
       images and removing noise in them.
     </p>
 
+	<example>
+		<statement>
+			<p>
+				Applying the singular value decomposition to an image provides an interesting way to do 
+				<term>image compression</term>. The rank <m>k</m> approximations get better as <m>k</m> 
+				increases, and the singular values indicate how quickly the approximations improve. 
+				If there are only a relatively small number of singular values that are large, a rank <m>k</m> 
+				approximation with a relatively small <m>k</m> may provide an acceptabley good approximation 
+				to the image.
+			</p>
+
+			<sage language="python" auto-evaluate="yes">
+				<input>
+from skimage import io
+import matplotlib.pyplot as plt 
+				</input>
+			</sage>
+			
+			<p>
+				The following cell loads a gray-scale image of a lily and displays it.
+			</p>
+
+
+			<sage language="python">
+				<input>
+url = "https://rpruim.github.io/data/images/happy-dog.jpeg"
+url = "https://rpruim.github.io/ds303/S20/from-class/svd/lily-gray.jpg"
+lily = io.imread(url)
+print(lily.shape)
+plt.figure()
+plt.imshow(lily, cmap=plt.cm.gray)
+plt.show()
+				</input>
+			</sage>
+
+			<p>
+				Now let's compute the (reduced) SVD for the image matrix and inspect the shapes of each 
+				piece, comparing them to the shape of the original image.
+			</p>
+			<sage language="python">
+				<input>
+lily_svd = np.linalg.svd(lily, full_matrices=False)
+print([x.shape for x in lily_svd])
+print(lily.shape)
+				</input>
+				<output>
+				</output>
+			</sage>
+
+			<p>
+				We can construct the matrix for our image and confirm that (up to a bit of rounding) we get 
+				back our orignal image.  Broadcasting in Python allows us to do this without creating the 
+				diagonal matrix <m>\Sigma</m>.
+			</p>
+
+				<sage language="python">
+					<input>
+U, sigma, Vt = np.linalg.svd(lily, full_matrices = False)
+lily_reconstructed1 = U @ np.diag(sigma) @ Vt
+lily_reconstructed2 = (U * sigma) @ Vt
+print(
+    np.max(lily - lily_reconstructed1),
+    np.min(lily - lily_reconstructed1),
+    np.max(lily - lily_reconstructed2),
+    np.min(lily - lily_reconstructed2)
+    )
+					</input>
+					<output>
+					</output>
+				</sage>
+
+				<p>
+					Now let's create a function that computes the rank <m>k</m> approximation from the SVD.
+					And plot the first few approximations.  Feel free to try some other values of <m>k</m> 
+					as well.
+				</p>
+			<sage language="python">
+				<input>
+def rank_k_approx(svd, k):
+    U, sigma, Vt = svd
+    sigma_mod = sigma.copy()
+
+    for i in range(k, sigma_mod.shape[0]):
+        sigma_mod[i] = 0.0
+    return (U * sigma_mod) @ Vt
+
+def show_image(img):
+    plt.figure()
+    plt.imshow(img, cmap=plt.cm.gray)
+    plt.show()
+    
+show_image(rank_k_approx(lily_svd, 1))
+show_image(rank_k_approx(lily_svd, 2))
+show_image(rank_k_approx(lily_svd, 3))
+
+				</input>
+			</sage>
+
+			<p>
+				The singular values shrink quite rapidly, suggesting that a rank 20 or 30 approximation might provide a 
+				reasonable approximation to the image.
+			</p>
+
+			<sage language="python">
+				<input>
+sigma = lily_svd[1]  
+
+plt.figure()
+plt.plot(sigma)
+plt.show()	
+
+lily25 = rank_k_approx(lily_svd, 25)
+print(np.max(lily - lily25), np.min(lily - lily25))
+show_image(lily25)
+show_image(lily - lily25)
+				</input>
+				<output>
+				</output>
+			</sage>
+
+		</statement>
+		
+	</example>
+
     <activity>
       <statement>
 	<p>
@@ -1180,7 +1311,7 @@ data = Gamma2.columns()
 	  in this activity.  To begin, it defines and displays a
 	  <m>25\by15</m> matrix <m>A</m>.
 	</p>
-	  <sage language="python">
+	  <sage>
 	    <input>
 sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_compress.py', globals())
 print(A)
@@ -1195,7 +1326,7 @@ print(A)
 		If we interpret 0 as black and 1 as white, this matrix
 		represents an image as shown below.
 		  </p>
-		<sage language="python">
+		<sage>
 		  <input>
 display_matrix(A)
 
@@ -1219,7 +1350,7 @@ display_matrix(A)
 		      <m>A</m>.  Explain how this plot verifies that
 		      the rank is what you found in the previous part.
 		    </p>
-		      <sage language="python">
+		      <sage>
 			<input>
 plot_sv(A)		    
 
@@ -1236,7 +1367,7 @@ plot_sv(A)
 		      first few approximations.  What is the smallest
 		      value of <m>k</m> for which <m>A=A_k</m>?
 		    </p>
-		      <sage language="python">
+		      <sage>
 			<input>
 k = 
 display_matrix(approximate(A, k))			  
@@ -1290,7 +1421,7 @@ display_matrix(approximate(A, k))
 		      array of <m>316\by310</m> pixels stored in the
 		      matrix <m>A</m>.
 		    </p>
-		      <sage language="python">
+		      <sage>
 			<input>
 A = matrix(RDF, image)
 display_image(A)
@@ -1300,7 +1431,7 @@ display_image(A)
 		    <p>
 		      Plot the singular values of <m>A</m>.
 		    </p>
-		      <sage language="python">
+		      <sage>
 			<input>
 plot_sv(A)
 			</input>
@@ -1312,7 +1443,7 @@ plot_sv(A)
 		      Use the cell below to study the approximations
 		      <m>A_k</m> for <m>k=1, 10, 20, 50, 100</m>.
 			</p>
-		      <sage language="python">
+		      <sage>
 			<input>
 k = 1
 display_image(approximate(A, k))		    
@@ -1342,7 +1473,7 @@ display_image(approximate(A, k))
 		<em>denoising</em>.  For example, consider the image
 		represented by the matrix <m>A</m> below.
 		  </p>
-		<sage language="python">
+		<sage>
 		  <input>
 A = matrix(RDF, noise.values)		    
 display_matrix(A)		
@@ -1364,7 +1495,7 @@ display_matrix(A)
 		      represented by the clean image that we 
 		      considered earlier and how are they different?
 		    </p>
-		      <sage language="python">
+		      <sage>
 			<input>
 plot_sv(A)
 
@@ -1388,7 +1519,7 @@ plot_sv(A)
 		      appears to be somewhat cleaned up as a result of
 		      removing the noise.
 		    </p>
-		      <sage language="python">
+		      <sage>
 			<input>
 k = 
 display_matrix(approximate(A, k))
@@ -1631,9 +1762,11 @@ display_matrix(approximate(A, k))
 	  stored in the <m>9\by911</m> matrix <m>A</m>.
 	</p>
 	  
-	  <sage language="python">
+	  <sage>
 	    <input>
+import pandas as pd   
 sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
+cases = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/Rehnquist-cases.csv', index_col=0)
 A = matrix(RDF, cases.values)
 cases
 
@@ -1651,7 +1784,7 @@ cases
 	  white representing an entry of +1, red representing -1, and
 	  black representing 0.
 	</p>
-	  <sage language="python">
+	  <sage>
 	    <input>
 display_matrix(A.matrix_from_columns(range(50)))
 
@@ -1667,7 +1800,7 @@ display_matrix(A.matrix_from_columns(range(50)))
 		contributions from the singular values <m>\sigma_k</m>
 		as <m>k</m> increases.
 		  </p>
-		<sage language="python">
+		<sage>
 		  <input>
 plot_sv(A)
 		  </input>
@@ -1680,7 +1813,7 @@ plot_sv(A)
 		V^{\transpose}</m> and the matrix of coefficients <m>\Gamma</m>
 		so that <m>A=U\Gamma</m>.
 	      </p>
-		<sage language="python">
+		<sage>
 		  <input>
 
 		  </input>
@@ -1697,7 +1830,7 @@ plot_sv(A)
 		of a matrix <m>A</m>.  Describe the justices' votes in
 		the second case.
 	      </p>
-		<sage language="python">
+		<sage>
 		  <input>
 		  </input>
 		</sage>
@@ -1712,7 +1845,7 @@ plot_sv(A)
 		second case as a linear combination of left singular
 		vectors.
 		  </p>
-		<sage language="python">
+		<sage>
 		  <input>
 
 		  </input>
@@ -1731,7 +1864,7 @@ plot_sv(A)
 		represented by the column of <m>A</m> indexed by
 		<c>47</c>.  Describe the voting pattern in this case.
 	      </p>
-		<sage language="python">
+		<sage>
 		  <input>
 
 		  </input>
@@ -1745,7 +1878,7 @@ plot_sv(A)
 		of coefficients that express the <m>48^{th}</m> case as
 		a linear combination of left singular vectors.
 		  </p>
-		<sage language="python">
+		<sage>
 		  <input>
 
 		  </input>
@@ -1811,7 +1944,7 @@ plot_sv(A)
 		Evaluating the next cell forms the <m>9\by188</m>
 		matrix <m>B</m> consisting of 5-4 decisions.
 		  </p>
-		<sage language="python">
+		<sage>
 		  <input>
 B = matrix(RDF, fivefour.values)
 display_matrix(B.matrix_from_columns(range(50)))
@@ -1828,7 +1961,7 @@ display_matrix(B.matrix_from_columns(range(50)))
 		constructed as a linear 
 		combination of left singular vectors.
 		</p>
-		<sage language="python">
+		<sage>
 		  <input>
 
 		  </input>
@@ -1847,7 +1980,7 @@ display_matrix(B.matrix_from_columns(range(50)))
 		indexed by <c>5</c>, is constructed as a linear
 		combination of left singular vectors.
 		  </p>
-		<sage language="python">
+		<sage>
 		  <input>
 
 		  </input>

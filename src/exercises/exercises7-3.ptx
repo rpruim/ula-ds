@@ -21,8 +21,8 @@
 	  \end{bmatrix}
 	</me>
 	and that we have two datasets, one whose covariance matrix is 
-	<m>C_1 = QD_1Q^{\transpose}</m> and one whose covariance matrix is
-	<m>C_2 = QD_2Q^{\transpose}</m>.
+	<m>S_1 = QD_1Q^{\transpose}</m> and one whose covariance matrix is
+	<m>S_2 = QD_2Q^{\transpose}</m>.
 	For each dataset, find
 	<ol marker="a.">
 	  <li>
@@ -38,8 +38,8 @@
 	  </li>
 	  <li>
 	    <p>
-	      a verbal description of how the demeaned data points
-	      appear when plotted in the plane.
+	      a verbal description of how the demeaned case vectors  
+	      appear when plotted as points in the plane.
 	    </p>
 	  </li>
 	</ol>
@@ -107,14 +107,14 @@
       <p>
 	Suppose that a dataset has mean <m>\threevec{13}{5}{7}</m>
 	and that its associated covariance matrix is
-	<m>C=\begin{bmatrix}
+	<m>S=\begin{bmatrix}
 	275 \amp -206 \amp 251 \\
 	-206 \amp 320 \amp -206 \\
 	251 \amp -206 \amp 275
 	\end{bmatrix}
 	</m>.
 	</p>
-	<sage>
+	<sage language="python">
 	  <input>
 
 	  </input>
@@ -129,17 +129,18 @@
 	  </li>
 	  <li>
 	    <p>
-	      If <m>\threevec{30}{-3}{26}</m> is one of the data
-	      points, find the coordinates when the demeaned point is
+	      Suppose <m>\threevec{30}{-3}{26}</m> is one of the case vectors.
+	      Find the coordinates when the demeaned case vector is
 	      projected into the plane defined by the first two
 	      principal components.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      If a projected data point has coordinates
+	      If a projected case vector has coordinates
 	      <m>\twovec{12}{-25}</m>, find an estimate for the original
-	      data point.
+	      case vector. Why is it only an estimate? What factors determine 
+		  how good the estimate is likely to be?
 	    </p>
 	  </li>
 	</ol>
@@ -181,7 +182,7 @@
 	  </li>
 	  <li>
 	    <p>
-	      Suppose <m>\xvec</m> is this data point and <m>\mvec</m>
+	      Let <m>\xvec</m> be this case vector, and let <m>\mvec</m>
 	      the vector of means.
 	      If <m>Q</m> is the <m>2\by3</m> matrix whose columns
 	      are the first two principal components, then we find
@@ -191,7 +192,20 @@
 	  <li>
 	    <p>
 	      We find <m>Q\twovec{12}{-25} + \mvec =
-	      \threevec{9.7}{-22.3}{3.7}</m>.
+	      \threevec{9.7}{-22.3}{3.7}</m>. 
+		  </p>
+		  <p>
+		  Notice that this is the same result we would get from 
+		  <m>\tilde Q \threevec{12}{-25}{0}</m>, where <m>\tidle Q</m> 
+		  is <m> Q</m> augmented with an additional column for the third principal component.
+		  In other words, our estimate is produced using the average value along the direction of  
+		  the third principal comonent rather than the actual value.
+		  This is only an estimate because not all values are average. 
+		  If the eigenvalue associated with the third eigenvector 
+		  are small (so the variance in that direction is small), then most of the points  
+		  cluster very close to average and the prediction will be good. But if the variance is larger, 
+		  many of the points may be farther away from the average, and the prediction may not 
+		  be as good.
 	    </p>
 	  </li>
 	</ol>
@@ -201,13 +215,13 @@
 	      
   </exercise>
 
-  <exercise>
+  <!-- <exercise>
     <statement>
       <p>
 	Evaluating the following cell loads a <m>2\by100</m>
 	demeaned data matrix <c>A</c>.
 	  </p>
-	<sage>
+	<sage language="python">
 	  <input>
 sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_ex.py', globals())
 
@@ -284,7 +298,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	</ol>
       </p>
     </solution>
-  </exercise>
+  </exercise> -->
 
   <exercise>
     <statement>
@@ -297,14 +311,13 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	      If the eigenvalues of the covariance matrix are
 	      <m>\lambda_1</m>, <m>\lambda_2</m>, and
 	      <m>\lambda_3</m>, then <m>\lambda_3</m> is the variance
-	      of the demeaned data points when projected on the third
+	      of the demeaned case vectors when projected on the third
 	      principal component <m>\uvec_3</m>.
 	    </p>
 	  </li>
 	  <li>
 	    <p>
-	      Principal component analysis always allows us to
-	      construct 
+	      Principal component analysis always allows us to construct 
 	      a smaller dimensional representation of a dataset
 	      without losing any information.
 	    </p>
@@ -312,7 +325,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	  <li>
 	    <p>
 	      If the eigenvalues of the covariance matrix are 56,
-	      32, and 0, then the demeaned data points all lie on a
+	      32, and 0, then the demeaned case vectors all lie on a
 	      line in <m>\real^3</m>.
 	    </p>
 	  </li>
@@ -347,8 +360,8 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      True.  The variance of the projected data points is
-	      <m>V_{\uvec_3} = \uvec_3\cdot(C\uvec_3) =
+	      True.  The variance of the projected case vectors is
+	      <m>V_{\uvec_3} = \uvec_3\cdot(S\uvec_3) =
 	      \lambda_3</m>.
 	    </p>
 	  </li>
@@ -385,7 +398,8 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	      describe the meaning of its four components.  Which
 	      component is most significant? What can you say
 	      about the relative importance of the four
-	      measurements?
+	      measurements? (See <xref ref="exercise-penguins" /> for 
+		  an important caveat about this line of reasoning.)
 	    </p>
 	  </li>
 	  <li>
@@ -472,7 +486,7 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	    
   </exercise>
 	    
-  <exercise>
+  <exercise xml:id="exercise-penguins">
     <statement>
       <p>
 	This problem explores a dataset describing 333 penguins.
@@ -499,12 +513,13 @@ sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/
 	meaning of the culmen length and width is contained in the
 	illustration on the right of <xref ref="fig-penguins" />.
 	  </p>
-	<sage>
+	<sage language="python">
 	  <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_penguins.py', globals())
-df.T
-
-
+penguins = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/penguins.csv')
+penguins = penguins.drop(columns=['Unnamed: 0'])
+penguinsX = penguins.to_numpy()[:, 1:5]
+print(penguins)
+print(penguinsX[0:5, :])
 	  </input>
 	</sage>
 	<p>
@@ -512,12 +527,13 @@ df.T
 	at because the scale of the measurements is significantly
 	different.  For instance, the measurements for the body mass
 	are roughly 100 times as large as those for the culmen length.
-	For this reason, we will standardize the data by first
-	demeaning it, as usual, and then rescaling each measurement by
-	the reciprocal of its standard deviation.  The result is
-	stored in the <m>4\by333</m> matrix <c>A</c>.
+	For this reason, first standardize the data by demeaning it, as usual, 
+	and then by also rescaling each measurement by the reciprocal of its 
+	standard deviation.  The result should be a 
+	<m>333 \by 4</m> matrix <c>penguinsXstd</c> with columns means of 0 and columns 
+	standard deviations of 1.
 	</p>
-	<sage>
+	<sage language="python">
 	  <input>
 
 	  </input>
@@ -526,7 +542,7 @@ df.T
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Find the covariance matrix and its eigenvalues.
+	      Find the covariance matrix for <c>penguinsXstd</c> and its eigenvalues.
 	    </p>
 	  </li>
 	  <li>
@@ -537,17 +553,19 @@ df.T
 	  </li>
 	  <li>
 	    <p>
-	      Construct the <m>2\by333</m> matrix <m>B</m> whose
-	      columns are 
-	      the coordinates of the demeaned data points projected
+	      Construct the <m>333 \by 2</m> matrix <c>penguinsPCA</c> 
+		  that results from projecting 
 	      onto the first two principal components.  
 	      The following cell will create the plot.
 		</p>
-	      <sage>
+	      <sage language="python">
 		<input>
-
-pca_plot(B)		  
-		  
+penguinsPCA = 
+( 
+	so.Plot(penguins, x = penguinsPCA[:, 0], y = penguinsPCA[: 1], color = 'species')
+	.add(so.Dot())
+	.show()
+)
 		</input>
 	      </sage>
 	  </li>
@@ -568,14 +586,17 @@ pca_plot(B)
 	  </li>
 	  <li>
 	    <p>
-	      You can plot just the males or females using the
+	      You can separate the males from the females using the
 	      following cell.
 		</p>
-	      <sage>
+	      <sage language="python">
 		<input>
-pca_plot(B, sex='female')
-
-		  
+( 
+	so.Plot(penguins, x = penguinsPCA[:, 0], y = penguinsPCA[: 1], color = 'species')
+	.add(so.Dot())
+	.facet("sex")
+	.show()
+)
 		</input>
 	      </sage>
 		  <p>

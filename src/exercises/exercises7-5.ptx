@@ -15,7 +15,7 @@
 	  \end{bmatrix}.
 	</me>
 	</p>
-	<sage>
+	<sage language="python">
 	  <input>
 	  </input>
 	</sage>
@@ -125,7 +125,7 @@
 	  (0,1), (1,0), (2,1.5), (3,4), (4,8).
 	</me>
 	</p>
-	<sage>
+	<sage language="python">
 	  <input>
 	    
 	  </input>
@@ -335,28 +335,28 @@
 	For this reason, in addition to demeaning the data, we'll
 	scale each feature by dividing by its standard deviation so
 	that the range of values is similar for each feature.  The
-	matrix <m>A</m> holds the result.
+	column-variate matrix <m>X</m> holds the result.
 	  </p>
-	<sage>
+	<sage language="python">
 	  <input>
 import pandas as pd
-df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/housing.csv', index_col=0)
-df = df.fillna(df.mean())
-std = (df-df.mean())/df.std()
-A = matrix(std.values).T
-df.T
-
+housing = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/housing.csv', index_col=0)
+housing = housing.fillna(housing.mean())
+print(housing)
+housing_std = (housing - housing.mean()) / housing.std()
+X = housing_std.to_numpy()
+print(X.shape)
 	  </input>
 	</sage>
 	<p>
 	<ol marker="a.">
 	  <li>
 	    <p>
-	      Find the singular values of <m>A</m> and use them to
+	      Find the singular values of <m>X</m> and use them to
 	      determine the variance in the direction of the principal
 	      components. 
 		</p>
-	      <sage>
+	      <sage language="python">
 		<input>
 
 		</input>
@@ -378,7 +378,7 @@ df.T
 	      plot the projected data points using
 	      <c>list_plot(B.columns())</c>.
 		</p>
-	      <sage>
+	      <sage language="python">
 		<input>
 		</input>
 	      </sage>
@@ -504,13 +504,14 @@ df.T
 	voting records of the justices in the 188 cases decided by a
 	5-4 vote and store them in the matrix <m>A</m>.
 	  </p>
-	<sage>
+<!-- sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals()) -->
+	<sage language="python">
 	  <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
-A = matrix(RDF, fivefour.values)
-v = vector(188*[1])
-fivefour
-
+cases = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/Rehnquist-cases.csv', index_col=0)
+fivefour = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/Rehnquist-five-four.csv', index_col=0)
+print(fivefour)
+A = fivefour.to_numpy()
+v = np.ones(188)
 	  </input>
 	</sage>
 	<p>
@@ -523,7 +524,7 @@ fivefour
 	      <m>A\vvec</m> represent?  Use the following cell to
 	      evaluate this product.
 		</p>
-	      <sage>
+	      <sage language="python">
 		<input>
 
 		</input>
@@ -653,11 +654,12 @@ fivefour
 	row and second column is 72.78, which means that Justices
 	Rehnquist and Scalia agreed with each other in 72.78% of the cases. 
 	  </p>
-	<sage>
+	<sage language="python">
 	  <input>
-sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_supreme.py', globals())
-A = 1/100*matrix(RDF, agreement.values)
-agreement
+import pandas as pd  
+agreement = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/rehnquist-agreement.csv', index_col=0)
+print(agreement)
+A = 1.0 / 100 * agreement.to_numpy()
 
 	  </input>
 	</sage>
@@ -676,9 +678,14 @@ agreement
 	      value of <m>k</m> would the approximation <m>A_k</m>
 	      be a reasonable approximation of <m>A</m>?
 		</p>
-	      <sage>
+	      <sage language="python">
 		<input>
-plot_sv(A)
+import matplotlib.pyplot as plt
+# replace this with the correct singular values
+sigma = np.array(10, 6, 3, 1)
+plt.figure()
+plt.plot(sigma)
+plt.show()
 
 		</input>
 	      </sage>
@@ -691,7 +698,7 @@ plot_sv(A)
 	      the relationship between <m>U</m> and <m>V</m> and why
 	      should we expect this relationship to hold?
 		</p>
-	      <sage>
+	      <sage language="python">
 		<input>
 
 		</input>
@@ -706,7 +713,7 @@ plot_sv(A)
 	      that is, most likely to agree with other justices?
 	      Which justice is least agreeable?
 	    </p>
-	      <sage>
+	      <sage language="python">
 		<input>
 
 		</input>
@@ -718,7 +725,7 @@ plot_sv(A)
 	      this tells us about the presence of voting blocs and
 	      swing votes on the court.
 	    </p>
-	      <sage>
+	      <sage language="python">
 		<input>
 
 		</input>
@@ -951,7 +958,7 @@ plot_sv(A)
 	      decomposition.  What is the condition number of
 	      <m>A</m>?
 	    </p>
-	      <sage>
+	      <sage language="python">
 		<input>
 
 		</input>
@@ -1126,6 +1133,56 @@ plot_sv(A)
       </p>
     </solution>
 
+  </exercise>
+
+  <exercise>
+	<title>SVD compression of color images</title>
+	
+	<statement>
+		<p>
+			<ol marker="a.">
+				<li>
+					<p>
+			Load a color image into Python and compute the SVD for each color channel.
+						
+					</p>
+				</li>
+				<li>
+					<p>
+						Plot the singular values for each color channel and use those plots to pick an appropriate 
+						rank <m>k</m> approximation for each.
+					</p>
+				</li>
+				<li>
+					<p>
+						Recombine the three compressed color channels and plot the resulting image.
+					</p>
+				</li>
+				<li>
+					<p>
+						How much does the image degrade if you cut the rank of the compressions in half? 
+						How much does the image improve if you double the rank of the compressions?
+					</p>
+				</li>
+			</ol>
+		</p>
+	</statement>
+  </exercise>
+
+  <exercise>
+	<title>
+		How much space does a rank <m>k</m> SVD approximation save?  
+	</title>
+	<statement>
+		<p>
+			Suppose
+			the original matrix is <m>m \by n</m>. That matrix has <m>mn</m>
+			entries.  If you compute a reduced rank SVD for <m>A</m> and use it
+			to create a rank <m>k</m> approximation, how many entries must you store?
+			Be clever and only store what is necessary.  For example, you only need to store 
+			the diagonal entries of <m>\Sigma</m> since we know the rest will be 0.
+		</p>
+	</statement>
   </exercise>
 
 </exercises>
