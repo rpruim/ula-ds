@@ -724,7 +724,7 @@ sagecell.makeSagecell({
 <li>
 <div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Principal Component Analysis</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pca.html#subsection-129" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-129" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Themes of Principal Component Analysis</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#subsection-130" class="internal"><span class="codenumber">7.4.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#subsection-131" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#exercises-33" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Exercises</span></a></div></li>
@@ -1194,7 +1194,7 @@ x_1y_1 + x_2y_2\text{.}
 </div>
 <div class="para">Use the Python cell below to find <span class="process-math">\(\len{\vvec}\text{,}\)</span> <span class="process-math">\(\len{\wvec}\text{,}\)</span> <span class="process-math">\(\vvec\cdot\wvec\text{,}\)</span> and the angle between <span class="process-math">\(\vvec\)</span> and <span class="process-math">\(\wvec\text{.}\)</span>  You may use <code class="code-inline tex2jax_ignore">math.acos()</code> to find the angle’s measure expressed in radians.</div>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-198"><script type="text/x-sage">import math  
+<pre class="ptx-sagecell sagecell-python" id="sage-197"><script type="text/x-sage">import math  
 import numpy as np
 </script></pre>
 </li>
@@ -1268,7 +1268,7 @@ import numpy as np
 <li id="li-3819">
 <div class="para" id="p-5780">Our first task is to assess the similarity between various Wikipedia articles by forming vectors from each of five articles.  In particular, one may download the text from a Wikipedia article, remove common words, such as “the” and “and”, count the number of times the remaining words appear in the article, and represent these counts in a vector, called the <dfn class="terminology">document vector</dfn> for each article.</div>
 <div class="para" id="p-5781">For example, evaluate the following cell that loads a matrix constructed from the Wikipedia articles on Veteran’s Day, Memorial Day, Labor Day, the Golden Globe Awards, and the Super Bowl.  Each row of the matrix represents one of 604 words and each column represents one of the articles as a document vector. For instance, the word “act” appears 3 times in the Veteran’s Day article and 0 times in the Labor Day article.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-199"><script type="text/x-sage">import pandas as pd
+<pre class="ptx-sagecell sagecell-python" id="sage-198"><script type="text/x-sage">import pandas as pd
 import numpy as np
 
 events = pd.read_csv("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/events.csv", index_col=0)
@@ -1280,7 +1280,7 @@ print(head(events, 5))
 <li id="li-3821"><div class="para" id="p-5784">Suppose there are two articles on the same subject, yet one article is twice as long.  What approximate relationship would you expect to hold between the two vectors?  What does this say about the angle between them?</div></li>
 <li id="li-3822">
 <div class="para" id="p-5785">Use the Python cell below to find the angle between the document vector for the Veteran’s Day article and the other four articles.  To express the angle in degrees, multiply radians by <code class="code-inline tex2jax_ignore">180.0 / math.pi</code>.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-200"><script type="text/x-sage">import numpy as np
+<pre class="ptx-sagecell sagecell-python" id="sage-199"><script type="text/x-sage">import numpy as np
 import math
 </script></pre>
 </li>
@@ -1289,7 +1289,7 @@ import math
 </li>
 <li id="li-3824">
 <div class="para" id="p-5787">Vectors are often used to represent how a quantity changes over time.  For instance, the vector <span class="process-math">\(\svec=\fourvec{78.3}{81.2}{82.1}{79.0}\)</span> might represent the value of a company’s stock on four consecutive days.  When interpreted in this way, we call the vector a <dfn class="terminology">time series.</dfn>  Evaluate the Python cell below to see a representation of time series for four different stocks over 10 days.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-201"><script type="text/x-sage">import numpy as np
+<pre class="ptx-sagecell sagecell-python" id="sage-200"><script type="text/x-sage">import numpy as np
 import pandas as pd
 import seaborn.objects as so
 stocks = pd.read_csv("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/time-series.csv", header=None)
@@ -1306,7 +1306,7 @@ so.Plot(stocks1_long, x = "day", y = "price", color = "stock").add(so.Lines()).s
 <ol class="decimal">
 <li id="li-3825">
 <div class="para" id="p-5789">In order to compare the ways in which they rise and fall, we will first  <dfn class="terminology">demean</dfn> each time series;  that is, for each time series, we will subtract its average value to obtain a new time series.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-202"><script type="text/x-sage">stocks0 = stocks - stocks.mean(axis = 0)
+<pre class="ptx-sagecell sagecell-python" id="sage-201"><script type="text/x-sage">stocks0 = stocks - stocks.mean(axis = 0)
 stocks0_long = pd.melt(stocks0, id_vars="day", var_name = "stock", value_name="price")
 so.Plot(stocks0_long, x = "day", y = "price", color = "stock").add(so.Lines()).show()
 </script></pre>
@@ -1326,7 +1326,7 @@ so.Plot(stocks0_long, x = "day", y = "price", color = "stock").add(so.Lines()).s
 <div class="para">where <span class="process-math">\(\theta\)</span> is the angle between <span class="process-math">\(\tilde{\svec_1}\)</span> and <span class="process-math">\(\tilde{\svec_2}\text{.}\)</span> That is, <em class="emphasis">the correlation equals the cosine of the angle between the demeaned time series</em>. Among other things, this implies that <span class="process-math">\(\corr(\svec_1,\svec_2)\)</span> is always between -1 and 1.</div>
 </div>
 <div class="para" id="p-5791">Find the correlation between each pair of stocks.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-203"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-202"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-3827">
@@ -1346,7 +1346,7 @@ so.Plot(stocks0_long, x = "day", y = "price", color = "stock").add(so.Lines()).s
 <li id="li-3831"><div class="para" id="p-5797">Which pair of stocks had a correlation closest to 0? How is this reflected in the plot?</div></li>
 <li id="li-3832">
 <div class="para" id="p-5798">The correlation is important enough that numpy can do all the work of computing correlations for each pair of rows (default) or columns (what we want here) in a matrix.  The result is a matrix containing all the pairwise correlations. </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-204"><script type="text/x-sage">print("correlations"); print() 
+<pre class="ptx-sagecell sagecell-python" id="sage-203"><script type="text/x-sage">print("correlations"); print() 
 print(np.corrcoef(stocks, rowvar = False))
 </script></pre>
 <div class="para logical" id="p-5799"><ul class="disc">
@@ -1613,7 +1613,7 @@ C_2 \amp {}={} \amp \{\vvec_2, \vvec_3,\vvec_4\}
 <li id="li-3890"><div class="para" id="p-5880">We have now seen two clusterings and computed their objectives.  Recall that our data set is shown in <a href="" class="xref" data-knowl="./knowl/fig-clustering-ex.html" title="Figure 6.1.23">Figure 6.1.23</a>.  Which of the two clusterings feels like the better fit?  How is this fit reflected in the values of the objectives?</div></li>
 <li id="li-guess-clusters">
 <div class="para" id="p-5881">Evaluating the following cell will load and display a data set consisting of 177 data points.  This data set has the name <code class="code-inline tex2jax_ignore">data</code>.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-205"><script type="text/x-sage">sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/k_means.py", globals())
+<pre class="ptx-sagecell sagecell-sage" id="sage-204"><script type="text/x-sage">sage.repl.load.load("https://raw.githubusercontent.com/davidaustinm/ula_modules/master/k_means.py", globals())
 list_plot(data, color='blue', size=20, aspect_ratio=1)
 </script></pre>
 <div class="para" id="p-5882">Given this plot of the data, what would seem like a reasonable number of clusters?</div>
@@ -1621,7 +1621,7 @@ list_plot(data, color='blue', size=20, aspect_ratio=1)
 <li id="li-3892">
 <div class="para" id="p-5883">In the following cell, you may choose a value of <span class="process-math">\(k\)</span> and then run the algorithm to determine and display a clustering and its objective.  If you run the algorithm a few times with the same value of <span class="process-math">\(k\text{,}\)</span> you will likely see different clusterings having different objectives. This is natural since our algorithm starts by making a random choice of points <span class="process-math">\(c_1,c_2,\ldots,c_k\text{,}\)</span> and a different choices may lead to different clusterings. Choose a value of <span class="process-math">\(k\)</span> and run the algorithm a few times.  Notice that clusterings having lower objectives seem to fit the data better.  Repeat this experiment with a few different values of <span class="process-math">\(k\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-206"><script type="text/x-sage">k = 2  # you may change the value of k here
+<pre class="ptx-sagecell sagecell-sage" id="sage-205"><script type="text/x-sage">k = 2  # you may change the value of k here
 clusters, centroids, objective = kmeans(data, k)
 print('Objective =', objective)
 plotclusters(clusters, centroids)
@@ -1629,7 +1629,7 @@ plotclusters(clusters, centroids)
 </li>
 <li id="li-3893">
 <div class="para" id="p-5884">For a given value of <span class="process-math">\(k\text{,}\)</span> our strategy is to run the algorithm several times and choose the clustering with the smallest objective.  After choosing a value of <span class="process-math">\(k\text{,}\)</span> the following cell will run the algorithm 10 times and display the clustering having the smallest objective.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-207"><script type="text/x-sage">k = 2  # you may change the value of k here
+<pre class="ptx-sagecell sagecell-sage" id="sage-206"><script type="text/x-sage">k = 2  # you may change the value of k here
 clusters, centroids, objective = minimalobjective(data, k)
 print('Objective =', objective)
 plotclusters(clusters, centroids)

@@ -9,10 +9,49 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
 <h5 class="heading"><span class="type">Paragraph</span></h5>
-<div class="para">Iris setosa has a below average petal length and appears overall smaller.</div>
+<div class="para logical"><ol class="lower-alpha">
+<li><div class="para">Find the covariance matrix for <code class="code-inline tex2jax_ignore">penguinsXstd</code> and its eigenvalues.</div></li>
+<li><div class="para">What fraction of the total variance is explained by the first two principal components?</div></li>
+<li>
+<div class="para">Construct the <span class="process-math">\(333 \by 2\)</span> matrix <code class="code-inline tex2jax_ignore">penguinsPCA</code> that results from projecting onto the first two principal components. The following cell will create the plot.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-297"><script type="text/x-sage">penguinsPCA = 
+( 
+	so.Plot(penguins, x = penguinsPCA[:, 0], y = penguinsPCA[: 1], color = 'species')
+	.add(so.Dot())
+	.show()
+)
+</script></pre>
+</li>
+<li><div class="para">Examine the components of the first two principal component vectors. How does the body mass of Gentoo penguins compare to that of the other two species?</div></li>
+<li><div class="para">What seems to be generally true about the culmen measurements for a Chinstrap penguin compared to a Adelie?</div></li>
+<li>
+<div class="para">You can separate the males from the females using the following cell.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-298"><script type="text/x-sage">( 
+	so.Plot(penguins, x = penguinsPCA[:, 0], y = penguinsPCA[: 1], color = 'species')
+	.add(so.Dot())
+	.facet("sex")
+	.show()
+)
+</script></pre>
+<div class="para">What seems to be generally true about the body mass measurements for a male Gentoo compared to a female Gentoo?</div>
+</li>
+</ol></div>
 <span class="incontext"><a href="sec-pca.html#p-8270" class="internal">in-context</a></span>
 </body>
 </html>

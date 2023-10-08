@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+<!--********************************************-->
+<!--*       Generated from PreTeXt source      *-->
+<!--*                                          *-->
+<!--*         https://pretextbook.org          *-->
+<!--*                                          *-->
+<!--********************************************-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script><script>// Make *any* pre with class 'sagecell-python-autoeval' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python-autoeval",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": true,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)",
+  "hide": [
+    "evalButton"
+  ]
+});
+</script>
+</head>
+<body class="ignore-math">
+<article class="example example-like"><h4 class="heading">
+<span class="type">Example</span><span class="space"> </span><span class="codenumber">7.6.2</span><span class="period">.</span>
+</h4>
+<div class="para">Applying the singular value decomposition to an image provides an interesting way to do <dfn class="terminology">image compression</dfn>. The rank <span class="process-math">\(k\)</span> approximations get better as <span class="process-math">\(k\)</span> increases, and the singular values indicate how quickly the approximations improve. If there are only a relatively small number of singular values that are large, a rank <span class="process-math">\(k\)</span> approximation with a relatively small <span class="process-math">\(k\)</span> may provide an acceptabley good approximation to the image.</div> <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-320"><script type="text/x-sage">from skimage import io
+import matplotlib.pyplot as plt
+</script></pre> <div class="para">The following cell loads a gray-scale image of a lily and displays it.</div> <pre class="ptx-sagecell sagecell-python" id="sage-321"><script type="text/x-sage">url = "https://rpruim.github.io/data/images/happy-dog.jpeg"
+url = "https://rpruim.github.io/ds303/S20/from-class/svd/lily-gray.jpg"
+lily = io.imread(url)
+print(lily.shape)
+plt.figure()
+plt.imshow(lily, cmap=plt.cm.gray)
+plt.show()
+</script></pre> <div class="para">Now let’s compute the (reduced) SVD for the image matrix and inspect the shapes of each piece, comparing them to the shape of the original image.</div> <pre class="ptx-sagecell sagecell-python" id="sage-322"><script type="text/x-sage">lily_svd = np.linalg.svd(lily, full_matrices=False)
+print([x.shape for x in lily_svd])
+print(lily.shape)
+</script></pre> <div class="para">We can construct the matrix for our image and confirm that (up to a bit of rounding) we get back our orignal image.  Broadcasting in Python allows us to do this without creating the diagonal matrix <span class="process-math">\(\Sigma\text{.}\)</span>
+</div> <pre class="ptx-sagecell sagecell-python" id="sage-323"><script type="text/x-sage">U, sigma, Vt = np.linalg.svd(lily, full_matrices = False)
+lily_reconstructed1 = U @ np.diag(sigma) @ Vt
+lily_reconstructed2 = (U * sigma) @ Vt
+print(
+    np.max(lily - lily_reconstructed1),
+    np.min(lily - lily_reconstructed1),
+    np.max(lily - lily_reconstructed2),
+    np.min(lily - lily_reconstructed2)
+    )
+</script></pre> <div class="para">Now let’s create a function that computes the rank <span class="process-math">\(k\)</span> approximation from the SVD. And plot the first few approximations.  Feel free to try some other values of <span class="process-math">\(k\)</span> as well.</div> <pre class="ptx-sagecell sagecell-python" id="sage-324"><script type="text/x-sage">def rank_k_approx(svd, k):
+    U, sigma, Vt = svd
+    sigma_mod = sigma.copy()
+
+    for i in range(k, sigma_mod.shape[0]):
+        sigma_mod[i] = 0.0
+    return (U * sigma_mod) @ Vt
+
+def show_image(img):
+    plt.figure()
+    plt.imshow(img, cmap=plt.cm.gray)
+    plt.show()
+    
+show_image(rank_k_approx(lily_svd, 1))
+show_image(rank_k_approx(lily_svd, 2))
+show_image(rank_k_approx(lily_svd, 3))
+</script></pre> <div class="para">The singular values shrink quite rapidly, suggesting that a rank 20 or 30 approximation might provide a reasonable approximation to the image.</div> <pre class="ptx-sagecell sagecell-python" id="sage-325"><script type="text/x-sage">sigma = lily_svd[1]  
+
+plt.figure()
+plt.plot(sigma)
+plt.show()	
+
+lily25 = rank_k_approx(lily_svd, 25)
+print(np.max(lily - lily25), np.min(lily - lily25))
+show_image(lily25)
+show_image(lily - lily25)
+</script></pre></article><span class="incontext"><a href="sec-svd-uses.html#example-96" class="internal">in-context</a></span>
+</body>
+</html>

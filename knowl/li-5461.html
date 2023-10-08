@@ -9,17 +9,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-sage",
+  "inputLocation": "pre.sagecell-python",
   "linked": true,
-  "linkKey": "linked-sage",
+  "linkKey": "linked-python",
   "autoeval": false,
   "languages": [
-    "sage"
+    "python"
   ],
-  "evalButtonText": "Evaluate (Sage)"
+  "evalButtonText": "Evaluate (Python)"
 });
 </script>
 </head>
@@ -27,8 +27,12 @@ sagecell.makeSagecell({
 <article class="li"><h5 class="heading">
 <span class="type">Item</span><span class="space"> </span><span class="codenumber">f</span><span class="period">.</span>
 </h5>
-<div class="para">Since each column of <span class="process-math">\(A\)</span> represents a data point, the matrix <span class="process-math">\(Q^{\transpose}A\)</span> represents the coordinates of the projected data points.  Evaluating the following cell will plot those projected data points.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-275"><script type="text/x-sage">pca_plot(Q.T*A)
+<div class="para">Since each column of <span class="process-math">\(X^{\transpose}\)</span> represents one observational unit, the matrix <span class="process-math">\(Q^{\transpose}X^{\transpose}\)</span> is a <em class="emphasis">row-variate</em> representation of the data projected onto a lower-dimensional subspace identified by PCA. We can transpose again to get the column-variate represention <span class="process-math">\(X Q\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-275"><script type="text/x-sage">PCA = X @ Q
+fig, ax = plt.subplots()
+ax.scatter(PCA[:, 0], PCA[:, 1])
+plt.show()
 </script></pre>
 <div class="para">Notice how this plot enables us to view the data as if it were two-dimensional. Why is this plot wider than it is tall?</div></article><span class="incontext"><a href="sec-pca.html#li-5461" class="internal">in-context</a></span>
 </body>

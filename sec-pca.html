@@ -86,17 +86,32 @@ window.MathJax = {
     )}
   }
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-sage",
+  "inputLocation": "pre.sagecell-python",
   "linked": true,
-  "linkKey": "linked-sage",
+  "linkKey": "linked-python",
   "autoeval": false,
   "languages": [
-    "sage"
+    "python"
   ],
-  "evalButtonText": "Evaluate (Sage)"
+  "evalButtonText": "Evaluate (Python)"
+});
+</script><script>// Make *any* pre with class 'sagecell-python-autoeval' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python-autoeval",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": true,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)",
+  "hide": [
+    "evalButton"
+  ]
 });
 </script><script async="" src="https://cse.google.com/cse.js?cx=015103900096539427448:ngwuia10qci"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/lunr.js/2.3.9/lunr.min.js" integrity="sha512-4xUl/d6D6THrAnXAwGajXkoWaeMNwEKK4iNfq5DotEbLPAfk6FSxSP3ydNxqDgCw1c/0Z1Jg6L8h2j+++9BZmg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="lunr-pretext-search-index.js" async=""></script><script src="https://pretextbook.org/js/0.3/pretext_search.js"></script><link href="https://pretextbook.org/css/0.7/pretext_search.css" rel="stylesheet" type="text/css">
 <script>js_version = 0.3</script><script src="https://pretextbook.org/js/lib/jquery.min.js"></script><script src="https://pretextbook.org/js/lib/jquery.sticky.js"></script><script src="https://pretextbook.org/js/lib/jquery.espy.min.js"></script><script src="https://pretextbook.org/js/0.3/pretext.js"></script><script>miniversion=0.1</script><script src="https://pretextbook.org/js/0.3/pretext_add_on.js?x=1"></script><script src="https://pretextbook.org/js/0.3/user_preferences.js"></script><script src="https://pretextbook.org/js/lib/knowl.js"></script><!--knowl.js code controls Sage Cells within knowls--><script>sagecellEvalName='Evaluate (Sage)';
@@ -712,7 +727,7 @@ sagecell.makeSagecell({
 <li class="active">
 <div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Principal Component Analysis</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pca.html#subsection-129" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-129" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Themes of Principal Component Analysis</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#subsection-130" class="internal"><span class="codenumber">7.4.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#subsection-131" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#exercises-33" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Exercises</span></a></div></li>
@@ -763,25 +778,25 @@ sagecell.makeSagecell({
 <section class="section" id="sec-pca"><h2 class="heading hide-type">
 <span class="type">Section</span><span class="space"> </span><span class="codenumber">7.4</span><span class="space"> </span><span class="title">Principal Component Analysis</span>
 </h2>
-<section class="introduction" id="introduction-44"><div class="para" id="p-8071">We are sometimes presented with a dataset having many data points that live in a high dimensional space.  For instance, we looked at a dataset describing body fat index (BFI) in <a href="" class="xref" data-knowl="./knowl/activity-BFI.html" title="Activity 6.5.4">Activity 6.5.4</a> where each data point is six-dimensional.  Developing an intuitive understanding of the data is hampered by the fact that it cannot be visualized.</div> <div class="para" id="p-8072">This section explores a technique called <em class="emphasis">principal component analysis</em>, which enables us to reduce the dimension of a dataset so that it may be visualized or studied in a way so that interesting features more readily stand out. Our previous work with variance and the orthogonal diagonalization of symmetric matrices provides the key ideas.</div> <article class="exploration project-like" id="exploration-27"><h3 class="heading">
+<section class="introduction" id="introduction-44"><div class="para" id="p-8071">We are sometimes presented with a dataset that includes many variables for each observational unit.   When this happens, the case vectors (rows of the column-variate data matrix or columns of the row-variate data matrix) live in a high dimensional space. For instance, we looked at a dataset describing body fat index (BFI) in <a href="" class="xref" data-knowl="./knowl/activity-BFI.html" title="Activity 6.5.4">Activity 6.5.4</a> where each case vector is six-dimensional.  Developing an intuitive understanding of such data is hampered by the fact that it is challenging to visualize.</div> <div class="para" id="p-8072">This section explores a technique called <dfn class="terminology">principal component analysis</dfn>, which enables us to reduce the dimension of a dataset so that it may be visualized or studied in a way that makes interesting features more readily stand out. Our previous work with variance and the orthogonal diagonalization of symmetric matrices provides the key ideas.</div> <article class="exploration project-like" id="exploration-27"><h3 class="heading">
 <span class="type">Preview Activity</span><span class="space"> </span><span class="codenumber">7.4.1</span><span class="period">.</span>
 </h3>
 <div class="para logical" id="p-8073">
 <div class="para">We will begin by recalling our earlier discussion of variance.  Suppose we have a dataset that leads to the covariance matrix</div>
 <div class="displaymath process-math">
 \begin{equation*}
-C = \begin{bmatrix}
+S = \begin{bmatrix}
 7 \amp -4 \\
 -4 \amp 13
 \end{bmatrix}.
 \end{equation*}
 </div>
 <ol class="lower-alpha">
-<li id="li-5422"><div class="para" id="p-8074">Suppose that <span class="process-math">\(\uvec\)</span> is a unit eigenvector of <span class="process-math">\(C\)</span> with eigenvalue <span class="process-math">\(\lambda\text{.}\)</span>  What is the variance <span class="process-math">\(V_{\uvec}\)</span> in the <span class="process-math">\(\uvec\)</span> direction?</div></li>
+<li id="li-5422"><div class="para" id="p-8074">Suppose that <span class="process-math">\(\uvec\)</span> is a unit eigenvector of <span class="process-math">\(S\)</span> with eigenvalue <span class="process-math">\(\lambda\text{.}\)</span>  What is the variance <span class="process-math">\(V_{\uvec}\)</span> in the <span class="process-math">\(\uvec\)</span> direction?</div></li>
 <li id="li-5423">
-<div class="para" id="p-8075">Find an orthogonal diagonalization of <span class="process-math">\(C\text{.}\)</span>
+<div class="para" id="p-8075">Find an orthogonal diagonalization of <span class="process-math">\(S\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-270"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-269"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-5424"><div class="para" id="p-8076">What is the total variance?</div></li>
@@ -791,10 +806,10 @@ C = \begin{bmatrix}
 </div>
 <div class="solutions">
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-401" id="solution-401"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-401"><div class="solution solution-like"><div class="para logical" id="p-8079"><ol class="lower-alpha">
-<li id="li-5427"><div class="para" id="p-8080"><span class="process-math">\(V_{\uvec} = \uvec\cdot(C\uvec) =
+<li id="li-5427"><div class="para" id="p-8080"><span class="process-math">\(V_{\uvec} = \uvec\cdot(S\uvec) =
 \lambda\uvec\cdot\uvec = \lambda\text{.}\)</span></div></li>
 <li id="li-5428"><div class="para logical" id="p-8081">
-<div class="para">We can write <span class="process-math">\(C=QDQ^{\transpose}\)</span> where</div>
+<div class="para">We can write <span class="process-math">\(S=QDQ^{\transpose}\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
 D=\begin{bmatrix}
@@ -815,12 +830,12 @@ Q = \begin{bmatrix}
 </div></li>
 </ol></div></div></div>
 </div></article> <div class="para logical" id="p-8085">
-<div class="para">Here are some ideas we’ve seen previously that will be particularly useful for us in this section.  Remember that the covariance matrix of a dataset is <span class="process-math">\(C=\frac 1N AA^{\transpose}\)</span> where <span class="process-math">\(A\)</span> is the matrix of <span class="process-math">\(N\)</span> demeaned data points.</div>
+<div class="para">Here are some ideas we’ve seen previously that will be particularly useful for us in this section.  Remember that the covariance matrix of a dataset is <span class="process-math">\(S=\frac 1{n-1} X^{\transpose}X\)</span> where <span class="process-math">\(X\)</span> is the column-variate matrix of <span class="process-math">\(n\)</span> demeaned data.</div>
 <ul class="disc">
 <li id="li-5432"><div class="para" id="p-8086">When <span class="process-math">\(\uvec\)</span> is a unit vector, the variance of the demeaned data after projecting onto the line defined by <span class="process-math">\(\uvec\)</span> is given by the quadratic form <span class="process-math">\(V_{\uvec} =
-\uvec\cdot(C\uvec)\text{.}\)</span>
+\uvec\cdot(S\uvec)\text{.}\)</span>
 </div></li>
-<li id="li-5433"><div class="para" id="p-8087">In particular, if <span class="process-math">\(\uvec\)</span> is a unit eigenvector of <span class="process-math">\(C\)</span> with associated eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> then <span class="process-math">\(V_{\uvec} = \lambda\text{.}\)</span>
+<li id="li-5433"><div class="para" id="p-8087">In particular, if <span class="process-math">\(\uvec\)</span> is a unit eigenvector of <span class="process-math">\(S\)</span> with associated eigenvalue <span class="process-math">\(\lambda\text{,}\)</span> then <span class="process-math">\(V_{\uvec} = \lambda\text{.}\)</span>
 </div></li>
 <li id="li-5434"><div class="para logical" id="p-8088">
 <div class="para">Moreover, variance is additive, as we recorded in <a href="" class="xref" data-knowl="./knowl/prop-variance-additivity.html" title="Proposition 7.1.10: Additivity of Variance">Proposition 7.1.10</a>: if <span class="process-math">\(W\)</span> is a subspace having an orthonormal basis <span class="process-math">\(\uvec_1,\uvec_2,\ldots,\uvec_n\text{,}\)</span> then the variance</div>
@@ -833,14 +848,14 @@ V_{\uvec_n}\text{.}
 </div></li>
 </ul>
 </div></section><section class="subsection" id="subsection-129"><h3 class="heading hide-type">
-<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.4.1</span><span class="space"> </span><span class="title">Principal Component Analysis</span>
+<span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.4.1</span><span class="space"> </span><span class="title">Themes of Principal Component Analysis</span>
 </h3>
 <div class="para" id="p-8089">Let’s begin by looking at an example that illustrates the central theme of this technique.</div>
 <article class="activity project-like" id="activity-103"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.2</span><span class="period">.</span>
 </h4>
 <div class="para logical" id="p-8090">
-<div class="para">Suppose that we work with a dataset having 100 five-dimensional data points.  The demeaned data matrix <span class="process-math">\(A\)</span> is therefore <span class="process-math">\(5\by100\)</span> and leads to the covariance matrix <span class="process-math">\(C=\frac1{100}~AA^{\transpose}\text{,}\)</span> which is a <span class="process-math">\(5\by5\)</span> matrix.  Because <span class="process-math">\(C\)</span> is symmetric, the Spectral Theorem tells us it is orthogonally diagonalizable so suppose that <span class="process-math">\(C = QDQ^{\transpose}\)</span> where</div>
+<div class="para">Suppose that we work with a dataset having 100 observations of 5 variables. The demeaned column-variate data matrix <span class="process-math">\(X\)</span> is therefore <span class="process-math">\(100 \by 5\)</span> and leads to the covariance matrix <span class="process-math">\(S=\frac1{99}~X^{\transpose}X\text{,}\)</span> which is a <span class="process-math">\(5\by5\)</span> matrix.  Because <span class="process-math">\(S\)</span> is symmetric, the Spectral Theorem tells us it is orthogonally diagonalizable so suppose that <span class="process-math">\(S = QDQ^{\transpose}\)</span> where</div>
 <div class="displaymath process-math">
 \begin{equation*}
 Q = \begin{bmatrix}
@@ -869,7 +884,7 @@ D = \begin{bmatrix}
 <a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-315" id="answer-315"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-315"><div class="answer solution-like"><div class="para logical" id="p-8097"><ol class="lower-alpha">
 <li id="li-5441"><div class="para" id="p-8098"><span class="process-math">\(\displaystyle 10\)</span></div></li>
 <li id="li-5442"><div class="para" id="p-8099">
-<span class="process-math">\(0\text{,}\)</span> which tells us every data point is in the orthogonal complement of <span class="process-math">\(\uvec_4\text{.}\)</span>
+<span class="process-math">\(0\text{,}\)</span> which tells us every case vector is in the orthogonal complement of <span class="process-math">\(\uvec_4\text{.}\)</span>
 </div></li>
 <li id="li-5443"><div class="para" id="p-8100"><span class="process-math">\(\displaystyle 25\)</span></div></li>
 <li id="li-5444"><div class="para" id="p-8101">
@@ -882,7 +897,7 @@ D = \begin{bmatrix}
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-402" id="solution-402"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-402"><div class="solution solution-like"><div class="para logical" id="p-8104"><ol class="lower-alpha">
 <li id="li-5447"><div class="para" id="p-8105"><span class="process-math">\(\displaystyle V_{\uvec_2} = \lambda_2 = 10\)</span></div></li>
 <li id="li-5448"><div class="para" id="p-8106">
-<span class="process-math">\(V_{\uvec_4} = \lambda_4 = 0\text{,}\)</span> which tells us there is no variance in the <span class="process-math">\(\uvec_4\)</span> direction. Therefore, when we project onto the line defined by <span class="process-math">\(\uvec_4\text{,}\)</span> every data point projects to <span class="process-math">\(\zerovec\)</span> so every data point is in the orthogonal complement of <span class="process-math">\(\uvec_4\text{.}\)</span>
+<span class="process-math">\(V_{\uvec_4} = \lambda_4 = 0\text{,}\)</span> which tells us there is no variance in the <span class="process-math">\(\uvec_4\)</span> direction. Therefore, when we project onto the line defined by <span class="process-math">\(\uvec_4\text{,}\)</span> every case vector projects to <span class="process-math">\(\zerovec\)</span> so every case vector is in the orthogonal complement of <span class="process-math">\(\uvec_4\text{.}\)</span>
 </div></li>
 <li id="li-5449"><div class="para" id="p-8107"><span class="process-math">\(V = V_{\uvec_1} + V_{\uvec_2} + V_{\uvec_3} +
 V_{\uvec_4} + V_{\uvec_5}  = 13+10+2+0+0 = 25\text{.}\)</span></div></li>
@@ -891,9 +906,9 @@ V_{\uvec_4} + V_{\uvec_5}  = 13+10+2+0+0 = 25\text{.}\)</span></div></li>
 <li id="li-5452"><div class="para" id="p-8110">All of the data lies in the <span class="process-math">\(3\)</span>-dimensional subspace spanned by <span class="process-math">\(\uvec_1\text{,}\)</span> <span class="process-math">\(\uvec_1\text{,}\)</span> and <span class="process-math">\(\uvec_1\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-8111">This activity demonstrates how the eigenvalues of the covariance matrix can tell us when data are clustered around, or even wholly contained within, a smaller dimensional subspace.  In particular, the original data is 5-dimensional, but we see that it actually lies in a 3-dimensional subspace of <span class="process-math">\(\real^5\text{.}\)</span>  Later in this section, we’ll see how to use this observation to work with the data as if it were three-dimensional, an idea known as <em class="emphasis">dimensional reduction</em>.</div>
+</div></article><div class="para" id="p-8111">This activity demonstrates how the eigenvalues of the covariance matrix can tell us when data are clustered around, or even wholly contained within, a smaller dimensional subspace.  In particular, the original data is 5-dimensional, but we see that it actually lies in a 3-dimensional subspace of <span class="process-math">\(\real^5\text{.}\)</span>  Later in this section, we’ll see how to use this observation to work with the data as if it were three-dimensional, an idea known as <dfn class="terminology">dimensional reduction</dfn>.</div>
 <div class="para logical" id="p-8112">
-<div class="para"> The eigenvectors <span class="process-math">\(\uvec_j\)</span> of the covariance matrix are called <em class="emphasis">principal components</em>, and we will order them so that their associated eigenvalues decrease.  Generally speaking, we hope that the first few principal components retain most of the variance, as the example in the activity demonstrates.  In that example, we have the sequence of subspaces</div>
+<div class="para"> The eigenvectors <span class="process-math">\(\uvec_j\)</span> of the covariance matrix are called <dfn class="terminology">principal components</dfn>, and we will order them so that their associated eigenvalues decrease.  Generally speaking, we hope that the first few principal components retain most of the variance, as the example in the activity demonstrates.  In that example, we have the sequence of subspaces</div>
 <ul class="disc">
 <li id="li-5453"><div class="para" id="p-8113">
 <span class="process-math">\(W_1\text{,}\)</span> the 1-dimensional subspace spanned by <span class="process-math">\(\uvec_1\text{,}\)</span> which retains <span class="process-math">\(13/25 = 52\%\)</span> of the total variance,</div></li>
@@ -906,35 +921,42 @@ V_{\uvec_4} + V_{\uvec_5}  = 13+10+2+0+0 = 25\text{.}\)</span></div></li>
 </div>
 <div class="para" id="p-8116">Notice how we retain more of the total variance as we increase the dimension of the subspace onto which the data are projected. Eventually, projecting the data onto <span class="process-math">\(W_3\)</span> retains all the variance, which tells us the data must lie in <span class="process-math">\(W_3\text{,}\)</span> a smaller dimensional subspace of <span class="process-math">\(\real^5\text{.}\)</span>
 </div>
-<div class="para" id="p-8117">In fact, these subspaces are the best possible.  We know that the first principal component <span class="process-math">\(\uvec_1\)</span> is the eigenvector of <span class="process-math">\(C\)</span> associated to the largest eigenvalue.  This means that the variance is as large as possible in the <span class="process-math">\(\uvec_1\)</span> direction.  In other words, projecting onto any other line will retain a smaller amount of variance.  Similarly, projecting onto any other 2-dimensional subspace besides <span class="process-math">\(W_2\)</span> will retain less variance than projecting onto <span class="process-math">\(W_2\text{.}\)</span>  The principal components have the wonderful ability to pick out the best possible subspaces to retain as much variance as possible.</div>
-<div class="para" id="p-8118">Of course, this is a contrived example.  Typically, the presence of noise in a dataset means that we do not expect all the points to be wholly contained in a smaller dimensional subspace.  In fact, the 2-dimensional subspace <span class="process-math">\(W_2\)</span> retains <span class="process-math">\(92\%\)</span> of the variance.  Depending on the situation, we may want to write off the remaining <span class="process-math">\(8\%\)</span> of the variance as noise in exchange for the convenience of working with a smaller dimensional subspace.  As we’ll see later, we will seek a balance using a number of principal components large enough to retain most of the variance but small enough to be easy to work with.</div>
+<div class="para" id="p-8117">In fact, these subspaces are the best possible.  We know that the first principal component <span class="process-math">\(\uvec_1\)</span> is the eigenvector of <span class="process-math">\(S\)</span> associated to the largest eigenvalue.  This means that the variance is as large as possible in the <span class="process-math">\(\uvec_1\)</span> direction.  In other words, projecting onto any other line will retain a smaller amount of variance.  Similarly, projecting onto any other 2-dimensional subspace besides <span class="process-math">\(W_2\)</span> will retain less variance than projecting onto <span class="process-math">\(W_2\text{.}\)</span>  The principal components have the wonderful ability to pick out the best possible subspaces to retain as much variance as possible.</div>
+<div class="para" id="p-8118">Of course, this is a contrived example.  Typically, the presence of noise in a dataset means that we do not expect all the points to be wholly contained in a smaller dimensional subspace. One situation where this does occur, however, is when some of the variables in the data set are computed as linear combinations of other variables. This could happen, for example, if our data had measurements in two different units (say, Fahrenheit and Celsius temperatures) or if the data included both subtotals and totals in a sum (e.g., before tax bill, tax, and total with tax included). </div>
+<div class="para" id="p-8119">In this exaple, the 2-dimensional subspace <span class="process-math">\(W_2\)</span> retains <span class="process-math">\(92\%\)</span> of the variance.  Depending on the situation, we may want to write off the remaining <span class="process-math">\(8\%\)</span> of the variance as noise in exchange for the convenience of working with a smaller dimensional subspace.  As we’ll see later, we will seek a balance using a number of principal components large enough to retain most of the variance but small enough to be easy to work with.</div>
 <article class="activity project-like" id="activity-104"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.3</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-8119">We will work here with a dataset having 100 3-dimensional demeaned data points.  Evaluating the following cell will plot those data points and define the demeaned data matrix <code class="code-inline tex2jax_ignore">A</code> whose shape is <span class="process-math">\(3\by100\text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-sage" id="sage-271"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_demo.py', globals())
-</script></pre> <div class="para logical" id="p-8120">
+<div class="para" id="p-8120">We will work here with a demeaned dataset having 100 observations of 3 variables.  Evaluating the following cell will create the demeaned column-variate data matrix <span class="process-math">\(X\)</span> and plot the data as a 3-d scatter plot.</div> <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-270"><script type="text/x-sage">import numpy as np 
+import pandas as pd
+</script></pre>  <pre class="ptx-sagecell sagecell-python" id="sage-271"><script type="text/x-sage">import matplotlib.pyplot as plt
+data = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/pca-demo.csv', index_col=0)
+X = data.to_numpy()
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+ax.scatter(X[:, 0], X[:, 1], X[:, 2])                                
+plt.show()
+</script></pre> <div class="para logical" id="p-8121">
 <div class="para">Notice that the data appears to cluster around a plane though it does not seem to be wholly contained within that plane.</div>
 <ol class="lower-alpha">
 <li id="li-5456">
-<div class="para" id="p-8121">Use the matrix <code class="code-inline tex2jax_ignore">A</code> to construct the covariance matrix <span class="process-math">\(C\text{.}\)</span>  Then determine the variance in the direction of <span class="process-math">\(\uvec=\threevec{1/3}{2/3}{2/3}\text{?}\)</span>
+<div class="para" id="p-8122">Use the matrix <code class="code-inline tex2jax_ignore">X</code> to construct the covariance matrix <span class="process-math">\(S\text{.}\)</span>  Then determine the variance in the direction of <span class="process-math">\(\uvec=\threevec{1/3}{2/3}{2/3}\text{?}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-272"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-272"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-5457">
-<div class="para" id="p-8122">Find the eigenvalues of <span class="process-math">\(C\)</span> and determine the total variance.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-273"><script type="text/x-sage">
+<div class="para" id="p-8123">Find the eigenvalues of <span class="process-math">\(S\)</span> and determine the total variance.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-273"><script type="text/x-sage">
 </script></pre>
-<div class="para" id="p-8123">Notice that Sage does not necessarily sort the eigenvalues in decreasing order.</div>
+<div class="para" id="p-8124">Notice that Python does not necessarily sort the eigenvalues in decreasing order.</div>
 </li>
-<li id="li-5458"><div class="para" id="p-8124">Use the <code class="code-inline tex2jax_ignore">right_eigenmatrix()</code> command to find the eigenvectors of <span class="process-math">\(C\text{.}\)</span>  Remembering that the Sage command <code class="code-inline tex2jax_ignore">B.column(1)</code> retrieves the vector represented by the second column of <code class="code-inline tex2jax_ignore">B</code>, define vectors <code class="code-inline tex2jax_ignore">u1</code>, <code class="code-inline tex2jax_ignore">u2</code>, and <code class="code-inline tex2jax_ignore">u3</code> representing the three principal components in order of decreasing eigenvalues.  How can you check if these vectors are an orthonormal basis for <span class="process-math">\(\real^3\text{?}\)</span>
+<li id="li-5458"><div class="para" id="p-8125">Use the <code class="code-inline tex2jax_ignore">numpy.linalg.eig()</code> command to find the eigenvectors of <span class="process-math">\(S\text{.}\)</span> Define vectors <code class="code-inline tex2jax_ignore">u1</code>, <code class="code-inline tex2jax_ignore">u2</code>, and <code class="code-inline tex2jax_ignore">u3</code> representing the three principal components in order of decreasing eigenvalues.  How can you check if these vectors are an orthonormal basis for <span class="process-math">\(\real^3\text{?}\)</span>
 </div></li>
-<li id="li-5459"><div class="para" id="p-8125">What fraction of the total variance is retained by projecting the data onto <span class="process-math">\(W_1\text{,}\)</span> the subspace spanned by <span class="process-math">\(\uvec_1\text{?}\)</span>  What fraction of the total variance is retained by projecting onto <span class="process-math">\(W_2\text{,}\)</span> the subspace spanned by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{?}\)</span>  What fraction of the total variance do we lose by projecting onto <span class="process-math">\(W_2\text{?}\)</span>
+<li id="li-5459"><div class="para" id="p-8126">What fraction of the total variance is retained by projecting the data onto <span class="process-math">\(W_1\text{,}\)</span> the subspace spanned by <span class="process-math">\(\uvec_1\text{?}\)</span>  What fraction of the total variance is retained by projecting onto <span class="process-math">\(W_2\text{,}\)</span> the subspace spanned by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{?}\)</span>  What fraction of the total variance do we lose by projecting onto <span class="process-math">\(W_2\text{?}\)</span>
 </div></li>
 <li id="li-5460">
-<div class="para logical" id="p-8126">
-<div class="para">If we project a data point <span class="process-math">\(\xvec\)</span> onto <span class="process-math">\(W_2\text{,}\)</span> the Projection Formula tells us we obtain</div>
+<div class="para logical" id="p-8127">
+<div class="para">Each column of <span class="process-math">\(X^{\transpose}\)</span> (each row of <span class="process-math">\(X\)</span>) represents one observational unit in our data.  We will refer to these as <dfn class="terminology">case vectors</dfn>. In a traditional scatter plot (or cloud plot in 3 dimensions), each case vector is represented by one of the dots. If we project each case vector  <span class="process-math">\(\xvec\)</span> onto <span class="process-math">\(W_2\text{,}\)</span> the Projection Formula tells us we obtain</div>
 <div class="displaymath process-math">
 \begin{equation*}
 \xhat = (\uvec_1\cdot\xvec) \uvec_1 +
@@ -951,45 +973,110 @@ V_{\uvec_4} + V_{\uvec_5}  = 13+10+2+0+0 = 25\text{.}\)</span></div></li>
 \twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}\text{.}\)</span>
 </div>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-274"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-274"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-5461">
-<div class="para" id="p-8127">Since each column of <span class="process-math">\(A\)</span> represents a data point, the matrix <span class="process-math">\(Q^{\transpose}A\)</span> represents the coordinates of the projected data points.  Evaluating the following cell will plot those projected data points.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-275"><script type="text/x-sage">pca_plot(Q.T*A)
+<div class="para" id="p-8128">Since each column of <span class="process-math">\(X^{\transpose}\)</span> represents one observational unit, the matrix <span class="process-math">\(Q^{\transpose}X^{\transpose}\)</span> is a <em class="emphasis">row-variate</em> representation of the data projected onto a lower-dimensional subspace identified by PCA. We can transpose again to get the column-variate represention <span class="process-math">\(X Q\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-275"><script type="text/x-sage">PCA = X @ Q
+fig, ax = plt.subplots()
+ax.scatter(PCA[:, 0], PCA[:, 1])
+plt.show()
 </script></pre>
-<div class="para" id="p-8128">Notice how this plot enables us to view the data as if it were two-dimensional. Why is this plot wider than it is tall?</div>
+<div class="para" id="p-8129">Notice how this plot enables us to view the data as if it were two-dimensional. Why is this plot wider than it is tall?</div>
+</li>
+<li id="li-5462">
+<div class="para" id="p-8130">ScikitLearn provides another way to compute the first (highest-variance) specified number of principle componenets from a data matrix.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-276"><script type="text/x-sage">from sklearn.decomposition import PCA
+pca3 = PCA(n_components=3)
+pcaX = pca3.fit_transform(X)
+print(pcaX.shape)
+fig, ax = plt.subplots()
+ax.scatter(pcaX[:, 0], pcaX[:, 1])
+plt.show()
+</script></pre>
 </li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-316" id="answer-316"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-316"><div class="answer solution-like"><div class="para logical" id="p-8129"><ol class="lower-alpha">
-<li id="li-5462"><div class="para" id="p-8130"><span class="process-math">\(\displaystyle V_{\uvec} = 7885\)</span></div></li>
-<li id="li-5463"><div class="para" id="p-8131"><span class="process-math">\(\displaystyle V=12195\)</span></div></li>
-<li id="li-5464"><div class="para" id="p-8132">If <span class="process-math">\(P\)</span> is the matrix of eigenvectors, evaluate <span class="process-math">\(P^{\transpose}P\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-316" id="answer-316"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-316"><div class="answer solution-like"><div class="para logical" id="p-8131"><ol class="lower-alpha">
+<li id="li-5463"><div class="para" id="p-8132"><span class="process-math">\(\displaystyle V_{\uvec} = 7885\)</span></div></li>
+<li id="li-5464"><div class="para" id="p-8133"><span class="process-math">\(\displaystyle V=12195\)</span></div></li>
+<li id="li-5465"><div class="para" id="p-8134">If <span class="process-math">\(P\)</span> is the matrix of eigenvectors, evaluate <span class="process-math">\(P^{\transpose}P\text{.}\)</span>
 </div></li>
-<li id="li-5465"><div class="para" id="p-8133">
+<li id="li-5466"><div class="para" id="p-8135">
 <span class="process-math">\(W_1\)</span> retains <span class="process-math">\(83\%\)</span> of the total variance, and <span class="process-math">\(W_2\)</span> retains <span class="process-math">\(98\%\text{.}\)</span>
 </div></li>
-<li id="li-5466"><div class="para" id="p-8134"><span class="process-math">\(\displaystyle Q=\begin{bmatrix}\uvec_1\amp\uvec_2\end{bmatrix}\)</span></div></li>
-<li id="li-5467"><div class="para" id="p-8135">Because the variance in the <span class="process-math">\(\uvec_1\)</span> direction is greater than the variance in the <span class="process-math">\(\uvec_2\)</span> direction.</div></li>
+<li id="li-5467"><div class="para" id="p-8136"><span class="process-math">\(\displaystyle Q=\begin{bmatrix}\uvec_1\amp\uvec_2\end{bmatrix}\)</span></div></li>
+<li id="li-5468"><div class="para" id="p-8137">Because the variance in the <span class="process-math">\(\uvec_1\)</span> direction is greater than the variance in the <span class="process-math">\(\uvec_2\)</span> direction.</div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-403" id="solution-403"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-403"><div class="solution solution-like"><div class="para logical" id="p-8136"><ol class="lower-alpha">
-<li id="li-5468"><div class="para" id="p-8137">After constructing the covariance matrix <span class="process-math">\(C =
-\frac{1}{100}AA^{\transpose}\text{,}\)</span> we find that <span class="process-math">\(V_{\uvec} =
-\uvec\cdot(C\uvec) = 7885\text{.}\)</span>
-</div></li>
-<li id="li-5469"><div class="para" id="p-8138">The total variance <span class="process-math">\(V\)</span> is the sum of the eigenvalues of <span class="process-math">\(C\)</span> so we obtain <span class="process-math">\(V=12195\text{.}\)</span>
-</div></li>
-<li id="li-5470"><div class="para" id="p-8139">If we obtain <span class="process-math">\(P\text{,}\)</span> the matrix of eigenvectors, from Sage, computing <span class="process-math">\(P^{\transpose}P\)</span> evaluates the dot products between the columns.  Since <span class="process-math">\(P^{\transpose}P=I\text{,}\)</span> the basis provided by Sage is orthonormal.</div></li>
-<li id="li-5471"><div class="para" id="p-8140">Projecting onto <span class="process-math">\(W_1\text{,}\)</span> we see that <span class="process-math">\(\lambda_1/V = 0.83\)</span> so <span class="process-math">\(W_1\)</span> retains about <span class="process-math">\(83\%\)</span> of the total variance.  The subspace <span class="process-math">\(W_2\)</span> retains <span class="process-math">\((\lambda_1+\lambda_2)/V=0.98\)</span> or <span class="process-math">\(98\%\)</span> of the total variance.  If we project onto <span class="process-math">\(W_2\)</span> we lose less than <span class="process-math">\(2\%\)</span> of the variance.</div></li>
-<li id="li-5472"><div class="para" id="p-8141"><span class="process-math">\(\displaystyle Q=\begin{bmatrix}\uvec_1\amp\uvec_2\end{bmatrix}\)</span></div></li>
-<li id="li-5473"><div class="para" id="p-8142">The plot is wider because the variance in the <span class="process-math">\(\uvec_1\)</span> direction, which corresponds to the horizontal coordinate, is greater than the variance in the <span class="process-math">\(\uvec_2\)</span> direction.</div></li>
-</ol></div></div></div>
-</div></article><div class="para" id="p-8143">This example is a more realistic illustration of principal component analysis.  The plot of the 3-dimensional data appears to show that the data lies close to a plane, and the principal components will identify this plane.  Starting with the <span class="process-math">\(3\by100\)</span> matrix of demeaned data <span class="process-math">\(A\text{,}\)</span> we construct the covariance matrix <span class="process-math">\(C=\frac{1}{100} ~AA^{\transpose}\)</span> and study its eigenvalues.  Notice that the first two principal components account for more than 98% of the variance, which means we can expect the points to lie close to <span class="process-math">\(W_2\text{,}\)</span> the two-dimensional subspace spanned by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-403" id="solution-403"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-403"><div class="solution solution-like">
+<pre class="ptx-sagecell hidden-sagecell-python" id="sage-277"><script type="text/x-sage">import numpy as np  
+import pandas as pd
+np.set_printoptions(precision = 2, suppress = True)
+data = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/pca-demo.csv', index_col=0)
+X = data.to_numpy()
+S = 1/99 * (np.transpose(X) @ X)
+print(S)
+evals, P = np.linalg.eig(S)
+print(evals, "\n", P)
+print(np.transpose(P) @ P)
+u = [P[:, i] for i in [0, 2, 1]]
+V = [np.transpose(uu) @ S @  for uu in u]
+print(V)
+</script></pre> <div class="para logical" id="p-8138"><ol class="lower-alpha">
+<li id="li-5469">
+<div class="para" id="p-8139">After constructing the covariance matrix <span class="process-math">\(S =
+\frac{1}{99}X^{\transpose}X\text{,}\)</span> we find that <span class="process-math">\(V_{\uvec} =
+\uvec\cdot(S\uvec) \approx 7965\text{.}\)</span>
 </div>
-<div class="para logical" id="p-8144">
-<div class="para">Since <span class="process-math">\(W_2\)</span> is a subspace of <span class="process-math">\(\real^3\text{,}\)</span> projecting the data points onto <span class="process-math">\(W_2\)</span> gives a list of 100 points in <span class="process-math">\(\real^3\text{.}\)</span>  In order to visualize them more easily, we instead consider the coordinates of the projections in the basis defined by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  For instance, we know that the projection of a data point <span class="process-math">\(\xvec\)</span> is</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-278"><script type="text/x-sage">np.set_printoptions(precision = 2, suppress = True)
+S = 1/99 * (np.transpose(X) @ X)
+print("\nS"); print(S)
+u = np.array((1,2,2))/3
+print(np.transpose(u) @ S @ u)
+print("\nVu"); print(u @ (S @ u))
+</script></pre>
+</li>
+<li id="li-5470">
+<div class="para" id="p-8140">The total variance <span class="process-math">\(V\)</span> is the sum of the eigenvalues of <span class="process-math">\(S_{XX}\)</span> so we obtain <span class="process-math">\(V=12195\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-279"><script type="text/x-sage">evals, P = np.linalg.eig(S)
+print("total variance"); print (np.sum(evals))
+</script></pre>
+</li>
+<li id="li-5471">
+<div class="para" id="p-8141">If we obtain <span class="process-math">\(P\text{,}\)</span> the matrix of eigenvectors, from Python, computing <span class="process-math">\(P^{\transpose}P\)</span> evaluates the dot products between the columns.  Since <span class="process-math">\(P^{\transpose}P=I\text{,}\)</span> the basis provided by Sage is orthonormal.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-280"><script type="text/x-sage"># put u1, u2, u3 into a list; ordered by eigen value
+u = [P[:, i] for i in [0, 2, 1]]
+print("\nu"); print(u)
+
+# if orthogonormal, this should be I
+print(np.transpose(P) @ P)
+</script></pre>
+</li>
+<li id="li-5472">
+<div class="para" id="p-8142">Projecting onto <span class="process-math">\(W_1\text{,}\)</span> we see that <span class="process-math">\(\lambda_1/V = 0.83\)</span> so <span class="process-math">\(W_1\)</span> retains about <span class="process-math">\(83\%\)</span> of the total variance.  The subspace <span class="process-math">\(W_2\)</span> retains <span class="process-math">\((\lambda_1+\lambda_2)/V=0.98\)</span> or <span class="process-math">\(98\%\)</span> of the total variance.  If we project onto <span class="process-math">\(W_2\)</span> we lose less than <span class="process-math">\(2\%\)</span> of the variance.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-281"><script type="text/x-sage"># compute variance in direction of each u
+V = [np.transpose(uu) @ S @ uu for uu in u]
+print("\nvariance")
+print(V); print(np.sum(V))
+</script></pre>
+</li>
+<li id="li-5473">
+<div class="para" id="p-8143"><span class="process-math">\(\displaystyle Q=\begin{bmatrix}\uvec_1\amp\uvec_2\end{bmatrix}\)</span></div>
+<pre class="ptx-sagecell sagecell-python" id="sage-282"><script type="text/x-sage">Q = np.column_stack(u[0], u[1])
+print("Q"); print(Q)
+</script></pre>
+</li>
+<li id="li-5474"><div class="para" id="p-8144">The plot is wider because the variance in the <span class="process-math">\(\uvec_1\)</span> direction, which corresponds to the horizontal coordinate, is greater than the variance in the <span class="process-math">\(\uvec_2\)</span> direction.</div></li>
+</ol></div>
+</div></div>
+</div></article><div class="para" id="p-8145">This example is a more realistic illustration of principal component analysis.  The plot of the 3-dimensional data appears to show that the data lies close to a plane, and the principal components will identify this plane.  Starting with the <span class="process-math">\(100\by3\)</span> matrix of demeaned data <span class="process-math">\(X\text{,}\)</span> we construct the covariance matrix <span class="process-math">\(S=\frac{1}{99} ~X^{\transpose}X\)</span> and study its eigenvalues.  Notice that the first two principal components account for more than 98% of the variance, which means we can expect the case vectors to lie close to <span class="process-math">\(W_2\text{,}\)</span> the two-dimensional subspace spanned by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>
+</div>
+<div class="para logical" id="p-8146">
+<div class="para">Since <span class="process-math">\(W_2\)</span> is a subspace of <span class="process-math">\(\real^3\text{,}\)</span> projecting the case vectors onto <span class="process-math">\(W_2\)</span> gives a list of 100 points in <span class="process-math">\(\real^3\text{.}\)</span>  In order to visualize them more easily, we instead consider the coordinates of the projections in the basis defined by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>  For instance, we know that the projection of a case vector <span class="process-math">\(\xvec\)</span> is</div>
 <div class="displaymath process-math" data-contains-math-knowls="./knowl/fig-pca-coords.html">
 \begin{equation*}
 \xhat = (\uvec_1\cdot\xvec)\uvec_1 +
@@ -1002,7 +1089,7 @@ V_{\uvec_4} + V_{\uvec_5}  = 13+10+2+0+0 = 25\text{.}\)</span></div></li>
 <div class="sbspanel top" style="width:52.6315789473684%;"><img src="external/images/pca-proj.svg" role="img" class="contained"></div>
 <div class="sbspanel top" style="width:42.1052631578947%;"><img src="external/images/pca-coords.svg" role="img" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.1<span class="period">.</span></span><span class="space"> </span>The projection <span class="process-math">\(\xhat\)</span> of a data point <span class="process-math">\(\xvec\)</span> onto <span class="process-math">\(W_2\)</span> is a three-dimensional vector, which may be represented by the two coordinates describing this vector as a linear combination of <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span></figcaption></figure><div class="para logical" id="p-8145">
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.1<span class="period">.</span></span><span class="space"> </span>The projection <span class="process-math">\(\xhat\)</span> of a case vector <span class="process-math">\(\xvec\)</span> onto <span class="process-math">\(W_2\)</span> is a three-dimensional vector, which may be represented by the two coordinates describing this vector as a linear combination of <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span></figcaption></figure><div class="para logical" id="p-8147">
 <div class="para">If we form the matrix <span class="process-math">\(Q=\begin{bmatrix}\uvec_1 \amp \uvec_2
 \end{bmatrix}\text{,}\)</span> then we have</div>
 <div class="displaymath process-math">
@@ -1010,87 +1097,92 @@ V_{\uvec_4} + V_{\uvec_5}  = 13+10+2+0+0 = 25\text{.}\)</span></div></li>
 Q^{\transpose}\xvec = \twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}.
 \end{equation*}
 </div>
-<div class="para">This means that the columns of <span class="process-math">\(Q^{\transpose}A\)</span> represent the coordinates of the projected points, which may now be plotted in the plane.</div>
+<div class="para">This means that the columns of <span class="process-math">\(Q^{\transpose}X^{\transpose}\)</span> represent the coordinates of the projected case vectors, which may now be plotted in the plane. Transposing again gives the column-variate version of the PCA-projected data: <span class="process-math">\(XQ\text{.}\)</span>
 </div>
-<div class="para" id="p-8146">In this plot, the first coordinate, represented by the horizontal coordinate, represents the projection of a data point onto the line defined by <span class="process-math">\(\uvec_1\)</span> while the second coordinate represents the projection onto the line defined by <span class="process-math">\(\uvec_2\text{.}\)</span>  Since <span class="process-math">\(\uvec_1\)</span> is the first principal component, the variance in the <span class="process-math">\(\uvec_1\)</span> direction is greater than the variance in the <span class="process-math">\(\uvec_2\)</span> direction.  For this reason, the plot will be more spread out in the horizontal direction than in the vertical.</div></section><section class="subsection" id="subsection-130"><h3 class="heading hide-type">
+</div>
+<div class="para" id="p-8148">In this plot, the first coordinate, represented by the horizontal coordinate, represents the projection of a case vector onto the line defined by <span class="process-math">\(\uvec_1\)</span> while the second coordinate represents the projection onto the line defined by <span class="process-math">\(\uvec_2\text{.}\)</span>  Since <span class="process-math">\(\uvec_1\)</span> is the first principal component, the variance in the <span class="process-math">\(\uvec_1\)</span> direction is greater than the variance in the <span class="process-math">\(\uvec_2\)</span> direction.  For this reason, the plot will be more spread out in the horizontal direction than in the vertical.</div></section><section class="subsection" id="subsection-130"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.4.2</span><span class="space"> </span><span class="title">Using Principal Component Analysis</span>
 </h3>
-<div class="para" id="p-8147">Now that we’ve explored the ideas behind principal component analysis, we will look at a few examples that illustrate its use.</div>
+<div class="para" id="p-8149">Now that we’ve explored the ideas behind principal component analysis, we will look at a few examples that illustrate its use.</div>
 <article class="activity project-like" id="activity-105"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.4</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-8148">The next cell will load a dataset describing the average consumption of various food groups for citizens in each of the four nations of the United Kingdom.  The units for each entry are grams per person per week.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-276"><script type="text/x-sage">import pandas as pd
-df = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/uk-diet.csv', index_col=0)
-data_mean = vector(df.T.mean())
-A = matrix([vector(row) for row in (df.T-df.T.mean()).values]).T
-df
-</script></pre> <div class="para" id="p-8149">We will view this as a dataset consisting of four points in <span class="process-math">\(\real^{17}\text{.}\)</span>  As such, it is impossible to visualize and studying the numbers themselves doesn’t lead to much insight.</div> <div class="para logical" id="p-8150">
-<div class="para">In addition to loading the data, evaluating the cell above created a vector <code class="code-inline tex2jax_ignore">data_mean</code>, which is the mean of the four data points, and <code class="code-inline tex2jax_ignore">A</code>, the <span class="process-math">\(17\by4\)</span> matrix of demeaned data.</div>
+<div class="para" id="p-8150">The next cell will load a dataset describing the average consumption of various food groups for citizens in each of the four nations of the United Kingdom.  The units for each entry are grams per person per week.</div> <pre class="ptx-sagecell sagecell-python" id="sage-283"><script type="text/x-sage">np.set_printoptions(precision = 5, suppress = True)
+Food = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/uk-diet.csv', index_col=0)
+print(Food.info)
+FoodX = np.transpose(Food.to_numpy())
+data_mean = FoodX.mean(axis = 0)
+FoodX = FoodX - data_mean
+print(FoodX.mean(axis = 0))
+# one row per country; 17 variables
+print(FoodX.shape)
+</script></pre> <div class="para" id="p-8151">We will view this as a dataset consisting of four case vectors in <span class="process-math">\(\real^{17}\text{.}\)</span>  Since we have 17 variables measured for each observation, we can’t easily visualize this with a scatter plot, which would consist of four points in 17-dimensional space. Studying the numbers themselves doesn’t lead to much insight either.</div> <div class="para logical" id="p-8152">
+<div class="para">In addition to loading the data, evaluating the cell above created a vector <code class="code-inline tex2jax_ignore">data_mean</code>, which is the componentwise mean of the four case vectors, and <code class="code-inline tex2jax_ignore">FoodX</code>, the <span class="process-math">\(4 \by 17\)</span> column-variate matrix of demeaned data.</div>
 <ol class="lower-alpha">
-<li id="li-5474">
-<div class="para" id="p-8151">What is the average consumption of Beverages across the four nations?</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-277"><script type="text/x-sage">
+<li id="li-5475">
+<div class="para" id="p-8153">What is the average consumption of Beverages across the four nations?</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-284"><script type="text/x-sage">
 </script></pre>
 </li>
-<li id="li-5475"><div class="para" id="p-8152">Find the covariance matrix <span class="process-math">\(C\)</span> and its eigenvalues.  Because there are four points in <span class="process-math">\(\real^{17}\)</span> whose mean is zero, there are only three nonzero eigenvalues.</div></li>
-<li id="li-5476"><div class="para" id="p-8153">For what percentage of the total variance does the first principal component account?</div></li>
-<li id="li-5477">
-<div class="para" id="p-8154">Find the first principal component <span class="process-math">\(\uvec_1\)</span> and project the four demeaned data points onto the line defined by <span class="process-math">\(\uvec_1\text{.}\)</span>  Plot those points on <a href="" class="xref" data-knowl="./knowl/fig-pca-1d.html" title="Figure 7.4.2">Figure 7.4.2</a>
+<li id="li-5476"><div class="para" id="p-8154">Find the covariance matrix <span class="process-math">\(S\)</span> and its eigenvalues.  Because there are four points in <span class="process-math">\(\real^{17}\)</span> whose mean is zero, there are only three nonzero eigenvalues.</div></li>
+<li id="li-5477"><div class="para" id="p-8155">For what percentage of the total variance does the first principal component account?</div></li>
+<li id="li-5478">
+<div class="para" id="p-8156">Find the first principal component <span class="process-math">\(\uvec_1\)</span> and project the four demeaned case vectors onto the line defined by <span class="process-math">\(\uvec_1\text{.}\)</span>  Plot those vectors as points on <a href="" class="xref" data-knowl="./knowl/fig-pca-1d.html" title="Figure 7.4.2">Figure 7.4.2</a>
 </div>
 <figure class="figure figure-like" id="fig-pca-1d"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/pca-plot-1.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.2<span class="period">.</span></span><span class="space"> </span>A plot of the demeaned data projected onto the first principal component.</figcaption></figure>
 </li>
-<li id="li-5478"><div class="para" id="p-8155">For what percentage of the total variance do the first two principal components account?</div></li>
-<li id="li-5479">
-<div class="para" id="p-8156">Find the coordinates of the demeaned data points projected onto <span class="process-math">\(W_2\text{,}\)</span> the two-dimensional subspace of <span class="process-math">\(\real^{17}\)</span> spanned by the first two principal components.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-278"><script type="text/x-sage">
+<li id="li-5479"><div class="para" id="p-8157">For what percentage of the total variance do the first two principal components account?</div></li>
+<li id="li-5480">
+<div class="para" id="p-8158">Find the coordinates of the demeaned case vectors projected onto <span class="process-math">\(W_2\text{,}\)</span> the two-dimensional subspace of <span class="process-math">\(\real^{17}\)</span> spanned by the first two principal components.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-285"><script type="text/x-sage">
 </script></pre>
-<div class="para" id="p-8157">Plot these coordinates in <a href="" class="xref" data-knowl="./knowl/fig-pca-2d.html" title="Figure 7.4.3">Figure 7.4.3</a>.</div>
+<div class="para" id="p-8159">Plot these coordinates in <a href="" class="xref" data-knowl="./knowl/fig-pca-2d.html" title="Figure 7.4.3">Figure 7.4.3</a>.</div>
 <figure class="figure figure-like" id="fig-pca-2d"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/pca-plot-2.svg" role="img" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.3<span class="period">.</span></span><span class="space"> </span>The coordinates of the demeaned data points projected onto the first two principal components.</figcaption></figure>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.3<span class="period">.</span></span><span class="space"> </span>The coordinates of the demeaned case vectors projected onto the first two principal components.</figcaption></figure>
 </li>
-<li id="li-5480"><div class="para" id="p-8158">What information do these plots reveal that is not clear from consideration of the original data points?</div></li>
-<li id="li-5481"><div class="para" id="p-8159">Study the first principal component <span class="process-math">\(\uvec_1\)</span> and find the first component of <span class="process-math">\(\uvec_1\text{,}\)</span> which corresponds to the dietary category Alcoholic Drinks. (To do this, you may wish to use <code class="code-inline tex2jax_ignore">N(u1, digits=2)</code> for a result that’s easier to read.) If a data point lies on the far right side of the plot in <a href="" class="xref" data-knowl="./knowl/fig-pca-2d.html" title="Figure 7.4.3">Figure 7.4.3</a>, what does it mean about that nation’s consumption of Alcoholic Drinks?</div></li>
+<li id="li-5481"><div class="para" id="p-8160">What information do these plots reveal that is not clear from consideration of the original case vectors?</div></li>
+<li id="li-5482"><div class="para" id="p-8161">Study the first principal component <span class="process-math">\(\uvec_1\)</span> and find the first component of <span class="process-math">\(\uvec_1\text{,}\)</span> which corresponds to the dietary category Alcoholic Drinks. (To do this, you may wish to use <code class="code-inline tex2jax_ignore">N(u1, digits=2)</code> for a result that’s easier to read.) If a case vector lies on the far right side of the plot in <a href="" class="xref" data-knowl="./knowl/fig-pca-2d.html" title="Figure 7.4.3">Figure 7.4.3</a>, what does it mean about that nation’s consumption of Alcoholic Drinks?</div></li>
 </ol>
 </div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original has-tabular" data-refid="hk-answer-317" id="answer-317"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-317"><div class="answer solution-like"><div class="para logical" id="p-8160"><ol class="lower-alpha">
-<li id="li-5482"><div class="para" id="p-8161"><span class="process-math">\(\displaystyle 57.5\)</span></div></li>
-<li id="li-5483"><div class="para" id="p-8162">
+<a href="" data-knowl="" class="id-ref answer-knowl original has-tabular" data-refid="hk-answer-317" id="answer-317"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-317"><div class="answer solution-like"><div class="para logical" id="p-8162"><ol class="lower-alpha">
+<li id="li-5483"><div class="para" id="p-8163"><span class="process-math">\(\displaystyle 57.5\)</span></div></li>
+<li id="li-5484"><div class="para" id="p-8164">
 <span class="process-math">\(78805\text{,}\)</span> <span class="process-math">\(33946\text{,}\)</span> and <span class="process-math">\(4093\)</span>
 </div></li>
-<li id="li-5484"><div class="para" id="p-8163"><span class="process-math">\(\displaystyle 67\%\)</span></div></li>
-<li id="li-5485">
-<div class="para" id="p-8164">The coordinates are</div>
-<div class="tabular-box natural-width"><table class="tabular">
-<tr>
-<td class="r m b1 r0 l0 t0 lines">Nation</td>
-<td class="r m b1 r0 l0 t0 lines">Coordinate</td>
-</tr>
-<tr>
-<td class="r m b0 r0 l0 t0 lines">England</td>
-<td class="r m b0 r0 l0 t0 lines"><span class="process-math">\(-145\)</span></td>
-</tr>
-<tr>
-<td class="r m b0 r0 l0 t0 lines">Northern Ireland</td>
-<td class="r m b0 r0 l0 t0 lines"><span class="process-math">\(477\)</span></td>
-</tr>
-<tr>
-<td class="r m b0 r0 l0 t0 lines">Scotland</td>
-<td class="r m b0 r0 l0 t0 lines"><span class="process-math">\(-92\)</span></td>
-</tr>
-<tr>
-<td class="r m b0 r0 l0 t0 lines">Wales</td>
-<td class="r m b0 r0 l0 t0 lines"><span class="process-math">\(-241\)</span></td>
-</tr>
-</table></div>
-</li>
-<li id="li-5486"><div class="para" id="p-8165"><span class="process-math">\(\displaystyle 96\%\)</span></div></li>
-<li id="li-5487">
+<li id="li-5485"><div class="para" id="p-8165"><span class="process-math">\(\displaystyle 67\%\)</span></div></li>
+<li id="li-5486">
 <div class="para" id="p-8166">The coordinates are</div>
 <div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="r m b1 r0 l0 t0 lines">Nation</td>
+<td class="r m b1 r0 l0 t0 lines">Coordinate</td>
+</tr>
+<tr>
+<td class="r m b0 r0 l0 t0 lines">England</td>
+<td class="r m b0 r0 l0 t0 lines"><span class="process-math">\(-145\)</span></td>
+</tr>
+<tr>
+<td class="r m b0 r0 l0 t0 lines">Northern Ireland</td>
+<td class="r m b0 r0 l0 t0 lines"><span class="process-math">\(477\)</span></td>
+</tr>
+<tr>
+<td class="r m b0 r0 l0 t0 lines">Scotland</td>
+<td class="r m b0 r0 l0 t0 lines"><span class="process-math">\(-92\)</span></td>
+</tr>
+<tr>
+<td class="r m b0 r0 l0 t0 lines">Wales</td>
+<td class="r m b0 r0 l0 t0 lines"><span class="process-math">\(-241\)</span></td>
+</tr>
+</table></div>
+</li>
+<li id="li-5487"><div class="para" id="p-8167"><span class="process-math">\(\displaystyle 96\%\)</span></div></li>
+<li id="li-5488">
+<div class="para" id="p-8168">The coordinates are</div>
+<div class="tabular-box natural-width"><table class="tabular">
+<tr>
+<td class="r m b1 r0 l0 t0 lines">Nation</td>
 <td class="r m b1 r0 l0 t0 lines">Coordinates</td>
 </tr>
 <tr>
@@ -1111,17 +1203,17 @@ df
 </tr>
 </table></div>
 </li>
-<li id="li-5488"><div class="para" id="p-8167">Northern Ireland appears to be significantly different from the other three nations.</div></li>
-<li id="li-5489"><div class="para" id="p-8168">The average consumption of Alcoholic Drinks will be less than the mean.</div></li>
+<li id="li-5489"><div class="para" id="p-8169">Northern Ireland appears to be significantly different from the other three nations.</div></li>
+<li id="li-5490"><div class="para" id="p-8170">The average consumption of Alcoholic Drinks will be less than the mean.</div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original has-tabular" data-refid="hk-solution-404" id="solution-404"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-404"><div class="solution solution-like"><div class="para logical" id="p-8169"><ol class="lower-alpha">
-<li id="li-5490"><div class="para" id="p-8170">Beverages is the second category so this would be the second component of the <code class="code-inline tex2jax_ignore">data_mean</code> vector, which is <span class="process-math">\(57.5\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original has-tabular" data-refid="hk-solution-404" id="solution-404"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-404"><div class="solution solution-like"><div class="para logical" id="p-8171"><ol class="lower-alpha">
+<li id="li-5491"><div class="para" id="p-8172">Beverages is the second category so this would be the second component of the <code class="code-inline tex2jax_ignore">data_mean</code> vector, which is <span class="process-math">\(57.5\text{.}\)</span>
 </div></li>
-<li id="li-5491"><div class="para" id="p-8171">The three nonzero eigenvalues are <span class="process-math">\(78805\text{,}\)</span> <span class="process-math">\(33946\text{,}\)</span> and <span class="process-math">\(4093\text{.}\)</span>
+<li id="li-5492"><div class="para" id="p-8173">The three nonzero eigenvalues are <span class="process-math">\(78805\text{,}\)</span> <span class="process-math">\(33946\text{,}\)</span> and <span class="process-math">\(4093\text{.}\)</span>
 </div></li>
-<li id="li-5492"><div class="para" id="p-8172">The total variance <span class="process-math">\(V=116844\)</span> is the sum of the eigenvalues so the first principal component accounts for <span class="process-math">\(\lambda_1/V = 67\%\)</span> of the total variance.</div></li>
-<li id="li-5493">
-<div class="para" id="p-8173">The coordinates are</div>
+<li id="li-5493"><div class="para" id="p-8174">The total variance <span class="process-math">\(V=116844\)</span> is the sum of the eigenvalues so the first principal component accounts for <span class="process-math">\(\lambda_1/V = 67\%\)</span> of the total variance.</div></li>
+<li id="li-5494">
+<div class="para" id="p-8175">The coordinates are</div>
 <div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="r m b1 r0 l0 t0 lines">Nation</td>
@@ -1145,9 +1237,9 @@ df
 </tr>
 </table></div>
 </li>
-<li id="li-5494"><div class="para" id="p-8174">The first two principal components account for <span class="process-math">\(96\%\)</span> of the total variance.</div></li>
-<li id="li-5495">
-<div class="para" id="p-8175">The coordinates are</div>
+<li id="li-5495"><div class="para" id="p-8176">The first two principal components account for <span class="process-math">\(96\%\)</span> of the total variance.</div></li>
+<li id="li-5496">
+<div class="para" id="p-8177">The coordinates are</div>
 <div class="tabular-box natural-width"><table class="tabular">
 <tr>
 <td class="r m b1 r0 l0 t0 lines">Nation</td>
@@ -1171,99 +1263,138 @@ df
 </tr>
 </table></div>
 </li>
-<li id="li-5496"><div class="para" id="p-8176">Northern Ireland appears to be significantly different from the other three nations.  There are several possible reasons for this, both historical and geographical, that we might explore.</div></li>
-<li id="li-5497"><div class="para" id="p-8177">The first component of <span class="process-math">\(\uvec_1\)</span> is negative. Therefore, if a nation is on the right side of this plot, the average consumption of Alcoholic Drinks will be less than the mean.  This can be confirmed by looking at the original data.</div></li>
+<li id="li-5497"><div class="para" id="p-8178">Northern Ireland appears to be significantly different from the other three nations.  There are several possible reasons for this, both historical and geographical, that we might explore.</div></li>
+<li id="li-5498"><div class="para" id="p-8179">The first component of <span class="process-math">\(\uvec_1\)</span> is negative. Therefore, if a nation is on the right side of this plot, the average consumption of Alcoholic Drinks will be less than the mean.  This can be confirmed by looking at the original data.</div></li>
 </ol></div></div></div>
-</div></article><div class="para" id="p-8178">This activity demonstrates how principal component analysis enables us to extract information from a dataset that may not be easily obtained otherwise.  As in our previous example, we see that the data points lie quite close to a two-dimensional subspace of <span class="process-math">\(\real^{17}\text{.}\)</span>  In fact, <span class="process-math">\(W_2\text{,}\)</span> the subspace spanned by the first two principal components, accounts for more than 96% of the variance. More importantly, when we project the data onto <span class="process-math">\(W_2\text{,}\)</span> it becomes apparent that Northern Ireland is fundamentally different from the other three nations.</div>
-<div class="para" id="p-8179">With some additional thought, we can determine more specific ways in which Northern Ireland is different.  On the <span class="process-math">\(2\)</span>-dimensional plot, Northern Ireland lies far to the right compared to the other three nations.  Since the data has been demeaned, the origin <span class="process-math">\((0,0)\)</span> in this plot corresponds to the average of the four nations.  The coordinates of the point representing Northern Ireland are about <span class="process-math">\((477, 59)\text{,}\)</span> meaning that the projected data point differs from the mean by about <span class="process-math">\(477\uvec_1+59\uvec_2\text{.}\)</span>
+</div></article><div class="para" id="p-8180">This activity demonstrates how principal component analysis enables us to extract information from a dataset that may not be easily obtained otherwise.  As in our previous example, we see that the case vectors lie quite close to a two-dimensional subspace of <span class="process-math">\(\real^{17}\text{.}\)</span>  In fact, <span class="process-math">\(W_2\text{,}\)</span> the subspace spanned by the first two principal components, accounts for more than 96% of the variance. More importantly, when we project the data onto <span class="process-math">\(W_2\text{,}\)</span> it becomes apparent that Northern Ireland is fundamentally different from the other three nations.</div>
+<div class="para" id="p-8181">With some additional thought, we can determine more specific ways in which Northern Ireland is different.  On the <span class="process-math">\(2\)</span>-dimensional plot, Northern Ireland lies far to the right compared to the other three nations.  Since the data has been demeaned, the origin <span class="process-math">\((0,0)\)</span> in this plot corresponds to the average of the four nations.  The coordinates of the point representing Northern Ireland are about <span class="process-math">\((477, 59)\text{,}\)</span> meaning that the projected data point differs from the mean by about <span class="process-math">\(477\uvec_1+59\uvec_2\text{.}\)</span>
 </div>
-<div class="para" id="p-8180">Let’s just focus on the contribution from <span class="process-math">\(\uvec_1\text{.}\)</span>  We see that the ninth component of <span class="process-math">\(\uvec_1\text{,}\)</span> the one that describes Fresh Fruit, is about <span class="process-math">\(-0.63\text{.}\)</span>  This means that the ninth component of <span class="process-math">\(477\uvec_1\)</span> differs from the mean by about <span class="process-math">\(477(-0.63) = -300\)</span> grams per person per week.  So roughly speaking, people in Northern Ireland are eating about 300 fewer grams of Fresh Fruit than the average across the four nations.  This is borne out by looking at the original data, which show that the consumption of Fresh Fruit in Northern Ireland is significantly less than the other nations.  Examing the other components of <span class="process-math">\(\uvec_1\)</span> shows other ways in which Northern Ireland differs from the other three nations.</div>
+<div class="para" id="p-8182">Let’s just focus on the contribution from <span class="process-math">\(\uvec_1\text{.}\)</span>  We see that the ninth component of <span class="process-math">\(\uvec_1\text{,}\)</span> the one that describes Fresh Fruit, is about <span class="process-math">\(-0.63\text{.}\)</span>  This means that the ninth component of <span class="process-math">\(477\uvec_1\)</span> differs from the mean by about <span class="process-math">\(477(-0.63) = -300\)</span> grams per person per week.  So roughly speaking, people in Northern Ireland are eating about 300 fewer grams of Fresh Fruit than the average across the four nations.  This is borne out by looking at the original data, which show that the consumption of Fresh Fruit in Northern Ireland is significantly less than in the other nations.  Examing the other components of <span class="process-math">\(\uvec_1\)</span> shows other ways in which Northern Ireland differs from the other three nations.</div>
 <article class="activity project-like" id="activity-pca-iris"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.5</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-8181">In this activity, we’ll look at a <a class="external" href="https://archive.ics.uci.edu/ml/datasets/Iris" target="_blank">well-known dataset</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-7" id="fn-7"><sup> 1 </sup></a> that describes 150 irises representing three species of iris: <em class="emphasis">iris setosa</em>, <em class="emphasis">iris versicolor</em>, and <em class="emphasis">iris virginica</em>. For each flower, the length and width of its sepal and the length and width of its petal, all in centimeters, are recorded.</div> <figure class="figure figure-like" id="fig-iris"><div class="sidebyside"><div class="sbsrow" style="margin-left:15%;margin-right:15%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/Iris_versicolor.jpg" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.4<span class="period">.</span></span><span class="space"> </span>One of the three species, <em class="emphasis">iris versicolor</em>, represented in the dataset showing three shorter petals and three longer sepals. (Source: <a class="external" href="https://commons.wikimedia.org/wiki/File:Iris_versicolor_3.jpg" target="_blank">Wikipedia</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-8" id="fn-8"><sup> 2 </sup></a>, License: <a class="external" href="https://commons.wikimedia.org/wiki/Commons:GNU_Free_Documentation_License,_version_1.2" target="_blank">GNU Free DOcumetation License</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-9" id="fn-9"><sup> 3 </sup></a>)</figcaption></figure> <div class="para" id="p-8182">Evaluating the following cell will load the dataset, which consists of 150 points in <span class="process-math">\(\real^4\text{.}\)</span>  In addition, we have a vector <code class="code-inline tex2jax_ignore">data_mean</code>, a four-dimensional vector holding the mean of the data points, and <code class="code-inline tex2jax_ignore">A</code>, the <span class="process-math">\(4\by150\)</span> demeaned data matrix.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-279"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_iris.py', globals())
-df.T
-</script></pre> <div class="para" id="p-8183">Since the data is four-dimensional, we are not able to visualize it.  Of course, we could forget about two of the measurements and plot the 150 points represented by their, say, sepal length and sepal width.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-280"><script type="text/x-sage">sepal_plot()
-</script></pre> <div class="para logical" id="p-8184"><ol class="lower-alpha">
-<li id="li-5498"><div class="para" id="p-8185">What is the mean sepal width?</div></li>
-<li id="li-5499">
-<div class="para" id="p-8186">Find the covariance matrix <span class="process-math">\(C\)</span> and its eigenvalues.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-281"><script type="text/x-sage">
+<div class="para" id="p-8183">In this activity, we’ll look at a <a class="external" href="https://archive.ics.uci.edu/ml/datasets/Iris" target="_blank">well-known dataset</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-7" id="fn-7"><sup> 1 </sup></a> that describes 150 irises representing three species of iris: <em class="emphasis">iris setosa</em>, <em class="emphasis">iris versicolor</em>, and <em class="emphasis">iris virginica</em>. For each flower, the length and width of its sepal and the length and width of its petal, all in centimeters, are recorded.</div> <figure class="figure figure-like" id="fig-iris"><div class="sidebyside"><div class="sbsrow" style="margin-left:15%;margin-right:15%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/Iris_versicolor.jpg" class="contained"></div></div></div>
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.4<span class="period">.</span></span><span class="space"> </span>One of the three species, <em class="emphasis">iris versicolor</em>, represented in the dataset showing three shorter petals and three longer sepals. (Source: <a class="external" href="https://commons.wikimedia.org/wiki/File:Iris_versicolor_3.jpg" target="_blank">Wikipedia</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-8" id="fn-8"><sup> 2 </sup></a>, License: <a class="external" href="https://commons.wikimedia.org/wiki/Commons:GNU_Free_Documentation_License,_version_1.2" target="_blank">GNU Free DOcumetation License</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-9" id="fn-9"><sup> 3 </sup></a>)</figcaption></figure> <div class="para" id="p-8184">Evaluating the following cell will load the dataset, which consists four physcial measuremnts for each of 150 iris plants. In addition, we compute a vector <code class="code-inline tex2jax_ignore">data_mean</code>, a four-dimensional vector holding the means of the four measurements (which is the same as the mean of the 150 case vectors), and <code class="code-inline tex2jax_ignore">irisX</code>, the <span class="process-math">\(150 \by 4\)</span> demeaned data matrix.</div>  <pre class="ptx-sagecell sagecell-python" id="sage-286"><script type="text/x-sage">import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+iris = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/iris.data')
+iris4 = iris[iris.columns[:4]]
+irisX = iris4.to_numpy()
+iris_mean = irisX.mean(axis = 0)
+irisX = irisX - iris_mean
+</script></pre> <div class="para" id="p-8185">Since the data is four-dimensional, we are not able to visualize it easily.  Of course, we could forget about two of the measurements and plot a scatter plot of just two of the four variables, say, just the sepal length and sepal width.</div> <pre class="ptx-sagecell sagecell-python" id="sage-287"><script type="text/x-sage">import seaborn.objects as so 
+( 
+	so.Plot(iris, x = 'sepal length', y = 'sepal width', color = 'species')
+    .add(so.Dot())
+    .show()
+)
+</script></pre> <div class="para logical" id="p-8186"><ol class="lower-alpha">
+<li id="li-5499"><div class="para" id="p-8187">What is the mean sepal width?</div></li>
+<li id="li-5500">
+<div class="para" id="p-8188">Find the covariance matrix <span class="process-math">\(S\)</span> and its eigenvalues.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-288"><script type="text/x-sage">
 </script></pre>
 </li>
-<li id="li-5500"><div class="para" id="p-8187">Find the fraction of variance for which the first two principal components account.</div></li>
-<li id="li-5501">
-<div class="para" id="p-8188">Construct the first two principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> along with the matrix <span class="process-math">\(Q\)</span> whose columns are <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>
-</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-282"><script type="text/x-sage">
-</script></pre>
-</li>
+<li id="li-5501"><div class="para" id="p-8189">Find the fraction of variance for which the first two principal components account.</div></li>
 <li id="li-5502">
-<div class="para" id="p-8189">As we have seen, the columns of the matrix <span class="process-math">\(Q^{\transpose}A\)</span> hold the coordinates of the demeaned data points after projecting onto <span class="process-math">\(W_2\text{,}\)</span> the subspace spanned by the first two principal components.  Evaluating the following cell shows a plot of these coordinates.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-283"><script type="text/x-sage">pca_plot(Q.T*A)
+<div class="para" id="p-8190">Construct the first two principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> along with the matrix <span class="process-math">\(Q\)</span> whose columns are <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-289"><script type="text/x-sage">
 </script></pre>
-<div class="para" id="p-8190">Suppose we have a flower whose coordinates in this plane are <span class="process-math">\((-2.5, -0.75)\text{.}\)</span>  To what species does this iris most likely belong?  Find an estimate of the sepal length, sepal width, petal length, and petal width for this flower.</div>
 </li>
 <li id="li-5503">
-<div class="para" id="p-8191">Suppose you have an iris, but you only know that its sepal length is 5.65 cm and its sepal width is 2.75 cm.  Knowing only these two measurements, determine the coordinates <span class="process-math">\((c_1, c_2)\)</span> in the plane where this iris lies.  To what species does this iris most likely belong?  Now estimate the petal length and petal width of this iris.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-284"><script type="text/x-sage">
+<div class="para" id="p-8191">As we have seen, the columns of the matrix <span class="process-math">\(Q^{\transpose}X^{\transpose}\)</span> or rows of <span class="process-math">\(XQ\)</span> hold the coordinates of the demeaned case vectors after projecting onto <span class="process-math">\(W_2\text{,}\)</span> the subspace spanned by the first two principal components.  Evaluating the following cell shows a plot of these coordinates.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-290"><script type="text/x-sage">irisPCA = X @ Q
+( 
+	so.Plot(iris, x = irisPCA[:, 0], y = irisPCA[:, 1], color = 'species')
+	.add(so.Dot())
+	.show()
+)
 </script></pre>
+<div class="para" id="p-8192">Suppose we have a flower whose coordinates in this plane are <span class="process-math">\((-2.5, -0.75)\text{.}\)</span>  To what species does this iris most likely belong?  Find an estimate of the sepal length, sepal width, petal length, and petal width for this flower.</div>
 </li>
 <li id="li-5504">
-<div class="para" id="p-8192">Suppose you find another iris whose sepal width is 3.2 cm and whose petal width is 2.2 cm.  Find the coordinates <span class="process-math">\((c_1, c_2)\)</span> of this iris and determine the species to which it most likely belongs.  Also, estimate the sepal length and the petal length.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-285"><script type="text/x-sage">
+<div class="para" id="p-8193">Suppose you have an iris, but you only know that its sepal length is 5.65 cm and its sepal width is 2.75 cm.  Knowing only these two measurements, determine the coordinates <span class="process-math">\((c_1, c_2)\)</span> in the plane where this iris lies.  To what species does this iris most likely belong?  Now estimate the petal length and petal width of this iris.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-291"><script type="text/x-sage">
+</script></pre>
+</li>
+<li id="li-5505">
+<div class="para" id="p-8194">Suppose you find another iris whose sepal width is 3.2 cm and whose petal width is 2.2 cm.  Find the coordinates <span class="process-math">\((c_1, c_2)\)</span> of this iris and determine the species to which it most likely belongs.  Also, estimate the sepal length and the petal length.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-292"><script type="text/x-sage">
 </script></pre>
 </li>
 </ol></div>
 <div class="solutions">
-<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-318" id="answer-318"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-318"><div class="answer solution-like"><div class="para logical" id="p-8193"><ol class="lower-alpha">
-<li id="li-5505"><div class="para" id="p-8194"><span class="process-math">\(3.05\text{.}\)</span></div></li>
-<li id="li-5506"><div class="para" id="p-8195">
+<a href="" data-knowl="" class="id-ref answer-knowl original" data-refid="hk-answer-318" id="answer-318"><span class="type">Answer</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-answer-318"><div class="answer solution-like"><div class="para logical" id="p-8195"><ol class="lower-alpha">
+<li id="li-5506"><div class="para" id="p-8196"><span class="process-math">\(3.05\text{.}\)</span></div></li>
+<li id="li-5507"><div class="para" id="p-8197">
 <span class="process-math">\(4.20\text{,}\)</span> <span class="process-math">\(0.24\text{,}\)</span> <span class="process-math">\(0.08\text{,}\)</span> <span class="process-math">\(0.02\text{.}\)</span>
 </div></li>
-<li id="li-5507"><div class="para" id="p-8196"><span class="process-math">\(\displaystyle 97.8\%\)</span></div></li>
-<li id="li-5508"><div class="para" id="p-8197">The columns of <span class="process-math">\(Q\)</span> are for the first two principal components.</div></li>
-<li id="li-5509"><div class="para" id="p-8198">Iris setosa and the vector of measurements is <span class="process-math">\(\fourvec{5.43}{3.81}{1.49}{0.25}\text{.}\)</span>
+<li id="li-5508"><div class="para" id="p-8198"><span class="process-math">\(\displaystyle 97.8\%\)</span></div></li>
+<li id="li-5509"><div class="para" id="p-8199">The columns of <span class="process-math">\(Q\)</span> are for the first two principal components.</div></li>
+<li id="li-5510"><div class="para" id="p-8200">
+<em class="emphasis">Iris setosa</em> and the vector of measurements is <span class="process-math">\(\fourvec{5.43}{3.81}{1.49}{0.25}\text{.}\)</span>
 </div></li>
-<li id="li-5510"><div class="para" id="p-8199">The petal length is <span class="process-math">\(3.99\)</span> and the petal width is <span class="process-math">\(1.29\text{.}\)</span>
+<li id="li-5511"><div class="para" id="p-8201">The petal length is <span class="process-math">\(3.99\)</span> and the petal width is <span class="process-math">\(1.29\text{.}\)</span>
 </div></li>
-<li id="li-5511"><div class="para" id="p-8200">The sepal length is <span class="process-math">\(7.23\)</span> and the petal length is <span class="process-math">\(6.15\text{.}\)</span>
+<li id="li-5512"><div class="para" id="p-8202">The sepal length is <span class="process-math">\(7.23\)</span> and the petal length is <span class="process-math">\(6.15\text{.}\)</span>
 </div></li>
 </ol></div></div></div>
-<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-405" id="solution-405"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-405"><div class="solution solution-like"><div class="para logical" id="p-8201"><ol class="lower-alpha">
-<li id="li-5512"><div class="para" id="p-8202">The second component of <code class="code-inline tex2jax_ignore">data_mean</code>, which is the one corresponding to sepal width, is <span class="process-math">\(3.05\text{.}\)</span>
+<a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-405" id="solution-405"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-405"><div class="solution solution-like">
+<pre class="ptx-sagecell hidden-sagecell-python" id="sage-293"><script type="text/x-sage">np.set_printoptions(precision = 3, suppress = True)
+S = np.transpose(irisX) @ irisX / 149.0
+irisEvals, irisE = np.linalg.eig(S)
+Q = irisE[:, 0:2]
+print("Q"); print(Q)
+irisPCA = irisX @ Q 
+print("irisPCA"); print(irisPCA[0:10, :])
+( 
+	so.Plot(iris, x = irisPCA[:, 0], y = irisPCA[:, 1], color = 'species')
+	.add(so.Dot())
+    .add(so.Dot(x=-2.5, y=-.075, color = "red"))
+	.show()
+)
+
+pca_flower = np.array((-2.5, -0.75))
+natural_flower = Q @ pca_flower + iris_mean
+print(natural_flower)
+</script></pre> <div class="para logical" id="p-8203"><ol class="lower-alpha">
+<li id="li-5513"><div class="para" id="p-8204">The second component of <code class="code-inline tex2jax_ignore">data_mean</code>, which is the one corresponding to sepal width, is <span class="process-math">\(3.05\text{.}\)</span>
 </div></li>
-<li id="li-5513"><div class="para" id="p-8203">The eigenvalues are <span class="process-math">\(4.20\text{,}\)</span> <span class="process-math">\(0.24\text{,}\)</span> <span class="process-math">\(0.08\text{,}\)</span> and <span class="process-math">\(0.02\text{.}\)</span>
+<li id="li-5514"><div class="para" id="p-8205">The eigenvalues are <span class="process-math">\(4.20\text{,}\)</span> <span class="process-math">\(0.24\text{,}\)</span> <span class="process-math">\(0.08\text{,}\)</span> and <span class="process-math">\(0.02\text{.}\)</span>
 </div></li>
-<li id="li-5514"><div class="para" id="p-8204">The first two principal components account for <span class="process-math">\(97.8\%\)</span> of the variance.</div></li>
-<li id="li-5515"><div class="para" id="p-8205">If <span class="process-math">\(P\)</span> is the matrix whose columns are an orthonormal basis of eigenvectors, then <span class="process-math">\(Q\)</span> is formed from the first two columns of <span class="process-math">\(P\text{.}\)</span>
+<li id="li-5515"><div class="para" id="p-8206">The first two principal components account for <span class="process-math">\(97.8\%\)</span> of the variance.</div></li>
+<li id="li-5516"><div class="para" id="p-8207">If <span class="process-math">\(P\)</span> is the matrix whose columns are an orthonormal basis of eigenvectors, then <span class="process-math">\(Q\)</span> is formed from the first two columns of <span class="process-math">\(P\text{.}\)</span>
 </div></li>
-<li id="li-5516"><div class="para" id="p-8206">This would most likely belong to Iris setosa.  To find its measurements, we evaluate <span class="process-math">\(-2.5\uvec_1 -
+<li id="li-5517"><div class="para" id="p-8208">This would most likely belong to <em class="emphasis">iris setosa</em>.  To find its measurements, we evaluate <span class="process-math">\(-2.5\uvec_1 -
 0.75\uvec_2 + \mvec\)</span> where <span class="process-math">\(\mvec\)</span> is the vector of means.  This is the same as <span class="process-math">\(Q\twovec{-2.5}{-0.75} + \mvec\text{,}\)</span> which gives the vector of measurements <span class="process-math">\(\fourvec{5.43}{3.81}{1.49}{0.25}\text{.}\)</span>
 </div></li>
-<li id="li-5517"><div class="para" id="p-8207">Subtracting the mean sepal length and sepal width, we have <span class="process-math">\((-0.19, -0.30)\text{.}\)</span>  Then the first two components of <span class="process-math">\(c_1\uvec_1+c_2\uvec_2 =
+<li id="li-5518"><div class="para" id="p-8209">Subtracting the mean sepal length and sepal width, we have <span class="process-math">\((-0.19, -0.30)\text{.}\)</span>  Then the first two components of <span class="process-math">\(c_1\uvec_1+c_2\uvec_2 =
 Q\twovec{c_1}{c_2} = \twovec{-0.19}{-0.30}\text{.}\)</span>  This gives <span class="process-math">\((c_1, c_2) = (0.18, 0.40)\text{.}\)</span>  This looks like an <em class="emphasis">iris versicolor</em>.  As in the previous part, we can now find the petal length to be <span class="process-math">\(3.99\)</span> and the petal width to be <span class="process-math">\(1.29\text{.}\)</span>
 </div></li>
-<li id="li-5518"><div class="para" id="p-8208">Using the same approach as the last part, we find <span class="process-math">\((c_1,c_2)=(2.90, -0.53)\text{,}\)</span> which gives a sepal length of <span class="process-math">\(7.23\)</span> and a petal length of <span class="process-math">\(6.15\text{.}\)</span>  Most likely, this flower belongs to Iris virginica.</div></li>
-</ol></div></div></div>
+<li id="li-5519"><div class="para" id="p-8210">Using the same approach as the last part, we find <span class="process-math">\((c_1,c_2)=(2.90, -0.53)\text{,}\)</span> which gives a sepal length of <span class="process-math">\(7.23\)</span> and a petal length of <span class="process-math">\(6.15\text{.}\)</span>  Most likely, this flower belongs to <em class="emphasis">iris virginica</em>.</div></li>
+</ol></div>
+</div></div>
 </div></article></section><section class="subsection" id="subsection-131"><h3 class="heading hide-type">
 <span class="type">Subsection</span><span class="space"> </span><span class="codenumber">7.4.3</span><span class="space"> </span><span class="title">Summary</span>
 </h3>
-<div class="para logical" id="p-8209">
-<div class="para">This section has explored principal component analysis as a technique to reduce the dimension of a dataset.  From the demeaned data matrix <span class="process-math">\(A\text{,}\)</span> we form the covariance matrix <span class="process-math">\(C= \frac1N ~AA^{\transpose}\text{,}\)</span> where <span class="process-math">\(N\)</span> is the number of data points.</div>
+<div class="para logical" id="p-8211">
+<div class="para">This section has explored <dfn class="terminology">principal component analysis</dfn> (PCA) as a technique to reduce the dimension of a dataset.  From the demeaned column-variate data matrix <span class="process-math">\(X\text{,}\)</span> we form the covariance matrix <span class="process-math">\(S_{XX} = \frac1{n-1} X^{\transpose}X\text{,}\)</span> where <span class="process-math">\(n\)</span> is the number of observational units.</div>
 <ul class="disc">
-<li id="li-5519"><div class="para" id="p-8210">The eigenvectors <span class="process-math">\(\uvec_1, \uvec_2, \ldots \uvec_m\text{,}\)</span> of <span class="process-math">\(C\)</span> are called the principal components.  We arrange them so that their corresponding eigenvalues are in decreasing order.</div></li>
-<li id="li-5520"><div class="para" id="p-8211">If <span class="process-math">\(W_n\)</span> is the subspace spanned by the first <span class="process-math">\(n\)</span> principal components, then the variance of the demeaned data projected onto <span class="process-math">\(W_n\)</span> is the sum of the first <span class="process-math">\(n\)</span> eigenvalues of <span class="process-math">\(C\text{.}\)</span>  No other <span class="process-math">\(n\)</span>-dimensional subspace retains more variance when the data is projected onto it.</div></li>
-<li id="li-5521"><div class="para" id="p-8212">If <span class="process-math">\(Q\)</span> is the matrix whose columns are the first <span class="process-math">\(n\)</span> principal components, then the columns of <span class="process-math">\(Q^{\transpose}A\)</span> hold the coordinates, expressed in the basis <span class="process-math">\(\uvec_1,\ldots,\uvec_n\text{,}\)</span> of the data once projected onto <span class="process-math">\(W_n\text{.}\)</span>
+<li id="li-5520"><div class="para" id="p-8212">The eigenvectors <span class="process-math">\(\uvec_1, \uvec_2, \ldots \uvec_m\text{,}\)</span> of <span class="process-math">\(S_{XX}\)</span> are called the <dfn class="terminology">principal components</dfn>. We arrange them so that their corresponding eigenvalues are in decreasing order.</div></li>
+<li id="li-5521"><div class="para" id="p-8213">If <span class="process-math">\(W_p\)</span> is the subspace spanned by the first <span class="process-math">\(p\)</span> principal components, then the variance of the demeaned data projected onto <span class="process-math">\(W_p\)</span> is the sum of the first <span class="process-math">\(p\)</span> eigenvalues of <span class="process-math">\(S_{XX}\text{.}\)</span>  No other <span class="process-math">\(p\)</span>-dimensional subspace retains more variance when the data are projected onto it.</div></li>
+<li id="li-5522"><div class="para" id="p-8214">If <span class="process-math">\(Q\)</span> is the matrix whose columns are the first <span class="process-math">\(p\)</span> principal components, then <span class="process-math">\(XQ\)</span> contains the column-variate data matrix, expressed in the basis <span class="process-math">\(\uvec_1,\ldots,\uvec_p\text{,}\)</span> of the data once projected onto <span class="process-math">\(W_p\text{.}\)</span>
 </div></li>
-<li id="li-5522"><div class="para" id="p-8213">Our goal is to use a number of principal components that is large enough to retain most of the variance in the dataset but small enough to be manageable.</div></li>
+<li id="li-5523"><div class="para" id="p-8215">Our goal is to use a number of principal components that is large enough to retain most of the variance in the dataset but small enough to be manageable.</div></li>
+<li id="li-5524"><div class="para" id="p-8216">The advantage of principal components analysis is the resulting data reudction. The primary disadvantage is the prinicpal components may not be easily or naturally interpretable.</div></li>
 </ul>
 </div></section><section class="exercises" id="exercises-33"><h3 class="heading hide-type">
 <span class="type">Exercises</span><span class="space"> </span><span class="codenumber">7.4.4</span><span class="space"> </span><span class="title">Exercises</span>
 </h3>
 <article class="exercise exercise-like" id="exercise-282"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
-<div class="para logical" id="p-8214">
+<div class="para logical" id="p-8217">
 <div class="para">Suppose that</div>
 <div class="displaymath process-math">
 \begin{equation*}
@@ -1281,71 +1412,78 @@ D_2 = \begin{bmatrix}
 \end{bmatrix}
 \end{equation*}
 </div>
-<div class="para">and that we have two datasets, one whose covariance matrix is <span class="process-math">\(C_1 = QD_1Q^{\transpose}\)</span> and one whose covariance matrix is <span class="process-math">\(C_2 = QD_2Q^{\transpose}\text{.}\)</span> For each dataset, find</div>
+<div class="para">and that we have two datasets, one whose covariance matrix is <span class="process-math">\(S_1 = QD_1Q^{\transpose}\)</span> and one whose covariance matrix is <span class="process-math">\(S_2 = QD_2Q^{\transpose}\text{.}\)</span> For each dataset, find</div>
 <ol class="lower-alpha">
-<li id="li-5523"><div class="para" id="p-8215">the total variance.</div></li>
-<li id="li-5524"><div class="para" id="p-8216">the fraction of variance represented by the first principal component.</div></li>
-<li id="li-5525"><div class="para" id="p-8217">a verbal description of how the demeaned data points appear when plotted in the plane.</div></li>
+<li id="li-5525"><div class="para" id="p-8218">the total variance.</div></li>
+<li id="li-5526"><div class="para" id="p-8219">the fraction of variance represented by the first principal component.</div></li>
+<li id="li-5527"><div class="para" id="p-8220">a verbal description of how the demeaned case vectors appear when plotted as points in the plane.</div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-283"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para" id="p-8226">Suppose that a dataset has mean <span class="process-math">\(\threevec{13}{5}{7}\)</span> and that its associated covariance matrix is <span class="process-math">\(C=\begin{bmatrix}
+<div class="para" id="p-8229">Suppose that a dataset has mean <span class="process-math">\(\threevec{13}{5}{7}\)</span> and that its associated covariance matrix is <span class="process-math">\(S=\begin{bmatrix}
 275 \amp -206 \amp 251 \\
 -206 \amp 320 \amp -206 \\
 251 \amp -206 \amp 275
 \end{bmatrix}
 \text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-sage" id="sage-286"><script type="text/x-sage">
-</script></pre> <div class="para logical" id="p-8227"><ol class="lower-alpha">
-<li id="li-5532"><div class="para" id="p-8228">What fraction of the variance is represented by the first two principal components?</div></li>
-<li id="li-5533"><div class="para" id="p-8229">If <span class="process-math">\(\threevec{30}{-3}{26}\)</span> is one of the data points, find the coordinates when the demeaned point is projected into the plane defined by the first two principal components.</div></li>
-<li id="li-5534"><div class="para" id="p-8230">If a projected data point has coordinates <span class="process-math">\(\twovec{12}{-25}\text{,}\)</span> find an estimate for the original data point.</div></li>
+</div> <pre class="ptx-sagecell sagecell-python" id="sage-294"><script type="text/x-sage">
+</script></pre> <div class="para logical" id="p-8230"><ol class="lower-alpha">
+<li id="li-5534"><div class="para" id="p-8231">What fraction of the variance is represented by the first two principal components?</div></li>
+<li id="li-5535"><div class="para" id="p-8232">Suppose <span class="process-math">\(\threevec{30}{-3}{26}\)</span> is one of the case vectors. Find the coordinates when the demeaned case vector is projected into the plane defined by the first two principal components.</div></li>
+<li id="li-5536"><div class="para" id="p-8233">If a projected case vector has coordinates <span class="process-math">\(\twovec{12}{-25}\text{,}\)</span> find an estimate for the original case vector. Why is it only an estimate? What factors determine how good the estimate is likely to be?</div></li>
 </ol></div></article><article class="exercise exercise-like" id="exercise-284"><h4 class="heading"><span class="codenumber">3<span class="period">.</span></span></h4>
-<div class="para" id="p-8239">Evaluating the following cell loads a <span class="process-math">\(2\by100\)</span> demeaned data matrix <code class="code-inline tex2jax_ignore">A</code>.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-287"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_ex.py', globals())
-</script></pre> <div class="para logical" id="p-8240"><ol class="lower-alpha">
-<li id="li-5541"><div class="para" id="p-8241">Find the principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> and the variance in the direction of each principal component.</div></li>
-<li id="li-5542"><div class="para" id="p-8242">What is the total variance?</div></li>
-<li id="li-5543"><div class="para" id="p-8243">What can you conclude about this dataset?</div></li>
-</ol></div></article><article class="exercise exercise-like" id="exercise-285"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
-<div class="para logical" id="p-8252">
+<div class="para logical" id="p-8243">
 <div class="para">Determine whether the following statements are true or false and explain your thinking.</div>
 <ol class="lower-alpha">
-<li id="li-5550"><div class="para" id="p-8253">If the eigenvalues of the covariance matrix are <span class="process-math">\(\lambda_1\text{,}\)</span> <span class="process-math">\(\lambda_2\text{,}\)</span> and <span class="process-math">\(\lambda_3\text{,}\)</span> then <span class="process-math">\(\lambda_3\)</span> is the variance of the demeaned data points when projected on the third principal component <span class="process-math">\(\uvec_3\text{.}\)</span>
+<li id="li-5543"><div class="para" id="p-8244">If the eigenvalues of the covariance matrix are <span class="process-math">\(\lambda_1\text{,}\)</span> <span class="process-math">\(\lambda_2\text{,}\)</span> and <span class="process-math">\(\lambda_3\text{,}\)</span> then <span class="process-math">\(\lambda_3\)</span> is the variance of the demeaned case vectors when projected on the third principal component <span class="process-math">\(\uvec_3\text{.}\)</span>
 </div></li>
-<li id="li-5551"><div class="para" id="p-8254">Principal component analysis always allows us to construct a smaller dimensional representation of a dataset without losing any information.</div></li>
-<li id="li-5552"><div class="para" id="p-8255">If the eigenvalues of the covariance matrix are 56, 32, and 0, then the demeaned data points all lie on a line in <span class="process-math">\(\real^3\text{.}\)</span>
+<li id="li-5544"><div class="para" id="p-8245">Principal component analysis always allows us to construct a smaller dimensional representation of a dataset without losing any information.</div></li>
+<li id="li-5545"><div class="para" id="p-8246">If the eigenvalues of the covariance matrix are 56, 32, and 0, then the demeaned case vectors all lie on a line in <span class="process-math">\(\real^3\text{.}\)</span>
 </div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-286"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
-<div class="para logical" id="p-8264">
+</div></article><article class="exercise exercise-like" id="exercise-285"><h4 class="heading"><span class="codenumber">4<span class="period">.</span></span></h4>
+<div class="para logical" id="p-8255">
 <div class="para">In <a href="" class="xref" data-knowl="./knowl/activity-pca-iris.html" title="Activity 7.4.5">Activity 7.4.5</a>, we looked at a dataset consisting of four measurements of 150 irises.  These measurements are sepal length, sepal width, petal length, and petal width.</div>
 <ol class="lower-alpha">
-<li id="li-5559"><div class="para" id="p-8265">Find the first principal component <span class="process-math">\(\uvec_1\)</span> and describe the meaning of its four components.  Which component is most significant? What can you say about the relative importance of the four measurements?</div></li>
-<li id="li-5560"><div class="para" id="p-8266">When the dataset is plotted in the plane defined by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{,}\)</span> the specimens from the species iris-setosa lie on the left side of the plot.  What does this tell us about how iris-setosa differs from the other two species in the four measurements?</div></li>
-<li id="li-5561"><div class="para" id="p-8267">In general, which species is closest to the “average iris”?</div></li>
+<li id="li-5552"><div class="para" id="p-8256">Find the first principal component <span class="process-math">\(\uvec_1\)</span> and describe the meaning of its four components.  Which component is most significant? What can you say about the relative importance of the four measurements? (See <a href="" class="xref" data-knowl="./knowl/exercise-penguins.html" title="Exercise 7.4.4.5">Exercise 7.4.4.5</a> for an important caveat about this line of reasoning.)</div></li>
+<li id="li-5553"><div class="para" id="p-8257">When the dataset is plotted in the plane defined by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{,}\)</span> the specimens from the species iris-setosa lie on the left side of the plot.  What does this tell us about how iris-setosa differs from the other two species in the four measurements?</div></li>
+<li id="li-5554"><div class="para" id="p-8258">In general, which species is closest to the “average iris”?</div></li>
 </ol>
-</div></article><article class="exercise exercise-like" id="exercise-287"><h4 class="heading"><span class="codenumber">6<span class="period">.</span></span></h4>
-<div class="para" id="p-8276">This problem explores a dataset describing 333 penguins. There are three species, Adelie, Chinstrap, and Gentoo, as illustrated on the left of <a href="" class="xref" data-knowl="./knowl/fig-penguins.html" title="Figure 7.4.5">Figure 7.4.5</a>, as well as both male and female penguins in the dataset.</div> <figure class="figure figure-like" id="fig-penguins"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
+</div></article><article class="exercise exercise-like" id="exercise-penguins"><h4 class="heading"><span class="codenumber">5<span class="period">.</span></span></h4>
+<div class="para" id="p-8267">This problem explores a dataset describing 333 penguins. There are three species, Adelie, Chinstrap, and Gentoo, as illustrated on the left of <a href="" class="xref" data-knowl="./knowl/fig-penguins.html" title="Figure 7.4.5">Figure 7.4.5</a>, as well as both male and female penguins in the dataset.</div> <figure class="figure figure-like" id="fig-penguins"><div class="sidebyside"><div class="sbsrow" style="margin-left:2.5%;margin-right:2.5%;">
 <div class="sbspanel top" style="width:57.8947368421053%;"><img src="external/images/lter_penguins.png" class="contained"></div>
 <div class="sbspanel top" style="width:36.8421052631579%;"><img src="external/images/culmen_depth.png" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.5<span class="period">.</span></span><span class="space"> </span>Artwork by <a class="external" href="https://github.com/allisonhorst/palmerpenguins/blob/master/README.md" target="_blank">@allison_horst</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-10" id="fn-10"><sup> 4 </sup></a></figcaption></figure> <div class="para" id="p-8277">Evaluating the next cell will load and display the data.  The meaning of the culmen length and width is contained in the illustration on the right of <a href="" class="xref" data-knowl="./knowl/fig-penguins.html" title="Figure 7.4.5">Figure 7.4.5</a>.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-288"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_penguins.py', globals())
-df.T
-</script></pre> <div class="para" id="p-8278">This dataset is a bit different from others that we’ve looked at because the scale of the measurements is significantly different.  For instance, the measurements for the body mass are roughly 100 times as large as those for the culmen length. For this reason, we will standardize the data by first demeaning it, as usual, and then rescaling each measurement by the reciprocal of its standard deviation.  The result is stored in the <span class="process-math">\(4\by333\)</span> matrix <code class="code-inline tex2jax_ignore">A</code>.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-289"><script type="text/x-sage">
-</script></pre> <div class="para logical" id="p-8279"><ol class="lower-alpha">
-<li id="li-5568"><div class="para" id="p-8280">Find the covariance matrix and its eigenvalues.</div></li>
-<li id="li-5569"><div class="para" id="p-8281">What fraction of the total variance is explained by the first two principal components?</div></li>
-<li id="li-5570">
-<div class="para" id="p-8282">Construct the <span class="process-math">\(2\by333\)</span> matrix <span class="process-math">\(B\)</span> whose columns are the coordinates of the demeaned data points projected onto the first two principal components. The following cell will create the plot.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-290"><script type="text/x-sage">pca_plot(B)
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.5<span class="period">.</span></span><span class="space"> </span>Artwork by <a class="external" href="https://github.com/allisonhorst/palmerpenguins/blob/master/README.md" target="_blank">@allison_horst</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-10" id="fn-10"><sup> 4 </sup></a></figcaption></figure> <div class="para" id="p-8268">Evaluating the next cell will load and display the data.  The meaning of the culmen length and width is contained in the illustration on the right of <a href="" class="xref" data-knowl="./knowl/fig-penguins.html" title="Figure 7.4.5">Figure 7.4.5</a>.</div> <pre class="ptx-sagecell sagecell-python" id="sage-295"><script type="text/x-sage">penguins = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/penguins.csv')
+penguins = penguins.drop(columns=['Unnamed: 0'])
+penguinsX = penguins.to_numpy()[:, 1:5]
+print(penguins)
+print(penguinsX[0:5, :])
+</script></pre> <div class="para" id="p-8269">This dataset is a bit different from others that we’ve looked at because the scale of the measurements is significantly different.  For instance, the measurements for the body mass are roughly 100 times as large as those for the culmen length. For this reason, first standardize the data by demeaning it, as usual, and then by also rescaling each measurement by the reciprocal of its standard deviation.  The result should be a <span class="process-math">\(333 \by 4\)</span> matrix <code class="code-inline tex2jax_ignore">penguinsXstd</code> with columns means of 0 and columns standard deviations of 1.</div> <pre class="ptx-sagecell sagecell-python" id="sage-296"><script type="text/x-sage">
+</script></pre> <div class="para logical" id="p-8270"><ol class="lower-alpha">
+<li id="li-5561"><div class="para" id="p-8271">Find the covariance matrix for <code class="code-inline tex2jax_ignore">penguinsXstd</code> and its eigenvalues.</div></li>
+<li id="li-5562"><div class="para" id="p-8272">What fraction of the total variance is explained by the first two principal components?</div></li>
+<li id="li-5563">
+<div class="para" id="p-8273">Construct the <span class="process-math">\(333 \by 2\)</span> matrix <code class="code-inline tex2jax_ignore">penguinsPCA</code> that results from projecting onto the first two principal components. The following cell will create the plot.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-297"><script type="text/x-sage">penguinsPCA = 
+( 
+	so.Plot(penguins, x = penguinsPCA[:, 0], y = penguinsPCA[: 1], color = 'species')
+	.add(so.Dot())
+	.show()
+)
 </script></pre>
 </li>
-<li id="li-5571"><div class="para" id="p-8283">Examine the components of the first two principal component vectors. How does the body mass of Gentoo penguins compare to that of the other two species?</div></li>
-<li id="li-5572"><div class="para" id="p-8284">What seems to be generally true about the culmen measurements for a Chinstrap penguin compared to a Adelie?</div></li>
-<li id="li-5573">
-<div class="para" id="p-8285">You can plot just the males or females using the following cell.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-291"><script type="text/x-sage">pca_plot(B, sex='female')
+<li id="li-5564"><div class="para" id="p-8274">Examine the components of the first two principal component vectors. How does the body mass of Gentoo penguins compare to that of the other two species?</div></li>
+<li id="li-5565"><div class="para" id="p-8275">What seems to be generally true about the culmen measurements for a Chinstrap penguin compared to a Adelie?</div></li>
+<li id="li-5566">
+<div class="para" id="p-8276">You can separate the males from the females using the following cell.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-298"><script type="text/x-sage">( 
+	so.Plot(penguins, x = penguinsPCA[:, 0], y = penguinsPCA[: 1], color = 'species')
+	.add(so.Dot())
+	.facet("sex")
+	.show()
+)
 </script></pre>
-<div class="para" id="p-8286">What seems to be generally true about the body mass measurements for a male Gentoo compared to a female Gentoo?</div>
+<div class="para" id="p-8277">What seems to be generally true about the body mass measurements for a male Gentoo compared to a female Gentoo?</div>
 </li>
 </ol></div></article></section></section><div class="hidden-content tex2jax_ignore" id="hk-fn-7"><div class="fn"><code class="code-inline tex2jax_ignore">archive.ics.uci.edu</code></div></div>
 <div class="hidden-content tex2jax_ignore" id="hk-fn-8"><div class="fn"><code class="code-inline tex2jax_ignore">gvsu.edu/s/21D</code></div></div>

@@ -9,17 +9,32 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
-<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
-  "inputLocation": "pre.sagecell-sage",
+  "inputLocation": "pre.sagecell-python",
   "linked": true,
-  "linkKey": "linked-sage",
+  "linkKey": "linked-python",
   "autoeval": false,
   "languages": [
-    "sage"
+    "python"
   ],
-  "evalButtonText": "Evaluate (Sage)"
+  "evalButtonText": "Evaluate (Python)"
+});
+</script><script>// Make *any* pre with class 'sagecell-python-autoeval' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python-autoeval",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": true,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)",
+  "hide": [
+    "evalButton"
+  ]
 });
 </script>
 </head>
@@ -27,30 +42,36 @@ sagecell.makeSagecell({
 <article class="activity project-like"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.3</span><span class="period">.</span>
 </h4>
-<div class="para">We will work here with a dataset having 100 3-dimensional demeaned data points.  Evaluating the following cell will plot those data points and define the demeaned data matrix <code class="code-inline tex2jax_ignore">A</code> whose shape is <span class="process-math">\(3\by100\text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-sage" id="sage-271"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/pca_demo.py', globals())
+<div class="para">We will work here with a demeaned dataset having 100 observations of 3 variables.  Evaluating the following cell will create the demeaned column-variate data matrix <span class="process-math">\(X\)</span> and plot the data as a 3-d scatter plot.</div> <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-270"><script type="text/x-sage">import numpy as np 
+import pandas as pd
+</script></pre>  <pre class="ptx-sagecell sagecell-python" id="sage-271"><script type="text/x-sage">import matplotlib.pyplot as plt
+data = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/pca-demo.csv', index_col=0)
+X = data.to_numpy()
+fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
+ax.scatter(X[:, 0], X[:, 1], X[:, 2])                                
+plt.show()
 </script></pre> <div class="para logical">
 <div class="para">Notice that the data appears to cluster around a plane though it does not seem to be wholly contained within that plane.</div>
 <ol class="lower-alpha">
 <li>
-<div class="para">Use the matrix <code class="code-inline tex2jax_ignore">A</code> to construct the covariance matrix <span class="process-math">\(C\text{.}\)</span>  Then determine the variance in the direction of <span class="process-math">\(\uvec=\threevec{1/3}{2/3}{2/3}\text{?}\)</span>
+<div class="para">Use the matrix <code class="code-inline tex2jax_ignore">X</code> to construct the covariance matrix <span class="process-math">\(S\text{.}\)</span>  Then determine the variance in the direction of <span class="process-math">\(\uvec=\threevec{1/3}{2/3}{2/3}\text{?}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-272"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-272"><script type="text/x-sage">
 </script></pre>
 </li>
 <li>
-<div class="para">Find the eigenvalues of <span class="process-math">\(C\)</span> and determine the total variance.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-273"><script type="text/x-sage">
+<div class="para">Find the eigenvalues of <span class="process-math">\(S\)</span> and determine the total variance.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-273"><script type="text/x-sage">
 </script></pre>
-<div class="para">Notice that Sage does not necessarily sort the eigenvalues in decreasing order.</div>
+<div class="para">Notice that Python does not necessarily sort the eigenvalues in decreasing order.</div>
 </li>
-<li><div class="para">Use the <code class="code-inline tex2jax_ignore">right_eigenmatrix()</code> command to find the eigenvectors of <span class="process-math">\(C\text{.}\)</span>  Remembering that the Sage command <code class="code-inline tex2jax_ignore">B.column(1)</code> retrieves the vector represented by the second column of <code class="code-inline tex2jax_ignore">B</code>, define vectors <code class="code-inline tex2jax_ignore">u1</code>, <code class="code-inline tex2jax_ignore">u2</code>, and <code class="code-inline tex2jax_ignore">u3</code> representing the three principal components in order of decreasing eigenvalues.  How can you check if these vectors are an orthonormal basis for <span class="process-math">\(\real^3\text{?}\)</span>
+<li><div class="para">Use the <code class="code-inline tex2jax_ignore">numpy.linalg.eig()</code> command to find the eigenvectors of <span class="process-math">\(S\text{.}\)</span> Define vectors <code class="code-inline tex2jax_ignore">u1</code>, <code class="code-inline tex2jax_ignore">u2</code>, and <code class="code-inline tex2jax_ignore">u3</code> representing the three principal components in order of decreasing eigenvalues.  How can you check if these vectors are an orthonormal basis for <span class="process-math">\(\real^3\text{?}\)</span>
 </div></li>
 <li><div class="para">What fraction of the total variance is retained by projecting the data onto <span class="process-math">\(W_1\text{,}\)</span> the subspace spanned by <span class="process-math">\(\uvec_1\text{?}\)</span>  What fraction of the total variance is retained by projecting onto <span class="process-math">\(W_2\text{,}\)</span> the subspace spanned by <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{?}\)</span>  What fraction of the total variance do we lose by projecting onto <span class="process-math">\(W_2\text{?}\)</span>
 </div></li>
 <li>
 <div class="para logical">
-<div class="para">If we project a data point <span class="process-math">\(\xvec\)</span> onto <span class="process-math">\(W_2\text{,}\)</span> the Projection Formula tells us we obtain</div>
+<div class="para">Each column of <span class="process-math">\(X^{\transpose}\)</span> (each row of <span class="process-math">\(X\)</span>) represents one observational unit in our data.  We will refer to these as <dfn class="terminology">case vectors</dfn>. In a traditional scatter plot (or cloud plot in 3 dimensions), each case vector is represented by one of the dots. If we project each case vector  <span class="process-math">\(\xvec\)</span> onto <span class="process-math">\(W_2\text{,}\)</span> the Projection Formula tells us we obtain</div>
 <div class="displaymath process-math">
 \begin{equation*}
 \xhat = (\uvec_1\cdot\xvec) \uvec_1 +
@@ -67,14 +88,29 @@ sagecell.makeSagecell({
 \twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}\text{.}\)</span>
 </div>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-274"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-274"><script type="text/x-sage">
 </script></pre>
 </li>
 <li>
-<div class="para">Since each column of <span class="process-math">\(A\)</span> represents a data point, the matrix <span class="process-math">\(Q^{\transpose}A\)</span> represents the coordinates of the projected data points.  Evaluating the following cell will plot those projected data points.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-275"><script type="text/x-sage">pca_plot(Q.T*A)
+<div class="para">Since each column of <span class="process-math">\(X^{\transpose}\)</span> represents one observational unit, the matrix <span class="process-math">\(Q^{\transpose}X^{\transpose}\)</span> is a <em class="emphasis">row-variate</em> representation of the data projected onto a lower-dimensional subspace identified by PCA. We can transpose again to get the column-variate represention <span class="process-math">\(X Q\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-275"><script type="text/x-sage">PCA = X @ Q
+fig, ax = plt.subplots()
+ax.scatter(PCA[:, 0], PCA[:, 1])
+plt.show()
 </script></pre>
 <div class="para">Notice how this plot enables us to view the data as if it were two-dimensional. Why is this plot wider than it is tall?</div>
+</li>
+<li>
+<div class="para">ScikitLearn provides another way to compute the first (highest-variance) specified number of principle componenets from a data matrix.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-276"><script type="text/x-sage">from sklearn.decomposition import PCA
+pca3 = PCA(n_components=3)
+pcaX = pca3.fit_transform(X)
+print(pcaX.shape)
+fig, ax = plt.subplots()
+ax.scatter(pcaX[:, 0], pcaX[:, 1])
+plt.show()
+</script></pre>
 </li>
 </ol>
 </div>

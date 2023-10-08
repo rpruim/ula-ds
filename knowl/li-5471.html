@@ -9,11 +9,31 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
 <article class="li"><h5 class="heading">
-<span class="type">Item</span><span class="space"> </span><span class="codenumber">d</span><span class="period">.</span>
+<span class="type">Item</span><span class="space"> </span><span class="codenumber">c</span><span class="period">.</span>
 </h5>
-<div class="para">Projecting onto <span class="process-math">\(W_1\text{,}\)</span> we see that <span class="process-math">\(\lambda_1/V = 0.83\)</span> so <span class="process-math">\(W_1\)</span> retains about <span class="process-math">\(83\%\)</span> of the total variance.  The subspace <span class="process-math">\(W_2\)</span> retains <span class="process-math">\((\lambda_1+\lambda_2)/V=0.98\)</span> or <span class="process-math">\(98\%\)</span> of the total variance.  If we project onto <span class="process-math">\(W_2\)</span> we lose less than <span class="process-math">\(2\%\)</span> of the variance.</div></article><span class="incontext"><a href="sec-pca.html#li-5471" class="internal">in-context</a></span>
+<div class="para">If we obtain <span class="process-math">\(P\text{,}\)</span> the matrix of eigenvectors, from Python, computing <span class="process-math">\(P^{\transpose}P\)</span> evaluates the dot products between the columns.  Since <span class="process-math">\(P^{\transpose}P=I\text{,}\)</span> the basis provided by Sage is orthonormal.</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-280"><script type="text/x-sage"># put u1, u2, u3 into a list; ordered by eigen value
+u = [P[:, i] for i in [0, 2, 1]]
+print("\nu"); print(u)
+
+# if orthogonormal, this should be I
+print(np.transpose(P) @ P)
+</script></pre></article><span class="incontext"><a href="sec-pca.html#li-5471" class="internal">in-context</a></span>
 </body>
 </html>

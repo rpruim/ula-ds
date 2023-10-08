@@ -739,7 +739,7 @@ sagecell.makeSagecell({
 <li>
 <div class="toc-item"><a href="sec-pca.html" class="internal"><span class="codenumber">7.4</span> <span class="title">Principal Component Analysis</span></a></div>
 <ul class="structural">
-<li><div class="toc-item"><a href="sec-pca.html#subsection-129" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Principal Component Analysis</span></a></div></li>
+<li><div class="toc-item"><a href="sec-pca.html#subsection-129" class="internal"><span class="codenumber">7.4.1</span> <span class="title">Themes of Principal Component Analysis</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#subsection-130" class="internal"><span class="codenumber">7.4.2</span> <span class="title">Using Principal Component Analysis</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#subsection-131" class="internal"><span class="codenumber">7.4.3</span> <span class="title">Summary</span></a></div></li>
 <li><div class="toc-item"><a href="sec-pca.html#exercises-33" class="internal"><span class="codenumber">7.4.4</span> <span class="title">Exercises</span></a></div></li>
@@ -808,12 +808,12 @@ I\text{?}\)</span>
 0.2 \amp 0.6 \\
 \end{array}\right]
 \text{.}\)</span>  Explain how we know that <span class="process-math">\(1\)</span> is an eigenvalue of <span class="process-math">\(A\)</span> and then explain why the following computation is incorrect.</div>
-<pre class="ptx-sagecell sagecell-python-autoeval" id="sage-186"><script type="text/x-sage">import numpy as np
+<pre class="ptx-sagecell sagecell-python-autoeval" id="sage-185"><script type="text/x-sage">import numpy as np
 import sympy as s   
 from scipy import linalg  
 from pprint import pprint
 </script></pre>
-<pre class="ptx-sagecell sagecell-python" id="sage-187"><script type="text/x-sage">A = s.Matrix([[0.8, 0.4], [0.2, 0.6]])
+<pre class="ptx-sagecell sagecell-python" id="sage-186"><script type="text/x-sage">A = s.Matrix([[0.8, 0.4], [0.2, 0.6]])
 I = s.eye(2) 
 print((A-I).rref())
 </script></pre>
@@ -934,7 +934,7 @@ A^{-1}\vvec\text{,}\)</span> which shows that <span class="process-math">\(\lamb
 <div class="para">is the sum of the absolute values of the components of <span class="process-math">\(\xvec\text{.}\)</span>
 </div>
 </div> <div class="para" id="p-5555">As <span class="process-math">\(p\)</span> gets larger and larger, the <span class="process-math">\(p\)</span>-norm becomes dominated by the largest component of the vector: <span class="process-math">\(\len{\xvec}_\infty = \lim_{p \to \infty} \len{\xvec} = \max_i( |x_i| )
-\text{.}\)</span> So to compute the scaling factor used in the power method, we can use  NumPy’s norm function: <code class="code-inline tex2jax_ignore">numpy.linalg.norm(x, np.inf)</code>.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-188"><script type="text/x-sage">import numpy as np
+\text{.}\)</span> So to compute the scaling factor used in the power method, we can use  NumPy’s norm function: <code class="code-inline tex2jax_ignore">numpy.linalg.norm(x, np.inf)</code>.</div> <pre class="ptx-sagecell sagecell-sage" id="sage-187"><script type="text/x-sage">import numpy as np
 from numpy.linalg import norm 
 x = np.array([1,2,3])
 for p in range(1, 11):
@@ -947,7 +947,7 @@ print("infinity - norm =", norm(x, np.inf))
 0.5 \amp 0.2 \\
 0.4 \amp 0.7 \\
 \end{array}\right]\)</span> and the initial vector <span class="process-math">\(\xvec_0 = \twovec{1}{0}\text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-python" id="sage-189"><script type="text/x-sage">
+</div> <pre class="ptx-sagecell sagecell-python" id="sage-188"><script type="text/x-sage">
 </script></pre> <div class="para logical" id="p-5557"><ol class="lower-alpha">
 <li id="li-3693"><div class="para" id="p-5558">Compute the vector <span class="process-math">\(\xvec_1 =
 A\xvec_0\text{.}\)</span>
@@ -960,7 +960,7 @@ A\xvec_0\text{.}\)</span>
 </div></li>
 <li id="li-3696">
 <div class="para" id="p-5561">The Python cell below defines a function that implements the power method.  Define the matrix <span class="process-math">\(A\)</span> and initial vector <span class="process-math">\(\xvec_0\)</span> below.  The command <code class="code-inline tex2jax_ignore">power_eig(A, x0,	N)</code> will compute out the multiplier <span class="process-math">\(m\)</span> and the vectors <span class="process-math">\(\overline{\xvec}_k\)</span> for <span class="process-math">\(N\)</span> steps of the power method.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-190"><script type="text/x-sage">def power_eig(A, x, N):
+<pre class="ptx-sagecell sagecell-python" id="sage-189"><script type="text/x-sage">def power_eig(A, x, N):
     result = [[0, x]]
     for i in range(N):
         x = A@x
@@ -1140,7 +1140,7 @@ A^{-1}\xvec_k\text{,}\)</span> and multipliers <span class="process-math">\(\fra
 -5.1 \amp 5.7 \\
 -3.8 \amp 4.4 \\
 \end{array}\right]\)</span> having the smallest absolute value.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-191"><script type="text/x-sage">def inverse_power_eig(A, x, N):
+<pre class="ptx-sagecell sagecell-python" id="sage-190"><script type="text/x-sage">def inverse_power_eig(A, x, N):
     result = []
     for i in range(N):
         x = linalg.solve(A, x)
@@ -1205,7 +1205,7 @@ A^{-1}\vvec\text{,}\)</span> which shows that <span class="process-math">\(\lamb
 <figure class="figure figure-like" id="fig-numerical-power-line"><div class="sidebyside"><div class="sbsrow" style="margin-left:12.5%;margin-right:12.5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/numerical-power-line.svg" role="img" class="contained"></div></div></div>
 <figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">5.6.5<span class="period">.</span></span><span class="space"> </span>The range of eigenvalues of <span class="process-math">\(A\text{.}\)</span></figcaption></figure><div class="para" id="p-5608">The Python cell below has a function <code class="code-inline tex2jax_ignore">find_closest_eigenvalue(A, s, x, N)</code> that implements <span class="process-math">\(N\)</span> steps of the inverse power method using the matrix <span class="process-math">\(A-sI\)</span> and an initial vector <span class="process-math">\(x\text{.}\)</span>  This function computes approximations to the eigenvalue of <span class="process-math">\(A\)</span> closest to <span class="process-math">\(s\)</span> and its associated eigenvector.  By trying different values of <span class="process-math">\(s\)</span> in the shaded regions of the number line shown in <a href="" class="xref" data-knowl="./knowl/fig-numerical-power-line.html" title="Figure 5.6.5">Figure 5.6.5</a>, find the other two eigenvalues of <span class="process-math">\(A\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-192"><script type="text/x-sage">def find_closest_eigenvalue(A, s, x, N):
+<pre class="ptx-sagecell sagecell-python" id="sage-191"><script type="text/x-sage">def find_closest_eigenvalue(A, s, x, N):
     B = A - (s * np.eye(A.shape[0]))
     result = []
     for i in range(N):
@@ -1262,7 +1262,7 @@ pprint(find_closest_eigenvalue(A, -10, x0, 20))
 </div></section><section class="exercises" id="exercises-24"><h3 class="heading hide-type">
 <span class="type">Exercises</span><span class="space"> </span><span class="codenumber">5.6.4</span><span class="space"> </span><span class="title">Exercises</span>
 </h3>
-<section class="introduction" id="introduction-32"><div class="para" id="p-5623">This Python cell has the commands <code class="code-inline tex2jax_ignore">power_eig()</code>, <code class="code-inline tex2jax_ignore">inverse_power_eig()</code>, and <code class="code-inline tex2jax_ignore">find_closest_eigenvalue()</code> that we have developed in this section.  After this cell has been evaluated, these commands will be available in any other cell on this page.</div> <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-193"><script type="text/x-sage">def power_eig(A, x, N):
+<section class="introduction" id="introduction-32"><div class="para" id="p-5623">This Python cell has the commands <code class="code-inline tex2jax_ignore">power_eig()</code>, <code class="code-inline tex2jax_ignore">inverse_power_eig()</code>, and <code class="code-inline tex2jax_ignore">find_closest_eigenvalue()</code> that we have developed in this section.  After this cell has been evaluated, these commands will be available in any other cell on this page.</div> <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-192"><script type="text/x-sage">def power_eig(A, x, N):
     result = [[0, x]]
     for i in range(N):
         x = A@x
@@ -1300,7 +1300,7 @@ def inverse_power(A, x, N):
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-196"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
-<div class="para" id="p-5633">Use the commands <code class="code-inline tex2jax_ignore">power_eig()</code>, <code class="code-inline tex2jax_ignore">inverse_power_eig()</code>, and <code class="code-inline tex2jax_ignore">find_closest_eigenvalue</code> to approximate the eigenvalues and associated eigenvectors of the following matrices.</div> <pre class="ptx-sagecell sagecell-python" id="sage-194"><script type="text/x-sage">
+<div class="para" id="p-5633">Use the commands <code class="code-inline tex2jax_ignore">power_eig()</code>, <code class="code-inline tex2jax_ignore">inverse_power_eig()</code>, and <code class="code-inline tex2jax_ignore">find_closest_eigenvalue</code> to approximate the eigenvalues and associated eigenvectors of the following matrices.</div> <pre class="ptx-sagecell sagecell-python" id="sage-193"><script type="text/x-sage">
 </script></pre> <div class="para logical" id="p-5634"><ol class="lower-alpha">
 <li id="li-3743"><div class="para" id="p-5635"><span class="process-math">\(A= \left[\begin{array}{rr}
 -2 \amp -2 \\
@@ -1333,7 +1333,7 @@ A= \left[\begin{array}{rrrrr}
 \end{array}\right]\text{.}
 \end{equation*}
 </div>
-</div> <pre class="ptx-sagecell sagecell-python" id="sage-195"><script type="text/x-sage">A = np.array([[-14.6,  9.0, -14.1, 5.8,  13.0],
+</div> <pre class="ptx-sagecell sagecell-python" id="sage-194"><script type="text/x-sage">A = np.array([[-14.6,  9.0, -14.1, 5.8,  13.0],
              [27.8, -4.2,  16.0, 0.9, -21.3],
              [-5.5,  3.4,   3.4, 3.3,   1.1],
              [-25.4, 11.3, -15.4, 4.7,  20.3],
@@ -1344,7 +1344,7 @@ A= \left[\begin{array}{rrrrr}
 -4 \amp 0 \\
 \end{array}\right]
 \text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-python" id="sage-196"><script type="text/x-sage">
+</div> <pre class="ptx-sagecell sagecell-python" id="sage-195"><script type="text/x-sage">
 </script></pre> <div class="para logical" id="p-5651"><ol class="lower-alpha">
 <li id="li-3752"><div class="para" id="p-5652">Describe what happens if we apply the power method and the inverse power method using the initial vector <span class="process-math">\(\xvec_0 =
 \twovec{1}{0}\text{.}\)</span>
@@ -1385,7 +1385,7 @@ A= \left[\begin{array}{rrrrr}
 </div></li>
 <li id="li-3772">
 <div class="para" id="p-5687">Verify your prediction using Python.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-197"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-196"><script type="text/x-sage">
 </script></pre>
 </li>
 </ol>

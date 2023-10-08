@@ -9,12 +9,34 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
 <article class="li"><h5 class="heading">
-<span class="type">Item</span><span class="space"> </span><span class="codenumber">b</span><span class="period">.</span>
+<span class="type">Item</span><span class="space"> </span><span class="codenumber">a</span><span class="period">.</span>
 </h5>
-<div class="para">The total variance <span class="process-math">\(V\)</span> is the sum of the eigenvalues of <span class="process-math">\(C\)</span> so we obtain <span class="process-math">\(V=12195\text{.}\)</span>
-</div></article><span class="incontext"><a href="sec-pca.html#li-5469" class="internal">in-context</a></span>
+<div class="para">After constructing the covariance matrix <span class="process-math">\(S =
+\frac{1}{99}X^{\transpose}X\text{,}\)</span> we find that <span class="process-math">\(V_{\uvec} =
+\uvec\cdot(S\uvec) \approx 7965\text{.}\)</span>
+</div>
+<pre class="ptx-sagecell sagecell-python" id="sage-278"><script type="text/x-sage">np.set_printoptions(precision = 2, suppress = True)
+S = 1/99 * (np.transpose(X) @ X)
+print("\nS"); print(S)
+u = np.array((1,2,2))/3
+print(np.transpose(u) @ S @ u)
+print("\nVu"); print(u @ (S @ u))
+</script></pre></article><span class="incontext"><a href="sec-pca.html#li-5469" class="internal">in-context</a></span>
 </body>
 </html>

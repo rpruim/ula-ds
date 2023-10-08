@@ -50,17 +50,17 @@ sagecell.makeSagecell({
 <ol class="lower-alpha">
 <li>
 <div class="para">We can find the characteristic polynomial of a <code class="code-inline tex2jax_ignore">sympy.Matrix</code> <code class="code-inline tex2jax_ignore">A</code> by writing <code class="code-inline tex2jax_ignore">A.charpoly('lambda')</code>.  Notice that we have to give Python a variable in which to write the polynomial;  here, we use <code class="code-inline tex2jax_ignore">lambda</code> though <code class="code-inline tex2jax_ignore">x</code> works just as well.</div>
-<pre class="ptx-sagecell sagecell-python-autoeval" id="sage-152"><script type="text/x-sage">import numpy as np
+<pre class="ptx-sagecell sagecell-python-autoeval" id="sage-151"><script type="text/x-sage">import numpy as np
 import sympy
 import scipy
 </script></pre>
-<pre class="ptx-sagecell sagecell-python" id="sage-153"><script type="text/x-sage">A = np.array([[-3,1],[0,-3]])
+<pre class="ptx-sagecell sagecell-python" id="sage-152"><script type="text/x-sage">A = np.array([[-3,1],[0,-3]])
 M = sympy.Matrix(A)
 p = M.charpoly('lambda')
 print(p)
 </script></pre>
 <div class="para">The factored form of the characteristic polynomial may be more useful since it will tell us the eigenvalues and their multiplicities.  The factored characteristic polynomial is found with <code class="code-inline tex2jax_ignore">sympy.factor()</code>.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-154"><script type="text/x-sage">A = np.array([[-3, 1], [0, -3]])
+<pre class="ptx-sagecell sagecell-python" id="sage-153"><script type="text/x-sage">A = np.array([[-3, 1], [0, -3]])
 M = sympy.Matrix(A)
 p = M.charpoly('x')
 print(sympy.factor(p)); print()
@@ -69,7 +69,7 @@ print(sympy.factor(p.as_expr()))
 </li>
 <li>
 <div class="para">If we only want the eigenvalues, we can use <code class="code-inline tex2jax_ignore">numpy.linalg.eigvals()</code> or <code class="code-inline tex2jax_ignore">scipy.linalg.eigvals()</code>. </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-155"><script type="text/x-sage">A = np.array([[-3, 1], [0, -3]])
+<pre class="ptx-sagecell sagecell-python" id="sage-154"><script type="text/x-sage">A = np.array([[-3, 1], [0, -3]])
 print(np.linalg.eigvals(A))
 </script></pre>
 <div class="para">Notice that the multiplicity of an eigenvalue is the number of times it is repeated in the list of eigenvalues.</div>
@@ -77,7 +77,7 @@ print(np.linalg.eigvals(A))
 <li>
 <div class="para">Finally, we can find both eigenvalues and (right) eigenvectors using <code class="code-inline tex2jax_ignore">numpy.linalg.eig(A)</code> or <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A)</code>. </div>
 <aside class="aside aside-like"><h5 class="heading"><span class="title">Left and right eigenvectors.</span></h5>
-<div class="para">Technically, we are finding <dfn class="terminology">right eigenvectors</dfn> since the vector <span class="process-math">\(\vvec\)</span> appears to the right of <span class="process-math">\(A\)</span> in the definition <span class="process-math">\(A\vvec=\lambda \vvec\text{.}\)</span> That’s most often what we want.  But we can also get <dfn class="terminology">left eigenvectors</dfn> with <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A, left = True)</code>. Feel free to try it in the code chunk below. NumPy does not provide this option.</div></aside><pre class="ptx-sagecell sagecell-python" id="sage-156"><script type="text/x-sage">A = np.array([[-3, 1], [0, -3]])
+<div class="para">Technically, we are finding <dfn class="terminology">right eigenvectors</dfn> since the vector <span class="process-math">\(\vvec\)</span> appears to the right of <span class="process-math">\(A\)</span> in the definition <span class="process-math">\(A\vvec=\lambda \vvec\text{.}\)</span> That’s most often what we want.  But we can also get <dfn class="terminology">left eigenvectors</dfn> with <code class="code-inline tex2jax_ignore">scipy.linalg.eig(A, left = True)</code>. Feel free to try it in the code chunk below. NumPy does not provide this option.</div></aside><pre class="ptx-sagecell sagecell-python" id="sage-155"><script type="text/x-sage">A = np.array([[-3, 1], [0, -3]])
 evals, evecs = scipy.linalg.eig(A) 
 print(evals); print()
 print(evecs.round(10))
@@ -98,21 +98,21 @@ print(evecs.round(10))
 <li>
 <div class="para">Let’s now use Python to determine the reduced row echelon form of <span class="process-math">\(A-I\text{:}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-157"><script type="text/x-sage">A = sympy.Matrix([[0.4,0.3],[0.6,0.7]])
+<pre class="ptx-sagecell sagecell-python" id="sage-156"><script type="text/x-sage">A = sympy.Matrix([[0.4,0.3],[0.6,0.7]])
 print((A - sympy.eye(2)).rref())   # use sympy.eye() to get a sympy.Matrix
 </script></pre>
 <div class="para">What result does Python report for the reduced row echelon form?  Why is this result not correct? (Hint: compute row and column sums.)</div>
 </li>
 <li>
 <div class="para">Despite the error in finding the reduce row echelon form, NumPy and SciPy <em class="emphasis">can</em> compute these eigenvalues and eigenvectors for us.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-158"><script type="text/x-sage">A = np.array([[0.4, 0.3],[0.6,0.7]])
+<pre class="ptx-sagecell sagecell-python" id="sage-157"><script type="text/x-sage">A = np.array([[0.4, 0.3],[0.6,0.7]])
 print(np.linalg.eig(A))
 </script></pre>
 <div class="para">As you might expect, this implies that the method being used does not rely on using RREF along the way. RREF is not numerically stable, this is why it is not included in numpy and scipy.</div>
 </li>
 <li>
 <div class="para">If we provide sympy with rational values instead of floating point, then it can compute the RREF of our matrix exactly and the error from above goes away.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-159"><script type="text/x-sage">from sympy import Rational as r
+<pre class="ptx-sagecell sagecell-python" id="sage-158"><script type="text/x-sage">from sympy import Rational as r
 A = sympy.Matrix([[r(4,10),r(3,10)],[r(6,10),r(7,10)]])
 print(A)
 print(A.eigenvals())

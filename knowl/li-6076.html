@@ -9,12 +9,53 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-python",
+  "linked": true,
+  "linkKey": "linked-python",
+  "autoeval": false,
+  "languages": [
+    "python"
+  ],
+  "evalButtonText": "Evaluate (Python)"
+});
+</script>
 </head>
 <body class="ignore-math">
-<article class="li"><h3 class="heading">
-<span class="type">Item</span><span class="period">.</span><span class="space"> </span><span class="title">pandas (<code class="code-inline tex2jax_ignore">import pandas as pd </code>).</span>
-</h3>
-<div class="para"><blockquote class="blockquote">pandas is a fast, powerful, flexible and easy to use open source data analysis and manipulation tool, built on top of the Python programming language.</blockquote></div>
-<div class="para">The primary feature of pandas that we will use is its support for <dfn class="terminology">data frames</dfn>. In a data frame, each row represents and observational unit and each column represents a variable. Different variables may be of different types and need not be numeric. pandas allows us to read data frames in from files of various formats (e.g., CSV files) and to perform data wrangling on the result.</div></article><span class="incontext"><a href="subsection-143.html#li-6076" class="internal">in-context</a></span>
+<article class="li"><h3 class="heading"><span class="title">Creating matrices</span></h3>
+<div class="para logical">
+<div class="para">There are a couple of ways to create matrices.  For instance, the matrix</div>
+<div class="displaymath process-math">
+\begin{equation*}
+\begin{bmatrix}
+-2 \amp 3 \amp 0 \amp 4 \\
+1 \amp -2 \amp 1 \amp -3 \\
+0 \amp 2 \amp 3 \amp 0 \\
+\end{bmatrix}
+\end{equation*}
+</div>
+<div class="para">can be created in either of the two following ways.</div>
+<ol class="lower-alpha">
+<li><div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-362"><script type="text/x-sage">A = np.array([ 
+    [-2, 3, 0, 4],
+    [ 1,-2, 1,-3],
+	[ 0, 2, 3, 0] 
+	])
+print(A)
+</script></pre></div></li>
+<li><div class="para"><pre class="ptx-sagecell sagecell-python" id="sage-363"><script type="text/x-sage">A = np.array([-2, 3, 0, 4, 1,-2, 1,-3, 0, 2, 3, 0]).reshape(3,4)
+print(A)
+</script></pre></div></li>
+</ol>
+</div>
+<div class="para">Be aware that Python can treat mathematically equivalent matrices in different ways depending on how they are entered. For instance, the matrix <pre class="ptx-sagecell sagecell-python" id="sage-364"><script type="text/x-sage">A = np.array([ [1, 2],
+             [2, 1] ])
+print(A.dtype)
+</script></pre> has integer entries while <pre class="ptx-sagecell sagecell-python" id="sage-365"><script type="text/x-sage">B = np.array([ [1.0, 2.0],
+               [2.0, 1.0] ])
+print(B.dtype)
+</script></pre> has floating point entries. If any of the entries in a matrix are provided as floating point numbers, then all of the entries will be converted to floating point values.</div></article><span class="incontext"><a href="subsec-frequently-used-python.html#li-6076" class="internal">in-context</a></span>
 </body>
 </html>

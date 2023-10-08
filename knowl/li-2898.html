@@ -41,21 +41,21 @@ sagecell.makeSagecell({
 <li>
 <div class="para">Let’s now use Python to determine the reduced row echelon form of <span class="process-math">\(A-I\text{:}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-157"><script type="text/x-sage">A = sympy.Matrix([[0.4,0.3],[0.6,0.7]])
+<pre class="ptx-sagecell sagecell-python" id="sage-156"><script type="text/x-sage">A = sympy.Matrix([[0.4,0.3],[0.6,0.7]])
 print((A - sympy.eye(2)).rref())   # use sympy.eye() to get a sympy.Matrix
 </script></pre>
 <div class="para">What result does Python report for the reduced row echelon form?  Why is this result not correct? (Hint: compute row and column sums.)</div>
 </li>
 <li>
 <div class="para">Despite the error in finding the reduce row echelon form, NumPy and SciPy <em class="emphasis">can</em> compute these eigenvalues and eigenvectors for us.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-158"><script type="text/x-sage">A = np.array([[0.4, 0.3],[0.6,0.7]])
+<pre class="ptx-sagecell sagecell-python" id="sage-157"><script type="text/x-sage">A = np.array([[0.4, 0.3],[0.6,0.7]])
 print(np.linalg.eig(A))
 </script></pre>
 <div class="para">As you might expect, this implies that the method being used does not rely on using RREF along the way. RREF is not numerically stable, this is why it is not included in numpy and scipy.</div>
 </li>
 <li>
 <div class="para">If we provide sympy with rational values instead of floating point, then it can compute the RREF of our matrix exactly and the error from above goes away.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-159"><script type="text/x-sage">from sympy import Rational as r
+<pre class="ptx-sagecell sagecell-python" id="sage-158"><script type="text/x-sage">from sympy import Rational as r
 A = sympy.Matrix([[r(4,10),r(3,10)],[r(6,10),r(7,10)]])
 print(A)
 print(A.eigenvals())
