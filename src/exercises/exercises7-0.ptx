@@ -3,27 +3,30 @@
 <exercises>
 
   <exercise>
+	Let <m>\xtilde = \xvec - \xbar</m> represent the demeaned version of a vector <m>\xvec</m>.
     <statement>
         <ol marker="a.">
-        <li>
-		<p>
-			Show that <m>\xtilde \cdot \ytilde = \xvec \cdot \ytilde = \xtilde \cdot \yvec</m>.
-			So to form the dot product of two demeaned vectors, it suffices to demean one 
-			of them and not the other. 
-		</p>
-    </li>
     <li>
         <p>
-            Let <m>\xvec = \fourvec1326</m> and let <m>\yvec = \fourvec524{-3}</m>.
-            Compute <m>\xtilde \cdot \ytilde</m>, <m>\xvec \cdot \ytilde</m>, and <m>\xtilde \cdot \yvec</m>
+            Let <m>\avec = \fourvec1326</m> and let <m>\bvec = \fourvec524{-3}</m>.
+            Compute <m>\atilde \cdot \btilde</m>, <m>\avec \cdot \btilde</m>, and <m>\atilde \cdot \bvec</m>
             and show that you get the same result each time.
         </p>
     </li>
     <li>
         <p>
-            Show that <m>\xvec \cdot \yvec</m> gives a different result. 
+            Show that <m>\avec \cdot \bvec</m> gives a different result. 
             (So it is important to demean at least one of the vectors.)
         </p>
+    </li>
+        <li>
+		<p>
+			Show that for any vectors <m>\xvec</m> and <m>\yvec</m>, 
+			<m>\xtilde \cdot \ytilde = \xvec \cdot \ytilde = \xtilde \cdot \yvec</m>.
+			So to form the dot product of two demeaned vectors, it suffices to demean one 
+			of them and not the other.  (Hint: One way to do this begins by expressing 
+			things in terms of <m>Q</m> where <m>\xtilde = Q \xvec</m>.)
+		</p>
     </li>
 </ol>
 
@@ -129,12 +132,12 @@
 	</li>
 	<li>
 	  <p>
-	    <m>V = 14/5</m>
+	    <m>V = 14/4 = 3.5</m>
 	  </p>
 	</li>
 	<li>
 	  <p>
-	    <m>V_{\evec_1} = 4/5</m> and <m>V_{\evec_2} = 2</m>
+	    <m>V_{\evec_1} = 1</m> and <m>V_{\evec_2} = 2.5</m>
 	  </p>
 	</li>
 	<li>
@@ -149,8 +152,7 @@
 	</li>
 	<li>
 	  <p>
-	    The variances add to the toal
-	    variance.
+	    The variances add to the toal variance.
 	  </p>
 	</li>
       </ol>
@@ -170,34 +172,75 @@
 	</li>
 	<li>
 	  <p>
-	    <m>V = 14/5</m>
+	    <m>V = 14/4 = 7/2 = 3.5</m>
 	  </p>
 	</li>
 	<li>
 	  <p>
-	    <m>V_{\evec_1} = 4/5</m> and <m>V_{\evec_2} = 2</m>
+	    <m>V_{\evec_1} = 4/4 = 1</m> and <m>V_{\evec_2} = 10/4 = 2.5</m>
 	  </p>
 	</li>
 	<li>
 	  <p>
 	    Let <m>\uvec_1</m> be the unit vector parallel to
-	    <m>\vvec_1</m> so that <m>V_{\uvec_1} = 34/25</m>.
+	    <m>\vvec_1</m> so that <m>V_{\uvec_1} = 34/20 = 1.7</m>.
 	  </p>
 	</li>
 	<li>
 	  <p>
 	    Let <m>\uvec_2</m> be the unit vector parallel to
-	    <m>\vvec_2</m> so that <m>V_{\uvec_2} = 36/25</m>.
+	    <m>\vvec_2</m> so that <m>V_{\uvec_2} = 36/20 = 1.8 </m>.
 	  </p>
 	</li>
 	<li>
 	  <p>
 	    The vectors are orthogonal so the variances add to the toal
-	    variance.
+	    variance.  <m>1 + 2.5 = 1.7 + 1.8 = 3.5</m>.
 	  </p>
 	</li>
       </ol>
     </p>
+	<sage>
+		<input>
+import numpy as np
+    
+X = np.column_stack(([2,2,4,3,4], [0,3,1,2,4]))
+Xd = X - X.mean(axis = 0)  # demeaned version
+
+print(Xd)
+
+print("total variance:", np.sum([np.linalg.norm(Xd[i, :])**2 for i in range(5)]))
+
+S = np.transpose(Xd) @ Xd
+print("variance matrix", S)
+
+e1 = np.array([1,0])
+e2 = np.array([0,1])
+v1 = np.array([2,1])
+v2 = np.array([1,-2])
+u1 = v1 / np.linalg.norm(v1)
+u2 = v2 / np.linalg.norm(v2)
+for u in [e1, e2, u1, u2]:
+    print("u =", u, "; V_u =", round(u @ S @ u / 4, 4) )
+
+		</input>
+		<output>
+[[-1. -2.]
+ [-1.  1.]
+ [ 1. -1.]
+ [ 0.  0.]
+ [ 1.  2.]]
+total variance: 14.000000000000004
+variance matrix: 
+ [[ 4.  2.]
+ [ 2. 10.]]
+u = [1 0] ; V_u = 1.0
+u = [0 1] ; V_u = 2.5
+u = [0.89442719 0.4472136 ] ; V_u = 1.7
+u = [ 0.4472136  -0.89442719] ; V_u = 1.8
+		</output>
+	</sage>
+	
     </solution>
       
   </exercise>
@@ -343,8 +386,8 @@ print(X2)
 	    <p>
 	      <m>S_{XX}=
             \begin{bmatrix}
-	      8/3 \amp 5/2 \\
-	      5/2 \amp 11/3
+	      16/5 \amp 3 \\
+	      3 \amp 22/5
 	      \end{bmatrix}</m>.
           <!-- is orthonally diagonalizable because it is symmetric. -->
 	    </p>
@@ -371,8 +414,8 @@ print(X2)
 	  </li>
 	  <li>
 	    <p>
-	      The variances are the eigenvalues <m>\lambda_1=5.72</m>
-	      and <m>\lambda_2 = 0.62</m>
+	      The variances are the eigenvalues <m>\lambda_1=6.86</m>
+	      and <m>\lambda_2 = 0.74</m>.
 	    </p>
 	  </li>
 	</ol>
@@ -563,7 +606,7 @@ print(X2)
 		Show that the eigenvalues of a symmetric real-valued matrix are always real (i.e., they cannot be complex).
 		</p>
 		<p>
-		Hint: Suppose <m>\lambda \vvec</m> is an eigenpair.  
+		Hint: Suppose <m>\lambda,  \vvec</m> is an eigenpair.  
 		Simplify <m>(A \vvec)^{\transpose} A \vvec</m> and solve for <m>\lambda</m>.
 		</p>
 	</statement>
@@ -571,7 +614,10 @@ print(X2)
 	<solution>
 		<p>
 		<m>(A \vvec)^{\transpose} A \vvec = \vvec^{\transpose} A A \vvec = \lambda^2 \len{\vvec}^2</m>,
-		so <m>\lambda = \frac{(A \vvec)^{\transpose} A \vvec}{ \len{\vvec}^2}</m>, which is real.
+		so <m>\lambda^2 = \frac{(A \vvec)^{\transpose} A \vvec}{ \len{\vvec}^2}
+			= \frac{\len{ A \vvec}^2}{ \len{\vvec}^2}</m>, so 
+			<m> \lambda = \pm \frac{\len{ A \vvec}}{ \len{\vvec}}</m>, 
+		which is real.
 		</p>
 	</solution>
   </exercise>
