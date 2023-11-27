@@ -86,7 +86,19 @@ window.MathJax = {
     )}
   }
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-sage",
+  "linked": true,
+  "linkKey": "linked-sage",
+  "autoeval": false,
+  "languages": [
+    "sage"
+  ],
+  "evalButtonText": "Evaluate (Sage)"
+});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
   "inputLocation": "pre.sagecell-python",
@@ -312,6 +324,8 @@ sagecell.makeSagecell({
 \newcommand{\bbar}{\overline{\bvec}}
 \newcommand{\bhat}{\widehat{\bvec}}
 \newcommand{\bperp}{\bvec^\perp}
+\newcommand{\atilde}{\tilde{\avec}}
+\newcommand{\btilde}{\tilde{\bvec}}
 \newcommand{\vhat}{\widehat{\vvec}}
 \newcommand{\uhat}{\widehat{\uvec}}
 \newcommand{\what}{\widehat{\wvec}}
@@ -796,7 +810,7 @@ S = \begin{bmatrix}
 <li id="li-5423">
 <div class="para" id="p-8075">Find an orthogonal diagonalization of <span class="process-math">\(S\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-269"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-270"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-5424"><div class="para" id="p-8076">What is the total variance?</div></li>
@@ -927,9 +941,9 @@ V_{\uvec_4} + V_{\uvec_5}  = 13+10+2+0+0 = 25\text{.}\)</span></div></li>
 <article class="activity project-like" id="activity-104"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.3</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-8120">We will work here with a demeaned dataset having 100 observations of 3 variables.  Evaluating the following cell will create the demeaned column-variate data matrix <span class="process-math">\(X\)</span> and plot the data as a 3-d scatter plot.</div> <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-270"><script type="text/x-sage">import numpy as np 
+<div class="para" id="p-8120">We will work here with a demeaned dataset having 100 observations of 3 variables.  Evaluating the following cell will create the demeaned column-variate data matrix <span class="process-math">\(X\)</span> and plot the data as a 3-d scatter plot.</div> <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-271"><script type="text/x-sage">import numpy as np 
 import pandas as pd
-</script></pre>  <pre class="ptx-sagecell sagecell-python" id="sage-271"><script type="text/x-sage">import matplotlib.pyplot as plt
+</script></pre>  <pre class="ptx-sagecell sagecell-python" id="sage-272"><script type="text/x-sage">import matplotlib.pyplot as plt
 data = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/pca-demo.csv', index_col=0)
 X = data.to_numpy()
 fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
@@ -941,12 +955,12 @@ plt.show()
 <li id="li-5456">
 <div class="para" id="p-8122">Use the matrix <code class="code-inline tex2jax_ignore">X</code> to construct the covariance matrix <span class="process-math">\(S\text{.}\)</span>  Then determine the variance in the direction of <span class="process-math">\(\uvec=\threevec{1/3}{2/3}{2/3}\text{?}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-272"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-273"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-5457">
 <div class="para" id="p-8123">Find the eigenvalues of <span class="process-math">\(S\)</span> and determine the total variance.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-273"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-274"><script type="text/x-sage">
 </script></pre>
 <div class="para" id="p-8124">Notice that Python does not necessarily sort the eigenvalues in decreasing order.</div>
 </li>
@@ -973,13 +987,13 @@ plt.show()
 \twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}\text{.}\)</span>
 </div>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-274"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-275"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-5461">
 <div class="para" id="p-8128">Since each column of <span class="process-math">\(X^{\transpose}\)</span> represents one observational unit, the matrix <span class="process-math">\(Q^{\transpose}X^{\transpose}\)</span> is a <em class="emphasis">row-variate</em> representation of the data projected onto a lower-dimensional subspace identified by PCA. We can transpose again to get the column-variate represention <span class="process-math">\(X Q\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-275"><script type="text/x-sage">PCA = X @ Q
+<pre class="ptx-sagecell sagecell-python" id="sage-276"><script type="text/x-sage">PCA = X @ Q
 fig, ax = plt.subplots()
 ax.scatter(PCA[:, 0], PCA[:, 1])
 plt.show()
@@ -988,7 +1002,7 @@ plt.show()
 </li>
 <li id="li-5462">
 <div class="para" id="p-8130">ScikitLearn provides another way to compute the first (highest-variance) specified number of principle componenets from a data matrix.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-276"><script type="text/x-sage">from sklearn.decomposition import PCA
+<pre class="ptx-sagecell sagecell-python" id="sage-277"><script type="text/x-sage">from sklearn.decomposition import PCA
 pca3 = PCA(n_components=3)
 pcaX = pca3.fit_transform(X)
 print(pcaX.shape)
@@ -1012,7 +1026,7 @@ plt.show()
 <li id="li-5468"><div class="para" id="p-8137">Because the variance in the <span class="process-math">\(\uvec_1\)</span> direction is greater than the variance in the <span class="process-math">\(\uvec_2\)</span> direction.</div></li>
 </ol></div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-403" id="solution-403"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-403"><div class="solution solution-like">
-<pre class="ptx-sagecell hidden-sagecell-python" id="sage-277"><script type="text/x-sage">import numpy as np  
+<pre class="ptx-sagecell hidden-sagecell-python" id="sage-278"><script type="text/x-sage">import numpy as np  
 import pandas as pd
 np.set_printoptions(precision = 2, suppress = True)
 data = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/pca-demo.csv', index_col=0)
@@ -1031,7 +1045,7 @@ print(V)
 \frac{1}{99}X^{\transpose}X\text{,}\)</span> we find that <span class="process-math">\(V_{\uvec} =
 \uvec\cdot(S\uvec) \approx 7965\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-278"><script type="text/x-sage">np.set_printoptions(precision = 2, suppress = True)
+<pre class="ptx-sagecell sagecell-python" id="sage-279"><script type="text/x-sage">np.set_printoptions(precision = 2, suppress = True)
 S = 1/99 * (np.transpose(X) @ X)
 print("\nS"); print(S)
 u = np.array((1,2,2))/3
@@ -1042,13 +1056,13 @@ print("\nVu"); print(u @ (S @ u))
 <li id="li-5470">
 <div class="para" id="p-8140">The total variance <span class="process-math">\(V\)</span> is the sum of the eigenvalues of <span class="process-math">\(S_{XX}\)</span> so we obtain <span class="process-math">\(V=12195\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-279"><script type="text/x-sage">evals, P = np.linalg.eig(S)
+<pre class="ptx-sagecell sagecell-python" id="sage-280"><script type="text/x-sage">evals, P = np.linalg.eig(S)
 print("total variance"); print (np.sum(evals))
 </script></pre>
 </li>
 <li id="li-5471">
 <div class="para" id="p-8141">If we obtain <span class="process-math">\(P\text{,}\)</span> the matrix of eigenvectors, from Python, computing <span class="process-math">\(P^{\transpose}P\)</span> evaluates the dot products between the columns.  Since <span class="process-math">\(P^{\transpose}P=I\text{,}\)</span> the basis provided by Sage is orthonormal.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-280"><script type="text/x-sage"># put u1, u2, u3 into a list; ordered by eigen value
+<pre class="ptx-sagecell sagecell-python" id="sage-281"><script type="text/x-sage"># put u1, u2, u3 into a list; ordered by eigen value
 u = [P[:, i] for i in [0, 2, 1]]
 print("\nu"); print(u)
 
@@ -1058,7 +1072,7 @@ print(np.transpose(P) @ P)
 </li>
 <li id="li-5472">
 <div class="para" id="p-8142">Projecting onto <span class="process-math">\(W_1\text{,}\)</span> we see that <span class="process-math">\(\lambda_1/V = 0.83\)</span> so <span class="process-math">\(W_1\)</span> retains about <span class="process-math">\(83\%\)</span> of the total variance.  The subspace <span class="process-math">\(W_2\)</span> retains <span class="process-math">\((\lambda_1+\lambda_2)/V=0.98\)</span> or <span class="process-math">\(98\%\)</span> of the total variance.  If we project onto <span class="process-math">\(W_2\)</span> we lose less than <span class="process-math">\(2\%\)</span> of the variance.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-281"><script type="text/x-sage"># compute variance in direction of each u
+<pre class="ptx-sagecell sagecell-python" id="sage-282"><script type="text/x-sage"># compute variance in direction of each u
 V = [np.transpose(uu) @ S @ uu for uu in u]
 print("\nvariance")
 print(V); print(np.sum(V))
@@ -1066,7 +1080,7 @@ print(V); print(np.sum(V))
 </li>
 <li id="li-5473">
 <div class="para" id="p-8143"><span class="process-math">\(\displaystyle Q=\begin{bmatrix}\uvec_1\amp\uvec_2\end{bmatrix}\)</span></div>
-<pre class="ptx-sagecell sagecell-python" id="sage-282"><script type="text/x-sage">Q = np.column_stack(u[0], u[1])
+<pre class="ptx-sagecell sagecell-python" id="sage-283"><script type="text/x-sage">Q = np.column_stack(u[0], u[1])
 print("Q"); print(Q)
 </script></pre>
 </li>
@@ -1107,7 +1121,7 @@ Q^{\transpose}\xvec = \twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}.
 <article class="activity project-like" id="activity-105"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.4</span><span class="period">.</span>
 </h4>
-<div class="para" id="p-8150">The next cell will load a dataset describing the average consumption of various food groups for citizens in each of the four nations of the United Kingdom.  The units for each entry are grams per person per week.</div> <pre class="ptx-sagecell sagecell-python" id="sage-283"><script type="text/x-sage">np.set_printoptions(precision = 5, suppress = True)
+<div class="para" id="p-8150">The next cell will load a dataset describing the average consumption of various food groups for citizens in each of the four nations of the United Kingdom.  The units for each entry are grams per person per week.</div> <pre class="ptx-sagecell sagecell-python" id="sage-284"><script type="text/x-sage">np.set_printoptions(precision = 5, suppress = True)
 Food = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/uk-diet.csv', index_col=0)
 print(Food.info)
 FoodX = np.transpose(Food.to_numpy())
@@ -1121,7 +1135,7 @@ print(FoodX.shape)
 <ol class="lower-alpha">
 <li id="li-5475">
 <div class="para" id="p-8153">What is the average consumption of Beverages across the four nations?</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-284"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-285"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-5476"><div class="para" id="p-8154">Find the covariance matrix <span class="process-math">\(S\)</span> and its eigenvalues.  Because there are four points in <span class="process-math">\(\real^{17}\)</span> whose mean is zero, there are only three nonzero eigenvalues.</div></li>
@@ -1135,7 +1149,7 @@ print(FoodX.shape)
 <li id="li-5479"><div class="para" id="p-8157">For what percentage of the total variance do the first two principal components account?</div></li>
 <li id="li-5480">
 <div class="para" id="p-8158">Find the coordinates of the demeaned case vectors projected onto <span class="process-math">\(W_2\text{,}\)</span> the two-dimensional subspace of <span class="process-math">\(\real^{17}\)</span> spanned by the first two principal components.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-285"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-286"><script type="text/x-sage">
 </script></pre>
 <div class="para" id="p-8159">Plot these coordinates in <a href="" class="xref" data-knowl="./knowl/fig-pca-2d.html" title="Figure 7.4.3">Figure 7.4.3</a>.</div>
 <figure class="figure figure-like" id="fig-pca-2d"><div class="sidebyside"><div class="sbsrow" style="margin-left:5%;margin-right:5%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/pca-plot-2.svg" role="img" class="contained"></div></div></div>
@@ -1274,7 +1288,7 @@ print(FoodX.shape)
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.5</span><span class="period">.</span>
 </h4>
 <div class="para" id="p-8183">In this activity, we’ll look at a <a class="external" href="https://archive.ics.uci.edu/ml/datasets/Iris" target="_blank">well-known dataset</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-7" id="fn-7"><sup> 1 </sup></a> that describes 150 irises representing three species of iris: <em class="emphasis">iris setosa</em>, <em class="emphasis">iris versicolor</em>, and <em class="emphasis">iris virginica</em>. For each flower, the length and width of its sepal and the length and width of its petal, all in centimeters, are recorded.</div> <figure class="figure figure-like" id="fig-iris"><div class="sidebyside"><div class="sbsrow" style="margin-left:15%;margin-right:15%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/Iris_versicolor.jpg" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.4<span class="period">.</span></span><span class="space"> </span>One of the three species, <em class="emphasis">iris versicolor</em>, represented in the dataset showing three shorter petals and three longer sepals. (Source: <a class="external" href="https://commons.wikimedia.org/wiki/File:Iris_versicolor_3.jpg" target="_blank">Wikipedia</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-8" id="fn-8"><sup> 2 </sup></a>, License: <a class="external" href="https://commons.wikimedia.org/wiki/Commons:GNU_Free_Documentation_License,_version_1.2" target="_blank">GNU Free DOcumetation License</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-9" id="fn-9"><sup> 3 </sup></a>)</figcaption></figure> <div class="para" id="p-8184">Evaluating the following cell will load the dataset, which consists four physcial measuremnts for each of 150 iris plants. In addition, we compute a vector <code class="code-inline tex2jax_ignore">data_mean</code>, a four-dimensional vector holding the means of the four measurements (which is the same as the mean of the 150 case vectors), and <code class="code-inline tex2jax_ignore">irisX</code>, the <span class="process-math">\(150 \by 4\)</span> demeaned data matrix.</div>  <pre class="ptx-sagecell sagecell-python" id="sage-286"><script type="text/x-sage">import pandas as pd
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.4<span class="period">.</span></span><span class="space"> </span>One of the three species, <em class="emphasis">iris versicolor</em>, represented in the dataset showing three shorter petals and three longer sepals. (Source: <a class="external" href="https://commons.wikimedia.org/wiki/File:Iris_versicolor_3.jpg" target="_blank">Wikipedia</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-8" id="fn-8"><sup> 2 </sup></a>, License: <a class="external" href="https://commons.wikimedia.org/wiki/Commons:GNU_Free_Documentation_License,_version_1.2" target="_blank">GNU Free DOcumetation License</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-9" id="fn-9"><sup> 3 </sup></a>)</figcaption></figure> <div class="para" id="p-8184">Evaluating the following cell will load the dataset, which consists four physcial measuremnts for each of 150 iris plants. In addition, we compute a vector <code class="code-inline tex2jax_ignore">data_mean</code>, a four-dimensional vector holding the means of the four measurements (which is the same as the mean of the 150 case vectors), and <code class="code-inline tex2jax_ignore">irisX</code>, the <span class="process-math">\(150 \by 4\)</span> demeaned data matrix.</div>  <pre class="ptx-sagecell sagecell-python" id="sage-287"><script type="text/x-sage">import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -1284,7 +1298,7 @@ iris4 = iris[iris.columns[:4]]
 irisX = iris4.to_numpy()
 iris_mean = irisX.mean(axis = 0)
 irisX = irisX - iris_mean
-</script></pre> <div class="para" id="p-8185">Since the data is four-dimensional, we are not able to visualize it easily.  Of course, we could forget about two of the measurements and plot a scatter plot of just two of the four variables, say, just the sepal length and sepal width.</div> <pre class="ptx-sagecell sagecell-python" id="sage-287"><script type="text/x-sage">import seaborn.objects as so 
+</script></pre> <div class="para" id="p-8185">Since the data is four-dimensional, we are not able to visualize it easily.  Of course, we could forget about two of the measurements and plot a scatter plot of just two of the four variables, say, just the sepal length and sepal width.</div> <pre class="ptx-sagecell sagecell-python" id="sage-288"><script type="text/x-sage">import seaborn.objects as so 
 ( 
 	so.Plot(iris, x = 'sepal length', y = 'sepal width', color = 'species')
     .add(so.Dot())
@@ -1294,19 +1308,19 @@ irisX = irisX - iris_mean
 <li id="li-5499"><div class="para" id="p-8187">What is the mean sepal width?</div></li>
 <li id="li-5500">
 <div class="para" id="p-8188">Find the covariance matrix <span class="process-math">\(S\)</span> and its eigenvalues.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-288"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-289"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-5501"><div class="para" id="p-8189">Find the fraction of variance for which the first two principal components account.</div></li>
 <li id="li-5502">
 <div class="para" id="p-8190">Construct the first two principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> along with the matrix <span class="process-math">\(Q\)</span> whose columns are <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-289"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-290"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-5503">
 <div class="para" id="p-8191">As we have seen, the columns of the matrix <span class="process-math">\(Q^{\transpose}X^{\transpose}\)</span> or rows of <span class="process-math">\(XQ\)</span> hold the coordinates of the demeaned case vectors after projecting onto <span class="process-math">\(W_2\text{,}\)</span> the subspace spanned by the first two principal components.  Evaluating the following cell shows a plot of these coordinates.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-290"><script type="text/x-sage">irisPCA = X @ Q
+<pre class="ptx-sagecell sagecell-python" id="sage-291"><script type="text/x-sage">irisPCA = X @ Q
 ( 
 	so.Plot(iris, x = irisPCA[:, 0], y = irisPCA[:, 1], color = 'species')
 	.add(so.Dot())
@@ -1317,12 +1331,12 @@ irisX = irisX - iris_mean
 </li>
 <li id="li-5504">
 <div class="para" id="p-8193">Suppose you have an iris, but you only know that its sepal length is 5.65 cm and its sepal width is 2.75 cm.  Knowing only these two measurements, determine the coordinates <span class="process-math">\((c_1, c_2)\)</span> in the plane where this iris lies.  To what species does this iris most likely belong?  Now estimate the petal length and petal width of this iris.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-291"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-292"><script type="text/x-sage">
 </script></pre>
 </li>
 <li id="li-5505">
 <div class="para" id="p-8194">Suppose you find another iris whose sepal width is 3.2 cm and whose petal width is 2.2 cm.  Find the coordinates <span class="process-math">\((c_1, c_2)\)</span> of this iris and determine the species to which it most likely belongs.  Also, estimate the sepal length and the petal length.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-292"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-293"><script type="text/x-sage">
 </script></pre>
 </li>
 </ol></div>
@@ -1343,7 +1357,7 @@ irisX = irisX - iris_mean
 </div></li>
 </ol></div></div></div>
 <a href="" data-knowl="" class="id-ref solution-knowl original" data-refid="hk-solution-405" id="solution-405"><span class="type">Solution</span><span class="period">.</span></a><div class="hidden-content tex2jax_ignore" id="hk-solution-405"><div class="solution solution-like">
-<pre class="ptx-sagecell hidden-sagecell-python" id="sage-293"><script type="text/x-sage">np.set_printoptions(precision = 3, suppress = True)
+<pre class="ptx-sagecell hidden-sagecell-python" id="sage-294"><script type="text/x-sage">np.set_printoptions(precision = 3, suppress = True)
 S = np.transpose(irisX) @ irisX / 149.0
 irisEvals, irisE = np.linalg.eig(S)
 Q = irisE[:, 0:2]
@@ -1425,7 +1439,7 @@ D_2 = \begin{bmatrix}
 251 \amp -206 \amp 275
 \end{bmatrix}
 \text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-python" id="sage-294"><script type="text/x-sage">
+</div> <pre class="ptx-sagecell sagecell-python" id="sage-295"><script type="text/x-sage">
 </script></pre> <div class="para logical" id="p-8230"><ol class="lower-alpha">
 <li id="li-5534"><div class="para" id="p-8231">What fraction of the variance is represented by the first two principal components?</div></li>
 <li id="li-5535"><div class="para" id="p-8232">Suppose <span class="process-math">\(\threevec{30}{-3}{26}\)</span> is one of the case vectors. Find the coordinates when the demeaned case vector is projected into the plane defined by the first two principal components.</div></li>
@@ -1453,18 +1467,18 @@ D_2 = \begin{bmatrix}
 <div class="sbspanel top" style="width:57.8947368421053%;"><img src="external/images/lter_penguins.png" class="contained"></div>
 <div class="sbspanel top" style="width:36.8421052631579%;"><img src="external/images/culmen_depth.png" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.5<span class="period">.</span></span><span class="space"> </span>Artwork by <a class="external" href="https://github.com/allisonhorst/palmerpenguins/blob/master/README.md" target="_blank">@allison_horst</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-10" id="fn-10"><sup> 4 </sup></a></figcaption></figure> <div class="para" id="p-8268">Evaluating the next cell will load and display the data.  The meaning of the culmen length and width is contained in the illustration on the right of <a href="" class="xref" data-knowl="./knowl/fig-penguins.html" title="Figure 7.4.5">Figure 7.4.5</a>.</div> <pre class="ptx-sagecell sagecell-python" id="sage-295"><script type="text/x-sage">penguins = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/penguins.csv')
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.5<span class="period">.</span></span><span class="space"> </span>Artwork by <a class="external" href="https://github.com/allisonhorst/palmerpenguins/blob/master/README.md" target="_blank">@allison_horst</a><a href="" data-knowl="" class="id-ref fn-knowl original" data-refid="hk-fn-10" id="fn-10"><sup> 4 </sup></a></figcaption></figure> <div class="para" id="p-8268">Evaluating the next cell will load and display the data.  The meaning of the culmen length and width is contained in the illustration on the right of <a href="" class="xref" data-knowl="./knowl/fig-penguins.html" title="Figure 7.4.5">Figure 7.4.5</a>.</div> <pre class="ptx-sagecell sagecell-python" id="sage-297"><script type="text/x-sage">penguins = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/penguins.csv')
 penguins = penguins.drop(columns=['Unnamed: 0'])
 penguinsX = penguins.to_numpy()[:, 1:5]
 print(penguins)
 print(penguinsX[0:5, :])
-</script></pre> <div class="para" id="p-8269">This dataset is a bit different from others that we’ve looked at because the scale of the measurements is significantly different.  For instance, the measurements for the body mass are roughly 100 times as large as those for the culmen length. For this reason, first standardize the data by demeaning it, as usual, and then by also rescaling each measurement by the reciprocal of its standard deviation.  The result should be a <span class="process-math">\(333 \by 4\)</span> matrix <code class="code-inline tex2jax_ignore">penguinsXstd</code> with columns means of 0 and columns standard deviations of 1.</div> <pre class="ptx-sagecell sagecell-python" id="sage-296"><script type="text/x-sage">
+</script></pre> <div class="para" id="p-8269">This dataset is a bit different from others that we’ve looked at because the scale of the measurements is significantly different.  For instance, the measurements for the body mass are roughly 100 times as large as those for the culmen length. For this reason, first standardize the data by demeaning it, as usual, and then by also rescaling each measurement by the reciprocal of its standard deviation.  The result should be a <span class="process-math">\(333 \by 4\)</span> matrix <code class="code-inline tex2jax_ignore">penguinsXstd</code> with columns means of 0 and columns standard deviations of 1.</div> <pre class="ptx-sagecell sagecell-python" id="sage-298"><script type="text/x-sage">
 </script></pre> <div class="para logical" id="p-8270"><ol class="lower-alpha">
 <li id="li-5561"><div class="para" id="p-8271">Find the covariance matrix for <code class="code-inline tex2jax_ignore">penguinsXstd</code> and its eigenvalues.</div></li>
 <li id="li-5562"><div class="para" id="p-8272">What fraction of the total variance is explained by the first two principal components?</div></li>
 <li id="li-5563">
 <div class="para" id="p-8273">Construct the <span class="process-math">\(333 \by 2\)</span> matrix <code class="code-inline tex2jax_ignore">penguinsPCA</code> that results from projecting onto the first two principal components. The following cell will create the plot.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-297"><script type="text/x-sage">penguinsPCA = 
+<pre class="ptx-sagecell sagecell-python" id="sage-299"><script type="text/x-sage">penguinsPCA = 
 ( 
 	so.Plot(penguins, x = penguinsPCA[:, 0], y = penguinsPCA[: 1], color = 'species')
 	.add(so.Dot())
@@ -1476,7 +1490,7 @@ print(penguinsX[0:5, :])
 <li id="li-5565"><div class="para" id="p-8275">What seems to be generally true about the culmen measurements for a Chinstrap penguin compared to a Adelie?</div></li>
 <li id="li-5566">
 <div class="para" id="p-8276">You can separate the males from the females using the following cell.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-298"><script type="text/x-sage">( 
+<pre class="ptx-sagecell sagecell-python" id="sage-300"><script type="text/x-sage">( 
 	so.Plot(penguins, x = penguinsPCA[:, 0], y = penguinsPCA[: 1], color = 'species')
 	.add(so.Dot())
 	.facet("sex")

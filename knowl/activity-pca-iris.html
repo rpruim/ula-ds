@@ -28,7 +28,7 @@ sagecell.makeSagecell({
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.5</span><span class="period">.</span>
 </h4>
 <div class="para">In this activity, we’ll look at a <a class="external" href="https://archive.ics.uci.edu/ml/datasets/Iris" target="_blank">well-known dataset</a><a href="" class="fn-knowl original" data-knowl="./knowl/fn-7-hidden.html" title="Footnote 7.4.1"><sup> 1 </sup></a> that describes 150 irises representing three species of iris: <em class="emphasis">iris setosa</em>, <em class="emphasis">iris versicolor</em>, and <em class="emphasis">iris virginica</em>. For each flower, the length and width of its sepal and the length and width of its petal, all in centimeters, are recorded.</div> <figure class="figure figure-like"><div class="sidebyside"><div class="sbsrow" style="margin-left:15%;margin-right:15%;"><div class="sbspanel top" style="width:100%;"><img src="external/images/Iris_versicolor.jpg" class="contained"></div></div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.4<span class="period">.</span></span><span class="space"> </span>One of the three species, <em class="emphasis">iris versicolor</em>, represented in the dataset showing three shorter petals and three longer sepals. (Source: <a class="external" href="https://commons.wikimedia.org/wiki/File:Iris_versicolor_3.jpg" target="_blank">Wikipedia</a><a href="" class="fn-knowl original" data-knowl="./knowl/fn-8-hidden.html" title="Footnote 7.4.2"><sup> 2 </sup></a>, License: <a class="external" href="https://commons.wikimedia.org/wiki/Commons:GNU_Free_Documentation_License,_version_1.2" target="_blank">GNU Free DOcumetation License</a><a href="" class="fn-knowl original" data-knowl="./knowl/fn-9-hidden.html" title="Footnote 7.4.3"><sup> 3 </sup></a>)</figcaption></figure> <div class="para">Evaluating the following cell will load the dataset, which consists four physcial measuremnts for each of 150 iris plants. In addition, we compute a vector <code class="code-inline tex2jax_ignore">data_mean</code>, a four-dimensional vector holding the means of the four measurements (which is the same as the mean of the 150 case vectors), and <code class="code-inline tex2jax_ignore">irisX</code>, the <span class="process-math">\(150 \by 4\)</span> demeaned data matrix.</div>  <pre class="ptx-sagecell sagecell-python" id="sage-286"><script type="text/x-sage">import pandas as pd
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.4<span class="period">.</span></span><span class="space"> </span>One of the three species, <em class="emphasis">iris versicolor</em>, represented in the dataset showing three shorter petals and three longer sepals. (Source: <a class="external" href="https://commons.wikimedia.org/wiki/File:Iris_versicolor_3.jpg" target="_blank">Wikipedia</a><a href="" class="fn-knowl original" data-knowl="./knowl/fn-8-hidden.html" title="Footnote 7.4.2"><sup> 2 </sup></a>, License: <a class="external" href="https://commons.wikimedia.org/wiki/Commons:GNU_Free_Documentation_License,_version_1.2" target="_blank">GNU Free DOcumetation License</a><a href="" class="fn-knowl original" data-knowl="./knowl/fn-9-hidden.html" title="Footnote 7.4.3"><sup> 3 </sup></a>)</figcaption></figure> <div class="para">Evaluating the following cell will load the dataset, which consists four physcial measuremnts for each of 150 iris plants. In addition, we compute a vector <code class="code-inline tex2jax_ignore">data_mean</code>, a four-dimensional vector holding the means of the four measurements (which is the same as the mean of the 150 case vectors), and <code class="code-inline tex2jax_ignore">irisX</code>, the <span class="process-math">\(150 \by 4\)</span> demeaned data matrix.</div>  <pre class="ptx-sagecell sagecell-python" id="sage-287"><script type="text/x-sage">import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -38,7 +38,7 @@ iris4 = iris[iris.columns[:4]]
 irisX = iris4.to_numpy()
 iris_mean = irisX.mean(axis = 0)
 irisX = irisX - iris_mean
-</script></pre> <div class="para">Since the data is four-dimensional, we are not able to visualize it easily.  Of course, we could forget about two of the measurements and plot a scatter plot of just two of the four variables, say, just the sepal length and sepal width.</div> <pre class="ptx-sagecell sagecell-python" id="sage-287"><script type="text/x-sage">import seaborn.objects as so 
+</script></pre> <div class="para">Since the data is four-dimensional, we are not able to visualize it easily.  Of course, we could forget about two of the measurements and plot a scatter plot of just two of the four variables, say, just the sepal length and sepal width.</div> <pre class="ptx-sagecell sagecell-python" id="sage-288"><script type="text/x-sage">import seaborn.objects as so 
 ( 
 	so.Plot(iris, x = 'sepal length', y = 'sepal width', color = 'species')
     .add(so.Dot())
@@ -48,19 +48,19 @@ irisX = irisX - iris_mean
 <li><div class="para">What is the mean sepal width?</div></li>
 <li>
 <div class="para">Find the covariance matrix <span class="process-math">\(S\)</span> and its eigenvalues.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-288"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-289"><script type="text/x-sage">
 </script></pre>
 </li>
 <li><div class="para">Find the fraction of variance for which the first two principal components account.</div></li>
 <li>
 <div class="para">Construct the first two principal components <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\)</span> along with the matrix <span class="process-math">\(Q\)</span> whose columns are <span class="process-math">\(\uvec_1\)</span> and <span class="process-math">\(\uvec_2\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-289"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-290"><script type="text/x-sage">
 </script></pre>
 </li>
 <li>
 <div class="para">As we have seen, the columns of the matrix <span class="process-math">\(Q^{\transpose}X^{\transpose}\)</span> or rows of <span class="process-math">\(XQ\)</span> hold the coordinates of the demeaned case vectors after projecting onto <span class="process-math">\(W_2\text{,}\)</span> the subspace spanned by the first two principal components.  Evaluating the following cell shows a plot of these coordinates.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-290"><script type="text/x-sage">irisPCA = X @ Q
+<pre class="ptx-sagecell sagecell-python" id="sage-291"><script type="text/x-sage">irisPCA = X @ Q
 ( 
 	so.Plot(iris, x = irisPCA[:, 0], y = irisPCA[:, 1], color = 'species')
 	.add(so.Dot())
@@ -71,12 +71,12 @@ irisX = irisX - iris_mean
 </li>
 <li>
 <div class="para">Suppose you have an iris, but you only know that its sepal length is 5.65 cm and its sepal width is 2.75 cm.  Knowing only these two measurements, determine the coordinates <span class="process-math">\((c_1, c_2)\)</span> in the plane where this iris lies.  To what species does this iris most likely belong?  Now estimate the petal length and petal width of this iris.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-291"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-292"><script type="text/x-sage">
 </script></pre>
 </li>
 <li>
 <div class="para">Suppose you find another iris whose sepal width is 3.2 cm and whose petal width is 2.2 cm.  Find the coordinates <span class="process-math">\((c_1, c_2)\)</span> of this iris and determine the species to which it most likely belongs.  Also, estimate the sepal length and the petal length.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-292"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-293"><script type="text/x-sage">
 </script></pre>
 </li>
 </ol></div>

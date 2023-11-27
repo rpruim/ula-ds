@@ -86,7 +86,19 @@ window.MathJax = {
     )}
   }
 };
-</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
+</script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script><script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-sage",
+  "linked": true,
+  "linkKey": "linked-sage",
+  "autoeval": false,
+  "languages": [
+    "sage"
+  ],
+  "evalButtonText": "Evaluate (Sage)"
+});
+</script><script>// Make *any* pre with class 'sagecell-python' an executable Sage cell
 // Their results will be linked, only within language type
 sagecell.makeSagecell({
   "inputLocation": "pre.sagecell-python",
@@ -312,6 +324,8 @@ sagecell.makeSagecell({
 \newcommand{\bbar}{\overline{\bvec}}
 \newcommand{\bhat}{\widehat{\bvec}}
 \newcommand{\bperp}{\bvec^\perp}
+\newcommand{\atilde}{\tilde{\avec}}
+\newcommand{\btilde}{\tilde{\bvec}}
 \newcommand{\vhat}{\widehat{\vvec}}
 \newcommand{\uhat}{\widehat{\uvec}}
 \newcommand{\what}{\widehat{\wvec}}
@@ -909,7 +923,7 @@ P^2
 = I - A\text{.}
 \end{equation*}
 </div>
-<div class="para">Since <span class="process-math">\(Q = I - P\text{,}\)</span> <span class="process-math">\(Q\)</span> is idempontent.  This means that <span class="process-math">\(\widetile{\left( \xtidle \right)} = \xtilde\text{.}\)</span> That is, demeaning an alredy demeaned vector doesn’t change it.</div>
+<div class="para">Since <span class="process-math">\(Q = I - P\text{,}\)</span> <span class="process-math">\(Q\)</span> is idempontent.  This means that <span class="process-math">\(\widetilde{\left( \xtilde \right)} = \xtilde\text{.}\)</span> That is, demeaning an alredy demeaned vector doesn’t change it.</div>
 </div></li>
 <li id="li-4946"><div class="para" id="p-7372">
 <span class="process-math">\(P \onevec = 
@@ -1540,9 +1554,9 @@ V_W = V_{\uvec_1} + V_{\uvec_2} + \ldots + V_{\uvec_n}.
 </h3>
 <article class="exercise exercise-like" id="exercise-256"><h4 class="heading"><span class="codenumber">1<span class="period">.</span></span></h4>
 <ol class="lower-alpha">
-<li id="li-5022"><div class="para" id="p-7491">Show that <span class="process-math">\(\xtilde \cdot \ytilde = \xvec \cdot \ytilde = \xtilde \cdot \yvec\text{.}\)</span> So to form the dot product of two demeaned vectors, it suffices to demean one of them and not the other.</div></li>
-<li id="li-5023"><div class="para" id="p-7492">Let <span class="process-math">\(\xvec = \fourvec1326\)</span> and let <span class="process-math">\(\yvec = \fourvec524{-3}\text{.}\)</span> Compute <span class="process-math">\(\xtilde \cdot \ytilde\text{,}\)</span> <span class="process-math">\(\xvec \cdot \ytilde\text{,}\)</span> and <span class="process-math">\(\xtilde \cdot \yvec\)</span> and show that you get the same result each time.</div></li>
-<li id="li-5024"><div class="para" id="p-7493">Show that <span class="process-math">\(\xvec \cdot \yvec\)</span> gives a different result. (So it is important to demean at least one of the vectors.)</div></li>
+<li id="li-5022"><div class="para" id="p-7491">Let <span class="process-math">\(\avec = \fourvec1326\)</span> and let <span class="process-math">\(\bvec = \fourvec524{-3}\text{.}\)</span> Compute <span class="process-math">\(\atilde \cdot \btilde\text{,}\)</span> <span class="process-math">\(\avec \cdot \btilde\text{,}\)</span> and <span class="process-math">\(\atilde \cdot \bvec\)</span> and show that you get the same result each time.</div></li>
+<li id="li-5023"><div class="para" id="p-7492">Show that <span class="process-math">\(\avec \cdot \bvec\)</span> gives a different result. (So it is important to demean at least one of the vectors.)</div></li>
+<li id="li-5024"><div class="para" id="p-7493">Show that for any vectors <span class="process-math">\(\xvec\)</span> and <span class="process-math">\(\yvec\text{,}\)</span> <span class="process-math">\(\xtilde \cdot \ytilde = \xvec \cdot \ytilde = \xtilde \cdot \yvec\text{.}\)</span> So to form the dot product of two demeaned vectors, it suffices to demean one of them and not the other.  (Hint: One way to do this begins by expressing things in terms of <span class="process-math">\(Q\)</span> where <span class="process-math">\(\xtilde = Q \xvec\text{.}\)</span>)</div></li>
 </ol></article><article class="exercise exercise-like" id="exercise-257"><h4 class="heading"><span class="codenumber">2<span class="period">.</span></span></h4>
 <div class="para logical" id="p-7497">
 <div class="para">Suppose that you have a column-variate data matrix</div>
@@ -1653,7 +1667,7 @@ D = \begin{bmatrix}
 </div></li>
 </ol>
 </div></article><article class="exercise exercise-like" id="exercise-263"><h4 class="heading"><span class="codenumber">8<span class="period">.</span></span></h4>
-<div class="para" id="p-7558">Show that the eigenvalues of a symmetric real-valued matrix are always real (i.e., they cannot be complex).</div> <div class="para" id="p-7559">Hint: Suppose <span class="process-math">\(\lambda \vvec\)</span> is an eigenpair. Simplify <span class="process-math">\((A \vvec)^{\transpose} A \vvec\)</span> and solve for <span class="process-math">\(\lambda\text{.}\)</span>
+<div class="para" id="p-7558">Show that the eigenvalues of a symmetric real-valued matrix are always real (i.e., they cannot be complex).</div> <div class="para" id="p-7559">Hint: Suppose <span class="process-math">\(\lambda,  \vvec\)</span> is an eigenpair. Simplify <span class="process-math">\((A \vvec)^{\transpose} A \vvec\)</span> and solve for <span class="process-math">\(\lambda\text{.}\)</span>
 </div></article></section></section></div>
 <div class="ptx-content-footer">
 <a class="previous-button button" href="chap7.html" title="Previous"><span class="icon">&lt;</span><span class="name">Prev</span></a><a class="top-button button" href="#" title="Top"><span class="icon">^</span><span class="name">Top</span></a><a class="next-button button" href="sec-symmetric-matrices.html" title="Next"><span class="name">Next</span><span class="icon">&gt;</span></a>

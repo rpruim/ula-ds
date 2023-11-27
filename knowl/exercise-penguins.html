@@ -31,18 +31,18 @@ sagecell.makeSagecell({
 <div class="sbspanel top" style="width:57.8947368421053%;"><img src="external/images/lter_penguins.png" class="contained"></div>
 <div class="sbspanel top" style="width:36.8421052631579%;"><img src="external/images/culmen_depth.png" class="contained"></div>
 </div></div>
-<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.5<span class="period">.</span></span><span class="space"> </span>Artwork by <a class="external" href="https://github.com/allisonhorst/palmerpenguins/blob/master/README.md" target="_blank">@allison_horst</a><a href="" class="fn-knowl original" data-knowl="./knowl/fn-10-hidden.html" title="Footnote 7.4.4"><sup> 4 </sup></a></figcaption></figure> <div class="para">Evaluating the next cell will load and display the data.  The meaning of the culmen length and width is contained in the illustration on the right of <a href="" class="xref" data-knowl="./knowl/fig-penguins.html" title="Figure 7.4.5">Figure 7.4.5</a>.</div> <pre class="ptx-sagecell sagecell-python" id="sage-295"><script type="text/x-sage">penguins = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/penguins.csv')
+<figcaption><span class="type">Figure</span><span class="space"> </span><span class="codenumber">7.4.5<span class="period">.</span></span><span class="space"> </span>Artwork by <a class="external" href="https://github.com/allisonhorst/palmerpenguins/blob/master/README.md" target="_blank">@allison_horst</a><a href="" class="fn-knowl original" data-knowl="./knowl/fn-10-hidden.html" title="Footnote 7.4.4"><sup> 4 </sup></a></figcaption></figure> <div class="para">Evaluating the next cell will load and display the data.  The meaning of the culmen length and width is contained in the illustration on the right of <a href="" class="xref" data-knowl="./knowl/fig-penguins.html" title="Figure 7.4.5">Figure 7.4.5</a>.</div> <pre class="ptx-sagecell sagecell-python" id="sage-297"><script type="text/x-sage">penguins = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/penguins.csv')
 penguins = penguins.drop(columns=['Unnamed: 0'])
 penguinsX = penguins.to_numpy()[:, 1:5]
 print(penguins)
 print(penguinsX[0:5, :])
-</script></pre> <div class="para">This dataset is a bit different from others that we’ve looked at because the scale of the measurements is significantly different.  For instance, the measurements for the body mass are roughly 100 times as large as those for the culmen length. For this reason, first standardize the data by demeaning it, as usual, and then by also rescaling each measurement by the reciprocal of its standard deviation.  The result should be a <span class="process-math">\(333 \by 4\)</span> matrix <code class="code-inline tex2jax_ignore">penguinsXstd</code> with columns means of 0 and columns standard deviations of 1.</div> <pre class="ptx-sagecell sagecell-python" id="sage-296"><script type="text/x-sage">
+</script></pre> <div class="para">This dataset is a bit different from others that we’ve looked at because the scale of the measurements is significantly different.  For instance, the measurements for the body mass are roughly 100 times as large as those for the culmen length. For this reason, first standardize the data by demeaning it, as usual, and then by also rescaling each measurement by the reciprocal of its standard deviation.  The result should be a <span class="process-math">\(333 \by 4\)</span> matrix <code class="code-inline tex2jax_ignore">penguinsXstd</code> with columns means of 0 and columns standard deviations of 1.</div> <pre class="ptx-sagecell sagecell-python" id="sage-298"><script type="text/x-sage">
 </script></pre> <div class="para logical"><ol class="lower-alpha">
 <li><div class="para">Find the covariance matrix for <code class="code-inline tex2jax_ignore">penguinsXstd</code> and its eigenvalues.</div></li>
 <li><div class="para">What fraction of the total variance is explained by the first two principal components?</div></li>
 <li>
 <div class="para">Construct the <span class="process-math">\(333 \by 2\)</span> matrix <code class="code-inline tex2jax_ignore">penguinsPCA</code> that results from projecting onto the first two principal components. The following cell will create the plot.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-297"><script type="text/x-sage">penguinsPCA = 
+<pre class="ptx-sagecell sagecell-python" id="sage-299"><script type="text/x-sage">penguinsPCA = 
 ( 
 	so.Plot(penguins, x = penguinsPCA[:, 0], y = penguinsPCA[: 1], color = 'species')
 	.add(so.Dot())
@@ -54,7 +54,7 @@ print(penguinsX[0:5, :])
 <li><div class="para">What seems to be generally true about the culmen measurements for a Chinstrap penguin compared to a Adelie?</div></li>
 <li>
 <div class="para">You can separate the males from the females using the following cell.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-298"><script type="text/x-sage">( 
+<pre class="ptx-sagecell sagecell-python" id="sage-300"><script type="text/x-sage">( 
 	so.Plot(penguins, x = penguinsPCA[:, 0], y = penguinsPCA[: 1], color = 'species')
 	.add(so.Dot())
 	.facet("sex")

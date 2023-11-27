@@ -28,12 +28,12 @@ sagecell.makeSagecell({
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.6.5</span><span class="period">.</span>
 </h4>
 <div class="para">Evaluating the following cell loads some data that we’ll use in this activity.  To begin, it defines and displays a <span class="process-math">\(25\by15\)</span> matrix <span class="process-math">\(A\text{.}\)</span>
-</div> <pre class="ptx-sagecell sagecell-sage" id="sage-326"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_compress.py', globals())
+</div> <pre class="ptx-sagecell sagecell-sage" id="sage-328"><script type="text/x-sage">sage.repl.load.load('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/svd_compress.py', globals())
 print(A)
 </script></pre> <div class="para logical"><ol class="lower-alpha">
 <li>
 <div class="para">If we interpret 0 as black and 1 as white, this matrix represents an image as shown below.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-327"><script type="text/x-sage">display_matrix(A)
+<pre class="ptx-sagecell sagecell-sage" id="sage-329"><script type="text/x-sage">display_matrix(A)
 </script></pre>
 <div class="para logical">
 <div class="para">We will explore how the singular value decomposition helps us to compress this image.</div>
@@ -42,13 +42,13 @@ print(A)
 </div></li>
 <li>
 <div class="para">The following cell plots the singular values of <span class="process-math">\(A\text{.}\)</span>  Explain how this plot verifies that the rank is what you found in the previous part.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-328"><script type="text/x-sage">plot_sv(A)
+<pre class="ptx-sagecell sagecell-sage" id="sage-330"><script type="text/x-sage">plot_sv(A)
 </script></pre>
 </li>
 <li>
 <div class="para">There is a command <code class="code-inline tex2jax_ignore">approximate(A, k)</code> that creates the approximation <span class="process-math">\(A_k\text{.}\)</span>  Use the cell below to define <span class="process-math">\(k\)</span> and look at the images represented by the first few approximations.  What is the smallest value of <span class="process-math">\(k\)</span> for which <span class="process-math">\(A=A_k\text{?}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-329"><script type="text/x-sage">k = 
+<pre class="ptx-sagecell sagecell-sage" id="sage-331"><script type="text/x-sage">k = 
 display_matrix(approximate(A, k))
 </script></pre>
 </li>
@@ -73,18 +73,18 @@ A = A_k = \sigma_1\uvec_1\vvec_1^{\transpose} +
 <li>
 <div class="para">Consider the following image consisting of an array of <span class="process-math">\(316\by310\)</span> pixels stored in the matrix <span class="process-math">\(A\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-330"><script type="text/x-sage">A = matrix(RDF, image)
+<pre class="ptx-sagecell sagecell-sage" id="sage-332"><script type="text/x-sage">A = matrix(RDF, image)
 display_image(A)
 </script></pre>
 <div class="para">Plot the singular values of <span class="process-math">\(A\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-331"><script type="text/x-sage">plot_sv(A)
+<pre class="ptx-sagecell sagecell-sage" id="sage-333"><script type="text/x-sage">plot_sv(A)
 </script></pre>
 </li>
 <li>
 <div class="para">Use the cell below to study the approximations <span class="process-math">\(A_k\)</span> for <span class="process-math">\(k=1, 10, 20, 50, 100\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-332"><script type="text/x-sage">k = 1
+<pre class="ptx-sagecell sagecell-sage" id="sage-334"><script type="text/x-sage">k = 1
 display_image(approximate(A, k))
 </script></pre>
 <div class="para">Notice how the approximating image <span class="process-math">\(A_k\)</span> more closely approximates the original image <span class="process-math">\(A\)</span> as <span class="process-math">\(k\)</span> increases.</div>
@@ -94,7 +94,7 @@ display_image(approximate(A, k))
 </div></li>
 <li>
 <div class="para">A second, related application of the singular value decomposition to image processing is called <em class="emphasis">denoising</em>.  For example, consider the image represented by the matrix <span class="process-math">\(A\)</span> below.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-333"><script type="text/x-sage">A = matrix(RDF, noise.values)		    
+<pre class="ptx-sagecell sagecell-sage" id="sage-335"><script type="text/x-sage">A = matrix(RDF, noise.values)		    
 display_matrix(A)
 </script></pre>
 <div class="para logical">
@@ -102,12 +102,12 @@ display_matrix(A)
 <ol class="decimal">
 <li>
 <div class="para">Plot the singular values below.  How are the singular values of this matrix similar to those represented by the clean image that we considered earlier and how are they different?</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-334"><script type="text/x-sage">plot_sv(A)
+<pre class="ptx-sagecell sagecell-sage" id="sage-336"><script type="text/x-sage">plot_sv(A)
 </script></pre>
 </li>
 <li>
 <div class="para">There is a natural point where the singular values dramatically decrease so it makes sense to think of the noise as being formed by the small singular values.  To denoise the image, we will therefore replace <span class="process-math">\(A\)</span> by its approximation <span class="process-math">\(A_k\text{,}\)</span> where <span class="process-math">\(k\)</span> is the point at which the singular values drop off. This has the effect of setting the small singular values to zero and hence eliminating the noise.  Choose an appropriate value of <span class="process-math">\(k\)</span> below and notice that the new image appears to be somewhat cleaned up as a result of removing the noise.</div>
-<pre class="ptx-sagecell sagecell-sage" id="sage-335"><script type="text/x-sage">k = 
+<pre class="ptx-sagecell sagecell-sage" id="sage-337"><script type="text/x-sage">k = 
 display_matrix(approximate(A, k))
 </script></pre>
 </li>

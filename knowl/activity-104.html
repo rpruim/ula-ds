@@ -42,9 +42,9 @@ sagecell.makeSagecell({
 <article class="activity project-like"><h4 class="heading">
 <span class="type">Activity</span><span class="space"> </span><span class="codenumber">7.4.3</span><span class="period">.</span>
 </h4>
-<div class="para">We will work here with a demeaned dataset having 100 observations of 3 variables.  Evaluating the following cell will create the demeaned column-variate data matrix <span class="process-math">\(X\)</span> and plot the data as a 3-d scatter plot.</div> <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-270"><script type="text/x-sage">import numpy as np 
+<div class="para">We will work here with a demeaned dataset having 100 observations of 3 variables.  Evaluating the following cell will create the demeaned column-variate data matrix <span class="process-math">\(X\)</span> and plot the data as a 3-d scatter plot.</div> <pre class="ptx-sagecell sagecell-python-autoeval" id="sage-271"><script type="text/x-sage">import numpy as np 
 import pandas as pd
-</script></pre>  <pre class="ptx-sagecell sagecell-python" id="sage-271"><script type="text/x-sage">import matplotlib.pyplot as plt
+</script></pre>  <pre class="ptx-sagecell sagecell-python" id="sage-272"><script type="text/x-sage">import matplotlib.pyplot as plt
 data = pd.read_csv('https://raw.githubusercontent.com/davidaustinm/ula_modules/master/data/pca-demo.csv', index_col=0)
 X = data.to_numpy()
 fig, ax = plt.subplots(subplot_kw={"projection": "3d"})
@@ -56,12 +56,12 @@ plt.show()
 <li>
 <div class="para">Use the matrix <code class="code-inline tex2jax_ignore">X</code> to construct the covariance matrix <span class="process-math">\(S\text{.}\)</span>  Then determine the variance in the direction of <span class="process-math">\(\uvec=\threevec{1/3}{2/3}{2/3}\text{?}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-272"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-273"><script type="text/x-sage">
 </script></pre>
 </li>
 <li>
 <div class="para">Find the eigenvalues of <span class="process-math">\(S\)</span> and determine the total variance.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-273"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-274"><script type="text/x-sage">
 </script></pre>
 <div class="para">Notice that Python does not necessarily sort the eigenvalues in decreasing order.</div>
 </li>
@@ -88,13 +88,13 @@ plt.show()
 \twovec{\uvec_1\cdot\xvec}{\uvec_2\cdot\xvec}\text{.}\)</span>
 </div>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-274"><script type="text/x-sage">
+<pre class="ptx-sagecell sagecell-python" id="sage-275"><script type="text/x-sage">
 </script></pre>
 </li>
 <li>
 <div class="para">Since each column of <span class="process-math">\(X^{\transpose}\)</span> represents one observational unit, the matrix <span class="process-math">\(Q^{\transpose}X^{\transpose}\)</span> is a <em class="emphasis">row-variate</em> representation of the data projected onto a lower-dimensional subspace identified by PCA. We can transpose again to get the column-variate represention <span class="process-math">\(X Q\text{.}\)</span>
 </div>
-<pre class="ptx-sagecell sagecell-python" id="sage-275"><script type="text/x-sage">PCA = X @ Q
+<pre class="ptx-sagecell sagecell-python" id="sage-276"><script type="text/x-sage">PCA = X @ Q
 fig, ax = plt.subplots()
 ax.scatter(PCA[:, 0], PCA[:, 1])
 plt.show()
@@ -103,7 +103,7 @@ plt.show()
 </li>
 <li>
 <div class="para">ScikitLearn provides another way to compute the first (highest-variance) specified number of principle componenets from a data matrix.</div>
-<pre class="ptx-sagecell sagecell-python" id="sage-276"><script type="text/x-sage">from sklearn.decomposition import PCA
+<pre class="ptx-sagecell sagecell-python" id="sage-277"><script type="text/x-sage">from sklearn.decomposition import PCA
 pca3 = PCA(n_components=3)
 pcaX = pca3.fit_transform(X)
 print(pcaX.shape)

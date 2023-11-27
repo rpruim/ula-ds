@@ -9,17 +9,75 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="robots" content="noindex, nofollow">
+<script>// Make *any* pre with class 'sagecell-sage' an executable Sage cell
+// Their results will be linked, only within language type
+sagecell.makeSagecell({
+  "inputLocation": "pre.sagecell-sage",
+  "linked": true,
+  "linkKey": "linked-sage",
+  "autoeval": false,
+  "languages": [
+    "sage"
+  ],
+  "evalButtonText": "Evaluate (Sage)"
+});
+</script>
 </head>
-<body class="ignore-math"><div class="solution solution-like"><div class="para logical"><ol class="lower-alpha">
+<body class="ignore-math"><div class="solution solution-like">
+<div class="para logical"><ol class="lower-alpha">
 <li><div class="para">The eigenvalues are <span class="process-math">\(732\text{,}\)</span> <span class="process-math">\(114\text{,}\)</span> and <span class="process-math">\(24\)</span> so the fraction of variance represented by the first two principal components is <span class="process-math">\((732+114)/(732+114+24) = 97\%\)</span>
 </div></li>
-<li><div class="para">Let <span class="process-math">\(\xvec\)</span> be this case vector, and let <span class="process-math">\(\mvec\)</span> the vector of means. If <span class="process-math">\(Q\)</span> is the <span class="process-math">\(2\by3\)</span> matrix whose columns are the first two principal components, then we find <span class="process-math">\(Q.T(\xvec-\mvec) = \twovec{25.4}{8.16}\text{.}\)</span>
+<li><div class="para">Let <span class="process-math">\(\xvec\)</span> be this case vector, and let <span class="process-math">\(\mvec\)</span> the vector of means. If <span class="process-math">\(Q\)</span> is the <span class="process-math">\(3\by2\)</span> matrix whose columns are the first two principal components, then we find <span class="process-math">\(Q^{\transpose}(\xvec-\mvec) = \twovec{-24.83}{7.76}\text{.}\)</span>
 </div></li>
 <li>
 <div class="para">We find <span class="process-math">\(Q\twovec{12}{-25} + \mvec =
-\threevec{9.7}{-22.3}{3.7}\text{.}\)</span>
+\threevec{-4.13}{-8.48}{-10.13} \text{.}\)</span>
 </div>
-<div class="para">Notice that this is the same result we would get from <span class="process-math">\(\tilde Q \threevec{12}{-25}{0}\text{,}\)</span> where <span class="process-math">\(\tidle Q\)</span> is <span class="process-math">\(Q\)</span> augmented with an additional column for the third principal component. In other words, our estimate is produced using the average value along the direction of the third principal comonent rather than the actual value. This is only an estimate because not all values are average. If the eigenvalue associated with the third eigenvector are small (so the variance in that direction is small), then most of the points cluster very close to average and the prediction will be good. But if the variance is larger, many of the points may be farther away from the average, and the prediction may not be as good.</div>
+<div class="para">Notice that this is the same result we would get from <span class="process-math">\(\tilde Q \threevec{12}{-25}{0}\text{,}\)</span> where <span class="process-math">\(\tilde Q\)</span> is <span class="process-math">\(Q\)</span> augmented with an additional column for the third principal component. In other words, our estimate is produced using the average value along the direction of the third principal comonent rather than the actual value. This is only an estimate because not all values are average. If the eigenvalue associated with the third eigenvector are small (so the variance in that direction is small), then most of the points cluster very close to average and the prediction will be good. But if the variance is larger, many of the points may be farther away from the average, and the prediction may not be as good.</div>
 </li>
-</ol></div></div></body>
+</ol></div> <pre class="ptx-sagecell sagecell-sage" id="sage-296"><script type="text/x-sage">import numpy as np
+np.set_printoptions(precision = 4, suppress = True)
+m = np.array([13, 5, 7])
+S = np.column_stack(([275, -206, 251], [-206, 320, -206], [251, -206, 275]))
+print(m, "\n", S)
+evals, evecs = np.linalg.eig(S)
+print("eigenvals:", evals)
+print("\neigenvecs\n", evecs )
+
+u1, u3, u2 = np.transpose(evecs)
+Q = np.column_stack((u1, u2, u3))
+Qs = Q[:, 0:2]
+Qt = np.transpose(Q)
+
+X = np.array(((30, -3, 25)))
+Xd = X - m
+print("\ncase vector (demeaned):", Xd)
+
+print("\nQ\n", Q)
+print("\nQQt\n", Q @ Qt)
+print("\nQtQ\n", Qt @ Q)
+
+print("\nPCA for case vector (XdQ)\n", 
+      Xd @ Q,
+      "\nPCA for case vector (QtXdt)\n", 
+      Qt @ np.transpose(Xd),
+      "\nskinny Qt Xd\n",
+      np.transpose(Q[:, 0:2]) @ Xd
+     )    
+
+print("\nestimate from PCA\n",
+      Q @ np.array((12, -25, 0)) + m,
+       "\n  demeaned:",
+      Q[:, 0:2] @ np.array(([12, -25])),
+      "\n  demeaned:",
+      Q @ np.array((12, -25, 0))
+     )
+
+print(
+    "\nQs Qst",
+    Qs @ np.transpose(Qs),
+    "\n  det():",
+    np.linalg.det(Qs @ np.transpose(Qs)))
+</script></pre>
+</div></body>
 </html>
